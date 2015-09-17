@@ -1,0 +1,3 @@
+[submodule "HandlerSDK"]
+	path = HandlerSDK
+	url = git@github.com:ChristianPraiss/HandlerSDK.git

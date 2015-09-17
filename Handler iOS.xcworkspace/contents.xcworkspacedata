@@ -4,4 +4,7 @@
    <FileRef
       location = "group:Handler iOS/Handler.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:HandlerSDK/HandlerSDK.xcodeproj">
+   </FileRef>
 </Workspace>

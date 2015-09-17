@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F03A1FD1BAAC027003F4B1E /* HandlerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F03A1FC1BAAC027003F4B1E /* HandlerSDK.framework */; };
+		2F03A1FE1BAAC027003F4B1E /* HandlerSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2F03A1FC1BAAC027003F4B1E /* HandlerSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2FDB52071BA8BC1D003C074F /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB52031BA8BC1D003C074F /* Fabric.framework */; settings = {ASSET_TAGS = (); }; };
 		2FDB52081BA8BC1D003C074F /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB52041BA8BC1D003C074F /* TwitterKit.framework */; settings = {ASSET_TAGS = (); }; };
 		2FDB52091BA8BC1D003C074F /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2FDB52051BA8BC1D003C074F /* TwitterKitResources.bundle */; settings = {ASSET_TAGS = (); }; };
@@ -27,7 +29,22 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		2F03A1FF1BAAC027003F4B1E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				2F03A1FE1BAAC027003F4B1E /* HandlerSDK.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		2F03A1FC1BAAC027003F4B1E /* HandlerSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = HandlerSDK.framework; path = "/Users/christianpraiss/Library/Developer/Xcode/DerivedData/Handler_iOS-dtridrvduqyygkfyedcesryqwjjj/Build/Products/Debug-iphoneos/HandlerSDK.framework"; sourceTree = "<absolute>"; };
 		2FDB52031BA8BC1D003C074F /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		2FDB52041BA8BC1D003C074F /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = "<group>"; };
 		2FDB52051BA8BC1D003C074F /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TwitterKitResources.bundle; path = TwitterKit.framework/Versions/A/Resources/TwitterKitResources.bundle; sourceTree = "<group>"; };
@@ -47,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F03A1FD1BAAC027003F4B1E /* HandlerSDK.framework in Frameworks */,
 				2FDB520A1BA8BC1D003C074F /* TwitterCore.framework in Frameworks */,
 				2FDB52071BA8BC1D003C074F /* Fabric.framework in Frameworks */,
 				2FDB52081BA8BC1D003C074F /* TwitterKit.framework in Frameworks */,
@@ -77,6 +95,7 @@
 		DF1FD2CF1B62360600A58B71 = {
 			isa = PBXGroup;
 			children = (
+				2F03A1FC1BAAC027003F4B1E /* HandlerSDK.framework */,
 				DF1FD2DA1B62360600A58B71 /* Handler */,
 				DF1FD2F01B62360600A58B71 /* HandlerTests */,
 				2FDB52021BA8BC12003C074F /* Frameworks */,
@@ -139,6 +158,7 @@
 				DF1FD2D41B62360600A58B71 /* Sources */,
 				DF1FD2D51B62360600A58B71 /* Frameworks */,
 				DF1FD2D61B62360600A58B71 /* Resources */,
+				2F03A1FF1BAAC027003F4B1E /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
