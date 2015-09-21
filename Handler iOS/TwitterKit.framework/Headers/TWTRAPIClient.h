@@ -109,6 +109,8 @@ typedef void (^TWTRTweetActionCompletion)(TWTRTweet * __twtr_nullable tweet, NSE
  *  @param URL        Request URL. This is the full Twitter API URL. E.g. https://api.twitter.com/1.1/statuses/user_timeline.json
  *  @param parameters Request parameters.
  *  @param error      Error that will be set if there was an error signing the request.
+ *
+ *  @note If the request is not sent with the -[TWTRAPIClient sendTwitterRequest:completion:] method it is the developers responsibility to ensure that there is a valid guest session before this method is called.
  */
 - (NSURLRequest *)URLRequestWithMethod:(NSString *)method URL:(NSString *)URLString parameters:(NSDictionary *)parameters error:(NSError **)error;
 

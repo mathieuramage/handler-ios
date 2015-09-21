@@ -36,7 +36,7 @@ typedef void (^TWTRSessionStoreRefreshCompletion)(id __nullable refreshedSession
  *  @param sessionID    ID of the session wherever applicable e.g. `userID` if it's a user session.
  *  @param completion   The completion block to call when the refresh request succeeds or fails.
  */
-- (void)refreshSessionClass:(Class)sessionClass sessionID:(NSString *)sessionID completion:(TWTRSessionStoreRefreshCompletion)completion;
+- (void)refreshSessionClass:(Class)sessionClass sessionID:(nullable NSString *)sessionID completion:(TWTRSessionStoreRefreshCompletion)completion;
 
 /**
  *  Determines whether the given session has expired.
@@ -47,6 +47,16 @@ typedef void (^TWTRSessionStoreRefreshCompletion)(id __nullable refreshedSession
  *  @return Whether the session has expired.
  */
 - (BOOL)isExpiredSession:(id)session response:(NSHTTPURLResponse *)response;
+
+/**
+ *  Determines whether the given session has expired based on a given error.
+ *
+ *  @param session  The session to check for expiration
+ *  @param error API request error to check for expiration
+ *
+ *  @return Whether the session has expired.
+ */
+- (BOOL)isExpiredSession:(id)session error:(NSError *)error;
 
 @end
 
