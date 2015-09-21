@@ -12,5 +12,25 @@ import HandlerSDK
 class APICommunicator: NSObject {
 	static let sharedInstance = APICommunicator()
 	
+	override init(){
+		super.init()
+		
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidAuth", name: HRUserSessionDidStartNotification, object: nil)
+	}
 	
+	func userDidAuth(){
+		fetchNewInboxMessage()
+	}
+	
+	private func fetchNewInboxMessage(){
+		HandlerAPI.getNewMessageWithCallback { (messages, error) -> Void in
+			guard let messages = messages else {
+				print(error)
+				return
+			}
+			for message in messages {
+				MailDatabaseManager.sharedInstance.storeMessage(message)
+			}
+		}
+	}
 }

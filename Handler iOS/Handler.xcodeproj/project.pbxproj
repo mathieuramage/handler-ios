@@ -52,6 +52,7 @@
 		2FDDE1351BAEE227006C3500 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDDE1331BAEE21D006C3500 /* SwiftyJSON.framework */; };
 		2FDDE1361BAEE227006C3500 /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDDE1331BAEE21D006C3500 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2FDDE1421BAF5A17006C3500 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE1411BAF5A17006C3500 /* Protocols.swift */; settings = {ASSET_TAGS = (); }; };
+		2FDDE1441BB01AD3006C3500 /* InboxTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE1431BB01AD3006C3500 /* InboxTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		DF1FD2DE1B62360600A58B71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1FD2DD1B62360600A58B71 /* AppDelegate.swift */; };
 		DF1FD2E51B62360600A58B71 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF1FD2E41B62360600A58B71 /* Images.xcassets */; };
 		DF1FD2E81B62360600A58B71 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF1FD2E61B62360600A58B71 /* LaunchScreen.xib */; };
@@ -122,6 +123,7 @@
 		2FDDE12A1BAED6AC006C3500 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Result.framework; sourceTree = "<group>"; };
 		2FDDE1331BAEE21D006C3500 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = "<group>"; };
 		2FDDE1411BAF5A17006C3500 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		2FDDE1431BB01AD3006C3500 /* InboxTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxTableViewController.swift; sourceTree = "<group>"; };
 		DF1FD2D81B62360600A58B71 /* Handler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Handler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF1FD2DC1B62360600A58B71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF1FD2DD1B62360600A58B71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				2FA2EA8B1BAD9C970027EA77 /* LoginViewController.swift */,
+				2FDDE1431BB01AD3006C3500 /* InboxTableViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -421,6 +424,7 @@
 				2FA2EA8C1BAD9C970027EA77 /* LoginViewController.swift in Sources */,
 				2FDDE0FA1BAEAA27006C3500 /* Attatchment.swift in Sources */,
 				2FDDE0F21BAEA957006C3500 /* Thread.swift in Sources */,
+				2FDDE1441BB01AD3006C3500 /* InboxTableViewController.swift in Sources */,
 				2FDDE1421BAF5A17006C3500 /* Protocols.swift in Sources */,
 				2FDDE1031BAEBFE9006C3500 /* APICommunicator.swift in Sources */,
 				DF1FD2DE1B62360600A58B71 /* AppDelegate.swift in Sources */,

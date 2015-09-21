@@ -16,8 +16,8 @@ final class Label: NSManagedObject, CoreDataConvertible {
 	
 	required convenience init(hrType label: HRLabel, managedObjectContext: NSManagedObjectContext){
 		self.init(managedObjectContext: managedObjectContext)
-		self.id = label.type
-		self.name = label.type
+		self.id = label.id
+		self.name = label.name
 		self.type = label.type
 	}
 

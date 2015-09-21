@@ -15,8 +15,9 @@ class MailDatabaseManager: NSObject {
 	
 	// MARK: - Core Data Object Creation Utilities
 	
-	func storeMessage(message: Message){
-
+	func storeMessage(message: HRMessage){
+		Message.fromHRType(message)
+		saveContext()
 	}
 	
 	func executeFetchRequest(fetchRequest: NSFetchRequest) -> [AnyObject]? {

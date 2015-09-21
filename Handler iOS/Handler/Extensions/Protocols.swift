@@ -26,14 +26,15 @@ extension CoreDataConvertible where HRType : HRIDProvider  {
 	
 	static func fromHRType(hrType: HRType) -> Self? {
 		guard let fetchrequest = self.fetchRequestForID(hrType.id) else {
-			print("Failed to create fetchRequest for object")
+			print("Failed to create fetchRequest for \(Self.self)")
 			return nil
 		}
 		
 		if let cdObject = MailDatabaseManager.sharedInstance.executeFetchRequest(fetchrequest)?.first as? Self {
+			print("Found \(Self.self) in database")
 			return cdObject
 		}else{
-			print("Didn't find object, create new one in database")
+			print("Didn't find \(Self.self), create new one in database")
 			return Self(hrType: hrType, managedObjectContext: MailDatabaseManager.sharedInstance.managedObjectContext)
 		}
 	}
