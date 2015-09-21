@@ -8,9 +8,21 @@
 
 import Foundation
 import CoreData
+import HandlerSDK
 
-class User: NSManagedObject {
-
-// Insert code here to add functionality to your managed object subclass
-
+final class User: NSManagedObject, CoreDataConvertible {
+	
+	typealias HRType = HRUser
+	
+	required convenience init(hrType user: HRType, managedObjectContext: NSManagedObjectContext){
+		self.init(managedObjectContext: managedObjectContext)
+		self.id = user.id
+		self.desc = user.desc
+		self.handle = user.handle
+		self.name = user.name
+		self.profile_picture_url = user.picture_url
+		self.provider = user.provider
+		self.created_at = NSDate.fromString(user.created_at)
+		self.updated_at = NSDate.fromString(user.updated_at)
+	}
 }

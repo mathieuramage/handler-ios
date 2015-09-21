@@ -6,8 +6,11 @@
 //  Copyright © 2015 Handler, Inc. All rights reserved.
 //
 
-import Cocoa
+import Foundation
+import HandlerSDK
 
 class APICommunicator: NSObject {
-
+	static let sharedInstance = APICommunicator()
+	
+	
 }

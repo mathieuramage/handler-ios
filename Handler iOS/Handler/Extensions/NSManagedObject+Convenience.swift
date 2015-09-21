@@ -11,13 +11,33 @@ import CoreData
 
 extension NSManagedObject {
 	
-	public class func entityName() -> String {
-		return NSStringFromClass(self)
+	class func entityName() -> String {
+		let classString = NSStringFromClass(self)
+		// The entity is the last component of dot-separated class name:
+		let components = classString.componentsSeparatedByString(".")
+		return components.last ?? classString
 	}
-	
 	convenience init(managedObjectContext: NSManagedObjectContext) {
 		let entityName = self.dynamicType.entityName()
 		let entity = NSEntityDescription.entityForName(entityName, inManagedObjectContext: managedObjectContext)!
 		self.init(entity: entity, insertIntoManagedObjectContext: managedObjectContext)
+	}
+	
+	public class func entityDescription() -> NSEntityDescription? {
+		let entityName = self.entityName()
+		return NSEntityDescription.entityForName(entityName, inManagedObjectContext: MailDatabaseManager.sharedInstance.managedObjectContext)
+	}
+	
+	static func fetchRequestForID(id: String) -> NSFetchRequest? {
+		guard let entityDescription = self.entityDescription() else{
+			print("No entity descrtiption could be created for: \(self.entityName())")
+			return nil
+		}
+		
+		let fetchRequest = NSFetchRequest()
+		fetchRequest.entity = entityDescription
+		fetchRequest.predicate = NSPredicate(format: "%K == %@", "id", id)
+		
+		return fetchRequest
 	}
 }

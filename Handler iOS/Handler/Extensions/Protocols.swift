@@ -7,3 +7,43 @@
 //
 
 import Foundation
+import CoreData
+import HandlerSDK
+
+
+protocol CoreDataConvertible {
+	typealias HRType
+
+	init(hrType: HRType, managedObjectContext: NSManagedObjectContext)
+	static func fromHRType(hrType: HRType) -> Self?
+	static func fromID(id: String) -> Self?
+	static func fetchRequestForID(id: String) -> NSFetchRequest?
+}
+
+
+// Default implementation
+extension CoreDataConvertible where HRType : HRIDProvider  {
+	
+	static func fromHRType(hrType: HRType) -> Self? {
+		guard let fetchrequest = self.fetchRequestForID(hrType.id) else {
+			print("Failed to create fetchRequest for object")
+			return nil
+		}
+		
+		if let cdObject = MailDatabaseManager.sharedInstance.executeFetchRequest(fetchrequest)?.first as? Self {
+			return cdObject
+		}else{
+			print("Didn't find object, create new one in database")
+			return Self(hrType: hrType, managedObjectContext: MailDatabaseManager.sharedInstance.managedObjectContext)
+		}
+	}
+	
+	static func fromID(id: String) -> Self? {
+		guard let fetchrequest = self.fetchRequestForID(id) else {
+			print("Failed to create fetchRequest for object")
+			return nil
+		}
+		
+		return MailDatabaseManager.sharedInstance.executeFetchRequest(fetchrequest)?.first as? Self
+	}
+}

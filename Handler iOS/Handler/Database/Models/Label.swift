@@ -8,9 +8,17 @@
 
 import Foundation
 import CoreData
+import HandlerSDK
 
-class Label: NSManagedObject {
-
-// Insert code here to add functionality to your managed object subclass
+final class Label: NSManagedObject, CoreDataConvertible {
+	
+	typealias HRType = HRLabel
+	
+	required convenience init(hrType label: HRLabel, managedObjectContext: NSManagedObjectContext){
+		self.init(managedObjectContext: managedObjectContext)
+		self.id = label.type
+		self.name = label.type
+		self.type = label.type
+	}
 
 }

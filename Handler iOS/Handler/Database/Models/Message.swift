@@ -8,9 +8,19 @@
 
 import Foundation
 import CoreData
+import HandlerSDK
 
-class Message: NSManagedObject {
-
-// Insert code here to add functionality to your managed object subclass
-
+final class Message: NSManagedObject, CoreDataConvertible {
+	
+	typealias HRType = HRMessage
+	
+	required convenience init(hrType message: HRType, managedObjectContext: NSManagedObjectContext){
+		self.init(managedObjectContext: managedObjectContext)
+		self.content = message.content
+		self.id = message.id
+		print(message.sent_at)
+		self.sent_at = NSDate.fromString(message.sent_at)
+		self.subject = message.subject
+		self.sender = User.fromHRType(message.sender!)
+	}
 }
