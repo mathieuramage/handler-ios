@@ -15,13 +15,25 @@ import HandlerSDK
 class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	var window: UIWindow?
-	
+	var sideMenu: SSASideMenu?
 	
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
 		HROAuthManager.startOAuth()
 		APICommunicator.sharedInstance
 		Fabric.with([Twitter.self()])
+		
+		let menuViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SideMenuViewController") as! SideMenuViewController
+		let mainController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()!
+		
+		sideMenu = SSASideMenu(contentViewController: mainController, leftMenuViewController: menuViewController)
+		sideMenu?.type = SSASideMenu.SSASideMenuType.Slip
+		sideMenu?.contentViewInPortraitOffsetCenterX = 30
+		sideMenu?.leftMenuRightInset = 30
+		sideMenu?.menuViewControllerTransformation
+		sideMenu?.statusBarStyle = SSASideMenu.SSAStatusBarStyle.Hidden
+		
+		window?.rootViewController = sideMenu
 		
 		return true
 	}

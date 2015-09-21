@@ -48,3 +48,9 @@ extension CoreDataConvertible where HRType : HRIDProvider  {
 		return MailDatabaseManager.sharedInstance.executeFetchRequest(fetchrequest)?.first as? Self
 	}
 }
+
+extension AppDelegate {
+	static func sharedInstance()->AppDelegate{
+		return UIApplication.sharedApplication().delegate as! AppDelegate
+	}
+}

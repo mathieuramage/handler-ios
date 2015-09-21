@@ -12,9 +12,7 @@ import CoreData
 class InboxTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
 	
 	lazy var fetchedResultsController: NSFetchedResultsController = {
-		let fetchRequest = NSFetchRequest(entityName: "Message")
-		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sent_at", ascending: true)]
-		return NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: MailDatabaseManager.sharedInstance.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+		return NSFetchedResultsController(fetchRequest: Message.fetchRequestForMessagesWithLabelWithId("INBOX"), managedObjectContext: MailDatabaseManager.sharedInstance.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
 	}()
 	
 	override func viewDidLoad() {
@@ -28,6 +26,10 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 		}
 	}
 	
+	@IBAction func showSideMenu(sender: UIBarButtonItem) {
+		presentLeftMenuViewController()
+	}
+	
 	override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
 		return 1
 	}
@@ -37,12 +39,8 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 	}
 	
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCellWithIdentifier("mailCell", forIndexPath: indexPath)
-		let message = fetchedResultsController.fetchedObjects![indexPath.row] as! Message
-		cell.textLabel?.text = message.subject
-		
-		cell.detailTextLabel?.text = message.content
-		
+		let cell = tableView.dequeueReusableCellWithIdentifier("mailCell", forIndexPath: indexPath) as! MessageTableViewCell
+		cell.message = fetchedResultsController.fetchedObjects![indexPath.row] as? Message
 		return cell
 	}
 	
@@ -76,5 +74,9 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 		case NSFetchedResultsChangeType.Move:
 			self.tableView.moveRowAtIndexPath(indexPath!, toIndexPath: newIndexPath!)
 		}
+	}
+	
+	override func preferredStatusBarStyle() -> UIStatusBarStyle {
+		return .LightContent
 	}
 }

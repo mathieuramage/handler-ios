@@ -19,11 +19,25 @@ class APICommunicator: NSObject {
 	}
 	
 	func userDidAuth(){
-		fetchNewInboxMessage()
+		fetchNewInboxMessages()
+		fetchNewSentMessages()
 	}
 	
-	private func fetchNewInboxMessage(){
-		HandlerAPI.getNewMessageWithCallback { (messages, error) -> Void in
+	private func fetchNewSentMessages(){
+		HandlerAPI.getNewMessageWithCallback("SENT") { (messages, error) -> Void in
+			guard let messages = messages else {
+				print(error)
+				return
+			}
+			for message in messages {
+				MailDatabaseManager.sharedInstance.storeMessage(message)
+			}
+
+		}
+	}
+	
+	private func fetchNewInboxMessages(){
+		HandlerAPI.getNewMessageWithCallback(nil) { (messages, error) -> Void in
 			guard let messages = messages else {
 				print(error)
 				return
