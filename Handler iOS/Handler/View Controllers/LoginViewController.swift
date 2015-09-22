@@ -16,6 +16,16 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+		let loginButton = TWTRLogInButton { (session, error) -> Void in
+			print(session)
+			UIView.transitionWithView(AppDelegate.sharedInstance().window!, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: { () -> Void in
+				AppDelegate.sharedInstance().window?.rootViewController = AppDelegate.sharedInstance().sideMenu
+				}, completion: { (finished) -> Void in
+					
+			})
+		}
+		loginButton.center = self.view.center
+		self.view.addSubview(loginButton)
         // Do any additional setup after loading the view.
     }
 

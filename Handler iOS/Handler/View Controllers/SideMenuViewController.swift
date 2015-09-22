@@ -17,7 +17,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 	@IBOutlet weak var profileHandleLabel: UILabel!
 	
 	
-	var optionsTableViewController: UITableViewController? {
+	var optionsTableViewController: MailBoxOptionsTableViewController? {
 		didSet {
 			optionsTableViewController?.tableView.delegate = self
 		}
@@ -27,6 +27,8 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
         super.viewDidLoad()
 
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateCurrentUser", name: HRCurrentUserDidSetNotification, object: nil)
+		
+		updateCurrentUser()
         // Do any additional setup after loading the view.
     }
 	
@@ -55,7 +57,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "embedMailBoxOptions" {
-			self.optionsTableViewController = segue.destinationViewController as? UITableViewController
+			self.optionsTableViewController = segue.destinationViewController as? MailBoxOptionsTableViewController
 		}
     }
 	

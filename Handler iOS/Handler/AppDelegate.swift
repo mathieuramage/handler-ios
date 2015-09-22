@@ -19,12 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
-		HROAuthManager.startOAuth()
+
 		APICommunicator.sharedInstance
 		Fabric.with([Twitter.self()])
 		
 		let menuViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SideMenuViewController") as! SideMenuViewController
-		let mainController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()!
+		let mainController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("MainNavigationController")
 		
 		sideMenu = SSASideMenu(contentViewController: mainController, leftMenuViewController: menuViewController)
 		sideMenu?.type = SSASideMenu.SSASideMenuType.Slip
@@ -32,9 +32,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		sideMenu?.leftMenuRightInset = 30
 		sideMenu?.menuViewControllerTransformation
 		sideMenu?.statusBarStyle = SSASideMenu.SSAStatusBarStyle.Hidden
-		
 		window?.rootViewController = sideMenu
-		
+//		window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
+		window?.makeKeyAndVisible()
 		return true
 	}
 	

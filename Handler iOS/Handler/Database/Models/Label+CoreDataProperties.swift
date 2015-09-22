@@ -2,7 +2,7 @@
 //  Label+CoreDataProperties.swift
 //  Handler
 //
-//  Created by Christian Praiss on 20/09/15.
+//  Created by Christian Praiss on 22/09/15.
 //  Copyright © 2015 Handler, Inc. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -17,5 +17,6 @@ extension Label {
     @NSManaged var id: String?
     @NSManaged var name: String?
     @NSManaged var type: String?
+    @NSManaged var messages: NSSet?
 
 }

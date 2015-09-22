@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="dOk-Le-qkd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="P2V-Aw-u7B">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
@@ -43,7 +43,7 @@
                                             <rect key="frame" x="72" y="28" width="284" height="19.5"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Donna Paulsen" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QsT-MC-qgD">
@@ -53,7 +53,7 @@
                                                 <constraint firstAttribute="width" relation="lessThanOrEqual" constant="160" id="2ew-Cj-Gt1"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="257" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="@donnapaulsen" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mJI-qK-WXf">
@@ -137,10 +137,30 @@
             </objects>
             <point key="canvasLocation" x="1454.5" y="-101.5"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Login View Controller-->
+        <scene sceneID="2AV-yB-1JH">
+            <objects>
+                <viewController storyboardIdentifier="LoginViewController" id="P2V-Aw-u7B" customClass="LoginViewController" customModule="Handler" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Bpa-AJ-iy8"/>
+                        <viewControllerLayoutGuide type="bottom" id="hPI-4D-qsF"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="SNf-V9-4Jn">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Odh-mg-ZCq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1993.5" y="-101.5"/>
+        </scene>
+        <!--Mail Box Options Table View Controller-->
         <scene sceneID="i2f-Tf-RVn">
             <objects>
-                <tableViewController id="iJm-29-Ccc" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="MailBoxOptionsTableViewController" id="iJm-29-Ccc" customClass="MailBoxOptionsTableViewController" customModule="Handler" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="28" sectionFooterHeight="28" id="XqB-BQ-r8p">
                         <rect key="frame" x="0.0" y="0.0" width="280" height="300"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -417,6 +437,14 @@
                             <outlet property="delegate" destination="iJm-29-Ccc" id="nJs-Du-gI1"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="archiveCountLabel" destination="cGT-eV-jU1" id="FC4-yG-gfJ"/>
+                        <outlet property="draftsCountLabel" destination="ke2-fU-i9j" id="e5c-V5-vcy"/>
+                        <outlet property="flaggedCountLabel" destination="TWc-3w-rKD" id="CJV-Pa-I5h"/>
+                        <outlet property="inboxCountLabel" destination="ED2-zB-2BB" id="Dx9-c5-AgI"/>
+                        <outlet property="sentCountLabel" destination="3hu-D7-uQL" id="wou-wk-AUK"/>
+                        <outlet property="unreadCountLabel" destination="zPP-DI-Jfy" id="FN6-KT-Nnt"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MbM-MF-wtc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -521,7 +549,7 @@
         <!--Gradient Navigation Controller-->
         <scene sceneID="l45-go-Wfj">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dOk-Le-qkd" customClass="GradientNavigationController" customModule="Handler" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MainNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="dOk-Le-qkd" customClass="GradientNavigationController" customModule="Handler" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="wSF-oz-3ih">

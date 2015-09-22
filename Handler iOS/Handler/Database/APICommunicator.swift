@@ -8,6 +8,7 @@
 
 import Foundation
 import HandlerSDK
+import KeychainAccess
 
 class APICommunicator: NSObject {
 	static let sharedInstance = APICommunicator()
@@ -15,10 +16,43 @@ class APICommunicator: NSObject {
 	override init(){
 		super.init()
 		
+		if let authToken = Keychain(service: "com.handlerapp.Handler")[string: "authToken"], let expirationData = Keychain(service: "com.handlerapp.Handler")[data: "expirationDate"], let expirationDate = NSKeyedUnarchiver.unarchiveObjectWithData(expirationData) as? NSDate {
+			if expirationDate.timeIntervalSince1970 <= NSDate().timeIntervalSince1970 {
+				print("Session has expired")
+				do {
+					try Keychain(service: "com.handlerapp.Handler").remove("authToken")
+					try Keychain(service: "com.handlerapp.Handler").remove("expirationDate")
+				} catch {
+					print(error)
+				}
+				HROAuthManager.startOAuth()
+			}else{
+				HRUserSessionManager.updateCurrentSession(token: authToken, expiryDate: expirationDate)
+			}
+		}else{
+			HROAuthManager.startOAuth()
+		}
+		
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidAuth", name: HRUserSessionDidStartNotification, object: nil)
 	}
 	
+	func checkForCurrentSessionOrAuth(){
+		
+	}
+	
 	func userDidAuth(){
+		guard let currentSession = HRUserSessionManager.sharedManager.currentSession else {
+			print("No current session")
+			return
+		}
+		
+		do {
+			try Keychain(service: "com.handlerapp.Handler").set(currentSession.authToken, key: "authToken")
+			try Keychain(service: "com.handlerapp.Handler").set(NSKeyedArchiver.archivedDataWithRootObject(currentSession.expirationDate), key: "expirationDate")
+		} catch {
+			print(error)
+		}
+		
 		fetchNewInboxMessages()
 		fetchNewSentMessages()
 	}
@@ -37,7 +71,7 @@ class APICommunicator: NSObject {
 	}
 	
 	private func fetchNewInboxMessages(){
-		HandlerAPI.getNewMessageWithCallback(nil) { (messages, error) -> Void in
+		HandlerAPI.getNewMessageWithCallback("INBOX") { (messages, error) -> Void in
 			guard let messages = messages else {
 				print(error)
 				return

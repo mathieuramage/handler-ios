@@ -18,6 +18,14 @@ class MessageTableViewCell: UITableViewCell {
 	@IBOutlet weak var messageTimeLabel: UILabel!
 	@IBOutlet weak var messageContentPreviewLabel: UILabel!
 	
+	lazy var timeFormatter: TTTTimeIntervalFormatter = {
+		let formatter = TTTTimeIntervalFormatter()
+		formatter.usesIdiomaticDeicticExpressions = true
+		formatter.presentTimeIntervalMargin = 60
+		formatter.presentDeicticExpression = "now"
+		return formatter
+	}()
+		
 	var message: Message? {
 		didSet {
 			
@@ -33,14 +41,16 @@ class MessageTableViewCell: UITableViewCell {
 				if let urlString = message.sender?.profile_picture_url, let profileUrl = NSURL(string: urlString) {
 					senderProfileImageView.sd_setImageWithURL(profileUrl)
 				}
-				readFlaggedImageView.image = UIImage(named: "blue dot sm copy")
 				senderNameLabel.text = message.sender?.name
 				if let handle = message.sender?.handle {
 					senderHandleLabel.text = "@" + handle
 				}
 				messageSubjectLabel.text = message.subject
 				messageContentPreviewLabel.text = message.content
-				messageTimeLabel.text = "10:10 AM"
+				messageTimeLabel.text = timeFormatter.stringForTimeInterval(NSDate().timeIntervalSinceDate(message.sent_at!))
+				if message.isUnread {
+					readFlaggedImageView.image = UIImage(named: "blue dot sm copy")
+				}
 			}
 		}
 	}

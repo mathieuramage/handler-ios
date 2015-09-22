@@ -11,19 +11,18 @@ import CoreData
 
 class InboxTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
 	
-	lazy var fetchedResultsController: NSFetchedResultsController = {
-		return NSFetchedResultsController(fetchRequest: Message.fetchRequestForMessagesWithLabelWithId("INBOX"), managedObjectContext: MailDatabaseManager.sharedInstance.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
-	}()
+	var fetchedResultsController: NSFetchedResultsController {
+		get {
+			return InboxMessagesObserver.sharedInstance.fetchedResultsController
+		}
+	}
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		fetchedResultsController.delegate = self
-		do {
-			try fetchedResultsController.performFetch()
-		} catch {
-			print(error)
-		}
+		tableView.tableFooterView = UIView()
+		
+		InboxMessagesObserver.sharedInstance.addObserver(self)
 	}
 	
 	@IBAction func showSideMenu(sender: UIBarButtonItem) {

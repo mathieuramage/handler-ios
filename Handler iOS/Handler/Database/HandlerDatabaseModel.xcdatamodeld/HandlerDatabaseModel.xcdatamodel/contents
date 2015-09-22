@@ -7,20 +7,22 @@
         <attribute name="size" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="upload_complete" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="contained_in" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="attachments" inverseEntity="Message" syncable="YES"/>
     </entity>
     <entity name="Label" representedClassName=".Label" syncable="YES">
         <attribute name="id" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="labels" inverseEntity="Message" syncable="YES"/>
     </entity>
     <entity name="Message" representedClassName=".Message" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" attributeType="String" indexed="YES" spotlightIndexingEnabled="YES" syncable="YES"/>
-        <attribute name="sent_at" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="sent_at" attributeType="Date" syncable="YES"/>
         <attribute name="subject" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="attachments" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Attachment" syncable="YES"/>
-        <relationship name="labels" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Label" spotlightIndexingEnabled="YES" syncable="YES"/>
-        <relationship name="recipients" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" syncable="YES"/>
+        <relationship name="attachments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Attachment" inverseName="contained_in" inverseEntity="Attachment" syncable="YES"/>
+        <relationship name="labels" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Label" inverseName="messages" inverseEntity="Label" spotlightIndexingEnabled="YES" syncable="YES"/>
+        <relationship name="recipients" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="received_messages" inverseEntity="User" syncable="YES"/>
         <relationship name="sender" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="sent_messages" inverseEntity="User" syncable="YES"/>
         <relationship name="thread" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Thread" inverseName="messages" inverseEntity="Thread" syncable="YES"/>
     </entity>
@@ -38,13 +40,14 @@
         <attribute name="provider" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="updated_at" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="contacts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="contacts" inverseEntity="User" syncable="YES"/>
+        <relationship name="received_messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="recipients" inverseEntity="Message" syncable="YES"/>
         <relationship name="sent_messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="sender" inverseEntity="Message" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Message" positionX="-315" positionY="-30" width="128" height="178"/>
-        <element name="User" positionX="-29" positionY="171" width="128" height="193"/>
-        <element name="Label" positionX="88" positionY="-90" width="128" height="88"/>
-        <element name="Attachment" positionX="-81" positionY="-180" width="128" height="133"/>
+        <element name="Attachment" positionX="-81" positionY="-180" width="128" height="150"/>
+        <element name="Label" positionX="88" positionY="-90" width="128" height="105"/>
+        <element name="Message" positionX="-315" positionY="-30" width="128" height="180"/>
         <element name="Thread" positionX="88" positionY="63" width="128" height="73"/>
+        <element name="User" positionX="-29" positionY="171" width="128" height="210"/>
     </elements>
 </model>

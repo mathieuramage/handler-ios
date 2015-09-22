@@ -21,6 +21,16 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		self.sent_at = NSDate.fromString(message.sent_at)
 		self.subject = message.subject
 		self.sender = User.fromHRType(message.sender!)
+
+		if let recipients = message.recipients {
+			let recipientsSet = NSMutableSet()
+			for recipient in recipients {
+				if let cdRecipient = User.fromHRType(recipient) {
+					recipientsSet.addObject(cdRecipient)
+				}
+			}
+			self.recipients = recipientsSet
+		}
 		
 		message.fetchLabels { (labels, error) -> Void in
 			guard let labels = labels else {
@@ -41,11 +51,25 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		}
 	}
 	
+	var isUnread: Bool {
+		get {
+			var unread = false
+			if let labels = self.labels {
+				for label in labels {
+					if label.id == "UNREAD" {
+						unread = true
+					}
+				}
+			}
+			return unread
+		}
+	}
+	
 	class func fetchRequestForMessagesWithLabelWithId(id: String) -> NSFetchRequest {
 		let predicate = NSPredicate(format: "ANY labels.id == %@", id)
 		let fetchRequest = NSFetchRequest(entityName: entityName())
 		fetchRequest.predicate = predicate
-		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sent_at", ascending: true)]
+		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sent_at", ascending: false)]
 		return fetchRequest
 	}
 }

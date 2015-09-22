@@ -10,6 +10,11 @@ import Foundation
 import CoreData
 import HandlerSDK
 
+enum MailboxType: String {
+	case Inbox = "INBOX"
+	case Unread = "UNREAD"
+	case Flagged = "FLAGGED"
+}
 
 protocol CoreDataConvertible {
 	typealias HRType
@@ -47,6 +52,10 @@ extension CoreDataConvertible where HRType : HRIDProvider  {
 		
 		return MailDatabaseManager.sharedInstance.executeFetchRequest(fetchrequest)?.first as? Self
 	}
+}
+
+protocol MailboxCountObserver {
+	func mailboxCountDidChange(mailboxType: MailboxType, newCount: Int)
 }
 
 extension AppDelegate {
