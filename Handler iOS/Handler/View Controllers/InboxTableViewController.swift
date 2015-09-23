@@ -9,11 +9,17 @@
 import UIKit
 import CoreData
 
-class InboxTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+class InboxTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, SWTableViewCellDelegate {
 	
 	var fetchedResultsController: NSFetchedResultsController {
 		get {
 			return InboxMessagesObserver.sharedInstance.fetchedResultsController
+		}
+	}
+	
+	var fetchedObjects: [Message] {
+		get {
+			return fetchedResultsController.fetchedObjects as? [Message] ?? [Message]()
 		}
 	}
 	
@@ -40,7 +46,20 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCellWithIdentifier("mailCell", forIndexPath: indexPath) as! MessageTableViewCell
 		cell.message = fetchedResultsController.fetchedObjects![indexPath.row] as? Message
+		cell.leftUtilityButtons = cell.leftButtons()
+		cell.rightUtilityButtons = cell.rightButtons()
+		cell.delegate = self
 		return cell
+	}
+	
+	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		if indexPath.row < fetchedObjects.count {
+			let message = fetchedObjects[indexPath.row]
+			message.removeLabelWithID("UNREAD")
+			if let cell = tableView.cellForRowAtIndexPath(indexPath) as? MessageTableViewCell {
+				cell.message = message
+			}
+		}
 	}
 	
 	func controllerWillChangeContent(controller: NSFetchedResultsController) {
@@ -77,5 +96,38 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 	
 	override func preferredStatusBarStyle() -> UIStatusBarStyle {
 		return .LightContent
+	}
+	
+	func swipeableTableViewCell(cell: SWTableViewCell!, canSwipeToState state: SWCellState) -> Bool {
+		return true
+	}
+	
+	func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerLeftUtilityButtonWithIndex index: Int) {
+		if let cell = cell as? MessageTableViewCell, let message = cell.message {
+			message.addLabelWithID("UNREAD")
+			cell.message = message
+		}
+	}
+	
+	func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerRightUtilityButtonWithIndex index: Int) {
+		if let cell = cell as? MessageTableViewCell, let message = cell.message {
+			switch index {
+			case 0:
+				// More
+				break;
+			case 1:
+				// Flag
+				break;
+			case 2:
+				// Archive
+				message.moveToArchive()
+			default:
+				break;
+			}
+		}
+	}
+	
+	func swipeableTableViewCellShouldHideUtilityButtonsOnSwipe(cell: SWTableViewCell!) -> Bool {
+		return true
 	}
 }

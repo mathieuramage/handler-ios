@@ -25,7 +25,7 @@ extension NSManagedObject {
 	
 	public class func entityDescription() -> NSEntityDescription? {
 		let entityName = self.entityName()
-		return NSEntityDescription.entityForName(entityName, inManagedObjectContext: MailDatabaseManager.sharedInstance.managedObjectContext)
+		return NSEntityDescription.entityForName(entityName, inManagedObjectContext: NSManagedObject.globalManagedObjectContext())
 	}
 	
 	static func fetchRequestForID(id: String) -> NSFetchRequest? {
@@ -39,5 +39,9 @@ extension NSManagedObject {
 		fetchRequest.predicate = NSPredicate(format: "%K == %@", "id", id)
 		
 		return fetchRequest
+	}
+	
+	class func globalManagedObjectContext() -> NSManagedObjectContext {
+		return MailDatabaseManager.sharedInstance.managedObjectContext
 	}
 }

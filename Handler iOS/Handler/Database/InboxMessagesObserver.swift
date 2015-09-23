@@ -14,7 +14,7 @@ class InboxMessagesObserver: NSObject, NSFetchedResultsControllerDelegate {
 	static var sharedInstance = InboxMessagesObserver()
 	
 	lazy var fetchedResultsController: NSFetchedResultsController = {
-		return NSFetchedResultsController(fetchRequest: Message.fetchRequestForMessagesWithLabelWithId("INBOX"), managedObjectContext: MailDatabaseManager.sharedInstance.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+		return NSFetchedResultsController(fetchRequest: Message.fetchRequestForMessagesWithLabelWithId("INBOX"), managedObjectContext: NSManagedObject.globalManagedObjectContext(), sectionNameKeyPath: nil, cacheName: nil)
 	}()
 	
 	var observers = [NSFetchedResultsControllerDelegate]()

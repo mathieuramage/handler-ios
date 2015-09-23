@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MessageTableViewCell: UITableViewCell {
+class MessageTableViewCell: SWTableViewCell {
 
 	@IBOutlet weak var readFlaggedImageView: UIImageView!
 	@IBOutlet weak var senderProfileImageView: UIImageView!
@@ -55,10 +55,24 @@ class MessageTableViewCell: UITableViewCell {
 		}
 	}
 	
+	func leftButtons()->[AnyObject] {
+		let array = NSMutableArray()
+		array.sw_addUtilityButtonWithColor(UIColor.hrBlueColor(), icon: UIImage(named: "Mark_Unread_icon"), andTitle: "Unread")
+		return array as [AnyObject]
+	}
+	
+	func rightButtons()->[AnyObject] {
+		let array = NSMutableArray()
+		array.sw_addUtilityButtonWithColor(UIColor.hrLightGrayColor(), icon: UIImage(named: "More_Dots_Icon"), andTitle: "More")
+		array.sw_addUtilityButtonWithColor(UIColor.hrOrangeColor(), icon: UIImage(named: "Flag_Icon"), andTitle: "Flag")
+		array.sw_addUtilityButtonWithColor(UIColor.hrDarkBlueColor(), icon: UIImage(named: "Archive_Icon"), andTitle: "Archive")
+
+		return array as [AnyObject]
+	}
+	
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-    }
+	}
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

@@ -16,6 +16,10 @@ final class User: NSManagedObject, CoreDataConvertible {
 	
 	required convenience init(hrType user: HRType, managedObjectContext: NSManagedObjectContext){
 		self.init(managedObjectContext: managedObjectContext)
+		self.updateFromHRType(user)
+	}
+	
+	func updateFromHRType(user: HRType) {
 		self.id = user.id
 		self.desc = user.desc
 		self.handle = user.handle

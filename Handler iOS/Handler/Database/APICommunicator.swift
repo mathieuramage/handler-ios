@@ -16,6 +16,8 @@ class APICommunicator: NSObject {
 	override init(){
 		super.init()
 		
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidAuth", name: HRUserSessionDidStartNotification, object: nil)
+		
 		if let authToken = Keychain(service: "com.handlerapp.Handler")[string: "authToken"], let expirationData = Keychain(service: "com.handlerapp.Handler")[data: "expirationDate"], let expirationDate = NSKeyedUnarchiver.unarchiveObjectWithData(expirationData) as? NSDate {
 			if expirationDate.timeIntervalSince1970 <= NSDate().timeIntervalSince1970 {
 				print("Session has expired")
@@ -32,8 +34,6 @@ class APICommunicator: NSObject {
 		}else{
 			HROAuthManager.startOAuth()
 		}
-		
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidAuth", name: HRUserSessionDidStartNotification, object: nil)
 	}
 	
 	func checkForCurrentSessionOrAuth(){
@@ -55,6 +55,20 @@ class APICommunicator: NSObject {
 		
 		fetchNewInboxMessages()
 		fetchNewSentMessages()
+		fetchNewLabels()
+	}
+	
+	private func fetchNewLabels(){
+		HandlerAPI.getAllLabels { (labels, error) -> Void in
+			guard let labels = labels else {
+				print(error)
+				return
+			}
+			for label in labels {
+				MailDatabaseManager.sharedInstance.storeLabel(label)
+			}
+
+		}
 	}
 	
 	private func fetchNewSentMessages(){

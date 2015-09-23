@@ -16,9 +16,19 @@ final class Label: NSManagedObject, CoreDataConvertible {
 	
 	required convenience init(hrType label: HRLabel, managedObjectContext: NSManagedObjectContext){
 		self.init(managedObjectContext: managedObjectContext)
+		self.updateFromHRType(label)
+	}
+	
+	convenience init(id: String, managedObjectContext: NSManagedObjectContext){
+		self.init(managedObjectContext: managedObjectContext)
+		self.id = id
+		self.name = ""
+		self.type = ""
+	}
+	
+	func updateFromHRType(label: HRType) {
 		self.id = label.id
 		self.name = label.name
 		self.type = label.type
 	}
-
 }

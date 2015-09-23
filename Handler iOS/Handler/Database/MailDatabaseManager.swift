@@ -20,6 +20,11 @@ class MailDatabaseManager: NSObject {
 		saveContext()
 	}
 	
+	func storeLabel(label: HRLabel){
+		Label.fromHRType(label)
+		saveContext()
+	}
+	
 	func executeFetchRequest(fetchRequest: NSFetchRequest) -> [AnyObject]? {
 		do {
 			return try managedObjectContext.executeFetchRequest(fetchRequest)

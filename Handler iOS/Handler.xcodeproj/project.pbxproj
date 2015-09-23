@@ -18,6 +18,13 @@
 		2F4E41611BB0AC4A00AA2DEF /* CALayer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E41601BB0AC4A00AA2DEF /* CALayer+Extensions.swift */; settings = {ASSET_TAGS = (); }; };
 		2F4E41631BB0AC7300AA2DEF /* GradientNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E41621BB0AC7300AA2DEF /* GradientNavigationController.swift */; settings = {ASSET_TAGS = (); }; };
 		2F8E379B1BB1E95000C6A82D /* TTTTimeIntervalFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8E379A1BB1E95000C6A82D /* TTTTimeIntervalFormatter.m */; settings = {ASSET_TAGS = (); }; };
+		2F994E4D1BB2AE3500A63B9B /* NSMutableArray+SWUtilityButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F994E421BB2AE3500A63B9B /* NSMutableArray+SWUtilityButtons.m */; settings = {ASSET_TAGS = (); }; };
+		2F994E4E1BB2AE3500A63B9B /* SWCellScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F994E441BB2AE3500A63B9B /* SWCellScrollView.m */; settings = {ASSET_TAGS = (); }; };
+		2F994E4F1BB2AE3500A63B9B /* SWLongPressGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F994E461BB2AE3500A63B9B /* SWLongPressGestureRecognizer.m */; settings = {ASSET_TAGS = (); }; };
+		2F994E501BB2AE3500A63B9B /* SWTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F994E481BB2AE3500A63B9B /* SWTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		2F994E511BB2AE3500A63B9B /* SWUtilityButtonTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F994E4A1BB2AE3500A63B9B /* SWUtilityButtonTapGestureRecognizer.m */; settings = {ASSET_TAGS = (); }; };
+		2F994E521BB2AE3500A63B9B /* SWUtilityButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F994E4C1BB2AE3500A63B9B /* SWUtilityButtonView.m */; settings = {ASSET_TAGS = (); }; };
+		2F994E541BB2AE8100A63B9B /* UIColor+HandlerColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F994E531BB2AE8100A63B9B /* UIColor+HandlerColors.swift */; settings = {ASSET_TAGS = (); }; };
 		2FA2EA6C1BAC4EA80027EA77 /* MailDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA2EA6B1BAC4EA80027EA77 /* MailDatabaseManager.swift */; settings = {ASSET_TAGS = (); }; };
 		2FA2EA701BAC4F670027EA77 /* HandlerDatabaseModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2FA2EA6E1BAC4F670027EA77 /* HandlerDatabaseModel.xcdatamodeld */; settings = {ASSET_TAGS = (); }; };
 		2FA2EA811BAD9C570027EA77 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FA2EA781BAD9C570027EA77 /* CoreGraphics.framework */; settings = {ASSET_TAGS = (); }; };
@@ -111,6 +118,19 @@
 		2F8E37971BB1E91D00C6A82D /* Handler-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Handler-Bridging-Header.h"; sourceTree = "<group>"; };
 		2F8E37991BB1E95000C6A82D /* TTTTimeIntervalFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTTimeIntervalFormatter.h; sourceTree = "<group>"; };
 		2F8E379A1BB1E95000C6A82D /* TTTTimeIntervalFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTTimeIntervalFormatter.m; sourceTree = "<group>"; };
+		2F994E411BB2AE3500A63B9B /* NSMutableArray+SWUtilityButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+SWUtilityButtons.h"; sourceTree = "<group>"; };
+		2F994E421BB2AE3500A63B9B /* NSMutableArray+SWUtilityButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+SWUtilityButtons.m"; sourceTree = "<group>"; };
+		2F994E431BB2AE3500A63B9B /* SWCellScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWCellScrollView.h; sourceTree = "<group>"; };
+		2F994E441BB2AE3500A63B9B /* SWCellScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWCellScrollView.m; sourceTree = "<group>"; };
+		2F994E451BB2AE3500A63B9B /* SWLongPressGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWLongPressGestureRecognizer.h; sourceTree = "<group>"; };
+		2F994E461BB2AE3500A63B9B /* SWLongPressGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWLongPressGestureRecognizer.m; sourceTree = "<group>"; };
+		2F994E471BB2AE3500A63B9B /* SWTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWTableViewCell.h; sourceTree = "<group>"; };
+		2F994E481BB2AE3500A63B9B /* SWTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWTableViewCell.m; sourceTree = "<group>"; };
+		2F994E491BB2AE3500A63B9B /* SWUtilityButtonTapGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWUtilityButtonTapGestureRecognizer.h; sourceTree = "<group>"; };
+		2F994E4A1BB2AE3500A63B9B /* SWUtilityButtonTapGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWUtilityButtonTapGestureRecognizer.m; sourceTree = "<group>"; };
+		2F994E4B1BB2AE3500A63B9B /* SWUtilityButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWUtilityButtonView.h; sourceTree = "<group>"; };
+		2F994E4C1BB2AE3500A63B9B /* SWUtilityButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWUtilityButtonView.m; sourceTree = "<group>"; };
+		2F994E531BB2AE8100A63B9B /* UIColor+HandlerColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+HandlerColors.swift"; sourceTree = "<group>"; };
 		2FA2EA6B1BAC4EA80027EA77 /* MailDatabaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MailDatabaseManager.swift; sourceTree = "<group>"; };
 		2FA2EA6F1BAC4F670027EA77 /* HandlerDatabaseModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HandlerDatabaseModel.xcdatamodel; sourceTree = "<group>"; };
 		2FA2EA781BAD9C570027EA77 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -125,14 +145,14 @@
 		2FA2EA8B1BAD9C970027EA77 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2FA2EA8D1BAD9CBA0027EA77 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		2FA2EA901BADA1860027EA77 /* KeychainAccess.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KeychainAccess.framework; sourceTree = "<group>"; };
-		2FB5A4441BB2078E0087D006 /* InboxMessagesObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxMessagesObserver.swift; sourceTree = "<group>"; };
+		2FB5A4441BB2078E0087D006 /* InboxMessagesObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = InboxMessagesObserver.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2FB5A4461BB20A6E0087D006 /* MailBoxOptionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MailBoxOptionsTableViewController.swift; sourceTree = "<group>"; };
 		2FDB52031BA8BC1D003C074F /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		2FDB52041BA8BC1D003C074F /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = "<group>"; };
 		2FDB52051BA8BC1D003C074F /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TwitterKitResources.bundle; path = TwitterKit.framework/Versions/A/Resources/TwitterKitResources.bundle; sourceTree = "<group>"; };
 		2FDB52061BA8BC1D003C074F /* TwitterCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterCore.framework; sourceTree = "<group>"; };
 		2FDDE0E31BAEA957006C3500 /* Message+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Message+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		2FDDE0E41BAEA957006C3500 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		2FDDE0E41BAEA957006C3500 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Message.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2FDDE0E51BAEA957006C3500 /* Label+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Label+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2FDDE0E61BAEA957006C3500 /* Label.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		2FDDE0E71BAEA957006C3500 /* Thread+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Thread+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -141,13 +161,13 @@
 		2FDDE0EA1BAEA957006C3500 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		2FDDE0F71BAEAA27006C3500 /* Attatchment+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Attatchment+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2FDDE0F81BAEAA27006C3500 /* Attatchment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Attatchment.swift; sourceTree = "<group>"; };
-		2FDDE0FD1BAEB26C006C3500 /* NSManagedObject+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Convenience.swift"; sourceTree = "<group>"; };
+		2FDDE0FD1BAEB26C006C3500 /* NSManagedObject+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = "NSManagedObject+Convenience.swift"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2FDDE1001BAEB5A6006C3500 /* NSDate+FromString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+FromString.swift"; sourceTree = "<group>"; };
 		2FDDE1021BAEBFE9006C3500 /* APICommunicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APICommunicator.swift; sourceTree = "<group>"; };
 		2FDDE1291BAED6AC006C3500 /* APIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = APIKit.framework; sourceTree = "<group>"; };
 		2FDDE12A1BAED6AC006C3500 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Result.framework; sourceTree = "<group>"; };
 		2FDDE1331BAEE21D006C3500 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = "<group>"; };
-		2FDDE1411BAF5A17006C3500 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		2FDDE1411BAF5A17006C3500 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Protocols.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2FDDE1431BB01AD3006C3500 /* InboxTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxTableViewController.swift; sourceTree = "<group>"; };
 		2FDDE1461BB04FA4006C3500 /* WhiteBorderImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhiteBorderImageView.swift; sourceTree = "<group>"; };
 		DF1FD2D81B62360600A58B71 /* Handler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Handler.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -233,6 +253,18 @@
 		2FA2EA8F1BAD9D1F0027EA77 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2F994E411BB2AE3500A63B9B /* NSMutableArray+SWUtilityButtons.h */,
+				2F994E421BB2AE3500A63B9B /* NSMutableArray+SWUtilityButtons.m */,
+				2F994E431BB2AE3500A63B9B /* SWCellScrollView.h */,
+				2F994E441BB2AE3500A63B9B /* SWCellScrollView.m */,
+				2F994E451BB2AE3500A63B9B /* SWLongPressGestureRecognizer.h */,
+				2F994E461BB2AE3500A63B9B /* SWLongPressGestureRecognizer.m */,
+				2F994E471BB2AE3500A63B9B /* SWTableViewCell.h */,
+				2F994E481BB2AE3500A63B9B /* SWTableViewCell.m */,
+				2F994E491BB2AE3500A63B9B /* SWUtilityButtonTapGestureRecognizer.h */,
+				2F994E4A1BB2AE3500A63B9B /* SWUtilityButtonTapGestureRecognizer.m */,
+				2F994E4B1BB2AE3500A63B9B /* SWUtilityButtonView.h */,
+				2F994E4C1BB2AE3500A63B9B /* SWUtilityButtonView.m */,
 				2F8E37991BB1E95000C6A82D /* TTTTimeIntervalFormatter.h */,
 				2F8E379A1BB1E95000C6A82D /* TTTTimeIntervalFormatter.m */,
 				DF1FD2E41B62360600A58B71 /* Images.xcassets */,
@@ -300,6 +332,7 @@
 				2FDDE1411BAF5A17006C3500 /* Protocols.swift */,
 				2F4E41561BB0977C00AA2DEF /* UIButton+ImageFitting.swift */,
 				2F4E41601BB0AC4A00AA2DEF /* CALayer+Extensions.swift */,
+				2F994E531BB2AE8100A63B9B /* UIColor+HandlerColors.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -479,12 +512,14 @@
 			files = (
 				2FA2EA8C1BAD9C970027EA77 /* LoginViewController.swift in Sources */,
 				2FDDE0FA1BAEAA27006C3500 /* Attatchment.swift in Sources */,
+				2F994E521BB2AE3500A63B9B /* SWUtilityButtonView.m in Sources */,
 				2F4E41611BB0AC4A00AA2DEF /* CALayer+Extensions.swift in Sources */,
 				2FDDE0F21BAEA957006C3500 /* Thread.swift in Sources */,
 				2FDDE1441BB01AD3006C3500 /* InboxTableViewController.swift in Sources */,
 				2F4E414D1BB061C500AA2DEF /* SideMenuViewController.swift in Sources */,
 				2F4E415E1BB0A13700AA2DEF /* MessageTableViewCell.swift in Sources */,
 				2FDDE1421BAF5A17006C3500 /* Protocols.swift in Sources */,
+				2F994E4E1BB2AE3500A63B9B /* SWCellScrollView.m in Sources */,
 				2FDDE1031BAEBFE9006C3500 /* APICommunicator.swift in Sources */,
 				2FDDE1471BB04FA4006C3500 /* WhiteBorderImageView.swift in Sources */,
 				DF1FD2DE1B62360600A58B71 /* AppDelegate.swift in Sources */,
@@ -496,15 +531,20 @@
 				2F8E379B1BB1E95000C6A82D /* TTTTimeIntervalFormatter.m in Sources */,
 				2FA2EA701BAC4F670027EA77 /* HandlerDatabaseModel.xcdatamodeld in Sources */,
 				2FDDE0F91BAEAA27006C3500 /* Attatchment+CoreDataProperties.swift in Sources */,
+				2F994E501BB2AE3500A63B9B /* SWTableViewCell.m in Sources */,
 				2FDDE0F31BAEA957006C3500 /* User+CoreDataProperties.swift in Sources */,
 				2F4E41631BB0AC7300AA2DEF /* GradientNavigationController.swift in Sources */,
 				2FB5A4471BB20A6E0087D006 /* MailBoxOptionsTableViewController.swift in Sources */,
+				2F994E4F1BB2AE3500A63B9B /* SWLongPressGestureRecognizer.m in Sources */,
 				2F4E41571BB0977C00AA2DEF /* UIButton+ImageFitting.swift in Sources */,
 				2FDDE0FE1BAEB26C006C3500 /* NSManagedObject+Convenience.swift in Sources */,
 				2FDDE0F41BAEA957006C3500 /* User.swift in Sources */,
 				2FDDE0F01BAEA957006C3500 /* Label.swift in Sources */,
+				2F994E541BB2AE8100A63B9B /* UIColor+HandlerColors.swift in Sources */,
+				2F994E4D1BB2AE3500A63B9B /* NSMutableArray+SWUtilityButtons.m in Sources */,
 				2FDDE0EF1BAEA957006C3500 /* Label+CoreDataProperties.swift in Sources */,
 				2FB5A4451BB2078E0087D006 /* InboxMessagesObserver.swift in Sources */,
+				2F994E511BB2AE3500A63B9B /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
 				2FDDE0F11BAEA957006C3500 /* Thread+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

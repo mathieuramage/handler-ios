@@ -10,6 +10,6 @@
 #define Handler_Bridging_Header_h
 
 #import "Resources/TTTTimeIntervalFormatter.h"
-
+#import "Resources/SWTableViewCell.h"
 
 #endif /* Handler_Bridging_Header_h */
