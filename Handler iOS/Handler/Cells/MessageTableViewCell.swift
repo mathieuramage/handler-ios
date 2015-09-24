@@ -47,11 +47,17 @@ class MessageTableViewCell: SWTableViewCell {
 				}
 				messageSubjectLabel.text = message.subject
 				messageContentPreviewLabel.text = message.content
-				messageTimeLabel.text = timeFormatter.stringForTimeInterval(NSDate().timeIntervalSinceDate(message.sent_at!))
+				messageTimeLabel.text = timeFormatter.stringForTimeInterval(message.sent_at!.timeIntervalSinceNow)
 				if message.isUnread {
 					readFlaggedImageView.image = UIImage(named: "blue dot sm copy")
 				}
 			}
+		}
+	}
+	
+	func refreshFlags(){
+		if message?.isUnread ?? false {
+			readFlaggedImageView.image = UIImage(named: "blue dot sm copy")
 		}
 	}
 	

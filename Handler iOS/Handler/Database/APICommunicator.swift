@@ -29,6 +29,7 @@ class APICommunicator: NSObject {
 				}
 				HROAuthManager.startOAuth()
 			}else{
+				print(authToken)
 				HRUserSessionManager.updateCurrentSession(token: authToken, expiryDate: expirationDate)
 			}
 		}else{
@@ -53,8 +54,7 @@ class APICommunicator: NSObject {
 			print(error)
 		}
 		
-		fetchNewInboxMessages()
-		fetchNewSentMessages()
+		fetchNewMessage()
 		fetchNewLabels()
 	}
 	
@@ -71,8 +71,8 @@ class APICommunicator: NSObject {
 		}
 	}
 	
-	private func fetchNewSentMessages(){
-		HandlerAPI.getNewMessageWithCallback("SENT") { (messages, error) -> Void in
+	private func fetchNewMessage(){
+		HandlerAPI.getNewMessageWithCallback() { (messages, error) -> Void in
 			guard let messages = messages else {
 				print(error)
 				return
@@ -81,18 +81,6 @@ class APICommunicator: NSObject {
 				MailDatabaseManager.sharedInstance.storeMessage(message)
 			}
 
-		}
-	}
-	
-	private func fetchNewInboxMessages(){
-		HandlerAPI.getNewMessageWithCallback("INBOX") { (messages, error) -> Void in
-			guard let messages = messages else {
-				print(error)
-				return
-			}
-			for message in messages {
-				MailDatabaseManager.sharedInstance.storeMessage(message)
-			}
 		}
 	}
 }

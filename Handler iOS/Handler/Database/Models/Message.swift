@@ -35,6 +35,9 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		self.sent_at = NSDate.fromString(message.sent_at)
 		self.subject = message.subject
 		self.sender = User.fromHRType(message.sender!)
+		if message.thread != "" {
+			self.thread = Thread.fromID(message.thread)
+		}
 		
 		if let recipients = message.recipients {
 			let recipientsSet = NSMutableSet()
@@ -70,7 +73,6 @@ final class Message: NSManagedObject, CoreDataConvertible {
 	}
 	
 	func moveToArchive(){
-		self.addLabelWithID("ARCHIVED", updateOnApi: false)
 		self.removeLabelWithID("INBOX")
 	}
 	
@@ -128,6 +130,19 @@ final class Message: NSManagedObject, CoreDataConvertible {
 				}
 			}
 			return unread
+		}
+	}
+	
+	class func fetchRequestForMessagesWithInboxType(type: MailboxType) -> NSFetchRequest {
+		if type != .Archive {
+			return fetchRequestForMessagesWithLabelWithId(type.rawValue)
+		}else{
+			// handle archive case
+			let predicate = NSPredicate(format: "NONE labels.id == %@ && NONE labels.id == %@", "INBOX", "SENT")
+			let fetchRequest = NSFetchRequest(entityName: entityName())
+			fetchRequest.predicate = predicate
+			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sent_at", ascending: false)]
+			return fetchRequest
 		}
 	}
 	

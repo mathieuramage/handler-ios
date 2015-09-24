@@ -1,5 +1,5 @@
 //
-//  InboxTableViewController.swift
+//  GenericMailboxTableViewController.swift
 //  Handler
 //
 //  Created by Christian Praiss on 21/09/15.
@@ -9,19 +9,26 @@
 import UIKit
 import CoreData
 
-class InboxTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, SWTableViewCellDelegate, MailboxCountObserver {
+class GenericMailboxTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, SWTableViewCellDelegate, MailboxCountObserver {
 	
 	var fetchedResultsController: NSFetchedResultsController {
 		get {
-			return MailboxObserversManager.sharedInstance.fetchedResultsControllerForType(.Inbox)
+			return MailboxObserversManager.sharedInstance.fetchedResultsControllerForType(mailboxType ?? .Inbox)
 		}
 	}
+	
+	var mailboxType: MailboxType? {
+		didSet{
+			self.navigationItem.title = mailboxType?.rawValue.firstCapitalized ?? "Mailbox"
+		}
+	}
+	
 	
 	var messageForSegue: Message?
 	
 	var lastupdatedLabel: UILabel?
 	var newEmailsLabel: UILabel?
-
+	
 	var fetchedObjects: [Message] {
 		get {
 			return fetchedResultsController.fetchedObjects as? [Message] ?? [Message]()
@@ -33,38 +40,12 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 		
 		tableView.tableFooterView = UIView()
 		
-		MailboxObserversManager.sharedInstance.addObserverForMailboxType(.Inbox, observer: self)
-		MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(.Inbox, observer: self)
+		MailboxObserversManager.sharedInstance.addObserverForMailboxType(mailboxType ?? .Inbox, observer: self)
+		MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(mailboxType ?? .Inbox, observer: self)
 	}
 	
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
-		
-		let space = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
-		
-		
-		lastupdatedLabel = UILabel(frame: CGRectMake(0, 8, 140, 14))
-		lastupdatedLabel?.text = "Updated just now"
-		lastupdatedLabel?.textAlignment = .Center
-		lastupdatedLabel?.font = UIFont.systemFontOfSize(14)
-		newEmailsLabel = UILabel(frame: CGRectMake(0, 26, 140, 10))
-		newEmailsLabel?.text = "No new emails"
-		newEmailsLabel?.textAlignment = .Center
-		newEmailsLabel?.font = UIFont.systemFontOfSize(10)
-		newEmailsLabel?.textColor = UIColor.darkGrayColor()
-
-		let containerView = UIView(frame: CGRectMake(0, 0, 140, 44))
-		containerView.addSubview(lastupdatedLabel!)
-		containerView.addSubview(newEmailsLabel!)
-		let item = UIBarButtonItem(customView: containerView)
-		
-		let composeItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Compose, target: self, action: "composeNewMessage:")
-		
-		self.navigationController!.toolbar.items = [space, item, space, composeItem]
-
-	}
-	
-	func composeNewMessage(item: UIBarButtonItem){
 		
 	}
 	

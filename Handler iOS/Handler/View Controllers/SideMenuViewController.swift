@@ -48,8 +48,44 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
     }
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		print(indexPath)
 		AppDelegate.sharedInstance().sideMenu?.hideMenuViewController()
+		let genericMailVc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("GenericMailboxTableViewController") as! GenericMailboxTableViewController
+		switch indexPath.row {
+		case 0:
+			//Inbox
+			let inboxViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("InboxTableViewController") as! InboxTableViewController
+			if let nc = AppDelegate.sharedInstance().sideMenu?.contentViewController as? UINavigationController {
+				nc.setViewControllers([inboxViewController], animated: true)
+			}
+			return
+		case 1:
+			// Unread
+			genericMailVc.mailboxType = .Unread
+			break;
+		case 2:
+			// Flagged
+			genericMailVc.mailboxType = .Flagged
+			break;
+		case 3:
+			// Drafts
+			genericMailVc.mailboxType = .Drafts
+			break;
+		case 4:
+			// Sent
+			genericMailVc.mailboxType = .Sent
+			break;
+		case 5:
+			// Archive
+			genericMailVc.mailboxType = .Archive
+			break;
+		default:
+			// Error
+			break;
+		}
+		
+		if indexPath.row != 0, let nc = AppDelegate.sharedInstance().sideMenu?.contentViewController as? UINavigationController {
+			nc.setViewControllers([genericMailVc], animated: true)
+		}
 	}
 
     // MARK: - Navigation

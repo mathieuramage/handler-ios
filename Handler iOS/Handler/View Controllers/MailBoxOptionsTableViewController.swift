@@ -9,7 +9,7 @@
 import UIKit
 
 class MailBoxOptionsTableViewController: UITableViewController, MailboxCountObserver {
-
+	
 	@IBOutlet weak var inboxCountLabel: UILabel!
 	@IBOutlet weak var unreadCountLabel: UILabel!
 	@IBOutlet weak var flaggedCountLabel: UILabel!
@@ -17,17 +17,27 @@ class MailBoxOptionsTableViewController: UITableViewController, MailboxCountObse
 	@IBOutlet weak var sentCountLabel: UILabel!
 	@IBOutlet weak var archiveCountLabel: UILabel!
 	
-    override func viewDidLoad() {
-        super.viewDidLoad()
-		InboxMessagesObserver.sharedInstance.addCountObserver(self)
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		for type in MailboxType.allValues {
+			MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(type, observer: self)
+		}
 	}
 	
 	func mailboxCountDidChange(mailboxType: MailboxType, newCount: Int) {
 		switch mailboxType {
-			case .Inbox:
+		case .Inbox:
 			inboxCountLabel.text = "\(newCount)"
-			default:
-				break;
+		case .Unread:
+			unreadCountLabel.text = "\(newCount)"
+		case .Flagged:
+			flaggedCountLabel.text = "\(newCount)"
+		case .Drafts:
+			draftsCountLabel.text = "\(newCount)"
+		case .Sent:
+			sentCountLabel.text = "\(newCount)"
+		case .Archive:
+			archiveCountLabel.text = "\(newCount)"
 		}
 	}
 }

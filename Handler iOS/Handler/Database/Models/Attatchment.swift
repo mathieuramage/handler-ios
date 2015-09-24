@@ -8,9 +8,24 @@
 
 import Foundation
 import CoreData
+import HandlerSDK
 
-class Attatchment: NSManagedObject {
+final class Attatchment: NSManagedObject, CoreDataConvertible {
+	
+	typealias HRType = HRAttachment
 
-// Insert code here to add functionality to your managed object subclass
-
+	required convenience init(hrType: HRType, managedObjectContext: NSManagedObjectContext) {
+		self.init(managedObjectContext: managedObjectContext)
+		
+		updateFromHRType(hrType)
+	}
+	
+	func updateFromHRType(attachment: HRType) {
+		self.id = attachment.id
+		self.content_type = attachment.content_type
+		self.url = attachment.url
+		self.filename = attachment.filename
+		self.size = attachment.size
+		self.upload_complete = attachment.uploadComplete
+	}
 }

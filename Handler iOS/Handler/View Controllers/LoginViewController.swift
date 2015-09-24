@@ -17,33 +17,25 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 
 		let loginButton = TWTRLogInButton { (session, error) -> Void in
-			print(session)
-			UIView.transitionWithView(AppDelegate.sharedInstance().window!, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: { () -> Void in
-				AppDelegate.sharedInstance().window?.rootViewController = AppDelegate.sharedInstance().sideMenu
-				}, completion: { (finished) -> Void in
-					
+			let twitter = Twitter.sharedInstance()
+			let oauthSigning = TWTROAuthSigning(authConfig:twitter.authConfig, authSession:session)
+			HRTwitterAuthManager.startAuth(oauthSigning.OAuthEchoHeadersToVerifyCredentials(), callback: { (error) -> Void in
+				if let error = error {
+					print(error)
+					return
+				}
+				
+				UIView.transitionWithView(AppDelegate.sharedInstance().window!, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: { () -> Void in
+					AppDelegate.sharedInstance().window?.rootViewController = AppDelegate.sharedInstance().sideMenu
+				}, completion: nil)
 			})
+			
 		}
+		
 		loginButton.center = self.view.center
 		self.view.addSubview(loginButton)
         // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 	
 	override func preferredStatusBarStyle() -> UIStatusBarStyle {
 		return .LightContent
