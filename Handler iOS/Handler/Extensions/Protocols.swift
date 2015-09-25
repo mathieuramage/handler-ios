@@ -21,6 +21,15 @@ enum MailboxType: String {
 	static let allValues = [Inbox, Unread, Flagged, Drafts, Sent, Archive]
 }
 
+enum SystemLabels: String {
+	case Inbox = "INBOX"
+	case Unread = "UNREAD"
+	case Flagged = "IMPORTANT"
+	case Drafts = "DRAFT"
+	case Sent = "SENT"
+	case Trashed = "TRASHED"
+}
+
 protocol CoreDataConvertible {
 	typealias HRType
 
@@ -68,5 +77,12 @@ protocol MailboxCountObserver {
 extension AppDelegate {
 	static func sharedInstance()->AppDelegate{
 		return UIApplication.sharedApplication().delegate as! AppDelegate
+	}
+}
+
+extension Array {
+	func randomItem() -> Element {
+		let index = Int(arc4random_uniform(UInt32(self.count)))
+		return self[index]
 	}
 }

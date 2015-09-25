@@ -8,8 +8,9 @@
 
 import UIKit
 import CoreData
+import DZNEmptyDataSet
 
-class GenericMailboxTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, SWTableViewCellDelegate, MailboxCountObserver {
+class GenericMailboxTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, SWTableViewCellDelegate, MailboxCountObserver, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
 	
 	var fetchedResultsController: NSFetchedResultsController {
 		get {
@@ -39,6 +40,8 @@ class GenericMailboxTableViewController: UITableViewController, NSFetchedResults
 		super.viewDidLoad()
 		
 		tableView.tableFooterView = UIView()
+		tableView.emptyDataSetDelegate = self
+		tableView.emptyDataSetSource = self
 		
 		MailboxObserversManager.sharedInstance.addObserverForMailboxType(mailboxType ?? .Inbox, observer: self)
 		MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(mailboxType ?? .Inbox, observer: self)
@@ -133,7 +136,7 @@ class GenericMailboxTableViewController: UITableViewController, NSFetchedResults
 	
 	func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerLeftUtilityButtonWithIndex index: Int) {
 		if let cell = cell as? MessageTableViewCell, let message = cell.message {
-			message.addLabelWithID("UNREAD")
+			message.markAsUnread()
 			cell.message = message
 		}
 	}
@@ -146,7 +149,7 @@ class GenericMailboxTableViewController: UITableViewController, NSFetchedResults
 				break;
 			case 1:
 				// Flag
-				message.addLabelWithID("FLAGGED")
+				message.flag()
 				break;
 			case 2:
 				// Archive
@@ -169,5 +172,9 @@ class GenericMailboxTableViewController: UITableViewController, NSFetchedResults
 			let dc = segue.destinationViewController as! ThreadTableViewController
 			dc.thread = self.messageForSegue?.thread
 		}
+	}
+	
+	func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+		return NSAttributedString(string: "Starsky, it seems like this mailbox is empty...", attributes: [NSForegroundColorAttributeName: UIColor.grayColor(), NSFontAttributeName: UIFont.systemFontOfSize(20)])
 	}
 }

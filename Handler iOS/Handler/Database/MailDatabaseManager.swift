@@ -45,8 +45,13 @@ class MailDatabaseManager: NSObject {
 		return NSManagedObjectModel(contentsOfURL: modelURL)!
 		}()
 	
-	lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {		let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-		let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("database.sqlite")
+	lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
+		
+		let containerPath = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier("group.chrisspraiss.handlerapp")
+		
+		
+		let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
+		let url = containerPath!.URLByAppendingPathComponent("database.sqlite")
 		var failureReason = "There was an error creating or loading the application's saved data."
 		do {
 			try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)

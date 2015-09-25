@@ -50,6 +50,34 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		}
 	}
 	
+	// MARK: Mailboxes
+	
+	func moveToArchive(){
+		self.removeLabelWithID(SystemLabels.Inbox.rawValue)
+	}
+
+	func moveToInbox(){
+		self.addLabelWithID(SystemLabels.Inbox.rawValue)
+	}
+
+	func flag(){
+		self.addLabelWithID(SystemLabels.Flagged.rawValue)
+	}
+
+	func unflag(){
+		self.removeLabelWithID(SystemLabels.Flagged.rawValue)
+	}
+	
+	func markAsRead(){
+		self.removeLabelWithID(SystemLabels.Unread.rawValue)
+	}
+	
+	func markAsUnread(){
+		self.addLabelWithID(SystemLabels.Unread.rawValue)
+	}
+	
+	// MARK: Labels
+	
 	func updateLabelsOnHRAPI(){
 		if let id = self.id {
 			HandlerAPI.setLabelsToMessageWithID(id, labels: hrTypeLabels(), completion: { (labels, error) -> Void in
@@ -63,7 +91,7 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		}
 	}
 	
-	func addLabelWithID(id: String, updateOnApi: Bool = true){
+	private func addLabelWithID(id: String, updateOnApi: Bool = true){
 		if let label = Label.fromID(id) {
 			self.labels = self.labels?.setByAddingObject(label)
 			if updateOnApi {
@@ -72,11 +100,7 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		}
 	}
 	
-	func moveToArchive(){
-		self.removeLabelWithID("INBOX")
-	}
-	
-	func removeLabelWithID(id: String, updateOnApi: Bool = true){
+	private func removeLabelWithID(id: String, updateOnApi: Bool = true){
 		if let labelsArray = self.labels?.allObjects {
 			let newLabels = NSMutableSet(set: self.labels!)
 			for label in labelsArray {
@@ -119,6 +143,8 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		return hrLabels
 	}
 	
+	// MARK: State getter utilitires
+
 	var isUnread: Bool {
 		get {
 			var unread = false
@@ -132,6 +158,8 @@ final class Message: NSManagedObject, CoreDataConvertible {
 			return unread
 		}
 	}
+
+	// MARK: Fetch Requests
 	
 	class func fetchRequestForMessagesWithInboxType(type: MailboxType) -> NSFetchRequest {
 		if type != .Archive {

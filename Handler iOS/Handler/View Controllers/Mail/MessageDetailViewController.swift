@@ -18,7 +18,7 @@ class MessageDetailViewController: UITableViewController {
 	
 	var message: Message? {
 		didSet {
-			message?.removeLabelWithID("UNREAD")
+			message?.markAsRead()
 		}
 	}
 	lazy var left: UIBarButtonItem = {
@@ -51,7 +51,7 @@ class MessageDetailViewController: UITableViewController {
 
 			// User specific
 			if let urlString = message.sender?.profile_picture_url, let profileUrl = NSURL(string: urlString) {
-				messageSenderProfileImageView.sd_setImageWithURL(profileUrl)
+				messageSenderProfileImageView.sd_setImageWithURL(profileUrl, placeholderImage: UIImage.randomGhostImage())
 			}
 			if let handle = message.sender?.handle {
 				messageSenderHandleButton.setTitle("@\(handle)", forState: UIControlState.Normal)
@@ -83,11 +83,11 @@ class MessageDetailViewController: UITableViewController {
 		case flag:
 			let cont = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
 			cont.addAction(UIAlertAction(title: "Flag", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-				message?.addLabelWithID("FLAGGED")
+				message?.flag()
 				// TODO: Add success message
 			}))
 			cont.addAction(UIAlertAction(title: "Mark as unread", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-				message?.addLabelWithID("UNREAD")
+				message?.markAsUnread()
 				// TODO: Add success message
 			}))
 			cont.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
@@ -96,7 +96,7 @@ class MessageDetailViewController: UITableViewController {
 		case archive:
 			let cont = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
 			cont.addAction(UIAlertAction(title: "Archive", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-				message?.removeLabelWithID("INBOX")
+				message?.moveToArchive()
 				// TODO: Add success message
 			}))
 			cont.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))

@@ -9,6 +9,7 @@
 import Foundation
 import HandlerSDK
 import KeychainAccess
+import TwitterKit
 
 class APICommunicator: NSObject {
 	static let sharedInstance = APICommunicator()
@@ -17,7 +18,10 @@ class APICommunicator: NSObject {
 		super.init()
 		
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidAuth", name: HRUserSessionDidStartNotification, object: nil)
-		
+		checkForCurrentSessionOrAuth()		
+	}
+	
+	func checkForCurrentSessionOrAuth(){
 		if let authToken = Keychain(service: "com.handlerapp.Handler")[string: "authToken"], let expirationData = Keychain(service: "com.handlerapp.Handler")[data: "expirationDate"], let expirationDate = NSKeyedUnarchiver.unarchiveObjectWithData(expirationData) as? NSDate {
 			if expirationDate.timeIntervalSince1970 <= NSDate().timeIntervalSince1970 {
 				print("Session has expired")
@@ -27,18 +31,28 @@ class APICommunicator: NSObject {
 				} catch {
 					print(error)
 				}
-				HROAuthManager.startOAuth()
+				if let session = Twitter.sharedInstance().sessionStore.session() as? TWTRSession {
+					let oauthSigning = TWTROAuthSigning(authConfig:Twitter.sharedInstance().authConfig, authSession:session)
+					HRTwitterAuthManager.startAuth(oauthSigning.OAuthEchoHeadersToVerifyCredentials(), callback: { (error) -> Void in
+						print(error)
+					})
+				}else{
+					AppDelegate.sharedInstance().window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
+				}
 			}else{
 				print(authToken)
 				HRUserSessionManager.updateCurrentSession(token: authToken, expiryDate: expirationDate)
 			}
 		}else{
-			HROAuthManager.startOAuth()
+			if let session = Twitter.sharedInstance().sessionStore.session() as? TWTRSession {
+				let oauthSigning = TWTROAuthSigning(authConfig:Twitter.sharedInstance().authConfig, authSession:session)
+				HRTwitterAuthManager.startAuth(oauthSigning.OAuthEchoHeadersToVerifyCredentials(), callback: { (error) -> Void in
+					print(error)
+				})
+			}else{
+				AppDelegate.sharedInstance().window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
+			}
 		}
-	}
-	
-	func checkForCurrentSessionOrAuth(){
-		
 	}
 	
 	func userDidAuth(){
@@ -54,8 +68,12 @@ class APICommunicator: NSObject {
 			print(error)
 		}
 		
-		fetchNewMessage()
+		fetchNewMessages(nil)
 		fetchNewLabels()
+	}
+	
+	func fetchNewMessagseWithCompletion(completion: (error: NSError?)->Void){
+		fetchNewMessages(completion)
 	}
 	
 	private func fetchNewLabels(){
@@ -67,20 +85,21 @@ class APICommunicator: NSObject {
 			for label in labels {
 				MailDatabaseManager.sharedInstance.storeLabel(label)
 			}
-
+			
 		}
 	}
 	
-	private func fetchNewMessage(){
-		HandlerAPI.getNewMessageWithCallback() { (messages, error) -> Void in
+	private func fetchNewMessages(completion: ((error: NSError?)->Void)?){
+		HandlerAPI.getNewMessagesWithCallback() { (messages, error) -> Void in
 			guard let messages = messages else {
 				print(error)
+				completion?(error: error)
 				return
 			}
 			for message in messages {
 				MailDatabaseManager.sharedInstance.storeMessage(message)
 			}
-
+			
 		}
 	}
 }

@@ -288,7 +288,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="mailCell" id="Jlx-ob-tPI" customClass="MessageTableViewCell" customModule="Handler" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="94"/>
+                                <rect key="frame" x="0.0" y="92" width="375" height="94"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Jlx-ob-tPI" id="jvc-Qm-8y4">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="93.5"/>
@@ -417,7 +417,7 @@
                             <tableViewSection id="RIC-yN-exa">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="90" id="Wk4-hG-05I">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
+                                        <rect key="frame" x="0.0" y="64" width="375" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Wk4-hG-05I" id="1B8-Qp-xdI">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="89.5"/>
@@ -487,7 +487,7 @@
                                         <animations/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="90" id="ZsX-09-miv">
-                                        <rect key="frame" x="0.0" y="90" width="375" height="90"/>
+                                        <rect key="frame" x="0.0" y="154" width="375" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZsX-09-miv" id="IUi-gW-5Gi">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="89.5"/>
@@ -982,7 +982,7 @@
         <image name="orange dot sm copy" width="27" height="27"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="FuE-Pp-2sp"/>
-        <segue reference="9Tl-Gf-wkv"/>
+        <segue reference="z5m-Xz-TsX"/>
+        <segue reference="37u-X4-Rqh"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -37,7 +37,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 			self.profileHandleLabel.text = user.handle
 			self.profileNameLabel.text = user.name
 			if let url = NSURL(string: user.picture_url) {
-				self.profileImageView.sd_setImageWithURL(url)
+				self.profileImageView.sd_setImageWithURL(url, placeholderImage: UIImage.randomGhostImage())
 			}
 		}
 	}

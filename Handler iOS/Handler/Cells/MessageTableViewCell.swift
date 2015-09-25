@@ -39,7 +39,7 @@ class MessageTableViewCell: SWTableViewCell {
 			
 			if let message = message {
 				if let urlString = message.sender?.profile_picture_url, let profileUrl = NSURL(string: urlString) {
-					senderProfileImageView.sd_setImageWithURL(profileUrl)
+					senderProfileImageView.sd_setImageWithURL(profileUrl, placeholderImage: UIImage.randomGhostImage())
 				}
 				senderNameLabel.text = message.sender?.name
 				if let handle = message.sender?.handle {
@@ -58,6 +58,8 @@ class MessageTableViewCell: SWTableViewCell {
 	func refreshFlags(){
 		if message?.isUnread ?? false {
 			readFlaggedImageView.image = UIImage(named: "blue dot sm copy")
+		}else{
+			readFlaggedImageView.image = nil
 		}
 	}
 	

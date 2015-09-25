@@ -71,7 +71,7 @@ class ThreadTableViewController: UITableViewController, SWTableViewCellDelegate 
 	
 	func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerLeftUtilityButtonWithIndex index: Int) {
 		if let cell = cell as? MessageTableViewCell, let message = cell.message {
-			message.addLabelWithID("UNREAD")
+			message.markAsUnread()
 			cell.message = message
 		}
 	}
@@ -84,7 +84,7 @@ class ThreadTableViewController: UITableViewController, SWTableViewCellDelegate 
 				break;
 			case 1:
 				// Flag
-				message.addLabelWithID("FLAGGED")
+				message.flag()
 				break;
 			case 2:
 				// Archive

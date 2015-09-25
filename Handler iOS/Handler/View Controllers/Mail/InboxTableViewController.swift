@@ -32,9 +32,22 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 		super.viewDidLoad()
 		
 		tableView.tableFooterView = UIView()
+		self.refreshControl = UIRefreshControl()
+		self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+		self.tableView.addSubview(refreshControl!)
 		
 		MailboxObserversManager.sharedInstance.addObserverForMailboxType(.Inbox, observer: self)
 		MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(.Inbox, observer: self)
+	}
+	
+	func refresh(control: UIRefreshControl){
+		APICommunicator.sharedInstance.fetchNewMessagseWithCompletion { (error) -> Void in
+			control.endRefreshing()
+			guard let error = error else {
+				return
+			}
+			print(error)
+		}
 	}
 	
 	override func viewDidAppear(animated: Bool) {
@@ -52,6 +65,7 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 		newEmailsLabel?.textAlignment = .Center
 		newEmailsLabel?.font = UIFont.systemFontOfSize(10)
 		newEmailsLabel?.textColor = UIColor.darkGrayColor()
+		MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(.Unread, observer: self)
 
 		let containerView = UIView(frame: CGRectMake(0, 0, 140, 44))
 		containerView.addSubview(lastupdatedLabel!)
@@ -138,7 +152,12 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 	
 	func mailboxCountDidChange(mailboxType: MailboxType, newCount: Int) {
 		if mailboxType == MailboxType.Unread {
-			newEmailsLabel?.text = "\(newCount) unread emails"
+			if newCount != 0 {
+				let emailsText = newCount == 1 ? "email" : "emails"
+				newEmailsLabel?.text = "\(newCount) unread " + emailsText
+			}else{
+				newEmailsLabel?.text = "No new emails"
+			}
 		}
 	}
 	
@@ -152,7 +171,7 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 	
 	func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerLeftUtilityButtonWithIndex index: Int) {
 		if let cell = cell as? MessageTableViewCell, let message = cell.message {
-			message.addLabelWithID("UNREAD")
+			message.markAsUnread()
 			cell.message = message
 		}
 	}
@@ -165,7 +184,7 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 				break;
 			case 1:
 				// Flag
-				message.addLabelWithID("FLAGGED")
+				message.flag()
 				break;
 			case 2:
 				// Archive

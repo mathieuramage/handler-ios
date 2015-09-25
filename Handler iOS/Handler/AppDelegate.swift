@@ -19,9 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
-
+		
+		Twitter.sharedInstance().startWithConsumerKey("d6IKDpduuacAAHgtVydTvMo6t", consumerSecret: "tjaZYfuxDaEqY1RxLse0KvNzvCYPYpq57EgE0uawo2cuMzVoAE")
 		APICommunicator.sharedInstance
-		Fabric.with([Twitter.self()])
+		Fabric.with([Twitter.sharedInstance()])
 		
 		let menuViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SideMenuViewController") as! SideMenuViewController
 		let mainController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("MainNavigationController")
@@ -32,9 +33,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		sideMenu?.leftMenuRightInset = 30
 		sideMenu?.menuViewControllerTransformation
 		sideMenu?.statusBarStyle = SSASideMenu.SSAStatusBarStyle.Hidden
-		window?.rootViewController = sideMenu
-//		window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
+		if let _ = Twitter.sharedInstance().sessionStore.session() {
+			window?.rootViewController = sideMenu
+		}else{
+			window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
+		}
 		window?.makeKeyAndVisible()
+		
+		
+		let settings = UIUserNotificationSettings(forTypes: [UIUserNotificationType.Badge, UIUserNotificationType.Sound, UIUserNotificationType.Alert], categories: nil)
+		UIApplication.sharedApplication().registerUserNotificationSettings(settings)
+		UIApplication.sharedApplication().registerForRemoteNotifications()
 		return true
 	}
 	
@@ -42,6 +51,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		print(url)
 		HROAuthManager.handleIncomingAuthURL(url)
 		return true
+	}
+	
+	// MARK: Push
+	
+	func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+		print(error)
+	}
+	
+	func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+		print(deviceToken.hexadecimalString)
+		print("Successfully registered")
+	}
+	
+	
+	func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+		if let id = userInfo["id"] as? String {
+			HandlerAPI.getMessageWithCallback(id, callback: { (message, error) -> Void in
+				guard let message = message else {
+					print(error)
+					completionHandler(UIBackgroundFetchResult.Failed)
+					return
+				}
+				UIApplication.sharedApplication().applicationIconBadgeNumber += 1
+				let not = UILocalNotification()
+				not.alertBody = message.content
+				not.alertTitle = "New message from: @\(message.sender?.handle)"
+				not.userInfo = ["messageID":message.id]
+				
+				UIApplication.sharedApplication().presentLocalNotificationNow(not)
+				completionHandler(UIBackgroundFetchResult.NewData)
+			})
+		}else{
+			completionHandler(UIBackgroundFetchResult.NoData)
+		}
 	}
 	
 	func applicationWillResignActive(application: UIApplication) {
