@@ -9,7 +9,7 @@
 #ifndef Handler_Bridging_Header_h
 #define Handler_Bridging_Header_h
 
-#import "Resources/TTTTimeIntervalFormatter.h"
-#import "Resources/SWTableViewCell.h"
+#import "TTTTimeIntervalFormatter.h"
+#import "SWTableViewCell.h"
 
 #endif /* Handler_Bridging_Header_h */

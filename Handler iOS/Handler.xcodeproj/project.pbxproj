@@ -180,7 +180,7 @@
 		2FF0D1391BB4C386009467B5 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		DF1FD2D81B62360600A58B71 /* Handler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Handler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF1FD2DC1B62360600A58B71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DF1FD2DD1B62360600A58B71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Handler/AppDelegate.swift; sourceTree = "<group>"; };
+		DF1FD2DD1B62360600A58B71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DF1FD2E41B62360600A58B71 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DF1FD2E71B62360600A58B71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		DF1FD2ED1B62360600A58B71 /* HandlerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HandlerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -238,9 +238,9 @@
 			isa = PBXGroup;
 			children = (
 				2FDDE0E21BAEA92E006C3500 /* Models */,
-				2FA2EA6B1BAC4EA80027EA77 /* MailDatabaseManager.swift */,
-				2FA2EA6E1BAC4F670027EA77 /* HandlerDatabaseModel.xcdatamodeld */,
 				2FDDE1021BAEBFE9006C3500 /* APICommunicator.swift */,
+				2FA2EA6E1BAC4F670027EA77 /* HandlerDatabaseModel.xcdatamodeld */,
+				2FA2EA6B1BAC4EA80027EA77 /* MailDatabaseManager.swift */,
 				2F76D4CF1BB48F1600235A95 /* MailboxObserversManager.swift */,
 			);
 			path = Database;
@@ -260,8 +260,8 @@
 		2FA2EA8F1BAD9D1F0027EA77 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				2FF0D1371BB4BC4E009467B5 /* SwipeCell */,
 				2FF0D1381BB4BC57009467B5 /* Formatters */,
+				2FF0D1371BB4BC4E009467B5 /* SwipeCell */,
 				DF1FD2E41B62360600A58B71 /* Images.xcassets */,
 				2FA2EA8D1BAD9CBA0027EA77 /* Main.storyboard */,
 			);
@@ -272,7 +272,7 @@
 			isa = PBXGroup;
 			children = (
 			);
-			name = Authentication;
+			path = Authentication;
 			sourceTree = "<group>";
 		};
 		2FDB52021BA8BC12003C074F /* Frameworks */ = {
@@ -306,10 +306,10 @@
 			children = (
 				2FDDE0F71BAEAA27006C3500 /* Attatchment+CoreDataProperties.swift */,
 				2FDDE0F81BAEAA27006C3500 /* Attatchment.swift */,
-				2FDDE0E31BAEA957006C3500 /* Message+CoreDataProperties.swift */,
-				2FDDE0E41BAEA957006C3500 /* Message.swift */,
 				2FDDE0E51BAEA957006C3500 /* Label+CoreDataProperties.swift */,
 				2FDDE0E61BAEA957006C3500 /* Label.swift */,
+				2FDDE0E31BAEA957006C3500 /* Message+CoreDataProperties.swift */,
+				2FDDE0E41BAEA957006C3500 /* Message.swift */,
 				2FDDE0E71BAEA957006C3500 /* Thread+CoreDataProperties.swift */,
 				2FDDE0E81BAEA957006C3500 /* Thread.swift */,
 				2FDDE0E91BAEA957006C3500 /* User+CoreDataProperties.swift */,
@@ -321,14 +321,14 @@
 		2FDDE0FF1BAEB270006C3500 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				2F4E41541BB08A3200AA2DEF /* SSASideMenu.swift */,
-				2FDDE0FD1BAEB26C006C3500 /* NSManagedObject+Convenience.swift */,
-				2FDDE1001BAEB5A6006C3500 /* NSDate+FromString.swift */,
-				2FDDE1411BAF5A17006C3500 /* Protocols.swift */,
-				2F4E41561BB0977C00AA2DEF /* UIButton+ImageFitting.swift */,
 				2F4E41601BB0AC4A00AA2DEF /* CALayer+Extensions.swift */,
-				2F994E531BB2AE8100A63B9B /* UIColor+HandlerColors.swift */,
+				2FDDE1001BAEB5A6006C3500 /* NSDate+FromString.swift */,
+				2FDDE0FD1BAEB26C006C3500 /* NSManagedObject+Convenience.swift */,
+				2FDDE1411BAF5A17006C3500 /* Protocols.swift */,
+				2F4E41541BB08A3200AA2DEF /* SSASideMenu.swift */,
 				2FF0D1391BB4C386009467B5 /* String+Extensions.swift */,
+				2F4E41561BB0977C00AA2DEF /* UIButton+ImageFitting.swift */,
+				2F994E531BB2AE8100A63B9B /* UIColor+HandlerColors.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -344,21 +344,21 @@
 		2FF0D1331BB4BC31009467B5 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
-				2F4E414C1BB061C500AA2DEF /* SideMenuViewController.swift */,
 				2FB5A4461BB20A6E0087D006 /* MailBoxOptionsTableViewController.swift */,
+				2F4E414C1BB061C500AA2DEF /* SideMenuViewController.swift */,
 			);
-			name = Menu;
+			path = Menu;
 			sourceTree = "<group>";
 		};
 		2FF0D1341BB4BC3A009467B5 /* Mail */ = {
 			isa = PBXGroup;
 			children = (
+				2FF0D1311BB4BAAB009467B5 /* GenericMailboxTableViewController.swift */,
 				2FDDE1431BB01AD3006C3500 /* InboxTableViewController.swift */,
 				2F41F3131BB357B6003276E0 /* MessageDetailViewController.swift */,
 				2FF0D12F1BB4A802009467B5 /* ThreadTableViewController.swift */,
-				2FF0D1311BB4BAAB009467B5 /* GenericMailboxTableViewController.swift */,
 			);
-			name = Mail;
+			path = Mail;
 			sourceTree = "<group>";
 		};
 		2FF0D1351BB4BC40009467B5 /* Utility */ = {
@@ -366,7 +366,7 @@
 			children = (
 				2F4E41621BB0AC7300AA2DEF /* GradientNavigationController.swift */,
 			);
-			name = Utility;
+			path = Utility;
 			sourceTree = "<group>";
 		};
 		2FF0D1361BB4BC46009467B5 /* Login */ = {
@@ -374,7 +374,7 @@
 			children = (
 				2FA2EA8B1BAD9C970027EA77 /* LoginViewController.swift */,
 			);
-			name = Login;
+			path = Login;
 			sourceTree = "<group>";
 		};
 		2FF0D1371BB4BC4E009467B5 /* SwipeCell */ = {
@@ -393,7 +393,7 @@
 				2F994E4B1BB2AE3500A63B9B /* SWUtilityButtonView.h */,
 				2F994E4C1BB2AE3500A63B9B /* SWUtilityButtonView.m */,
 			);
-			name = SwipeCell;
+			path = SwipeCell;
 			sourceTree = "<group>";
 		};
 		2FF0D1381BB4BC57009467B5 /* Formatters */ = {
@@ -402,15 +402,14 @@
 				2F8E37991BB1E95000C6A82D /* TTTTimeIntervalFormatter.h */,
 				2F8E379A1BB1E95000C6A82D /* TTTTimeIntervalFormatter.m */,
 			);
-			name = Formatters;
+			path = Formatters;
 			sourceTree = "<group>";
 		};
 		DF1FD2CF1B62360600A58B71 = {
 			isa = PBXGroup;
 			children = (
-				DF1FD2DA1B62360600A58B71 /* Handler */,
-				DF1FD2DD1B62360600A58B71 /* AppDelegate.swift */,
 				2FDB52021BA8BC12003C074F /* Frameworks */,
+				DF1FD2DA1B62360600A58B71 /* Handler */,
 				DF1FD2D91B62360600A58B71 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -427,14 +426,15 @@
 		DF1FD2DA1B62360600A58B71 /* Handler */ = {
 			isa = PBXGroup;
 			children = (
-				2F4E415C1BB0A11700AA2DEF /* Cells */,
-				2FDDE1451BB04F8A006C3500 /* Views */,
+				DF1FD2DD1B62360600A58B71 /* AppDelegate.swift */,
 				2FA2EA941BADA6240027EA77 /* Authentication */,
+				2F4E415C1BB0A11700AA2DEF /* Cells */,
 				2FA2EA6D1BAC4EAC0027EA77 /* Database */,
-				2FA2EA8A1BAD9C7A0027EA77 /* View Controllers */,
+				2FDDE0FF1BAEB270006C3500 /* Extensions */,
 				2FA2EA8F1BAD9D1F0027EA77 /* Resources */,
 				DF1FD2DB1B62360600A58B71 /* Supporting Files */,
-				2FDDE0FF1BAEB270006C3500 /* Extensions */,
+				2FA2EA8A1BAD9C7A0027EA77 /* View Controllers */,
+				2FDDE1451BB04F8A006C3500 /* Views */,
 			);
 			path = Handler;
 			sourceTree = "<group>";
@@ -443,10 +443,10 @@
 			isa = PBXGroup;
 			children = (
 				2F8E37971BB1E91D00C6A82D /* Handler-Bridging-Header.h */,
-				DF1FD2E61B62360600A58B71 /* LaunchScreen.xib */,
 				DF1FD2DC1B62360600A58B71 /* Info.plist */,
+				DF1FD2E61B62360600A58B71 /* LaunchScreen.xib */,
 			);
-			name = "Supporting Files";
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -637,6 +637,7 @@
 				DF1FD2E71B62360600A58B71 /* Base */,
 			);
 			name = LaunchScreen.xib;
+			path = .;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -730,13 +731,13 @@
 					"$(PROJECT_DIR)",
 					"$(SRCROOT)",
 				);
-				INFOPLIST_FILE = Handler/Info.plist;
+				INFOPLIST_FILE = "Handler/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.handlerapp.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "Handler/Handler-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Handler/Supporting Files/Handler-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -750,13 +751,13 @@
 					"$(PROJECT_DIR)",
 					"$(SRCROOT)",
 				);
-				INFOPLIST_FILE = Handler/Info.plist;
+				INFOPLIST_FILE = "Handler/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.handlerapp.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "Handler/Handler-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Handler/Supporting Files/Handler-Bridging-Header.h";
 			};
 			name = Release;
 		};
