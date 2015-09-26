@@ -11,5 +11,6 @@
 
 #import "TTTTimeIntervalFormatter.h"
 #import "SWTableViewCell.h"
+#import "CLTokenInputView.h"
 
 #endif /* Handler_Bridging_Header_h */

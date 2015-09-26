@@ -46,7 +46,8 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 			guard let error = error else {
 				return
 			}
-			print(error)
+			print(error.detail)
+
 		}
 	}
 	
@@ -79,7 +80,7 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 	}
 	
 	func composeNewMessage(item: UIBarButtonItem){
-		
+		performSegueWithIdentifier("showMessageComposeNavigationController", sender: self)
 	}
 	
 	@IBAction func showSideMenu(sender: UIBarButtonItem) {

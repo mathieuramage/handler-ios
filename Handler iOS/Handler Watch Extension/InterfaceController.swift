@@ -8,13 +8,26 @@
 
 import WatchKit
 import Foundation
-
+import CoreData
 
 class InterfaceController: WKInterfaceController {
 
+	@IBOutlet var tableView: WKInterfaceTable!
+	
+	
     override func awakeWithContext(context: AnyObject?) {
         super.awakeWithContext(context)
-        
+		
+		
+		let messages = WatchDatabaseManager().fetchMessages() ?? [NSManagedObject]()
+		tableView.setNumberOfRows(messages.count, withRowType: "mailRow")
+		
+		for var i = 0; i < messages.count; i++ {
+			let message = messages[i]
+			let row = tableView.rowControllerAtIndex(i) as! MailRow
+			row.message = message
+		}
+
         // Configure interface objects here.
     }
 

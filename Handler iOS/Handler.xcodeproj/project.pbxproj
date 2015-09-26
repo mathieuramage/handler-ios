@@ -27,6 +27,10 @@
 		2F994E511BB2AE3500A63B9B /* SWUtilityButtonTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F994E4A1BB2AE3500A63B9B /* SWUtilityButtonTapGestureRecognizer.m */; settings = {ASSET_TAGS = (); }; };
 		2F994E521BB2AE3500A63B9B /* SWUtilityButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F994E4C1BB2AE3500A63B9B /* SWUtilityButtonView.m */; settings = {ASSET_TAGS = (); }; };
 		2F994E541BB2AE8100A63B9B /* UIColor+HandlerColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F994E531BB2AE8100A63B9B /* UIColor+HandlerColors.swift */; settings = {ASSET_TAGS = (); }; };
+		2FA271A11BB69ED000B22C8B /* CLBackspaceDetectingTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA2719A1BB69ED000B22C8B /* CLBackspaceDetectingTextField.m */; settings = {ASSET_TAGS = (); }; };
+		2FA271A21BB69ED000B22C8B /* CLToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA2719C1BB69ED000B22C8B /* CLToken.m */; settings = {ASSET_TAGS = (); }; };
+		2FA271A31BB69ED000B22C8B /* CLTokenInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA2719E1BB69ED000B22C8B /* CLTokenInputView.m */; settings = {ASSET_TAGS = (); }; };
+		2FA271A41BB69ED000B22C8B /* CLTokenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA271A01BB69ED000B22C8B /* CLTokenView.m */; settings = {ASSET_TAGS = (); }; };
 		2FA2EA6C1BAC4EA80027EA77 /* MailDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA2EA6B1BAC4EA80027EA77 /* MailDatabaseManager.swift */; settings = {ASSET_TAGS = (); }; };
 		2FA2EA701BAC4F670027EA77 /* HandlerDatabaseModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2FA2EA6E1BAC4F670027EA77 /* HandlerDatabaseModel.xcdatamodeld */; settings = {ASSET_TAGS = (); }; };
 		2FA2EA811BAD9C570027EA77 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FA2EA781BAD9C570027EA77 /* CoreGraphics.framework */; settings = {ASSET_TAGS = (); }; };
@@ -88,6 +92,12 @@
 		2FF7880F1BB5A2F600B297D3 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF7880E1BB5A2F600B297D3 /* NotificationController.swift */; };
 		2FF788111BB5A2F600B297D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2FF788101BB5A2F600B297D3 /* Assets.xcassets */; };
 		2FF788151BB5A2F600B297D3 /* Handler Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 2FF787F71BB5A2F600B297D3 /* Handler Watch.app */; };
+		2FF7882A1BB5C53000B297D3 /* MailRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF788291BB5C53000B297D3 /* MailRow.swift */; settings = {ASSET_TAGS = (); }; };
+		2FF788391BB5C6E700B297D3 /* Enumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF788381BB5C6E700B297D3 /* Enumerations.swift */; settings = {ASSET_TAGS = (); }; };
+		2FF7883A1BB5C6EB00B297D3 /* Enumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF788381BB5C6E700B297D3 /* Enumerations.swift */; settings = {ASSET_TAGS = (); }; };
+		2FF788401BB5C80E00B297D3 /* WatchDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF7883F1BB5C80E00B297D3 /* WatchDatabaseManager.swift */; settings = {ASSET_TAGS = (); }; };
+		2FF788411BB5C9E700B297D3 /* HandlerDatabaseModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2FA2EA6E1BAC4F670027EA77 /* HandlerDatabaseModel.xcdatamodeld */; settings = {ASSET_TAGS = (); }; };
+		2FF788441BB5CB1B00B297D3 /* MessageComposeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF788431BB5CB1B00B297D3 /* MessageComposeTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		DF1FD2DE1B62360600A58B71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1FD2DD1B62360600A58B71 /* AppDelegate.swift */; };
 		DF1FD2E51B62360600A58B71 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF1FD2E41B62360600A58B71 /* Images.xcassets */; };
 		DF1FD2E81B62360600A58B71 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF1FD2E61B62360600A58B71 /* LaunchScreen.xib */; };
@@ -179,6 +189,14 @@
 		2F994E4B1BB2AE3500A63B9B /* SWUtilityButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWUtilityButtonView.h; sourceTree = "<group>"; };
 		2F994E4C1BB2AE3500A63B9B /* SWUtilityButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWUtilityButtonView.m; sourceTree = "<group>"; };
 		2F994E531BB2AE8100A63B9B /* UIColor+HandlerColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+HandlerColors.swift"; sourceTree = "<group>"; };
+		2FA271991BB69ED000B22C8B /* CLBackspaceDetectingTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLBackspaceDetectingTextField.h; sourceTree = "<group>"; };
+		2FA2719A1BB69ED000B22C8B /* CLBackspaceDetectingTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLBackspaceDetectingTextField.m; sourceTree = "<group>"; };
+		2FA2719B1BB69ED000B22C8B /* CLToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLToken.h; sourceTree = "<group>"; };
+		2FA2719C1BB69ED000B22C8B /* CLToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLToken.m; sourceTree = "<group>"; };
+		2FA2719D1BB69ED000B22C8B /* CLTokenInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLTokenInputView.h; sourceTree = "<group>"; };
+		2FA2719E1BB69ED000B22C8B /* CLTokenInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLTokenInputView.m; sourceTree = "<group>"; };
+		2FA2719F1BB69ED000B22C8B /* CLTokenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLTokenView.h; sourceTree = "<group>"; };
+		2FA271A01BB69ED000B22C8B /* CLTokenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLTokenView.m; sourceTree = "<group>"; };
 		2FA2EA6B1BAC4EA80027EA77 /* MailDatabaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MailDatabaseManager.swift; sourceTree = "<group>"; };
 		2FA2EA6F1BAC4F670027EA77 /* HandlerDatabaseModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HandlerDatabaseModel.xcdatamodel; sourceTree = "<group>"; };
 		2FA2EA781BAD9C570027EA77 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -236,6 +254,10 @@
 		2FF788261BB5B05000B297D3 /* Handler.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Handler.entitlements; sourceTree = "<group>"; };
 		2FF788271BB5B0C100B297D3 /* Handler Watch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Handler Watch.entitlements"; sourceTree = "<group>"; };
 		2FF788281BB5B0D200B297D3 /* Handler Watch Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Handler Watch Extension.entitlements"; sourceTree = "<group>"; };
+		2FF788291BB5C53000B297D3 /* MailRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MailRow.swift; sourceTree = "<group>"; };
+		2FF788381BB5C6E700B297D3 /* Enumerations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enumerations.swift; sourceTree = "<group>"; };
+		2FF7883F1BB5C80E00B297D3 /* WatchDatabaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchDatabaseManager.swift; sourceTree = "<group>"; };
+		2FF788431BB5CB1B00B297D3 /* MessageComposeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageComposeTableViewController.swift; sourceTree = "<group>"; };
 		DF1FD2D81B62360600A58B71 /* Handler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Handler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF1FD2DC1B62360600A58B71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF1FD2DD1B62360600A58B71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -293,6 +315,21 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		2FA271981BB69EB300B22C8B /* CLTokenInputView */ = {
+			isa = PBXGroup;
+			children = (
+				2FA271991BB69ED000B22C8B /* CLBackspaceDetectingTextField.h */,
+				2FA2719A1BB69ED000B22C8B /* CLBackspaceDetectingTextField.m */,
+				2FA2719B1BB69ED000B22C8B /* CLToken.h */,
+				2FA2719C1BB69ED000B22C8B /* CLToken.m */,
+				2FA2719D1BB69ED000B22C8B /* CLTokenInputView.h */,
+				2FA2719E1BB69ED000B22C8B /* CLTokenInputView.m */,
+				2FA2719F1BB69ED000B22C8B /* CLTokenView.h */,
+				2FA271A01BB69ED000B22C8B /* CLTokenView.m */,
+			);
+			path = CLTokenInputView;
+			sourceTree = "<group>";
+		};
 		2FA2EA6D1BAC4EAC0027EA77 /* Database */ = {
 			isa = PBXGroup;
 			children = (
@@ -308,6 +345,7 @@
 		2FA2EA8A1BAD9C7A0027EA77 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				2FF788421BB5CAF600B297D3 /* Composer */,
 				2FF0D1361BB4BC46009467B5 /* Login */,
 				2FF0D1341BB4BC3A009467B5 /* Mail */,
 				2FF0D1331BB4BC31009467B5 /* Menu */,
@@ -319,6 +357,7 @@
 		2FA2EA8F1BAD9D1F0027EA77 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2FA271981BB69EB300B22C8B /* CLTokenInputView */,
 				2FF0D1381BB4BC57009467B5 /* Formatters */,
 				2FF0D1371BB4BC4E009467B5 /* SwipeCell */,
 				DF1FD2E41B62360600A58B71 /* Images.xcassets */,
@@ -390,6 +429,7 @@
 				2F4E41561BB0977C00AA2DEF /* UIButton+ImageFitting.swift */,
 				2F994E531BB2AE8100A63B9B /* UIColor+HandlerColors.swift */,
 				2FB0E9441BB5718600A0426E /* UIImage+HanderImages.swift */,
+				2FF788381BB5C6E700B297D3 /* Enumerations.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -487,6 +527,8 @@
 				2FF788101BB5A2F600B297D3 /* Assets.xcassets */,
 				2FF788121BB5A2F600B297D3 /* Info.plist */,
 				2FF788081BB5A2F600B297D3 /* Supporting Files */,
+				2FF788291BB5C53000B297D3 /* MailRow.swift */,
+				2FF7883F1BB5C80E00B297D3 /* WatchDatabaseManager.swift */,
 			);
 			path = "Handler Watch Extension";
 			sourceTree = "<group>";
@@ -497,6 +539,14 @@
 				2FF788091BB5A2F600B297D3 /* PushNotificationPayload.apns */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2FF788421BB5CAF600B297D3 /* Composer */ = {
+			isa = PBXGroup;
+			children = (
+				2FF788431BB5CB1B00B297D3 /* MessageComposeTableViewController.swift */,
+			);
+			path = Composer;
 			sourceTree = "<group>";
 		};
 		DF1FD2CF1B62360600A58B71 = {
@@ -737,9 +787,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FF788401BB5C80E00B297D3 /* WatchDatabaseManager.swift in Sources */,
+				2FF788411BB5C9E700B297D3 /* HandlerDatabaseModel.xcdatamodeld in Sources */,
 				2FF7880F1BB5A2F600B297D3 /* NotificationController.swift in Sources */,
 				2FF7880D1BB5A2F600B297D3 /* ExtensionDelegate.swift in Sources */,
 				2FF7880B1BB5A2F600B297D3 /* InterfaceController.swift in Sources */,
+				2FF7882A1BB5C53000B297D3 /* MailRow.swift in Sources */,
+				2FF7883A1BB5C6EB00B297D3 /* Enumerations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -749,6 +803,7 @@
 			files = (
 				2FA2EA8C1BAD9C970027EA77 /* LoginViewController.swift in Sources */,
 				2FDDE0FA1BAEAA27006C3500 /* Attatchment.swift in Sources */,
+				2FA271A31BB69ED000B22C8B /* CLTokenInputView.m in Sources */,
 				2F994E521BB2AE3500A63B9B /* SWUtilityButtonView.m in Sources */,
 				2F4E41611BB0AC4A00AA2DEF /* CALayer+Extensions.swift in Sources */,
 				2FDDE0F21BAEA957006C3500 /* Thread.swift in Sources */,
@@ -757,9 +812,11 @@
 				2F4E415E1BB0A13700AA2DEF /* MessageTableViewCell.swift in Sources */,
 				2FDDE1421BAF5A17006C3500 /* Protocols.swift in Sources */,
 				2F994E4E1BB2AE3500A63B9B /* SWCellScrollView.m in Sources */,
+				2FA271A11BB69ED000B22C8B /* CLBackspaceDetectingTextField.m in Sources */,
 				2FDDE1031BAEBFE9006C3500 /* APICommunicator.swift in Sources */,
 				2FF0D1301BB4A802009467B5 /* ThreadTableViewController.swift in Sources */,
 				2F41F3141BB357B6003276E0 /* MessageDetailViewController.swift in Sources */,
+				2FA271A21BB69ED000B22C8B /* CLToken.m in Sources */,
 				2FDDE1471BB04FA4006C3500 /* WhiteBorderImageView.swift in Sources */,
 				DF1FD2DE1B62360600A58B71 /* AppDelegate.swift in Sources */,
 				2F4E41551BB08A3200AA2DEF /* SSASideMenu.swift in Sources */,
@@ -767,6 +824,7 @@
 				2F76D4D01BB48F1600235A95 /* MailboxObserversManager.swift in Sources */,
 				2FDDE0EE1BAEA957006C3500 /* Message.swift in Sources */,
 				2FDDE0ED1BAEA957006C3500 /* Message+CoreDataProperties.swift in Sources */,
+				2FF788441BB5CB1B00B297D3 /* MessageComposeTableViewController.swift in Sources */,
 				2FF0D13A1BB4C386009467B5 /* String+Extensions.swift in Sources */,
 				2FDDE1011BAEB5A6006C3500 /* NSDate+FromString.swift in Sources */,
 				2F8E379B1BB1E95000C6A82D /* TTTTimeIntervalFormatter.m in Sources */,
@@ -782,9 +840,11 @@
 				2FDDE0FE1BAEB26C006C3500 /* NSManagedObject+Convenience.swift in Sources */,
 				2FDDE0F41BAEA957006C3500 /* User.swift in Sources */,
 				2FDDE0F01BAEA957006C3500 /* Label.swift in Sources */,
+				2FF788391BB5C6E700B297D3 /* Enumerations.swift in Sources */,
 				2F994E541BB2AE8100A63B9B /* UIColor+HandlerColors.swift in Sources */,
 				2F994E4D1BB2AE3500A63B9B /* NSMutableArray+SWUtilityButtons.m in Sources */,
 				2FF0D1321BB4BAAB009467B5 /* GenericMailboxTableViewController.swift in Sources */,
+				2FA271A41BB69ED000B22C8B /* CLTokenView.m in Sources */,
 				2FDDE0EF1BAEA957006C3500 /* Label+CoreDataProperties.swift in Sources */,
 				2F994E511BB2AE3500A63B9B /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
 				2FDDE0F11BAEA957006C3500 /* Thread+CoreDataProperties.swift in Sources */,
@@ -1052,6 +1112,7 @@
 				2FF788181BB5A2F700B297D3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2FF7881A1BB5A2F700B297D3 /* Build configuration list for PBXNativeTarget "Handler Watch" */ = {
 			isa = XCConfigurationList;
@@ -1060,6 +1121,7 @@
 				2FF7881C1BB5A2F700B297D3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DF1FD2D31B62360600A58B71 /* Build configuration list for PBXProject "Handler" */ = {
 			isa = XCConfigurationList;

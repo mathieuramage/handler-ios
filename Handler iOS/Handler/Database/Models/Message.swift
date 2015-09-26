@@ -22,6 +22,7 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		message.fetchLabels { (labels, error) -> Void in
 			guard let labels = labels else {
 				print(error)
+
 				return
 			}
 			
@@ -82,7 +83,8 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		if let id = self.id {
 			HandlerAPI.setLabelsToMessageWithID(id, labels: hrTypeLabels(), completion: { (labels, error) -> Void in
 				guard let labels = labels else {
-					print(error)
+									print(error?.detail)
+
 					return
 				}
 				

@@ -34,7 +34,8 @@ class APICommunicator: NSObject {
 				if let session = Twitter.sharedInstance().sessionStore.session() as? TWTRSession {
 					let oauthSigning = TWTROAuthSigning(authConfig:Twitter.sharedInstance().authConfig, authSession:session)
 					HRTwitterAuthManager.startAuth(oauthSigning.OAuthEchoHeadersToVerifyCredentials(), callback: { (error) -> Void in
-						print(error)
+							print(error)
+
 					})
 				}else{
 					AppDelegate.sharedInstance().window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
@@ -47,7 +48,8 @@ class APICommunicator: NSObject {
 			if let session = Twitter.sharedInstance().sessionStore.session() as? TWTRSession {
 				let oauthSigning = TWTROAuthSigning(authConfig:Twitter.sharedInstance().authConfig, authSession:session)
 				HRTwitterAuthManager.startAuth(oauthSigning.OAuthEchoHeadersToVerifyCredentials(), callback: { (error) -> Void in
-					print(error)
+						print(error)
+
 				})
 			}else{
 				AppDelegate.sharedInstance().window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
@@ -65,21 +67,23 @@ class APICommunicator: NSObject {
 			try Keychain(service: "com.handlerapp.Handler").set(currentSession.authToken, key: "authToken")
 			try Keychain(service: "com.handlerapp.Handler").set(NSKeyedArchiver.archivedDataWithRootObject(currentSession.expirationDate), key: "expirationDate")
 		} catch {
-			print(error)
+				print(error)
+
 		}
 		
 		fetchNewMessages(nil)
 		fetchNewLabels()
 	}
 	
-	func fetchNewMessagseWithCompletion(completion: (error: NSError?)->Void){
+	func fetchNewMessagseWithCompletion(completion: (error: HRError?)->Void){
 		fetchNewMessages(completion)
 	}
 	
 	private func fetchNewLabels(){
 		HandlerAPI.getAllLabels { (labels, error) -> Void in
 			guard let labels = labels else {
-				print(error)
+								print(error?.detail)
+
 				return
 			}
 			for label in labels {
@@ -89,10 +93,11 @@ class APICommunicator: NSObject {
 		}
 	}
 	
-	private func fetchNewMessages(completion: ((error: NSError?)->Void)?){
+	private func fetchNewMessages(completion: ((error: HRError?)->Void)?){
 		HandlerAPI.getNewMessagesWithCallback() { (messages, error) -> Void in
 			guard let messages = messages else {
-				print(error)
+								print(error?.detail)
+
 				completion?(error: error)
 				return
 			}

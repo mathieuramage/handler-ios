@@ -8,7 +8,34 @@
         <!--Interface Controller-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Handler_Watch" customModuleProvider="target"/>
+                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Handler_Watch" customModuleProvider="target">
+                    <items>
+                        <table alignment="left" id="RQx-vW-9fU">
+                            <items>
+                                <tableRow identifier="mailRow" selectable="NO" id="hoK-kY-x7H" customClass="MailRow" customModule="Handler_Watch_Extension">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" spacing="5" id="8j7-cr-aoF">
+                                        <items>
+                                            <label alignment="left" text="parkpocket is interested in you" id="kOG-gL-bBc">
+                                                <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                                            </label>
+                                            <label alignment="left" text="Stefan Bader from parkpocket is interested in talking to you." numberOfLines="2" id="UF4-2z-tnf">
+                                                <fontDescription key="font" style="UICTFontTextStyleSubhead"/>
+                                            </label>
+                                        </items>
+                                        <edgeInsets key="margins" left="5" right="5" top="5" bottom="5"/>
+                                    </group>
+                                    <connections>
+                                        <outlet property="contentLabel" destination="UF4-2z-tnf" id="NIt-XC-zdx"/>
+                                        <outlet property="subjectlabel" destination="kOG-gL-bBc" id="JhG-zh-kjD"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                    <connections>
+                        <outlet property="tableView" destination="RQx-vW-9fU" id="DZg-h7-woA"/>
+                    </connections>
+                </controller>
             </objects>
             <point key="canvasLocation" x="220" y="345"/>
         </scene>
