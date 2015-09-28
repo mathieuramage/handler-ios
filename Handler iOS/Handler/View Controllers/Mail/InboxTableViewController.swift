@@ -21,6 +21,8 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 	
 	var lastupdatedLabel: UILabel?
 	var newEmailsLabel: UILabel?
+	
+	var invitationsView: SendInvitationView?
 
 	var fetchedObjects: [Message] {
 		get {
@@ -80,7 +82,10 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 	}
 	
 	func composeNewMessage(item: UIBarButtonItem){
-		performSegueWithIdentifier("showMessageComposeNavigationController", sender: self)
+		
+		invitationsView = SendInvitationView.fromNib()
+		invitationsView?.show()
+		//performSegueWithIdentifier("showMessageComposeNavigationController", sender: self)
 	}
 	
 	@IBAction func showSideMenu(sender: UIBarButtonItem) {

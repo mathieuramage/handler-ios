@@ -11,17 +11,19 @@ import UIKit
 @IBDesignable
 class WhiteBorderImageView: UIImageView {
 	
+	@IBInspectable var borderWidth: CGFloat = 2.0
+	
 	override func prepareForInterfaceBuilder() {
 		layer.cornerRadius = 3
 		layer.borderColor = UIColor.whiteColor().CGColor
-		layer.borderWidth = 2
+		layer.borderWidth = borderWidth
 		clipsToBounds = true
 	}
 	
 	func commonInit(){
 		layer.cornerRadius = 3
 		layer.borderColor = UIColor.whiteColor().CGColor
-		layer.borderWidth = 2
+		layer.borderWidth = borderWidth
 		clipsToBounds = true
 	}
 	

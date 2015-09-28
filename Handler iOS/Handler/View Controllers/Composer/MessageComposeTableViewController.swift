@@ -131,7 +131,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 				self.validatedTokens.append(ValidatedToken(name: string.stringByReplacingOccurrencesOfString("@", withString: ""), isOnHandler: false))
 				self.tokenView.validatedString(string, withResult: false)
 				self.ccTokenView.validatedString(string, withResult: false)
-								print(error?.detail)
+				print(error?.detail)
 
 				return
 			}
