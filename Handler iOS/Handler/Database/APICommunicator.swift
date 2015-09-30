@@ -18,7 +18,7 @@ class APICommunicator: NSObject {
 		super.init()
 		
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidAuth", name: HRUserSessionDidStartNotification, object: nil)
-		checkForCurrentSessionOrAuth()		
+		checkForCurrentSessionOrAuth()
 	}
 	
 	func checkForCurrentSessionOrAuth(){
@@ -34,8 +34,9 @@ class APICommunicator: NSObject {
 				if let session = Twitter.sharedInstance().sessionStore.session() as? TWTRSession {
 					let oauthSigning = TWTROAuthSigning(authConfig:Twitter.sharedInstance().authConfig, authSession:session)
 					HRTwitterAuthManager.startAuth(oauthSigning.OAuthEchoHeadersToVerifyCredentials(), callback: { (error) -> Void in
+						if let error = error {
 							print(error)
-
+						}
 					})
 				}else{
 					AppDelegate.sharedInstance().window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
@@ -48,8 +49,10 @@ class APICommunicator: NSObject {
 			if let session = Twitter.sharedInstance().sessionStore.session() as? TWTRSession {
 				let oauthSigning = TWTROAuthSigning(authConfig:Twitter.sharedInstance().authConfig, authSession:session)
 				HRTwitterAuthManager.startAuth(oauthSigning.OAuthEchoHeadersToVerifyCredentials(), callback: { (error) -> Void in
+					if let error = error {
 						print(error)
-
+					}
+					
 				})
 			}else{
 				AppDelegate.sharedInstance().window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
@@ -67,10 +70,17 @@ class APICommunicator: NSObject {
 			try Keychain(service: "com.handlerapp.Handler").set(currentSession.authToken, key: "authToken")
 			try Keychain(service: "com.handlerapp.Handler").set(NSKeyedArchiver.archivedDataWithRootObject(currentSession.expirationDate), key: "expirationDate")
 		} catch {
-				print(error)
-
+			print(error)
+			
 		}
-		
+		if let pushToken = NSUserDefaults.standardUserDefaults().stringForKey("pushtoken") where pushToken != "" {
+			NSUserDefaults.standardUserDefaults().removeObjectForKey("pushtoken")
+			var data: [String: String] = ["token": pushToken, "os": "ios", "os_version": UIDevice.currentDevice().systemVersion, "name":UIDevice.currentDevice().name]
+			if let vendorID = UIDevice.currentDevice().identifierForVendor?.UUIDString {
+				data["deviceId"] = vendorID
+			}
+			HandlerAPI.uploadDeviceData(data)
+		}
 		fetchNewMessages(nil)
 		fetchNewLabels()
 	}
@@ -82,8 +92,8 @@ class APICommunicator: NSObject {
 	private func fetchNewLabels(){
 		HandlerAPI.getAllLabels { (labels, error) -> Void in
 			guard let labels = labels else {
-								print(error?.detail)
-
+				print(error)
+				
 				return
 			}
 			for label in labels {
@@ -96,8 +106,8 @@ class APICommunicator: NSObject {
 	private func fetchNewMessages(completion: ((error: HRError?)->Void)?){
 		HandlerAPI.getNewMessagesWithCallback() { (messages, error) -> Void in
 			guard let messages = messages else {
-								print(error?.detail)
-
+				print(error)
+				
 				completion?(error: error)
 				return
 			}

@@ -17,7 +17,7 @@ class ErrorPopupView: UIView {
 	
 	var error: HRError? {
 		didSet{
-			errorDescriptionLabel.text = error?.detail ?? ""
+			errorDescriptionLabel.text = error?.displayMessage ?? ""
 		}
 	}
 	
@@ -29,4 +29,9 @@ class ErrorPopupView: UIView {
 		}
 	}
 
+	class func showWithError(error: HRError){
+		let view = fromNib()
+		view.error = error
+		view.show()
+	}
 }

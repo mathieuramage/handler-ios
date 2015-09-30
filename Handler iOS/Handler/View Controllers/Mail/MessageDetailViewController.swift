@@ -105,7 +105,10 @@ class MessageDetailViewController: UITableViewController {
 		case reply:
 			let cont = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
 			cont.addAction(UIAlertAction(title: "Reply", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-				// TODO: Add reply UI
+				let replyNC = (UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("MessageComposeNavigationController") as! GradientNavigationController)
+				let replyVC = replyNC.viewControllers.first as! MessageComposeTableViewController
+				replyVC.messageToReplyTo = self.message
+				self.presentViewController(replyNC, animated: true, completion: nil)
 			}))
 			cont.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
 			presentViewController(cont, animated: true, completion: nil)

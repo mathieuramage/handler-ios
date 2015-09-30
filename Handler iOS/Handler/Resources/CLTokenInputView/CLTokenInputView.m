@@ -331,6 +331,9 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
         [self.delegate tokenInputViewDidBeginEditing:self];
     }
 	self.textField.text = @"@";
+	if ([self.delegate respondsToSelector:@selector(textColorForTokenViewWithToken:)]) {
+		self.textField.textColor = [self.delegate textColorForTokenViewWithToken:[[CLToken alloc] initWithDisplayText:self.textField.text context:nil]];
+	}
 
     [self unselectAllTokenViewsAnimated:YES];
 }
@@ -351,11 +354,11 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-	if (range.location == 0 && [string isEqualToString: @""]){
-		return NO;
+	if (range.location == 0 && ![string isEqualToString: @""]){
+		self.textField.text = [@"@" stringByAppendingString:self.textField.text];
 	}
 	
-	CLToken* token = [[CLToken alloc] initWithDisplayText:self.textField.text context:nil];
+	CLToken* token = [[CLToken alloc] initWithDisplayText:[self.textField.text stringByReplacingCharactersInRange:range withString:string] context:nil];
 	if([self.delegate respondsToSelector:@selector(textColorForTokenViewWithToken:)]){
 		self.textField.textColor = [self.delegate textColorForTokenViewWithToken: token];
 	}

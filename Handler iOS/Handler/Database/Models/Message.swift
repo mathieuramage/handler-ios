@@ -21,7 +21,7 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		
 		message.fetchLabels { (labels, error) -> Void in
 			guard let labels = labels else {
-				print(error)
+				print(error?.displayMessage)
 
 				return
 			}
@@ -83,7 +83,7 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		if let id = self.id {
 			HandlerAPI.setLabelsToMessageWithID(id, labels: hrTypeLabels(), callback: { (labels, error) -> Void in
 				guard let labels = labels else {
-									print(error?.detail)
+									print(error)
 
 					return
 				}
@@ -145,7 +145,23 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		return hrLabels
 	}
 	
-	// MARK: State getter utilitires
+	// MARK: Utility getters
+	
+	func recipientsWithoutSelf()->NSSet? {
+		if let recipients = self.recipients?.allObjects as? [User] {
+			for recipient in recipients {
+				if recipient.handle == HRUserSessionManager.sharedManager.currentUser?.handle {
+					let mutableSet = NSMutableSet(set: self.recipients!)
+					mutableSet.removeObject(recipient)
+					return NSSet(set: mutableSet)
+ 				}
+			}
+		}
+		
+		return self.recipients
+	}
+	
+	// MARK: State getter utilities
 
 	var isUnread: Bool {
 		get {

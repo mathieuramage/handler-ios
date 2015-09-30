@@ -146,6 +146,8 @@ class GenericMailboxTableViewController: UITableViewController, NSFetchedResults
 			switch index {
 			case 0:
 				// More
+				let alert = MessageActionsAlertController(message: message, vc: self)
+				presentViewController(alert, animated: true, completion: nil)
 				break;
 			case 1:
 				// Flag

@@ -22,10 +22,13 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 			self.user = user
 		}
 	}
-
+	
+	var messageToReplyTo: Message?
+	var messageToForward: Message?
+	
 	@IBOutlet weak var tokenView: CLTokenInputView!
 	@IBOutlet weak var ccTokenView: CLTokenInputView!
-
+	
 	@IBOutlet weak var addToContactButton: UIButton!
 	@IBOutlet weak var addCCContactButton: UIButton!
 	
@@ -35,9 +38,24 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	var validatedTokens = [ValidatedToken]()
 	
 	override func viewDidLoad() {
-        super.viewDidLoad()
+		super.viewDidLoad()
 		tableView.tableFooterView = UIView()
-    }
+		tokenView.tintColor = UIColor.hrLightGrayColor()
+		ccTokenView.tintColor = UIColor.hrLightGrayColor()
+		if let message = messageToReplyTo, let sender = message.sender?.handle {
+			tokenView.addToken(CLToken(displayText: "@\(sender)", context: nil))
+			startValidationWithString("@\(sender)")
+			if let subject = message.subject {
+				subjectTextField.text = "RE: \(subject)"
+			}
+		}
+		if let receivers = messageToReplyTo?.recipientsWithoutSelf(), let all = receivers.allObjects as? [User] {
+			for receiver in all {
+				ccTokenView.addToken(CLToken(displayText: "@\(receiver.handle!)", context: nil))
+				startValidationWithString("@\(receiver.handle!)")
+			}
+		}
+	}
 	
 	@IBAction func dismiss(sender: UIBarButtonItem) {
 		self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
@@ -60,6 +78,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 				}
 			}
 		}
+		
 		message.recipients = receivers
 		message.content = contentTextView.text
 		message.subject = subjectTextField.text ?? ""
@@ -69,13 +88,30 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 			return
 		}
 		
-		HandlerAPI.sendMessage(message) { (message, error) -> Void in
-			guard let message = message else {
-				print(error?.detail)
-				return
+		if let messageReplyTo = messageToReplyTo {
+			HandlerAPI.replyToMessageWithID(messageReplyTo.id!, reply: message, callback: { (message, error) -> Void in
+				guard let message = message else {
+					if let error = error {
+						ErrorPopupView.showWithError(error)
+					}
+					return
+				}
+				MailDatabaseManager.sharedInstance.storeMessage(message)
+				self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+			})
+		}else{
+			
+			HandlerAPI.sendMessage(message) { (message, error) -> Void in
+				guard let message = message else {
+					print(error)
+					if let error = error {
+						ErrorPopupView.showWithError(error)
+					}
+					return
+				}
+				MailDatabaseManager.sharedInstance.storeMessage(message)
+				self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
 			}
-			MailDatabaseManager.sharedInstance.storeMessage(message)
-			self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
 		}
 	}
 	
@@ -87,8 +123,11 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	// MARK: TokenViewDelegate
 	
 	func textColorForTokenViewWithToken(token: CLToken) -> UIColor {
+		guard token.displayText.stringByReplacingOccurrencesOfString("@", withString: "") != "" else {
+			return UIColor.hrLightGrayColor()
+		}
 		for validatedToken in validatedTokens {
-			if validatedToken.name == token.displayText.stringByReplacingOccurrencesOfString("@", withString: "") {
+			if validatedToken.name != "" && validatedToken.name == token.displayText.stringByReplacingOccurrencesOfString("@", withString: "") && validatedToken.isOnHandler {
 				return UIColor.hrBlueColor()
 			}
 		}
@@ -121,6 +160,10 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	}
 	
 	func startValidationWithString(string: String) {
+		guard string.stringByReplacingOccurrencesOfString("@", withString: "") != "" else {
+			return
+		}
+		
 		for validatedToken in validatedTokens {
 			if validatedToken.name == string.stringByReplacingOccurrencesOfString("@", withString: "") {
 				return
@@ -131,8 +174,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 				self.validatedTokens.append(ValidatedToken(name: string.stringByReplacingOccurrencesOfString("@", withString: ""), isOnHandler: false))
 				self.tokenView.validatedString(string, withResult: false)
 				self.ccTokenView.validatedString(string, withResult: false)
-				print(error?.detail)
-
+				print(error)
 				return
 			}
 			self.validatedTokens.append(ValidatedToken(name: string.stringByReplacingOccurrencesOfString("@", withString: ""), isOnHandler: true, user: user))

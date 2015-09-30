@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2F03A1FD1BAAC027003F4B1E /* HandlerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F03A1FC1BAAC027003F4B1E /* HandlerSDK.framework */; };
 		2F03A1FE1BAAC027003F4B1E /* HandlerSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2F03A1FC1BAAC027003F4B1E /* HandlerSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2F1D2C301BBBF83600A504A8 /* MessageActionsAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F1D2C2F1BBBF83600A504A8 /* MessageActionsAlertController.swift */; settings = {ASSET_TAGS = (); }; };
 		2F41F3141BB357B6003276E0 /* MessageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F41F3131BB357B6003276E0 /* MessageDetailViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		2F4E414D1BB061C500AA2DEF /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E414C1BB061C500AA2DEF /* SideMenuViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		2F4E41551BB08A3200AA2DEF /* SSASideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E41541BB08A3200AA2DEF /* SSASideMenu.swift */; settings = {ASSET_TAGS = (); }; };
@@ -169,6 +170,7 @@
 
 /* Begin PBXFileReference section */
 		2F03A1FC1BAAC027003F4B1E /* HandlerSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = HandlerSDK.framework; path = "/Users/christianpraiss/Library/Developer/Xcode/DerivedData/Handler_iOS-dtridrvduqyygkfyedcesryqwjjj/Build/Products/Debug-iphoneos/HandlerSDK.framework"; sourceTree = "<absolute>"; };
+		2F1D2C2F1BBBF83600A504A8 /* MessageActionsAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageActionsAlertController.swift; sourceTree = "<group>"; };
 		2F41F3131BB357B6003276E0 /* MessageDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDetailViewController.swift; sourceTree = "<group>"; };
 		2F4E414C1BB061C500AA2DEF /* SideMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		2F4E41541BB08A3200AA2DEF /* SSASideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSASideMenu.swift; sourceTree = "<group>"; };
@@ -317,6 +319,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2F1D2C2E1BBBF80300A504A8 /* Alert Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				2F1D2C2F1BBBF83600A504A8 /* MessageActionsAlertController.swift */,
+			);
+			path = "Alert Controllers";
+			sourceTree = "<group>";
+		};
 		2F4E415C1BB0A11700AA2DEF /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -588,6 +598,7 @@
 		DF1FD2DA1B62360600A58B71 /* Handler */ = {
 			isa = PBXGroup;
 			children = (
+				2F1D2C2E1BBBF80300A504A8 /* Alert Controllers */,
 				2FF788261BB5B05000B297D3 /* Handler.entitlements */,
 				DF1FD2DD1B62360600A58B71 /* AppDelegate.swift */,
 				2FA2EA941BADA6240027EA77 /* Authentication */,
@@ -844,6 +855,7 @@
 				2FDDE0EE1BAEA957006C3500 /* Message.swift in Sources */,
 				2FDDE0ED1BAEA957006C3500 /* Message+CoreDataProperties.swift in Sources */,
 				2FF788441BB5CB1B00B297D3 /* MessageComposeTableViewController.swift in Sources */,
+				2F1D2C301BBBF83600A504A8 /* MessageActionsAlertController.swift in Sources */,
 				2FF0D13A1BB4C386009467B5 /* String+Extensions.swift in Sources */,
 				2FDDE1011BAEB5A6006C3500 /* NSDate+FromString.swift in Sources */,
 				2F8E379B1BB1E95000C6A82D /* TTTTimeIntervalFormatter.m in Sources */,
