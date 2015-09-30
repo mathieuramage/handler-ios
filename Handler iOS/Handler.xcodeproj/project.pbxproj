@@ -10,6 +10,12 @@
 		2F03A1FD1BAAC027003F4B1E /* HandlerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F03A1FC1BAAC027003F4B1E /* HandlerSDK.framework */; };
 		2F03A1FE1BAAC027003F4B1E /* HandlerSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2F03A1FC1BAAC027003F4B1E /* HandlerSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2F1D2C301BBBF83600A504A8 /* MessageActionsAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F1D2C2F1BBBF83600A504A8 /* MessageActionsAlertController.swift */; settings = {ASSET_TAGS = (); }; };
+		2F1D2C371BBC3DCA00A504A8 /* ContactCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F1D2C351BBC3DCA00A504A8 /* ContactCardViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		2F1D2C381BBC3DCA00A504A8 /* ContactCardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F1D2C361BBC3DCA00A504A8 /* ContactCardViewController.xib */; settings = {ASSET_TAGS = (); }; };
+		2F1D2C3B1BBC477000A504A8 /* SendInvitationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F1D2C391BBC477000A504A8 /* SendInvitationViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		2F1D2C3C1BBC477000A504A8 /* SendInvitationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F1D2C3A1BBC477000A504A8 /* SendInvitationViewController.xib */; settings = {ASSET_TAGS = (); }; };
+		2F1D2C3F1BBC48E600A504A8 /* ErrorPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F1D2C3D1BBC48E600A504A8 /* ErrorPopupViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		2F1D2C401BBC48E600A504A8 /* ErrorPopupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F1D2C3E1BBC48E600A504A8 /* ErrorPopupViewController.xib */; settings = {ASSET_TAGS = (); }; };
 		2F41F3141BB357B6003276E0 /* MessageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F41F3131BB357B6003276E0 /* MessageDetailViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		2F4E414D1BB061C500AA2DEF /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E414C1BB061C500AA2DEF /* SideMenuViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		2F4E41551BB08A3200AA2DEF /* SSASideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E41541BB08A3200AA2DEF /* SSASideMenu.swift */; settings = {ASSET_TAGS = (); }; };
@@ -57,10 +63,6 @@
 		2FDB52081BA8BC1D003C074F /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB52041BA8BC1D003C074F /* TwitterKit.framework */; settings = {ASSET_TAGS = (); }; };
 		2FDB52091BA8BC1D003C074F /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2FDB52051BA8BC1D003C074F /* TwitterKitResources.bundle */; settings = {ASSET_TAGS = (); }; };
 		2FDB520A1BA8BC1D003C074F /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB52061BA8BC1D003C074F /* TwitterCore.framework */; settings = {ASSET_TAGS = (); }; };
-		2FDBBC881BB9B92B00B2BFBF /* ErrorPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDBBC871BB9B92B00B2BFBF /* ErrorPopupView.swift */; settings = {ASSET_TAGS = (); }; };
-		2FDBBC8A1BB9B93700B2BFBF /* ErrorPopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2FDBBC891BB9B93700B2BFBF /* ErrorPopupView.xib */; settings = {ASSET_TAGS = (); }; };
-		2FDBBC8C1BB9BDFD00B2BFBF /* SendInvitationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2FDBBC8B1BB9BDFD00B2BFBF /* SendInvitationView.xib */; settings = {ASSET_TAGS = (); }; };
-		2FDBBC8E1BB9C93700B2BFBF /* SendInvitationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDBBC8D1BB9C93700B2BFBF /* SendInvitationView.swift */; settings = {ASSET_TAGS = (); }; };
 		2FDBBC901BB9CBC500B2BFBF /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDBBC8F1BB9CBC500B2BFBF /* UIView+Extensions.swift */; settings = {ASSET_TAGS = (); }; };
 		2FDDE0ED1BAEA957006C3500 /* Message+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE0E31BAEA957006C3500 /* Message+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
 		2FDDE0EE1BAEA957006C3500 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE0E41BAEA957006C3500 /* Message.swift */; settings = {ASSET_TAGS = (); }; };
@@ -171,6 +173,12 @@
 /* Begin PBXFileReference section */
 		2F03A1FC1BAAC027003F4B1E /* HandlerSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = HandlerSDK.framework; path = "/Users/christianpraiss/Library/Developer/Xcode/DerivedData/Handler_iOS-dtridrvduqyygkfyedcesryqwjjj/Build/Products/Debug-iphoneos/HandlerSDK.framework"; sourceTree = "<absolute>"; };
 		2F1D2C2F1BBBF83600A504A8 /* MessageActionsAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageActionsAlertController.swift; sourceTree = "<group>"; };
+		2F1D2C351BBC3DCA00A504A8 /* ContactCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCardViewController.swift; sourceTree = "<group>"; };
+		2F1D2C361BBC3DCA00A504A8 /* ContactCardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactCardViewController.xib; sourceTree = "<group>"; };
+		2F1D2C391BBC477000A504A8 /* SendInvitationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendInvitationViewController.swift; sourceTree = "<group>"; };
+		2F1D2C3A1BBC477000A504A8 /* SendInvitationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendInvitationViewController.xib; sourceTree = "<group>"; };
+		2F1D2C3D1BBC48E600A504A8 /* ErrorPopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorPopupViewController.swift; sourceTree = "<group>"; };
+		2F1D2C3E1BBC48E600A504A8 /* ErrorPopupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorPopupViewController.xib; sourceTree = "<group>"; };
 		2F41F3131BB357B6003276E0 /* MessageDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDetailViewController.swift; sourceTree = "<group>"; };
 		2F4E414C1BB061C500AA2DEF /* SideMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		2F4E41541BB08A3200AA2DEF /* SSASideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSASideMenu.swift; sourceTree = "<group>"; };
@@ -225,10 +233,6 @@
 		2FDB52041BA8BC1D003C074F /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = "<group>"; };
 		2FDB52051BA8BC1D003C074F /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TwitterKitResources.bundle; path = TwitterKit.framework/Versions/A/Resources/TwitterKitResources.bundle; sourceTree = "<group>"; };
 		2FDB52061BA8BC1D003C074F /* TwitterCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterCore.framework; sourceTree = "<group>"; };
-		2FDBBC871BB9B92B00B2BFBF /* ErrorPopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorPopupView.swift; sourceTree = "<group>"; };
-		2FDBBC891BB9B93700B2BFBF /* ErrorPopupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorPopupView.xib; sourceTree = "<group>"; };
-		2FDBBC8B1BB9BDFD00B2BFBF /* SendInvitationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendInvitationView.xib; sourceTree = "<group>"; };
-		2FDBBC8D1BB9C93700B2BFBF /* SendInvitationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendInvitationView.swift; sourceTree = "<group>"; };
 		2FDBBC8F1BB9CBC500B2BFBF /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		2FDDE0E31BAEA957006C3500 /* Message+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Message+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2FDDE0E41BAEA957006C3500 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Message.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -459,10 +463,12 @@
 			isa = PBXGroup;
 			children = (
 				2FDDE1461BB04FA4006C3500 /* WhiteBorderImageView.swift */,
-				2FDBBC871BB9B92B00B2BFBF /* ErrorPopupView.swift */,
-				2FDBBC891BB9B93700B2BFBF /* ErrorPopupView.xib */,
-				2FDBBC8B1BB9BDFD00B2BFBF /* SendInvitationView.xib */,
-				2FDBBC8D1BB9C93700B2BFBF /* SendInvitationView.swift */,
+				2F1D2C351BBC3DCA00A504A8 /* ContactCardViewController.swift */,
+				2F1D2C361BBC3DCA00A504A8 /* ContactCardViewController.xib */,
+				2F1D2C391BBC477000A504A8 /* SendInvitationViewController.swift */,
+				2F1D2C3A1BBC477000A504A8 /* SendInvitationViewController.xib */,
+				2F1D2C3D1BBC48E600A504A8 /* ErrorPopupViewController.swift */,
+				2F1D2C3E1BBC48E600A504A8 /* ErrorPopupViewController.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -772,9 +778,10 @@
 			files = (
 				DF1FD2E81B62360600A58B71 /* LaunchScreen.xib in Resources */,
 				2FDB52091BA8BC1D003C074F /* TwitterKitResources.bundle in Resources */,
+				2F1D2C401BBC48E600A504A8 /* ErrorPopupViewController.xib in Resources */,
+				2F1D2C381BBC3DCA00A504A8 /* ContactCardViewController.xib in Resources */,
 				DF1FD2E51B62360600A58B71 /* Images.xcassets in Resources */,
-				2FDBBC8C1BB9BDFD00B2BFBF /* SendInvitationView.xib in Resources */,
-				2FDBBC8A1BB9B93700B2BFBF /* ErrorPopupView.xib in Resources */,
+				2F1D2C3C1BBC477000A504A8 /* SendInvitationViewController.xib in Resources */,
 				2FA2EA8E1BAD9CBA0027EA77 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -840,7 +847,6 @@
 				2F4E414D1BB061C500AA2DEF /* SideMenuViewController.swift in Sources */,
 				2F4E415E1BB0A13700AA2DEF /* MessageTableViewCell.swift in Sources */,
 				2FDDE1421BAF5A17006C3500 /* Protocols.swift in Sources */,
-				2FDBBC8E1BB9C93700B2BFBF /* SendInvitationView.swift in Sources */,
 				2F994E4E1BB2AE3500A63B9B /* SWCellScrollView.m in Sources */,
 				2FA271A11BB69ED000B22C8B /* CLBackspaceDetectingTextField.m in Sources */,
 				2FDDE1031BAEBFE9006C3500 /* APICommunicator.swift in Sources */,
@@ -856,12 +862,14 @@
 				2FDDE0ED1BAEA957006C3500 /* Message+CoreDataProperties.swift in Sources */,
 				2FF788441BB5CB1B00B297D3 /* MessageComposeTableViewController.swift in Sources */,
 				2F1D2C301BBBF83600A504A8 /* MessageActionsAlertController.swift in Sources */,
+				2F1D2C3F1BBC48E600A504A8 /* ErrorPopupViewController.swift in Sources */,
 				2FF0D13A1BB4C386009467B5 /* String+Extensions.swift in Sources */,
 				2FDDE1011BAEB5A6006C3500 /* NSDate+FromString.swift in Sources */,
 				2F8E379B1BB1E95000C6A82D /* TTTTimeIntervalFormatter.m in Sources */,
 				2FA2EA701BAC4F670027EA77 /* HandlerDatabaseModel.xcdatamodeld in Sources */,
 				2FDDE0F91BAEAA27006C3500 /* Attatchment+CoreDataProperties.swift in Sources */,
 				2F994E501BB2AE3500A63B9B /* SWTableViewCell.m in Sources */,
+				2F1D2C371BBC3DCA00A504A8 /* ContactCardViewController.swift in Sources */,
 				2FDDE0F31BAEA957006C3500 /* User+CoreDataProperties.swift in Sources */,
 				2F4E41631BB0AC7300AA2DEF /* GradientNavigationController.swift in Sources */,
 				2FB5A4471BB20A6E0087D006 /* MailBoxOptionsTableViewController.swift in Sources */,
@@ -872,7 +880,6 @@
 				2FDDE0F41BAEA957006C3500 /* User.swift in Sources */,
 				2FDDE0F01BAEA957006C3500 /* Label.swift in Sources */,
 				2FF788391BB5C6E700B297D3 /* Enumerations.swift in Sources */,
-				2FDBBC881BB9B92B00B2BFBF /* ErrorPopupView.swift in Sources */,
 				2F994E541BB2AE8100A63B9B /* UIColor+HandlerColors.swift in Sources */,
 				2F994E4D1BB2AE3500A63B9B /* NSMutableArray+SWUtilityButtons.m in Sources */,
 				2FF0D1321BB4BAAB009467B5 /* GenericMailboxTableViewController.swift in Sources */,
@@ -880,6 +887,7 @@
 				2FDDE0EF1BAEA957006C3500 /* Label+CoreDataProperties.swift in Sources */,
 				2F994E511BB2AE3500A63B9B /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
 				2FDDE0F11BAEA957006C3500 /* Thread+CoreDataProperties.swift in Sources */,
+				2F1D2C3B1BBC477000A504A8 /* SendInvitationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

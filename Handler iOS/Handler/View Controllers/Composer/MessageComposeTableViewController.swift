@@ -61,11 +61,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
 	}
 	@IBAction func send(sender: UIBarButtonItem) {
-		sender.enabled = false
-		subjectTextField.enabled = false
-		contentTextView.userInteractionEnabled = false
-		tokenView.userInteractionEnabled = false
-		ccTokenView.userInteractionEnabled = false
+		switchUserInteractionState(false, sender: sender)
 		
 		let message = HRMessage()
 		var receivers = [HRUser]()
@@ -84,15 +80,22 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		message.subject = subjectTextField.text ?? ""
 		
 		if receivers.count == 0 || contentTextView.text == "" || subjectTextField.text == "" {
-			// TODO: Handle validation error
+			var errorPopup = ErrorPopupViewController()
+			errorPopup.displayMessageLabel.text = "You need at least one receiver and a subject / content"
+			errorPopup.show()
+			switchUserInteractionState(true, sender: sender)
 			return
 		}
 		
 		if let messageReplyTo = messageToReplyTo {
 			HandlerAPI.replyToMessageWithID(messageReplyTo.id!, reply: message, callback: { (message, error) -> Void in
+				self.switchUserInteractionState(true, sender: sender)
+
 				guard let message = message else {
 					if let error = error {
-						ErrorPopupView.showWithError(error)
+						var errorPopup = ErrorPopupViewController()
+						errorPopup.error = error
+						errorPopup.show()
 					}
 					return
 				}
@@ -102,10 +105,12 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		}else{
 			
 			HandlerAPI.sendMessage(message) { (message, error) -> Void in
+				self.switchUserInteractionState(true, sender: sender)
 				guard let message = message else {
-					print(error)
 					if let error = error {
-						ErrorPopupView.showWithError(error)
+						var errorPopup = ErrorPopupViewController()
+						errorPopup.error = error
+						errorPopup.show()
 					}
 					return
 				}
@@ -113,6 +118,14 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 				self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
 			}
 		}
+	}
+	
+	func switchUserInteractionState(enabled: Bool, sender: UIBarButtonItem? = nil){
+		sender?.enabled = enabled
+		subjectTextField.enabled = enabled
+		contentTextView.userInteractionEnabled = enabled
+		tokenView.userInteractionEnabled = enabled
+		ccTokenView.userInteractionEnabled = enabled
 	}
 	
 	func textViewDidChange(textView: UITextView) {

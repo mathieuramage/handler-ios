@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ErrorPopupViewController" customModule="Handler" customModuleProvider="target">
+            <connections>
+                <outlet property="displayMessageLabel" destination="xrt-7U-ZhK" id="Ldi-V4-TtM"/>
+                <outlet property="view" destination="gpS-sE-aKT" id="LFk-VI-2xO"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="gpS-sE-aKT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e3V-k3-pUw">
+                    <rect key="frame" x="27" y="271.5" width="320" height="125.5"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="250" text="Hi" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xrt-7U-ZhK">
+                            <rect key="frame" x="18" y="82.5" width="284" height="23"/>
+                            <animations/>
+                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Uh oh, something went wrong" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Vc-y9-zhS">
+                            <rect key="frame" x="45" y="42" width="230" height="20.5"/>
+                            <animations/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="0.39187690619999999" green="0.4703056216" blue="0.52657049889999996" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="xrt-7U-ZhK" firstAttribute="top" secondItem="3Vc-y9-zhS" secondAttribute="bottom" constant="20" id="MP2-xg-eRc"/>
+                        <constraint firstItem="3Vc-y9-zhS" firstAttribute="top" secondItem="e3V-k3-pUw" secondAttribute="top" constant="42" id="Q4O-y2-8mZ"/>
+                        <constraint firstItem="xrt-7U-ZhK" firstAttribute="leading" secondItem="e3V-k3-pUw" secondAttribute="leading" constant="18" id="UEl-5o-WCZ"/>
+                        <constraint firstAttribute="trailing" secondItem="3Vc-y9-zhS" secondAttribute="trailing" constant="45" id="abY-d2-Gxl"/>
+                        <constraint firstAttribute="trailing" secondItem="xrt-7U-ZhK" secondAttribute="trailing" constant="18" id="bSq-SA-uZj"/>
+                        <constraint firstItem="3Vc-y9-zhS" firstAttribute="leading" secondItem="e3V-k3-pUw" secondAttribute="leading" constant="45" id="umj-TC-tbP"/>
+                        <constraint firstAttribute="bottom" secondItem="xrt-7U-ZhK" secondAttribute="bottom" constant="20" id="w8q-eP-Dr6"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="6"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aJk-uG-Hfr">
+                    <rect key="frame" x="162" y="588" width="50" height="50"/>
+                    <animations/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="50" id="Qwz-TR-5iA"/>
+                        <constraint firstAttribute="width" secondItem="aJk-uG-Hfr" secondAttribute="height" multiplier="1:1" id="egz-4m-Mbs"/>
+                    </constraints>
+                    <state key="normal" image="Cancel">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="dismissPressed:" destination="-1" eventType="touchUpInside" id="Yii-sD-Sqq"/>
+                    </connections>
+                </button>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" image="error_logo" translatesAutoresizingMaskIntoConstraints="NO" id="p3m-HV-oDj" customClass="WhiteBorderImageView" customModule="Handler" customModuleProvider="target">
+                    <rect key="frame" x="155" y="239.5" width="64" height="64"/>
+                    <animations/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="64" id="tQe-Qt-TiF"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                            <real key="value" value="3"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="32"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </imageView>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.75" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="e3V-k3-pUw" firstAttribute="leading" secondItem="gpS-sE-aKT" secondAttribute="leading" constant="27" id="7G5-N4-KeR"/>
+                <constraint firstItem="aJk-uG-Hfr" firstAttribute="centerX" secondItem="gpS-sE-aKT" secondAttribute="centerX" id="8S3-HZ-Y1M"/>
+                <constraint firstItem="p3m-HV-oDj" firstAttribute="centerX" secondItem="e3V-k3-pUw" secondAttribute="centerX" id="Khd-al-VqP"/>
+                <constraint firstItem="p3m-HV-oDj" firstAttribute="centerY" secondItem="e3V-k3-pUw" secondAttribute="top" id="TQ3-YZ-2ox"/>
+                <constraint firstAttribute="trailing" secondItem="e3V-k3-pUw" secondAttribute="trailing" constant="28" id="WUh-wV-YoI"/>
+                <constraint firstAttribute="bottom" secondItem="aJk-uG-Hfr" secondAttribute="bottom" constant="29" id="bAo-5x-SNg"/>
+                <constraint firstItem="e3V-k3-pUw" firstAttribute="top" relation="greaterThanOrEqual" secondItem="gpS-sE-aKT" secondAttribute="top" constant="19" id="p7k-Xh-eRQ"/>
+                <constraint firstItem="aJk-uG-Hfr" firstAttribute="top" relation="greaterThanOrEqual" secondItem="e3V-k3-pUw" secondAttribute="bottom" constant="10" id="sok-VN-IWA"/>
+                <constraint firstItem="e3V-k3-pUw" firstAttribute="centerY" secondItem="gpS-sE-aKT" secondAttribute="centerY" id="uxT-Tq-BKg"/>
+            </constraints>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Cancel" width="102" height="102"/>
+        <image name="error_logo" width="64" height="64"/>
+    </resources>
+</document>

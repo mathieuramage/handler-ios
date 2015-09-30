@@ -10,6 +10,8 @@ import Foundation
 import CoreData
 import HandlerSDK
 
+// MARK: Database Type Conversino
+
 protocol CoreDataConvertible {
 	typealias HRType
 
@@ -50,9 +52,35 @@ extension CoreDataConvertible where HRType : HRIDProvider  {
 	}
 }
 
+// MARK: UIViewController + show
+
+protocol UIViewControllerShow {
+	mutating func show()
+	mutating func dismiss()
+	var window: UIWindow? { get set }
+}
+
+extension UIViewControllerShow where Self: UIViewController {
+	mutating func show(){
+		window = UIWindow(frame: UIScreen.mainScreen().bounds)
+		window?.windowLevel = UIWindowLevelAlert - 1
+		window?.rootViewController = self
+		self.window?.makeKeyAndVisible()
+		window?.alpha = 0
+		UIView.animateWithDuration(0.3, animations: { () -> Void in
+			self.window?.alpha = 1
+			}) { (success) -> Void in
+		}
+	}
+}
+
+// MARK: Observers
+
 protocol MailboxCountObserver {
 	func mailboxCountDidChange(mailboxType: MailboxType, newCount: Int)
 }
+
+// MARK: Utilities
 
 extension AppDelegate {
 	static func sharedInstance()->AppDelegate{

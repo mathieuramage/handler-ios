@@ -22,8 +22,6 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 	var lastupdatedLabel: UILabel?
 	var newEmailsLabel: UILabel?
 	
-	var invitationsView: ErrorPopupView?
-
 	var fetchedObjects: [Message] {
 		get {
 			return fetchedResultsController.fetchedObjects as? [Message] ?? [Message]()
@@ -48,8 +46,9 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 			guard let error = error else {
 				return
 			}
-			print(error.detail)
-
+			var errorPopup = ErrorPopupViewController()
+			errorPopup.error = error
+			errorPopup.show()
 		}
 	}
 	

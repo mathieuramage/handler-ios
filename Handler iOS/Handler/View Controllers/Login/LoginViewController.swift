@@ -21,7 +21,9 @@ class LoginViewController: UIViewController {
 			let oauthSigning = TWTROAuthSigning(authConfig:twitter.authConfig, authSession:session)
 			HRTwitterAuthManager.startAuth(oauthSigning.OAuthEchoHeadersToVerifyCredentials(), callback: { (error) -> Void in
 				if let error = error {
-					print(error)
+					var errorPopup = ErrorPopupViewController()
+					errorPopup.error = error
+					errorPopup.show()
 					return
 				}
 				
