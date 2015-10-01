@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2F03A1FD1BAAC027003F4B1E /* HandlerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F03A1FC1BAAC027003F4B1E /* HandlerSDK.framework */; };
 		2F03A1FE1BAAC027003F4B1E /* HandlerSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2F03A1FC1BAAC027003F4B1E /* HandlerSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2F1050371BBD7BFE0094DAF6 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F1050361BBD7BFE0094DAF6 /* Crashlytics.framework */; settings = {ASSET_TAGS = (); }; };
 		2F1D2C301BBBF83600A504A8 /* MessageActionsAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F1D2C2F1BBBF83600A504A8 /* MessageActionsAlertController.swift */; settings = {ASSET_TAGS = (); }; };
 		2F1D2C371BBC3DCA00A504A8 /* ContactCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F1D2C351BBC3DCA00A504A8 /* ContactCardViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		2F1D2C381BBC3DCA00A504A8 /* ContactCardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F1D2C361BBC3DCA00A504A8 /* ContactCardViewController.xib */; settings = {ASSET_TAGS = (); }; };
@@ -172,6 +173,7 @@
 
 /* Begin PBXFileReference section */
 		2F03A1FC1BAAC027003F4B1E /* HandlerSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = HandlerSDK.framework; path = "/Users/christianpraiss/Library/Developer/Xcode/DerivedData/Handler_iOS-dtridrvduqyygkfyedcesryqwjjj/Build/Products/Debug-iphoneos/HandlerSDK.framework"; sourceTree = "<absolute>"; };
+		2F1050361BBD7BFE0094DAF6 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		2F1D2C2F1BBBF83600A504A8 /* MessageActionsAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageActionsAlertController.swift; sourceTree = "<group>"; };
 		2F1D2C351BBC3DCA00A504A8 /* ContactCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCardViewController.swift; sourceTree = "<group>"; };
 		2F1D2C361BBC3DCA00A504A8 /* ContactCardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactCardViewController.xib; sourceTree = "<group>"; };
@@ -314,6 +316,7 @@
 				2FDDE12D1BAED6B1006C3500 /* APIKit.framework in Frameworks */,
 				2FA2EA911BADA1860027EA77 /* KeychainAccess.framework in Frameworks */,
 				2FA2EA811BAD9C570027EA77 /* CoreGraphics.framework in Frameworks */,
+				2F1050371BBD7BFE0094DAF6 /* Crashlytics.framework in Frameworks */,
 				2FDB52081BA8BC1D003C074F /* TwitterKit.framework in Frameworks */,
 				2FDDE12B1BAED6AC006C3500 /* APIKit.framework in Frameworks */,
 				2FA2EA851BAD9C570027EA77 /* QuartzCore.framework in Frameworks */,
@@ -400,6 +403,7 @@
 		2FDB52021BA8BC12003C074F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2F1050361BBD7BFE0094DAF6 /* Crashlytics.framework */,
 				2FB0E9401BB56C3200A0426E /* DZNEmptyDataSet.framework */,
 				2F4E41581BB09D2800AA2DEF /* WebImage.framework */,
 				2FDDE1331BAEE21D006C3500 /* SwiftyJSON.framework */,

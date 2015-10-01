@@ -21,7 +21,7 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		
 		message.fetchLabels { (labels, error) -> Void in
 			guard let labels = labels else {
-				print(error?.displayMessage)
+				print(error)
 
 				return
 			}
@@ -38,6 +38,25 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		self.sender = User.fromHRType(message.sender!)
 		if message.thread != "" {
 			self.thread = Thread.fromID(message.thread)
+			if let sentAt = self.sent_at {
+				if let threadDate = self.thread?.last_message_date {
+					self.thread?.last_message_date = threadDate.laterDate(sentAt)
+				}else{
+					self.thread?.last_message_date = sentAt
+				}
+			}
+		}
+		
+		if let id = self.id {
+			HandlerAPI.fetchLabelsForMessageWithID(id, callback: { (labels, error) -> Void in
+				guard let labels = labels else {
+					print(error)
+					
+					return
+				}
+				
+				self.setLabelsFromHRTypes(labels)
+			})
 		}
 		
 		if let recipients = message.recipients {
@@ -180,7 +199,15 @@ final class Message: NSManagedObject, CoreDataConvertible {
 	// MARK: Fetch Requests
 	
 	class func fetchRequestForMessagesWithInboxType(type: MailboxType) -> NSFetchRequest {
-		if type != .Archive {
+		if type == .Inbox {
+			//let secondPredicate = NSPredicate(format: "SUBQUERY(messages, $t, NONE $t.labels.id == %@).@count == 0", "SENT")
+			let predicate = NSPredicate(format: "SUBQUERY(messages, $t, ANY $t.labels.id == %@).@count != 0", "INBOX")
+			let fetchRequest = NSFetchRequest(entityName: Thread.entityName())
+			//fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [secondPredicate, predicate])
+			fetchRequest.predicate = predicate
+			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "last_message_date", ascending: false)]
+			return fetchRequest
+		}else if type != .Archive {
 			return fetchRequestForMessagesWithLabelWithId(type.rawValue)
 		}else{
 			// handle archive case

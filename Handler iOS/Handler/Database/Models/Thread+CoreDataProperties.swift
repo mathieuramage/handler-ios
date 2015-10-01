@@ -2,7 +2,7 @@
 //  Thread+CoreDataProperties.swift
 //  Handler
 //
-//  Created by Christian Praiss on 22/09/15.
+//  Created by Christian Praiss on 01/10/15.
 //  Copyright © 2015 Handler, Inc. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -15,6 +15,7 @@ import CoreData
 extension Thread {
 
     @NSManaged var id: String?
+    @NSManaged var last_message_date: NSDate?
     @NSManaged var messages: NSSet?
 
 }

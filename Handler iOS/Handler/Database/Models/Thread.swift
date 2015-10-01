@@ -26,5 +26,4 @@ class Thread: NSManagedObject {
 		thread.id = id
 		return thread
 	}
-	
 }

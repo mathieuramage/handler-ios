@@ -17,13 +17,13 @@
 	<key>CFBundlePackageType</key>
 	<string>FMWK</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.11.1</string>
+	<string>1.11.3</string>
 	<key>CFBundleSupportedPlatforms</key>
 	<array>
 		<string>iPhoneOS</string>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.11.1</string>
+	<string>1.11.3</string>
 	<key>DTCompiler</key>
 	<string>com.apple.compilers.llvm.clang.1_0</string>
 	<key>DTPlatformBuild</key>
@@ -39,7 +39,7 @@
 	<key>DTXcode</key>
 	<string>0700</string>
 	<key>DTXcodeBuild</key>
-	<string>7A218</string>
+	<string>7A220</string>
 	<key>MinimumOSVersion</key>
 	<string>7.0</string>
 	<key>NSHumanReadableCopyright</key>

@@ -17,14 +17,14 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 		}
 	}
 	
-	var messageForSegue: Message?
+	var threadForSegue: Thread?
 	
 	var lastupdatedLabel: UILabel?
 	var newEmailsLabel: UILabel?
 	
-	var fetchedObjects: [Message] {
+	var fetchedObjects: [Thread] {
 		get {
-			return fetchedResultsController.fetchedObjects as? [Message] ?? [Message]()
+			return fetchedResultsController.fetchedObjects as? [Thread] ?? [Thread]()
 		}
 	}
 	
@@ -93,12 +93,12 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 	}
 	
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return fetchedResultsController.fetchedObjects?.count ?? 0
+		return fetchedObjects.count ?? 0
 	}
 	
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCellWithIdentifier("mailCell", forIndexPath: indexPath) as! MessageTableViewCell
-		cell.message = fetchedResultsController.fetchedObjects![indexPath.row] as? Message
+		cell.message = fetchedObjects[indexPath.row].messages?.allObjects.first as? Message
 		cell.leftUtilityButtons = cell.leftButtons()
 		cell.rightUtilityButtons = cell.rightButtons()
 		cell.delegate = self
@@ -107,12 +107,12 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		if indexPath.row < fetchedObjects.count {
-			let message = fetchedObjects[indexPath.row]
-			messageForSegue = message
+			let thread = fetchedObjects[indexPath.row]
+			threadForSegue = thread
 			if let cell = tableView.cellForRowAtIndexPath(indexPath) as? MessageTableViewCell {
-				cell.message = message
+				cell.message = thread.messages?.allObjects.first as? Message
 			}
-			if let thread = message.thread where thread.messages?.count > 1 {
+			if thread.messages?.count > 1 {
 				performSegueWithIdentifier("showThreadTableViewController", sender: self)
 			}else{
 				performSegueWithIdentifier("showMessageDetailViewController", sender: self)
@@ -206,10 +206,10 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "showMessageDetailViewController" {
 			let dc = segue.destinationViewController as! MessageDetailViewController
-			dc.message = self.messageForSegue
+			dc.message = self.threadForSegue?.messages?.allObjects.first as? Message
 		} else if segue.identifier == "showThreadTableViewController" {
 			let dc = segue.destinationViewController as! ThreadTableViewController
-			dc.thread = self.messageForSegue?.thread
+			dc.thread = self.threadForSegue
 		}
 	}
 }
