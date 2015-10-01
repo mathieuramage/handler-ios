@@ -8,6 +8,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SendInvitationViewController" customModule="Handler" customModuleProvider="target">
             <connections>
+                <outlet property="bannerImageView" destination="XDP-oT-u1Z" id="5jx-sf-hWZ"/>
+                <outlet property="bySmsButton" destination="lM5-wt-vUm" id="wc8-2y-TIt"/>
+                <outlet property="byTweetButton" destination="mnW-dj-lFz" id="FJe-0V-aPL"/>
+                <outlet property="catchySentenceLabel" destination="hA1-Hy-PUF" id="M2a-FV-47j"/>
+                <outlet property="inviteTitleLabel" destination="ivo-Q0-q4n" id="Yrd-mT-UYf"/>
+                <outlet property="profileImageView" destination="UAG-xT-9ky" id="gGj-34-QCO"/>
                 <outlet property="view" destination="SEF-FI-Cl5" id="0RZ-TO-7na"/>
             </connections>
         </placeholder>
@@ -60,10 +66,10 @@
                             <color key="textColor" red="0.39187690619999999" green="0.4703056216" blue="0.52657049889999996" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lM5-wt-vUm">
+                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lM5-wt-vUm">
                             <rect key="frame" x="18" y="242" width="125" height="40"/>
                             <animations/>
-                            <color key="backgroundColor" red="0.46666666670000001" green="0.69411764710000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="125" id="KAo-hh-cjW"/>
                                 <constraint firstAttribute="height" constant="40" id="PTK-RO-Vbr"/>
@@ -77,11 +83,24 @@
                                     <integer key="value" value="3"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="inviteBySMS:" destination="-1" eventType="touchUpInside" id="9bB-VH-CmS"/>
+                            </connections>
                         </button>
-                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mnW-dj-lFz">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send a secure link to download Handler." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KhB-Ob-BXY">
+                            <rect key="frame" x="31" y="206" width="258.5" height="21"/>
+                            <animations/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="21" id="22P-bH-AWo"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mnW-dj-lFz">
                             <rect key="frame" x="177" y="242" width="125" height="40"/>
                             <animations/>
-                            <color key="backgroundColor" red="0.33333333329999998" green="0.6705882353" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="2DZ-Cj-qsb"/>
                                 <constraint firstAttribute="width" constant="125" id="SVq-gj-g1c"/>
@@ -95,17 +114,10 @@
                                     <integer key="value" value="3"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="inviteByTweet:" destination="-1" eventType="touchUpInside" id="yMK-f7-PPq"/>
+                            </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send a secure link to download Handler." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KhB-Ob-BXY">
-                            <rect key="frame" x="31" y="206" width="258.5" height="21"/>
-                            <animations/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="21" id="22P-bH-AWo"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                     </subviews>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -143,6 +155,9 @@
                     <state key="normal" image="Cancel">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="dismiss" destination="-1" eventType="touchUpInside" id="dJ0-5E-EJ5"/>
+                    </connections>
                 </button>
             </subviews>
             <animations/>

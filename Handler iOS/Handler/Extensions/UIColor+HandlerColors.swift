@@ -14,6 +14,14 @@ extension UIColor {
 		return UIColor(red: 85/255, green: 171/255, blue: 237/255, alpha: 1)
 	}
 	
+	class func hrGreenColor() -> UIColor {
+		return UIColor(red: 119/255, green: 177/255, blue: 81/255, alpha: 1)
+	}
+	
+	class func hrTwitterBlueColor() -> UIColor {
+		return UIColor(red: 85/255, green: 171/255, blue: 237/255, alpha: 1)
+	}
+	
 	class func hrDarkBlueColor() -> UIColor {
 		return UIColor(red: 39/255, green: 127/255, blue: 197/255, alpha: 1)
 	}

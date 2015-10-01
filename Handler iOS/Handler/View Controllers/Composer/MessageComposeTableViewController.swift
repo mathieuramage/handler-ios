@@ -121,6 +121,12 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	}
 	
 	func switchUserInteractionState(enabled: Bool, sender: UIBarButtonItem? = nil){
+		if !enabled {
+			subjectTextField.resignFirstResponder()
+			contentTextView.resignFirstResponder()
+			tokenView.resignFirstResponder()
+			ccTokenView.resignFirstResponder()
+		}
 		sender?.enabled = enabled
 		subjectTextField.enabled = enabled
 		contentTextView.userInteractionEnabled = enabled
