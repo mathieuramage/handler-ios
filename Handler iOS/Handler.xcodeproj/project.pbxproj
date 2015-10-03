@@ -173,6 +173,7 @@
 
 /* Begin PBXFileReference section */
 		2F03A1FC1BAAC027003F4B1E /* HandlerSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = HandlerSDK.framework; path = "/Users/christianpraiss/Library/Developer/Xcode/DerivedData/Handler_iOS-dtridrvduqyygkfyedcesryqwjjj/Build/Products/Debug-iphoneos/HandlerSDK.framework"; sourceTree = "<absolute>"; };
+		2F0580551BBFE8B600600B8B /* HandlerDatabaseModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "HandlerDatabaseModel 2.xcdatamodel"; sourceTree = "<group>"; };
 		2F1050361BBD7BFE0094DAF6 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		2F1D2C2F1BBBF83600A504A8 /* MessageActionsAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageActionsAlertController.swift; sourceTree = "<group>"; };
 		2F1D2C351BBC3DCA00A504A8 /* ContactCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCardViewController.swift; sourceTree = "<group>"; };
@@ -679,7 +680,6 @@
 				DF1FD2D61B62360600A58B71 /* Resources */,
 				2F03A1FF1BAAC027003F4B1E /* Embed Frameworks */,
 				2FA2EA771BAD9AF00027EA77 /* ShellScript */,
-				2FB0E9461BB583C600A0426E /* ShellScript */,
 				2FF7881D1BB5A2F700B297D3 /* Embed Watch Content */,
 			);
 			buildRules = (
@@ -805,19 +805,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "./Fabric.framework/run dd8212e8bbbb43c1484ba7019e4e813d4451044e 269fd9106d790cf317a301d4bf92c6dd3743434d3c337a5181ee84a8e1a10015";
-		};
-		2FB0E9461BB583C600A0426E /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "APP_PATH=\"${TARGET_BUILD_DIR}/${WRAPPER_NAME}\"\n\n# This script loops through the frameworks embedded in the application and\n# removes unused architectures.\nfind \"$APP_PATH\" -name '*.framework' -type d | while read -r FRAMEWORK\ndo\nFRAMEWORK_EXECUTABLE_NAME=$(defaults read \"$FRAMEWORK/Info.plist\" CFBundleExecutable)\nFRAMEWORK_EXECUTABLE_PATH=\"$FRAMEWORK/$FRAMEWORK_EXECUTABLE_NAME\"\necho \"Executable is $FRAMEWORK_EXECUTABLE_PATH\"\n\nEXTRACTED_ARCHS=()\n\nfor ARCH in $ARCHS\ndo\necho \"Extracting $ARCH from $FRAMEWORK_EXECUTABLE_NAME\"\nlipo -extract \"$ARCH\" \"$FRAMEWORK_EXECUTABLE_PATH\" -o \"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\"\nEXTRACTED_ARCHS+=(\"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\")\ndone\n\necho \"Merging extracted architectures: ${ARCHS}\"\nlipo -o \"$FRAMEWORK_EXECUTABLE_PATH-merged\" -create \"${EXTRACTED_ARCHS[@]}\"\nrm \"${EXTRACTED_ARCHS[@]}\"\n\necho \"Replacing original executable with thinned version\"\nrm \"$FRAMEWORK_EXECUTABLE_PATH\"\nmv \"$FRAMEWORK_EXECUTABLE_PATH-merged\" \"$FRAMEWORK_EXECUTABLE_PATH\"\n\ndone";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1193,6 +1180,7 @@
 		2FA2EA6E1BAC4F670027EA77 /* HandlerDatabaseModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				2F0580551BBFE8B600600B8B /* HandlerDatabaseModel 2.xcdatamodel */,
 				2FA2EA6F1BAC4F670027EA77 /* HandlerDatabaseModel.xcdatamodel */,
 			);
 			currentVersion = 2FA2EA6F1BAC4F670027EA77 /* HandlerDatabaseModel.xcdatamodel */;
