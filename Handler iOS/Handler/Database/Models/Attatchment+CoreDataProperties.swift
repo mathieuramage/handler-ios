@@ -1,5 +1,5 @@
 //
-//  Attatchment+CoreDataProperties.swift
+//  Attachment+CoreDataProperties.swift
 //  Handler
 //
 //  Created by Christian Praiss on 01/10/15.
@@ -12,7 +12,7 @@
 import Foundation
 import CoreData
 
-extension Attatchment {
+extension Attachment {
 
     @NSManaged var content_type: String?
     @NSManaged var filename: String?

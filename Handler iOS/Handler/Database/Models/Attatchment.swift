@@ -1,5 +1,5 @@
 //
-//  Attatchment.swift
+//  Attachment.swift
 //  Handler
 //
 //  Created by Christian Praiss on 20/09/15.
@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 import HandlerSDK
 
-final class Attatchment: NSManagedObject, CoreDataConvertible {
+final class Attachment: NSManagedObject, CoreDataConvertible {
 	
 	typealias HRType = HRAttachment
 

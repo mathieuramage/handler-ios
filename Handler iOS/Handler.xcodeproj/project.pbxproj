@@ -27,6 +27,7 @@
 		2F4E415E1BB0A13700AA2DEF /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E415D1BB0A13700AA2DEF /* MessageTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		2F4E41611BB0AC4A00AA2DEF /* CALayer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E41601BB0AC4A00AA2DEF /* CALayer+Extensions.swift */; settings = {ASSET_TAGS = (); }; };
 		2F4E41631BB0AC7300AA2DEF /* GradientNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E41621BB0AC7300AA2DEF /* GradientNavigationController.swift */; settings = {ASSET_TAGS = (); }; };
+		2F6112811BC12F1E0003071B /* UploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6112801BC12F1E0003071B /* UploadManager.swift */; settings = {ASSET_TAGS = (); }; };
 		2F76D4D01BB48F1600235A95 /* MailboxObserversManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F76D4CF1BB48F1600235A95 /* MailboxObserversManager.swift */; settings = {ASSET_TAGS = (); }; };
 		2F8E379B1BB1E95000C6A82D /* TTTTimeIntervalFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8E379A1BB1E95000C6A82D /* TTTTimeIntervalFormatter.m */; settings = {ASSET_TAGS = (); }; };
 		2F994E4D1BB2AE3500A63B9B /* NSMutableArray+SWUtilityButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F994E421BB2AE3500A63B9B /* NSMutableArray+SWUtilityButtons.m */; settings = {ASSET_TAGS = (); }; };
@@ -189,6 +190,7 @@
 		2F4E415D1BB0A13700AA2DEF /* MessageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		2F4E41601BB0AC4A00AA2DEF /* CALayer+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+Extensions.swift"; sourceTree = "<group>"; };
 		2F4E41621BB0AC7300AA2DEF /* GradientNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientNavigationController.swift; sourceTree = "<group>"; };
+		2F6112801BC12F1E0003071B /* UploadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadManager.swift; sourceTree = "<group>"; };
 		2F76D4CF1BB48F1600235A95 /* MailboxObserversManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MailboxObserversManager.swift; sourceTree = "<group>"; };
 		2F8E37971BB1E91D00C6A82D /* Handler-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Handler-Bridging-Header.h"; sourceTree = "<group>"; };
 		2F8E37991BB1E95000C6A82D /* TTTTimeIntervalFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTTimeIntervalFormatter.h; sourceTree = "<group>"; };
@@ -363,6 +365,7 @@
 				2FDDE1021BAEBFE9006C3500 /* APICommunicator.swift */,
 				2FA2EA6B1BAC4EA80027EA77 /* MailDatabaseManager.swift */,
 				2F76D4CF1BB48F1600235A95 /* MailboxObserversManager.swift */,
+				2F6112801BC12F1E0003071B /* UploadManager.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -832,6 +835,7 @@
 				2F4E41611BB0AC4A00AA2DEF /* CALayer+Extensions.swift in Sources */,
 				2FDDE0F21BAEA957006C3500 /* Thread.swift in Sources */,
 				2FDDE1441BB01AD3006C3500 /* InboxTableViewController.swift in Sources */,
+				2F6112811BC12F1E0003071B /* UploadManager.swift in Sources */,
 				2F4E414D1BB061C500AA2DEF /* SideMenuViewController.swift in Sources */,
 				2F4E415E1BB0A13700AA2DEF /* MessageTableViewCell.swift in Sources */,
 				2FDDE1421BAF5A17006C3500 /* Protocols.swift in Sources */,
