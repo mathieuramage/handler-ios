@@ -29,6 +29,7 @@
 		2F4E41631BB0AC7300AA2DEF /* GradientNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E41621BB0AC7300AA2DEF /* GradientNavigationController.swift */; settings = {ASSET_TAGS = (); }; };
 		2F6112811BC12F1E0003071B /* UploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6112801BC12F1E0003071B /* UploadManager.swift */; settings = {ASSET_TAGS = (); }; };
 		2F76D4D01BB48F1600235A95 /* MailboxObserversManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F76D4CF1BB48F1600235A95 /* MailboxObserversManager.swift */; settings = {ASSET_TAGS = (); }; };
+		2F81A6331BC179BF007F2D43 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F81A6321BC179BF007F2D43 /* Operators.swift */; settings = {ASSET_TAGS = (); }; };
 		2F8E379B1BB1E95000C6A82D /* TTTTimeIntervalFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8E379A1BB1E95000C6A82D /* TTTTimeIntervalFormatter.m */; settings = {ASSET_TAGS = (); }; };
 		2F994E4D1BB2AE3500A63B9B /* NSMutableArray+SWUtilityButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F994E421BB2AE3500A63B9B /* NSMutableArray+SWUtilityButtons.m */; settings = {ASSET_TAGS = (); }; };
 		2F994E4E1BB2AE3500A63B9B /* SWCellScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F994E441BB2AE3500A63B9B /* SWCellScrollView.m */; settings = {ASSET_TAGS = (); }; };
@@ -74,8 +75,8 @@
 		2FDDE0F21BAEA957006C3500 /* Thread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE0E81BAEA957006C3500 /* Thread.swift */; settings = {ASSET_TAGS = (); }; };
 		2FDDE0F31BAEA957006C3500 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE0E91BAEA957006C3500 /* User+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
 		2FDDE0F41BAEA957006C3500 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE0EA1BAEA957006C3500 /* User.swift */; settings = {ASSET_TAGS = (); }; };
-		2FDDE0F91BAEAA27006C3500 /* Attatchment+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE0F71BAEAA27006C3500 /* Attatchment+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
-		2FDDE0FA1BAEAA27006C3500 /* Attatchment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE0F81BAEAA27006C3500 /* Attatchment.swift */; settings = {ASSET_TAGS = (); }; };
+		2FDDE0F91BAEAA27006C3500 /* Attachment+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE0F71BAEAA27006C3500 /* Attachment+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
+		2FDDE0FA1BAEAA27006C3500 /* Attachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE0F81BAEAA27006C3500 /* Attachment.swift */; settings = {ASSET_TAGS = (); }; };
 		2FDDE0FE1BAEB26C006C3500 /* NSManagedObject+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE0FD1BAEB26C006C3500 /* NSManagedObject+Convenience.swift */; settings = {ASSET_TAGS = (); }; };
 		2FDDE1011BAEB5A6006C3500 /* NSDate+FromString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE1001BAEB5A6006C3500 /* NSDate+FromString.swift */; settings = {ASSET_TAGS = (); }; };
 		2FDDE1031BAEBFE9006C3500 /* APICommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE1021BAEBFE9006C3500 /* APICommunicator.swift */; settings = {ASSET_TAGS = (); }; };
@@ -192,6 +193,7 @@
 		2F4E41621BB0AC7300AA2DEF /* GradientNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientNavigationController.swift; sourceTree = "<group>"; };
 		2F6112801BC12F1E0003071B /* UploadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadManager.swift; sourceTree = "<group>"; };
 		2F76D4CF1BB48F1600235A95 /* MailboxObserversManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MailboxObserversManager.swift; sourceTree = "<group>"; };
+		2F81A6321BC179BF007F2D43 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		2F8E37971BB1E91D00C6A82D /* Handler-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Handler-Bridging-Header.h"; sourceTree = "<group>"; };
 		2F8E37991BB1E95000C6A82D /* TTTTimeIntervalFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTTimeIntervalFormatter.h; sourceTree = "<group>"; };
 		2F8E379A1BB1E95000C6A82D /* TTTTimeIntervalFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTTimeIntervalFormatter.m; sourceTree = "<group>"; };
@@ -245,8 +247,8 @@
 		2FDDE0E81BAEA957006C3500 /* Thread.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Thread.swift; sourceTree = "<group>"; };
 		2FDDE0E91BAEA957006C3500 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2FDDE0EA1BAEA957006C3500 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		2FDDE0F71BAEAA27006C3500 /* Attatchment+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Attatchment+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		2FDDE0F81BAEAA27006C3500 /* Attatchment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Attatchment.swift; sourceTree = "<group>"; };
+		2FDDE0F71BAEAA27006C3500 /* Attachment+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Attachment+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		2FDDE0F81BAEAA27006C3500 /* Attachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Attachment.swift; sourceTree = "<group>"; };
 		2FDDE0FD1BAEB26C006C3500 /* NSManagedObject+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = "NSManagedObject+Convenience.swift"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2FDDE1001BAEB5A6006C3500 /* NSDate+FromString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+FromString.swift"; sourceTree = "<group>"; };
 		2FDDE1021BAEBFE9006C3500 /* APICommunicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APICommunicator.swift; sourceTree = "<group>"; };
@@ -433,8 +435,8 @@
 		2FDDE0E21BAEA92E006C3500 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				2FDDE0F71BAEAA27006C3500 /* Attatchment+CoreDataProperties.swift */,
-				2FDDE0F81BAEAA27006C3500 /* Attatchment.swift */,
+				2FDDE0F71BAEAA27006C3500 /* Attachment+CoreDataProperties.swift */,
+				2FDDE0F81BAEAA27006C3500 /* Attachment.swift */,
 				2FDDE0E51BAEA957006C3500 /* Label+CoreDataProperties.swift */,
 				2FDDE0E61BAEA957006C3500 /* Label.swift */,
 				2FDDE0E31BAEA957006C3500 /* Message+CoreDataProperties.swift */,
@@ -461,6 +463,7 @@
 				2F994E531BB2AE8100A63B9B /* UIColor+HandlerColors.swift */,
 				2FB0E9441BB5718600A0426E /* UIImage+HanderImages.swift */,
 				2FDBBC8F1BB9CBC500B2BFBF /* UIView+Extensions.swift */,
+				2F81A6321BC179BF007F2D43 /* Operators.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -828,7 +831,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2FA2EA8C1BAD9C970027EA77 /* LoginViewController.swift in Sources */,
-				2FDDE0FA1BAEAA27006C3500 /* Attatchment.swift in Sources */,
+				2FDDE0FA1BAEAA27006C3500 /* Attachment.swift in Sources */,
 				2FDBBC901BB9CBC500B2BFBF /* UIView+Extensions.swift in Sources */,
 				2FA271A31BB69ED000B22C8B /* CLTokenInputView.m in Sources */,
 				2F994E521BB2AE3500A63B9B /* SWUtilityButtonView.m in Sources */,
@@ -844,6 +847,7 @@
 				2FDDE1031BAEBFE9006C3500 /* APICommunicator.swift in Sources */,
 				2FF0D1301BB4A802009467B5 /* ThreadTableViewController.swift in Sources */,
 				2F41F3141BB357B6003276E0 /* MessageDetailViewController.swift in Sources */,
+				2F81A6331BC179BF007F2D43 /* Operators.swift in Sources */,
 				2FA271A21BB69ED000B22C8B /* CLToken.m in Sources */,
 				2FDDE1471BB04FA4006C3500 /* WhiteBorderImageView.swift in Sources */,
 				DF1FD2DE1B62360600A58B71 /* AppDelegate.swift in Sources */,
@@ -858,7 +862,7 @@
 				2FF0D13A1BB4C386009467B5 /* String+Extensions.swift in Sources */,
 				2FDDE1011BAEB5A6006C3500 /* NSDate+FromString.swift in Sources */,
 				2F8E379B1BB1E95000C6A82D /* TTTTimeIntervalFormatter.m in Sources */,
-				2FDDE0F91BAEAA27006C3500 /* Attatchment+CoreDataProperties.swift in Sources */,
+				2FDDE0F91BAEAA27006C3500 /* Attachment+CoreDataProperties.swift in Sources */,
 				2F994E501BB2AE3500A63B9B /* SWTableViewCell.m in Sources */,
 				2F1D2C371BBC3DCA00A504A8 /* ContactCardViewController.swift in Sources */,
 				2FDDE0F31BAEA957006C3500 /* User+CoreDataProperties.swift in Sources */,

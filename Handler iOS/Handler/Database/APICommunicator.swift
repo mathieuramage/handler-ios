@@ -20,6 +20,8 @@ class APICommunicator: NSObject {
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidAuth", name: HRUserSessionDidStartNotification, object: nil)
 		checkForCurrentSessionOrAuth()
 	}
+    
+    // MARK: Auth
 	
 	func checkForCurrentSessionOrAuth(completion: ((error: HRError?)->Void)? = nil){
 		if let authToken = Keychain(service: "com.handlerapp.Handler")[string: "authToken"], let expirationData = Keychain(service: "com.handlerapp.Handler")[data: "expirationDate"], let expirationDate = NSKeyedUnarchiver.unarchiveObjectWithData(expirationData) as? NSDate {
@@ -90,6 +92,8 @@ class APICommunicator: NSObject {
 	func fetchNewMessagseWithCompletion(completion: (error: HRError?)->Void){
 		fetchNewMessages(completion)
 	}
+    
+    // MARK: API Communication
 	
 	private func fetchNewLabels(){
 		HandlerAPI.getAllLabels { (labels, error) -> Void in
@@ -218,4 +222,25 @@ class APICommunicator: NSObject {
 			}
 		}
 	}
+    
+    // MARK: Upload
+    
+    func uploadAttachment(file: NSData, attachment: Attachment, completion: (attachment: Attachment?, error: HRError?)->Void){
+        
+    }
+    
+    func createAttachment(fileType: String, filename: String, callback:(attachment: HRAttachment?, error: HRError?)->Void){
+        HandlerAPI.createAttachment(filename, fileType: fileType) { (attachment, error) -> Void in
+            guard let error = error else{
+                callback(attachment: attachment, error: nil)
+                return
+            }
+            
+            if error.status == 401 {
+                self.checkForCurrentSessionOrAuth({ (error) -> Void in
+                    self.createAttachment(fileType, filename: filename, callback: callback)
+                })
+            }
+        }
+    }
 }

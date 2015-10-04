@@ -98,7 +98,7 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 	
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCellWithIdentifier("mailCell", forIndexPath: indexPath) as! MessageTableViewCell
-		cell.message = fetchedObjects[indexPath.row].messages?.allObjects.first as? Message
+        cell.message = fetchedObjects[indexPath.row].mostRecentMessage
 		cell.leftUtilityButtons = cell.leftButtons()
 		cell.rightUtilityButtons = cell.rightButtons()
 		cell.delegate = self
@@ -110,7 +110,7 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 			let thread = fetchedObjects[indexPath.row]
 			threadForSegue = thread
 			if let cell = tableView.cellForRowAtIndexPath(indexPath) as? MessageTableViewCell {
-				cell.message = thread.messages?.allObjects.first as? Message
+				cell.message = thread.mostRecentMessage
 			}
 			if thread.messages?.count > 1 {
 				performSegueWithIdentifier("showThreadTableViewController", sender: self)

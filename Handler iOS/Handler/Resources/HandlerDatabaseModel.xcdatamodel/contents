@@ -4,8 +4,10 @@
         <attribute name="content_type" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="filename" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="local_data" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="size" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="upload_complete" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="upload_url" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="contained_in" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="attachments" inverseEntity="Message" syncable="YES"/>
     </entity>
@@ -45,7 +47,7 @@
         <relationship name="sent_messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="sender" inverseEntity="Message" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Attachment" positionX="-81" positionY="-180" width="128" height="150"/>
+        <element name="Attachment" positionX="-81" positionY="-180" width="128" height="180"/>
         <element name="Label" positionX="88" positionY="-90" width="128" height="105"/>
         <element name="Message" positionX="-315" positionY="-30" width="128" height="180"/>
         <element name="Thread" positionX="88" positionY="63" width="128" height="88"/>

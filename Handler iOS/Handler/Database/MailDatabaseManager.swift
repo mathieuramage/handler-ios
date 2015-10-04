@@ -41,7 +41,7 @@ class MailDatabaseManager: NSObject {
 		}()
 	
 	lazy var managedObjectModel: NSManagedObjectModel = {
-		let modelURL = NSBundle.mainBundle().URLForResource("HandlerDatabaseModel", withExtension: "momd")!
+		let modelURL = NSBundle.mainBundle().URLForResource("HandlerDatabaseModel", withExtension: "mom")!
 		return NSManagedObjectModel(contentsOfURL: modelURL)!
 		}()
 	

@@ -13,7 +13,7 @@ import Foundation
 enum MailboxType: String {
 	case Inbox = "INBOX"
 	case Unread = "UNREAD"
-	case Flagged = "FLAGGED"
+	case Flagged = "IMPORTANT"
 	case Drafts = "DRAFT"
 	case Sent = "SENT"
 	case Archive = "ARCHIVE"
