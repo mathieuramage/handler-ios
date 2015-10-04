@@ -48,7 +48,7 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		}
 		
 		if let id = self.id {
-			HandlerAPI.fetchLabelsForMessageWithID(id, callback: { (labels, error) -> Void in
+			APICommunicator.sharedInstance.fetchLabelsForMessageWithID(id, callback: { (labels, error) -> Void in
 				guard let labels = labels else {
 					print(error)
 					
@@ -100,7 +100,7 @@ final class Message: NSManagedObject, CoreDataConvertible {
 	
 	func updateLabelsOnHRAPI(){
 		if let id = self.id {
-			HandlerAPI.setLabelsToMessageWithID(id, labels: hrTypeLabels(), callback: { (labels, error) -> Void in
+			APICommunicator.sharedInstance.setLabelsToMessageWithID(id, setLabels: hrTypeLabels(), callback: { (labels, error) -> Void in
 				guard let labels = labels else {
 									print(error)
 

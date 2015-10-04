@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	var window: UIWindow?
 	var sideMenu: SSASideMenu?
+	var backgroundSessionCompletionHandler: (() -> Void)?
 	
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
@@ -67,12 +68,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
 		if let id = userInfo["id"] as? String {
-			HandlerAPI.getMessageWithCallback(id, callback: { (message, error) -> Void in
+			
+			APICommunicator.sharedInstance.getMessageWithCallback(id, callback: { (message, error) -> Void in
 				guard let message = message else {
 					print(error)
 					completionHandler(UIBackgroundFetchResult.Failed)
 					return
 				}
+				MailDatabaseManager.sharedInstance.storeMessage(message)
 				UIApplication.sharedApplication().applicationIconBadgeNumber += 1
 				let not = UILocalNotification()
 				not.alertBody = message.content
@@ -85,6 +88,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}else{
 			completionHandler(UIBackgroundFetchResult.NoData)
 		}
+	}
+	
+	func application(application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: () -> Void) {
+		backgroundSessionCompletionHandler = completionHandler
 	}
 	
 	func applicationWillResignActive(application: UIApplication) {

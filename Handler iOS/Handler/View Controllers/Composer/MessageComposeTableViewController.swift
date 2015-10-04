@@ -88,7 +88,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		}
 		
 		if let messageReplyTo = messageToReplyTo {
-			HandlerAPI.replyToMessageWithID(messageReplyTo.id!, reply: message, callback: { (message, error) -> Void in
+			APICommunicator.sharedInstance.replyToMessageWithID(messageReplyTo.id!, reply: message, callback: { (message, error) -> Void in
 				self.switchUserInteractionState(true, sender: sender)
 
 				guard let message = message else {
@@ -104,7 +104,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 			})
 		}else{
 			
-			HandlerAPI.sendMessage(message) { (message, error) -> Void in
+			APICommunicator.sharedInstance.sendMessage(message) { (message, error) -> Void in
 				self.switchUserInteractionState(true, sender: sender)
 				guard let message = message else {
 					if let error = error {
@@ -188,7 +188,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 				return
 			}
 		}
-		HandlerAPI.checkUserWithCallback(string.stringByReplacingOccurrencesOfString("@", withString: "")) { (user, error) in
+		APICommunicator.sharedInstance.checkUserWithCallback(string.stringByReplacingOccurrencesOfString("@", withString: "")) { (user, error) in
 			guard let user = user else {
 				self.validatedTokens.append(ValidatedToken(name: string.stringByReplacingOccurrencesOfString("@", withString: ""), isOnHandler: false))
 				self.tokenView.validatedString(string, withResult: false)
