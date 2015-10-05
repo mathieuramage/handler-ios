@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import Async
 
 class MessageTableViewCell: SWTableViewCell {
-
+	
 	@IBOutlet weak var readFlaggedImageView: UIImageView!
 	@IBOutlet weak var senderProfileImageView: UIImageView!
 	@IBOutlet weak var senderNameLabel: UILabel!
@@ -24,8 +25,8 @@ class MessageTableViewCell: SWTableViewCell {
 		formatter.presentTimeIntervalMargin = 60
 		formatter.presentDeicticExpression = "now"
 		return formatter
-	}()
-		
+		}()
+	
 	var message: Message? {
 		didSet {
 			
@@ -36,11 +37,30 @@ class MessageTableViewCell: SWTableViewCell {
 			messageSubjectLabel.text = nil
 			messageTimeLabel.text = nil
 			messageContentPreviewLabel.text = nil
+			leftUtilityButtons = nil
+			rightUtilityButtons = nil
 			
 			if let message = message {
+				
+				leftUtilityButtons = leftButtons()
+				rightUtilityButtons = rightButtons()
 				if let urlString = message.sender?.profile_picture_url, let profileUrl = NSURL(string: urlString) {
-					senderProfileImageView.sd_setImageWithURL(profileUrl, placeholderImage: UIImage.randomGhostImage())
+				Async.background(block: { () -> Void in
+						self.senderProfileImageView.sd_setImageWithURL(profileUrl, placeholderImage: UIImage.randomGhostImage(), completed: { (image, error,
+							cache, url) -> Void in
+							if url == profileUrl {
+								if let error = error {
+									print(error)
+									return
+								}
+								Async.main(block: { () -> Void in
+									self.senderProfileImageView.image = image
+								})
+							}
+						})
+					})
 				}
+				
 				senderNameLabel.text = message.sender?.name
 				if let handle = message.sender?.handle {
 					senderHandleLabel.text = "@" + handle
@@ -65,27 +85,27 @@ class MessageTableViewCell: SWTableViewCell {
 	
 	func leftButtons()->[AnyObject] {
 		let array = NSMutableArray()
-		array.sw_addUtilityButtonWithColor(UIColor.hrBlueColor(), icon: UIImage(named: "Mark_Unread_icon"), andTitle: "Unread")
+		if let unread = message?.isUnread where unread {
+			array.sw_addUtilityButtonWithColor(UIColor.hrBlueColor(), icon: UIImage(named: "Mark_Unread_icon"), andTitle: "Unread")
+		}
 		return array as [AnyObject]
 	}
 	
 	func rightButtons()->[AnyObject] {
 		let array = NSMutableArray()
 		array.sw_addUtilityButtonWithColor(UIColor.hrLightGrayColor(), icon: UIImage(named: "More_Dots_Icon"), andTitle: "More")
-		array.sw_addUtilityButtonWithColor(UIColor.hrOrangeColor(), icon: UIImage(named: "Flag_Icon"), andTitle: "Flag")
-		array.sw_addUtilityButtonWithColor(UIColor.hrDarkBlueColor(), icon: UIImage(named: "Archive_Icon"), andTitle: "Archive")
+		if let isFlagged = message?.isFlagged where isFlagged {
+			array.sw_addUtilityButtonWithColor(UIColor.hrOrangeColor(), icon: UIImage(named: "Flag_Icon"), andTitle: "Unflag")
+		}else{
+			array.sw_addUtilityButtonWithColor(UIColor.hrOrangeColor(), icon: UIImage(named: "Flag_Icon"), andTitle: "Flag")
+		}
 
+		if let isArchived = message?.isArchived where isArchived {
+			array.sw_addUtilityButtonWithColor(UIColor.hrDarkBlueColor(), icon: UIImage(named: "Archive_Icon"), andTitle: "Unarchive")
+		}else{
+			array.sw_addUtilityButtonWithColor(UIColor.hrDarkBlueColor(), icon: UIImage(named: "Archive_Icon"), andTitle: "Archive")
+		}
+		
 		return array as [AnyObject]
 	}
-	
-    override func awakeFromNib() {
-        super.awakeFromNib()
-	}
-
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
 }

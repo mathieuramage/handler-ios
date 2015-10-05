@@ -115,6 +115,8 @@ final class Message: NSManagedObject, CoreDataConvertible {
 	private func addLabelWithID(id: String, updateOnApi: Bool = true){
 		if let label = Label.fromID(id) {
 			self.labels = self.labels?.setByAddingObject(label)
+			let _ = try? self.managedObjectContext?.save()
+
 			if updateOnApi {
 				updateLabelsOnHRAPI()
 			}
@@ -128,6 +130,7 @@ final class Message: NSManagedObject, CoreDataConvertible {
 				if label.id == id {
 					newLabels.removeObject(label)
 					self.labels = newLabels
+					let _ = try? self.managedObjectContext?.save()
 					if updateOnApi {
 						updateLabelsOnHRAPI()
 					}
@@ -195,17 +198,62 @@ final class Message: NSManagedObject, CoreDataConvertible {
 			return unread
 		}
 	}
+	
+	var isFlagged: Bool {
+		get {
+			var unread = false
+			if let labels = self.labels {
+				for label in labels {
+					if label.id == "IMPORTANT" {
+						unread = true
+					}
+				}
+			}
+			return unread
+		}
+	}
+	
+	var isArchived: Bool {
+		get {
+			var unread = true
+			if let labels = self.labels {
+				for label in labels {
+					if label.id == "INBOX" {
+						unread = false
+					}
+				}
+			}
+			return unread
+		}
+	}
 
 	// MARK: Fetch Requests
 	
+	class func fetchRequestForDistinctInbox() -> NSFetchRequest {
+		//let predicate = NSPredicate(format: "SUBQUERY(thread.messages, $t, ANY $t.labels.id == %@).@count != 0", "INBOX")
+		let fetchRequest = NSFetchRequest(entityName: Message.entityName())
+//		fetchRequest.returnsDistinctResults = true
+//		fetchRequest.includesPendingChanges = true
+//		fetchRequest.propertiesToFetch = ["thread"]
+//		fetchRequest.resultType = .DictionaryResultType
+//		//fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [secondPredicate, predicate])
+//		//fetchRequest.predicate = predicate
+		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sent_at", ascending: false)]
+		
+		return fetchRequest
+	}
+	
 	class func fetchRequestForMessagesWithInboxType(type: MailboxType) -> NSFetchRequest {
-		if type == .Inbox {
-			//let secondPredicate = NSPredicate(format: "SUBQUERY(messages, $t, NONE $t.labels.id == %@).@count == 0", "SENT")
-			let predicate = NSPredicate(format: "SUBQUERY(messages, $t, ANY $t.labels.id == %@).@count != 0", "INBOX")
-			let fetchRequest = NSFetchRequest(entityName: Thread.entityName())
+		if type == MailboxType.AllChanges {
+			let fetchRequest = NSFetchRequest(entityName: Message.entityName())
+			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sent_at", ascending: false)]
+			return fetchRequest
+		} else if type == .Inbox {
+			let predicate = NSPredicate(format: "ANY labels.id == %@", "INBOX")
+			let fetchRequest = NSFetchRequest(entityName: Message.entityName())
 			//fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [secondPredicate, predicate])
 			fetchRequest.predicate = predicate
-			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "last_message_date", ascending: false)]
+			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sent_at", ascending: false)]
 			return fetchRequest
 		}else if type != .Archive {
 			return fetchRequestForMessagesWithLabelWithId(type.rawValue)

@@ -38,6 +38,8 @@ class MailBoxOptionsTableViewController: UITableViewController, MailboxCountObse
 			sentCountLabel.text = "\(newCount)"
 		case .Archive:
 			archiveCountLabel.text = "\(newCount)"
+		case .AllChanges:
+		break;
 		}
 	}
 }

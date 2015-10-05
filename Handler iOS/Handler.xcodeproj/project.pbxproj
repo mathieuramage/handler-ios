@@ -19,6 +19,9 @@
 		2F1D2C3F1BBC48E600A504A8 /* ErrorPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F1D2C3D1BBC48E600A504A8 /* ErrorPopupViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		2F1D2C401BBC48E600A504A8 /* ErrorPopupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F1D2C3E1BBC48E600A504A8 /* ErrorPopupViewController.xib */; settings = {ASSET_TAGS = (); }; };
 		2F41F3141BB357B6003276E0 /* MessageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F41F3131BB357B6003276E0 /* MessageDetailViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		2F424CF31BC266BD007737FA /* Async.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F424CF21BC266BD007737FA /* Async.framework */; settings = {ASSET_TAGS = (); }; };
+		2F424CF41BC266C2007737FA /* Async.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F424CF21BC266BD007737FA /* Async.framework */; };
+		2F424CF51BC266C2007737FA /* Async.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2F424CF21BC266BD007737FA /* Async.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2F4E414D1BB061C500AA2DEF /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E414C1BB061C500AA2DEF /* SideMenuViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		2F4E41551BB08A3200AA2DEF /* SSASideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E41541BB08A3200AA2DEF /* SSASideMenu.swift */; settings = {ASSET_TAGS = (); }; };
 		2F4E41571BB0977C00AA2DEF /* UIButton+ImageFitting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E41561BB0977C00AA2DEF /* UIButton+ImageFitting.swift */; settings = {ASSET_TAGS = (); }; };
@@ -138,6 +141,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				2FDDE12E1BAED6B1006C3500 /* APIKit.framework in Embed Frameworks */,
+				2F424CF51BC266C2007737FA /* Async.framework in Embed Frameworks */,
 				2FA2EA931BADA5110027EA77 /* KeychainAccess.framework in Embed Frameworks */,
 				2FB0E9431BB56D2E00A0426E /* DZNEmptyDataSet.framework in Embed Frameworks */,
 				2F03A1FE1BAAC027003F4B1E /* HandlerSDK.framework in Embed Frameworks */,
@@ -184,6 +188,7 @@
 		2F1D2C3D1BBC48E600A504A8 /* ErrorPopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorPopupViewController.swift; sourceTree = "<group>"; };
 		2F1D2C3E1BBC48E600A504A8 /* ErrorPopupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorPopupViewController.xib; sourceTree = "<group>"; };
 		2F41F3131BB357B6003276E0 /* MessageDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDetailViewController.swift; sourceTree = "<group>"; };
+		2F424CF21BC266BD007737FA /* Async.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Async.framework; sourceTree = "<group>"; };
 		2F4E414C1BB061C500AA2DEF /* SideMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		2F4E41541BB08A3200AA2DEF /* SSASideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSASideMenu.swift; sourceTree = "<group>"; };
 		2F4E41561BB0977C00AA2DEF /* UIButton+ImageFitting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+ImageFitting.swift"; sourceTree = "<group>"; };
@@ -315,12 +320,14 @@
 				2FB0E9421BB56D2E00A0426E /* DZNEmptyDataSet.framework in Frameworks */,
 				2FDB52071BA8BC1D003C074F /* Fabric.framework in Frameworks */,
 				2FA2EA921BADA5110027EA77 /* KeychainAccess.framework in Frameworks */,
+				2F424CF41BC266C2007737FA /* Async.framework in Frameworks */,
 				2FA2EA831BAD9C570027EA77 /* Security.framework in Frameworks */,
 				2FDDE12D1BAED6B1006C3500 /* APIKit.framework in Frameworks */,
 				2FA2EA911BADA1860027EA77 /* KeychainAccess.framework in Frameworks */,
 				2FA2EA811BAD9C570027EA77 /* CoreGraphics.framework in Frameworks */,
 				2F1050371BBD7BFE0094DAF6 /* Crashlytics.framework in Frameworks */,
 				2FDB52081BA8BC1D003C074F /* TwitterKit.framework in Frameworks */,
+				2F424CF31BC266BD007737FA /* Async.framework in Frameworks */,
 				2FDDE12B1BAED6AC006C3500 /* APIKit.framework in Frameworks */,
 				2FA2EA851BAD9C570027EA77 /* QuartzCore.framework in Frameworks */,
 			);
@@ -407,6 +414,7 @@
 		2FDB52021BA8BC12003C074F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2F424CF21BC266BD007737FA /* Async.framework */,
 				2F1050361BBD7BFE0094DAF6 /* Crashlytics.framework */,
 				2FB0E9401BB56C3200A0426E /* DZNEmptyDataSet.framework */,
 				2F4E41581BB09D2800AA2DEF /* WebImage.framework */,

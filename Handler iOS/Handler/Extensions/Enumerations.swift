@@ -17,8 +17,9 @@ enum MailboxType: String {
 	case Drafts = "DRAFT"
 	case Sent = "SENT"
 	case Archive = "ARCHIVE"
-	
-	static let allValues = [Inbox, Unread, Flagged, Drafts, Sent, Archive]
+	case AllChanges = ""
+
+	static let allValues = [Inbox, Unread, Flagged, Drafts, Sent, Archive, AllChanges]
 }
 
 enum SystemLabels: String {

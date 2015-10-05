@@ -67,8 +67,6 @@ class GenericMailboxTableViewController: UITableViewController, NSFetchedResults
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCellWithIdentifier("mailCell", forIndexPath: indexPath) as! MessageTableViewCell
 		cell.message = fetchedResultsController.fetchedObjects![indexPath.row] as? Message
-		cell.leftUtilityButtons = cell.leftButtons()
-		cell.rightUtilityButtons = cell.rightButtons()
 		cell.delegate = self
 		return cell
 	}
@@ -136,7 +134,7 @@ class GenericMailboxTableViewController: UITableViewController, NSFetchedResults
 	
 	func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerLeftUtilityButtonWithIndex index: Int) {
 		if let cell = cell as? MessageTableViewCell, let message = cell.message {
-			message.markAsUnread()
+			message.isUnread ? message.markAsRead() : message.markAsUnread()
 			cell.message = message
 		}
 	}
@@ -151,11 +149,11 @@ class GenericMailboxTableViewController: UITableViewController, NSFetchedResults
 				break;
 			case 1:
 				// Flag
-				message.flag()
+				message.isFlagged ? message.unflag() : message.flag()
 				break;
 			case 2:
 				// Archive
-				message.moveToArchive()
+				message.isArchived ? message.moveToInbox() : message.moveToArchive()
 			default:
 				break;
 			}

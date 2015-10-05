@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import Async
 
 class InboxTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, SWTableViewCellDelegate, MailboxCountObserver {
 	
@@ -22,22 +23,34 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 	var lastupdatedLabel: UILabel?
 	var newEmailsLabel: UILabel?
 	
+	
 	var fetchedObjects: [Thread] {
 		get {
-			return fetchedResultsController.fetchedObjects as? [Thread] ?? [Thread]()
+			var threads = [Thread]()
+			if let allMessages = fetchedResultsController.fetchedObjects as? [Message] {
+				for message in allMessages {
+					if let thread = message.thread {
+						if let _ = threads.indexOf(thread) {
+							
+						}else{
+							threads.append(thread)
+						}
+					}
+				}
+			}
+			return threads
 		}
 	}
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
 		tableView.tableFooterView = UIView()
 		self.refreshControl = UIRefreshControl()
 		self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
 		self.tableView.addSubview(refreshControl!)
 		
 		MailboxObserversManager.sharedInstance.addObserverForMailboxType(.Inbox, observer: self)
-		MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(.Inbox, observer: self)
+		MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(.AllChanges, observer: self)
 	}
 	
 	func refresh(control: UIRefreshControl){
@@ -68,7 +81,7 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 		newEmailsLabel?.font = UIFont.systemFontOfSize(10)
 		newEmailsLabel?.textColor = UIColor.darkGrayColor()
 		MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(.Unread, observer: self)
-
+		
 		let containerView = UIView(frame: CGRectMake(0, 0, 140, 44))
 		containerView.addSubview(lastupdatedLabel!)
 		containerView.addSubview(newEmailsLabel!)
@@ -77,7 +90,7 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 		let composeItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Compose, target: self, action: "composeNewMessage:")
 		
 		self.navigationController!.toolbar.items = [space, item, space, composeItem]
-
+		
 	}
 	
 	func composeNewMessage(item: UIBarButtonItem){
@@ -93,14 +106,16 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 	}
 	
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return fetchedObjects.count ?? 0
+		return fetchedObjects.count
 	}
 	
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCellWithIdentifier("mailCell", forIndexPath: indexPath) as! MessageTableViewCell
-        cell.message = fetchedObjects[indexPath.row].mostRecentMessage
-		cell.leftUtilityButtons = cell.leftButtons()
-		cell.rightUtilityButtons = cell.rightButtons()
+		if indexPath.row < fetchedObjects.count {
+			cell.message = fetchedObjects[indexPath.row].mostRecentMessage
+		}else{
+			cell.message = nil
+		}
 		cell.delegate = self
 		return cell
 	}
@@ -112,7 +127,7 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 			if let cell = tableView.cellForRowAtIndexPath(indexPath) as? MessageTableViewCell {
 				cell.message = thread.mostRecentMessage
 			}
-			if thread.messages?.count > 1 {
+			if let count = thread.messages?.count where count > 1 {
 				performSegueWithIdentifier("showThreadTableViewController", sender: self)
 			}else{
 				performSegueWithIdentifier("showMessageDetailViewController", sender: self)
@@ -160,6 +175,8 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 			}else{
 				newEmailsLabel?.text = "No new emails"
 			}
+		} else if mailboxType == .AllChanges {
+
 		}
 	}
 	
@@ -173,13 +190,14 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 	
 	func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerLeftUtilityButtonWithIndex index: Int) {
 		if let cell = cell as? MessageTableViewCell, let message = cell.message {
-			message.markAsUnread()
+			message.isUnread ? message.markAsRead() : message.markAsUnread()
 			cell.message = message
 		}
 	}
 	
 	func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerRightUtilityButtonWithIndex index: Int) {
 		if let cell = cell as? MessageTableViewCell, let message = cell.message {
+			cell.hideUtilityButtonsAnimated(true)
 			switch index {
 			case 0:
 				// More
@@ -188,11 +206,13 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 				break;
 			case 1:
 				// Flag
-				message.flag()
+				message.isFlagged ? message.unflag() : message.flag()
 				break;
 			case 2:
 				// Archive
-				message.moveToArchive()
+				if !message.isArchived{
+					message.moveToArchive()
+				}
 			default:
 				break;
 			}
