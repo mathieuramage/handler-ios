@@ -229,20 +229,6 @@ final class Message: NSManagedObject, CoreDataConvertible {
 
 	// MARK: Fetch Requests
 	
-	class func fetchRequestForDistinctInbox() -> NSFetchRequest {
-		//let predicate = NSPredicate(format: "SUBQUERY(thread.messages, $t, ANY $t.labels.id == %@).@count != 0", "INBOX")
-		let fetchRequest = NSFetchRequest(entityName: Message.entityName())
-//		fetchRequest.returnsDistinctResults = true
-//		fetchRequest.includesPendingChanges = true
-//		fetchRequest.propertiesToFetch = ["thread"]
-//		fetchRequest.resultType = .DictionaryResultType
-//		//fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [secondPredicate, predicate])
-//		//fetchRequest.predicate = predicate
-		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sent_at", ascending: false)]
-		
-		return fetchRequest
-	}
-	
 	class func fetchRequestForMessagesWithInboxType(type: MailboxType) -> NSFetchRequest {
 		if type == MailboxType.AllChanges {
 			let fetchRequest = NSFetchRequest(entityName: Message.entityName())

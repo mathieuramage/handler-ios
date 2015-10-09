@@ -10,6 +10,9 @@
 		2F03A1FD1BAAC027003F4B1E /* HandlerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F03A1FC1BAAC027003F4B1E /* HandlerSDK.framework */; };
 		2F03A1FE1BAAC027003F4B1E /* HandlerSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2F03A1FC1BAAC027003F4B1E /* HandlerSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2F0580571BC02FBC00600B8B /* HandlerDatabaseModel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 2F0580561BC02FBC00600B8B /* HandlerDatabaseModel.xcdatamodel */; settings = {ASSET_TAGS = (); }; };
+		2F09DB1F1BC69CEC00B81FE2 /* AttachmentThumbnailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F09DB1E1BC69CEC00B81FE2 /* AttachmentThumbnailView.xib */; settings = {ASSET_TAGS = (); }; };
+		2F09DB241BC69F3F00B81FE2 /* AttachmentThumbnailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F09DB231BC69F3F00B81FE2 /* AttachmentThumbnailCollectionViewCell.swift */; settings = {ASSET_TAGS = (); }; };
+		2F09DB261BC6A0A300B81FE2 /* MessageAttachmentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F09DB251BC6A0A300B81FE2 /* MessageAttachmentsTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		2F1050371BBD7BFE0094DAF6 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F1050361BBD7BFE0094DAF6 /* Crashlytics.framework */; settings = {ASSET_TAGS = (); }; };
 		2F1D2C301BBBF83600A504A8 /* MessageActionsAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F1D2C2F1BBBF83600A504A8 /* MessageActionsAlertController.swift */; settings = {ASSET_TAGS = (); }; };
 		2F1D2C371BBC3DCA00A504A8 /* ContactCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F1D2C351BBC3DCA00A504A8 /* ContactCardViewController.swift */; settings = {ASSET_TAGS = (); }; };
@@ -179,6 +182,9 @@
 /* Begin PBXFileReference section */
 		2F03A1FC1BAAC027003F4B1E /* HandlerSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = HandlerSDK.framework; path = "/Users/christianpraiss/Library/Developer/Xcode/DerivedData/Handler_iOS-dtridrvduqyygkfyedcesryqwjjj/Build/Products/Debug-iphoneos/HandlerSDK.framework"; sourceTree = "<absolute>"; };
 		2F0580561BC02FBC00600B8B /* HandlerDatabaseModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HandlerDatabaseModel.xcdatamodel; sourceTree = "<group>"; };
+		2F09DB1E1BC69CEC00B81FE2 /* AttachmentThumbnailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AttachmentThumbnailView.xib; sourceTree = "<group>"; };
+		2F09DB231BC69F3F00B81FE2 /* AttachmentThumbnailCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttachmentThumbnailCollectionViewCell.swift; sourceTree = "<group>"; };
+		2F09DB251BC6A0A300B81FE2 /* MessageAttachmentsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageAttachmentsTableViewCell.swift; sourceTree = "<group>"; };
 		2F1050361BBD7BFE0094DAF6 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		2F1D2C2F1BBBF83600A504A8 /* MessageActionsAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageActionsAlertController.swift; sourceTree = "<group>"; };
 		2F1D2C351BBC3DCA00A504A8 /* ContactCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCardViewController.swift; sourceTree = "<group>"; };
@@ -348,6 +354,7 @@
 			isa = PBXGroup;
 			children = (
 				2F4E415D1BB0A13700AA2DEF /* MessageTableViewCell.swift */,
+				2F09DB251BC6A0A300B81FE2 /* MessageAttachmentsTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -486,6 +493,8 @@
 				2F1D2C391BBC477000A504A8 /* SendInvitationViewController.swift */,
 				2F1D2C3A1BBC477000A504A8 /* SendInvitationViewController.xib */,
 				2FDDE1461BB04FA4006C3500 /* WhiteBorderImageView.swift */,
+				2F09DB1E1BC69CEC00B81FE2 /* AttachmentThumbnailView.xib */,
+				2F09DB231BC69F3F00B81FE2 /* AttachmentThumbnailCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -693,6 +702,7 @@
 				2F03A1FF1BAAC027003F4B1E /* Embed Frameworks */,
 				2FA2EA771BAD9AF00027EA77 /* ShellScript */,
 				2FF7881D1BB5A2F700B297D3 /* Embed Watch Content */,
+				2F9472E41BC32AF200E35746 /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -796,6 +806,7 @@
 				2FDB52091BA8BC1D003C074F /* TwitterKitResources.bundle in Resources */,
 				2F1D2C401BBC48E600A504A8 /* ErrorPopupViewController.xib in Resources */,
 				2F1D2C381BBC3DCA00A504A8 /* ContactCardViewController.xib in Resources */,
+				2F09DB1F1BC69CEC00B81FE2 /* AttachmentThumbnailView.xib in Resources */,
 				DF1FD2E51B62360600A58B71 /* Images.xcassets in Resources */,
 				2F1D2C3C1BBC477000A504A8 /* SendInvitationViewController.xib in Resources */,
 				2FA2EA8E1BAD9CBA0027EA77 /* Main.storyboard in Resources */,
@@ -805,6 +816,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2F9472E41BC32AF200E35746 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "APP_PATH=\"${TARGET_BUILD_DIR}/${WRAPPER_NAME}\"\n\n# This script loops through the frameworks embedded in the application and\n# removes unused architectures.\nfind \"$APP_PATH\" -name '*.framework' -type d | while read -r FRAMEWORK\ndo\nFRAMEWORK_EXECUTABLE_NAME=$(defaults read \"$FRAMEWORK/Info.plist\" CFBundleExecutable)\nFRAMEWORK_EXECUTABLE_PATH=\"$FRAMEWORK/$FRAMEWORK_EXECUTABLE_NAME\"\necho \"Executable is $FRAMEWORK_EXECUTABLE_PATH\"\n\nEXTRACTED_ARCHS=()\n\nfor ARCH in $ARCHS\ndo\necho \"Extracting $ARCH from $FRAMEWORK_EXECUTABLE_NAME\"\nlipo -extract \"$ARCH\" \"$FRAMEWORK_EXECUTABLE_PATH\" -o \"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\"\nEXTRACTED_ARCHS+=(\"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\")\ndone\n\necho \"Merging extracted architectures: ${ARCHS}\"\nlipo -o \"$FRAMEWORK_EXECUTABLE_PATH-merged\" -create \"${EXTRACTED_ARCHS[@]}\"\nrm \"${EXTRACTED_ARCHS[@]}\"\n\necho \"Replacing original executable with thinned version\"\nrm \"$FRAMEWORK_EXECUTABLE_PATH\"\nmv \"$FRAMEWORK_EXECUTABLE_PATH-merged\" \"$FRAMEWORK_EXECUTABLE_PATH\"\n\ndone";
+		};
 		2FA2EA771BAD9AF00027EA77 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -842,6 +867,7 @@
 				2FDDE0FA1BAEAA27006C3500 /* Attachment.swift in Sources */,
 				2FDBBC901BB9CBC500B2BFBF /* UIView+Extensions.swift in Sources */,
 				2FA271A31BB69ED000B22C8B /* CLTokenInputView.m in Sources */,
+				2F09DB261BC6A0A300B81FE2 /* MessageAttachmentsTableViewCell.swift in Sources */,
 				2F994E521BB2AE3500A63B9B /* SWUtilityButtonView.m in Sources */,
 				2F4E41611BB0AC4A00AA2DEF /* CALayer+Extensions.swift in Sources */,
 				2FDDE0F21BAEA957006C3500 /* Thread.swift in Sources */,
@@ -877,6 +903,7 @@
 				2F4E41631BB0AC7300AA2DEF /* GradientNavigationController.swift in Sources */,
 				2FB5A4471BB20A6E0087D006 /* MailBoxOptionsTableViewController.swift in Sources */,
 				2FB0E9451BB5718600A0426E /* UIImage+HanderImages.swift in Sources */,
+				2F09DB241BC69F3F00B81FE2 /* AttachmentThumbnailCollectionViewCell.swift in Sources */,
 				2F994E4F1BB2AE3500A63B9B /* SWLongPressGestureRecognizer.m in Sources */,
 				2F4E41571BB0977C00AA2DEF /* UIButton+ImageFitting.swift in Sources */,
 				2FDDE0FE1BAEB26C006C3500 /* NSManagedObject+Convenience.swift in Sources */,
@@ -941,6 +968,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "Handler Watch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.chrisspraiss.handlerapp.watchkitapp.watchkitextension;
@@ -962,6 +990,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Handler Watch Extension/Handler Watch Extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "Handler Watch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.chrisspraiss.handlerapp.watchkitapp.watchkitextension;
@@ -1108,6 +1137,7 @@
 				CODE_SIGN_ENTITLEMENTS = Handler/Handler.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
 					"$(SRCROOT)",
@@ -1133,6 +1163,7 @@
 				CODE_SIGN_ENTITLEMENTS = Handler/Handler.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
 					"$(SRCROOT)",

@@ -83,7 +83,7 @@ class APICommunicator: NSObject {
 			if let vendorID = UIDevice.currentDevice().identifierForVendor?.UUIDString {
 				data["deviceId"] = vendorID
 			}
-			HandlerAPI.uploadDeviceData(data)
+			//HandlerAPI.uploadDeviceData(data)
 		}
 		fetchNewMessages(nil)
 		fetchNewLabels()
@@ -224,11 +224,7 @@ class APICommunicator: NSObject {
 	}
     
     // MARK: Upload
-    
-    func uploadAttachment(file: NSData, attachment: Attachment, completion: (attachment: Attachment?, error: HRError?)->Void){
-        
-    }
-    
+	
     func createAttachment(fileType: String, filename: String, callback:(attachment: HRAttachment?, error: HRError?)->Void){
         HandlerAPI.createAttachment(filename, fileType: fileType) { (attachment, error) -> Void in
             guard let error = error else{
@@ -238,6 +234,12 @@ class APICommunicator: NSObject {
             
             if error.status == 401 {
                 self.checkForCurrentSessionOrAuth({ (error) -> Void in
+					if let error = error {
+						var errorPopup = ErrorPopupViewController()
+						errorPopup.error = error
+						errorPopup.show()
+						return
+					}
                     self.createAttachment(fileType, filename: filename, callback: callback)
                 })
             }

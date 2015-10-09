@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="attachmentCell" id="ZaJ-Z3-zvc" customClass="AttachmentThumbnailCollectionViewCell" customModule="Handler" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="210" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="210" height="50"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="One_Image_Attatchment" translatesAutoresizingMaskIntoConstraints="NO" id="7lw-UF-R8Z">
+                        <rect key="frame" x="70" y="30" width="20" height="15"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="8AN-Bn-HCR"/>
+                            <constraint firstAttribute="width" constant="20" id="px4-yg-rwC"/>
+                        </constraints>
+                    </imageView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner_test" translatesAutoresizingMaskIntoConstraints="NO" id="LTo-BJ-xrK">
+                        <rect key="frame" x="0.0" y="0.0" width="62.5" height="50"/>
+                        <animations/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filename.png" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDP-gJ-Ych">
+                        <rect key="frame" x="70" y="8" width="92" height="18"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PNG - 58kb" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zlE-Ec-7Km">
+                        <rect key="frame" x="95" y="29" width="77" height="17"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.39187690619999999" green="0.4703056216" blue="0.52657049889999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <animations/>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <animations/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="LTo-BJ-xrK" secondAttribute="bottom" id="I2F-0j-N1k"/>
+                <constraint firstItem="LTo-BJ-xrK" firstAttribute="top" secondItem="ZaJ-Z3-zvc" secondAttribute="top" id="J4A-SQ-lUi"/>
+                <constraint firstAttribute="bottom" secondItem="7lw-UF-R8Z" secondAttribute="bottom" constant="5" id="QjA-cm-rdW"/>
+                <constraint firstItem="zlE-Ec-7Km" firstAttribute="centerY" secondItem="7lw-UF-R8Z" secondAttribute="centerY" id="WpI-tk-Ubd"/>
+                <constraint firstItem="zlE-Ec-7Km" firstAttribute="leading" secondItem="7lw-UF-R8Z" secondAttribute="trailing" constant="5" id="XKL-fz-iZN"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="eDP-gJ-Ych" secondAttribute="trailing" constant="7" id="YRe-aJ-YsJ"/>
+                <constraint firstItem="LTo-BJ-xrK" firstAttribute="leading" secondItem="ZaJ-Z3-zvc" secondAttribute="leading" id="ebT-iu-C4K"/>
+                <constraint firstItem="LTo-BJ-xrK" firstAttribute="width" secondItem="LTo-BJ-xrK" secondAttribute="height" multiplier="1.25:1" id="hVy-cn-WfX"/>
+                <constraint firstItem="7lw-UF-R8Z" firstAttribute="leading" secondItem="LTo-BJ-xrK" secondAttribute="trailing" constant="7.5" id="mdb-ZY-QSo"/>
+                <constraint firstItem="eDP-gJ-Ych" firstAttribute="leading" secondItem="LTo-BJ-xrK" secondAttribute="trailing" constant="7.5" id="pvs-ue-9W4"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="zlE-Ec-7Km" secondAttribute="trailing" constant="7" id="rDH-mc-EQ1"/>
+                <constraint firstItem="eDP-gJ-Ych" firstAttribute="top" secondItem="ZaJ-Z3-zvc" secondAttribute="top" constant="8.5" id="zQl-LU-hGd"/>
+            </constraints>
+            <size key="customSize" width="210" height="50"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                    <integer key="value" value="6"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
+                    <color key="value" red="0.39187690619999999" green="0.4703056216" blue="0.52657049889999996" alpha="1" colorSpace="calibratedRGB"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWitdh">
+                    <integer key="value" value="1"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="contentImageView" destination="LTo-BJ-xrK" id="O2h-Bw-8lI"/>
+                <outlet property="fileMetaLabel" destination="zlE-Ec-7Km" id="Rib-fy-OpP"/>
+                <outlet property="fileTypeImageView" destination="7lw-UF-R8Z" id="l5H-SU-YiB"/>
+                <outlet property="filenameLabel" destination="eDP-gJ-Ych" id="FUI-T3-0sC"/>
+            </connections>
+            <point key="canvasLocation" x="250" y="321"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="One_Image_Attatchment" width="32" height="24"/>
+        <image name="banner_test" width="2560" height="1600"/>
+    </resources>
+</document>

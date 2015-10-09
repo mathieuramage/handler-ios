@@ -313,6 +313,44 @@
                                         <animations/>
                                         <inset key="separatorInset" minX="10000" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="100" id="za4-xx-KsT" customClass="MessageAttachmentsTableViewCell" customModule="Handler" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="496" width="375" height="100"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="za4-xx-KsT" id="xmJ-e6-yMv">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="z21-yp-6lC">
+                                                    <rect key="frame" x="10" y="10" width="355" height="79.5"/>
+                                                    <animations/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="5zj-x3-QSZ">
+                                                        <size key="itemSize" width="174" height="50"/>
+                                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                    </collectionViewFlowLayout>
+                                                    <cells/>
+                                                    <connections>
+                                                        <outlet property="dataSource" destination="za4-xx-KsT" id="IuV-nB-PDB"/>
+                                                        <outlet property="delegate" destination="za4-xx-KsT" id="9Of-it-LzH"/>
+                                                    </connections>
+                                                </collectionView>
+                                            </subviews>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstItem="z21-yp-6lC" firstAttribute="top" secondItem="xmJ-e6-yMv" secondAttribute="top" constant="10" id="42o-VB-eWy"/>
+                                                <constraint firstAttribute="bottom" secondItem="z21-yp-6lC" secondAttribute="bottom" constant="10" id="AFk-jj-dfr"/>
+                                                <constraint firstAttribute="trailing" secondItem="z21-yp-6lC" secondAttribute="trailing" constant="10" id="Kqa-Ik-cW7"/>
+                                                <constraint firstItem="z21-yp-6lC" firstAttribute="leading" secondItem="xmJ-e6-yMv" secondAttribute="leading" constant="10" id="wwo-wP-WwB"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <animations/>
+                                        <inset key="separatorInset" minX="10000" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <connections>
+                                            <outlet property="collectionView" destination="z21-yp-6lC" id="of2-fr-eDs"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -339,6 +377,7 @@
                     <connections>
                         <outlet property="addCCContactButton" destination="LId-Mo-P83" id="ewo-HU-ZC3"/>
                         <outlet property="addToContactButton" destination="1w1-mc-jAw" id="DYL-3d-Vwk"/>
+                        <outlet property="attachmentsCell" destination="za4-xx-KsT" id="Cgn-bS-d1S"/>
                         <outlet property="ccTokenView" destination="0ya-Os-omQ" id="wm1-YV-8fj"/>
                         <outlet property="contentTextView" destination="KM9-Zp-Ha6" id="Bfs-75-YFu"/>
                         <outlet property="subjectTextField" destination="8Xl-EX-lJN" id="lCI-Wt-R27"/>

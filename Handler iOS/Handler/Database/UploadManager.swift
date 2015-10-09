@@ -30,7 +30,7 @@ class UploadManager: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
             let session = NSURLSession(configuration: backgroundSessionConfiguration, delegate: self, delegateQueue: NSOperationQueue.mainQueue())
             
             let uploadRequest = NSMutableURLRequest(URL: uploadURL)
-            uploadRequest.setValue(attachment.content_type ?? "", forHTTPHeaderField: "Content-Type")
+            uploadRequest.setValue(attachment.content_type, forHTTPHeaderField: "Content-Type")
             uploadRequest.setValue("\(file.length)", forHTTPHeaderField: "Content-Length")
             uploadRequest.setValue("public-read", forHTTPHeaderField: "x-amz-acl")
             uploadRequest.HTTPMethod = "PUT"

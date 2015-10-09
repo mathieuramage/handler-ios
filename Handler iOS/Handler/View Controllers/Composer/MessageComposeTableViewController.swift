@@ -35,6 +35,8 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	@IBOutlet weak var subjectTextField: UITextField!
 	@IBOutlet weak var contentTextView: UITextView!
 	
+	@IBOutlet weak var attachmentsCell: MessageAttachmentsTableViewCell!
+	
 	var validatedTokens = [ValidatedToken]()
 	
 	override func viewDidLoad() {
@@ -54,6 +56,11 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 				ccTokenView.addToken(CLToken(displayText: "@\(receiver.handle!)", context: nil))
 				startValidationWithString("@\(receiver.handle!)")
 			}
+		}
+		
+		attachmentsCell.reloadClosure = {[unowned self] ()->Void in
+			self.tableView.beginUpdates()
+			self.tableView.endUpdates()
 		}
 	}
 	
@@ -213,6 +220,8 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		if indexPath.row == 3 {
 			return max(CGFloat(contentTextView.contentSize.height + 40), CGFloat(300))
+		} else if indexPath.row == 4 {
+			return max(attachmentsCell.collectionView.contentSize.height + 20, 50+20)
 		}
 		return UITableViewAutomaticDimension
 	}
