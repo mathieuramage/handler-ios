@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="addAttachmentCell" id="ZI3-cP-ZGn" customClass="AddAttachmentCollectionViewCell" customModule="Handler" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="210" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="210" height="50"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Multiple_Image_Attatchments" translatesAutoresizingMaskIntoConstraints="NO" id="9Xw-Fo-DHf">
+                        <rect key="frame" x="0.0" y="0.0" width="62.5" height="50"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add attachment" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4J8-yt-1Km">
+                        <rect key="frame" x="70" y="16" width="110" height="18"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.39187690619999999" green="0.4703056216" blue="0.52657049889999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <animations/>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <animations/>
+            <constraints>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="4J8-yt-1Km" secondAttribute="trailing" constant="7" id="7Eg-A5-nDH"/>
+                <constraint firstItem="4J8-yt-1Km" firstAttribute="centerY" secondItem="ZI3-cP-ZGn" secondAttribute="centerY" id="O7X-Fl-dWp"/>
+                <constraint firstItem="9Xw-Fo-DHf" firstAttribute="leading" secondItem="ZI3-cP-ZGn" secondAttribute="leading" id="TD5-Ip-iba"/>
+                <constraint firstItem="9Xw-Fo-DHf" firstAttribute="width" secondItem="9Xw-Fo-DHf" secondAttribute="height" multiplier="1.25:1" id="U0O-zV-LsD"/>
+                <constraint firstAttribute="bottom" secondItem="9Xw-Fo-DHf" secondAttribute="bottom" id="cGx-pL-ntJ"/>
+                <constraint firstItem="9Xw-Fo-DHf" firstAttribute="top" secondItem="ZI3-cP-ZGn" secondAttribute="top" id="hCV-bg-RK9"/>
+                <constraint firstItem="4J8-yt-1Km" firstAttribute="leading" secondItem="9Xw-Fo-DHf" secondAttribute="trailing" constant="7.5" id="uTP-hE-aaA"/>
+            </constraints>
+            <size key="customSize" width="210" height="50"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                    <integer key="value" value="6"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
+                    <color key="value" red="0.39187690619999999" green="0.4703056216" blue="0.52657049889999996" alpha="1" colorSpace="calibratedRGB"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWitdh">
+                    <integer key="value" value="1"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <point key="canvasLocation" x="250" y="321"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="Multiple_Image_Attatchments" width="32" height="24"/>
+    </resources>
+</document>

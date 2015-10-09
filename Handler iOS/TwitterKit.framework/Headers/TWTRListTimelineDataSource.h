@@ -6,7 +6,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TWTRDefines.h"
 #import "TWTRTimelineDataSource.h"
 
 @class TWTRAPIClient;

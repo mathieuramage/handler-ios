@@ -4,18 +4,16 @@
 //  Copyright (c) 2015 Twitter. All rights reserved.
 //
 
-#import "TWTRDefines.h"
-
-NS_ASSUME_NONNULL_BEGIN
-
-FOUNDATION_EXPORT NSString * const TWTRTweetsNotLoadedKey;
-
 @class TWTRUser;
 @class TWTRTweet;
 @class TWTRAuthConfig;
 @class TWTRGuestSession;
 @protocol TWTRAuthSession;
 @protocol TWTRSessionStore;
+
+NS_ASSUME_NONNULL_BEGIN
+
+FOUNDATION_EXPORT NSString * const TWTRTweetsNotLoadedKey;
 
 /**
  *  @name Completion Block Types

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2F0580571BC02FBC00600B8B /* HandlerDatabaseModel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 2F0580561BC02FBC00600B8B /* HandlerDatabaseModel.xcdatamodel */; settings = {ASSET_TAGS = (); }; };
+		2F090CC01BC8397000F00893 /* UTI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F090CBF1BC8397000F00893 /* UTI.swift */; settings = {ASSET_TAGS = (); }; };
 		2F09DB1F1BC69CEC00B81FE2 /* AttachmentThumbnailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F09DB1E1BC69CEC00B81FE2 /* AttachmentThumbnailView.xib */; settings = {ASSET_TAGS = (); }; };
 		2F09DB241BC69F3F00B81FE2 /* AttachmentThumbnailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F09DB231BC69F3F00B81FE2 /* AttachmentThumbnailCollectionViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		2F09DB261BC6A0A300B81FE2 /* MessageAttachmentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F09DB251BC6A0A300B81FE2 /* MessageAttachmentsTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
@@ -19,6 +20,9 @@
 		2F1D2C3C1BBC477000A504A8 /* SendInvitationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F1D2C3A1BBC477000A504A8 /* SendInvitationViewController.xib */; settings = {ASSET_TAGS = (); }; };
 		2F1D2C3F1BBC48E600A504A8 /* ErrorPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F1D2C3D1BBC48E600A504A8 /* ErrorPopupViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		2F1D2C401BBC48E600A504A8 /* ErrorPopupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F1D2C3E1BBC48E600A504A8 /* ErrorPopupViewController.xib */; settings = {ASSET_TAGS = (); }; };
+		2F1DACF21BC7EFC500FB6173 /* AddAttachmentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F1DACF11BC7EFC500FB6173 /* AddAttachmentView.xib */; settings = {ASSET_TAGS = (); }; };
+		2F1DACF81BC8129600FB6173 /* HandlerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F1DACF71BC8129600FB6173 /* HandlerSDK.framework */; };
+		2F1DACF91BC8129600FB6173 /* HandlerSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2F1DACF71BC8129600FB6173 /* HandlerSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2F41F3141BB357B6003276E0 /* MessageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F41F3131BB357B6003276E0 /* MessageDetailViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		2F424CF31BC266BD007737FA /* Async.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F424CF21BC266BD007737FA /* Async.framework */; settings = {ASSET_TAGS = (); }; };
 		2F424CF41BC266C2007737FA /* Async.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F424CF21BC266BD007737FA /* Async.framework */; };
@@ -141,6 +145,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				2F1DACF91BC8129600FB6173 /* HandlerSDK.framework in Embed Frameworks */,
 				2FDDE12E1BAED6B1006C3500 /* APIKit.framework in Embed Frameworks */,
 				2F424CF51BC266C2007737FA /* Async.framework in Embed Frameworks */,
 				2FA2EA931BADA5110027EA77 /* KeychainAccess.framework in Embed Frameworks */,
@@ -178,8 +183,9 @@
 
 /* Begin PBXFileReference section */
 		2F0580561BC02FBC00600B8B /* HandlerDatabaseModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HandlerDatabaseModel.xcdatamodel; sourceTree = "<group>"; };
+		2F090CBF1BC8397000F00893 /* UTI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UTI.swift; sourceTree = "<group>"; };
 		2F09DB1E1BC69CEC00B81FE2 /* AttachmentThumbnailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AttachmentThumbnailView.xib; sourceTree = "<group>"; };
-		2F09DB231BC69F3F00B81FE2 /* AttachmentThumbnailCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttachmentThumbnailCollectionViewCell.swift; sourceTree = "<group>"; };
+		2F09DB231BC69F3F00B81FE2 /* AttachmentThumbnailCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AttachmentThumbnailCollectionViewCell.swift; path = ../Views/AttachmentThumbnailCollectionViewCell.swift; sourceTree = "<group>"; };
 		2F09DB251BC6A0A300B81FE2 /* MessageAttachmentsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageAttachmentsTableViewCell.swift; sourceTree = "<group>"; };
 		2F1050361BBD7BFE0094DAF6 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		2F1D2C2F1BBBF83600A504A8 /* MessageActionsAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageActionsAlertController.swift; sourceTree = "<group>"; };
@@ -189,6 +195,9 @@
 		2F1D2C3A1BBC477000A504A8 /* SendInvitationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendInvitationViewController.xib; sourceTree = "<group>"; };
 		2F1D2C3D1BBC48E600A504A8 /* ErrorPopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorPopupViewController.swift; sourceTree = "<group>"; };
 		2F1D2C3E1BBC48E600A504A8 /* ErrorPopupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorPopupViewController.xib; sourceTree = "<group>"; };
+		2F1DACF11BC7EFC500FB6173 /* AddAttachmentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddAttachmentView.xib; sourceTree = "<group>"; };
+		2F1DACF31BC8121900FB6173 /* HandlerSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HandlerSDK.framework; path = "../HandlerSDK/build/Debug-iphoneos/HandlerSDK.framework"; sourceTree = "<group>"; };
+		2F1DACF71BC8129600FB6173 /* HandlerSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = HandlerSDK.framework; path = "/Users/christianpraiss/Library/Developer/Xcode/DerivedData/Handler_iOS-dtridrvduqyygkfyedcesryqwjjj/Build/Products/Debug-iphoneos/HandlerSDK.framework"; sourceTree = "<absolute>"; };
 		2F41F3131BB357B6003276E0 /* MessageDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDetailViewController.swift; sourceTree = "<group>"; };
 		2F424CF21BC266BD007737FA /* Async.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Async.framework; sourceTree = "<group>"; };
 		2F4E414C1BB061C500AA2DEF /* SideMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
@@ -321,6 +330,7 @@
 				2FB0E9421BB56D2E00A0426E /* DZNEmptyDataSet.framework in Frameworks */,
 				2FDB52071BA8BC1D003C074F /* Fabric.framework in Frameworks */,
 				2FA2EA921BADA5110027EA77 /* KeychainAccess.framework in Frameworks */,
+				2F1DACF81BC8129600FB6173 /* HandlerSDK.framework in Frameworks */,
 				2F424CF41BC266C2007737FA /* Async.framework in Frameworks */,
 				2FA2EA831BAD9C570027EA77 /* Security.framework in Frameworks */,
 				2FDDE12D1BAED6B1006C3500 /* APIKit.framework in Frameworks */,
@@ -350,6 +360,7 @@
 			children = (
 				2F4E415D1BB0A13700AA2DEF /* MessageTableViewCell.swift */,
 				2F09DB251BC6A0A300B81FE2 /* MessageAttachmentsTableViewCell.swift */,
+				2F09DB231BC69F3F00B81FE2 /* AttachmentThumbnailCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -416,6 +427,8 @@
 		2FDB52021BA8BC12003C074F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2F090CBF1BC8397000F00893 /* UTI.swift */,
+				2F1DACF31BC8121900FB6173 /* HandlerSDK.framework */,
 				2F424CF21BC266BD007737FA /* Async.framework */,
 				2F1050361BBD7BFE0094DAF6 /* Crashlytics.framework */,
 				2FB0E9401BB56C3200A0426E /* DZNEmptyDataSet.framework */,
@@ -488,7 +501,7 @@
 				2F1D2C3A1BBC477000A504A8 /* SendInvitationViewController.xib */,
 				2FDDE1461BB04FA4006C3500 /* WhiteBorderImageView.swift */,
 				2F09DB1E1BC69CEC00B81FE2 /* AttachmentThumbnailView.xib */,
-				2F09DB231BC69F3F00B81FE2 /* AttachmentThumbnailCollectionViewCell.swift */,
+				2F1DACF11BC7EFC500FB6173 /* AddAttachmentView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -603,6 +616,7 @@
 		DF1FD2CF1B62360600A58B71 = {
 			isa = PBXGroup;
 			children = (
+				2F1DACF71BC8129600FB6173 /* HandlerSDK.framework */,
 				2FDB52021BA8BC12003C074F /* Frameworks */,
 				DF1FD2DA1B62360600A58B71 /* Handler */,
 				2FF787F81BB5A2F600B297D3 /* Handler Watch */,
@@ -750,6 +764,9 @@
 							com.apple.Push = {
 								enabled = 1;
 							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
 						};
 					};
 				};
@@ -796,6 +813,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F1DACF21BC7EFC500FB6173 /* AddAttachmentView.xib in Resources */,
 				DF1FD2E81B62360600A58B71 /* LaunchScreen.xib in Resources */,
 				2FDB52091BA8BC1D003C074F /* TwitterKitResources.bundle in Resources */,
 				2F1D2C401BBC48E600A504A8 /* ErrorPopupViewController.xib in Resources */,
@@ -901,6 +919,7 @@
 				2F994E4F1BB2AE3500A63B9B /* SWLongPressGestureRecognizer.m in Sources */,
 				2F4E41571BB0977C00AA2DEF /* UIButton+ImageFitting.swift in Sources */,
 				2FDDE0FE1BAEB26C006C3500 /* NSManagedObject+Convenience.swift in Sources */,
+				2F090CC01BC8397000F00893 /* UTI.swift in Sources */,
 				2F0580571BC02FBC00600B8B /* HandlerDatabaseModel.xcdatamodel in Sources */,
 				2FDDE0F41BAEA957006C3500 /* User.swift in Sources */,
 				2FDDE0F01BAEA957006C3500 /* Label.swift in Sources */,

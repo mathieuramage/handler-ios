@@ -23,6 +23,7 @@
 #import "TWTRAuthSession.h"
 #import "TWTRConstants.h"
 #import "TWTRCoreOAuthSigning.h"
+#import "TWTRDefines.h"
 #import "TWTRGuestSession.h"
 #import "TWTRSession.h"
 #import "TWTRSessionStore.h"

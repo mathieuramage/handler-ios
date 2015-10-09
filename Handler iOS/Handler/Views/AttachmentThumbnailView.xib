@@ -23,7 +23,7 @@
                             <constraint firstAttribute="width" constant="20" id="px4-yg-rwC"/>
                         </constraints>
                     </imageView>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner_test" translatesAutoresizingMaskIntoConstraints="NO" id="LTo-BJ-xrK">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner_test" translatesAutoresizingMaskIntoConstraints="NO" id="LTo-BJ-xrK">
                         <rect key="frame" x="0.0" y="0.0" width="62.5" height="50"/>
                         <animations/>
                     </imageView>

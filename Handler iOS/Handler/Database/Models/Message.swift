@@ -68,6 +68,16 @@ final class Message: NSManagedObject, CoreDataConvertible {
 			}
 			self.recipients = recipientsSet
 		}
+        
+        if let attachments = message.attachments {
+            let attachmentsSet = NSMutableSet()
+            for attachment in attachments {
+                if let cdAttachment = Attachment.fromHRType(attachment) {
+                    attachmentsSet.addObject(cdAttachment)
+                }
+            }
+            self.attachments = attachmentsSet
+        }
 	}
 	
 	// MARK: Mailboxes

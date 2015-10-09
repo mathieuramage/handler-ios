@@ -4,7 +4,7 @@
         <attribute name="content_type" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="filename" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" attributeType="String" indexed="YES" syncable="YES"/>
-        <attribute name="local_data" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="localFileURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="size" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="upload_complete" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="upload_url" optional="YES" attributeType="String" syncable="YES"/>

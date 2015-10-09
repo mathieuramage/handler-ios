@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param guestSession A `TWTRGuestSession` containing the OAuth tokens or nil.
  *  @param error Error that will be non nil if the authentication request failed.
  */
-typedef void (^TWTRGuestLogInCompletion)(TWTRGuestSession * __nullable guestSession, NSError * __nullable error);
+typedef void (^TWTRGuestLogInCompletion)(TWTRGuestSession * __twtr_nullable guestSession, NSError * __twtr_nullable error);
 
 /**
  *  `TWTRGuestSession` represents a guest session authenticated with the Twitter API. See `TWTRSession` for user sessions.
@@ -48,7 +48,7 @@ typedef void (^TWTRGuestLogInCompletion)(TWTRGuestSession * __nullable guestSess
  *  @param accessToken the access token
  *  @param guestToken the guest access token
  */
-- (instancetype)initWithAccessToken:(NSString *)accessToken guestToken:(nullable NSString *)guestToken NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithAccessToken:(NSString *)accessToken guestToken:(twtr_nullable NSString *)guestToken NS_DESIGNATED_INITIALIZER;
 
 /**
  *  Unavailable. Use `-initWithSessionDictionary:` instead.

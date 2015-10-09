@@ -10,15 +10,15 @@
 
 @class TWTRSession;
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  *  Completion block called when user login succeeds or fails.
  *
  *  @param session Contains the OAuth tokens and minimal information associated with the logged in user or nil.
  *  @param error   Error that will be non nil if the authentication request failed.
  */
-typedef void (^TWTRLogInCompletion)(TWTRSession * __nullable session,  NSError * __nullable error);
-
-NS_ASSUME_NONNULL_BEGIN
+typedef void (^TWTRLogInCompletion)(TWTRSession * __twtr_nullable session,  NSError * __twtr_nullable error);
 
 /**
  *  TWTRSession represents a user's session authenticated with the Twitter API.

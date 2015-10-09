@@ -6,7 +6,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <TwitterKit/TWTRDefines.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
