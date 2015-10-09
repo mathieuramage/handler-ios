@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2F03A1FD1BAAC027003F4B1E /* HandlerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F03A1FC1BAAC027003F4B1E /* HandlerSDK.framework */; };
-		2F03A1FE1BAAC027003F4B1E /* HandlerSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2F03A1FC1BAAC027003F4B1E /* HandlerSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2F0580571BC02FBC00600B8B /* HandlerDatabaseModel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 2F0580561BC02FBC00600B8B /* HandlerDatabaseModel.xcdatamodel */; settings = {ASSET_TAGS = (); }; };
 		2F09DB1F1BC69CEC00B81FE2 /* AttachmentThumbnailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F09DB1E1BC69CEC00B81FE2 /* AttachmentThumbnailView.xib */; settings = {ASSET_TAGS = (); }; };
 		2F09DB241BC69F3F00B81FE2 /* AttachmentThumbnailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F09DB231BC69F3F00B81FE2 /* AttachmentThumbnailCollectionViewCell.swift */; settings = {ASSET_TAGS = (); }; };
@@ -147,7 +145,6 @@
 				2F424CF51BC266C2007737FA /* Async.framework in Embed Frameworks */,
 				2FA2EA931BADA5110027EA77 /* KeychainAccess.framework in Embed Frameworks */,
 				2FB0E9431BB56D2E00A0426E /* DZNEmptyDataSet.framework in Embed Frameworks */,
-				2F03A1FE1BAAC027003F4B1E /* HandlerSDK.framework in Embed Frameworks */,
 				2F4E415B1BB09D3000AA2DEF /* WebImage.framework in Embed Frameworks */,
 				2FDDE1301BAED6B1006C3500 /* Result.framework in Embed Frameworks */,
 				2FDDE1361BAEE227006C3500 /* SwiftyJSON.framework in Embed Frameworks */,
@@ -180,7 +177,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2F03A1FC1BAAC027003F4B1E /* HandlerSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = HandlerSDK.framework; path = "/Users/christianpraiss/Library/Developer/Xcode/DerivedData/Handler_iOS-dtridrvduqyygkfyedcesryqwjjj/Build/Products/Debug-iphoneos/HandlerSDK.framework"; sourceTree = "<absolute>"; };
 		2F0580561BC02FBC00600B8B /* HandlerDatabaseModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HandlerDatabaseModel.xcdatamodel; sourceTree = "<group>"; };
 		2F09DB1E1BC69CEC00B81FE2 /* AttachmentThumbnailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AttachmentThumbnailView.xib; sourceTree = "<group>"; };
 		2F09DB231BC69F3F00B81FE2 /* AttachmentThumbnailCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttachmentThumbnailCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -309,7 +305,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F03A1FD1BAAC027003F4B1E /* HandlerSDK.framework in Frameworks */,
 				2FA2EA871BAD9C570027EA77 /* UIKit.framework in Frameworks */,
 				2FDDE12F1BAED6B1006C3500 /* Result.framework in Frameworks */,
 				2FB0E9411BB56C3200A0426E /* DZNEmptyDataSet.framework in Frameworks */,
@@ -438,7 +433,6 @@
 				2FA2EA7E1BAD9C570027EA77 /* UIKit.framework */,
 				2FA2EA7F1BAD9C570027EA77 /* Social.framework */,
 				2FA2EA801BAD9C570027EA77 /* Accounts.framework */,
-				2F03A1FC1BAAC027003F4B1E /* HandlerSDK.framework */,
 				2FDB52031BA8BC1D003C074F /* Fabric.framework */,
 				2FDB52041BA8BC1D003C074F /* TwitterKit.framework */,
 				2FDB52051BA8BC1D003C074F /* TwitterKitResources.bundle */,
@@ -1137,7 +1131,6 @@
 				CODE_SIGN_ENTITLEMENTS = Handler/Handler.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
 					"$(SRCROOT)",
@@ -1163,7 +1156,6 @@
 				CODE_SIGN_ENTITLEMENTS = Handler/Handler.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
 					"$(SRCROOT)",
