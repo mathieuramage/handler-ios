@@ -31,4 +31,12 @@ final class Label: NSManagedObject, CoreDataConvertible {
 		self.name = label.name
 		self.type = label.type
 	}
+	
+	func toHRType() -> HRLabel {
+		let hrLabel = HRLabel()
+		hrLabel.id = self.id ?? ""
+		hrLabel.name = self.name ?? ""
+		hrLabel.type = self.type ?? ""
+		return hrLabel
+	}
 }

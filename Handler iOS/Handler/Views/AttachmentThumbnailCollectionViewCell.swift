@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import WebImage
+import Kingfisher
 import Async
 import QuartzCore
 

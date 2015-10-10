@@ -18,6 +18,7 @@ protocol CoreDataConvertible {
 	init(hrType: HRType, managedObjectContext: NSManagedObjectContext)
 	static func fromHRType(hrType: HRType) -> Self?
 	static func fromID(id: String) -> Self?
+	func toHRType()->HRType
 	static func fetchRequestForID(id: String) -> NSFetchRequest?
 	func updateFromHRType(hrType: HRType)
 }
@@ -33,7 +34,7 @@ extension CoreDataConvertible where HRType : HRIDProvider  {
 		}
 		
 		if let cdObject = MailDatabaseManager.sharedInstance.executeFetchRequest(fetchrequest)?.first as? Self {
-			print("Found \(Self.self) in database")
+			//print("Found \(Self.self) in database")
 			cdObject.updateFromHRType(hrType)
 			return cdObject
 		}else{

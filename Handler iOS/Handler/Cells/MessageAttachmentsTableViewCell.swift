@@ -93,4 +93,8 @@ class MessageAttachmentsTableViewCell: UITableViewCell, UICollectionViewDelegate
             reloadClosure?()
         }
     }
+	
+	override func intrinsicContentSize() -> CGSize {
+		return collectionView.contentSize
+	}
 }

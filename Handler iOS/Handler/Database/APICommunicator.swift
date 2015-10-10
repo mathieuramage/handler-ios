@@ -18,6 +18,7 @@ class APICommunicator: NSObject {
 		super.init()
 		
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidAuth", name: HRUserSessionDidStartNotification, object: nil)
+
 		checkForCurrentSessionOrAuth()
 	}
     

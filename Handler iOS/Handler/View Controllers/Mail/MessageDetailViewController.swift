@@ -52,7 +52,7 @@ class MessageDetailViewController: UITableViewController {
 			
 			// User specific
 			if let urlString = message.sender?.profile_picture_url, let profileUrl = NSURL(string: urlString) {
-				messageSenderProfileImageView.sd_setImageWithURL(profileUrl, placeholderImage: UIImage.randomGhostImage())
+				messageSenderProfileImageView.kf_setImageWithURL(profileUrl, placeholderImage: UIImage.randomGhostImage())
 			}
 			if let handle = message.sender?.handle {
 				messageSenderHandleButton.setTitle("@\(handle)", forState: UIControlState.Normal)

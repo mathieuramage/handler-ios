@@ -22,7 +22,7 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		message.fetchLabels { (labels, error) -> Void in
 			guard let labels = labels else {
 				print(error)
-
+				
 				return
 			}
 			
@@ -68,16 +68,31 @@ final class Message: NSManagedObject, CoreDataConvertible {
 			}
 			self.recipients = recipientsSet
 		}
-        
-        if let attachments = message.attachments {
-            let attachmentsSet = NSMutableSet()
-            for attachment in attachments {
-                if let cdAttachment = Attachment.fromHRType(attachment) {
-                    attachmentsSet.addObject(cdAttachment)
-                }
-            }
-            self.attachments = attachmentsSet
-        }
+		
+		if let attachments = message.attachments {
+			let attachmentsSet = NSMutableSet()
+			for attachment in attachments {
+				if let cdAttachment = Attachment.fromHRType(attachment) {
+					attachmentsSet.addObject(cdAttachment)
+				}
+			}
+			self.attachments = attachmentsSet
+		}
+	}
+	
+	func toHRType() -> HRMessage {
+		let hrMessage = HRMessage()
+		hrMessage.content = self.content ?? ""
+		hrMessage.id = self.id ?? ""
+		hrMessage.sent_at = NSDate.toString(self.sent_at) ?? ""
+		hrMessage.subject = self.subject ?? ""
+		hrMessage.sender = self.sender?.toHRType()
+		hrMessage.thread = self.thread?.id ?? ""
+		hrMessage.labels = self.hrTypeLabels()
+		hrMessage.recipients = self.hrTypeRecipients()
+		hrMessage.attachments = self.hrTypeAttachments()
+		
+		return hrMessage
 	}
 	
 	// MARK: Mailboxes
@@ -85,15 +100,15 @@ final class Message: NSManagedObject, CoreDataConvertible {
 	func moveToArchive(){
 		self.removeLabelWithID(SystemLabels.Inbox.rawValue)
 	}
-
+	
 	func moveToInbox(){
 		self.addLabelWithID(SystemLabels.Inbox.rawValue)
 	}
-
+	
 	func flag(){
 		self.addLabelWithID(SystemLabels.Flagged.rawValue)
 	}
-
+	
 	func unflag(){
 		self.removeLabelWithID(SystemLabels.Flagged.rawValue)
 	}
@@ -106,18 +121,34 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		self.addLabelWithID(SystemLabels.Unread.rawValue)
 	}
 	
+	// MARK: Refresh
+	
+	func refreshFromAPI(){
+		if let id = self.id {
+			APICommunicator.sharedInstance.getMessageWithCallback(id) { (message, error) -> Void in
+				guard let message = message else {
+					print(error)
+					
+					return
+				}
+				self.updateFromHRType(message)
+			}
+		}
+	}
+	
 	// MARK: Labels
 	
-	func updateLabelsOnHRAPI(){
+	func updateLabelsOnHRAPI(completion: ((success: Bool)->Void)? = nil){
 		if let id = self.id {
 			APICommunicator.sharedInstance.setLabelsToMessageWithID(id, setLabels: hrTypeLabels(), callback: { (labels, error) -> Void in
 				guard let labels = labels else {
-									print(error)
-
+					print(error)
+					completion?(success: false)
 					return
 				}
 				
 				self.setLabelsFromHRTypes(labels)
+				completion?(success: true)
 			})
 		}
 	}
@@ -126,7 +157,7 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		if let label = Label.fromID(id) {
 			self.labels = self.labels?.setByAddingObject(label)
 			let _ = try? self.managedObjectContext?.save()
-
+			
 			if updateOnApi {
 				updateLabelsOnHRAPI()
 			}
@@ -167,15 +198,35 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		var hrLabels = [HRLabel]()
 		if let labels = self.labels {
 			for label in labels {
-				let hrLabel = HRLabel()
-				hrLabel.id = label.id
-				hrLabel.name = label.name
-				hrLabel.type = label.type
+				let hrLabel = (label as! Label).toHRType()
 				hrLabels.append(hrLabel)
 			}
 		}
 		return hrLabels
 	}
+	
+	func hrTypeRecipients() -> [HRUser] {
+		var hrUsers = [HRUser]()
+		if let users = self.recipients {
+			for user in users {
+				let user = (user as! User).toHRType()
+				hrUsers.append(user)
+			}
+		}
+		return hrUsers
+	}
+	
+	func hrTypeAttachments() -> [HRAttachment] {
+		var hrAttachments = [HRAttachment]()
+		if let attachments = self.attachments {
+			for attachment in attachments {
+				let hrAttachment = (attachment as! Attachment).toHRType()
+				hrAttachments.append(hrAttachment)
+			}
+		}
+		return hrAttachments
+	}
+	
 	
 	// MARK: Utility getters
 	
@@ -186,7 +237,7 @@ final class Message: NSManagedObject, CoreDataConvertible {
 					let mutableSet = NSMutableSet(set: self.recipients!)
 					mutableSet.removeObject(recipient)
 					return NSSet(set: mutableSet)
- 				}
+				}
 			}
 		}
 		
@@ -194,7 +245,7 @@ final class Message: NSManagedObject, CoreDataConvertible {
 	}
 	
 	// MARK: State getter utilities
-
+	
 	var isUnread: Bool {
 		get {
 			var unread = false
@@ -211,32 +262,84 @@ final class Message: NSManagedObject, CoreDataConvertible {
 	
 	var isFlagged: Bool {
 		get {
-			var unread = false
 			if let labels = self.labels {
 				for label in labels {
 					if label.id == "IMPORTANT" {
-						unread = true
+						return true
 					}
 				}
 			}
-			return unread
+			return false
 		}
 	}
 	
 	var isArchived: Bool {
 		get {
-			var unread = true
 			if let labels = self.labels {
 				for label in labels {
 					if label.id == "INBOX" {
-						unread = false
+						return false
 					}
 				}
 			}
-			return unread
+			return true
 		}
 	}
-
+	
+	var isDraft: Bool {
+		get {
+			if let labels = self.labels {
+				for label in labels {
+					if label.id == "DRAFT" {
+						return true
+					}
+				}
+			}
+			return false
+		}
+	}
+	
+	var isValidToSend: Bool {
+		return (recipients?.count != 0 && content != "" && subject == "")
+	}
+	
+	// MARK: Drafts
+	
+	func saveAsDraft(){
+		self.addLabelWithID("DRAFT")
+		self.sender = User.me()
+	}
+	
+	// MARK: Send
+	
+	func send(){
+		if isDraft {
+			self.removeLabelWithID("DRAFT")
+			persistToAPI()
+		}else{
+			persistToAPI()
+		}
+	}
+	
+	// MARK: API Persistence
+	
+	func persistToAPI(completion: ((success: Bool)->Void)? = nil){
+		APICommunicator.sharedInstance.sendMessage(toHRType()) { (message, error) -> Void in
+			guard let error = error else {
+				if let message = message {
+					self.updateFromHRType(message)
+				}
+				completion?(success: true)
+				return
+			}
+			
+			var errorPopup = ErrorPopupViewController()
+			errorPopup.error = error
+			errorPopup.show()
+			completion?(success: false)
+		}
+	}
+	
 	// MARK: Fetch Requests
 	
 	class func fetchRequestForMessagesWithInboxType(type: MailboxType) -> NSFetchRequest {

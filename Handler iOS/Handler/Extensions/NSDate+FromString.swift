@@ -15,4 +15,14 @@ extension NSDate {
 		
 		return formatter.dateFromString(string)
 	}
+	
+	class func toString(date: NSDate?) -> String? {
+		let formatter = NSDateFormatter()
+		formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+		if let date = date {
+			return formatter.stringFromDate(date)
+		}else{
+			return nil
+		}
+	}
 }

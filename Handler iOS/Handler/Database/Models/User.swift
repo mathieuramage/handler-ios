@@ -29,4 +29,25 @@ final class User: NSManagedObject, CoreDataConvertible {
 		self.created_at = NSDate.fromString(user.created_at)
 		self.updated_at = NSDate.fromString(user.updated_at)
 	}
+	
+	func toHRType() -> HRUser {
+		let user = HRUser()
+		user.id = self.id ?? ""
+		user.desc = self.desc ?? ""
+		user.handle = self.handle ?? ""
+		user.name = self.name ?? ""
+		user.picture_url = self.profile_picture_url ?? ""
+		user.provider = self.provider ?? ""
+		user.created_at = NSDate.toString(self.created_at) ?? ""
+		user.updated_at = NSDate.toString(self.updated_at) ?? ""
+		return user
+	}
+	
+	class func me()->User?{
+		if let user = HRUserSessionManager.sharedManager.currentUser {
+			return User.fromHRType(user)
+		}else{
+			return nil
+		}
+	}
 }

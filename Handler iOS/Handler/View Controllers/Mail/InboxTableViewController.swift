@@ -51,6 +51,7 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 		
 		MailboxObserversManager.sharedInstance.addObserverForMailboxType(.Inbox, observer: self)
 		MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(.AllChanges, observer: self)
+		MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(.Unread, observer: self)
 	}
 	
 	func refresh(control: UIRefreshControl){
@@ -80,7 +81,6 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 		newEmailsLabel?.textAlignment = .Center
 		newEmailsLabel?.font = UIFont.systemFontOfSize(10)
 		newEmailsLabel?.textColor = UIColor.darkGrayColor()
-		MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(.Unread, observer: self)
 		
 		let containerView = UIView(frame: CGRectMake(0, 0, 140, 44))
 		containerView.addSubview(lastupdatedLabel!)
@@ -149,6 +149,8 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 			self.tableView.insertSections(NSIndexSet(index: sectionIndex), withRowAnimation: UITableViewRowAnimation.Fade)
 		case NSFetchedResultsChangeType.Delete:
 			self.tableView.deleteSections(NSIndexSet(index: sectionIndex), withRowAnimation: UITableViewRowAnimation.Fade)
+		case NSFetchedResultsChangeType.Update:
+			self.tableView.reloadSections(NSIndexSet(index: sectionIndex), withRowAnimation: UITableViewRowAnimation.Fade)
 		default:
 			break;
 		}
@@ -176,7 +178,7 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 				newEmailsLabel?.text = "No new emails"
 			}
 		} else if mailboxType == .AllChanges {
-
+			tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Fade)
 		}
 	}
 	

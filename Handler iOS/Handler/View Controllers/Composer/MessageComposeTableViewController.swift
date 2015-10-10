@@ -11,147 +11,196 @@ import HandlerSDK
 import Async
 
 class MessageComposeTableViewController: UITableViewController, CLTokenInputViewDelegate, UITextViewDelegate, FilePickerDelegate, UIDocumentPickerDelegate, UIDocumentInteractionControllerDelegate {
-    
-    struct ValidatedToken {
-        var name: String
-        var isOnHandler: Bool
-        var user: HRUser?
-        
-        init(name: String, isOnHandler: Bool, user: HRUser? = nil){
-            self.name = name
-            self.isOnHandler = isOnHandler
-            self.user = user
-        }
-    }
-    
-    var messageToReplyTo: Message?
-    var messageToForward: Message?
-    
-    @IBOutlet weak var tokenView: CLTokenInputView!
-    @IBOutlet weak var ccTokenView: CLTokenInputView!
-    
-    @IBOutlet weak var addToContactButton: UIButton!
-    @IBOutlet weak var addCCContactButton: UIButton!
-    
-    @IBOutlet weak var subjectTextField: UITextField!
-    @IBOutlet weak var contentTextView: UITextView!
-    
-    @IBOutlet weak var attachmentsCell: MessageAttachmentsTableViewCell!
-    
-    var validatedTokens = [ValidatedToken]()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        tableView.tableFooterView = UIView()
-        tokenView.tintColor = UIColor.hrLightGrayColor()
-        ccTokenView.tintColor = UIColor.hrLightGrayColor()
-        if let message = messageToReplyTo, let sender = message.sender?.handle {
-            tokenView.addToken(CLToken(displayText: "@\(sender)", context: nil))
-            startValidationWithString("@\(sender)")
-            if let subject = message.subject {
-                subjectTextField.text = "RE: \(subject)"
-            }
-        }
-        if let receivers = messageToReplyTo?.recipientsWithoutSelf(), let all = receivers.allObjects as? [User] {
-            for receiver in all {
-                ccTokenView.addToken(CLToken(displayText: "@\(receiver.handle!)", context: nil))
-                startValidationWithString("@\(receiver.handle!)")
-            }
-        }
-        
-        if let msg = messageToReplyTo {
-            attachmentsCell.attachments = msg.attachments?.allObjects as? [Attachment]
-        }else if let msg = messageToForward {
-            attachmentsCell.attachments = msg.attachments?.allObjects as? [Attachment]
-        }
-        
-        attachmentsCell.filePresentingVC = self
-        attachmentsCell.reloadClosure = {[unowned self] ()->Void in
-            self.tableView.beginUpdates()
-            self.tableView.endUpdates()
-        }
-        attachmentsCell.filePickerDelegate = self
-    }
-    
-    // MARK: Sending / Cancelling
-    
-    @IBAction func dismiss(sender: UIBarButtonItem) {
-        let alertController = UIAlertController(title: "Save as draft", message: "Do you want to save this message as a draft?", preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: "Save as Draft", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            
-        }))
-        alertController.addAction(UIAlertAction(title: "Delete", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
-            self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
-        }))
-        alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
-        presentViewController(alertController, animated: true, completion: nil)
-    }
-    @IBAction func send(sender: UIBarButtonItem) {
-        switchUserInteractionState(false, sender: sender)
-        
-        let message = HRMessage()
-        var receivers = [HRUser]()
-        for token in tokenView.allTokens {
-            for valdtoken in validatedTokens {
-                if valdtoken.isOnHandler && valdtoken.name == token.displayText.stringByReplacingOccurrencesOfString("@", withString: ""){
-                    let user = HRUser()
-                    user.handle = valdtoken.name
-                    receivers.append(user)
-                }
-            }
-        }
-        
-        message.recipients = receivers
-        message.content = contentTextView.text
-        message.subject = subjectTextField.text ?? ""
-        
-        if receivers.count == 0 || contentTextView.text == "" || subjectTextField.text == "" {
-            var errorPopup = ErrorPopupViewController()
-            errorPopup.displayMessageLabel.text = "You need at least one receiver and a subject / content"
-            errorPopup.show()
-            switchUserInteractionState(true, sender: sender)
-            return
-        }
-        
-        if let messageReplyTo = messageToReplyTo {
-            APICommunicator.sharedInstance.replyToMessageWithID(messageReplyTo.id!, reply: message, callback: { (message, error) -> Void in
-                self.switchUserInteractionState(true, sender: sender)
-                
-                guard let message = message else {
-                    if let error = error {
-                        var errorPopup = ErrorPopupViewController()
-                        errorPopup.error = error
-                        errorPopup.show()
-                    }
-                    return
-                }
-                MailDatabaseManager.sharedInstance.storeMessage(message)
-                self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
-            })
-        }else{
-            
-            APICommunicator.sharedInstance.sendMessage(message) { (message, error) -> Void in
-                self.switchUserInteractionState(true, sender: sender)
-                guard let message = message else {
-                    if let error = error {
-                        var errorPopup = ErrorPopupViewController()
-                        errorPopup.error = error
-                        errorPopup.show()
-                    }
-                    return
-                }
-                MailDatabaseManager.sharedInstance.storeMessage(message)
-                self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
-            }
-        }
-    }
-    
-    // MARK: UI Utils
-    
-    func switchUserInteractionState(enabled: Bool, sender: UIBarButtonItem? = nil){
-        if !enabled {
-            subjectTextField.resignFirstResponder()
-            contentTextView.resignFirstResponder()
+	
+	struct ValidatedToken {
+		var name: String
+		var isOnHandler: Bool
+		var user: HRUser?
+		
+		init(name: String, isOnHandler: Bool, user: HRUser? = nil){
+			self.name = name
+			self.isOnHandler = isOnHandler
+			self.user = user
+		}
+	}
+	
+	var messageToReplyTo: Message?
+	var messageToForward: Message?
+	var draftMessage: Message?
+	
+	@IBOutlet weak var tokenView: CLTokenInputView!
+	@IBOutlet weak var ccTokenView: CLTokenInputView!
+	
+	@IBOutlet weak var addToContactButton: UIButton!
+	@IBOutlet weak var addCCContactButton: UIButton!
+	
+	@IBOutlet weak var subjectTextField: UITextField!
+	@IBOutlet weak var contentTextView: UITextView!
+	
+	@IBOutlet weak var attachmentsCell: MessageAttachmentsTableViewCell!
+	
+	var validatedTokens = [ValidatedToken]()
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		tableView.tableFooterView = UIView()
+		tokenView.tintColor = UIColor.hrLightGrayColor()
+		ccTokenView.tintColor = UIColor.hrLightGrayColor()
+		
+		// UI Configuration
+		
+		if let draft = draftMessage {
+			if let recipients = draft.recipients?.allObjects as? [User] {
+				for recipient in recipients {
+					if let handle = recipient.handle {
+						tokenView.addToken(CLToken(displayText: "@\(handle)", context: nil))
+						startValidationWithString("@\(handle)")
+					}
+				}
+			}
+			
+			self.subjectTextField.text = draft.subject
+			self.contentTextView.text = draft.content
+			attachmentsCell.attachments = draft.attachments?.allObjects as? [Attachment]
+
+		}else{
+			
+			if let message = messageToReplyTo, let sender = message.sender?.handle {
+				tokenView.addToken(CLToken(displayText: "@\(sender)", context: nil))
+				startValidationWithString("@\(sender)")
+				if let subject = message.subject {
+					subjectTextField.text = "RE: \(subject)"
+				}
+			}
+			if let receivers = messageToReplyTo?.recipientsWithoutSelf(), let all = receivers.allObjects as? [User] {
+				for receiver in all {
+					ccTokenView.addToken(CLToken(displayText: "@\(receiver.handle!)", context: nil))
+					startValidationWithString("@\(receiver.handle!)")
+				}
+			}
+			
+			if let msg = messageToReplyTo {
+				attachmentsCell.attachments = msg.attachments?.allObjects as? [Attachment]
+			}else if let msg = messageToForward {
+				attachmentsCell.attachments = msg.attachments?.allObjects as? [Attachment]
+			}
+		}
+		
+		attachmentsCell.filePresentingVC = self
+		attachmentsCell.reloadClosure = {[unowned self] ()->Void in
+			self.tableView.beginUpdates()
+			self.tableView.endUpdates()
+		}
+		attachmentsCell.filePickerDelegate = self
+	}
+	
+	// MARK: Sending / Cancelling
+	
+	@IBAction func dismiss(sender: UIBarButtonItem) {
+		if let draft = draftMessage {
+			self.updateDraftFromUI(draft: draft).saveAsDraft()
+			self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+		}else{
+			let alertController = UIAlertController(title: "Save as draft", message: "Do you want to save this message as a draft?", preferredStyle: UIAlertControllerStyle.Alert)
+			alertController.addAction(UIAlertAction(title: "Save as Draft", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+				self.createMessageFromUI().saveAsDraft()
+				self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+			}))
+			alertController.addAction(UIAlertAction(title: "Delete", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
+				if let attachments = self.attachmentsCell.attachments {
+					for attachment in attachments {
+						attachment.delete()
+					}
+				}
+				self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+			}))
+			alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+			presentViewController(alertController, animated: true, completion: nil)
+		}
+	}
+	
+	@IBAction func send(sender: UIBarButtonItem) {
+		switchUserInteractionState(false, sender: sender)
+		
+		let message = createMessageFromUI()
+		
+		if message.isValidToSend {
+			var errorPopup = ErrorPopupViewController()
+			errorPopup.displayMessageLabel.text = "You need at least one receiver and a subject / content"
+			errorPopup.show()
+			switchUserInteractionState(true, sender: sender)
+			return
+		}
+		
+		if let messageReplyTo = messageToReplyTo {
+			APICommunicator.sharedInstance.replyToMessageWithID(messageReplyTo.id!, reply: message.toHRType(), callback: { (message, error) -> Void in
+				self.switchUserInteractionState(true, sender: sender)
+				
+				guard let message = message else {
+					if let error = error {
+						var errorPopup = ErrorPopupViewController()
+						errorPopup.error = error
+						errorPopup.show()
+					}
+					return
+				}
+				MailDatabaseManager.sharedInstance.storeMessage(message)
+				self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+			})
+		}else{
+			APICommunicator.sharedInstance.sendMessage(message.toHRType()) { (message, error) -> Void in
+				self.switchUserInteractionState(true, sender: sender)
+				guard let message = message else {
+					if let error = error {
+						var errorPopup = ErrorPopupViewController()
+						errorPopup.error = error
+						errorPopup.show()
+					}
+					return
+				}
+				MailDatabaseManager.sharedInstance.storeMessage(message)
+				self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+			}
+		}
+	}
+
+	func updateDraftFromUI(draft draft: Message) -> Message {
+		configMsg(draft)
+		return draft
+	}
+	
+	func createMessageFromUI() -> Message {
+		let message = Message(managedObjectContext: MailDatabaseManager.sharedInstance.managedObjectContext)
+		configMsg(message)
+		
+		return message
+	}
+	
+	func configMsg(message: Message)->Message {
+		var receivers = [User]()
+		for token in tokenView.allTokens {
+			for valdtoken in validatedTokens {
+				if valdtoken.isOnHandler && valdtoken.name == token.displayText.stringByReplacingOccurrencesOfString("@", withString: ""){
+					let user = HRUser()
+					user.handle = valdtoken.name
+					receivers.append(User(hrType: user, managedObjectContext: MailDatabaseManager.sharedInstance.managedObjectContext))
+				}
+			}
+		}
+		message.attachments = NSSet(array: attachmentsCell.attachments ?? [Attachment]())
+
+		message.recipients = NSSet(array: receivers)
+		message.content = contentTextView.text
+		message.subject = subjectTextField.text ?? ""
+		return message
+	}
+	
+	// MARK: UI Utils
+	
+	func switchUserInteractionState(enabled: Bool, sender: UIBarButtonItem? = nil){
+		if !enabled {
+			subjectTextField.resignFirstResponder()
+			contentTextView.resignFirstResponder()
             tokenView.resignFirstResponder()
             ccTokenView.resignFirstResponder()
         }
@@ -242,7 +291,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
         if indexPath.row == 3 {
             return max(CGFloat(contentTextView.contentSize.height + 40), CGFloat(300))
         } else if indexPath.row == 4 {
-            return max(attachmentsCell.collectionView.contentSize.height + 20, 50+20)
+            return max(attachmentsCell.intrinsicContentSize().height + 20, 50+20)
         }
         return UITableViewAutomaticDimension
     }

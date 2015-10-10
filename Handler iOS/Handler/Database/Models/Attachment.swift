@@ -38,6 +38,46 @@ final class Attachment: NSManagedObject, CoreDataConvertible {
         
         let _ = try? managedObjectContext?.save()
     }
+	
+	required convenience init(hrType: HRType, managedObjectContext: NSManagedObjectContext) {
+		self.init(managedObjectContext: managedObjectContext)
+		
+		updateFromHRType(hrType)
+	}
+	
+	func updateFromHRType(attachment: HRType) {
+		self.id = attachment.id
+		self.content_type = attachment.content_type
+		self.url = attachment.url
+		self.filename = attachment.filename
+		self.size = attachment.size
+		self.upload_complete = attachment.uploadComplete
+	}
+
+	
+	func toHRType() -> HRAttachment {
+		let hrAttachment = HRAttachment()
+		hrAttachment.id = self.id ?? ""
+		hrAttachment.content_type = self.content_type ?? ""
+		hrAttachment.url = self.url ?? ""
+		hrAttachment.filename = self.filename ?? ""
+		hrAttachment.size = self.size?.integerValue ?? 0
+		hrAttachment.uploadComplete = self.upload_complete?.boolValue ?? false
+		return hrAttachment
+	}
+	
+	// Mark: Utils / Getters
+	
+	func delete() {
+		if let locURL = getLocalFileURL() {
+			do {
+				try NSFileManager().removeItemAtURL(locURL)
+			} catch {
+				print(error)
+			}
+		}
+		self.managedObjectContext?.deleteObject(self)
+	}
     
     func getUTI() -> String? {
         return interactionController?.UTI
@@ -90,22 +130,7 @@ final class Attachment: NSManagedObject, CoreDataConvertible {
         
         return NSURL(fileURLWithPath: docsDirString).URLByAppendingPathComponent(filename ?? "")
     }
-    
-    required convenience init(hrType: HRType, managedObjectContext: NSManagedObjectContext) {
-        self.init(managedObjectContext: managedObjectContext)
-        
-        updateFromHRType(hrType)
-    }
-    
-    func updateFromHRType(attachment: HRType) {
-        self.id = attachment.id
-        self.content_type = attachment.content_type
-        self.url = attachment.url
-        self.filename = attachment.filename
-        self.size = attachment.size
-        self.upload_complete = attachment.uploadComplete
-    }
-    
+	
     // MARK: Validation
     
     var isUploadable: Bool! {

@@ -78,7 +78,9 @@ class GenericMailboxTableViewController: UITableViewController, NSFetchedResults
 			if let cell = tableView.cellForRowAtIndexPath(indexPath) as? MessageTableViewCell {
 				cell.message = message
 			}
-			if let thread = message.thread where thread.messages?.count > 1 {
+			if mailboxType == .Drafts {
+				performSegueWithIdentifier("showMessageComposeNavigationController", sender: self)
+			} else if let thread = message.thread where thread.messages?.count > 1 {
 				performSegueWithIdentifier("showThreadTableViewController", sender: self)
 			}else{
 				performSegueWithIdentifier("showMessageDetailViewController", sender: self)
@@ -171,6 +173,9 @@ class GenericMailboxTableViewController: UITableViewController, NSFetchedResults
 		} else if segue.identifier == "showThreadTableViewController" {
 			let dc = segue.destinationViewController as! ThreadTableViewController
 			dc.thread = self.messageForSegue?.thread
+		} else if segue.identifier == "showMessageComposeNavigationController" {
+			let dc = (segue.destinationViewController as! UINavigationController).viewControllers.first as! MessageComposeTableViewController
+			dc.draftMessage = self.messageForSegue
 		}
 	}
 	

@@ -27,6 +27,8 @@ class MessageTableViewCell: SWTableViewCell {
 		return formatter
 		}()
 	
+	var inboxType: MailboxType = .Inbox
+	
 	var message: Message? {
 		didSet {
 			
@@ -45,18 +47,11 @@ class MessageTableViewCell: SWTableViewCell {
 				leftUtilityButtons = leftButtons()
 				rightUtilityButtons = rightButtons()
 				if let urlString = message.sender?.profile_picture_url, let profileUrl = NSURL(string: urlString) {
-				Async.background(block: { () -> Void in
-						self.senderProfileImageView.sd_setImageWithURL(profileUrl, placeholderImage: UIImage.randomGhostImage(), completed: { (image, error,
-							cache, url) -> Void in
-							if url == profileUrl {
-								if let error = error {
-									print(error)
-									return
-								}
-								Async.main(block: { () -> Void in
-									self.senderProfileImageView.image = image
-								})
-							}
+					Async.background(block: { () -> Void in
+						self.senderProfileImageView.kf_setImageWithURL(profileUrl, placeholderImage: UIImage.randomGhostImage(), optionsInfo: nil, completionHandler: { (image, error, cacheType, imageURL) -> () in
+							Async.main(block: { () -> Void in
+								self.senderProfileImageView.image = image
+							})
 						})
 					})
 				}
@@ -67,7 +62,11 @@ class MessageTableViewCell: SWTableViewCell {
 				}
 				messageSubjectLabel.text = message.subject
 				messageContentPreviewLabel.text = message.content
-				messageTimeLabel.text = timeFormatter.stringForTimeInterval(message.sent_at!.timeIntervalSinceNow)
+				if let sent_at = message.sent_at {
+					messageTimeLabel.text = timeFormatter.stringForTimeInterval(sent_at.timeIntervalSinceNow)
+				}else{
+					messageTimeLabel.text = "-"
+				}
 				if message.isUnread {
 					readFlaggedImageView.image = UIImage(named: "blue dot sm copy")
 				}
@@ -99,7 +98,7 @@ class MessageTableViewCell: SWTableViewCell {
 		}else{
 			array.sw_addUtilityButtonWithColor(UIColor.hrOrangeColor(), icon: UIImage(named: "Flag_Icon"), andTitle: "Flag")
 		}
-
+		
 		if let isArchived = message?.isArchived where isArchived {
 			array.sw_addUtilityButtonWithColor(UIColor.hrDarkBlueColor(), icon: UIImage(named: "Archive_Icon"), andTitle: "Unarchive")
 		}else{
