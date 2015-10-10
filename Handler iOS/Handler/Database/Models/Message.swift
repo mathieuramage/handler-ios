@@ -321,6 +321,20 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		}
 	}
 	
+	func replyToMessageWithID(id: String){
+		APICommunicator.sharedInstance.replyToMessageWithID(id, reply: self.toHRType(), callback: { (message, error) -> Void in
+				guard let message = message else {
+					if let error = error {
+						var errorPopup = ErrorPopupViewController()
+						errorPopup.error = error
+						errorPopup.show()
+					}
+					return
+				}
+				self.updateFromHRType(message)
+			})
+	}
+	
 	// MARK: API Persistence
 	
 	func persistToAPI(completion: ((success: Bool)->Void)? = nil){

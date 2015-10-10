@@ -132,36 +132,13 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 			return
 		}
 		
-		if let messageReplyTo = messageToReplyTo {
-			APICommunicator.sharedInstance.replyToMessageWithID(messageReplyTo.id!, reply: message.toHRType(), callback: { (message, error) -> Void in
-				self.switchUserInteractionState(true, sender: sender)
-				
-				guard let message = message else {
-					if let error = error {
-						var errorPopup = ErrorPopupViewController()
-						errorPopup.error = error
-						errorPopup.show()
-					}
-					return
-				}
-				MailDatabaseManager.sharedInstance.storeMessage(message)
-				self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
-			})
+		if let messageReplyTo = messageToReplyTo, let id = messageReplyTo.id {
+			message.replyToMessageWithID(id)
 		}else{
-			APICommunicator.sharedInstance.sendMessage(message.toHRType()) { (message, error) -> Void in
-				self.switchUserInteractionState(true, sender: sender)
-				guard let message = message else {
-					if let error = error {
-						var errorPopup = ErrorPopupViewController()
-						errorPopup.error = error
-						errorPopup.show()
-					}
-					return
-				}
-				MailDatabaseManager.sharedInstance.storeMessage(message)
-				self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
-			}
+			message.send()
 		}
+		self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+
 	}
 
 	func updateDraftFromUI(draft draft: Message) -> Message {
