@@ -50,8 +50,9 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		if let id = self.id {
 			APICommunicator.sharedInstance.fetchLabelsForMessageWithID(id, callback: { (labels, error) -> Void in
 				guard let labels = labels else {
-					print(error)
-					
+                    if let error = error {
+                        ErrorHandler.performErrorActions(error)
+                    }
 					return
 				}
 				
@@ -127,8 +128,9 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		if let id = self.id {
 			APICommunicator.sharedInstance.getMessageWithCallback(id) { (message, error) -> Void in
 				guard let message = message else {
-					print(error)
-					
+                    if let error = error {
+                        ErrorHandler.performErrorActions(error)
+                    }
 					return
 				}
 				self.updateFromHRType(message)
@@ -142,8 +144,10 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		if let id = self.id {
 			APICommunicator.sharedInstance.setLabelsToMessageWithID(id, setLabels: hrTypeLabels(), callback: { (labels, error) -> Void in
 				guard let labels = labels else {
-					print(error)
-					completion?(success: false)
+                    if let error = error {
+                        ErrorHandler.performErrorActions(error)
+                    }
+                    completion?(success: false)
 					return
 				}
 				
