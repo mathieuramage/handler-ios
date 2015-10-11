@@ -18,7 +18,7 @@ class APICommunicator: NSObject {
 		super.init()
 		
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidAuth", name: HRUserSessionDidStartNotification, object: nil)
-
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidSet", name: HRCurrentUserDidSetNotification, object: nil)
 		checkForCurrentSessionOrAuth()
 	}
     
@@ -84,11 +84,18 @@ class APICommunicator: NSObject {
 			if let vendorID = UIDevice.currentDevice().identifierForVendor?.UUIDString {
 				data["deviceId"] = vendorID
 			}
-			//HandlerAPI.uploadDeviceData(data)
+			HandlerAPI.uploadDeviceData(data)
 		}
 		fetchNewMessages(nil)
 		fetchNewLabels()
 	}
+    
+    func userDidSet(){
+        if let user = HRUserSessionManager.sharedManager.currentUser {
+            Track.identify(user.id)
+            Track.updateUserData(["userData":user])
+        }
+    }
 	
 	func fetchNewMessagseWithCompletion(completion: (error: HRError?)->Void){
 		fetchNewMessages(completion)
@@ -103,7 +110,9 @@ class APICommunicator: NSObject {
 					self.checkForCurrentSessionOrAuth({ (error) -> Void in
 						self.fetchNewLabels()
 					})
-				}
+                }else if let error = error {
+                    ErrorHandler.performErrorActions(error)
+                }
 				return
 			}
 			for label in labels {
