@@ -8,7 +8,6 @@
 
 import UIKit
 import HandlerSDK
-import CWStatusBarNotification
 
 class ErrorHandler: NSObject {
     class func performErrorActions(error: HRError){

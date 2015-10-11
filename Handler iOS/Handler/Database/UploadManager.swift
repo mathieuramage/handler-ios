@@ -10,8 +10,7 @@ import UIKit
 import HandlerSDK
 
 class UploadManager: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
-	static var sharedInstance = UploadManager()
-    
+	
     var currentUploadTask: NSURLSessionUploadTask?
     var currentCallback: ((success: Bool, error: HRError?)->Void)?
     var currentProgressHandler: ((bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64)->Void)?
@@ -26,11 +25,11 @@ class UploadManager: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
         currentProgressHandler = progressHandler
         
         if let uploadURLPath = attachment.upload_url, let uploadURL = NSURL(string: uploadURLPath), let uploadable = attachment.isUploadable where uploadable {
-            let backgroundSessionConfiguration = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier("com.chrisspraiss.backgroundUpload")
+            let backgroundSessionConfiguration = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier("com.chrisspraiss.backgroundUpload.\(attachment.filename)")
             let session = NSURLSession(configuration: backgroundSessionConfiguration, delegate: self, delegateQueue: NSOperationQueue.mainQueue())
             
             let uploadRequest = NSMutableURLRequest(URL: uploadURL)
-            uploadRequest.setValue(attachment.content_type, forHTTPHeaderField: "Content-Type")
+            uploadRequest.setValue(attachment.getMime(), forHTTPHeaderField: "Content-Type")
             uploadRequest.setValue("\(file.length)", forHTTPHeaderField: "Content-Length")
             uploadRequest.setValue("public-read", forHTTPHeaderField: "x-amz-acl")
             uploadRequest.HTTPMethod = "PUT"
@@ -46,9 +45,11 @@ class UploadManager: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
     // MARK: URLSession Delegate
     
     func URLSessionDidFinishEventsForBackgroundURLSession(session: NSURLSession) {
-        if session.configuration.identifier == "com.chrisspraiss.backgroundUpload" {
-            AppDelegate.sharedInstance().backgroundSessionCompletionHandler?()
-        }
+		if let attachment = currentAttachment {
+			if session.configuration.identifier == "com.chrisspraiss.backgroundUpload.\(attachment.filename)" {
+				AppDelegate.sharedInstance().backgroundSessionCompletionHandler?()
+			}
+		}
     }
     
     func URLSession(session: NSURLSession, task: NSURLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) {
@@ -68,6 +69,27 @@ class UploadManager: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
             currentCallback?(success: false, error: HRError(errorType: error))
         }else{
             currentCallback?(success: true, error: nil)
+			if let localattachment = currentAttachment {
+				HandlerAPI.markAttachmentAsCompleted(localattachment.toHRType(), callback: { (attachment, error) -> Void in
+					guard let attachment = attachment else {
+						var errorPopup = ErrorPopupViewController()
+						errorPopup.error = error
+						errorPopup.show()
+						return
+					}
+					localattachment.updateFromHRType(attachment)
+					localattachment.upload_complete = NSNumber(bool: true)
+					
+					if let shouldBeSent = localattachment.contained_in?.shouldBeSent where shouldBeSent.boolValue {
+						for attachment in localattachment.contained_in?.attachments?.allObjects as! [Attachment] {
+							if let uplaodComplete = attachment.upload_complete where !uplaodComplete.boolValue {
+								return
+							}
+						}
+						localattachment.contained_in?.persistToAPI()
+					}
+				})
+			}
         }
     }
 }

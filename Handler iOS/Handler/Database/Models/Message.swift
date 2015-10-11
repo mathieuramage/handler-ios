@@ -18,19 +18,11 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		self.init(managedObjectContext: managedObjectContext)
 		
 		updateFromHRType(message)
-		
-		message.fetchLabels { (labels, error) -> Void in
-			guard let labels = labels else {
-				print(error)
-				
-				return
-			}
-			
-			self.setLabelsFromHRTypes(labels)
-		}
 	}
 	
 	func updateFromHRType(message: HRType) {
+		self.shouldBeSent = NSNumber(bool: false)
+		
 		self.content = message.content
 		self.id = message.id
 		self.sent_at = NSDate.fromString(message.sent_at)
@@ -50,9 +42,9 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		if let id = self.id {
 			APICommunicator.sharedInstance.fetchLabelsForMessageWithID(id, callback: { (labels, error) -> Void in
 				guard let labels = labels else {
-                    if let error = error {
-                        ErrorHandler.performErrorActions(error)
-                    }
+					if let error = error {
+						ErrorHandler.performErrorActions(error)
+					}
 					return
 				}
 				
@@ -78,6 +70,16 @@ final class Message: NSManagedObject, CoreDataConvertible {
 				}
 			}
 			self.attachments = attachmentsSet
+		}
+		
+		message.fetchLabels { (labels, error) -> Void in
+			guard let labels = labels else {
+				print(error)
+				
+				return
+			}
+			
+			self.setLabelsFromHRTypes(labels)
 		}
 	}
 	
@@ -128,9 +130,9 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		if let id = self.id {
 			APICommunicator.sharedInstance.getMessageWithCallback(id) { (message, error) -> Void in
 				guard let message = message else {
-                    if let error = error {
-                        ErrorHandler.performErrorActions(error)
-                    }
+					if let error = error {
+						ErrorHandler.performErrorActions(error)
+					}
 					return
 				}
 				self.updateFromHRType(message)
@@ -144,10 +146,10 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		if let id = self.id {
 			APICommunicator.sharedInstance.setLabelsToMessageWithID(id, setLabels: hrTypeLabels(), callback: { (labels, error) -> Void in
 				guard let labels = labels else {
-                    if let error = error {
-                        ErrorHandler.performErrorActions(error)
-                    }
-                    completion?(success: false)
+					if let error = error {
+						ErrorHandler.performErrorActions(error)
+					}
+					completion?(success: false)
 					return
 				}
 				
@@ -314,32 +316,56 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		self.sender = User.me()
 	}
 	
-	// MARK: Send
-	
-	func send(){
-		if isDraft {
-			self.removeLabelWithID("DRAFT")
-			persistToAPI()
-		}else{
-			persistToAPI()
-		}
-	}
-	
 	func replyToMessageWithID(id: String){
+		self.shouldBeSent = NSNumber(bool: true)
+		
 		APICommunicator.sharedInstance.replyToMessageWithID(id, reply: self.toHRType(), callback: { (message, error) -> Void in
-				guard let message = message else {
-					if let error = error {
-						var errorPopup = ErrorPopupViewController()
-						errorPopup.error = error
-						errorPopup.show()
-					}
-					return
+			guard let message = message else {
+				if let error = error {
+					var errorPopup = ErrorPopupViewController()
+					errorPopup.error = error
+					errorPopup.show()
 				}
-				self.updateFromHRType(message)
-			})
+				return
+			}
+			self.updateFromHRType(message)
+		})
 	}
 	
 	// MARK: API Persistence
+	
+	func send(completion: ((success: Bool)->Void)? = nil){
+		self.shouldBeSent = NSNumber(bool: true)
+		if isDraft {
+			self.removeLabelWithID("DRAFT")
+		}
+		
+		if self.attachments?.count != 0 {
+			for locattachment in self.attachments?.allObjects as! [Attachment] {
+				HandlerAPI.createAttachment(locattachment.filename ?? "", fileType: locattachment.content_type ?? "", callback: { (attachment, error) -> Void in
+					guard let attachment = attachment else {
+						print(error)
+						return
+					}
+					locattachment.updateFromHRType(attachment)
+					UploadManager().uploadFileToAttachment(locattachment.getData() ?? NSData(), attachment: locattachment, progressHandler: { (bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64)->Void in
+						print("\(totalBytesSent) / \(totalBytesExpectedToSend)")
+						
+						} , callback:  { (success: Bool, error: HRError?)->Void in
+							if let error = error {
+								var popup = ErrorPopupViewController()
+								popup.error = error
+								popup.show()
+							}
+					})
+				})
+			}
+		}else{
+			self.persistToAPI(completion)
+		}
+		
+		
+	}
 	
 	func persistToAPI(completion: ((success: Bool)->Void)? = nil){
 		APICommunicator.sharedInstance.sendMessage(toHRType()) { (message, error) -> Void in
@@ -348,6 +374,7 @@ final class Message: NSManagedObject, CoreDataConvertible {
 					self.updateFromHRType(message)
 				}
 				completion?(success: true)
+				self.shouldBeSent = NSNumber(bool: false)
 				return
 			}
 			
@@ -366,11 +393,10 @@ final class Message: NSManagedObject, CoreDataConvertible {
 			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sent_at", ascending: false)]
 			return fetchRequest
 		} else if type == .Inbox {
-			let predicate = NSPredicate(format: "ANY labels.id == %@", "INBOX")
-			let fetchRequest = NSFetchRequest(entityName: Message.entityName())
-			//fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [secondPredicate, predicate])
+			let predicate = NSPredicate(format: "SUBQUERY(messages, $g, ANY $g.labels.id == %@).@count > 0", "INBOX")
+			let fetchRequest = NSFetchRequest(entityName: Thread.entityName())
 			fetchRequest.predicate = predicate
-			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sent_at", ascending: false)]
+			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "last_message_date", ascending: false)]
 			return fetchRequest
 		}else if type != .Archive {
 			return fetchRequestForMessagesWithLabelWithId(type.rawValue)
@@ -388,6 +414,16 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		let predicate = NSPredicate(format: "ANY labels.id == %@", id)
 		let fetchRequest = NSFetchRequest(entityName: entityName())
 		fetchRequest.predicate = predicate
+		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sent_at", ascending: false)]
+		return fetchRequest
+	}
+	
+	class func fetchRequestForUploadCompletion() -> NSFetchRequest {
+		let predicate = NSPredicate(format: "NONE attachments.upload_complete == NO")
+		let secondPredicate = NSPredicate(format: "shouldBeSent == YES")
+		
+		let fetchRequest = NSFetchRequest(entityName: entityName())
+		fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, secondPredicate])
 		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sent_at", ascending: false)]
 		return fetchRequest
 	}

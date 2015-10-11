@@ -23,25 +23,6 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 	var lastupdatedLabel: UILabel?
 	var newEmailsLabel: UILabel?
 	
-	
-	var fetchedObjects: [Thread] {
-		get {
-			var threads = [Thread]()
-			if let allMessages = fetchedResultsController.fetchedObjects as? [Message] {
-				for message in allMessages {
-					if let thread = message.thread {
-						if let _ = threads.indexOf(thread) {
-							
-						}else{
-							threads.append(thread)
-						}
-					}
-				}
-			}
-			return threads
-		}
-	}
-	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		tableView.tableFooterView = UIView()
@@ -50,7 +31,6 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 		self.tableView.addSubview(refreshControl!)
 		
 		MailboxObserversManager.sharedInstance.addObserverForMailboxType(.Inbox, observer: self)
-		MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(.AllChanges, observer: self)
 		MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(.Unread, observer: self)
 	}
 	
@@ -106,13 +86,13 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 	}
 	
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return fetchedObjects.count
+		return fetchedResultsController.fetchedObjects?.count ?? 0
 	}
 	
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCellWithIdentifier("mailCell", forIndexPath: indexPath) as! MessageTableViewCell
-		if indexPath.row < fetchedObjects.count {
-			cell.message = fetchedObjects[indexPath.row].mostRecentMessage
+		if indexPath.row < fetchedResultsController.fetchedObjects?.count {
+			cell.message = (fetchedResultsController.fetchedObjects?[indexPath.row] as? Thread)?.mostRecentMessage
 		}else{
 			cell.message = nil
 		}
@@ -121,13 +101,13 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 	}
 	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		if indexPath.row < fetchedObjects.count {
-			let thread = fetchedObjects[indexPath.row]
+		if indexPath.row < fetchedResultsController.fetchedObjects?.count {
+			let thread = (fetchedResultsController.fetchedObjects?[indexPath.row] as? Thread)
 			threadForSegue = thread
 			if let cell = tableView.cellForRowAtIndexPath(indexPath) as? MessageTableViewCell {
-				cell.message = thread.mostRecentMessage
+				cell.message = thread?.mostRecentMessage
 			}
-			if let count = thread.messages?.count where count > 1 {
+			if let count = thread?.messages?.count where count > 1 {
 				performSegueWithIdentifier("showThreadTableViewController", sender: self)
 			}else{
 				performSegueWithIdentifier("showMessageDetailViewController", sender: self)
@@ -177,8 +157,6 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 			}else{
 				newEmailsLabel?.text = "No new emails"
 			}
-		} else if mailboxType == .AllChanges {
-			tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Fade)
 		}
 	}
 	

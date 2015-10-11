@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2F041D501BCA7CDD009985EB /* CWStatusBarNotification.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F041D4F1BCA7CDD009985EB /* CWStatusBarNotification.framework */; settings = {ASSET_TAGS = (); }; };
-		2F041D511BCA7CE5009985EB /* CWStatusBarNotification.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F041D4F1BCA7CDD009985EB /* CWStatusBarNotification.framework */; };
-		2F041D521BCA7CE5009985EB /* CWStatusBarNotification.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2F041D4F1BCA7CDD009985EB /* CWStatusBarNotification.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2F041D541BCA7D24009985EB /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F041D531BCA7D24009985EB /* ErrorHandler.swift */; settings = {ASSET_TAGS = (); }; };
 		2F0580571BC02FBC00600B8B /* HandlerDatabaseModel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 2F0580561BC02FBC00600B8B /* HandlerDatabaseModel.xcdatamodel */; settings = {ASSET_TAGS = (); }; };
 		2F090CC01BC8397000F00893 /* UTI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F090CBF1BC8397000F00893 /* UTI.swift */; settings = {ASSET_TAGS = (); }; };
@@ -80,6 +77,8 @@
 		2FB0E9431BB56D2E00A0426E /* DZNEmptyDataSet.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FB0E9401BB56C3200A0426E /* DZNEmptyDataSet.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2FB0E9451BB5718600A0426E /* UIImage+HanderImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB0E9441BB5718600A0426E /* UIImage+HanderImages.swift */; settings = {ASSET_TAGS = (); }; };
 		2FB5A4471BB20A6E0087D006 /* MailBoxOptionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB5A4461BB20A6E0087D006 /* MailBoxOptionsTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		2FB9D55F1BCAB89B0093C1DC /* CWStatusBarNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB9D55D1BCAB89B0093C1DC /* CWStatusBarNotification.swift */; settings = {ASSET_TAGS = (); }; };
+		2FB9D5601BCAB89B0093C1DC /* CWStatusBarNotificationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB9D55E1BCAB89B0093C1DC /* CWStatusBarNotificationUtils.swift */; settings = {ASSET_TAGS = (); }; };
 		2FDB52071BA8BC1D003C074F /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB52031BA8BC1D003C074F /* Fabric.framework */; settings = {ASSET_TAGS = (); }; };
 		2FDB52081BA8BC1D003C074F /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB52041BA8BC1D003C074F /* TwitterKit.framework */; settings = {ASSET_TAGS = (); }; };
 		2FDB52091BA8BC1D003C074F /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2FDB52051BA8BC1D003C074F /* TwitterKitResources.bundle */; settings = {ASSET_TAGS = (); }; };
@@ -132,7 +131,6 @@
 				2F25508C1BC930300059DFE5 /* Kingfisher.framework in Embed Frameworks */,
 				2F424CF51BC266C2007737FA /* Async.framework in Embed Frameworks */,
 				2FA2EA931BADA5110027EA77 /* KeychainAccess.framework in Embed Frameworks */,
-				2F041D521BCA7CE5009985EB /* CWStatusBarNotification.framework in Embed Frameworks */,
 				2FB0E9431BB56D2E00A0426E /* DZNEmptyDataSet.framework in Embed Frameworks */,
 				2FDDE1301BAED6B1006C3500 /* Result.framework in Embed Frameworks */,
 				2F51BCB01BC9B6DA0024397B /* HandlerSDK.framework in Embed Frameworks */,
@@ -154,7 +152,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2F041D4F1BCA7CDD009985EB /* CWStatusBarNotification.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CWStatusBarNotification.framework; sourceTree = "<group>"; };
 		2F041D531BCA7D24009985EB /* ErrorHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
 		2F0580561BC02FBC00600B8B /* HandlerDatabaseModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HandlerDatabaseModel.xcdatamodel; sourceTree = "<group>"; };
 		2F090CBF1BC8397000F00893 /* UTI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UTI.swift; sourceTree = "<group>"; };
@@ -225,6 +222,8 @@
 		2FB0E9401BB56C3200A0426E /* DZNEmptyDataSet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DZNEmptyDataSet.framework; sourceTree = "<group>"; };
 		2FB0E9441BB5718600A0426E /* UIImage+HanderImages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+HanderImages.swift"; sourceTree = "<group>"; };
 		2FB5A4461BB20A6E0087D006 /* MailBoxOptionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MailBoxOptionsTableViewController.swift; sourceTree = "<group>"; };
+		2FB9D55D1BCAB89B0093C1DC /* CWStatusBarNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CWStatusBarNotification.swift; sourceTree = "<group>"; };
+		2FB9D55E1BCAB89B0093C1DC /* CWStatusBarNotificationUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CWStatusBarNotificationUtils.swift; sourceTree = "<group>"; };
 		2FDB52031BA8BC1D003C074F /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		2FDB52041BA8BC1D003C074F /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = "<group>"; };
 		2FDB52051BA8BC1D003C074F /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TwitterKitResources.bundle; path = TwitterKit.framework/Versions/A/Resources/TwitterKitResources.bundle; sourceTree = "<group>"; };
@@ -268,12 +267,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				2FA2EA871BAD9C570027EA77 /* UIKit.framework in Frameworks */,
-				2F041D511BCA7CE5009985EB /* CWStatusBarNotification.framework in Frameworks */,
 				2FDDE12F1BAED6B1006C3500 /* Result.framework in Frameworks */,
 				2FB0E9411BB56C3200A0426E /* DZNEmptyDataSet.framework in Frameworks */,
 				2FA2EA891BAD9C570027EA77 /* Accounts.framework in Frameworks */,
 				2F51BCAB1BC9B3900024397B /* Mixpanel.framework in Frameworks */,
-				2F041D501BCA7CDD009985EB /* CWStatusBarNotification.framework in Frameworks */,
 				2FDDE1341BAEE21D006C3500 /* SwiftyJSON.framework in Frameworks */,
 				2F51BCA51BC996570024397B /* Mixpanel.framework in Frameworks */,
 				2FA2EA841BAD9C570027EA77 /* CoreData.framework in Frameworks */,
@@ -386,7 +383,8 @@
 		2FDB52021BA8BC12003C074F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2F041D4F1BCA7CDD009985EB /* CWStatusBarNotification.framework */,
+				2FB9D55D1BCAB89B0093C1DC /* CWStatusBarNotification.swift */,
+				2FB9D55E1BCAB89B0093C1DC /* CWStatusBarNotificationUtils.swift */,
 				2F51BCAD1BC9B6CE0024397B /* HandlerSDK.framework */,
 				2F51BCA41BC996570024397B /* Mixpanel.framework */,
 				2F090CBF1BC8397000F00893 /* UTI.swift */,
@@ -723,6 +721,7 @@
 				2F51BCA71BC9AFA80024397B /* Extensions.swift in Sources */,
 				2FDDE0F21BAEA957006C3500 /* Thread.swift in Sources */,
 				2FDDE1441BB01AD3006C3500 /* InboxTableViewController.swift in Sources */,
+				2FB9D55F1BCAB89B0093C1DC /* CWStatusBarNotification.swift in Sources */,
 				2F6112811BC12F1E0003071B /* UploadManager.swift in Sources */,
 				2F4E414D1BB061C500AA2DEF /* SideMenuViewController.swift in Sources */,
 				2F4E415E1BB0A13700AA2DEF /* MessageTableViewCell.swift in Sources */,
@@ -747,6 +746,7 @@
 				2F1D2C3F1BBC48E600A504A8 /* ErrorPopupViewController.swift in Sources */,
 				2FF0D13A1BB4C386009467B5 /* String+Extensions.swift in Sources */,
 				2FDDE1011BAEB5A6006C3500 /* NSDate+FromString.swift in Sources */,
+				2FB9D5601BCAB89B0093C1DC /* CWStatusBarNotificationUtils.swift in Sources */,
 				2F8E379B1BB1E95000C6A82D /* TTTTimeIntervalFormatter.m in Sources */,
 				2FDDE0F91BAEAA27006C3500 /* Attachment+CoreDataProperties.swift in Sources */,
 				2F994E501BB2AE3500A63B9B /* SWTableViewCell.m in Sources */,

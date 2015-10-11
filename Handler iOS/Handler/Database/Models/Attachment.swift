@@ -52,6 +52,7 @@ final class Attachment: NSManagedObject, CoreDataConvertible {
 		self.filename = attachment.filename
 		self.size = attachment.size
 		self.upload_complete = attachment.uploadComplete
+		self.upload_url = attachment.upload_url
 	}
 
 	
@@ -78,11 +79,15 @@ final class Attachment: NSManagedObject, CoreDataConvertible {
 		}
 		self.managedObjectContext?.deleteObject(self)
 	}
-    
+	
+	func getMime() -> String {
+		return UTI(getUTI() ?? "").MIMEType ?? ""
+	}
+	
     func getUTI() -> String? {
         return interactionController?.UTI
     }
-    
+	
     func displayFileType() -> String? {
         return NSURL(string: self.filename ?? "")?.pathExtension ?? content_type
     }
@@ -134,7 +139,7 @@ final class Attachment: NSManagedObject, CoreDataConvertible {
     // MARK: Validation
     
     var isUploadable: Bool! {
-        if let id = id where id != "", let fileType = content_type where fileType != "", let uploadURL = upload_url where uploadURL != "", let complete = upload_complete where !complete.boolValue {
+        if let id = id where id != "", let uploadURL = upload_url where uploadURL != "", let complete = upload_complete where !complete.boolValue && getMime() != "" {
             return true
         }
         return false

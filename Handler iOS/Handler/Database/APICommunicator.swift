@@ -88,6 +88,7 @@ class APICommunicator: NSObject {
 		}
 		fetchNewMessages(nil)
 		fetchNewLabels()
+		fetchSend()
 	}
     
     func userDidSet(){
@@ -119,6 +120,23 @@ class APICommunicator: NSObject {
 				MailDatabaseManager.sharedInstance.storeLabel(label)
 			}
 			
+		}
+	}
+	
+	private func fetchSend(){
+		HandlerAPI.getNewMessagesWithCallback("SENT") { (messages, error) -> Void in
+			guard let messages = messages else {
+				print(error)
+				if let errorStatus = error?.status where errorStatus == 401 {
+					self.checkForCurrentSessionOrAuth({ (error) -> Void in
+						self.fetchNewLabels()
+					})
+				}
+				return
+			}
+			for message in messages {
+				MailDatabaseManager.sharedInstance.storeMessage(message)
+			}
 		}
 	}
 	
