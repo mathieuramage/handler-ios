@@ -27,7 +27,7 @@ final class Attachment: NSManagedObject, CoreDataConvertible {
     }()
     
     convenience init(localFile: NSURL){
-        self.init(managedObjectContext: MailDatabaseManager.sharedInstance.managedObjectContext)
+        self.init(managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
         
         self.localFileURL = localFile.lastPathComponent
         if let filename = localFile.lastPathComponent {
@@ -36,7 +36,7 @@ final class Attachment: NSManagedObject, CoreDataConvertible {
         }
         self.upload_complete = false
         
-        let _ = try? managedObjectContext?.save()
+        MailDatabaseManager.sharedInstance.saveContext()
     }
 	
 	required convenience init(hrType: HRType, managedObjectContext: NSManagedObjectContext) {

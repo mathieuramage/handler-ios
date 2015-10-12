@@ -69,7 +69,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 				tokenView.addToken(CLToken(displayText: "@\(sender)", context: nil))
 				startValidationWithString("@\(sender)")
 				if let subject = message.subject {
-					subjectTextField.text = "RE: \(subject)"
+					subjectTextField.text = "\(subject)"
 				}
 			}
 			if let receivers = messageToReplyTo?.recipientsWithoutSelf(), let all = receivers.allObjects as? [User] {
@@ -132,13 +132,8 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 			return
 		}
 		
-		if let messageReplyTo = messageToReplyTo, let id = messageReplyTo.id {
-			message.replyToMessageWithID(id)
-		}else{
-			message.send()
-		}
+		HRActionsManager.enqueueMessage(message, replyTo: messageToReplyTo)
 		self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
-
 	}
 
 	func updateDraftFromUI(draft draft: Message) -> Message {
@@ -278,8 +273,9 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
     func presentFilePicker() {
         let docPicker = UIDocumentPickerViewController(documentTypes: ["public.data","public.content"], inMode: UIDocumentPickerMode.Open)
         docPicker.delegate = self
-        self.navigationController!.modalPresentationStyle = .CurrentContext
-        self.presentViewController(docPicker, animated: true, completion: nil)
+		Async.main(after: 0.1) { () -> Void in
+			self.presentViewController(docPicker, animated: true, completion: nil)
+		}
     }
     
     func documentPicker(controller: UIDocumentPickerViewController, didPickDocumentAtURL url: NSURL) {
@@ -312,7 +308,8 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
         }
         var docsDirURL = NSURL(fileURLWithPath: docsDir, isDirectory: true)
         docsDirURL = docsDirURL.URLByAppendingPathComponent(fileName)
-        Async.background { () -> Void in
+        MailDatabaseManager.sharedInstance.backgroundContext.performBlock { () -> Void in
+			
             if file.writeToURL(docsDirURL, atomically: true) {
                 
                 let attachment = Attachment(localFile: docsDirURL)

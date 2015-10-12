@@ -26,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		Twitter.sharedInstance().startWithConsumerKey("d6IKDpduuacAAHgtVydTvMo6t", consumerSecret: "tjaZYfuxDaEqY1RxLse0KvNzvCYPYpq57EgE0uawo2cuMzVoAE")
 
 		APICommunicator.sharedInstance
+		HRActionsManager.setupSharedInstance()
 		Fabric.with([Twitter.sharedInstance()])
 		Fabric.with([Twitter.sharedInstance(), Crashlytics.self()])
 		

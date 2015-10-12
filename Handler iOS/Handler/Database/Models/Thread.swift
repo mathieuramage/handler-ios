@@ -14,7 +14,7 @@ class Thread: NSManagedObject {
 	class func fromID(id: String) -> Thread? {
 		if let request = self.fetchRequestForID(id){
 			do {
-				if let threads = try MailDatabaseManager.sharedInstance.managedObjectContext.executeFetchRequest(request) as? [Thread], let thread = threads.first {
+				if let threads = try MailDatabaseManager.sharedInstance.backgroundContext.executeFetchRequest(request) as? [Thread], let thread = threads.first {
 					return thread
 				}
 			} catch {
@@ -22,7 +22,7 @@ class Thread: NSManagedObject {
 			}
 		}
 		
-		let thread = Thread(managedObjectContext: NSManagedObject.globalManagedObjectContext())
+		let thread = Thread(managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
 		thread.id = id
 		return thread
 	}

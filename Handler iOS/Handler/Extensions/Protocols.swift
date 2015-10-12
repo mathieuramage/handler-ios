@@ -20,6 +20,7 @@ protocol CoreDataConvertible {
 	static func fromID(id: String) -> Self?
 	func toHRType()->HRType
 	static func fetchRequestForID(id: String) -> NSFetchRequest?
+	static func backgroundFetchRequestForID(id: String) -> NSFetchRequest?
 	func updateFromHRType(hrType: HRType)
 }
 
@@ -28,18 +29,18 @@ protocol CoreDataConvertible {
 extension CoreDataConvertible where HRType : HRIDProvider  {
 	
 	static func fromHRType(hrType: HRType) -> Self? {
-		guard let fetchrequest = self.fetchRequestForID(hrType.id) else {
+		guard let fetchrequest = self.backgroundFetchRequestForID(hrType.id) else {
 			print("Failed to create fetchRequest for \(Self.self)")
 			return nil
 		}
 		
-		if let cdObject = MailDatabaseManager.sharedInstance.executeFetchRequest(fetchrequest)?.first as? Self {
+		if let cdObject = MailDatabaseManager.sharedInstance.executeBackgroundFetchRequest(fetchrequest)?.first as? Self {
 			//print("Found \(Self.self) in database")
 			cdObject.updateFromHRType(hrType)
 			return cdObject
 		}else{
 			print("Didn't find \(Self.self), create new one in database")
-			return Self(hrType: hrType, managedObjectContext: NSManagedObject.globalManagedObjectContext())
+			return Self(hrType: hrType, managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
 		}
 	}
 	
@@ -49,8 +50,15 @@ extension CoreDataConvertible where HRType : HRIDProvider  {
 			return nil
 		}
 		
-		return MailDatabaseManager.sharedInstance.executeFetchRequest(fetchrequest)?.first as? Self
+		return MailDatabaseManager.sharedInstance.executeBackgroundFetchRequest(fetchrequest)?.first as? Self
 	}
+}
+
+// MARK: HRAction
+
+protocol HRActionExecutable {
+	func execute()
+	func dependencyDidComplete(dependency: HRAction)
 }
 
 // MARK: UIViewController + show

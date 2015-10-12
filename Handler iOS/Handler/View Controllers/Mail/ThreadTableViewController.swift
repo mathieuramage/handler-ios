@@ -32,6 +32,7 @@ class ThreadTableViewController: UITableViewController, SWTableViewCellDelegate 
 	}
 	
 	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
 		for cell in tableView.visibleCells {
 			(cell as? MessageTableViewCell)?.refreshFlags()
 		}

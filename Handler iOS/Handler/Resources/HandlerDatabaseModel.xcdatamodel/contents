@@ -9,7 +9,23 @@
         <attribute name="upload_complete" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="upload_url" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="actions" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="HRUploadAction" inverseName="attachment" inverseEntity="HRUploadAction" syncable="YES"/>
         <relationship name="contained_in" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Message" inverseName="attachments" inverseEntity="Message" syncable="YES"/>
+    </entity>
+    <entity name="HRAction" representedClassName=".HRAction" syncable="YES">
+        <attribute name="completed" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="hadError" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="queuedOn" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="running" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <relationship name="dependencies" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="HRAction" inverseName="parentDependency" inverseEntity="HRAction" syncable="YES"/>
+        <relationship name="parentDependency" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="HRAction" inverseName="dependencies" inverseEntity="HRAction" syncable="YES"/>
+    </entity>
+    <entity name="HRSendAction" representedClassName=".HRSendAction" parentEntity="HRAction" syncable="YES">
+        <relationship name="message" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Message" inverseName="actions" inverseEntity="Message" syncable="YES"/>
+        <relationship name="replyTo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Message" inverseName="willBeRepliedToInAction" inverseEntity="Message" syncable="YES"/>
+    </entity>
+    <entity name="HRUploadAction" representedClassName=".HRUploadAction" parentEntity="HRAction" syncable="YES">
+        <relationship name="attachment" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Attachment" inverseName="actions" inverseEntity="Attachment" syncable="YES"/>
     </entity>
     <entity name="Label" representedClassName=".Label" syncable="YES">
         <attribute name="id" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
@@ -23,11 +39,13 @@
         <attribute name="sent_at" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="shouldBeSent" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="subject" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="actions" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="HRSendAction" inverseName="message" inverseEntity="HRSendAction" syncable="YES"/>
         <relationship name="attachments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Attachment" inverseName="contained_in" inverseEntity="Attachment" syncable="YES"/>
         <relationship name="labels" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Label" inverseName="messages" inverseEntity="Label" spotlightIndexingEnabled="YES" syncable="YES"/>
         <relationship name="recipients" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="received_messages" inverseEntity="User" syncable="YES"/>
         <relationship name="sender" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="sent_messages" inverseEntity="User" syncable="YES"/>
         <relationship name="thread" optional="YES" maxCount="1" deletionRule="Deny" destinationEntity="Thread" inverseName="messages" inverseEntity="Thread" syncable="YES"/>
+        <relationship name="willBeRepliedToInAction" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="HRSendAction" inverseName="replyTo" inverseEntity="HRSendAction" syncable="YES"/>
     </entity>
     <entity name="Thread" representedClassName=".Thread" syncable="YES">
         <attribute name="id" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
@@ -48,10 +66,13 @@
         <relationship name="sent_messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="sender" inverseEntity="Message" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Attachment" positionX="-81" positionY="-180" width="128" height="178"/>
+        <element name="Attachment" positionX="-81" positionY="-180" width="128" height="195"/>
+        <element name="HRAction" positionX="-567" positionY="-180" width="128" height="133"/>
+        <element name="HRSendAction" positionX="-632" positionY="56" width="128" height="75"/>
+        <element name="HRUploadAction" positionX="-261" positionY="108" width="128" height="60"/>
         <element name="Label" positionX="88" positionY="-90" width="128" height="105"/>
-        <element name="Message" positionX="-279" positionY="0" width="126" height="193"/>
+        <element name="Message" positionX="-279" positionY="0" width="126" height="225"/>
         <element name="Thread" positionX="88" positionY="63" width="128" height="90"/>
-        <element name="User" positionX="-29" positionY="171" width="128" height="210"/>
+        <element name="User" positionX="-29" positionY="171" width="128" height="208"/>
     </elements>
 </model>

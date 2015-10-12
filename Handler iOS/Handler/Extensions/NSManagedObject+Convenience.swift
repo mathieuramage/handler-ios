@@ -28,8 +28,26 @@ extension NSManagedObject {
 		return NSEntityDescription.entityForName(entityName, inManagedObjectContext: NSManagedObject.globalManagedObjectContext())
 	}
 	
+	public class func backgroundEntityDescription() -> NSEntityDescription? {
+		let entityName = self.entityName()
+		return NSEntityDescription.entityForName(entityName, inManagedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
+	}
+	
 	static func fetchRequestForID(id: String) -> NSFetchRequest? {
 		guard let entityDescription = self.entityDescription() else{
+			print("No entity descrtiption could be created for: \(self.entityName())")
+			return nil
+		}
+		
+		let fetchRequest = NSFetchRequest()
+		fetchRequest.entity = entityDescription
+		fetchRequest.predicate = NSPredicate(format: "%K == %@", "id", id)
+		
+		return fetchRequest
+	}
+	
+	static func backgroundFetchRequestForID(id: String) -> NSFetchRequest? {
+		guard let entityDescription = self.backgroundEntityDescription() else{
 			print("No entity descrtiption could be created for: \(self.entityName())")
 			return nil
 		}

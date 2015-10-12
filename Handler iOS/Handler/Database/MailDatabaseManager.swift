@@ -16,18 +16,33 @@ class MailDatabaseManager: NSObject {
 	// MARK: - Core Data Object Creation Utilities
 	
 	func storeMessage(message: HRMessage){
-		Message.fromHRType(message)
-		saveContext()
+		backgroundContext.performBlock { () -> Void in
+			Message.fromHRType(message)
+			self.managedObjectContext.performBlock({ () -> Void in
+				self.saveContext()
+			})
+		}
 	}
 	
 	func storeLabel(label: HRLabel){
-		Label.fromHRType(label)
-		saveContext()
-	}
+		backgroundContext.performBlock { () -> Void in
+			Label.fromHRType(label)
+			self.managedObjectContext.performBlock({ () -> Void in
+				self.saveContext()
+			})
+		}	}
 	
 	func executeFetchRequest(fetchRequest: NSFetchRequest) -> [AnyObject]? {
 		do {
 			return try managedObjectContext.executeFetchRequest(fetchRequest)
+		} catch {
+			return nil
+		}
+	}
+	
+	func executeBackgroundFetchRequest(fetchRequest: NSFetchRequest) -> [AnyObject]? {
+		do {
+			return try backgroundContext.executeFetchRequest(fetchRequest)
 		} catch {
 			return nil
 		}
@@ -76,6 +91,12 @@ class MailDatabaseManager: NSObject {
 		let coordinator = self.persistentStoreCoordinator
 		var managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
 		managedObjectContext.persistentStoreCoordinator = coordinator
+		return managedObjectContext
+		}()
+	
+	lazy var backgroundContext: NSManagedObjectContext = {
+		var managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType)
+		managedObjectContext.parentContext = managedObjectContext
 		return managedObjectContext
 		}()
 	
