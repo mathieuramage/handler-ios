@@ -27,7 +27,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		APICommunicator.sharedInstance
 		HRActionsManager.setupSharedInstance()
-		Fabric.with([Twitter.sharedInstance()])
 		Fabric.with([Twitter.sharedInstance(), Crashlytics.self()])
 		
 		let menuViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SideMenuViewController") as! SideMenuViewController

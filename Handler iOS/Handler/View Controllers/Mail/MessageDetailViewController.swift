@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class MessageDetailViewController: UITableViewController {
+class MessageDetailViewController: UITableViewController, UIDocumentInteractionControllerDelegate {
 	
 	@IBOutlet weak var messageContentLabel: UILabel!
 	@IBOutlet weak var messageSenderProfileImageView: UIImageView!
@@ -39,17 +39,28 @@ class MessageDetailViewController: UITableViewController {
 		}()
 	let space = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
 	
+	@IBOutlet weak var attachmentsCell: MessageAttachmentsTableViewCell!
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		left.enabled = false
 		right.enabled = false
 		tableView.tableFooterView = UIView()
+		
+		attachmentsCell.filePresentingVC = self
+		attachmentsCell.allowsAdding = false
+		attachmentsCell.reloadClosure = {[unowned self] ()->Void in
+			self.tableView.beginUpdates()
+			self.tableView.endUpdates()
+		}
+		
 		if let message = message {
 			
 			// Message specific
 			messageContentLabel.text = message.content
 			messageSubjectLabel.text = message.subject
-			
+			attachmentsCell.attachments = message.attachments?.allObjects as? [Attachment]
+
 			// User specific
 			if let urlString = message.sender?.profile_picture_url, let profileUrl = NSURL(string: urlString) {
 				messageSenderProfileImageView.kf_setImageWithURL(profileUrl, placeholderImage: UIImage.randomGhostImage())
@@ -66,10 +77,16 @@ class MessageDetailViewController: UITableViewController {
 	}
 	
 	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+		if indexPath.row == 2 {
+			return max(attachmentsCell.intrinsicContentSize().height + 20, 50+20)
+		}
 		return UITableViewAutomaticDimension
 	}
 	
 	override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+		if indexPath.row == 2 {
+			return max(attachmentsCell.intrinsicContentSize().height + 20, 50+20)
+		}
 		return UITableViewAutomaticDimension
 	}
 	
@@ -119,6 +136,9 @@ class MessageDetailViewController: UITableViewController {
 				break;
 			}
 		}
-		
+	}
+	
+	func documentInteractionControllerViewControllerForPreview(controller: UIDocumentInteractionController) -> UIViewController {
+		return self
 	}
 }

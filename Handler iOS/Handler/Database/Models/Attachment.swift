@@ -28,16 +28,14 @@ final class Attachment: NSManagedObject, CoreDataConvertible {
     
     convenience init(localFile: NSURL){
         self.init(managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
-        
-        self.localFileURL = localFile.lastPathComponent
+		
         if let filename = localFile.lastPathComponent {
+			self.localFileURL = filename
             self.filename = filename
             self.content_type = UTI(filenameExtension: localFile.pathExtension ?? "").MIMEType
         }
         self.upload_complete = false
-        
-        MailDatabaseManager.sharedInstance.saveContext()
-    }
+	}
 	
 	required convenience init(hrType: HRType, managedObjectContext: NSManagedObjectContext) {
 		self.init(managedObjectContext: managedObjectContext)
@@ -129,11 +127,14 @@ final class Attachment: NSManagedObject, CoreDataConvertible {
         
     func getLocalFileURL()->NSURL?{
         guard let docsDirString = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, .UserDomainMask, true).first else {
-            print("caches directory not found")
             return nil
         }
-        
-        return NSURL(fileURLWithPath: docsDirString).URLByAppendingPathComponent(filename ?? "")
+		let URL = NSURL(fileURLWithPath: docsDirString).URLByAppendingPathComponent(filename ?? "")
+		if NSFileManager.defaultManager().fileExistsAtPath(URL.absoluteString){
+			return URL
+		}else{
+			return nil
+		}
     }
 	
     // MARK: Validation

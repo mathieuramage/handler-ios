@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import Async
 import HandlerSDK
 
 class MailDatabaseManager: NSObject {
@@ -18,19 +19,21 @@ class MailDatabaseManager: NSObject {
 	func storeMessage(message: HRMessage){
 		backgroundContext.performBlock { () -> Void in
 			Message.fromHRType(message)
-			self.managedObjectContext.performBlock({ () -> Void in
-				self.saveContext()
-			})
+			self.saveBackgroundContext()
 		}
 	}
 	
 	func storeLabel(label: HRLabel){
 		backgroundContext.performBlock { () -> Void in
 			Label.fromHRType(label)
-			self.managedObjectContext.performBlock({ () -> Void in
-				self.saveContext()
-			})
-		}	}
+			self.saveBackgroundContext()
+		}
+	}
+	
+	override init(){
+		super.init()
+		let _ = managedObjectContext
+	}
 	
 	func executeFetchRequest(fetchRequest: NSFetchRequest) -> [AnyObject]? {
 		do {
@@ -95,9 +98,9 @@ class MailDatabaseManager: NSObject {
 		}()
 	
 	lazy var backgroundContext: NSManagedObjectContext = {
-		var managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType)
-		managedObjectContext.parentContext = managedObjectContext
-		return managedObjectContext
+		let backgroundContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType)
+		backgroundContext.parentContext = self.managedObjectContext
+		return backgroundContext
 		}()
 	
 	// MARK: - Core Data Saving
@@ -106,12 +109,31 @@ class MailDatabaseManager: NSObject {
 		if managedObjectContext.hasChanges {
 			do {
 				try managedObjectContext.save()
+				
 			} catch {
 				let nserror = error as NSError
-				NSLog("Error saving managedObjectContext \(nserror), \(nserror.userInfo)")
+				NSLog("Error saving context \(nserror), \(nserror.userInfo)")
 				
 				// MARK: TODO - Remove for shipping
 				abort()
+			}
+		}
+	}
+	
+	func saveBackgroundContext() {
+		
+		backgroundContext.performBlock { () -> Void in
+			if self.backgroundContext.hasChanges {
+				do {
+					try self.backgroundContext.save()
+					
+				} catch {
+					let nserror = error as NSError
+					NSLog("Error saving backgroundcontext \(nserror), \(nserror.userInfo)")
+					
+					// MARK: TODO - Remove for shipping
+					abort()
+				}
 			}
 		}
 	}

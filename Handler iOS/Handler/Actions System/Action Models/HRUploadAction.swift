@@ -30,9 +30,10 @@ class HRUploadAction: HRAction {
 				if let completed = self.completed where !completed.boolValue {
 					guard let newattachment = newattachment else{
 						if let error = error {
-							self.completed = NSNumber(bool: false)
+							self.completed = NSNumber(bool: true)
 							self.running = NSNumber(bool: false)
 							self.hadError = NSNumber(bool: true)
+							self.parentDependency?.dependencyDidComplete(self)
 							print(error)
 						}
 						return
@@ -45,7 +46,7 @@ class HRUploadAction: HRAction {
 		}
 	}
 	
-	func startUpload(){
+	private func startUpload(){
 		do {
 			uploadManager = try UploadManager(action: self) { (success, error) -> Void in
 				guard let error = error else{

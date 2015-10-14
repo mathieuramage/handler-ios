@@ -22,6 +22,7 @@ class MessageAttachmentsTableViewCell: UITableViewCell, UICollectionViewDelegate
             self.collectionView.reloadSections(NSIndexSet(index: 0))
         }
     }
+	var allowsAdding = true
     weak var filePresentingVC: UIDocumentInteractionControllerDelegate?
     
     // MARK: Setup / Teardown
@@ -43,7 +44,7 @@ class MessageAttachmentsTableViewCell: UITableViewCell, UICollectionViewDelegate
     // MARK: CollectionView Delegate
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.row + 1 == collectionView.numberOfItemsInSection(0) {
+        if indexPath.row + 1 == collectionView.numberOfItemsInSection(0) && allowsAdding {
             filePickerDelegate?.presentFilePicker()
         } else {
             if indexPath.row < attachments?.count, let attachment = attachments?[indexPath.row] {
@@ -63,16 +64,16 @@ class MessageAttachmentsTableViewCell: UITableViewCell, UICollectionViewDelegate
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let attachmentsCount = attachments?.count {
-            return attachmentsCount + 1
+            return attachmentsCount + NSNumber(bool: allowsAdding).integerValue
         }
-        return 1
+        return NSNumber(bool: allowsAdding).integerValue
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("attachmentCell", forIndexPath: indexPath) as! AttachmentThumbnailCollectionViewCell
-        
-        if indexPath.row + 1 == collectionView.numberOfItemsInSection(0) {
+		
+        if indexPath.row + 1 == collectionView.numberOfItemsInSection(0) && allowsAdding {
             
             return collectionView.dequeueReusableCellWithReuseIdentifier("addAttachmentCell", forIndexPath: indexPath) as! AddAttachmentCollectionViewCell
             

@@ -24,9 +24,33 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		}
 	}
 	
-	var messageToReplyTo: Message?
+	var messageToReplyTo: Message? {
+		set(new){
+			if new?.managedObjectContext != MailDatabaseManager.sharedInstance.backgroundContext {
+				self.messageToReplyTo = new?.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) as? Message
+			}else{
+				self.messageToReplyTo = new
+			}
+		}
+		
+		get {
+			return self.draftMessage
+		}
+	}
 	var messageToForward: Message?
-	var draftMessage: Message?
+	var draftMessage: Message? {
+		set(new){
+			if new?.managedObjectContext != MailDatabaseManager.sharedInstance.backgroundContext {
+				self.draftMessage = new?.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) as? Message
+			}else{
+				self.draftMessage = new
+			}
+		}
+		
+		get {
+			return self.draftMessage
+		}
+	}
 	
 	@IBOutlet weak var tokenView: CLTokenInputView!
 	@IBOutlet weak var ccTokenView: CLTokenInputView!
@@ -50,6 +74,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		// UI Configuration
 		
 		if let draft = draftMessage {
+			
 			if let recipients = draft.recipients?.allObjects as? [User] {
 				for recipient in recipients {
 					if let handle = recipient.handle {
@@ -62,14 +87,18 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 			self.subjectTextField.text = draft.subject
 			self.contentTextView.text = draft.content
 			attachmentsCell.attachments = draft.attachments?.allObjects as? [Attachment]
-
+			
 		}else{
 			
 			if let message = messageToReplyTo, let sender = message.sender?.handle {
 				tokenView.addToken(CLToken(displayText: "@\(sender)", context: nil))
 				startValidationWithString("@\(sender)")
 				if let subject = message.subject {
-					subjectTextField.text = "\(subject)"
+					if let subject = message.subject where !subject.containsString("RE: ") {
+						subjectTextField.text = "RE:\(subject)"
+					}else{
+						subjectTextField.text = "\(subject)"
+					}
 				}
 			}
 			if let receivers = messageToReplyTo?.recipientsWithoutSelf(), let all = receivers.allObjects as? [User] {
@@ -78,10 +107,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 					startValidationWithString("@\(receiver.handle!)")
 				}
 			}
-			
-			if let msg = messageToReplyTo {
-				attachmentsCell.attachments = msg.attachments?.allObjects as? [Attachment]
-			}else if let msg = messageToForward {
+			if let msg = messageToForward {
 				attachmentsCell.attachments = msg.attachments?.allObjects as? [Attachment]
 			}
 		}
@@ -135,32 +161,40 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		HRActionsManager.enqueueMessage(message, replyTo: messageToReplyTo)
 		self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
 	}
-
+	
 	func updateDraftFromUI(draft draft: Message) -> Message {
 		configMsg(draft)
 		return draft
 	}
 	
 	func createMessageFromUI() -> Message {
-		let message = Message(managedObjectContext: MailDatabaseManager.sharedInstance.managedObjectContext)
+		let message = Message(managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
 		configMsg(message)
 		
 		return message
 	}
 	
 	func configMsg(message: Message)->Message {
+		
 		var receivers = [User]()
 		for token in tokenView.allTokens {
 			for valdtoken in validatedTokens {
 				if valdtoken.isOnHandler && valdtoken.name == token.displayText.stringByReplacingOccurrencesOfString("@", withString: ""){
 					let user = HRUser()
 					user.handle = valdtoken.name
-					receivers.append(User(hrType: user, managedObjectContext: MailDatabaseManager.sharedInstance.managedObjectContext))
+					receivers.append(User(hrType: user, managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext))
 				}
 			}
 		}
-		message.attachments = NSSet(array: attachmentsCell.attachments ?? [Attachment]())
-
+		
+		var attachments = [Attachment]()
+		for attachment in attachmentsCell.attachments ?? [Attachment]() {
+			if let converted = attachment.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) as? Attachment {
+				attachments.append(converted)
+			}
+		}
+		
+		message.attachments = NSSet(array: attachments)
 		message.recipients = NSSet(array: receivers)
 		message.content = contentTextView.text
 		message.subject = subjectTextField.text ?? ""
@@ -173,157 +207,158 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		if !enabled {
 			subjectTextField.resignFirstResponder()
 			contentTextView.resignFirstResponder()
-            tokenView.resignFirstResponder()
-            ccTokenView.resignFirstResponder()
-        }
-        sender?.enabled = enabled
-        subjectTextField.enabled = enabled
-        contentTextView.userInteractionEnabled = enabled
-        tokenView.userInteractionEnabled = enabled
-        ccTokenView.userInteractionEnabled = enabled
-    }
-    
-    func textViewDidChange(textView: UITextView) {
-        tableView.beginUpdates()
-        tableView.endUpdates()
-    }
-    
-    // MARK: TokenViewDelegate
-    
-    func textColorForTokenViewWithToken(token: CLToken) -> UIColor {
-        guard token.displayText.stringByReplacingOccurrencesOfString("@", withString: "") != "" else {
-            return UIColor.hrLightGrayColor()
-        }
-        for validatedToken in validatedTokens {
-            if validatedToken.name != "" && validatedToken.name == token.displayText.stringByReplacingOccurrencesOfString("@", withString: "") && validatedToken.isOnHandler {
-                return UIColor.hrBlueColor()
-            }
-        }
-        return UIColor.hrLightGrayColor()
-    }
-    
-    func tokenInputView(view: CLTokenInputView, didChangeHeightTo height: CGFloat) {
-        tableView.beginUpdates()
-        tableView.endUpdates()
-    }
-    
-    func tokenInputView(view: CLTokenInputView, tokenForText text: String) -> CLToken? {
-        return CLToken(displayText: text, context: nil)
-    }
-    
-    func tokenInputViewDidBeginEditing(view: CLTokenInputView) {
-        if view == tokenView {
-            addToContactButton.hidden = false
-        }else{
-            addCCContactButton.hidden = false
-        }
-    }
-    
-    func tokenInputViewDidEndEditing(view: CLTokenInputView) {
-        if view == tokenView {
-            addToContactButton.hidden = true
-        }else{
-            addCCContactButton.hidden = true
-        }
-    }
-    
-    func startValidationWithString(string: String) {
-        guard string.stringByReplacingOccurrencesOfString("@", withString: "") != "" else {
-            return
-        }
-        
-        for validatedToken in validatedTokens {
-            if validatedToken.name == string.stringByReplacingOccurrencesOfString("@", withString: "") {
-                return
-            }
-        }
-        APICommunicator.sharedInstance.checkUserWithCallback(string.stringByReplacingOccurrencesOfString("@", withString: "")) { (user, error) in
-            guard let user = user else {
-                self.validatedTokens.append(ValidatedToken(name: string.stringByReplacingOccurrencesOfString("@", withString: ""), isOnHandler: false))
-                self.tokenView.validatedString(string, withResult: false)
-                self.ccTokenView.validatedString(string, withResult: false)
-                print(error)
-                return
-            }
-            self.validatedTokens.append(ValidatedToken(name: string.stringByReplacingOccurrencesOfString("@", withString: ""), isOnHandler: true, user: user))
-            self.tokenView.validatedString(string, withResult: true)
-            self.tokenView.reloadTokenWithTitle(string)
-            self.ccTokenView.validatedString(string, withResult: true)
-            self.ccTokenView.reloadTokenWithTitle(string)
-        }
-    }
-    
-    // MARK: TableViewDelegate
-    
-    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
-    }
-    
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.row == 3 {
-            return max(CGFloat(contentTextView.contentSize.height + 40), CGFloat(300))
-        } else if indexPath.row == 4 {
-            return max(attachmentsCell.intrinsicContentSize().height + 20, 50+20)
-        }
-        return UITableViewAutomaticDimension
-    }
-    
-    // MARK: FilePickerDelegate
-    
-    func presentFilePicker() {
-        let docPicker = UIDocumentPickerViewController(documentTypes: ["public.data","public.content"], inMode: UIDocumentPickerMode.Open)
-        docPicker.delegate = self
+			tokenView.resignFirstResponder()
+			ccTokenView.resignFirstResponder()
+		}
+		sender?.enabled = enabled
+		subjectTextField.enabled = enabled
+		contentTextView.userInteractionEnabled = enabled
+		tokenView.userInteractionEnabled = enabled
+		ccTokenView.userInteractionEnabled = enabled
+	}
+	
+	func textViewDidChange(textView: UITextView) {
+		tableView.beginUpdates()
+		tableView.endUpdates()
+	}
+	
+	// MARK: TokenViewDelegate
+	
+	func textColorForTokenViewWithToken(token: CLToken) -> UIColor {
+		guard token.displayText.stringByReplacingOccurrencesOfString("@", withString: "") != "" else {
+			return UIColor.hrLightGrayColor()
+		}
+		for validatedToken in validatedTokens {
+			if validatedToken.name != "" && validatedToken.name == token.displayText.stringByReplacingOccurrencesOfString("@", withString: "") && validatedToken.isOnHandler {
+				return UIColor.hrBlueColor()
+			}
+		}
+		return UIColor.hrLightGrayColor()
+	}
+	
+	func tokenInputView(view: CLTokenInputView, didChangeHeightTo height: CGFloat) {
+		tableView.beginUpdates()
+		tableView.endUpdates()
+	}
+	
+	func tokenInputView(view: CLTokenInputView, tokenForText text: String) -> CLToken? {
+		return CLToken(displayText: text, context: nil)
+	}
+	
+	func tokenInputViewDidBeginEditing(view: CLTokenInputView) {
+		if view == tokenView {
+			addToContactButton.hidden = false
+		}else{
+			addCCContactButton.hidden = false
+		}
+	}
+	
+	func tokenInputViewDidEndEditing(view: CLTokenInputView) {
+		if view == tokenView {
+			addToContactButton.hidden = true
+		}else{
+			addCCContactButton.hidden = true
+		}
+	}
+	
+	func startValidationWithString(string: String) {
+		guard string.stringByReplacingOccurrencesOfString("@", withString: "") != "" else {
+			return
+		}
+		
+		for validatedToken in validatedTokens {
+			if validatedToken.name == string.stringByReplacingOccurrencesOfString("@", withString: "") {
+				return
+			}
+		}
+		APICommunicator.sharedInstance.checkUserWithCallback(string.stringByReplacingOccurrencesOfString("@", withString: "")) { (user, error) in
+			guard let user = user else {
+				self.validatedTokens.append(ValidatedToken(name: string.stringByReplacingOccurrencesOfString("@", withString: ""), isOnHandler: false))
+				self.tokenView.validatedString(string, withResult: false)
+				self.ccTokenView.validatedString(string, withResult: false)
+				print(error)
+				return
+			}
+			self.validatedTokens.append(ValidatedToken(name: string.stringByReplacingOccurrencesOfString("@", withString: ""), isOnHandler: true, user: user))
+			self.tokenView.validatedString(string, withResult: true)
+			self.tokenView.reloadTokenWithTitle(string)
+			self.ccTokenView.validatedString(string, withResult: true)
+			self.ccTokenView.reloadTokenWithTitle(string)
+		}
+	}
+	
+	// MARK: TableViewDelegate
+	
+	override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+		return UITableViewAutomaticDimension
+	}
+	
+	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+		if indexPath.row == 3 {
+			return max(CGFloat(contentTextView.contentSize.height + 40), CGFloat(300))
+		} else if indexPath.row == 4 {
+			return max(attachmentsCell.intrinsicContentSize().height + 20, 50+20)
+		}
+		return UITableViewAutomaticDimension
+	}
+	
+	// MARK: FilePickerDelegate
+	
+	func presentFilePicker() {
+		let docPicker = UIDocumentPickerViewController(documentTypes: ["public.data","public.content"], inMode: UIDocumentPickerMode.Open)
+		docPicker.delegate = self
 		Async.main(after: 0.1) { () -> Void in
 			self.presentViewController(docPicker, animated: true, completion: nil)
 		}
-    }
-    
-    func documentPicker(controller: UIDocumentPickerViewController, didPickDocumentAtURL url: NSURL) {
-        Async.background { () -> Void in
-            if url.startAccessingSecurityScopedResource() {
-                let coordinator = NSFileCoordinator()
-                coordinator.coordinateReadingItemAtURL(url, options: NSFileCoordinatorReadingOptions.ResolvesSymbolicLink, error: nil, byAccessor: { (url) -> Void in
-                    if let data = NSData(contentsOfURL: url){
-                        self.saveFileToAttachment(data, url: url)
-                    }else{
-                        print("Unable to read file at url: \(url)")
-                    }
-                })
-                
-                url.stopAccessingSecurityScopedResource()
-            }else{
-                print("Couldn't enter security scope")
-            }
-        }
-    }
-    
-    func saveFileToAttachment(file: NSData, url: NSURL){
-        guard let fileName = url.lastPathComponent else {
-            print("\(url) had no filename")
-            return
-        }
-        guard let docsDir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, .UserDomainMask, true).first else {
-            print("caches directory not found")
-            return
-        }
-        var docsDirURL = NSURL(fileURLWithPath: docsDir, isDirectory: true)
-        docsDirURL = docsDirURL.URLByAppendingPathComponent(fileName)
-        MailDatabaseManager.sharedInstance.backgroundContext.performBlock { () -> Void in
+	}
+	
+	func documentPicker(controller: UIDocumentPickerViewController, didPickDocumentAtURL url: NSURL) {
+		Async.background { () -> Void in
+			if url.startAccessingSecurityScopedResource() {
+				let coordinator = NSFileCoordinator()
+				coordinator.coordinateReadingItemAtURL(url, options: NSFileCoordinatorReadingOptions.ResolvesSymbolicLink, error: nil, byAccessor: { (url) -> Void in
+					if let data = NSData(contentsOfURL: url){
+						self.saveFileToAttachment(data, url: url)
+					}else{
+						print("Unable to read file at url: \(url)")
+					}
+				})
+				
+				url.stopAccessingSecurityScopedResource()
+			}else{
+				print("Couldn't enter security scope")
+			}
+		}
+	}
+	
+	func saveFileToAttachment(file: NSData, url: NSURL){
+		guard let fileName = url.lastPathComponent else {
+			print("\(url) had no filename")
+			return
+		}
+		guard let docsDir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, .UserDomainMask, true).first else {
+			print("caches directory not found")
+			return
+		}
+		var docsDirURL = NSURL(fileURLWithPath: docsDir, isDirectory: true)
+		docsDirURL = docsDirURL.URLByAppendingPathComponent(fileName)
+		MailDatabaseManager.sharedInstance.backgroundContext.performBlock { () -> Void in
 			
-            if file.writeToURL(docsDirURL, atomically: true) {
-                
-                let attachment = Attachment(localFile: docsDirURL)
-                Async.main(block: { () -> Void in
-                    self.attachmentsCell.attachments?.append(attachment)
-                })
-            }else{
-                print("Failed to write file")
-            }
-        }
-        
-    }
-    
-    func documentInteractionControllerViewControllerForPreview(controller: UIDocumentInteractionController) -> UIViewController {
-        return self
-    }
+			if file.writeToURL(docsDirURL, atomically: true) {
+				
+				let attachment = Attachment(localFile: docsDirURL)
+				MailDatabaseManager.sharedInstance.saveContext()
+				Async.main(block: { () -> Void in
+					self.attachmentsCell.attachments?.append(attachment)
+				})
+			}else{
+				print("Failed to write file")
+			}
+		}
+		
+	}
+	
+	func documentInteractionControllerViewControllerForPreview(controller: UIDocumentInteractionController) -> UIViewController {
+		return self
+	}
 }

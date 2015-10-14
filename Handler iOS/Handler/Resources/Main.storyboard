@@ -762,6 +762,44 @@
                                         <animations/>
                                         <inset key="separatorInset" minX="1000" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="100" id="Ifq-hK-2Nm" customClass="MessageAttachmentsTableViewCell" customModule="Handler" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="180" width="375" height="100"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ifq-hK-2Nm" id="aQs-ck-v6n">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" scrollEnabled="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="irD-Z6-1WB">
+                                                    <rect key="frame" x="10" y="9" width="355" height="79.5"/>
+                                                    <animations/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ErT-Hd-N37">
+                                                        <size key="itemSize" width="174" height="50"/>
+                                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                    </collectionViewFlowLayout>
+                                                    <cells/>
+                                                    <connections>
+                                                        <outlet property="dataSource" destination="Ifq-hK-2Nm" id="Bz0-VU-CL8"/>
+                                                        <outlet property="delegate" destination="Ifq-hK-2Nm" id="S1S-K6-Gdu"/>
+                                                    </connections>
+                                                </collectionView>
+                                            </subviews>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="irD-Z6-1WB" secondAttribute="trailing" constant="10" id="5X6-tc-vJn"/>
+                                                <constraint firstItem="irD-Z6-1WB" firstAttribute="leading" secondItem="aQs-ck-v6n" secondAttribute="leading" constant="10" id="Q2M-Pm-uz0"/>
+                                                <constraint firstItem="irD-Z6-1WB" firstAttribute="top" secondItem="aQs-ck-v6n" secondAttribute="top" constant="10" id="f4v-eD-uUI"/>
+                                                <constraint firstAttribute="bottom" secondItem="irD-Z6-1WB" secondAttribute="bottom" constant="10" id="hAn-Pw-rZ1"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <animations/>
+                                        <inset key="separatorInset" minX="10000" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <connections>
+                                            <outlet property="collectionView" destination="irD-Z6-1WB" id="Bo0-Zg-ugU"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -772,6 +810,7 @@
                     </tableView>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="attachmentsCell" destination="Ifq-hK-2Nm" id="1s5-rg-Hmn"/>
                         <outlet property="messageContentLabel" destination="HqU-OG-nBs" id="rRy-a0-VSe"/>
                         <outlet property="messageSenderHandleButton" destination="MgC-p7-zGj" id="5nz-1c-jVQ"/>
                         <outlet property="messageSenderProfileImageView" destination="ush-Cl-ye9" id="pvU-lQ-tGK"/>

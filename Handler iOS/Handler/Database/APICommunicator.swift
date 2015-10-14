@@ -84,7 +84,7 @@ class APICommunicator: NSObject {
 			if let vendorID = UIDevice.currentDevice().identifierForVendor?.UUIDString {
 				data["deviceId"] = vendorID
 			}
-			HandlerAPI.uploadDeviceData(data)
+			//HandlerAPI.uploadDeviceData(data)
 		}
 		fetchNewMessages(nil)
 		fetchNewLabels()

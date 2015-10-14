@@ -17,7 +17,6 @@ class HRSendAction: HRAction {
 		self.message = message
 		self.replyTo = inReplyTo
 		MailDatabaseManager.sharedInstance.saveContext()
-
 	}
 	
 	override func execute() {
@@ -67,7 +66,7 @@ class HRSendAction: HRAction {
 	
 	// API Communication
 	
-	func send(){
+	private func send(){
 		if let message = message {
 			if let replyTo = replyTo {
 				// reply

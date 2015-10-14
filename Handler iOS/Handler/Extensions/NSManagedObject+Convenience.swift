@@ -62,4 +62,8 @@ extension NSManagedObject {
 	class func globalManagedObjectContext() -> NSManagedObjectContext {
 		return MailDatabaseManager.sharedInstance.managedObjectContext
 	}
+	
+	func toManageObjectContext(context: NSManagedObjectContext)->NSManagedObject{
+		return context.objectWithID(self.objectID)
+	}
 }

@@ -10,11 +10,11 @@ import UIKit
 import CoreData
 import Async
 
-class InboxTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, SWTableViewCellDelegate, MailboxCountObserver {
+class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, MailboxCountObserver {
 	
-	var fetchedResultsController: NSFetchedResultsController {
-		get {
-			return MailboxObserversManager.sharedInstance.fetchedResultsControllerForType(.Inbox)
+	var fetchedObjects: [Thread] = [Thread]() {
+		didSet {
+			self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Fade)
 		}
 	}
 	
@@ -29,9 +29,18 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 		self.refreshControl = UIRefreshControl()
 		self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
 		self.tableView.addSubview(refreshControl!)
-		
-		MailboxObserversManager.sharedInstance.addObserverForMailboxType(.Inbox, observer: self)
+		loadMessages()
 		MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(.Unread, observer: self)
+		MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(.AllChanges, observer: self)
+	}
+	
+	func loadMessages() {
+		MailDatabaseManager.sharedInstance.backgroundContext.performBlock { () -> Void in
+			let threads = try? MailDatabaseManager.sharedInstance.managedObjectContext.executeFetchRequest(Message.fetchRequestForMessagesWithInboxType(.Inbox))
+			Async.main(block: { () -> Void in
+				self.setThreads((threads as? [Thread]) ?? self.fetchedObjects)
+			})
+		}
 	}
 	
 	func refresh(control: UIRefreshControl){
@@ -43,6 +52,12 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 			var errorPopup = ErrorPopupViewController()
 			errorPopup.error = error
 			errorPopup.show()
+		}
+	}
+	
+	func setThreads(newThreads: [Thread]){
+		if newThreads != self.fetchedObjects {
+			self.fetchedObjects = newThreads
 		}
 	}
 	
@@ -86,13 +101,13 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 	}
 	
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return fetchedResultsController.fetchedObjects?.count ?? 0
+		return fetchedObjects.count ?? 0
 	}
 	
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCellWithIdentifier("mailCell", forIndexPath: indexPath) as! MessageTableViewCell
-		if indexPath.row < fetchedResultsController.fetchedObjects?.count {
-			cell.message = (fetchedResultsController.fetchedObjects?[indexPath.row] as? Thread)?.mostRecentMessage
+		if indexPath.row < fetchedObjects.count {
+			cell.message = fetchedObjects[indexPath.row].mostRecentMessage
 		}else{
 			cell.message = nil
 		}
@@ -101,51 +116,17 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 	}
 	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		if indexPath.row < fetchedResultsController.fetchedObjects?.count {
-			let thread = (fetchedResultsController.fetchedObjects?[indexPath.row] as? Thread)
+		if indexPath.row < fetchedObjects.count {
+			let thread = fetchedObjects[indexPath.row]
 			threadForSegue = thread
 			if let cell = tableView.cellForRowAtIndexPath(indexPath) as? MessageTableViewCell {
-				cell.message = thread?.mostRecentMessage
+				cell.message = thread.mostRecentMessage
 			}
-			if let count = thread?.messages?.count where count > 1 {
+			if let count = thread.messages?.count where count > 1 {
 				performSegueWithIdentifier("showThreadTableViewController", sender: self)
 			}else{
 				performSegueWithIdentifier("showMessageDetailViewController", sender: self)
 			}
-		}
-	}
-	
-	func controllerWillChangeContent(controller: NSFetchedResultsController) {
-		self.tableView.beginUpdates()
-	}
-	
-	func controllerDidChangeContent(controller: NSFetchedResultsController) {
-		self.tableView.endUpdates()
-	}
-	
-	func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
-		switch type {
-		case NSFetchedResultsChangeType.Insert:
-			self.tableView.insertSections(NSIndexSet(index: sectionIndex), withRowAnimation: UITableViewRowAnimation.Fade)
-		case NSFetchedResultsChangeType.Delete:
-			self.tableView.deleteSections(NSIndexSet(index: sectionIndex), withRowAnimation: UITableViewRowAnimation.Fade)
-		case NSFetchedResultsChangeType.Update:
-			self.tableView.reloadSections(NSIndexSet(index: sectionIndex), withRowAnimation: UITableViewRowAnimation.Fade)
-		default:
-			break;
-		}
-	}
-	
-	func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
-		switch type {
-		case NSFetchedResultsChangeType.Insert:
-			self.tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
-		case NSFetchedResultsChangeType.Delete:
-			self.tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
-		case NSFetchedResultsChangeType.Update:
-			self.tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
-		case NSFetchedResultsChangeType.Move:
-			self.tableView.moveRowAtIndexPath(indexPath!, toIndexPath: newIndexPath!)
 		}
 	}
 	
@@ -157,6 +138,8 @@ class InboxTableViewController: UITableViewController, NSFetchedResultsControlle
 			}else{
 				newEmailsLabel?.text = "No new emails"
 			}
+		} else if mailboxType == .AllChanges {
+			loadMessages()
 		}
 	}
 	
