@@ -179,7 +179,7 @@ final class Message: NSManagedObject, CoreDataConvertible {
 	func setLabelsFromHRTypes(labels: [HRLabel]){
 		let labelsSet = NSMutableSet()
 		for label in labels {
-			if let cdLabel = Label.fromHRType(label) {
+			if let cdLabel = Label.fromHRType(label)?.toManageObjectContext(self.managedObjectContext!) as? Label {
 				labelsSet.addObject(cdLabel)
 			}
 		}

@@ -12,29 +12,29 @@ import HandlerSDK
 import MobileCoreServices
 
 final class Attachment: NSManagedObject, CoreDataConvertible {
-    
-    // MARK: HRType Conversion
-    
-    typealias HRType = HRAttachment
-    
-    lazy var interactionController: UIDocumentInteractionController? = {
-        if let url = self.getLocalFileURL() {
-            let interactionController = UIDocumentInteractionController(URL: url)
-            return interactionController
-        }else{
-            return nil
-        }
-    }()
-    
-    convenience init(localFile: NSURL){
-        self.init(managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
+	
+	// MARK: HRType Conversion
+	
+	typealias HRType = HRAttachment
+	
+	lazy var interactionController: UIDocumentInteractionController? = {
+		if let url = self.getLocalFileURL() {
+			let interactionController = UIDocumentInteractionController(URL: NSURL(string: url)!)
+			return interactionController
+		}else{
+			return nil
+		}
+		}()
+	
+	convenience init(localFile: NSURL){
+		self.init(managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
 		
-        if let filename = localFile.lastPathComponent {
+		if let filename = localFile.lastPathComponent {
 			self.localFileURL = filename
-            self.filename = filename
-            self.content_type = UTI(filenameExtension: localFile.pathExtension ?? "").MIMEType
-        }
-        self.upload_complete = false
+			self.filename = filename
+			self.content_type = UTI(filenameExtension: localFile.pathExtension ?? "").MIMEType
+		}
+		self.upload_complete = false
 	}
 	
 	required convenience init(hrType: HRType, managedObjectContext: NSManagedObjectContext) {
@@ -52,7 +52,7 @@ final class Attachment: NSManagedObject, CoreDataConvertible {
 		self.upload_complete = attachment.uploadComplete
 		self.upload_url = attachment.upload_url
 	}
-
+	
 	
 	func toHRType() -> HRAttachment {
 		let hrAttachment = HRAttachment()
@@ -70,7 +70,7 @@ final class Attachment: NSManagedObject, CoreDataConvertible {
 	func delete() {
 		if let locURL = getLocalFileURL() {
 			do {
-				try NSFileManager().removeItemAtURL(locURL)
+				try NSFileManager().removeItemAtPath(locURL)
 			} catch {
 				print(error)
 			}
@@ -82,81 +82,83 @@ final class Attachment: NSManagedObject, CoreDataConvertible {
 		return UTI(getUTI() ?? "").MIMEType ?? ""
 	}
 	
-    func getUTI() -> String? {
-        return interactionController?.UTI
-    }
+	func getUTI() -> String? {
+		return interactionController?.UTI
+	}
 	
-    func displayFileType() -> String? {
-        return NSURL(string: self.filename ?? "")?.pathExtension ?? content_type
-    }
-    
-    
-    func getData() -> NSData? {
-        if let search = getLocalFileURL() {
-            return NSData(contentsOfURL: search)
-        }else{
-            return nil
-        }
-    }
-    
-    func fileSize () -> Int64 {
-        if let data = getData() {
-            return Int64(data.length)
-        }else{
-            return 0
-        }
-    }
-    
-    func fileSizeDisplayString() -> String {
-        return NSByteCountFormatter().stringFromByteCount(fileSize())
-    }
-    
-    func getIcon() -> (UIImage, UIViewContentMode) {
-        return (UIImage(named: "One_Image_Attatchment")!, UIViewContentMode.Center)
-    }
-    
-    func previewImage() -> (UIImage, UIViewContentMode) {
-        if let data = getData(), let image = UIImage(data: data) {
-            return (image, UIViewContentMode.ScaleAspectFill)
-        }else if let image = interactionController?.icons.first {
-            return (image, UIViewContentMode.ScaleAspectFit)
-        }
-        
-        return (UIImage(named: "One_Image_Attatchment")!, UIViewContentMode.Center)
-    }
-        
-    func getLocalFileURL()->NSURL?{
-        guard let docsDirString = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, .UserDomainMask, true).first else {
-            return nil
-        }
-		let URL = NSURL(fileURLWithPath: docsDirString).URLByAppendingPathComponent(filename ?? "")
-		if NSFileManager.defaultManager().fileExistsAtPath(URL.absoluteString){
-			return URL
+	func displayFileType() -> String? {
+		return NSURL(string: self.filename ?? "")?.pathExtension ?? content_type
+	}
+	
+	
+	func getData() -> NSData? {
+		if let search = getLocalFileURL() {
+			return NSData(contentsOfFile: search)
 		}else{
 			return nil
 		}
-    }
+	}
 	
-    // MARK: Validation
-    
-    var isUploadable: Bool! {
-        if let id = id where id != "", let uploadURL = upload_url where uploadURL != "", let complete = upload_complete where !complete.boolValue && getMime() != "" {
-            return true
-        }
-        return false
-    }
-    
-    var isSavedLocally: Bool {
-        if let localURL = localFileURL where NSFileManager().fileExistsAtPath(localURL) {
-            return true
-        }
-        return false
-    }
-    
-    var isComplete: Bool {
-        if let id = id where id != "", let url = url where url != "", let filename = filename where filename != "", let size = size where size.intValue != 0 {
-            return true
-        }
-        return false
-    }
+	func fileSize () -> Int64 {
+		if let data = getData() {
+			return Int64(data.length)
+		}else{
+			return 0
+		}
+	}
+	
+	func fileSizeDisplayString() -> String {
+		return NSByteCountFormatter().stringFromByteCount(fileSize())
+	}
+	
+	func getIcon() -> (UIImage, UIViewContentMode) {
+		return (UIImage(named: "One_Image_Attatchment")!, UIViewContentMode.Center)
+	}
+	
+	func previewImage() -> (UIImage, UIViewContentMode) {
+		if let data = getData(), let image = UIImage(data: data) {
+			return (image, UIViewContentMode.ScaleAspectFill)
+		}else if let image = interactionController?.icons.first {
+			return (image, UIViewContentMode.ScaleAspectFit)
+		}
+		
+		return (UIImage(named: "One_Image_Attatchment")!, UIViewContentMode.Center)
+	}
+	
+	func getLocalFileURL()->String?{
+		guard let docsDirString = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, .UserDomainMask, true).first else {
+			return nil
+		}
+		if let filename = filename {
+			let docURL = docsDirString.stringByAppendingString("/\(filename)")
+			if NSFileManager.defaultManager().fileExistsAtPath(docURL){
+				return docURL
+			}
+		}
+		
+		return nil
+	}
+	
+	// MARK: Validation
+	
+	var isUploadable: Bool! {
+		if let id = id where id != "", let uploadURL = upload_url where uploadURL != "", let complete = upload_complete where !complete.boolValue && getMime() != "" {
+			return true
+		}
+		return false
+	}
+	
+	var isSavedLocally: Bool {
+		if let localURL = localFileURL where NSFileManager().fileExistsAtPath(localURL) {
+			return true
+		}
+		return false
+	}
+	
+	var isComplete: Bool {
+		if let id = id where id != "", let url = url where url != "", let filename = filename where filename != "", let size = size where size.intValue != 0 {
+			return true
+		}
+		return false
+	}
 }

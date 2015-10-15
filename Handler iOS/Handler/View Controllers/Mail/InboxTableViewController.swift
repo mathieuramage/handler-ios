@@ -36,6 +36,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 	
 	func loadMessages() {
 		MailDatabaseManager.sharedInstance.backgroundContext.performBlock { () -> Void in
+			MailDatabaseManager.sharedInstance.saveBackgroundContext()
 			let threads = try? MailDatabaseManager.sharedInstance.managedObjectContext.executeFetchRequest(Message.fetchRequestForMessagesWithInboxType(.Inbox))
 			Async.main(block: { () -> Void in
 				self.setThreads((threads as? [Thread]) ?? self.fetchedObjects)
@@ -187,6 +188,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 	}
 	
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+		super.prepareForSegue(segue, sender: sender)
 		if segue.identifier == "showMessageDetailViewController" {
 			let dc = segue.destinationViewController as! MessageDetailViewController
 			dc.message = self.threadForSegue?.messages?.allObjects.first as? Message

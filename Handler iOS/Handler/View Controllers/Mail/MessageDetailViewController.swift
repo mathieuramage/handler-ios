@@ -49,9 +49,9 @@ class MessageDetailViewController: UITableViewController, UIDocumentInteractionC
 		
 		attachmentsCell.filePresentingVC = self
 		attachmentsCell.allowsAdding = false
-		attachmentsCell.reloadClosure = {[unowned self] ()->Void in
-			self.tableView.beginUpdates()
-			self.tableView.endUpdates()
+		attachmentsCell.reloadClosure = {[weak self] ()->Void in
+			self?.tableView.beginUpdates()
+			self?.tableView.endUpdates()
 		}
 		
 		if let message = message {
@@ -140,5 +140,9 @@ class MessageDetailViewController: UITableViewController, UIDocumentInteractionC
 	
 	func documentInteractionControllerViewControllerForPreview(controller: UIDocumentInteractionController) -> UIViewController {
 		return self
+	}
+	
+	deinit{
+		attachmentsCell.reloadClosure = nil
 	}
 }

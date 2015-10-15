@@ -23,32 +23,33 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 			self.user = user
 		}
 	}
-	
+	private var internalmessageToReplyTo: Message?
 	var messageToReplyTo: Message? {
 		set(new){
 			if new?.managedObjectContext != MailDatabaseManager.sharedInstance.backgroundContext {
-				self.messageToReplyTo = new?.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) as? Message
+				self.internalmessageToReplyTo = new?.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) as? Message
 			}else{
-				self.messageToReplyTo = new
+				self.internalmessageToReplyTo = new
 			}
 		}
 		
 		get {
-			return self.draftMessage
+			return self.internalmessageToReplyTo
 		}
 	}
 	var messageToForward: Message?
+	private var internalDraftmessage: Message?
 	var draftMessage: Message? {
 		set(new){
 			if new?.managedObjectContext != MailDatabaseManager.sharedInstance.backgroundContext {
-				self.draftMessage = new?.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) as? Message
+				self.internalDraftmessage = new?.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) as? Message
 			}else{
-				self.draftMessage = new
+				self.internalDraftmessage = new
 			}
 		}
 		
 		get {
-			return self.draftMessage
+			return self.internalDraftmessage
 		}
 	}
 	

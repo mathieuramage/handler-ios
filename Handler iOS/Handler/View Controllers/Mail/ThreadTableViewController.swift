@@ -103,6 +103,7 @@ class ThreadTableViewController: UITableViewController, SWTableViewCellDelegate 
 	}
 	
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+		super.prepareForSegue(segue, sender: sender)
 		if segue.identifier == "showMessageDetailViewController" {
 			let dc = segue.destinationViewController as! MessageDetailViewController
 			dc.message = self.messageForSegue

@@ -57,6 +57,7 @@
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="handle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="isContact" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="profile_picture_url" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="provider" optional="YES" attributeType="String" syncable="YES"/>
@@ -73,6 +74,6 @@
         <element name="Label" positionX="88" positionY="-90" width="128" height="105"/>
         <element name="Message" positionX="-279" positionY="0" width="126" height="225"/>
         <element name="Thread" positionX="88" positionY="63" width="128" height="90"/>
-        <element name="User" positionX="-29" positionY="171" width="128" height="208"/>
+        <element name="User" positionX="-29" positionY="171" width="128" height="223"/>
     </elements>
 </model>

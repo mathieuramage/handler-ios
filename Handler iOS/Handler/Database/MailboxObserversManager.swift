@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import Async
 
 class MailboxObserversManager: NSObject {
 	static var sharedInstance = MailboxObserversManager()
@@ -49,7 +50,7 @@ private
 class MailboxMessagesObserver: NSObject, NSFetchedResultsControllerDelegate {
 	
 	lazy var fetchedResultsController: NSFetchedResultsController = {
-		return NSFetchedResultsController(fetchRequest: Message.fetchRequestForMessagesWithInboxType(self.type), managedObjectContext: MailDatabaseManager.sharedInstance.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+		return NSFetchedResultsController(fetchRequest: Message.fetchRequestForMessagesWithInboxType(self.type), managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext, sectionNameKeyPath: nil, cacheName: nil)
 		}()
 	
 	var observers = [NSFetchedResultsControllerDelegate]()
@@ -72,35 +73,45 @@ class MailboxMessagesObserver: NSObject, NSFetchedResultsControllerDelegate {
 	}
 	
 	func addCountObserver(observer: MailboxCountObserver){
-		countObservers.append(observer)
-		observer.mailboxCountDidChange(type, newCount: fetchedResultsController.fetchedObjects?.count ?? 0)
+		Async.main { () -> Void in
+			self.countObservers.append(observer)
+			observer.mailboxCountDidChange(self.type, newCount: self.fetchedResultsController.fetchedObjects?.count ?? 0)
+		}
 	}
 	
 	@objc func controllerWillChangeContent(controller: NSFetchedResultsController) {
-		for observer in observers {
-			observer.controllerWillChangeContent?(controller)
+		Async.main { () -> Void in
+			for observer in self.observers {
+				observer.controllerWillChangeContent?(controller)
+			}
 		}
 	}
 	
 	@objc func controllerDidChangeContent(controller: NSFetchedResultsController) {
-		for observer in observers {
-			observer.controllerDidChangeContent?(controller)
-		}
-		
-		for observer in countObservers {
-			observer.mailboxCountDidChange(type, newCount: controller.fetchedObjects?.count ?? 0)
+		Async.main { () -> Void in
+			for observer in self.observers {
+				observer.controllerDidChangeContent?(controller)
+			}
+			
+			for observer in self.countObservers {
+				observer.mailboxCountDidChange(self.type, newCount: controller.fetchedObjects?.count ?? 0)
+			}
 		}
 	}
 	
 	@objc func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
-		for observer in observers {
-			observer.controller?(controller, didChangeSection: sectionInfo, atIndex: sectionIndex, forChangeType: type)
+		Async.main { () -> Void in
+			for observer in self.observers {
+				observer.controller?(controller, didChangeSection: sectionInfo, atIndex: sectionIndex, forChangeType: type)
+			}
 		}
 	}
 	
 	@objc func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
-		for observer in observers {
-			observer.controller?(controller, didChangeObject: anObject, atIndexPath: indexPath, forChangeType: type, newIndexPath: newIndexPath)
+		Async.main { () -> Void in
+			for observer in self.observers {
+				observer.controller?(controller, didChangeObject: anObject, atIndexPath: indexPath, forChangeType: type, newIndexPath: newIndexPath)
+			}
 		}
 	}
 }
