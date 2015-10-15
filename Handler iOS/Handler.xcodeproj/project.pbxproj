@@ -7,12 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2F0136931BCFD6F6008BAD9D /* RazzleDazzle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F0136921BCFD6F6008BAD9D /* RazzleDazzle.framework */; settings = {ASSET_TAGS = (); }; };
 		2F0136961BCFD744008BAD9D /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0136951BCFD744008BAD9D /* IntroViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		2F0136981BCFD82E008BAD9D /* IntroView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F0136971BCFD82E008BAD9D /* IntroView.xib */; settings = {ASSET_TAGS = (); }; };
 		2F01369A1BCFDA98008BAD9D /* RoundedBorderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0136991BCFDA98008BAD9D /* RoundedBorderButton.swift */; settings = {ASSET_TAGS = (); }; };
 		2F01369B1BCFDC33008BAD9D /* RazzleDazzle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F0136921BCFD6F6008BAD9D /* RazzleDazzle.framework */; };
-		2F01369C1BCFDC33008BAD9D /* RazzleDazzle.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2F0136921BCFD6F6008BAD9D /* RazzleDazzle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2F041D541BCA7D24009985EB /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F041D531BCA7D24009985EB /* ErrorHandler.swift */; settings = {ASSET_TAGS = (); }; };
 		2F0580571BC02FBC00600B8B /* HandlerDatabaseModel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 2F0580561BC02FBC00600B8B /* HandlerDatabaseModel.xcdatamodel */; settings = {ASSET_TAGS = (); }; };
 		2F090CC01BC8397000F00893 /* UTI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F090CBF1BC8397000F00893 /* UTI.swift */; settings = {ASSET_TAGS = (); }; };
@@ -147,7 +145,6 @@
 				2FB0E9431BB56D2E00A0426E /* DZNEmptyDataSet.framework in Embed Frameworks */,
 				2FDDE1301BAED6B1006C3500 /* Result.framework in Embed Frameworks */,
 				2F51BCB01BC9B6DA0024397B /* HandlerSDK.framework in Embed Frameworks */,
-				2F01369C1BCFDC33008BAD9D /* RazzleDazzle.framework in Embed Frameworks */,
 				2FDDE1361BAEE227006C3500 /* SwiftyJSON.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -166,7 +163,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2F0136921BCFD6F6008BAD9D /* RazzleDazzle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RazzleDazzle.framework; sourceTree = "<group>"; };
+		2F0136921BCFD6F6008BAD9D /* RazzleDazzle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RazzleDazzle.framework; path = "/Users/christianpraiss/Documents/iOS Projects/Handler/Handler iOS/RazzleDazzle.framework"; sourceTree = "<absolute>"; };
 		2F0136951BCFD744008BAD9D /* IntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IntroViewController.swift; path = Intro/IntroViewController.swift; sourceTree = "<group>"; };
 		2F0136971BCFD82E008BAD9D /* IntroView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntroView.xib; sourceTree = "<group>"; };
 		2F0136991BCFDA98008BAD9D /* RoundedBorderButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedBorderButton.swift; sourceTree = "<group>"; };
@@ -312,7 +309,6 @@
 				2F51BCAE1BC9B6CE0024397B /* HandlerSDK.framework in Frameworks */,
 				2FDB52071BA8BC1D003C074F /* Fabric.framework in Frameworks */,
 				2FA2EA921BADA5110027EA77 /* KeychainAccess.framework in Frameworks */,
-				2F0136931BCFD6F6008BAD9D /* RazzleDazzle.framework in Frameworks */,
 				2F424CF41BC266C2007737FA /* Async.framework in Frameworks */,
 				2FA2EA831BAD9C570027EA77 /* Security.framework in Frameworks */,
 				2FDDE12D1BAED6B1006C3500 /* APIKit.framework in Frameworks */,
@@ -442,7 +438,6 @@
 		2FDB52021BA8BC12003C074F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2F0136921BCFD6F6008BAD9D /* RazzleDazzle.framework */,
 				2FB9D55D1BCAB89B0093C1DC /* CWStatusBarNotification.swift */,
 				2FB9D55E1BCAB89B0093C1DC /* CWStatusBarNotificationUtils.swift */,
 				2F51BCAD1BC9B6CE0024397B /* HandlerSDK.framework */,
