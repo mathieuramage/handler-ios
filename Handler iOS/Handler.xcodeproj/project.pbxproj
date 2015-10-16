@@ -10,6 +10,8 @@
 		2F0136961BCFD744008BAD9D /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0136951BCFD744008BAD9D /* IntroViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		2F0136981BCFD82E008BAD9D /* IntroView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F0136971BCFD82E008BAD9D /* IntroView.xib */; settings = {ASSET_TAGS = (); }; };
 		2F01369A1BCFDA98008BAD9D /* RoundedBorderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0136991BCFDA98008BAD9D /* RoundedBorderButton.swift */; settings = {ASSET_TAGS = (); }; };
+		2F01369F1BD1029A008BAD9D /* ContactsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F01369E1BD1029A008BAD9D /* ContactsTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		2F0136A11BD10422008BAD9D /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0136A01BD10422008BAD9D /* ContactTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		2F041D541BCA7D24009985EB /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F041D531BCA7D24009985EB /* ErrorHandler.swift */; settings = {ASSET_TAGS = (); }; };
 		2F0580571BC02FBC00600B8B /* HandlerDatabaseModel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 2F0580561BC02FBC00600B8B /* HandlerDatabaseModel.xcdatamodel */; settings = {ASSET_TAGS = (); }; };
 		2F090CC01BC8397000F00893 /* UTI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F090CBF1BC8397000F00893 /* UTI.swift */; settings = {ASSET_TAGS = (); }; };
@@ -162,9 +164,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2F0136951BCFD744008BAD9D /* IntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IntroViewController.swift; path = Intro/IntroViewController.swift; sourceTree = "<group>"; };
+		2F0136951BCFD744008BAD9D /* IntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		2F0136971BCFD82E008BAD9D /* IntroView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntroView.xib; sourceTree = "<group>"; };
 		2F0136991BCFDA98008BAD9D /* RoundedBorderButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedBorderButton.swift; sourceTree = "<group>"; };
+		2F01369E1BD1029A008BAD9D /* ContactsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsTableViewController.swift; sourceTree = "<group>"; };
+		2F0136A01BD10422008BAD9D /* ContactTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
 		2F041D531BCA7D24009985EB /* ErrorHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
 		2F0580561BC02FBC00600B8B /* HandlerDatabaseModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HandlerDatabaseModel.xcdatamodel; sourceTree = "<group>"; };
 		2F090CBF1BC8397000F00893 /* UTI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UTI.swift; sourceTree = "<group>"; };
@@ -326,10 +330,18 @@
 		2F0136941BCFD6FC008BAD9D /* Intro */ = {
 			isa = PBXGroup;
 			children = (
-				2F0136951BCFD744008BAD9D /* IntroViewController.swift */,
 				2F0136971BCFD82E008BAD9D /* IntroView.xib */,
+				2F0136951BCFD744008BAD9D /* IntroViewController.swift */,
 			);
-			name = Intro;
+			path = Intro;
+			sourceTree = "<group>";
+		};
+		2F01369D1BD10289008BAD9D /* Contacts */ = {
+			isa = PBXGroup;
+			children = (
+				2F01369E1BD1029A008BAD9D /* ContactsTableViewController.swift */,
+			);
+			path = Contacts;
 			sourceTree = "<group>";
 		};
 		2F1D2C2E1BBBF80300A504A8 /* Alert Controllers */ = {
@@ -346,6 +358,7 @@
 				2F09DB231BC69F3F00B81FE2 /* AttachmentThumbnailCollectionViewCell.swift */,
 				2F09DB251BC6A0A300B81FE2 /* MessageAttachmentsTableViewCell.swift */,
 				2F4E415D1BB0A13700AA2DEF /* MessageTableViewCell.swift */,
+				2F0136A01BD10422008BAD9D /* ContactTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -402,8 +415,9 @@
 		2FA2EA8A1BAD9C7A0027EA77 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				2F0136941BCFD6FC008BAD9D /* Intro */,
 				2FF788421BB5CAF600B297D3 /* Composer */,
+				2F01369D1BD10289008BAD9D /* Contacts */,
+				2F0136941BCFD6FC008BAD9D /* Intro */,
 				2FF0D1361BB4BC46009467B5 /* Login */,
 				2FF0D1341BB4BC3A009467B5 /* Mail */,
 				2FF0D1331BB4BC31009467B5 /* Menu */,
@@ -512,10 +526,10 @@
 				2F1D2C361BBC3DCA00A504A8 /* ContactCardViewController.xib */,
 				2F1D2C3D1BBC48E600A504A8 /* ErrorPopupViewController.swift */,
 				2F1D2C3E1BBC48E600A504A8 /* ErrorPopupViewController.xib */,
+				2F0136991BCFDA98008BAD9D /* RoundedBorderButton.swift */,
 				2F1D2C391BBC477000A504A8 /* SendInvitationViewController.swift */,
 				2F1D2C3A1BBC477000A504A8 /* SendInvitationViewController.xib */,
 				2FDDE1461BB04FA4006C3500 /* WhiteBorderImageView.swift */,
-				2F0136991BCFDA98008BAD9D /* RoundedBorderButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -796,6 +810,7 @@
 				DF1FD2DE1B62360600A58B71 /* AppDelegate.swift in Sources */,
 				2F8D8CDD1BCC12B30020A41C /* HRUploadAction+CoreDataProperties.swift in Sources */,
 				2F4E41551BB08A3200AA2DEF /* SSASideMenu.swift in Sources */,
+				2F01369F1BD1029A008BAD9D /* ContactsTableViewController.swift in Sources */,
 				2FA2EA6C1BAC4EA80027EA77 /* MailDatabaseManager.swift in Sources */,
 				2F76D4D01BB48F1600235A95 /* MailboxObserversManager.swift in Sources */,
 				2FDDE0EE1BAEA957006C3500 /* Message.swift in Sources */,
@@ -825,6 +840,7 @@
 				2F0580571BC02FBC00600B8B /* HandlerDatabaseModel.xcdatamodel in Sources */,
 				2FDDE0F41BAEA957006C3500 /* User.swift in Sources */,
 				2FDDE0F01BAEA957006C3500 /* Label.swift in Sources */,
+				2F0136A11BD10422008BAD9D /* ContactTableViewCell.swift in Sources */,
 				2FF788391BB5C6E700B297D3 /* Enumerations.swift in Sources */,
 				2F994E541BB2AE8100A63B9B /* UIColor+HandlerColors.swift in Sources */,
 				2F994E4D1BB2AE3500A63B9B /* NSMutableArray+SWUtilityButtons.m in Sources */,

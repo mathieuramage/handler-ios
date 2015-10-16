@@ -15,13 +15,13 @@ class Thread: NSManagedObject {
 		var thread: Thread?
 		let context = inContext ?? MailDatabaseManager.sharedInstance.backgroundContext
 		if let request = self.fetchRequestForID(id){
-				do {
-					if let threads = try context.executeFetchRequest(request) as? [Thread], let foundthread = threads.first {
-						thread = foundthread
-					}
-				} catch {
-					print(error)
+			do {
+				if let threads = try context.executeFetchRequest(request) as? [Thread], let foundthread = threads.first {
+					thread = foundthread
 				}
+			} catch {
+				print(error)
+			}
 		}
 		
 		if let thread = thread {
@@ -31,6 +31,18 @@ class Thread: NSManagedObject {
 			createdthread.id = id
 			return createdthread
 		}
+	}
+	
+	func updateInbox(){
+		var show = false
+		if let messages = self.messages {
+			for message in messages.allObjects as! [Message] {
+				if message.isInbox {
+					show = true
+				}
+			}
+		}
+		self.showInInbox = NSNumber(bool: show)
 	}
 	
 	var mostRecentMessage: Message? {

@@ -13,7 +13,7 @@ import HandlerSDK
 final class Message: NSManagedObject, CoreDataConvertible {
 	
 	typealias HRType = HRMessage
-		
+	
 	required convenience init(hrType message: HRType, managedObjectContext: NSManagedObjectContext){
 		self.init(managedObjectContext: managedObjectContext)
 		
@@ -37,6 +37,7 @@ final class Message: NSManagedObject, CoreDataConvertible {
 					self.thread?.last_message_date = sentAt
 				}
 			}
+			self.thread?.updateInbox()
 		}
 		
 		if let id = self.id {
@@ -49,6 +50,7 @@ final class Message: NSManagedObject, CoreDataConvertible {
 				}
 				
 				self.setLabelsFromHRTypes(labels)
+				self.thread?.updateInbox()
 				MailDatabaseManager.sharedInstance.saveBackgroundContext()
 			})
 		}
@@ -93,10 +95,12 @@ final class Message: NSManagedObject, CoreDataConvertible {
 	
 	func moveToArchive(){
 		self.removeLabelWithID(SystemLabels.Inbox.rawValue)
+		self.thread?.updateInbox()
 	}
 	
 	func moveToInbox(){
 		self.addLabelWithID(SystemLabels.Inbox.rawValue)
+		self.thread?.updateInbox()
 	}
 	
 	func flag(){
@@ -152,26 +156,34 @@ final class Message: NSManagedObject, CoreDataConvertible {
 	}
 	
 	private func addLabelWithID(id: String, updateOnApi: Bool = true){
-		if let label = Label.fromID(id) {
-			self.labels = self.labels?.setByAddingObject(label)
-			if updateOnApi {
-				updateLabelsOnHRAPI()
+		if let backgroundSelf = self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) as? Message {
+			if let label = Label.fromID(id) {
+				backgroundSelf.labels = backgroundSelf.labels?.setByAddingObject(label)
+				if updateOnApi {
+					updateLabelsOnHRAPI()
+				}
+				backgroundSelf.thread?.updateInbox()
+				MailDatabaseManager.sharedInstance.saveBackgroundContext()
 			}
 		}
 	}
 	
 	private func removeLabelWithID(id: String, updateOnApi: Bool = true){
-		if let labelsArray = self.labels?.allObjects {
-			let newLabels = NSMutableSet(set: self.labels!)
-			for label in labelsArray {
-				if label.id == id {
-					newLabels.removeObject(label)
-					self.labels = newLabels
-					if updateOnApi {
-						updateLabelsOnHRAPI()
+		if let backgroundSelf = self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) as? Message {
+			if let labelsArray = backgroundSelf.labels?.allObjects {
+				let newLabels = NSMutableSet(set: backgroundSelf.labels!)
+				for label in labelsArray {
+					if label.id == id {
+						newLabels.removeObject(label)
+						backgroundSelf.labels = newLabels
+						if updateOnApi {
+							updateLabelsOnHRAPI()
+						}
+						backgroundSelf.thread?.updateInbox()
+						return
 					}
-					return
 				}
+				MailDatabaseManager.sharedInstance.saveBackgroundContext()
 			}
 		}
 	}
@@ -184,6 +196,7 @@ final class Message: NSManagedObject, CoreDataConvertible {
 			}
 		}
 		self.labels = labelsSet
+		self.thread?.updateInbox()
 	}
 	
 	func hrTypeLabels() -> [HRLabel] {
@@ -252,6 +265,20 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		}
 	}
 	
+	var isInbox: Bool {
+		get {
+			var unread = false
+			if let labels = self.labels {
+				for label in labels {
+					if label.id == "INBOX" {
+						unread = true
+					}
+				}
+			}
+			return unread
+		}
+	}
+	
 	var isFlagged: Bool {
 		get {
 			if let labels = self.labels {
@@ -311,7 +338,7 @@ final class Message: NSManagedObject, CoreDataConvertible {
 			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sent_at", ascending: false)]
 			return fetchRequest
 		} else if type == .Inbox {
-			let predicate = NSPredicate(format: "SUBQUERY(messages, $g, SUBQUERY($g.labels, $a, $a.id ==[c] %@).@count > 0).@count > 0", "INBOX")
+			let predicate = NSPredicate(format: "showInInbox == YES")
 			let fetchRequest = NSFetchRequest(entityName: Thread.entityName())
 			fetchRequest.predicate = predicate
 			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "last_message_date", ascending: false)]

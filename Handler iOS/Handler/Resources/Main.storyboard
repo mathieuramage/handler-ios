@@ -130,7 +130,11 @@
                                 <action selector="showSideMenu:" destination="OOd-s0-Jkk" id="eGs-a9-ACV"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="Contacts_Icon" id="N5f-YM-ju6"/>
+                        <barButtonItem key="rightBarButtonItem" image="Contacts_Icon" id="N5f-YM-ju6">
+                            <connections>
+                                <segue destination="h86-ZE-kk4" kind="show" id="XtR-7h-DTu"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
@@ -535,7 +539,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="mailCell" id="Jlx-ob-tPI" customClass="MessageTableViewCell" customModule="Handler" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="94"/>
+                                <rect key="frame" x="0.0" y="92" width="375" height="94"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Jlx-ob-tPI" id="jvc-Qm-8y4">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="93.5"/>
@@ -664,7 +668,7 @@
                             <tableViewSection id="RIC-yN-exa">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="90" id="Wk4-hG-05I">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
+                                        <rect key="frame" x="0.0" y="64" width="375" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Wk4-hG-05I" id="1B8-Qp-xdI">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="89.5"/>
@@ -737,7 +741,7 @@
                                         <animations/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="90" id="ZsX-09-miv">
-                                        <rect key="frame" x="0.0" y="90" width="375" height="90"/>
+                                        <rect key="frame" x="0.0" y="154" width="375" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZsX-09-miv" id="IUi-gW-5Gi">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="89.5"/>
@@ -763,7 +767,7 @@
                                         <inset key="separatorInset" minX="1000" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="100" id="Ifq-hK-2Nm" customClass="MessageAttachmentsTableViewCell" customModule="Handler" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="180" width="375" height="100"/>
+                                        <rect key="frame" x="0.0" y="244" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ifq-hK-2Nm" id="aQs-ck-v6n">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
@@ -841,6 +845,96 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Odh-mg-ZCq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2538.5" y="252.5"/>
+        </scene>
+        <!--Contacts-->
+        <scene sceneID="9Bu-bD-fVT">
+            <objects>
+                <tableViewController storyboardIdentifier="ContactsTableViewController" id="h86-ZE-kk4" customClass="ContactsTableViewController" customModule="Handler" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="28" sectionFooterHeight="28" id="YNO-h4-mjX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="contactCell" rowHeight="50" id="coe-iU-1Lk" customClass="ContactTableViewCell" customModule="Handler" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="375" height="50"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="coe-iU-1Lk" id="yh3-TD-BIA">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mathieu_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="EHS-Tb-Usf">
+                                            <rect key="frame" x="8" y="7" width="35" height="35"/>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="EHS-Tb-Usf" secondAttribute="height" multiplier="1:1" id="Mc2-hR-edH"/>
+                                                <constraint firstAttribute="width" constant="35" id="iUP-gS-Kqr"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="3"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@jonappleseed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZQC-dP-1QD">
+                                            <rect key="frame" x="53" y="26.5" width="105.5" height="18"/>
+                                            <animations/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" red="0.39187690619999999" green="0.4703056216" blue="0.52657049889999996" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iBV-b2-UAj">
+                                            <rect key="frame" x="312" y="10" width="48" height="30"/>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="iBV-b2-UAj" secondAttribute="height" multiplier="8:5" id="4tT-YW-2fE"/>
+                                                <constraint firstAttribute="width" constant="48" id="uv7-xu-Ffa"/>
+                                            </constraints>
+                                            <state key="normal" image="Follow_Icon"/>
+                                            <connections>
+                                                <action selector="followButtonPressed:" destination="coe-iU-1Lk" eventType="touchUpInside" id="GHP-vh-H6P"/>
+                                            </connections>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Jon Appleseed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lgs-vo-lgS">
+                                            <rect key="frame" x="53" y="8" width="108" height="19.5"/>
+                                            <animations/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <animations/>
+                                    <constraints>
+                                        <constraint firstItem="lgs-vo-lgS" firstAttribute="top" secondItem="EHS-Tb-Usf" secondAttribute="top" id="3fa-ej-COl"/>
+                                        <constraint firstAttribute="leadingMargin" secondItem="EHS-Tb-Usf" secondAttribute="leading" id="F3n-Gh-psZ"/>
+                                        <constraint firstItem="ZQC-dP-1QD" firstAttribute="top" secondItem="lgs-vo-lgS" secondAttribute="bottom" id="OTf-aY-FWh"/>
+                                        <constraint firstItem="iBV-b2-UAj" firstAttribute="centerY" secondItem="yh3-TD-BIA" secondAttribute="centerY" id="ZcI-Fr-cah"/>
+                                        <constraint firstItem="EHS-Tb-Usf" firstAttribute="centerY" secondItem="yh3-TD-BIA" secondAttribute="centerY" id="abC-8H-TPV"/>
+                                        <constraint firstItem="lgs-vo-lgS" firstAttribute="leading" secondItem="EHS-Tb-Usf" secondAttribute="trailing" constant="10" id="eHh-sj-V8x"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="iBV-b2-UAj" secondAttribute="trailing" constant="7" id="rE5-4J-9oG"/>
+                                        <constraint firstItem="ZQC-dP-1QD" firstAttribute="leading" secondItem="lgs-vo-lgS" secondAttribute="leading" id="sWs-Ys-kzT"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <animations/>
+                                <connections>
+                                    <outlet property="followButton" destination="iBV-b2-UAj" id="YVC-A9-onX"/>
+                                    <outlet property="handleLabel" destination="ZQC-dP-1QD" id="n65-EX-GSO"/>
+                                    <outlet property="nameLabel" destination="lgs-vo-lgS" id="Xju-71-qlh"/>
+                                    <outlet property="profileImageView" destination="EHS-Tb-Usf" id="aKD-cH-jL4"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="h86-ZE-kk4" id="D6O-Po-V0S"/>
+                            <outlet property="delegate" destination="h86-ZE-kk4" id="U7x-TY-OTo"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Contacts" id="Jgw-2X-rMD"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aMU-Ab-8mQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3128.5" y="252.5"/>
         </scene>
         <!--Mail Box Options Table View Controller-->
         <scene sceneID="i2f-Tf-RVn">
@@ -1290,6 +1384,7 @@
         <image name="Archive" width="41" height="38"/>
         <image name="Contacts_Icon" width="24" height="20"/>
         <image name="Drafts" width="35" height="47"/>
+        <image name="Follow_Icon" width="95" height="60"/>
         <image name="Hamburger_Icon" width="14" height="14"/>
         <image name="Inbox" width="45" height="31"/>
         <image name="Info" width="39" height="37"/>
@@ -1300,8 +1395,8 @@
         <image name="orange dot sm copy" width="27" height="27"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="FuE-Pp-2sp"/>
-        <segue reference="9Tl-Gf-wkv"/>
-        <segue reference="Evc-eB-gJq"/>
+        <segue reference="l3v-e4-Wcd"/>
+        <segue reference="z5m-Xz-TsX"/>
+        <segue reference="37u-X4-Rqh"/>
     </inferredMetricsTieBreakers>
 </document>

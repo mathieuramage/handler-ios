@@ -10,15 +10,21 @@ import UIKit
 import CoreData
 import Async
 
-class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, MailboxCountObserver {
-	
-	var fetchedObjects: [Thread] = [Thread]() {
-		didSet {
-			self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Fade)
-		}
-	}
+class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, MailboxCountObserver, NSFetchedResultsControllerDelegate {
 	
 	var threadForSegue: Thread?
+	
+	var fetchedResultsController: NSFetchedResultsController {
+		get {
+			return MailboxObserversManager.sharedInstance.fetchedResultsControllerForType(.Inbox)
+		}
+	}
+
+	var fetchedObjects: [Thread] {
+		get {
+			return fetchedResultsController.fetchedObjects as? [Thread] ?? [Thread]()
+		}
+	}
 	
 	var lastupdatedLabel: UILabel?
 	var newEmailsLabel: UILabel?
@@ -29,19 +35,8 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		self.refreshControl = UIRefreshControl()
 		self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
 		self.tableView.addSubview(refreshControl!)
-		loadMessages()
+		MailboxObserversManager.sharedInstance.addObserverForMailboxType(.Inbox, observer: self)
 		MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(.Unread, observer: self)
-		MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(.AllChanges, observer: self)
-	}
-	
-	func loadMessages() {
-		MailDatabaseManager.sharedInstance.backgroundContext.performBlock { () -> Void in
-			MailDatabaseManager.sharedInstance.saveBackgroundContext()
-			let threads = try? MailDatabaseManager.sharedInstance.managedObjectContext.executeFetchRequest(Message.fetchRequestForMessagesWithInboxType(.Inbox))
-			Async.main(block: { () -> Void in
-				self.setThreads((threads as? [Thread]) ?? self.fetchedObjects)
-			})
-		}
 	}
 	
 	func refresh(control: UIRefreshControl){
@@ -53,12 +48,6 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 			var errorPopup = ErrorPopupViewController()
 			errorPopup.error = error
 			errorPopup.show()
-		}
-	}
-	
-	func setThreads(newThreads: [Thread]){
-		if newThreads != self.fetchedObjects {
-			self.fetchedObjects = newThreads
 		}
 	}
 	
@@ -139,14 +128,48 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 			}else{
 				newEmailsLabel?.text = "No new emails"
 			}
-		} else if mailboxType == .AllChanges {
-			loadMessages()
 		}
 	}
 	
 	override func preferredStatusBarStyle() -> UIStatusBarStyle {
 		return .LightContent
 	}
+	
+	// MARK: NSFetchedResultsController Delegate
+	
+	func controllerWillChangeContent(controller: NSFetchedResultsController) {
+		self.tableView.beginUpdates()
+	}
+	
+	func controllerDidChangeContent(controller: NSFetchedResultsController) {
+		self.tableView.endUpdates()
+	}
+	
+	func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
+		switch type {
+		case NSFetchedResultsChangeType.Insert:
+			self.tableView.insertSections(NSIndexSet(index: sectionIndex), withRowAnimation: UITableViewRowAnimation.Fade)
+		case NSFetchedResultsChangeType.Delete:
+			self.tableView.deleteSections(NSIndexSet(index: sectionIndex), withRowAnimation: UITableViewRowAnimation.Fade)
+		default:
+			break;
+		}
+	}
+	
+	func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+		switch type {
+		case NSFetchedResultsChangeType.Insert:
+			self.tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
+		case NSFetchedResultsChangeType.Delete:
+			self.tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
+		case NSFetchedResultsChangeType.Update:
+			self.tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
+		case NSFetchedResultsChangeType.Move:
+			self.tableView.moveRowAtIndexPath(indexPath!, toIndexPath: newIndexPath!)
+		}
+	}
+	
+	// MARK: Swipe Cell
 	
 	func swipeableTableViewCell(cell: SWTableViewCell!, canSwipeToState state: SWCellState) -> Bool {
 		return true

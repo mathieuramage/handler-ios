@@ -2,7 +2,7 @@
 //  Attachment+CoreDataProperties.swift
 //  Handler
 //
-//  Created by Christian Praiss on 11/10/15.
+//  Created by Christian Praiss on 16/10/15.
 //  Copyright © 2015 Handler, Inc. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -22,6 +22,7 @@ extension Attachment {
     @NSManaged var upload_complete: NSNumber?
     @NSManaged var upload_url: String?
     @NSManaged var url: String?
+    @NSManaged var actions: HRUploadAction?
     @NSManaged var contained_in: Message?
 
 }
