@@ -18,11 +18,25 @@ class APICommunicator: NSObject {
 		super.init()
 		
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidAuth", name: HRUserSessionDidStartNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidSet", name: HRCurrentUserDidSetNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidSet", name: HRCurrentUserDidSetNotification, object: nil)
 		checkForCurrentSessionOrAuth()
 	}
-    
-    // MARK: Auth
+	
+	func signOut(){
+		do {
+			try Keychain(service: "com.handlerapp.Handler").remove("authToken")
+			try Keychain(service: "com.handlerapp.Handler").remove("expirationDate")
+		} catch {
+			print(error)
+		}
+		if let session = Twitter.sharedInstance().sessionStore.session() {
+			Twitter.sharedInstance().sessionStore.logOutUserID(session.userID)
+		}
+		MailDatabaseManager.sharedInstance.deleteStore()
+		HRUserSessionManager.logout()
+	}
+	
+	// MARK: Auth
 	
 	func checkForCurrentSessionOrAuth(completion: ((error: HRError?)->Void)? = nil){
 		if let authToken = Keychain(service: "com.handlerapp.Handler")[string: "authToken"], let expirationData = Keychain(service: "com.handlerapp.Handler")[data: "expirationDate"], let expirationDate = NSKeyedUnarchiver.unarchiveObjectWithData(expirationData) as? NSDate {
@@ -72,7 +86,7 @@ class APICommunicator: NSObject {
 		}
 		
 		TwitterAPICommunicator.sharedInstance.getTwitterData()
-					
+		
 		do {
 			try Keychain(service: "com.handlerapp.Handler").set(currentSession.authToken, key: "authToken")
 			try Keychain(service: "com.handlerapp.Handler").set(NSKeyedArchiver.archivedDataWithRootObject(currentSession.expirationDate), key: "expirationDate")
@@ -92,19 +106,19 @@ class APICommunicator: NSObject {
 		fetchNewLabels()
 		fetchSend()
 	}
-    
-    func userDidSet(){
-        if let user = HRUserSessionManager.sharedManager.currentUser {
-            Track.identify(user.id)
-            Track.updateUserData(["userData":user])
-        }
-    }
+	
+	func userDidSet(){
+		if let user = HRUserSessionManager.sharedManager.currentUser {
+			Track.identify(user.id)
+			Track.updateUserData(["userData":user])
+		}
+	}
 	
 	func fetchNewMessagseWithCompletion(completion: (error: HRError?)->Void){
 		fetchNewMessages(completion)
 	}
-    
-    // MARK: API Communication
+	
+	// MARK: API Communication
 	
 	private func fetchNewLabels(){
 		HandlerAPI.getAllLabels { (labels, error) -> Void in
@@ -113,9 +127,9 @@ class APICommunicator: NSObject {
 					self.checkForCurrentSessionOrAuth({ (error) -> Void in
 						self.fetchNewLabels()
 					})
-                }else if let error = error {
-                    ErrorHandler.performErrorActions(error)
-                }
+				}else if let error = error {
+					ErrorHandler.performErrorActions(error)
+				}
 				return
 			}
 			for label in labels {
@@ -204,7 +218,7 @@ class APICommunicator: NSObject {
 					self.setLabelsToMessageWithID(id, setLabels: setLabels , callback: callback)
 				})
 			}
-
+			
 		}
 	}
 	
@@ -252,27 +266,27 @@ class APICommunicator: NSObject {
 			}
 		}
 	}
-    
-    // MARK: Upload
 	
-    func createAttachment(fileType: String, filename: String, callback:(attachment: HRAttachment?, error: HRError?)->Void){
-        HandlerAPI.createAttachment(filename, fileType: fileType) { (attachment, error) -> Void in
-            guard let error = error else{
-                callback(attachment: attachment, error: nil)
-                return
-            }
-            
-            if error.status == 401 {
-                self.checkForCurrentSessionOrAuth({ (error) -> Void in
+	// MARK: Upload
+	
+	func createAttachment(fileType: String, filename: String, callback:(attachment: HRAttachment?, error: HRError?)->Void){
+		HandlerAPI.createAttachment(filename, fileType: fileType) { (attachment, error) -> Void in
+			guard let error = error else{
+				callback(attachment: attachment, error: nil)
+				return
+			}
+			
+			if error.status == 401 {
+				self.checkForCurrentSessionOrAuth({ (error) -> Void in
 					if let error = error {
 						var errorPopup = ErrorPopupViewController()
 						errorPopup.error = error
 						errorPopup.show()
 						return
 					}
-                    self.createAttachment(fileType, filename: filename, callback: callback)
-                })
-            }
-        }
-    }
+					self.createAttachment(fileType, filename: filename, callback: callback)
+				})
+			}
+		}
+	}
 }

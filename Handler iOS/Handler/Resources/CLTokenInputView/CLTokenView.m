@@ -147,6 +147,8 @@ static NSString *const UNSELECTED_LABEL_FORMAT = @"%@,";
 - (void)setSelected:(BOOL)selected
 {
     [self setSelected:selected animated:NO];
+	
+	
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

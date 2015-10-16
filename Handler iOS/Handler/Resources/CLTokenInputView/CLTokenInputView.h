@@ -21,6 +21,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class CLTokenInputView;
+@class CLTokenView;
 @protocol CLTokenInputViewDelegate <NSObject>
 
 @optional
@@ -59,6 +60,10 @@ NS_ASSUME_NONNULL_BEGIN
  * frames to make sure the token view still fits.
  */
 - (void)tokenInputView:(CLTokenInputView *)view didChangeHeightTo:(CGFloat)height;
+
+- (void)tokenView:(CLTokenView *)view didSelectToken:(CLToken *)token;
+- (void)tokenView:(CLTokenView *)view didUnselectToken:(CLToken *)token;
+
 
 - (UIColor*)textColorForTokenViewWithToken:(CLToken*)token;
 

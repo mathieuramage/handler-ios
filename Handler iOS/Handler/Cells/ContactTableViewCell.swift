@@ -29,6 +29,7 @@ class ContactTableViewCell: UITableViewCell {
 				})
 			}
 			self.followButton.setImage(UIImage.imageForTwitterStatus(TwitterFriendshipStatus(rawValue: user?.twtterFollowStatus?.integerValue ?? 2)!), forState: UIControlState.Normal)
+			self.followButton.enabled = user?.twtterFollowStatus?.integerValue < 2
 			self.nameLabel.text = user?.name
 			self.handleLabel.text = user?.handle
 			
@@ -41,7 +42,7 @@ class ContactTableViewCell: UITableViewCell {
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+        super.setSelected(false, animated: animated)
 
         // Configure the view for the selected state
     }

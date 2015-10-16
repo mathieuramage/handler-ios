@@ -72,6 +72,11 @@ class GenericMailboxTableViewController: UITableViewController, NSFetchedResults
 	}
 	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		for cell in tableView.visibleCells {
+			if let cell = cell as? SWTableViewCell {
+				cell.hideUtilityButtonsAnimated(true)
+			}
+		}
 		if indexPath.row < fetchedObjects.count {
 			let message = fetchedObjects[indexPath.row]
 			messageForSegue = message

@@ -46,6 +46,7 @@ class ErrorPopupViewController: UIViewController, UIViewControllerShow {
 	func dismiss(){
 		UIView.animateWithDuration(0.3, animations: { () -> Void in
 			self.window?.alpha = 0
+			UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
 			}) { (success) -> Void in
 				self.window = nil
 		}

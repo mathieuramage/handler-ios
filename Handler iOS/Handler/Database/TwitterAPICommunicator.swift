@@ -17,7 +17,7 @@ class TwitterAPICommunicator: NSObject {
 	
 	var friendIDS: [String] = [String]()
 	var followerIDS: [String] = [String]()
-
+	
 	func getTwitterData(){
 		if let session = Twitter.sharedInstance().sessionStore.session() as? TWTRSession {
 			
@@ -52,6 +52,33 @@ class TwitterAPICommunicator: NSObject {
 					}
 					return
 				}
+				print(error)
+			}
+		}
+	}
+	
+	class func getAccountInfoForTwitterUser(handle: String, callback: (user: JSON?, erorr: NSError?)->Void){
+		if let session = Twitter.sharedInstance().sessionStore.session() as? TWTRSession {
+			let client = TWTRAPIClient(userID: session.userID)
+			let endPoint = "https://api.twitter.com/1.1/users/show.json"
+			let params = ["screen_name": handle]
+			
+			let request = Twitter.sharedInstance().APIClient.URLRequestWithMethod("GET", URL: endPoint, parameters: params, error: nil)
+			
+			client.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
+				guard let error = connectionError else {
+					if let data = data {
+						do {
+							let dict = try NSJSONSerialization.JSONObjectWithData(data, options: [NSJSONReadingOptions.AllowFragments])
+							let json = JSON(dict)
+							callback(user:json, erorr: nil)
+						}catch {
+							return
+						}
+					}
+					return
+				}
+				callback(user: nil, erorr: error)
 				print(error)
 			}
 		}

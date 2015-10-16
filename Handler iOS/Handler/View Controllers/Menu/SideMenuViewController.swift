@@ -48,13 +48,13 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
     }
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		AppDelegate.sharedInstance().sideMenu?.hideMenuViewController()
+		AppDelegate.sharedInstance().sideMenu.hideMenuViewController()
 		let genericMailVc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("GenericMailboxTableViewController") as! GenericMailboxTableViewController
 		switch indexPath.row {
 		case 0:
 			//Inbox
 			let inboxViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("InboxTableViewController") as! InboxTableViewController
-			if let nc = AppDelegate.sharedInstance().sideMenu?.contentViewController as? UINavigationController {
+			if let nc = AppDelegate.sharedInstance().sideMenu.contentViewController as? UINavigationController {
 				nc.setViewControllers([inboxViewController], animated: true)
 			}
 			return
@@ -83,11 +83,16 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 			break;
 		}
 		
-		if indexPath.row != 0, let nc = AppDelegate.sharedInstance().sideMenu?.contentViewController as? UINavigationController {
+		if indexPath.row != 0, let nc = AppDelegate.sharedInstance().sideMenu.contentViewController as? UINavigationController {
 			nc.setViewControllers([genericMailVc], animated: true)
 		}
 	}
 
+	@IBAction func signoutPressed(sender: UIButton) {
+		APICommunicator.sharedInstance.signOut()
+		AppDelegate.sharedInstance().window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
+
+	}
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation

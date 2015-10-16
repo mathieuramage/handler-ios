@@ -17,28 +17,29 @@ import Mixpanel
 class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	var window: UIWindow?
-	var sideMenu: SSASideMenu?
+	lazy var sideMenu: SSASideMenu = {
+		let menuViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SideMenuViewController") as! SideMenuViewController
+		let mainController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("MainNavigationController")
+		let sideMenu = SSASideMenu(contentViewController: mainController, leftMenuViewController: menuViewController)
+		sideMenu.type = SSASideMenu.SSASideMenuType.Slip
+		sideMenu.contentViewInPortraitOffsetCenterX = 30
+		sideMenu.leftMenuRightInset = 30
+		sideMenu.statusBarStyle = SSASideMenu.SSAStatusBarStyle.Hidden
+		return sideMenu
+		}()
+	
 	var backgroundSessionCompletionHandler: (() -> Void)?
 	
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
 		Mixpanel.sharedInstanceWithToken("a4ed41dc915c9b995e0f06836872def1", launchOptions: launchOptions)
 		Twitter.sharedInstance().startWithConsumerKey("d6IKDpduuacAAHgtVydTvMo6t", consumerSecret: "tjaZYfuxDaEqY1RxLse0KvNzvCYPYpq57EgE0uawo2cuMzVoAE")
-
+		
 		APICommunicator.sharedInstance
 		UserTwitterStatusManager.startUpdating()
 		HRActionsManager.setupSharedInstance()
 		Fabric.with([Twitter.sharedInstance(), Crashlytics.self()])
 		
-		let menuViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SideMenuViewController") as! SideMenuViewController
-		let mainController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("MainNavigationController")
-		
-		sideMenu = SSASideMenu(contentViewController: mainController, leftMenuViewController: menuViewController)
-		sideMenu?.type = SSASideMenu.SSASideMenuType.Slip
-		sideMenu?.contentViewInPortraitOffsetCenterX = 30
-		sideMenu?.leftMenuRightInset = 30
-		sideMenu?.menuViewControllerTransformation
-		sideMenu?.statusBarStyle = SSASideMenu.SSAStatusBarStyle.Hidden
 		if let _ = Twitter.sharedInstance().sessionStore.session() {
 			window?.rootViewController = sideMenu
 		}else{

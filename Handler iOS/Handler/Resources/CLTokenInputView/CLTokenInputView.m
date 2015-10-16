@@ -461,9 +461,13 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 - (void)selectTokenView:(CLTokenView *)tokenView animated:(BOOL)animated
 {
     [tokenView setSelected:YES animated:animated];
+	[self.delegate tokenView:tokenView didSelectToken:tokenView.token];
     for (CLTokenView *otherTokenView in self.tokenViews) {
         if (otherTokenView != tokenView) {
-            [otherTokenView setSelected:NO animated:animated];
+			if (otherTokenView.selected){
+				[self.delegate tokenView:otherTokenView didUnselectToken:otherTokenView.token];
+				[otherTokenView setSelected:NO animated:animated];
+			}
         }
     }
 }
@@ -471,8 +475,11 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 - (void)unselectAllTokenViewsAnimated:(BOOL)animated
 {
     for (CLTokenView *tokenView in self.tokenViews) {
-        [tokenView setSelected:NO animated:animated];
-    }
+		if (tokenView.selected){
+			[self.delegate tokenView:tokenView didUnselectToken:tokenView.token];
+			[tokenView setSelected:NO animated:animated];
+		}
+	}
 }
 
 

@@ -103,6 +103,39 @@ class MailDatabaseManager: NSObject {
 		return backgroundContext
 		}()
 	
+	func deleteStore(){
+		let containerPath = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier("group.chrisspraiss.handlerapp")
+		
+		
+		let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
+		let url = containerPath!.URLByAppendingPathComponent("database.sqlite")
+		do {
+			for store in coordinator.persistentStores {
+				try coordinator.removePersistentStore(store)
+				if let url = store.URL {
+					try NSFileManager.defaultManager().removeItemAtURL(url)
+				}
+			}
+		} catch {
+			print(error)
+			return
+		}
+		do {
+			try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
+		} catch {
+			var dict = [String: AnyObject]()
+			dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
+			
+			dict[NSUnderlyingErrorKey] = error as NSError
+			let wrappedError = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
+			
+			NSLog("Unresolved error \(wrappedError), \(wrappedError.userInfo)")
+			
+			// MARK: TODO - Remove for shipping
+			abort()
+		}
+	}
+	
 	// MARK: - Core Data Saving
 	
 	func saveContext () {
@@ -134,6 +167,9 @@ class MailDatabaseManager: NSObject {
 					// MARK: TODO - Remove for shipping
 					abort()
 				}
+				self.managedObjectContext.performBlock({ () -> Void in
+					self.saveContext()
+				})
 			}
 		}
 	}

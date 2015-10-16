@@ -206,16 +206,20 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	
 	func switchUserInteractionState(enabled: Bool, sender: UIBarButtonItem? = nil){
 		if !enabled {
-			subjectTextField.resignFirstResponder()
-			contentTextView.resignFirstResponder()
-			tokenView.resignFirstResponder()
-			ccTokenView.resignFirstResponder()
+			resignAll()
 		}
 		sender?.enabled = enabled
 		subjectTextField.enabled = enabled
 		contentTextView.userInteractionEnabled = enabled
 		tokenView.userInteractionEnabled = enabled
 		ccTokenView.userInteractionEnabled = enabled
+	}
+	
+	func resignAll(){
+		subjectTextField.resignFirstResponder()
+		contentTextView.resignFirstResponder()
+		tokenView.resignFirstResponder()
+		ccTokenView.resignFirstResponder()
 	}
 	
 	func textViewDidChange(textView: UITextView) {
@@ -241,7 +245,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		tableView.beginUpdates()
 		tableView.endUpdates()
 	}
-	
+		
 	func tokenInputView(view: CLTokenInputView, tokenForText text: String) -> CLToken? {
 		return CLToken(displayText: text, context: nil)
 	}
@@ -260,6 +264,11 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		}else{
 			addCCContactButton.hidden = true
 		}
+	}
+	
+	func tokenView(view: CLTokenView, didSelectToken token: CLToken) {
+		ContactCardViewController.showWithHandle(token.displayText.lowercaseString.stringByReplacingOccurrencesOfString("@", withString: ""))
+		resignAll()
 	}
 	
 	func startValidationWithString(string: String) {

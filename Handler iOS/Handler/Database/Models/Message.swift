@@ -335,12 +335,14 @@ final class Message: NSManagedObject, CoreDataConvertible {
 	class func fetchRequestForMessagesWithInboxType(type: MailboxType) -> NSFetchRequest {
 		if type == MailboxType.AllChanges {
 			let fetchRequest = NSFetchRequest(entityName: Message.entityName())
+			fetchRequest.fetchBatchSize = 20
 			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sent_at", ascending: false)]
 			return fetchRequest
 		} else if type == .Inbox {
 			let predicate = NSPredicate(format: "showInInbox == YES")
 			let fetchRequest = NSFetchRequest(entityName: Thread.entityName())
 			fetchRequest.predicate = predicate
+			fetchRequest.fetchBatchSize = 20
 			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "last_message_date", ascending: false)]
 			return fetchRequest
 		}else if type != .Archive {
@@ -349,6 +351,7 @@ final class Message: NSManagedObject, CoreDataConvertible {
 			// handle archive case
 			let predicate = NSPredicate(format: "NONE labels.id == %@ && NONE labels.id == %@", "INBOX", "SENT")
 			let fetchRequest = NSFetchRequest(entityName: entityName())
+			fetchRequest.fetchBatchSize = 20
 			fetchRequest.predicate = predicate
 			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sent_at", ascending: false)]
 			return fetchRequest

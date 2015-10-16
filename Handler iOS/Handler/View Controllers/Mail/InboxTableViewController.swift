@@ -56,6 +56,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		
 		let space = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
 		
+		navigationItem.rightBarButtonItem?.enabled = true
 		
 		lastupdatedLabel = UILabel(frame: CGRectMake(0, 8, 140, 14))
 		lastupdatedLabel?.text = "Updated just now"
@@ -106,7 +107,14 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 	}
 	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		for cell in tableView.visibleCells {
+			if let cell = cell as? SWTableViewCell {
+				cell.hideUtilityButtonsAnimated(true)
+			}
+		}
 		if indexPath.row < fetchedObjects.count {
+			navigationItem.rightBarButtonItem?.enabled = false
+
 			let thread = fetchedObjects[indexPath.row]
 			threadForSegue = thread
 			if let cell = tableView.cellForRowAtIndexPath(indexPath) as? MessageTableViewCell {
