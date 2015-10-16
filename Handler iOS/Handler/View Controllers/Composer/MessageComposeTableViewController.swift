@@ -226,11 +226,11 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	// MARK: TokenViewDelegate
 	
 	func textColorForTokenViewWithToken(token: CLToken) -> UIColor {
-		guard token.displayText.stringByReplacingOccurrencesOfString("@", withString: "") != "" else {
+		guard token.displayText.lowercaseString.stringByReplacingOccurrencesOfString("@", withString: "") != "" else {
 			return UIColor.hrLightGrayColor()
 		}
 		for validatedToken in validatedTokens {
-			if validatedToken.name != "" && validatedToken.name == token.displayText.stringByReplacingOccurrencesOfString("@", withString: "") && validatedToken.isOnHandler {
+			if validatedToken.name != "" && validatedToken.name.lowercaseString == token.displayText.lowercaseString.stringByReplacingOccurrencesOfString("@", withString: "") && validatedToken.isOnHandler {
 				return UIColor.hrBlueColor()
 			}
 		}
@@ -268,7 +268,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		}
 		
 		for validatedToken in validatedTokens {
-			if validatedToken.name == string.stringByReplacingOccurrencesOfString("@", withString: "") {
+			if validatedToken.name.lowercaseString == string.stringByReplacingOccurrencesOfString("@", withString: "") {
 				return
 			}
 		}
@@ -281,10 +281,10 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 				return
 			}
 			self.validatedTokens.append(ValidatedToken(name: string.stringByReplacingOccurrencesOfString("@", withString: ""), isOnHandler: true, user: user))
-			self.tokenView.validatedString(string, withResult: true)
-			self.tokenView.reloadTokenWithTitle(string)
-			self.ccTokenView.validatedString(string, withResult: true)
-			self.ccTokenView.reloadTokenWithTitle(string)
+			self.tokenView.validatedString(user.handle, withResult: true)
+			self.tokenView.reloadTokenWithTitle(user.handle)
+			self.ccTokenView.validatedString(user.handle, withResult: true)
+			self.ccTokenView.reloadTokenWithTitle(user.handle)
 		}
 	}
 	

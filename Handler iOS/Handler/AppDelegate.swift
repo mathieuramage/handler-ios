@@ -45,7 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 		window?.makeKeyAndVisible()
 		
-		window?.rootViewController = IntroViewController()
+		//window?.rootViewController = IntroViewController()
 		
 		
 		let settings = UIUserNotificationSettings(forTypes: [UIUserNotificationType.Badge, UIUserNotificationType.Sound, UIUserNotificationType.Alert], categories: nil)

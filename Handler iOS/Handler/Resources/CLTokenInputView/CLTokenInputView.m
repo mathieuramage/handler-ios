@@ -375,10 +375,11 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 }
 
 - (void)validatedString:(NSString*)string withResult:(BOOL)result{
-	if ([string isEqualToString:self.textField.text]){
+	if ([[@"@" stringByAppendingString:string].lowercaseString isEqualToString:self.textField.text.lowercaseString]){
 		CLToken* token = [[CLToken alloc] initWithDisplayText:string context:nil];
 		if([self.delegate respondsToSelector:@selector(textColorForTokenViewWithToken:)]){
 			self.textField.textColor = [self.delegate textColorForTokenViewWithToken: token];
+			self.textField.text = [@"@" stringByAppendingString:string];
 		}
 	}
 }
@@ -608,7 +609,8 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 
 - (void)reloadTokenWithTitle:(NSString*)title{
 	for(CLTokenView* tokenView in self.tokenViews){
-		if ([tokenView.token.displayText isEqualToString: title]){
+		if ([tokenView.token.displayText.lowercaseString isEqualToString: [@"@" stringByAppendingString: title.lowercaseString]]){
+			tokenView.token.displayText = [@"@" stringByAppendingString: title];
 			[tokenView reload];
 		}
 	}

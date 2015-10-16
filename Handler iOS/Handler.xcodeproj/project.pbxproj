@@ -10,7 +10,6 @@
 		2F0136961BCFD744008BAD9D /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0136951BCFD744008BAD9D /* IntroViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		2F0136981BCFD82E008BAD9D /* IntroView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F0136971BCFD82E008BAD9D /* IntroView.xib */; settings = {ASSET_TAGS = (); }; };
 		2F01369A1BCFDA98008BAD9D /* RoundedBorderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0136991BCFDA98008BAD9D /* RoundedBorderButton.swift */; settings = {ASSET_TAGS = (); }; };
-		2F01369B1BCFDC33008BAD9D /* RazzleDazzle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F0136921BCFD6F6008BAD9D /* RazzleDazzle.framework */; };
 		2F041D541BCA7D24009985EB /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F041D531BCA7D24009985EB /* ErrorHandler.swift */; settings = {ASSET_TAGS = (); }; };
 		2F0580571BC02FBC00600B8B /* HandlerDatabaseModel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 2F0580561BC02FBC00600B8B /* HandlerDatabaseModel.xcdatamodel */; settings = {ASSET_TAGS = (); }; };
 		2F090CC01BC8397000F00893 /* UTI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F090CBF1BC8397000F00893 /* UTI.swift */; settings = {ASSET_TAGS = (); }; };
@@ -163,7 +162,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2F0136921BCFD6F6008BAD9D /* RazzleDazzle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RazzleDazzle.framework; path = "/Users/christianpraiss/Documents/iOS Projects/Handler/Handler iOS/RazzleDazzle.framework"; sourceTree = "<absolute>"; };
 		2F0136951BCFD744008BAD9D /* IntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IntroViewController.swift; path = Intro/IntroViewController.swift; sourceTree = "<group>"; };
 		2F0136971BCFD82E008BAD9D /* IntroView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntroView.xib; sourceTree = "<group>"; };
 		2F0136991BCFDA98008BAD9D /* RoundedBorderButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedBorderButton.swift; sourceTree = "<group>"; };
@@ -298,7 +296,6 @@
 				2FA2EA841BAD9C570027EA77 /* CoreData.framework in Frameworks */,
 				2FA2EA881BAD9C570027EA77 /* Social.framework in Frameworks */,
 				2F51BCAF1BC9B6DA0024397B /* HandlerSDK.framework in Frameworks */,
-				2F01369B1BCFDC33008BAD9D /* RazzleDazzle.framework in Frameworks */,
 				2FA2EA861BAD9C570027EA77 /* CoreText.framework in Frameworks */,
 				2FA2EA821BAD9C570027EA77 /* Foundation.framework in Frameworks */,
 				2FDDE12C1BAED6AC006C3500 /* Result.framework in Frameworks */,
