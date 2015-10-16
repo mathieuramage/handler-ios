@@ -267,8 +267,12 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	}
 	
 	func tokenView(view: CLTokenView, didSelectToken token: CLToken) {
+		view.resignFirstResponder()
 		ContactCardViewController.showWithHandle(token.displayText.lowercaseString.stringByReplacingOccurrencesOfString("@", withString: ""))
-		resignAll()
+	}
+	
+	func tokenView(view: CLTokenView, didUnselectToken token: CLToken) {
+		
 	}
 	
 	func startValidationWithString(string: String) {

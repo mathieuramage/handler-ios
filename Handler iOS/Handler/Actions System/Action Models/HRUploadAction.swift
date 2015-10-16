@@ -47,6 +47,7 @@ class HRUploadAction: HRAction {
 	}
 	
 	private func startUpload(){
+		print("starting upload")
 		do {
 			uploadManager = try UploadManager(action: self) { (success, error) -> Void in
 				guard let error = error else{

@@ -39,16 +39,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		UserTwitterStatusManager.startUpdating()
 		HRActionsManager.setupSharedInstance()
 		Fabric.with([Twitter.sharedInstance(), Crashlytics.self()])
-		
-		if let _ = Twitter.sharedInstance().sessionStore.session() {
-			window?.rootViewController = sideMenu
+		if NSUserDefaults.standardUserDefaults().boolForKey("didFinishWalkthrough") {
+			if let _ = Twitter.sharedInstance().sessionStore.session() {
+				window?.rootViewController = sideMenu
+			}else{
+				window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
+			}
 		}else{
-			window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
+			window?.rootViewController = IntroViewController(nibName: "IntroView", bundle: nil)
 		}
 		window?.makeKeyAndVisible()
-		
-		//window?.rootViewController = IntroViewController()
-		
 		
 		let settings = UIUserNotificationSettings(forTypes: [UIUserNotificationType.Badge, UIUserNotificationType.Sound, UIUserNotificationType.Alert], categories: nil)
 		UIApplication.sharedApplication().registerUserNotificationSettings(settings)

@@ -71,6 +71,11 @@ class MessageDetailViewController: UITableViewController, UIDocumentInteractionC
 		}
 	}
 	
+	@IBAction func didPressUsername(sender: UIButton) {
+		if let sender = self.message?.sender {
+			ContactCardViewController.showWithUser(sender)
+		}
+	}
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 		self.navigationController!.toolbar!.items = [left, space, right, space, flag, space, archive, space, reply]

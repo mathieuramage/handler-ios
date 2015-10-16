@@ -42,12 +42,12 @@ class IntroViewController: UIViewController, UIScrollViewDelegate {
 		scrollView.setContentOffset(CGPointMake(firstView.bounds.width, 0), animated: true)
 	}
 	
-	@IBAction func getStartedPressed(sender: RoundedBorderButton) {
-		
-	}
-	
-	@IBAction func skipPressed(sender: UIButton) {
-		
+	@IBAction func finishWalkthrough(sender: UIButton) {
+		NSUserDefaults.standardUserDefaults().setBool(true, forKey: "didFinishWalkthrough")
+		NSUserDefaults.standardUserDefaults().synchronize()
+		UIView.transitionWithView(AppDelegate.sharedInstance().window!, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: { () -> Void in
+			AppDelegate.sharedInstance().window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
+			}, completion: nil)
 	}
 	
 	override func preferredStatusBarStyle() -> UIStatusBarStyle {

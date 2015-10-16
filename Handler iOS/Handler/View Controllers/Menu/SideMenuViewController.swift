@@ -90,8 +90,9 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 
 	@IBAction func signoutPressed(sender: UIButton) {
 		APICommunicator.sharedInstance.signOut()
-		AppDelegate.sharedInstance().window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
-
+		UIView.transitionWithView(AppDelegate.sharedInstance().window!, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: { () -> Void in
+			AppDelegate.sharedInstance().window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
+			}, completion: nil)
 	}
     // MARK: - Navigation
 

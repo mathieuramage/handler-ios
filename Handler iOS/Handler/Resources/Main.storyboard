@@ -687,17 +687,6 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MgC-p7-zGj">
-                                                    <rect key="frame" x="115" y="3" width="129" height="30"/>
-                                                    <animations/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="82h-9K-EAC"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                    <state key="normal" title="@mathieuramage">
-                                                        <color key="titleColor" red="0.27450980390000002" green="0.60784313729999995" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </state>
-                                                </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="1000" text="From:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1wA-Ts-Dou">
                                                     <rect key="frame" x="63" y="8" width="44" height="18.5"/>
                                                     <animations/>
@@ -722,6 +711,20 @@
                                                     <color key="textColor" red="0.58039215686274515" green="0.63137254901960782" blue="0.6705882352941176" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MgC-p7-zGj">
+                                                    <rect key="frame" x="115" y="3" width="129" height="30"/>
+                                                    <animations/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="82h-9K-EAC"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                    <state key="normal" title="@mathieuramage">
+                                                        <color key="titleColor" red="0.27450980390000002" green="0.60784313729999995" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="didPressUsername:" destination="VOu-O3-uwy" eventType="touchUpInside" id="bal-he-Fr9"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <animations/>
                                             <constraints>
