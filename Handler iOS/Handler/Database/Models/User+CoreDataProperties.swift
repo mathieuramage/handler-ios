@@ -23,6 +23,7 @@ extension User {
     @NSManaged var provider: String?
     @NSManaged var updated_at: NSDate?
     @NSManaged var isContact: NSNumber?
+    @NSManaged var twtterFollowStatus: NSNumber?
     @NSManaged var contacts: NSSet?
     @NSManaged var received_messages: NSSet?
     @NSManaged var sent_messages: NSSet?

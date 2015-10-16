@@ -28,6 +28,7 @@ final class User: NSManagedObject, CoreDataConvertible {
 		self.provider = user.provider
 		self.created_at = NSDate.fromString(user.created_at)
 		self.updated_at = NSDate.fromString(user.updated_at)
+		self.twtterFollowStatus = NSNumber(integer: TwitterAPICommunicator.followStatusForID(self.name!).rawValue)
 	}
 	
 	func toHRType() -> HRUser {

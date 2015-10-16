@@ -71,6 +71,8 @@ class APICommunicator: NSObject {
 			return
 		}
 		
+		TwitterAPICommunicator.sharedInstance.getTwitterData()
+					
 		do {
 			try Keychain(service: "com.handlerapp.Handler").set(currentSession.authToken, key: "authToken")
 			try Keychain(service: "com.handlerapp.Handler").set(NSKeyedArchiver.archivedDataWithRootObject(currentSession.expirationDate), key: "expirationDate")

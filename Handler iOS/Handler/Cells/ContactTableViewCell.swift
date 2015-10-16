@@ -28,7 +28,7 @@ class ContactTableViewCell: UITableViewCell {
 					})
 				})
 			}
-			
+			self.followButton.setImage(UIImage.imageForTwitterStatus(TwitterFriendshipStatus(rawValue: user?.twtterFollowStatus?.integerValue ?? 2)!), forState: UIControlState.Normal)
 			self.nameLabel.text = user?.name
 			self.handleLabel.text = user?.handle
 			

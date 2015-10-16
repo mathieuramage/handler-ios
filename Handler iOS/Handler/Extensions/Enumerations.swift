@@ -30,3 +30,9 @@ enum SystemLabels: String {
 	case Sent = "SENT"
 	case Trashed = "TRASHED"
 }
+
+enum TwitterFriendshipStatus: Int {
+	case Follower = 0
+	case Following
+	case Unknown
+}
