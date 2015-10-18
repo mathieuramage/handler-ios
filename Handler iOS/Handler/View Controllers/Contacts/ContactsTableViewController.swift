@@ -9,7 +9,14 @@
 import UIKit
 import CoreData
 
+@objc protocol ContactSelectionDelegate {
+	func didSelectUser(user: User)
+	optional func didCancel()
+}
+
 class ContactsTableViewController: UITableViewController {
+	
+	var userSelectionDelegate: ContactSelectionDelegate?
 	
 	lazy var fetchedResultsController: NSFetchedResultsController = {
 		let fetchRequest = NSFetchRequest(entityName: "User")
@@ -74,7 +81,11 @@ class ContactsTableViewController: UITableViewController {
 	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		if let user = fetchedResultsController.objectAtIndexPath(indexPath) as? User {
-			ContactCardViewController.showWithUser(user)
+			if let delegate = self.userSelectionDelegate {
+				delegate.didSelectUser(user)
+			}else {
+				ContactCardViewController.showWithUser(user)
+			}
 		}
 	}
 	

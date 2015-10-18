@@ -10,7 +10,7 @@ import UIKit
 import HandlerSDK
 import Async
 
-class MessageComposeTableViewController: UITableViewController, CLTokenInputViewDelegate, UITextViewDelegate, FilePickerDelegate, UIDocumentPickerDelegate, UIDocumentInteractionControllerDelegate {
+class MessageComposeTableViewController: UITableViewController, CLTokenInputViewDelegate, UITextViewDelegate, FilePickerDelegate, UIDocumentPickerDelegate, UIDocumentInteractionControllerDelegate, ContactSelectionDelegate {
 	
 	struct ValidatedToken {
 		var name: String
@@ -23,6 +23,9 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 			self.user = user
 		}
 	}
+	
+	var addContactToCC = false
+	
 	private var internalmessageToReplyTo: Message?
 	var messageToReplyTo: Message? {
 		set(new){
@@ -121,6 +124,36 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		attachmentsCell.filePickerDelegate = self
 	}
 	
+	// MARK: Contacts Add Buttons 
+	
+	@IBAction func contactButtonPressed(button: UIButton){
+		if button == self.addToContactButton {
+			// Add recipient
+			addContactToCC = false
+		} else {
+			// Add CC
+			addContactToCC = true
+		}
+		
+		performSegueWithIdentifier("showContacts", sender: self)
+	}
+	
+	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+		if segue.identifier == "showContacts" {
+			let destinationVC = segue.destinationViewController as! ContactsTableViewController
+			destinationVC.userSelectionDelegate = self
+		}
+	}
+	
+	func didSelectUser(user: User) {
+		navigationController?.popViewControllerAnimated(true)
+		validatedTokens.append(ValidatedToken(name: user.handle ?? "", isOnHandler: true))
+		if addContactToCC {
+			self.ccTokenView.addToken(CLToken(displayText: "@" + (user.handle ?? ""), context: nil))
+		}else{
+			self.tokenView.addToken(CLToken(displayText: "@" + (user.handle ?? ""), context: nil))
+		}
+	}
 	// MARK: Sending / Cancelling
 	
 	@IBAction func dismiss(sender: UIBarButtonItem) {
