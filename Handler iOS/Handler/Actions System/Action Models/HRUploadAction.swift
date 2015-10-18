@@ -17,6 +17,7 @@ class HRUploadAction: HRAction {
 	required convenience init(attachment: Attachment){
 		self.init(managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
 		self.attachment = attachment
+		attachment.actions = self
 	}
 	
 	override func execute() {

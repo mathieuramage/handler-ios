@@ -17,20 +17,32 @@ final class Attachment: NSManagedObject, CoreDataConvertible {
 	
 	typealias HRType = HRAttachment
 	
-	lazy var interactionController: UIDocumentInteractionController? = {
-		if let url = self.localFileURL {
-			let interactionController = UIDocumentInteractionController(URL: NSURL(string: url)!)
-			return interactionController
-		}else{
-			return nil
+	var _interactionController: UIDocumentInteractionController?
+	var interactionController: UIDocumentInteractionController? {
+		get {
+			if let cont = _interactionController {
+				return cont
+			}else{
+				if let url = self.localFileURL {
+					if NSFileManager.defaultManager().fileExistsAtPath(url){
+						_interactionController = UIDocumentInteractionController(URL: NSURL(fileURLWithPath: url))
+						_interactionController?.name = self.filename ?? ""
+						return _interactionController
+					}else{
+						return nil
+					}
+				}else{
+					return nil
+				}
+			}
 		}
-		}()
+		}
 	
-    convenience init(localFile: NSURL, filename: String){
+	convenience init(localFile: NSURL, filename: String){
 		self.init(managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
-        self.filename = filename
-		if let filename = localFile.lastPathComponent {
-			self.localFileURL = filename
+		self.filename = filename
+		if let locfilename = localFile.lastPathComponent {
+			self.localFileURL = locfilename
 			self.content_type = UTI(filenameExtension: localFile.pathExtension ?? "").MIMEType
 		}
 		self.upload_complete = false
@@ -46,20 +58,20 @@ final class Attachment: NSManagedObject, CoreDataConvertible {
 		self.id = attachment.id
 		self.content_type = attachment.content_type
 		self.url = attachment.url
-        self.filename = attachment.filename
+		self.filename = attachment.filename
 		self.size = attachment.size
 		self.upload_complete = attachment.uploadComplete
 		self.upload_url = attachment.upload_url
-        
-        guard let _ = self.localFileURL else{
-            guard let docsDirString = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, .UserDomainMask, true).first else {
-                return
-            }
-            if let filetype = NSURL(string: attachment.filename)?.pathExtension {
-                self.localFileURL = docsDirString.stringByAppendingString(NSUUID().UUIDString.stringByAppendingString("." + filetype))
-            }
-            return
-        }
+		
+		guard let _ = self.localFileURL else{
+			guard let docsDirString = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, .UserDomainMask, true).first else {
+				return
+			}
+			if let filetype = NSURL(string: attachment.filename)?.pathExtension {
+				self.localFileURL = docsDirString.stringByAppendingString("/"+NSUUID().UUIDString.stringByAppendingString("." + filetype))
+			}
+			return
+		}
 	}
 	
 	
@@ -102,6 +114,13 @@ final class Attachment: NSManagedObject, CoreDataConvertible {
 	
 	func getData() -> NSData? {
 		if let search = localFileURL {
+			if let data = NSData(contentsOfFile: search){
+				return data
+			} else if (self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) as! Attachment).involved_download == nil {
+				// Data not yet loaded, start download
+				print("starting downlaod for \(self.filename) to \(self.localFileURL)")
+				let _ = HRDownloadAction(attachment: self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) as! Attachment)
+			}
 			return NSData(contentsOfFile: search)
 		}else{
 			return nil

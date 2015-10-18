@@ -51,7 +51,6 @@ final class Message: NSManagedObject, CoreDataConvertible {
 				
 				self.setLabelsFromHRTypes(labels)
 				self.thread?.updateInbox()
-				MailDatabaseManager.sharedInstance.saveBackgroundContext()
 			})
 		}
 		
@@ -197,6 +196,7 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		}
 		self.labels = labelsSet
 		self.thread?.updateInbox()
+		MailDatabaseManager.sharedInstance.saveBackgroundContext()
 	}
 	
 	func hrTypeLabels() -> [HRLabel] {

@@ -15,7 +15,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="210" height="50"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="One_Image_Attatchment" translatesAutoresizingMaskIntoConstraints="NO" id="7lw-UF-R8Z">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7lw-UF-R8Z">
                         <rect key="frame" x="70" y="30" width="20" height="15"/>
                         <animations/>
                         <constraints>
@@ -23,19 +23,19 @@
                             <constraint firstAttribute="width" constant="20" id="px4-yg-rwC"/>
                         </constraints>
                     </imageView>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner_test" translatesAutoresizingMaskIntoConstraints="NO" id="LTo-BJ-xrK">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LTo-BJ-xrK">
                         <rect key="frame" x="0.0" y="0.0" width="62.5" height="50"/>
                         <animations/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filename.png" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDP-gJ-Ych">
-                        <rect key="frame" x="70" y="8" width="92" height="18"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDP-gJ-Ych">
+                        <rect key="frame" x="70" y="8" width="7" height="18"/>
                         <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PNG - 58kb" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zlE-Ec-7Km">
-                        <rect key="frame" x="95" y="29" width="77" height="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zlE-Ec-7Km">
+                        <rect key="frame" x="95" y="29" width="7" height="17"/>
                         <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.39187690619999999" green="0.4703056216" blue="0.52657049889999996" alpha="1" colorSpace="calibratedRGB"/>
@@ -78,11 +78,7 @@
                 <outlet property="fileTypeImageView" destination="7lw-UF-R8Z" id="l5H-SU-YiB"/>
                 <outlet property="filenameLabel" destination="eDP-gJ-Ych" id="FUI-T3-0sC"/>
             </connections>
-            <point key="canvasLocation" x="250" y="321"/>
+            <point key="canvasLocation" x="597" y="331"/>
         </collectionViewCell>
     </objects>
-    <resources>
-        <image name="One_Image_Attatchment" width="32" height="24"/>
-        <image name="banner_test" width="2560" height="1600"/>
-    </resources>
 </document>

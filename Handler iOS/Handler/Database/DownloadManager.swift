@@ -9,6 +9,9 @@
 import UIKit
 import HandlerSDK
 
+let AttachmentDownloadDidFinishNotification = "AttachmentDownloadDidFinish"
+let AttachmentDownloadDidErrorNotification = "AttachmentDownloadDidError"
+
 class DownloadManager: NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate {
     var currentDownloadTask: NSURLSessionDownloadTask?
     var currentCallback: ((success: Bool, error: HRError?)->Void)
@@ -29,9 +32,7 @@ class DownloadManager: NSObject, NSURLSessionDelegate, NSURLSessionDownloadDeleg
             let backgroundSessionConfiguration = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier("com.chrisspraiss.backgroundDownload.\(attachment.localFileURL)")
             let session = NSURLSession(configuration: backgroundSessionConfiguration, delegate: self, delegateQueue: NSOperationQueue.mainQueue())
             
-            let downloadRequest = NSMutableURLRequest(URL: downloadURL)
-            downloadRequest.HTTPMethod = "GET"
-            
+            let downloadRequest = NSMutableURLRequest(URL: downloadURL)            
             currentDownloadTask = session.downloadTaskWithRequest(downloadRequest)
             currentDownloadTask?.resume()
         }else{
@@ -54,14 +55,17 @@ class DownloadManager: NSObject, NSURLSessionDelegate, NSURLSessionDownloadDeleg
     }
     
     func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didFinishDownloadingToURL location: NSURL) {
-        if let locURLString = self.downloadAction.attachment?.localFileURL, let locURL = NSURL(string: locURLString){
+        if let locURLString = self.downloadAction.attachment?.localFileURL {
             do {
-                try NSFileManager.defaultManager().moveItemAtURL(location, toURL: locURL)
+                try NSFileManager.defaultManager().moveItemAtPath(location.path!, toPath: locURLString)
                 currentCallback(success: true, error: nil)
+				NSNotificationCenter.defaultCenter().postNotificationName(AttachmentDownloadDidFinishNotification, object: nil, userInfo: ["id": self.downloadAction.attachment?.id ?? ""])
             }catch {
                 currentCallback(success: false, error: HRError(title: "failed_to_save", status: 999, detail: "couldn't persist download attachment", displayMessage: "The download of a file couldn't be completed"))
+				NSNotificationCenter.defaultCenter().postNotificationName(AttachmentDownloadDidErrorNotification, object: nil, userInfo: ["id": self.downloadAction.attachment?.id ?? ""])
             }
         }else{
+			NSNotificationCenter.defaultCenter().postNotificationName(AttachmentDownloadDidErrorNotification, object: nil, userInfo: ["id": self.downloadAction.attachment?.id ?? ""])
             currentCallback(success: false, error: HRError(title: "failed_to_save", status: 999, detail: "couldn't persist download attachment", displayMessage: "The download of a file couldn't be completed"))
         }
 
@@ -73,11 +77,13 @@ class DownloadManager: NSObject, NSURLSessionDelegate, NSURLSessionDownloadDeleg
         }else{
             currentCallback(success: false, error: HRError(title: "invalid_urlsession", status: 999, detail: "URLSession became invalid", displayMessage: "The upload of a file couldn't be completed"))
         }
+		NSNotificationCenter.defaultCenter().postNotificationName(AttachmentDownloadDidErrorNotification, object: nil, userInfo: ["id": self.downloadAction.attachment?.id ?? ""])
     }
     
     func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
         if let error = error {
             currentCallback(success: false, error: HRError(errorType: error))
+			NSNotificationCenter.defaultCenter().postNotificationName(AttachmentDownloadDidErrorNotification, object: nil, userInfo: ["id": self.downloadAction.attachment?.id ?? ""])
         }
     }
 
