@@ -38,7 +38,7 @@ platform :ios do
 
   desc "Submit a new Beta Build to Apple TestFlight"
   desc "This will also make sure the profile is up to date"
-  lane :beta do
+  lane :testflight do
     carthage
     snapshot
     sigh
