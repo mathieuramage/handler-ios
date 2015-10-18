@@ -175,7 +175,6 @@
 		2F4E415D1BB0A13700AA2DEF /* MessageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		2F4E41601BB0AC4A00AA2DEF /* CALayer+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+Extensions.swift"; sourceTree = "<group>"; };
 		2F4E41621BB0AC7300AA2DEF /* GradientNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientNavigationController.swift; sourceTree = "<group>"; };
-		2F51BCA41BC996570024397B /* Mixpanel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mixpanel.framework; sourceTree = "<group>"; };
 		2F51BCA61BC9AFA80024397B /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		2F6112801BC12F1E0003071B /* UploadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadManager.swift; sourceTree = "<group>"; };
 		2F76D4CF1BB48F1600235A95 /* MailboxObserversManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MailboxObserversManager.swift; sourceTree = "<group>"; };
@@ -450,7 +449,6 @@
 				2FDB445E1BD3E86F0040014E /* SwiftyJSON.framework */,
 				2FB9D55D1BCAB89B0093C1DC /* CWStatusBarNotification.swift */,
 				2FB9D55E1BCAB89B0093C1DC /* CWStatusBarNotificationUtils.swift */,
-				2F51BCA41BC996570024397B /* Mixpanel.framework */,
 				2F090CBF1BC8397000F00893 /* UTI.swift */,
 				2FA2EA901BADA1860027EA77 /* KeychainAccess.framework */,
 				2FA2EA781BAD9C570027EA77 /* CoreGraphics.framework */,
