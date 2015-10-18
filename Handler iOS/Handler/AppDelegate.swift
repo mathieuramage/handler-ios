@@ -11,7 +11,6 @@ import Fabric
 import TwitterKit
 import HandlerSDK
 import Crashlytics
-import Mixpanel
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -32,7 +31,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
-		Mixpanel.sharedInstanceWithToken("a4ed41dc915c9b995e0f06836872def1", launchOptions: launchOptions)
 		Twitter.sharedInstance().startWithConsumerKey("d6IKDpduuacAAHgtVydTvMo6t", consumerSecret: "tjaZYfuxDaEqY1RxLse0KvNzvCYPYpq57EgE0uawo2cuMzVoAE")
 		
 		APICommunicator.sharedInstance

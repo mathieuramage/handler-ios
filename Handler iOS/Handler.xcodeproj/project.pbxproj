@@ -89,8 +89,6 @@
 		2FDB44651BD3E86F0040014E /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB445E1BD3E86F0040014E /* SwiftyJSON.framework */; };
 		2FDB44671BD3E8A70040014E /* HandlerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB44661BD3E8A70040014E /* HandlerSDK.framework */; };
 		2FDB44681BD3E8A70040014E /* HandlerSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB44661BD3E8A70040014E /* HandlerSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		2FDB446A1BD3E9280040014E /* Mixpanel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB44691BD3E9280040014E /* Mixpanel.framework */; };
-		2FDB446B1BD3E9280040014E /* Mixpanel.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB44691BD3E9280040014E /* Mixpanel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2FDB44711BD3EB110040014E /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB446D1BD3EB110040014E /* Fabric.framework */; settings = {ASSET_TAGS = (); }; };
 		2FDB44721BD3EB110040014E /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB446E1BD3EB110040014E /* TwitterKit.framework */; settings = {ASSET_TAGS = (); }; };
 		2FDB44731BD3EB110040014E /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2FDB446F1BD3EB110040014E /* TwitterKitResources.bundle */; settings = {ASSET_TAGS = (); }; };
@@ -131,7 +129,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				2FDB44681BD3E8A70040014E /* HandlerSDK.framework in Embed Frameworks */,
-				2FDB446B1BD3E9280040014E /* Mixpanel.framework in Embed Frameworks */,
 				2FA2EA931BADA5110027EA77 /* KeychainAccess.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -242,7 +239,6 @@
 		2FDB445D1BD3E86F0040014E /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = SOURCE_ROOT; };
 		2FDB445E1BD3E86F0040014E /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = SOURCE_ROOT; };
 		2FDB44661BD3E8A70040014E /* HandlerSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = HandlerSDK.framework; path = "/Users/christianpraiss/Documents/iOS Projects/Handler/Build/Products/Debug-iphoneos/HandlerSDK.framework"; sourceTree = "<absolute>"; };
-		2FDB44691BD3E9280040014E /* Mixpanel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mixpanel.framework; sourceTree = "<group>"; };
 		2FDB446D1BD3EB110040014E /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = SOURCE_ROOT; };
 		2FDB446E1BD3EB110040014E /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = SOURCE_ROOT; };
 		2FDB446F1BD3EB110040014E /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TwitterKitResources.bundle; path = TwitterKit.framework/Versions/A/Resources/TwitterKitResources.bundle; sourceTree = SOURCE_ROOT; };
@@ -287,7 +283,6 @@
 				2FDB44601BD3E86F0040014E /* Async.framework in Frameworks */,
 				2FDB44611BD3E86F0040014E /* Bond.framework in Frameworks */,
 				2FDB44621BD3E86F0040014E /* DZNEmptyDataSet.framework in Frameworks */,
-				2FDB446A1BD3E9280040014E /* Mixpanel.framework in Frameworks */,
 				2FDB44721BD3EB110040014E /* TwitterKit.framework in Frameworks */,
 				2FDB44631BD3E86F0040014E /* Kingfisher.framework in Frameworks */,
 				2FDB44641BD3E86F0040014E /* Result.framework in Frameworks */,
@@ -445,7 +440,6 @@
 				2FDB446E1BD3EB110040014E /* TwitterKit.framework */,
 				2FDB446F1BD3EB110040014E /* TwitterKitResources.bundle */,
 				2FDB44701BD3EB110040014E /* TwitterCore.framework */,
-				2FDB44691BD3E9280040014E /* Mixpanel.framework */,
 				2FDB44661BD3E8A70040014E /* HandlerSDK.framework */,
 				2FDB44581BD3E86F0040014E /* APIKit.framework */,
 				2FDB44591BD3E86F0040014E /* Async.framework */,

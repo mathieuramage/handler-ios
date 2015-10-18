@@ -108,9 +108,9 @@ class APICommunicator: NSObject {
 	}
 	
 	func userDidSet(){
-		if let user = HRUserSessionManager.sharedManager.currentUser {
-			Track.identify(user.id)
-			Track.updateUserData(["userData":user])
+		if let _ = HRUserSessionManager.sharedManager.currentUser {
+//			Track.identify(user.id)
+//			Track.updateUserData(["userData":user])
 		}
 	}
 	
