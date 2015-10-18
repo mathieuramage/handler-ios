@@ -11,6 +11,7 @@
         <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="actions" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="HRUploadAction" inverseName="attachment" inverseEntity="HRUploadAction" syncable="YES"/>
         <relationship name="contained_in" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Message" inverseName="attachments" inverseEntity="Message" syncable="YES"/>
+        <relationship name="involved_download" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="HRDownloadAction" inverseName="attachment" inverseEntity="HRDownloadAction" syncable="YES"/>
     </entity>
     <entity name="HRAction" representedClassName=".HRAction" syncable="YES">
         <attribute name="completed" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
@@ -19,6 +20,9 @@
         <attribute name="running" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <relationship name="dependencies" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="HRAction" inverseName="parentDependency" inverseEntity="HRAction" syncable="YES"/>
         <relationship name="parentDependency" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="HRAction" inverseName="dependencies" inverseEntity="HRAction" syncable="YES"/>
+    </entity>
+    <entity name="HRDownloadAction" representedClassName=".HRDownloadAction" syncable="YES">
+        <relationship name="attachment" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Attachment" inverseName="involved_download" inverseEntity="Attachment" syncable="YES"/>
     </entity>
     <entity name="HRSendAction" representedClassName=".HRSendAction" parentEntity="HRAction" syncable="YES">
         <relationship name="message" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Message" inverseName="actions" inverseEntity="Message" syncable="YES"/>
@@ -69,7 +73,7 @@
         <relationship name="sent_messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="sender" inverseEntity="Message" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Attachment" positionX="-81" positionY="-180" width="128" height="195"/>
+        <element name="Attachment" positionX="-81" positionY="-180" width="128" height="210"/>
         <element name="HRAction" positionX="-567" positionY="-180" width="128" height="133"/>
         <element name="HRSendAction" positionX="-632" positionY="56" width="128" height="75"/>
         <element name="HRUploadAction" positionX="-371" positionY="12" width="128" height="60"/>
@@ -77,5 +81,6 @@
         <element name="Message" positionX="-297" positionY="180" width="126" height="225"/>
         <element name="Thread" positionX="88" positionY="63" width="128" height="103"/>
         <element name="User" positionX="7" positionY="236" width="128" height="238"/>
+        <element name="HRDownloadAction" positionX="-423" positionY="-27" width="128" height="60"/>
     </elements>
 </model>

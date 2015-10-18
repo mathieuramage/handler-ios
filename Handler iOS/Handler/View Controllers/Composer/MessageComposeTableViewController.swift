@@ -379,21 +379,26 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	}
 	
 	func saveFileToAttachment(file: NSData, url: NSURL){
-		guard let fileName = url.lastPathComponent else {
-			print("\(url) had no filename")
+		guard let filetype = url.pathExtension else {
+			print("\(url) had no filtype")
 			return
 		}
+        guard let originalFileName = url.lastPathComponent else {
+            print("\(url) had no filename")
+            return
+        }
 		guard let docsDir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, .UserDomainMask, true).first else {
 			print("caches directory not found")
 			return
 		}
 		var docsDirURL = NSURL(fileURLWithPath: docsDir, isDirectory: true)
-		docsDirURL = docsDirURL.URLByAppendingPathComponent(fileName)
+        let filename = NSUUID().UUIDString.stringByAppendingString("."+filetype)
+		docsDirURL = docsDirURL.URLByAppendingPathComponent(filename)
 		MailDatabaseManager.sharedInstance.backgroundContext.performBlock { () -> Void in
 			
 			if file.writeToURL(docsDirURL, atomically: true) {
 				
-				let attachment = Attachment(localFile: docsDirURL)
+                let attachment = Attachment(localFile: docsDirURL, filename: originalFileName)
 				MailDatabaseManager.sharedInstance.saveContext()
 				Async.main(block: { () -> Void in
 					self.attachmentsCell.attachments?.append(attachment)

@@ -18,7 +18,7 @@ final class Attachment: NSManagedObject, CoreDataConvertible {
 	typealias HRType = HRAttachment
 	
 	lazy var interactionController: UIDocumentInteractionController? = {
-		if let url = self.getLocalFileURL() {
+		if let url = self.localFileURL {
 			let interactionController = UIDocumentInteractionController(URL: NSURL(string: url)!)
 			return interactionController
 		}else{
@@ -26,12 +26,11 @@ final class Attachment: NSManagedObject, CoreDataConvertible {
 		}
 		}()
 	
-	convenience init(localFile: NSURL){
+    convenience init(localFile: NSURL, filename: String){
 		self.init(managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
-		
+        self.filename = filename
 		if let filename = localFile.lastPathComponent {
 			self.localFileURL = filename
-			self.filename = filename
 			self.content_type = UTI(filenameExtension: localFile.pathExtension ?? "").MIMEType
 		}
 		self.upload_complete = false
@@ -47,10 +46,20 @@ final class Attachment: NSManagedObject, CoreDataConvertible {
 		self.id = attachment.id
 		self.content_type = attachment.content_type
 		self.url = attachment.url
-		self.filename = attachment.filename
+        self.filename = attachment.filename
 		self.size = attachment.size
 		self.upload_complete = attachment.uploadComplete
 		self.upload_url = attachment.upload_url
+        
+        guard let _ = self.localFileURL else{
+            guard let docsDirString = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, .UserDomainMask, true).first else {
+                return
+            }
+            if let filetype = NSURL(string: attachment.filename)?.pathExtension {
+                self.localFileURL = docsDirString.stringByAppendingString(NSUUID().UUIDString.stringByAppendingString("." + filetype))
+            }
+            return
+        }
 	}
 	
 	
@@ -68,7 +77,7 @@ final class Attachment: NSManagedObject, CoreDataConvertible {
 	// Mark: Utils / Getters
 	
 	func delete() {
-		if let locURL = getLocalFileURL() {
+		if let locURL = localFileURL {
 			do {
 				try NSFileManager().removeItemAtPath(locURL)
 			} catch {
@@ -92,7 +101,7 @@ final class Attachment: NSManagedObject, CoreDataConvertible {
 	
 	
 	func getData() -> NSData? {
-		if let search = getLocalFileURL() {
+		if let search = localFileURL {
 			return NSData(contentsOfFile: search)
 		}else{
 			return nil
@@ -123,20 +132,6 @@ final class Attachment: NSManagedObject, CoreDataConvertible {
 		}
 		
 		return (UIImage(named: "One_Image_Attatchment")!, UIViewContentMode.Center)
-	}
-	
-	func getLocalFileURL()->String?{
-		guard let docsDirString = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, .UserDomainMask, true).first else {
-			return nil
-		}
-		if let filename = filename {
-			let docURL = docsDirString.stringByAppendingString("/\(filename)")
-			if NSFileManager.defaultManager().fileExistsAtPath(docURL){
-				return docURL
-			}
-		}
-		
-		return nil
 	}
 	
 	// MARK: Validation

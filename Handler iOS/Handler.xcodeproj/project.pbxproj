@@ -39,6 +39,9 @@
 		2F6112811BC12F1E0003071B /* UploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6112801BC12F1E0003071B /* UploadManager.swift */; settings = {ASSET_TAGS = (); }; };
 		2F76D4D01BB48F1600235A95 /* MailboxObserversManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F76D4CF1BB48F1600235A95 /* MailboxObserversManager.swift */; settings = {ASSET_TAGS = (); }; };
 		2F81A6331BC179BF007F2D43 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F81A6321BC179BF007F2D43 /* Operators.swift */; settings = {ASSET_TAGS = (); }; };
+		2F88F1CB1BD43C8B00844A90 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F88F1CA1BD43C8B00844A90 /* DownloadManager.swift */; settings = {ASSET_TAGS = (); }; };
+		2F88F1CE1BD43CF700844A90 /* HRDownloadAction+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F88F1CC1BD43CF700844A90 /* HRDownloadAction+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
+		2F88F1CF1BD43CF700844A90 /* HRDownloadAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F88F1CD1BD43CF700844A90 /* HRDownloadAction.swift */; settings = {ASSET_TAGS = (); }; };
 		2F8D8CDD1BCC12B30020A41C /* HRUploadAction+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8D8CD71BCC12B30020A41C /* HRUploadAction+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
 		2F8D8CDE1BCC12B30020A41C /* HRUploadAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8D8CD81BCC12B30020A41C /* HRUploadAction.swift */; settings = {ASSET_TAGS = (); }; };
 		2F8D8CDF1BCC12B30020A41C /* HRAction+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8D8CD91BCC12B30020A41C /* HRAction+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
@@ -180,6 +183,9 @@
 		2F6112801BC12F1E0003071B /* UploadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadManager.swift; sourceTree = "<group>"; };
 		2F76D4CF1BB48F1600235A95 /* MailboxObserversManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MailboxObserversManager.swift; sourceTree = "<group>"; };
 		2F81A6321BC179BF007F2D43 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
+		2F88F1CA1BD43C8B00844A90 /* DownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
+		2F88F1CC1BD43CF700844A90 /* HRDownloadAction+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HRDownloadAction+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		2F88F1CD1BD43CF700844A90 /* HRDownloadAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HRDownloadAction.swift; sourceTree = "<group>"; };
 		2F8D8CD71BCC12B30020A41C /* HRUploadAction+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HRUploadAction+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2F8D8CD81BCC12B30020A41C /* HRUploadAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HRUploadAction.swift; sourceTree = "<group>"; };
 		2F8D8CD91BCC12B30020A41C /* HRAction+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HRAction+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -355,6 +361,8 @@
 		2F8D8CE31BCC12B90020A41C /* Action Models */ = {
 			isa = PBXGroup;
 			children = (
+				2F88F1CC1BD43CF700844A90 /* HRDownloadAction+CoreDataProperties.swift */,
+				2F88F1CD1BD43CF700844A90 /* HRDownloadAction.swift */,
 				2F8D8CD91BCC12B30020A41C /* HRAction+CoreDataProperties.swift */,
 				2F8D8CDA1BCC12B30020A41C /* HRAction.swift */,
 				2F8D8CDB1BCC12B30020A41C /* HRSendAction+CoreDataProperties.swift */,
@@ -388,6 +396,7 @@
 				2FA2EA6B1BAC4EA80027EA77 /* MailDatabaseManager.swift */,
 				2F76D4CF1BB48F1600235A95 /* MailboxObserversManager.swift */,
 				2F6112801BC12F1E0003071B /* UploadManager.swift */,
+				2F88F1CA1BD43C8B00844A90 /* DownloadManager.swift */,
 				2F0136A21BD10EE4008BAD9D /* TwitterAPICommunicator.swift */,
 				2F0136A41BD11C87008BAD9D /* UserTwitterStatusManager.swift */,
 			);
@@ -802,6 +811,7 @@
 				2F8D8CE11BCC12B30020A41C /* HRSendAction+CoreDataProperties.swift in Sources */,
 				2F01369A1BCFDA98008BAD9D /* RoundedBorderButton.swift in Sources */,
 				2F6112811BC12F1E0003071B /* UploadManager.swift in Sources */,
+				2F88F1CB1BD43C8B00844A90 /* DownloadManager.swift in Sources */,
 				2F4E414D1BB061C500AA2DEF /* SideMenuViewController.swift in Sources */,
 				2F4E415E1BB0A13700AA2DEF /* MessageTableViewCell.swift in Sources */,
 				2FDDE1421BAF5A17006C3500 /* Protocols.swift in Sources */,
@@ -832,9 +842,11 @@
 				2FB9D5601BCAB89B0093C1DC /* CWStatusBarNotificationUtils.swift in Sources */,
 				2F8E379B1BB1E95000C6A82D /* TTTTimeIntervalFormatter.m in Sources */,
 				2FDDE0F91BAEAA27006C3500 /* Attachment+CoreDataProperties.swift in Sources */,
+				2F88F1CE1BD43CF700844A90 /* HRDownloadAction+CoreDataProperties.swift in Sources */,
 				2F994E501BB2AE3500A63B9B /* SWTableViewCell.m in Sources */,
 				2F1D2C371BBC3DCA00A504A8 /* ContactCardViewController.swift in Sources */,
 				2F8D8CE51BCC20B40020A41C /* HRActionsManager.swift in Sources */,
+				2F88F1CF1BD43CF700844A90 /* HRDownloadAction.swift in Sources */,
 				2FDDE0F31BAEA957006C3500 /* User+CoreDataProperties.swift in Sources */,
 				2F4E41631BB0AC7300AA2DEF /* GradientNavigationController.swift in Sources */,
 				2FB5A4471BB20A6E0087D006 /* MailBoxOptionsTableViewController.swift in Sources */,

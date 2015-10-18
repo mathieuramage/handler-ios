@@ -167,9 +167,6 @@ class MailDatabaseManager: NSObject {
 					// MARK: TODO - Remove for shipping
 					abort()
 				}
-				self.managedObjectContext.performBlock({ () -> Void in
-					self.saveContext()
-				})
 			}
 		}
 	}

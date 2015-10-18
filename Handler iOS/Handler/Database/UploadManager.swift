@@ -48,7 +48,7 @@ class UploadManager: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
     
     func URLSessionDidFinishEventsForBackgroundURLSession(session: NSURLSession) {
 		if let attachment = uploadAction.attachment {
-			if session.configuration.identifier == "com.chrisspraiss.backgroundUpload.\(attachment.filename)" {
+			if session.configuration.identifier == "com.chrisspraiss.backgroundUpload.\(attachment.localFileURL)" {
 				AppDelegate.sharedInstance().backgroundSessionCompletionHandler?()
 			}
 		}
