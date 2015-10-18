@@ -1,0 +1,7 @@
+github "duemunk/Async" "1.4"
+github "SwiftBond/Bond" "v4.0.2"
+github "dzenbot/DZNEmptyDataSet" "v1.7.2"
+github "onevcat/Kingfisher" "1.6.1"
+github "antitypical/Result" "0.6-beta.1"
+github "SwiftyJSON/SwiftyJSON" "2.3.0"
+github "ishkawa/APIKit" "1.0.0-beta5"

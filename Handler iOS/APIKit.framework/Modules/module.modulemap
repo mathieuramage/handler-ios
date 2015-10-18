@@ -1,3 +1,0 @@
-framework module APIKit {
-    header "APIKit-Swift.h"
-}

@@ -14,16 +14,12 @@
 		2F0136A11BD10422008BAD9D /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0136A01BD10422008BAD9D /* ContactTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		2F0136A31BD10EE4008BAD9D /* TwitterAPICommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0136A21BD10EE4008BAD9D /* TwitterAPICommunicator.swift */; settings = {ASSET_TAGS = (); }; };
 		2F0136A51BD11C87008BAD9D /* UserTwitterStatusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0136A41BD11C87008BAD9D /* UserTwitterStatusManager.swift */; settings = {ASSET_TAGS = (); }; };
-		2F0136A71BD11FE8008BAD9D /* Bond.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F0136A61BD11FE8008BAD9D /* Bond.framework */; settings = {ASSET_TAGS = (); }; };
-		2F0136A81BD12000008BAD9D /* Bond.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F0136A61BD11FE8008BAD9D /* Bond.framework */; };
-		2F0136A91BD12000008BAD9D /* Bond.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2F0136A61BD11FE8008BAD9D /* Bond.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2F041D541BCA7D24009985EB /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F041D531BCA7D24009985EB /* ErrorHandler.swift */; settings = {ASSET_TAGS = (); }; };
 		2F0580571BC02FBC00600B8B /* HandlerDatabaseModel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 2F0580561BC02FBC00600B8B /* HandlerDatabaseModel.xcdatamodel */; settings = {ASSET_TAGS = (); }; };
 		2F090CC01BC8397000F00893 /* UTI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F090CBF1BC8397000F00893 /* UTI.swift */; settings = {ASSET_TAGS = (); }; };
 		2F09DB1F1BC69CEC00B81FE2 /* AttachmentThumbnailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F09DB1E1BC69CEC00B81FE2 /* AttachmentThumbnailView.xib */; settings = {ASSET_TAGS = (); }; };
 		2F09DB241BC69F3F00B81FE2 /* AttachmentThumbnailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F09DB231BC69F3F00B81FE2 /* AttachmentThumbnailCollectionViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		2F09DB261BC6A0A300B81FE2 /* MessageAttachmentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F09DB251BC6A0A300B81FE2 /* MessageAttachmentsTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
-		2F1050371BBD7BFE0094DAF6 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F1050361BBD7BFE0094DAF6 /* Crashlytics.framework */; settings = {ASSET_TAGS = (); }; };
 		2F1D2C301BBBF83600A504A8 /* MessageActionsAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F1D2C2F1BBBF83600A504A8 /* MessageActionsAlertController.swift */; settings = {ASSET_TAGS = (); }; };
 		2F1D2C371BBC3DCA00A504A8 /* ContactCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F1D2C351BBC3DCA00A504A8 /* ContactCardViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		2F1D2C381BBC3DCA00A504A8 /* ContactCardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F1D2C361BBC3DCA00A504A8 /* ContactCardViewController.xib */; settings = {ASSET_TAGS = (); }; };
@@ -32,26 +28,14 @@
 		2F1D2C3F1BBC48E600A504A8 /* ErrorPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F1D2C3D1BBC48E600A504A8 /* ErrorPopupViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		2F1D2C401BBC48E600A504A8 /* ErrorPopupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F1D2C3E1BBC48E600A504A8 /* ErrorPopupViewController.xib */; settings = {ASSET_TAGS = (); }; };
 		2F1DACF21BC7EFC500FB6173 /* AddAttachmentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F1DACF11BC7EFC500FB6173 /* AddAttachmentView.xib */; settings = {ASSET_TAGS = (); }; };
-		2F25508A1BC9302A0059DFE5 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F2550891BC9302A0059DFE5 /* Kingfisher.framework */; settings = {ASSET_TAGS = (); }; };
-		2F25508B1BC930300059DFE5 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F2550891BC9302A0059DFE5 /* Kingfisher.framework */; };
-		2F25508C1BC930300059DFE5 /* Kingfisher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2F2550891BC9302A0059DFE5 /* Kingfisher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2F41F3141BB357B6003276E0 /* MessageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F41F3131BB357B6003276E0 /* MessageDetailViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		2F424CF31BC266BD007737FA /* Async.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F424CF21BC266BD007737FA /* Async.framework */; settings = {ASSET_TAGS = (); }; };
-		2F424CF41BC266C2007737FA /* Async.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F424CF21BC266BD007737FA /* Async.framework */; };
-		2F424CF51BC266C2007737FA /* Async.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2F424CF21BC266BD007737FA /* Async.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2F4E414D1BB061C500AA2DEF /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E414C1BB061C500AA2DEF /* SideMenuViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		2F4E41551BB08A3200AA2DEF /* SSASideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E41541BB08A3200AA2DEF /* SSASideMenu.swift */; settings = {ASSET_TAGS = (); }; };
 		2F4E41571BB0977C00AA2DEF /* UIButton+ImageFitting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E41561BB0977C00AA2DEF /* UIButton+ImageFitting.swift */; settings = {ASSET_TAGS = (); }; };
 		2F4E415E1BB0A13700AA2DEF /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E415D1BB0A13700AA2DEF /* MessageTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		2F4E41611BB0AC4A00AA2DEF /* CALayer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E41601BB0AC4A00AA2DEF /* CALayer+Extensions.swift */; settings = {ASSET_TAGS = (); }; };
 		2F4E41631BB0AC7300AA2DEF /* GradientNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E41621BB0AC7300AA2DEF /* GradientNavigationController.swift */; settings = {ASSET_TAGS = (); }; };
-		2F51BCA51BC996570024397B /* Mixpanel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F51BCA41BC996570024397B /* Mixpanel.framework */; settings = {ASSET_TAGS = (); }; };
 		2F51BCA71BC9AFA80024397B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F51BCA61BC9AFA80024397B /* Extensions.swift */; settings = {ASSET_TAGS = (); }; };
-		2F51BCAB1BC9B3900024397B /* Mixpanel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F51BCA41BC996570024397B /* Mixpanel.framework */; };
-		2F51BCAC1BC9B3900024397B /* Mixpanel.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2F51BCA41BC996570024397B /* Mixpanel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		2F51BCAE1BC9B6CE0024397B /* HandlerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F51BCAD1BC9B6CE0024397B /* HandlerSDK.framework */; settings = {ASSET_TAGS = (); }; };
-		2F51BCAF1BC9B6DA0024397B /* HandlerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F51BCAD1BC9B6CE0024397B /* HandlerSDK.framework */; };
-		2F51BCB01BC9B6DA0024397B /* HandlerSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2F51BCAD1BC9B6CE0024397B /* HandlerSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2F6112811BC12F1E0003071B /* UploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6112801BC12F1E0003071B /* UploadManager.swift */; settings = {ASSET_TAGS = (); }; };
 		2F76D4D01BB48F1600235A95 /* MailboxObserversManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F76D4CF1BB48F1600235A95 /* MailboxObserversManager.swift */; settings = {ASSET_TAGS = (); }; };
 		2F81A6331BC179BF007F2D43 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F81A6321BC179BF007F2D43 /* Operators.swift */; settings = {ASSET_TAGS = (); }; };
@@ -89,17 +73,26 @@
 		2FA2EA911BADA1860027EA77 /* KeychainAccess.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FA2EA901BADA1860027EA77 /* KeychainAccess.framework */; settings = {ASSET_TAGS = (); }; };
 		2FA2EA921BADA5110027EA77 /* KeychainAccess.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FA2EA901BADA1860027EA77 /* KeychainAccess.framework */; };
 		2FA2EA931BADA5110027EA77 /* KeychainAccess.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FA2EA901BADA1860027EA77 /* KeychainAccess.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		2FB0E9411BB56C3200A0426E /* DZNEmptyDataSet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FB0E9401BB56C3200A0426E /* DZNEmptyDataSet.framework */; settings = {ASSET_TAGS = (); }; };
-		2FB0E9421BB56D2E00A0426E /* DZNEmptyDataSet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FB0E9401BB56C3200A0426E /* DZNEmptyDataSet.framework */; };
-		2FB0E9431BB56D2E00A0426E /* DZNEmptyDataSet.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FB0E9401BB56C3200A0426E /* DZNEmptyDataSet.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2FB0E9451BB5718600A0426E /* UIImage+HanderImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB0E9441BB5718600A0426E /* UIImage+HanderImages.swift */; settings = {ASSET_TAGS = (); }; };
 		2FB5A4471BB20A6E0087D006 /* MailBoxOptionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB5A4461BB20A6E0087D006 /* MailBoxOptionsTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		2FB9D55F1BCAB89B0093C1DC /* CWStatusBarNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB9D55D1BCAB89B0093C1DC /* CWStatusBarNotification.swift */; settings = {ASSET_TAGS = (); }; };
 		2FB9D5601BCAB89B0093C1DC /* CWStatusBarNotificationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB9D55E1BCAB89B0093C1DC /* CWStatusBarNotificationUtils.swift */; settings = {ASSET_TAGS = (); }; };
-		2FDB52071BA8BC1D003C074F /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB52031BA8BC1D003C074F /* Fabric.framework */; settings = {ASSET_TAGS = (); }; };
-		2FDB52081BA8BC1D003C074F /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB52041BA8BC1D003C074F /* TwitterKit.framework */; settings = {ASSET_TAGS = (); }; };
-		2FDB52091BA8BC1D003C074F /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2FDB52051BA8BC1D003C074F /* TwitterKitResources.bundle */; settings = {ASSET_TAGS = (); }; };
-		2FDB520A1BA8BC1D003C074F /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB52061BA8BC1D003C074F /* TwitterCore.framework */; settings = {ASSET_TAGS = (); }; };
+		2FDB445F1BD3E86F0040014E /* APIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB44581BD3E86F0040014E /* APIKit.framework */; };
+		2FDB44601BD3E86F0040014E /* Async.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB44591BD3E86F0040014E /* Async.framework */; };
+		2FDB44611BD3E86F0040014E /* Bond.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB445A1BD3E86F0040014E /* Bond.framework */; };
+		2FDB44621BD3E86F0040014E /* DZNEmptyDataSet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB445B1BD3E86F0040014E /* DZNEmptyDataSet.framework */; };
+		2FDB44631BD3E86F0040014E /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB445C1BD3E86F0040014E /* Kingfisher.framework */; };
+		2FDB44641BD3E86F0040014E /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB445D1BD3E86F0040014E /* Result.framework */; };
+		2FDB44651BD3E86F0040014E /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB445E1BD3E86F0040014E /* SwiftyJSON.framework */; };
+		2FDB44671BD3E8A70040014E /* HandlerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB44661BD3E8A70040014E /* HandlerSDK.framework */; };
+		2FDB44681BD3E8A70040014E /* HandlerSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB44661BD3E8A70040014E /* HandlerSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2FDB446A1BD3E9280040014E /* Mixpanel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB44691BD3E9280040014E /* Mixpanel.framework */; };
+		2FDB446B1BD3E9280040014E /* Mixpanel.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB44691BD3E9280040014E /* Mixpanel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2FDB44711BD3EB110040014E /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB446D1BD3EB110040014E /* Fabric.framework */; settings = {ASSET_TAGS = (); }; };
+		2FDB44721BD3EB110040014E /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB446E1BD3EB110040014E /* TwitterKit.framework */; settings = {ASSET_TAGS = (); }; };
+		2FDB44731BD3EB110040014E /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2FDB446F1BD3EB110040014E /* TwitterKitResources.bundle */; settings = {ASSET_TAGS = (); }; };
+		2FDB44741BD3EB110040014E /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB44701BD3EB110040014E /* TwitterCore.framework */; settings = {ASSET_TAGS = (); }; };
+		2FDB44761BD3EB380040014E /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB44751BD3EB380040014E /* Crashlytics.framework */; settings = {ASSET_TAGS = (); }; };
 		2FDBBC901BB9CBC500B2BFBF /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDBBC8F1BB9CBC500B2BFBF /* UIView+Extensions.swift */; settings = {ASSET_TAGS = (); }; };
 		2FDDE0ED1BAEA957006C3500 /* Message+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE0E31BAEA957006C3500 /* Message+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
 		2FDDE0EE1BAEA957006C3500 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE0E41BAEA957006C3500 /* Message.swift */; settings = {ASSET_TAGS = (); }; };
@@ -114,15 +107,6 @@
 		2FDDE0FE1BAEB26C006C3500 /* NSManagedObject+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE0FD1BAEB26C006C3500 /* NSManagedObject+Convenience.swift */; settings = {ASSET_TAGS = (); }; };
 		2FDDE1011BAEB5A6006C3500 /* NSDate+FromString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE1001BAEB5A6006C3500 /* NSDate+FromString.swift */; settings = {ASSET_TAGS = (); }; };
 		2FDDE1031BAEBFE9006C3500 /* APICommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE1021BAEBFE9006C3500 /* APICommunicator.swift */; settings = {ASSET_TAGS = (); }; };
-		2FDDE12B1BAED6AC006C3500 /* APIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDDE1291BAED6AC006C3500 /* APIKit.framework */; settings = {ASSET_TAGS = (); }; };
-		2FDDE12C1BAED6AC006C3500 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDDE12A1BAED6AC006C3500 /* Result.framework */; settings = {ASSET_TAGS = (); }; };
-		2FDDE12D1BAED6B1006C3500 /* APIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDDE1291BAED6AC006C3500 /* APIKit.framework */; };
-		2FDDE12E1BAED6B1006C3500 /* APIKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDDE1291BAED6AC006C3500 /* APIKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		2FDDE12F1BAED6B1006C3500 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDDE12A1BAED6AC006C3500 /* Result.framework */; };
-		2FDDE1301BAED6B1006C3500 /* Result.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDDE12A1BAED6AC006C3500 /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		2FDDE1341BAEE21D006C3500 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDDE1331BAEE21D006C3500 /* SwiftyJSON.framework */; settings = {ASSET_TAGS = (); }; };
-		2FDDE1351BAEE227006C3500 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDDE1331BAEE21D006C3500 /* SwiftyJSON.framework */; };
-		2FDDE1361BAEE227006C3500 /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDDE1331BAEE21D006C3500 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2FDDE1421BAF5A17006C3500 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE1411BAF5A17006C3500 /* Protocols.swift */; settings = {ASSET_TAGS = (); }; };
 		2FDDE1441BB01AD3006C3500 /* InboxTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE1431BB01AD3006C3500 /* InboxTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		2FDDE1471BB04FA4006C3500 /* WhiteBorderImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE1461BB04FA4006C3500 /* WhiteBorderImageView.swift */; settings = {ASSET_TAGS = (); }; };
@@ -143,16 +127,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				2F51BCAC1BC9B3900024397B /* Mixpanel.framework in Embed Frameworks */,
-				2FDDE12E1BAED6B1006C3500 /* APIKit.framework in Embed Frameworks */,
-				2F25508C1BC930300059DFE5 /* Kingfisher.framework in Embed Frameworks */,
-				2F424CF51BC266C2007737FA /* Async.framework in Embed Frameworks */,
+				2FDB44681BD3E8A70040014E /* HandlerSDK.framework in Embed Frameworks */,
+				2FDB446B1BD3E9280040014E /* Mixpanel.framework in Embed Frameworks */,
 				2FA2EA931BADA5110027EA77 /* KeychainAccess.framework in Embed Frameworks */,
-				2FB0E9431BB56D2E00A0426E /* DZNEmptyDataSet.framework in Embed Frameworks */,
-				2FDDE1301BAED6B1006C3500 /* Result.framework in Embed Frameworks */,
-				2F51BCB01BC9B6DA0024397B /* HandlerSDK.framework in Embed Frameworks */,
-				2FDDE1361BAEE227006C3500 /* SwiftyJSON.framework in Embed Frameworks */,
-				2F0136A91BD12000008BAD9D /* Bond.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -177,14 +154,12 @@
 		2F0136A01BD10422008BAD9D /* ContactTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
 		2F0136A21BD10EE4008BAD9D /* TwitterAPICommunicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterAPICommunicator.swift; sourceTree = "<group>"; };
 		2F0136A41BD11C87008BAD9D /* UserTwitterStatusManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTwitterStatusManager.swift; sourceTree = "<group>"; };
-		2F0136A61BD11FE8008BAD9D /* Bond.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bond.framework; sourceTree = "<group>"; };
 		2F041D531BCA7D24009985EB /* ErrorHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
 		2F0580561BC02FBC00600B8B /* HandlerDatabaseModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HandlerDatabaseModel.xcdatamodel; sourceTree = "<group>"; };
 		2F090CBF1BC8397000F00893 /* UTI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UTI.swift; sourceTree = "<group>"; };
 		2F09DB1E1BC69CEC00B81FE2 /* AttachmentThumbnailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AttachmentThumbnailView.xib; sourceTree = "<group>"; };
 		2F09DB231BC69F3F00B81FE2 /* AttachmentThumbnailCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttachmentThumbnailCollectionViewCell.swift; sourceTree = "<group>"; };
 		2F09DB251BC6A0A300B81FE2 /* MessageAttachmentsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageAttachmentsTableViewCell.swift; sourceTree = "<group>"; };
-		2F1050361BBD7BFE0094DAF6 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		2F1D2C2F1BBBF83600A504A8 /* MessageActionsAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageActionsAlertController.swift; sourceTree = "<group>"; };
 		2F1D2C351BBC3DCA00A504A8 /* ContactCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCardViewController.swift; sourceTree = "<group>"; };
 		2F1D2C361BBC3DCA00A504A8 /* ContactCardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactCardViewController.xib; sourceTree = "<group>"; };
@@ -193,9 +168,7 @@
 		2F1D2C3D1BBC48E600A504A8 /* ErrorPopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorPopupViewController.swift; sourceTree = "<group>"; };
 		2F1D2C3E1BBC48E600A504A8 /* ErrorPopupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorPopupViewController.xib; sourceTree = "<group>"; };
 		2F1DACF11BC7EFC500FB6173 /* AddAttachmentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddAttachmentView.xib; sourceTree = "<group>"; };
-		2F2550891BC9302A0059DFE5 /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Kingfisher.framework; sourceTree = "<group>"; };
 		2F41F3131BB357B6003276E0 /* MessageDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDetailViewController.swift; sourceTree = "<group>"; };
-		2F424CF21BC266BD007737FA /* Async.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Async.framework; sourceTree = "<group>"; };
 		2F4E414C1BB061C500AA2DEF /* SideMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		2F4E41541BB08A3200AA2DEF /* SSASideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSASideMenu.swift; sourceTree = "<group>"; };
 		2F4E41561BB0977C00AA2DEF /* UIButton+ImageFitting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+ImageFitting.swift"; sourceTree = "<group>"; };
@@ -204,7 +177,6 @@
 		2F4E41621BB0AC7300AA2DEF /* GradientNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientNavigationController.swift; sourceTree = "<group>"; };
 		2F51BCA41BC996570024397B /* Mixpanel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mixpanel.framework; sourceTree = "<group>"; };
 		2F51BCA61BC9AFA80024397B /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		2F51BCAD1BC9B6CE0024397B /* HandlerSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HandlerSDK.framework; path = "../Build/Products/Debug-iphoneos/HandlerSDK.framework"; sourceTree = "<group>"; };
 		2F6112801BC12F1E0003071B /* UploadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadManager.swift; sourceTree = "<group>"; };
 		2F76D4CF1BB48F1600235A95 /* MailboxObserversManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MailboxObserversManager.swift; sourceTree = "<group>"; };
 		2F81A6321BC179BF007F2D43 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
@@ -252,15 +224,24 @@
 		2FA2EA8B1BAD9C970027EA77 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2FA2EA8D1BAD9CBA0027EA77 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		2FA2EA901BADA1860027EA77 /* KeychainAccess.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KeychainAccess.framework; sourceTree = "<group>"; };
-		2FB0E9401BB56C3200A0426E /* DZNEmptyDataSet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DZNEmptyDataSet.framework; sourceTree = "<group>"; };
 		2FB0E9441BB5718600A0426E /* UIImage+HanderImages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+HanderImages.swift"; sourceTree = "<group>"; };
 		2FB5A4461BB20A6E0087D006 /* MailBoxOptionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MailBoxOptionsTableViewController.swift; sourceTree = "<group>"; };
 		2FB9D55D1BCAB89B0093C1DC /* CWStatusBarNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CWStatusBarNotification.swift; sourceTree = "<group>"; };
 		2FB9D55E1BCAB89B0093C1DC /* CWStatusBarNotificationUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CWStatusBarNotificationUtils.swift; sourceTree = "<group>"; };
-		2FDB52031BA8BC1D003C074F /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
-		2FDB52041BA8BC1D003C074F /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = "<group>"; };
-		2FDB52051BA8BC1D003C074F /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TwitterKitResources.bundle; path = TwitterKit.framework/Versions/A/Resources/TwitterKitResources.bundle; sourceTree = "<group>"; };
-		2FDB52061BA8BC1D003C074F /* TwitterCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterCore.framework; sourceTree = "<group>"; };
+		2FDB44581BD3E86F0040014E /* APIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = APIKit.framework; path = Carthage/Build/iOS/APIKit.framework; sourceTree = SOURCE_ROOT; };
+		2FDB44591BD3E86F0040014E /* Async.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Async.framework; path = Carthage/Build/iOS/Async.framework; sourceTree = SOURCE_ROOT; };
+		2FDB445A1BD3E86F0040014E /* Bond.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bond.framework; path = Carthage/Build/iOS/Bond.framework; sourceTree = SOURCE_ROOT; };
+		2FDB445B1BD3E86F0040014E /* DZNEmptyDataSet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DZNEmptyDataSet.framework; path = Carthage/Build/iOS/DZNEmptyDataSet.framework; sourceTree = SOURCE_ROOT; };
+		2FDB445C1BD3E86F0040014E /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = Carthage/Build/iOS/Kingfisher.framework; sourceTree = SOURCE_ROOT; };
+		2FDB445D1BD3E86F0040014E /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = SOURCE_ROOT; };
+		2FDB445E1BD3E86F0040014E /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = SOURCE_ROOT; };
+		2FDB44661BD3E8A70040014E /* HandlerSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = HandlerSDK.framework; path = "/Users/christianpraiss/Documents/iOS Projects/Handler/Build/Products/Debug-iphoneos/HandlerSDK.framework"; sourceTree = "<absolute>"; };
+		2FDB44691BD3E9280040014E /* Mixpanel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mixpanel.framework; sourceTree = "<group>"; };
+		2FDB446D1BD3EB110040014E /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = SOURCE_ROOT; };
+		2FDB446E1BD3EB110040014E /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = SOURCE_ROOT; };
+		2FDB446F1BD3EB110040014E /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TwitterKitResources.bundle; path = TwitterKit.framework/Versions/A/Resources/TwitterKitResources.bundle; sourceTree = SOURCE_ROOT; };
+		2FDB44701BD3EB110040014E /* TwitterCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterCore.framework; sourceTree = SOURCE_ROOT; };
+		2FDB44751BD3EB380040014E /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = SOURCE_ROOT; };
 		2FDBBC8F1BB9CBC500B2BFBF /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		2FDDE0E31BAEA957006C3500 /* Message+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Message+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2FDDE0E41BAEA957006C3500 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Message.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -275,9 +256,6 @@
 		2FDDE0FD1BAEB26C006C3500 /* NSManagedObject+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = "NSManagedObject+Convenience.swift"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2FDDE1001BAEB5A6006C3500 /* NSDate+FromString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+FromString.swift"; sourceTree = "<group>"; };
 		2FDDE1021BAEBFE9006C3500 /* APICommunicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APICommunicator.swift; sourceTree = "<group>"; };
-		2FDDE1291BAED6AC006C3500 /* APIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = APIKit.framework; sourceTree = "<group>"; };
-		2FDDE12A1BAED6AC006C3500 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Result.framework; sourceTree = "<group>"; };
-		2FDDE1331BAEE21D006C3500 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = "<group>"; };
 		2FDDE1411BAF5A17006C3500 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Protocols.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2FDDE1431BB01AD3006C3500 /* InboxTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxTableViewController.swift; sourceTree = "<group>"; };
 		2FDDE1461BB04FA4006C3500 /* WhiteBorderImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhiteBorderImageView.swift; sourceTree = "<group>"; };
@@ -299,38 +277,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FDB445F1BD3E86F0040014E /* APIKit.framework in Frameworks */,
+				2FDB44601BD3E86F0040014E /* Async.framework in Frameworks */,
+				2FDB44611BD3E86F0040014E /* Bond.framework in Frameworks */,
+				2FDB44621BD3E86F0040014E /* DZNEmptyDataSet.framework in Frameworks */,
+				2FDB446A1BD3E9280040014E /* Mixpanel.framework in Frameworks */,
+				2FDB44721BD3EB110040014E /* TwitterKit.framework in Frameworks */,
+				2FDB44631BD3E86F0040014E /* Kingfisher.framework in Frameworks */,
+				2FDB44641BD3E86F0040014E /* Result.framework in Frameworks */,
+				2FDB44651BD3E86F0040014E /* SwiftyJSON.framework in Frameworks */,
 				2FA2EA871BAD9C570027EA77 /* UIKit.framework in Frameworks */,
-				2FDDE12F1BAED6B1006C3500 /* Result.framework in Frameworks */,
-				2FB0E9411BB56C3200A0426E /* DZNEmptyDataSet.framework in Frameworks */,
+				2FDB44761BD3EB380040014E /* Crashlytics.framework in Frameworks */,
+				2FDB44741BD3EB110040014E /* TwitterCore.framework in Frameworks */,
 				2FA2EA891BAD9C570027EA77 /* Accounts.framework in Frameworks */,
-				2F51BCAB1BC9B3900024397B /* Mixpanel.framework in Frameworks */,
-				2FDDE1341BAEE21D006C3500 /* SwiftyJSON.framework in Frameworks */,
-				2F0136A81BD12000008BAD9D /* Bond.framework in Frameworks */,
-				2F51BCA51BC996570024397B /* Mixpanel.framework in Frameworks */,
 				2FA2EA841BAD9C570027EA77 /* CoreData.framework in Frameworks */,
 				2FA2EA881BAD9C570027EA77 /* Social.framework in Frameworks */,
-				2F51BCAF1BC9B6DA0024397B /* HandlerSDK.framework in Frameworks */,
 				2FA2EA861BAD9C570027EA77 /* CoreText.framework in Frameworks */,
 				2FA2EA821BAD9C570027EA77 /* Foundation.framework in Frameworks */,
-				2FDDE12C1BAED6AC006C3500 /* Result.framework in Frameworks */,
-				2F0136A71BD11FE8008BAD9D /* Bond.framework in Frameworks */,
-				2FDB520A1BA8BC1D003C074F /* TwitterCore.framework in Frameworks */,
-				2FDDE1351BAEE227006C3500 /* SwiftyJSON.framework in Frameworks */,
-				2FB0E9421BB56D2E00A0426E /* DZNEmptyDataSet.framework in Frameworks */,
-				2F25508A1BC9302A0059DFE5 /* Kingfisher.framework in Frameworks */,
-				2F51BCAE1BC9B6CE0024397B /* HandlerSDK.framework in Frameworks */,
-				2FDB52071BA8BC1D003C074F /* Fabric.framework in Frameworks */,
+				2FDB44711BD3EB110040014E /* Fabric.framework in Frameworks */,
+				2FDB44671BD3E8A70040014E /* HandlerSDK.framework in Frameworks */,
 				2FA2EA921BADA5110027EA77 /* KeychainAccess.framework in Frameworks */,
-				2F424CF41BC266C2007737FA /* Async.framework in Frameworks */,
 				2FA2EA831BAD9C570027EA77 /* Security.framework in Frameworks */,
-				2FDDE12D1BAED6B1006C3500 /* APIKit.framework in Frameworks */,
 				2FA2EA911BADA1860027EA77 /* KeychainAccess.framework in Frameworks */,
 				2FA2EA811BAD9C570027EA77 /* CoreGraphics.framework in Frameworks */,
-				2F25508B1BC930300059DFE5 /* Kingfisher.framework in Frameworks */,
-				2F1050371BBD7BFE0094DAF6 /* Crashlytics.framework in Frameworks */,
-				2FDB52081BA8BC1D003C074F /* TwitterKit.framework in Frameworks */,
-				2F424CF31BC266BD007737FA /* Async.framework in Frameworks */,
-				2FDDE12B1BAED6AC006C3500 /* APIKit.framework in Frameworks */,
 				2FA2EA851BAD9C570027EA77 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -462,19 +431,24 @@
 		2FDB52021BA8BC12003C074F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2F0136A61BD11FE8008BAD9D /* Bond.framework */,
+				2FDB44751BD3EB380040014E /* Crashlytics.framework */,
+				2FDB446D1BD3EB110040014E /* Fabric.framework */,
+				2FDB446E1BD3EB110040014E /* TwitterKit.framework */,
+				2FDB446F1BD3EB110040014E /* TwitterKitResources.bundle */,
+				2FDB44701BD3EB110040014E /* TwitterCore.framework */,
+				2FDB44691BD3E9280040014E /* Mixpanel.framework */,
+				2FDB44661BD3E8A70040014E /* HandlerSDK.framework */,
+				2FDB44581BD3E86F0040014E /* APIKit.framework */,
+				2FDB44591BD3E86F0040014E /* Async.framework */,
+				2FDB445A1BD3E86F0040014E /* Bond.framework */,
+				2FDB445B1BD3E86F0040014E /* DZNEmptyDataSet.framework */,
+				2FDB445C1BD3E86F0040014E /* Kingfisher.framework */,
+				2FDB445D1BD3E86F0040014E /* Result.framework */,
+				2FDB445E1BD3E86F0040014E /* SwiftyJSON.framework */,
 				2FB9D55D1BCAB89B0093C1DC /* CWStatusBarNotification.swift */,
 				2FB9D55E1BCAB89B0093C1DC /* CWStatusBarNotificationUtils.swift */,
-				2F51BCAD1BC9B6CE0024397B /* HandlerSDK.framework */,
 				2F51BCA41BC996570024397B /* Mixpanel.framework */,
 				2F090CBF1BC8397000F00893 /* UTI.swift */,
-				2F2550891BC9302A0059DFE5 /* Kingfisher.framework */,
-				2F424CF21BC266BD007737FA /* Async.framework */,
-				2F1050361BBD7BFE0094DAF6 /* Crashlytics.framework */,
-				2FB0E9401BB56C3200A0426E /* DZNEmptyDataSet.framework */,
-				2FDDE1331BAEE21D006C3500 /* SwiftyJSON.framework */,
-				2FDDE1291BAED6AC006C3500 /* APIKit.framework */,
-				2FDDE12A1BAED6AC006C3500 /* Result.framework */,
 				2FA2EA901BADA1860027EA77 /* KeychainAccess.framework */,
 				2FA2EA781BAD9C570027EA77 /* CoreGraphics.framework */,
 				2FA2EA791BAD9C570027EA77 /* Foundation.framework */,
@@ -485,12 +459,8 @@
 				2FA2EA7E1BAD9C570027EA77 /* UIKit.framework */,
 				2FA2EA7F1BAD9C570027EA77 /* Social.framework */,
 				2FA2EA801BAD9C570027EA77 /* Accounts.framework */,
-				2FDB52031BA8BC1D003C074F /* Fabric.framework */,
-				2FDB52041BA8BC1D003C074F /* TwitterKit.framework */,
-				2FDB52051BA8BC1D003C074F /* TwitterKitResources.bundle */,
-				2FDB52061BA8BC1D003C074F /* TwitterCore.framework */,
 			);
-			name = Frameworks;
+			path = Frameworks;
 			sourceTree = "<group>";
 		};
 		2FDDE0E21BAEA92E006C3500 /* Models */ = {
@@ -677,9 +647,10 @@
 				DF1FD2D51B62360600A58B71 /* Frameworks */,
 				DF1FD2D61B62360600A58B71 /* Resources */,
 				2F03A1FF1BAAC027003F4B1E /* Embed Frameworks */,
-				2FA2EA771BAD9AF00027EA77 /* ShellScript */,
 				2FF7881D1BB5A2F700B297D3 /* Embed Watch Content */,
-				2F9472E41BC32AF200E35746 /* Run Script */,
+				2F9472E41BC32AF200E35746 /* Strip Archs */,
+				2FDB44571BD3E6EF0040014E /* Carthage Integrate */,
+				2FDB446C1BD3EAF90040014E /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -746,9 +717,9 @@
 			files = (
 				2F1DACF21BC7EFC500FB6173 /* AddAttachmentView.xib in Resources */,
 				DF1FD2E81B62360600A58B71 /* LaunchScreen.xib in Resources */,
-				2FDB52091BA8BC1D003C074F /* TwitterKitResources.bundle in Resources */,
 				2F1D2C401BBC48E600A504A8 /* ErrorPopupViewController.xib in Resources */,
 				2F1D2C381BBC3DCA00A504A8 /* ContactCardViewController.xib in Resources */,
+				2FDB44731BD3EB110040014E /* TwitterKitResources.bundle in Resources */,
 				2F09DB1F1BC69CEC00B81FE2 /* AttachmentThumbnailView.xib in Resources */,
 				DF1FD2E51B62360600A58B71 /* Images.xcassets in Resources */,
 				2F1D2C3C1BBC477000A504A8 /* SendInvitationViewController.xib in Resources */,
@@ -760,21 +731,42 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2F9472E41BC32AF200E35746 /* Run Script */ = {
+		2F9472E41BC32AF200E35746 /* Strip Archs */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 8;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Run Script";
+			name = "Strip Archs";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "APP_PATH=\"${TARGET_BUILD_DIR}/${WRAPPER_NAME}\"\n\n# This script loops through the frameworks embedded in the application and\n# removes unused architectures.\nfind \"$APP_PATH\" -name '*.framework' -type d | while read -r FRAMEWORK\ndo\nFRAMEWORK_EXECUTABLE_NAME=$(defaults read \"$FRAMEWORK/Info.plist\" CFBundleExecutable)\nFRAMEWORK_EXECUTABLE_PATH=\"$FRAMEWORK/$FRAMEWORK_EXECUTABLE_NAME\"\necho \"Executable is $FRAMEWORK_EXECUTABLE_PATH\"\n\nEXTRACTED_ARCHS=()\n\nfor ARCH in $ARCHS\ndo\necho \"Extracting $ARCH from $FRAMEWORK_EXECUTABLE_NAME\"\nlipo -extract \"$ARCH\" \"$FRAMEWORK_EXECUTABLE_PATH\" -o \"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\"\nEXTRACTED_ARCHS+=(\"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\")\ndone\n\necho \"Merging extracted architectures: ${ARCHS}\"\nlipo -o \"$FRAMEWORK_EXECUTABLE_PATH-merged\" -create \"${EXTRACTED_ARCHS[@]}\"\nrm \"${EXTRACTED_ARCHS[@]}\"\n\necho \"Replacing original executable with thinned version\"\nrm \"$FRAMEWORK_EXECUTABLE_PATH\"\nmv \"$FRAMEWORK_EXECUTABLE_PATH-merged\" \"$FRAMEWORK_EXECUTABLE_PATH\"\n\ndone";
 		};
-		2FA2EA771BAD9AF00027EA77 /* ShellScript */ = {
+		2FDB44571BD3E6EF0040014E /* Carthage Integrate */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/APIKit.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Async.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Bond.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Result.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/DZNEmptyDataSet.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Kingfisher.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
+			);
+			name = "Carthage Integrate";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+		2FDB446C1BD3EAF90040014E /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -976,6 +968,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
 					"$(SRCROOT)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = "Handler/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
@@ -1001,6 +995,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
 					"$(SRCROOT)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = "Handler/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
