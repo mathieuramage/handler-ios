@@ -9,6 +9,8 @@
 import UIKit
 import CoreData
 
+let ActionProgressDidChangeNotification = "ActionProgressDidChange"
+
 class HRActionsManager: NSObject, NSFetchedResultsControllerDelegate {
 	private static let sharedInstance = HRActionsManager()
 	

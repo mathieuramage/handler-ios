@@ -144,7 +144,7 @@ class MessageDetailViewController: UITableViewController, UIDocumentInteractionC
 	}
 	
 	func documentInteractionControllerViewControllerForPreview(controller: UIDocumentInteractionController) -> UIViewController {
-		return self
+		return self.navigationController ?? self
 	}
 	
 	deinit{

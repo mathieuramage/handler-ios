@@ -60,6 +60,7 @@ class HRUploadAction: HRAction {
 				}
 				print(error)
 				self.hadError = NSNumber(bool: true)
+				self.running = NSNumber(bool: false)
 				self.completed = NSNumber(bool: true)
 				self.parentDependency?.dependencyDidComplete(self)
 			}

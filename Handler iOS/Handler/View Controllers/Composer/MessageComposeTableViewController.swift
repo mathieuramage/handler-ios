@@ -214,9 +214,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		for token in tokenView.allTokens {
 			for valdtoken in validatedTokens {
 				if valdtoken.isOnHandler && valdtoken.name == token.displayText.stringByReplacingOccurrencesOfString("@", withString: ""){
-					let user = HRUser()
-					user.handle = valdtoken.name
-					receivers.append(User(hrType: user, managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext))
+ 					receivers.append(User.fromHandle(valdtoken.name))
 				}
 			}
 		}
@@ -411,6 +409,6 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	}
 	
 	func documentInteractionControllerViewControllerForPreview(controller: UIDocumentInteractionController) -> UIViewController {
-		return self
+		return self.navigationController ?? self
 	}
 }

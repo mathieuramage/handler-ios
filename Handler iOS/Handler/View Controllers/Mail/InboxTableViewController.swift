@@ -27,6 +27,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		}
 	}
 	
+	var progressBar: UIProgressView!
 	var lastupdatedLabel: UILabel?
 	var newEmailsLabel: UILabel?
 	
@@ -45,9 +46,11 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 			guard let error = error else {
 				return
 			}
-			var errorPopup = ErrorPopupViewController()
-			errorPopup.error = error
-			errorPopup.show()
+			Async.main(block: { () -> Void in
+				var errorPopup = ErrorPopupViewController()
+				errorPopup.error = error
+				errorPopup.show()
+			})
 		}
 	}
 	
@@ -60,13 +63,17 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		
 		lastupdatedLabel = UILabel(frame: CGRectMake(0, 8, 140, 14))
         CurrentStatusManager.sharedInstance.currentStatusSubtitle.observe { text in
-            self.lastupdatedLabel?.text = text
+			Async.main(block: { () -> Void in
+				self.lastupdatedLabel?.text = text
+			})
         }
         lastupdatedLabel?.textAlignment = .Center
 		lastupdatedLabel?.font = UIFont.systemFontOfSize(14)
 		newEmailsLabel = UILabel(frame: CGRectMake(0, 26, 140, 10))
         CurrentStatusManager.sharedInstance.currentStatus.observe { text in
-            self.newEmailsLabel?.text = text
+			Async.main(block: { () -> Void in
+				self.newEmailsLabel?.text = text
+			})
         }
         newEmailsLabel?.textAlignment = .Center
 		newEmailsLabel?.font = UIFont.systemFontOfSize(10)
@@ -80,6 +87,20 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		let composeItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Compose, target: self, action: "composeNewMessage:")
 		
 		self.navigationController!.toolbar.items = [space, item, space, composeItem]
+		
+		let navigationbarFrame = self.navigationController!.navigationBar.bounds
+		navigationController?.navigationBar.clipsToBounds = false
+		progressBar = UIProgressView(frame: CGRectMake(0, navigationbarFrame.height - 2.5, navigationbarFrame.width, 2.5))
+		progressBar.progressViewStyle = .Bar
+		progressBar.progressTintColor = UIColor.whiteColor()
+		progressBar.hidden = true
+		
+		CurrentStatusManager.sharedInstance.currentUploadProgress.observe { progress in
+			self.progressBar.progress = progress
+			self.progressBar.hidden = progress == 0 || progress == 1
+		}
+		
+		self.navigationController?.navigationBar.addSubview(progressBar)
 		
 	}
 	

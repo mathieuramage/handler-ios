@@ -146,9 +146,6 @@ class MailDatabaseManager: NSObject {
 			} catch {
 				let nserror = error as NSError
 				NSLog("Error saving context \(nserror), \(nserror.userInfo)")
-				
-				// MARK: TODO - Remove for shipping
-				abort()
 			}
 		}
 	}
@@ -163,9 +160,6 @@ class MailDatabaseManager: NSObject {
 				} catch {
 					let nserror = error as NSError
 					NSLog("Error saving backgroundcontext \(nserror), \(nserror.userInfo)")
-					
-					// MARK: TODO - Remove for shipping
-					abort()
 				}
 			}
 		}

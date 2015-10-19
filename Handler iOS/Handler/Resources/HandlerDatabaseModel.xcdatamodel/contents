@@ -22,6 +22,7 @@
         <relationship name="parentDependency" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="HRAction" inverseName="dependencies" inverseEntity="HRAction" syncable="YES"/>
     </entity>
     <entity name="HRDownloadAction" representedClassName=".HRDownloadAction" parentEntity="HRAction" syncable="YES">
+        <attribute name="progress" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <relationship name="attachment" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Attachment" inverseName="involved_download" inverseEntity="Attachment" syncable="YES"/>
     </entity>
     <entity name="HRSendAction" representedClassName=".HRSendAction" parentEntity="HRAction" syncable="YES">
@@ -29,6 +30,7 @@
         <relationship name="replyTo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Message" inverseName="willBeRepliedToInAction" inverseEntity="Message" syncable="YES"/>
     </entity>
     <entity name="HRUploadAction" representedClassName=".HRUploadAction" parentEntity="HRAction" syncable="YES">
+        <attribute name="progress" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <relationship name="attachment" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Attachment" inverseName="actions" inverseEntity="Attachment" syncable="YES"/>
     </entity>
     <entity name="Label" representedClassName=".Label" syncable="YES">
@@ -75,9 +77,9 @@
     <elements>
         <element name="Attachment" positionX="-81" positionY="-180" width="128" height="210"/>
         <element name="HRAction" positionX="-567" positionY="-180" width="128" height="133"/>
-        <element name="HRDownloadAction" positionX="-423" positionY="-27" width="128" height="58"/>
+        <element name="HRDownloadAction" positionX="-324" positionY="-148" width="128" height="73"/>
         <element name="HRSendAction" positionX="-632" positionY="56" width="128" height="75"/>
-        <element name="HRUploadAction" positionX="-371" positionY="12" width="128" height="60"/>
+        <element name="HRUploadAction" positionX="-326" positionY="-51" width="128" height="73"/>
         <element name="Label" positionX="88" positionY="-90" width="128" height="105"/>
         <element name="Message" positionX="-297" positionY="180" width="126" height="225"/>
         <element name="Thread" positionX="88" positionY="63" width="128" height="103"/>

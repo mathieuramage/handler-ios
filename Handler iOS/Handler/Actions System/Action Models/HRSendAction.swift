@@ -40,7 +40,6 @@ class HRSendAction: HRAction {
 			self.completed = NSNumber(bool: true)
 			self.running = NSNumber(bool: false)
 			self.hadError = NSNumber(bool: true)
-			self.managedObjectContext?.deleteObject(self)
 			return
 		}
 		
@@ -50,7 +49,6 @@ class HRSendAction: HRAction {
 			for action in dep.allObjects as! [HRAction] {
 				if let hadError = action.hadError?.boolValue where hadError {
 					print("error sending message \(self.message?.id), aborting...")
-					self.managedObjectContext?.deleteObject(self)
 				} else if let actioncompleted = action.completed?.boolValue where !actioncompleted, let actionrunning = action.running?.boolValue where actionrunning {
 					print("action are still running, waiting")
 					allfinished = false
@@ -83,7 +81,6 @@ class HRSendAction: HRAction {
 					self.message?.updateFromHRType(newmessage)
 					self.completed = NSNumber(bool: true)
 					self.running = NSNumber(bool: false)
-					self.managedObjectContext?.deleteObject(self)
 					print("sent")
 				})
 			}else{
@@ -98,12 +95,10 @@ class HRSendAction: HRAction {
 						}
 						return
 					}
-					self.message?.updateFromHRType(newmessage)
+					print("sent")
+					MailDatabaseManager.sharedInstance.storeMessage(newmessage)
 					self.completed = NSNumber(bool: true)
 					self.running = NSNumber(bool: false)
-					self.managedObjectContext?.deleteObject(self)
-					print("sent")
-
 				}
 			}
 		}else{

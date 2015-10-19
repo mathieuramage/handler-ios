@@ -16,6 +16,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <progressView key="tableFooterView" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" progress="0.5" id="ZIN-Q2-bPK">
+                            <rect key="frame" x="0.0" y="186" width="375" height="2.5"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <animations/>
+                        </progressView>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="mailCell" id="Opx-Dr-bNg" customClass="MessageTableViewCell" customModule="Handler" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="375" height="94"/>
@@ -1414,9 +1419,9 @@
         <image name="orange dot sm copy" width="27" height="27"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="z5m-Xz-TsX"/>
-        <segue reference="37u-X4-Rqh"/>
         <segue reference="l3v-e4-Wcd"/>
-        <segue reference="241-TL-jtr"/>
+        <segue reference="37u-X4-Rqh"/>
+        <segue reference="z5m-Xz-TsX"/>
+        <segue reference="XtR-7h-DTu"/>
     </inferredMetricsTieBreakers>
 </document>

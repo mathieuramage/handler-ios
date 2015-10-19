@@ -9,6 +9,7 @@
 import UIKit
 import HandlerSDK
 import Kingfisher
+import Async
 
 class SideMenuViewController: UIViewController, UITableViewDelegate {
 	
@@ -33,11 +34,13 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
     }
 	
 	func updateCurrentUser(){
-		if let user = HRUserSessionManager.sharedManager.currentUser {
-			self.profileHandleLabel.text = user.handle
-			self.profileNameLabel.text = user.name
-			if let url = NSURL(string: user.picture_url) {
-				self.profileImageView.kf_setImageWithURL(url, placeholderImage: UIImage.randomGhostImage())
+		Async.main { () -> Void in
+			if let user = HRUserSessionManager.sharedManager.currentUser {
+				self.profileHandleLabel.text = user.handle
+				self.profileNameLabel.text = user.name
+				if let url = NSURL(string: user.picture_url) {
+					self.profileImageView.kf_setImageWithURL(url, placeholderImage: UIImage.randomGhostImage())
+				}
 			}
 		}
 	}
