@@ -20,7 +20,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 			return MailboxObserversManager.sharedInstance.fetchedResultsControllerForType(.Inbox)
 		}
 	}
-
+	
 	var fetchedObjects: [Thread] {
 		get {
 			return fetchedResultsController.fetchedObjects as? [Thread] ?? [Thread]()
@@ -62,20 +62,20 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		navigationItem.rightBarButtonItem?.enabled = true
 		
 		lastupdatedLabel = UILabel(frame: CGRectMake(0, 8, 140, 14))
-        CurrentStatusManager.sharedInstance.currentStatusSubtitle.observe { text in
+		CurrentStatusManager.sharedInstance.currentStatusSubtitle.observe { text in
 			Async.main(block: { () -> Void in
 				self.lastupdatedLabel?.text = text
 			})
-        }
-        lastupdatedLabel?.textAlignment = .Center
+		}
+		lastupdatedLabel?.textAlignment = .Center
 		lastupdatedLabel?.font = UIFont.systemFontOfSize(14)
 		newEmailsLabel = UILabel(frame: CGRectMake(0, 26, 140, 10))
-        CurrentStatusManager.sharedInstance.currentStatus.observe { text in
+		CurrentStatusManager.sharedInstance.currentStatus.observe { text in
 			Async.main(block: { () -> Void in
 				self.newEmailsLabel?.text = text
 			})
-        }
-        newEmailsLabel?.textAlignment = .Center
+		}
+		newEmailsLabel?.textAlignment = .Center
 		newEmailsLabel?.font = UIFont.systemFontOfSize(10)
 		newEmailsLabel?.textColor = UIColor.darkGrayColor()
 		
@@ -101,7 +101,11 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		}
 		
 		self.navigationController?.navigationBar.addSubview(progressBar)
-		
+		if let cells = self.tableView.visibleCells as? [MessageTableViewCell]{
+			for cell in cells {
+				cell.refreshFlags()
+			}
+		}
 	}
 	
 	func composeNewMessage(item: UIBarButtonItem){
@@ -139,7 +143,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		}
 		if indexPath.row < fetchedObjects.count {
 			navigationItem.rightBarButtonItem?.enabled = false
-
+			
 			let thread = fetchedObjects[indexPath.row]
 			threadForSegue = thread
 			if let cell = tableView.cellForRowAtIndexPath(indexPath) as? MessageTableViewCell {
@@ -152,8 +156,8 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 			}
 		}
 	}
-    
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+	
+	override func preferredStatusBarStyle() -> UIStatusBarStyle {
 		return .LightContent
 	}
 	

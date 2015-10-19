@@ -179,10 +179,10 @@ final class Message: NSManagedObject, CoreDataConvertible {
 							updateLabelsOnHRAPI()
 						}
 						backgroundSelf.thread?.updateInbox()
+						MailDatabaseManager.sharedInstance.saveBackgroundContext()
 						return
 					}
 				}
-				MailDatabaseManager.sharedInstance.saveBackgroundContext()
 			}
 		}
 	}
