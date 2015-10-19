@@ -9,8 +9,9 @@
 import UIKit
 import CoreData
 import Async
+import Bond
 
-class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, MailboxCountObserver, NSFetchedResultsControllerDelegate {
+class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, NSFetchedResultsControllerDelegate {
 	
 	var threadForSegue: Thread?
 	
@@ -36,7 +37,6 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
 		self.tableView.addSubview(refreshControl!)
 		MailboxObserversManager.sharedInstance.addObserverForMailboxType(.Inbox, observer: self)
-		MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(.Unread, observer: self)
 	}
 	
 	func refresh(control: UIRefreshControl){
@@ -59,12 +59,16 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		navigationItem.rightBarButtonItem?.enabled = true
 		
 		lastupdatedLabel = UILabel(frame: CGRectMake(0, 8, 140, 14))
-		lastupdatedLabel?.text = "Updated just now"
-		lastupdatedLabel?.textAlignment = .Center
+        CurrentStatusManager.sharedInstance.currentStatusSubtitle.observe { text in
+            self.lastupdatedLabel?.text = text
+        }
+        lastupdatedLabel?.textAlignment = .Center
 		lastupdatedLabel?.font = UIFont.systemFontOfSize(14)
 		newEmailsLabel = UILabel(frame: CGRectMake(0, 26, 140, 10))
-		newEmailsLabel?.text = "No new emails"
-		newEmailsLabel?.textAlignment = .Center
+        CurrentStatusManager.sharedInstance.currentStatus.observe { text in
+            self.newEmailsLabel?.text = text
+        }
+        newEmailsLabel?.textAlignment = .Center
 		newEmailsLabel?.font = UIFont.systemFontOfSize(10)
 		newEmailsLabel?.textColor = UIColor.darkGrayColor()
 		
@@ -127,19 +131,8 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 			}
 		}
 	}
-	
-	func mailboxCountDidChange(mailboxType: MailboxType, newCount: Int) {
-		if mailboxType == MailboxType.Unread {
-			if newCount != 0 {
-				let emailsText = newCount == 1 ? "email" : "emails"
-				newEmailsLabel?.text = "\(newCount) unread " + emailsText
-			}else{
-				newEmailsLabel?.text = "No new emails"
-			}
-		}
-	}
-	
-	override func preferredStatusBarStyle() -> UIStatusBarStyle {
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
 		return .LightContent
 	}
 	
