@@ -114,7 +114,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 	
 	func applicationWillTerminate(application: UIApplication) {
+		HRActionsManager.stopAll()
 		MailDatabaseManager.sharedInstance.saveContext()
+	}
+}
+
+
+
+// MARK: Utilities
+
+extension AppDelegate {
+	static func sharedInstance()->AppDelegate{
+		return UIApplication.sharedApplication().delegate as! AppDelegate
 	}
 }
 

@@ -1420,8 +1420,8 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="l3v-e4-Wcd"/>
-        <segue reference="37u-X4-Rqh"/>
         <segue reference="z5m-Xz-TsX"/>
-        <segue reference="XtR-7h-DTu"/>
+        <segue reference="37u-X4-Rqh"/>
+        <segue reference="241-TL-jtr"/>
     </inferredMetricsTieBreakers>
 </document>
