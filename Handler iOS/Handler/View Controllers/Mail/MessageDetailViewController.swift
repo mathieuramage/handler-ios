@@ -58,6 +58,7 @@ class MessageDetailViewController: UITableViewController, UIDocumentInteractionC
 			
 			// Message specific
 			messageContentLabel.text = message.content
+            messageContentLabel.attributedText = try? NSAttributedString(data: message.content!.dataUsingEncoding(NSUTF8StringEncoding)!, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
 			messageSubjectLabel.text = message.subject
 			attachmentsCell.attachments = message.attachments?.allObjects as? [Attachment]
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="P2V-Aw-u7B">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="P2V-Aw-u7B">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -769,12 +769,21 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NJI-ac-suZ">
+                                                    <rect key="frame" x="28" y="28" width="319" height="33.5"/>
+                                                    <animations/>
+                                                    <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                                                </webView>
                                             </subviews>
                                             <animations/>
                                             <constraints>
                                                 <constraint firstItem="HqU-OG-nBs" firstAttribute="leading" secondItem="IUi-gW-5Gi" secondAttribute="leading" constant="15" id="1wE-Yz-slu"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="NJI-ac-suZ" secondAttribute="trailing" constant="20" id="847-KG-o3G"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="NJI-ac-suZ" secondAttribute="bottom" constant="20" id="8Fb-03-QAj"/>
                                                 <constraint firstAttribute="bottom" secondItem="HqU-OG-nBs" secondAttribute="bottom" constant="20" id="9Gp-Hf-DXC"/>
                                                 <constraint firstAttribute="trailing" secondItem="HqU-OG-nBs" secondAttribute="trailing" constant="15" id="MWX-p1-QaP"/>
+                                                <constraint firstItem="NJI-ac-suZ" firstAttribute="leading" secondItem="IUi-gW-5Gi" secondAttribute="leadingMargin" constant="20" id="c68-iJ-MG6"/>
+                                                <constraint firstItem="NJI-ac-suZ" firstAttribute="top" secondItem="IUi-gW-5Gi" secondAttribute="topMargin" constant="20" id="sBv-AF-akF"/>
                                                 <constraint firstItem="HqU-OG-nBs" firstAttribute="top" secondItem="IUi-gW-5Gi" secondAttribute="top" constant="20" id="xnk-Bn-VXF"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -914,7 +923,7 @@
                                             <rect key="frame" x="53" y="8" width="108" height="19.5"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>

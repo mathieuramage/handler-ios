@@ -23,7 +23,7 @@ class ActionViewController: UIViewController {
         var imageFound = false
         for item: AnyObject in self.extensionContext!.inputItems {
             let inputItem = item as! NSExtensionItem
-            for provider: AnyObject in inputItem.attachments! {
+            for provider: AnyObject in inputItem.attachments! { 
                 let itemProvider = provider as! NSItemProvider
                 if itemProvider.hasItemConformingToTypeIdentifier(kUTTypeImage as String) {
                     // This is an image. We'll load it, then place it in our image view.
