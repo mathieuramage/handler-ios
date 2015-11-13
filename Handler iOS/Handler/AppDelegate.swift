@@ -33,7 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Override point for customization after application launch.
 		Twitter.sharedInstance().startWithConsumerKey("d6IKDpduuacAAHgtVydTvMo6t", consumerSecret: "tjaZYfuxDaEqY1RxLse0KvNzvCYPYpq57EgE0uawo2cuMzVoAE")
 		Fabric.with([Twitter.sharedInstance(), Crashlytics.self()])
-        
         APICommunicator.sharedInstance
         UserTwitterStatusManager.startUpdating()
         HRActionsManager.setupSharedInstance()
@@ -51,6 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		let settings = UIUserNotificationSettings(forTypes: [UIUserNotificationType.Badge, UIUserNotificationType.Sound, UIUserNotificationType.Alert], categories: nil)
 		UIApplication.sharedApplication().registerUserNotificationSettings(settings)
 		UIApplication.sharedApplication().registerForRemoteNotifications()
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
 		return true
 	}
 	
