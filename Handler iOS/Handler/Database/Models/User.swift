@@ -51,4 +51,20 @@ final class User: NSManagedObject, CoreDataConvertible {
 			return nil
 		}
 	}
+	
+	class func fromHandle(handle: String)->User{
+		if let user = (MailDatabaseManager.sharedInstance.executeBackgroundFetchRequest(User.backgroundFetchRequestForHandle(handle)) as? [User])?.first {
+			return user
+		}else{
+			let user = HRUser()
+			user.handle = handle
+			return User(hrType: user, managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
+		}
+	}
+	
+	static func backgroundFetchRequestForHandle(handle: String) -> NSFetchRequest {
+		let fetchRequest = NSFetchRequest(entityName: self.entityName())
+		fetchRequest.predicate = NSPredicate(format: "%K == %@", "handle", handle)
+		return fetchRequest
+	}
 }

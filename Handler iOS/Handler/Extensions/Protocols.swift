@@ -88,15 +88,6 @@ extension UIViewControllerShow where Self: UIViewController {
 protocol MailboxCountObserver {
 	func mailboxCountDidChange(mailboxType: MailboxType, newCount: Int)
 }
-
-// MARK: Utilities
-
-extension AppDelegate {
-	static func sharedInstance()->AppDelegate{
-		return UIApplication.sharedApplication().delegate as! AppDelegate
-	}
-}
-
 extension Array {
 	func randomItem() -> Element {
 		let index = Int(arc4random_uniform(UInt32(self.count)))

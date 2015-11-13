@@ -9,13 +9,21 @@
 import UIKit
 import CoreData
 
-class MessageDetailViewController: UITableViewController, UIDocumentInteractionControllerDelegate {
+@objc class MessageDetailViewController: UITableViewController, UIDocumentInteractionControllerDelegate, UIWebViewDelegate {
 	
 	@IBOutlet weak var messageContentLabel: UILabel!
 	@IBOutlet weak var messageSenderProfileImageView: UIImageView!
 	@IBOutlet weak var sentAtLabel: UILabel!
 	@IBOutlet weak var messageSubjectLabel: UILabel!
 	@IBOutlet weak var messageSenderHandleButton: UIButton!
+    @IBOutlet weak var contentWebView: UIWebView!
+    
+    var webViewSize = CGSizeZero {
+        didSet {
+            self.tableView.beginUpdates()
+            self.tableView.endUpdates()
+        }
+    }
 	
 	var message: Message? {
 		didSet {
@@ -58,6 +66,7 @@ class MessageDetailViewController: UITableViewController, UIDocumentInteractionC
 			
 			// Message specific
 			messageContentLabel.text = message.content
+            contentWebView.loadHTMLString(message.content ?? "", baseURL: nil)
 			messageSubjectLabel.text = message.subject
 			attachmentsCell.attachments = message.attachments?.allObjects as? [Attachment]
 
@@ -83,14 +92,16 @@ class MessageDetailViewController: UITableViewController, UIDocumentInteractionC
 	
 	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		if indexPath.row == 2 {
-			return max(attachmentsCell.intrinsicContentSize().height + 20, 50+20)
+            return webViewSize.height
+			//return max(attachmentsCell.intrinsicContentSize().height + 20, 50+20)
 		}
 		return UITableViewAutomaticDimension
 	}
 	
 	override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		if indexPath.row == 2 {
-			return max(attachmentsCell.intrinsicContentSize().height + 20, 50+20)
+            return webViewSize.height
+			//return max(attachmentsCell.intrinsicContentSize().height + 20, 50+20)
 		}
 		return UITableViewAutomaticDimension
 	}
@@ -144,8 +155,15 @@ class MessageDetailViewController: UITableViewController, UIDocumentInteractionC
 	}
 	
 	func documentInteractionControllerViewControllerForPreview(controller: UIDocumentInteractionController) -> UIViewController {
-		return self
+		return self.navigationController ?? self
 	}
+    
+    // MARK: WebView Delegate
+    
+    func webViewDidFinishLoad(webView: UIWebView) {
+        let contentSize = webView.sizeThatFits(CGSizeMake(webView.bounds.width, 0))
+        webViewSize = contentSize
+    }
 	
 	deinit{
 		attachmentsCell.reloadClosure = nil

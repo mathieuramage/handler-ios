@@ -9,8 +9,9 @@
 import UIKit
 import CoreData
 import Async
+import Bond
 
-class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, MailboxCountObserver, NSFetchedResultsControllerDelegate {
+class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, NSFetchedResultsControllerDelegate {
 	
 	var threadForSegue: Thread?
 	
@@ -19,13 +20,14 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 			return MailboxObserversManager.sharedInstance.fetchedResultsControllerForType(.Inbox)
 		}
 	}
-
+	
 	var fetchedObjects: [Thread] {
 		get {
 			return fetchedResultsController.fetchedObjects as? [Thread] ?? [Thread]()
 		}
 	}
 	
+	var progressBar: UIProgressView!
 	var lastupdatedLabel: UILabel?
 	var newEmailsLabel: UILabel?
 	
@@ -36,7 +38,6 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
 		self.tableView.addSubview(refreshControl!)
 		MailboxObserversManager.sharedInstance.addObserverForMailboxType(.Inbox, observer: self)
-		MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(.Unread, observer: self)
 	}
 	
 	func refresh(control: UIRefreshControl){
@@ -45,9 +46,11 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 			guard let error = error else {
 				return
 			}
-			var errorPopup = ErrorPopupViewController()
-			errorPopup.error = error
-			errorPopup.show()
+			Async.main(block: { () -> Void in
+				var errorPopup = ErrorPopupViewController()
+				errorPopup.error = error
+				errorPopup.show()
+			})
 		}
 	}
 	
@@ -59,11 +62,19 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		navigationItem.rightBarButtonItem?.enabled = true
 		
 		lastupdatedLabel = UILabel(frame: CGRectMake(0, 8, 140, 14))
-		lastupdatedLabel?.text = "Updated just now"
+		CurrentStatusManager.sharedInstance.currentStatusSubtitle.observe { text in
+			Async.main(block: { () -> Void in
+				self.lastupdatedLabel?.text = text
+			})
+		}
 		lastupdatedLabel?.textAlignment = .Center
 		lastupdatedLabel?.font = UIFont.systemFontOfSize(14)
 		newEmailsLabel = UILabel(frame: CGRectMake(0, 26, 140, 10))
-		newEmailsLabel?.text = "No new emails"
+		CurrentStatusManager.sharedInstance.currentStatus.observe { text in
+			Async.main(block: { () -> Void in
+				self.newEmailsLabel?.text = text
+			})
+		}
 		newEmailsLabel?.textAlignment = .Center
 		newEmailsLabel?.font = UIFont.systemFontOfSize(10)
 		newEmailsLabel?.textColor = UIColor.darkGrayColor()
@@ -77,6 +88,24 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		
 		self.navigationController!.toolbar.items = [space, item, space, composeItem]
 		
+		let navigationbarFrame = self.navigationController!.navigationBar.bounds
+		navigationController?.navigationBar.clipsToBounds = false
+		progressBar = UIProgressView(frame: CGRectMake(0, navigationbarFrame.height - 2.5, navigationbarFrame.width, 2.5))
+		progressBar.progressViewStyle = .Bar
+		progressBar.progressTintColor = UIColor.whiteColor()
+		progressBar.hidden = true
+		
+		CurrentStatusManager.sharedInstance.currentUploadProgress.observe { progress in
+			self.progressBar.progress = progress
+			self.progressBar.hidden = progress == 0 || progress == 1
+		}
+		
+		self.navigationController?.navigationBar.addSubview(progressBar)
+		if let cells = self.tableView.visibleCells as? [MessageTableViewCell]{
+			for cell in cells {
+				cell.refreshFlags()
+			}
+		}
 	}
 	
 	func composeNewMessage(item: UIBarButtonItem){
@@ -114,7 +143,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		}
 		if indexPath.row < fetchedObjects.count {
 			navigationItem.rightBarButtonItem?.enabled = false
-
+			
 			let thread = fetchedObjects[indexPath.row]
 			threadForSegue = thread
 			if let cell = tableView.cellForRowAtIndexPath(indexPath) as? MessageTableViewCell {
@@ -124,17 +153,6 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 				performSegueWithIdentifier("showThreadTableViewController", sender: self)
 			}else{
 				performSegueWithIdentifier("showMessageDetailViewController", sender: self)
-			}
-		}
-	}
-	
-	func mailboxCountDidChange(mailboxType: MailboxType, newCount: Int) {
-		if mailboxType == MailboxType.Unread {
-			if newCount != 0 {
-				let emailsText = newCount == 1 ? "email" : "emails"
-				newEmailsLabel?.text = "\(newCount) unread " + emailsText
-			}else{
-				newEmailsLabel?.text = "No new emails"
 			}
 		}
 	}

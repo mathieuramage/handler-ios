@@ -41,10 +41,8 @@ final class Attachment: NSManagedObject, CoreDataConvertible {
 	convenience init(localFile: NSURL, filename: String){
 		self.init(managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
 		self.filename = filename
-		if let locfilename = localFile.lastPathComponent {
-			self.localFileURL = locfilename
-			self.content_type = UTI(filenameExtension: localFile.pathExtension ?? "").MIMEType
-		}
+		self.localFileURL = localFile.path
+		self.content_type = UTI(filenameExtension: localFile.pathExtension ?? "").MIMEType
 		self.upload_complete = false
 	}
 	
@@ -63,7 +61,7 @@ final class Attachment: NSManagedObject, CoreDataConvertible {
 		self.upload_complete = attachment.uploadComplete
 		self.upload_url = attachment.upload_url
 		
-		guard let _ = self.localFileURL else{
+		guard let fl = self.localFileURL where fl == "" else{
 			guard let docsDirString = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, .UserDomainMask, true).first else {
 				return
 			}
@@ -114,6 +112,7 @@ final class Attachment: NSManagedObject, CoreDataConvertible {
 	
 	func getData() -> NSData? {
 		if let search = localFileURL {
+			
 			if let data = NSData(contentsOfFile: search){
 				return data
 			} else if (self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) as! Attachment).involved_download == nil {
