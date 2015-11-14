@@ -65,7 +65,7 @@ class MailDatabaseManager: NSObject {
 	
 	lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
 		
-		let containerPath = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier("group.chrisspraiss.handlerapp")
+		let containerPath = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier("group.handler.handlerapp")
 		
 		
 		let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
@@ -104,7 +104,7 @@ class MailDatabaseManager: NSObject {
 		}()
 	
 	func deleteStore(){
-		let containerPath = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier("group.chrisspraiss.handlerapp")
+		let containerPath = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier("group.handler.handlerapp")
 		
 		
 		let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)

@@ -769,26 +769,13 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <webView userInteractionEnabled="NO" contentMode="scaleToFill" scalesPageToFit="YES" suppressesIncrementalRendering="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NJI-ac-suZ">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="89.5"/>
-                                                    <animations/>
-                                                    <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
-                                                    <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
-                                                    <connections>
-                                                        <outlet property="delegate" destination="VOu-O3-uwy" id="SJy-Lz-hGJ"/>
-                                                    </connections>
-                                                </webView>
                                             </subviews>
                                             <animations/>
                                             <constraints>
                                                 <constraint firstAttribute="trailingMargin" secondItem="HqU-OG-nBs" secondAttribute="trailing" constant="7" id="4O0-Uo-HzX"/>
                                                 <constraint firstItem="HqU-OG-nBs" firstAttribute="leading" secondItem="IUi-gW-5Gi" secondAttribute="leadingMargin" constant="7" id="4vT-oI-OO6"/>
-                                                <constraint firstItem="NJI-ac-suZ" firstAttribute="leading" secondItem="IUi-gW-5Gi" secondAttribute="leading" id="6Wy-ct-0jY"/>
                                                 <constraint firstItem="HqU-OG-nBs" firstAttribute="top" secondItem="IUi-gW-5Gi" secondAttribute="topMargin" constant="12" id="LMt-Bg-b8H"/>
-                                                <constraint firstAttribute="trailing" secondItem="NJI-ac-suZ" secondAttribute="trailing" id="eJe-LR-gOf"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="HqU-OG-nBs" secondAttribute="bottom" constant="12" id="hRR-ft-16O"/>
-                                                <constraint firstAttribute="bottom" secondItem="NJI-ac-suZ" secondAttribute="bottom" id="x3K-6N-9yO"/>
-                                                <constraint firstItem="NJI-ac-suZ" firstAttribute="top" secondItem="IUi-gW-5Gi" secondAttribute="top" id="zaC-pw-Cgw"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <animations/>
@@ -843,7 +830,6 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="attachmentsCell" destination="Ifq-hK-2Nm" id="1s5-rg-Hmn"/>
-                        <outlet property="contentWebView" destination="NJI-ac-suZ" id="3VR-qr-t4G"/>
                         <outlet property="messageContentLabel" destination="HqU-OG-nBs" id="rRy-a0-VSe"/>
                         <outlet property="messageSenderHandleButton" destination="MgC-p7-zGj" id="5nz-1c-jVQ"/>
                         <outlet property="messageSenderProfileImageView" destination="ush-Cl-ye9" id="pvU-lQ-tGK"/>

@@ -16,7 +16,6 @@ import CoreData
 	@IBOutlet weak var sentAtLabel: UILabel!
 	@IBOutlet weak var messageSubjectLabel: UILabel!
 	@IBOutlet weak var messageSenderHandleButton: UIButton!
-    @IBOutlet weak var contentWebView: UIWebView!
     
     var webViewSize = CGSizeZero {
         didSet {
@@ -66,7 +65,6 @@ import CoreData
 			
 			// Message specific
 			messageContentLabel.text = message.content
-            contentWebView.loadHTMLString(message.content ?? "", baseURL: nil)
 			messageSubjectLabel.text = message.subject
 			attachmentsCell.attachments = message.attachments?.allObjects as? [Attachment]
 
@@ -92,16 +90,22 @@ import CoreData
 	
 	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		if indexPath.row == 2 {
-            return webViewSize.height
-			//return max(attachmentsCell.intrinsicContentSize().height + 20, 50+20)
+            if FeaturesManager.attachmentsActivated {
+                return max(attachmentsCell.intrinsicContentSize().height + 20, 50+20)
+            }else{
+                return 0;
+            }
 		}
 		return UITableViewAutomaticDimension
 	}
 	
 	override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		if indexPath.row == 2 {
-            return webViewSize.height
-			//return max(attachmentsCell.intrinsicContentSize().height + 20, 50+20)
+            if FeaturesManager.attachmentsActivated {
+                return max(attachmentsCell.intrinsicContentSize().height + 20, 50+20)
+            }else{
+                return 0;
+            }
 		}
 		return UITableViewAutomaticDimension
 	}
@@ -157,13 +161,6 @@ import CoreData
 	func documentInteractionControllerViewControllerForPreview(controller: UIDocumentInteractionController) -> UIViewController {
 		return self.navigationController ?? self
 	}
-    
-    // MARK: WebView Delegate
-    
-    func webViewDidFinishLoad(webView: UIWebView) {
-        let contentSize = webView.sizeThatFits(CGSizeMake(webView.bounds.width, 0))
-        webViewSize = contentSize
-    }
 	
 	deinit{
 		attachmentsCell.reloadClosure = nil

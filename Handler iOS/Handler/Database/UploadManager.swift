@@ -27,7 +27,7 @@ class UploadManager: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
 		}
 		
 		if let uploadURLPath = attachment.upload_url, let uploadURL = NSURL(string: uploadURLPath), let uploadable = attachment.isUploadable where uploadable {
-			let backgroundSessionConfiguration = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier("com.chrisspraiss.backgroundUpload.\(attachment.filename)")
+			let backgroundSessionConfiguration = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier("com.handler.backgroundUpload.\(attachment.filename)")
 			let session = NSURLSession(configuration: backgroundSessionConfiguration, delegate: self, delegateQueue: NSOperationQueue.mainQueue())
 			
 			let uploadRequest = NSMutableURLRequest(URL: uploadURL)
@@ -48,7 +48,7 @@ class UploadManager: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
 	
 	func URLSessionDidFinishEventsForBackgroundURLSession(session: NSURLSession) {
 		if let attachment = uploadAction.attachment {
-			if session.configuration.identifier == "com.chrisspraiss.backgroundUpload.\(attachment.localFileURL)" {
+			if session.configuration.identifier == "com.handler.backgroundUpload.\(attachment.localFileURL)" {
 				AppDelegate.sharedInstance().backgroundSessionCompletionHandler?()
 			}
 		}

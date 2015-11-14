@@ -29,7 +29,7 @@ class DownloadManager: NSObject, NSURLSessionDelegate, NSURLSessionDownloadDeleg
 		}
 		
 		if let downloadURL = NSURL(string: url) {
-			let backgroundSessionConfiguration = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier("com.chrisspraiss.backgroundDownload.\(attachment.localFileURL)")
+			let backgroundSessionConfiguration = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier("com.handler.backgroundDownload.\(attachment.localFileURL)")
 			let session = NSURLSession(configuration: backgroundSessionConfiguration, delegate: self, delegateQueue: NSOperationQueue.mainQueue())
 			
 			let downloadRequest = NSMutableURLRequest(URL: downloadURL)
@@ -44,7 +44,7 @@ class DownloadManager: NSObject, NSURLSessionDelegate, NSURLSessionDownloadDeleg
 	
 	func URLSessionDidFinishEventsForBackgroundURLSession(session: NSURLSession) {
 		if let attachment = downloadAction.attachment {
-			if session.configuration.identifier == "com.chrisspraiss.backgroundDownload.\(attachment.localFileURL)" {
+			if session.configuration.identifier == "com.handler.backgroundDownload.\(attachment.localFileURL)" {
 				AppDelegate.sharedInstance().backgroundSessionCompletionHandler?()
 			}
 		}

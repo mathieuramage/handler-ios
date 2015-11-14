@@ -342,7 +342,11 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		if indexPath.row == 3 {
 			return max(CGFloat(contentTextView.contentSize.height + 40), CGFloat(300))
 		} else if indexPath.row == 4 {
-			return max(attachmentsCell.intrinsicContentSize().height + 20, 50+20)
+            if FeaturesManager.attachmentsActivated {
+                return max(attachmentsCell.intrinsicContentSize().height + 20, 50+20)
+            }else{
+                return 0
+            }
 		}
 		return UITableViewAutomaticDimension
 	}
