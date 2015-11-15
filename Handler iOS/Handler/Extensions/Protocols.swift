@@ -39,7 +39,6 @@ extension CoreDataConvertible where HRType : HRIDProvider  {
 			cdObject.updateFromHRType(hrType)
 			return cdObject
 		}else{
-			print("Didn't find \(Self.self), create new one in database")
 			return Self(hrType: hrType, managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
 		}
 	}

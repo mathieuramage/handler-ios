@@ -133,7 +133,7 @@ class APICommunicator: NSObject {
 				return
 			}
 			for label in labels {
-				MailDatabaseManager.sharedInstance.storeLabel(label)
+                MailDatabaseManager.sharedInstance.storeLabel(label, save: false)
 			}
 			
 		}
@@ -170,7 +170,7 @@ class APICommunicator: NSObject {
 				return
 			}
 			for message in messages {
-				MailDatabaseManager.sharedInstance.storeMessage(message)
+                MailDatabaseManager.sharedInstance.storeMessage(message, save: false)
 			}
 			completion?(error: nil)
 		}

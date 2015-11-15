@@ -21,6 +21,10 @@ class HRUploadAction: HRAction {
 	}
 	
 	override func execute() {
+        if(!FeaturesManager.attachmentsActivated) {
+            return
+        }
+        
 		self.running = NSNumber(bool: true)
 		if let id = attachment?.id where id != "" {
 			startUpload()

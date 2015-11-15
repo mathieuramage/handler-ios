@@ -21,6 +21,10 @@ class HRDownloadAction: HRAction {
 	}
 	
 	override func execute() {
+        if(!FeaturesManager.attachmentsActivated) {
+            return
+        }
+        
 		print("excuted downlaod for \(attachment?.filename)")
 		self.running = NSNumber(bool: true)
 		do {

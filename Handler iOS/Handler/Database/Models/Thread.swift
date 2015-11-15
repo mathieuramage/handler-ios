@@ -28,7 +28,8 @@ class Thread: NSManagedObject {
 			return thread
 		}else {
 			let createdthread = Thread(managedObjectContext: context ?? MailDatabaseManager.sharedInstance.backgroundContext)
-			createdthread.id = id
+            DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: createdthread, property: "id", value: id))
+            DatabaseChangesCache.sharedInstance.executeChangesForObjectID(createdthread.objectID)
 			return createdthread
 		}
 	}

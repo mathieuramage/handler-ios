@@ -16,6 +16,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 	@IBOutlet weak var profileImageView: WhiteBorderImageView!
 	@IBOutlet weak var profileNameLabel: UILabel!
 	@IBOutlet weak var profileHandleLabel: UILabel!
+    @IBOutlet weak var profileBannerImageView: UIImageView!
 	
 	
 	var optionsTableViewController: MailBoxOptionsTableViewController? {
@@ -41,6 +42,19 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 				if let url = NSURL(string: user.picture_url) {
 					self.profileImageView.kf_setImageWithURL(url, placeholderImage: UIImage.randomGhostImage())
 				}
+                TwitterAPICommunicator.getAccountInfoForTwitterUser(user.handle, callback: { (json, error) -> Void in
+                    guard let json = json else {
+                        print(error)
+                        return
+                    }
+                    Async.main {
+                        if let urlString = json["profile_banner_url"].string, let url = NSURL(string: urlString){
+                            self.profileBannerImageView.kf_setImageWithURL(url, placeholderImage: UIImage(named: "twitter_default"), optionsInfo: [.Transition: ImageTransition.Fade(0.3)])
+                        }
+                        
+                    }
+                })
+
 			}
 		}
 	}

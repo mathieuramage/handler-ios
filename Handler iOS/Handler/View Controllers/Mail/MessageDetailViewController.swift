@@ -98,6 +98,10 @@ import CoreData
 		}
 		return UITableViewAutomaticDimension
 	}
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
 	
 	override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		if indexPath.row == 2 {
