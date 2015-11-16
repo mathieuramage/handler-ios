@@ -21,6 +21,9 @@ class IntroViewController: UIViewController, UIScrollViewDelegate {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+        let layer = CAGradientLayer.gradientLayerForBounds(UIScreen.mainScreen().bounds)
+        self.view.layer.insertSublayer(layer, atIndex: 0)
+        
 		totalWidth = Double(UIScreen.mainScreen().bounds.width * 4)
 		contentView = UIView(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width * 4, UIScreen.mainScreen().bounds.height))
 		firstView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height)

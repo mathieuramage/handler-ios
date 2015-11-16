@@ -120,7 +120,7 @@
 		2FDDE1031BAEBFE9006C3500 /* APICommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE1021BAEBFE9006C3500 /* APICommunicator.swift */; };
 		2FDDE1421BAF5A17006C3500 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE1411BAF5A17006C3500 /* Protocols.swift */; };
 		2FDDE1441BB01AD3006C3500 /* InboxTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE1431BB01AD3006C3500 /* InboxTableViewController.swift */; };
-		2FDDE1471BB04FA4006C3500 /* WhiteBorderImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE1461BB04FA4006C3500 /* WhiteBorderImageView.swift */; };
+		2FDDE1471BB04FA4006C3500 /* WhiteBorderViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE1461BB04FA4006C3500 /* WhiteBorderViews.swift */; };
 		2FE75EBB1BDA38F00061AE03 /* KeychainAccess.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FE75EBA1BDA38F00061AE03 /* KeychainAccess.framework */; };
 		2FEA14621BF77CC0008E31F1 /* MailBoxMenuOptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA14611BF77CC0008E31F1 /* MailBoxMenuOptionTableViewCell.swift */; };
 		2FEA14641BF8B61D008E31F1 /* DatabaseChangesCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA14631BF8B61D008E31F1 /* DatabaseChangesCache.swift */; };
@@ -322,7 +322,7 @@
 		2FDDE1021BAEBFE9006C3500 /* APICommunicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APICommunicator.swift; sourceTree = "<group>"; };
 		2FDDE1411BAF5A17006C3500 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Protocols.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2FDDE1431BB01AD3006C3500 /* InboxTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxTableViewController.swift; sourceTree = "<group>"; };
-		2FDDE1461BB04FA4006C3500 /* WhiteBorderImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhiteBorderImageView.swift; sourceTree = "<group>"; };
+		2FDDE1461BB04FA4006C3500 /* WhiteBorderViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhiteBorderViews.swift; sourceTree = "<group>"; };
 		2FE75EBA1BDA38F00061AE03 /* KeychainAccess.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KeychainAccess.framework; path = Carthage/Build/iOS/KeychainAccess.framework; sourceTree = SOURCE_ROOT; };
 		2FEA14611BF77CC0008E31F1 /* MailBoxMenuOptionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MailBoxMenuOptionTableViewCell.swift; sourceTree = "<group>"; };
 		2FEA14631BF8B61D008E31F1 /* DatabaseChangesCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseChangesCache.swift; sourceTree = "<group>"; };
@@ -615,7 +615,7 @@
 				2F0136991BCFDA98008BAD9D /* RoundedBorderButton.swift */,
 				2F1D2C391BBC477000A504A8 /* SendInvitationViewController.swift */,
 				2F1D2C3A1BBC477000A504A8 /* SendInvitationViewController.xib */,
-				2FDDE1461BB04FA4006C3500 /* WhiteBorderImageView.swift */,
+				2FDDE1461BB04FA4006C3500 /* WhiteBorderViews.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -966,7 +966,7 @@
 				2F81A6331BC179BF007F2D43 /* Operators.swift in Sources */,
 				2FA271A21BB69ED000B22C8B /* CLToken.m in Sources */,
 				2F0136A31BD10EE4008BAD9D /* TwitterAPICommunicator.swift in Sources */,
-				2FDDE1471BB04FA4006C3500 /* WhiteBorderImageView.swift in Sources */,
+				2FDDE1471BB04FA4006C3500 /* WhiteBorderViews.swift in Sources */,
 				DF1FD2DE1B62360600A58B71 /* AppDelegate.swift in Sources */,
 				2F8D8CDD1BCC12B30020A41C /* HRUploadAction+CoreDataProperties.swift in Sources */,
 				2F4E41551BB08A3200AA2DEF /* SSASideMenu.swift in Sources */,

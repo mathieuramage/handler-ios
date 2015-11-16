@@ -13,5 +13,8 @@ class FeaturesManager: NSObject {
         get {
             return NSUserDefaults.standardUserDefaults().boolForKey("attachmentsActivated")
         }
+        set (new){
+            NSUserDefaults.standardUserDefaults().setBool(new, forKey: "attachmentsActivated")
+        }
     }
 }
