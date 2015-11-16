@@ -22,6 +22,7 @@ protocol CoreDataConvertible {
 	static func fetchRequestForID(id: String) -> NSFetchRequest?
 	static func backgroundFetchRequestForID(id: String) -> NSFetchRequest?
 	func updateFromHRType(hrType: HRType)
+    func toManageObjectContext(context: NSManagedObjectContext)->Self?
 }
 
 
@@ -51,6 +52,10 @@ extension CoreDataConvertible where HRType : HRIDProvider  {
 		
 		return MailDatabaseManager.sharedInstance.executeBackgroundFetchRequest(fetchrequest)?.first as? Self
 	}
+
+    func toManageObjectContext(context: NSManagedObjectContext)->Self?{
+        return context.objectWithID((self as! NSManagedObject).objectID) as? Self
+    }
 }
 
 // MARK: HRAction

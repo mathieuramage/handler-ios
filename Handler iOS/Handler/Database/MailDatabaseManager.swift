@@ -103,8 +103,8 @@ class MailDatabaseManager: NSObject {
     
     lazy var backgroundContext: NSManagedObjectContext = {
         let backgroundContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType)
-        //backgroundContext.parentContext = self.managedObjectContext
-        return self.managedObjectContext
+        backgroundContext.parentContext = self.managedObjectContext
+        return backgroundContext
     }()
     
     func deleteStore(){

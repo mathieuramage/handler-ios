@@ -162,12 +162,12 @@ final class Message: NSManagedObject, CoreDataConvertible {
     }
     
     private func addLabelWithID(id: String, updateOnApi: Bool = true){
-        if let backgroundSelf = self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) as? Message {
+        if let backgroundSelf = self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) {
             if let label = Label.fromID(id) {
                 DatabaseChangesCache.sharedInstance.addChange(DatabaseRelationshipChange(remove: false, object: backgroundSelf, property: "labels", value: label))
-                DatabaseChangesCache.sharedInstance.executeChangesForObjectID(self.objectID)
+                DatabaseChangesCache.sharedInstance.executeChangesForObjectID(backgroundSelf.objectID)
                 if updateOnApi {
-                    updateLabelsOnHRAPI()
+                    backgroundSelf.updateLabelsOnHRAPI()
                 }
                 backgroundSelf.thread?.updateInbox()
                 MailDatabaseManager.sharedInstance.saveBackgroundContext()
@@ -176,14 +176,14 @@ final class Message: NSManagedObject, CoreDataConvertible {
     }
     
     private func removeLabelWithID(id: String, updateOnApi: Bool = true){
-        if let backgroundSelf = self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) as? Message {
+        if let backgroundSelf = self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) {
             if let labelsArray = backgroundSelf.labels?.allObjects {
                 for label in labelsArray {
                     if label.id == id {
                         DatabaseChangesCache.sharedInstance.addChange(DatabaseRelationshipChange(remove: true, object: backgroundSelf, property: "labels", value: label))
-                        DatabaseChangesCache.sharedInstance.executeChangesForObjectID(self.objectID)
+                        DatabaseChangesCache.sharedInstance.executeChangesForObjectID(backgroundSelf.objectID)
                         if updateOnApi {
-                            updateLabelsOnHRAPI()
+                            backgroundSelf.updateLabelsOnHRAPI()
                         }
                         backgroundSelf.thread?.updateInbox()
                         MailDatabaseManager.sharedInstance.saveBackgroundContext()
@@ -201,13 +201,12 @@ final class Message: NSManagedObject, CoreDataConvertible {
                 labelsSet.addObject(cdLabel)
             }
         }
-        if let bgSelf = self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) as? Message {
+        if let bgSelf = self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext){
             DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: bgSelf, property: "labels", value: labelsSet))
             DatabaseChangesCache.sharedInstance.executeChangesForObjectID(bgSelf.objectID)
+            bgSelf.thread?.updateInbox()
             MailDatabaseManager.sharedInstance.saveBackgroundContext()
         }
-        self.thread?.updateInbox()
-        MailDatabaseManager.sharedInstance.saveBackgroundContext()
     }
     
     func hrTypeLabels() -> [HRLabel] {
@@ -265,7 +264,7 @@ final class Message: NSManagedObject, CoreDataConvertible {
     var isUnread: Bool {
         get {
             var unread = false
-            if let backgroundSelf = self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) as? Message {
+            if let backgroundSelf = self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) {
                 if let labels = backgroundSelf.labels {
                     for label in labels {
                         if label.id == "UNREAD" {
@@ -281,7 +280,7 @@ final class Message: NSManagedObject, CoreDataConvertible {
     var isInbox: Bool {
         get {
             var unread = false
-            if let backgroundSelf = self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) as? Message {
+            if let backgroundSelf = self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) {
                 if let labels = backgroundSelf.labels {
                     for label in labels {
                         if label.id == "INBOX" {
@@ -296,7 +295,7 @@ final class Message: NSManagedObject, CoreDataConvertible {
     
     var isFlagged: Bool {
         get {
-            if let backgroundSelf = self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) as? Message {
+            if let backgroundSelf = self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) {
                 
                 if let labels = backgroundSelf.labels {
                     for label in labels {
@@ -312,7 +311,7 @@ final class Message: NSManagedObject, CoreDataConvertible {
     
     var isArchived: Bool {
         get {
-            if let backgroundSelf = self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) as? Message {
+            if let backgroundSelf = self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) {
                 
                 if let labels = backgroundSelf.labels {
                     for label in labels {
@@ -328,7 +327,7 @@ final class Message: NSManagedObject, CoreDataConvertible {
     
     var isDraft: Bool {
         get {
-            if let backgroundSelf = self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) as? Message {
+            if let backgroundSelf = self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) {
                 
                 if let labels = backgroundSelf.labels {
                     for label in labels {

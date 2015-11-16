@@ -30,7 +30,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	var messageToReplyTo: Message? {
 		set(new){
 			if new?.managedObjectContext != MailDatabaseManager.sharedInstance.backgroundContext {
-				self.internalmessageToReplyTo = new?.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) as? Message
+				self.internalmessageToReplyTo = new?.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext)
 			}else{
 				self.internalmessageToReplyTo = new
 			}
@@ -45,7 +45,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	var draftMessage: Message? {
 		set(new){
 			if new?.managedObjectContext != MailDatabaseManager.sharedInstance.backgroundContext {
-				self.internalDraftmessage = new?.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) as? Message
+				self.internalDraftmessage = new?.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext)
 			}else{
 				self.internalDraftmessage = new
 			}
@@ -221,7 +221,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		
 		var attachments = [Attachment]()
 		for attachment in attachmentsCell.attachments ?? [Attachment]() {
-			if let converted = attachment.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) as? Attachment {
+			if let converted = attachment.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) {
 				attachments.append(converted)
 			}
 		}
