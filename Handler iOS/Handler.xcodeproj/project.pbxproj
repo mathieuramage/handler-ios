@@ -296,7 +296,7 @@
 		2FDB445C1BD3E86F0040014E /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = Carthage/Build/iOS/Kingfisher.framework; sourceTree = SOURCE_ROOT; };
 		2FDB445D1BD3E86F0040014E /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = SOURCE_ROOT; };
 		2FDB445E1BD3E86F0040014E /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = SOURCE_ROOT; };
-		2FDB44661BD3E8A70040014E /* HandlerSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = HandlerSDK.framework; path = "/Users/christianpraiss/Documents/iOS Projects/Handler/Build/Products/Debug-iphoneos/HandlerSDK.framework"; sourceTree = "<absolute>"; };
+		2FDB44661BD3E8A70040014E /* HandlerSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HandlerSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FDB446D1BD3EB110040014E /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = SOURCE_ROOT; };
 		2FDB446E1BD3EB110040014E /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = SOURCE_ROOT; };
 		2FDB446F1BD3EB110040014E /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TwitterKitResources.bundle; path = TwitterKit.framework/Versions/A/Resources/TwitterKitResources.bundle; sourceTree = SOURCE_ROOT; };
