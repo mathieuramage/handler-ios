@@ -47,9 +47,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 				return
 			}
 			Async.main(block: { () -> Void in
-				var errorPopup = ErrorPopupViewController()
-				errorPopup.error = error
-				errorPopup.show()
+				error.show()
 			})
 		}
 	}

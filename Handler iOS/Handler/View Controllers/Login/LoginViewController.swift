@@ -35,17 +35,13 @@ class LoginViewController: UIViewController {
                         // register new user
                         HandlerAPI.createUserWithCallback(oauthSigning.OAuthEchoHeadersToVerifyCredentials(), callback: { (user, error) -> Void in
                             if let error = error {
-                                var errorPopup = ErrorPopupViewController()
-                                errorPopup.error = error
-                                errorPopup.show()
+                                error.show()
                                 return
                             }
                             if let _ = user {
                                 APICommunicator.sharedInstance.checkForCurrentSessionOrAuth({ (error) -> Void in
                                     if let error = error {
-                                        var errorPopup = ErrorPopupViewController()
-                                        errorPopup.error = error
-                                        errorPopup.show()
+                                        error.show()
                                         return
                                     }
                                     UIView.transitionWithView(AppDelegate.sharedInstance().window!, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: { () -> Void in
@@ -55,9 +51,7 @@ class LoginViewController: UIViewController {
                             }
                         })
                     }else{
-                        var errorPopup = ErrorPopupViewController()
-                        errorPopup.error = error
-                        errorPopup.show()
+                        error.show()
                         return
                     }
                 }
@@ -66,10 +60,8 @@ class LoginViewController: UIViewController {
                         AppDelegate.sharedInstance().window?.rootViewController = AppDelegate.sharedInstance().sideMenu
                         }, completion: nil)
                 }else{
-                    var errorPopup = ErrorPopupViewController()
                     let sessionError = HRError(title: "No session", status: 500, detail: "Current session couldn't be retrieved", displayMessage: "Current session couldn't be retrieved")
-                    errorPopup.error = sessionError
-                    errorPopup.show()
+                    sessionError.show()
                 }
             })
             

@@ -72,9 +72,7 @@ class HRSendAction: HRAction {
 					guard let newmessage = newmessage else {
 						if let error = error {
 							self.hadError = NSNumber(bool: true)
-							var errorPopup = ErrorPopupViewController()
-							errorPopup.error = error
-							errorPopup.show()
+							error.show()
 						}
 						return
 					}
@@ -89,9 +87,7 @@ class HRSendAction: HRAction {
 					guard let newmessage = newmessage else {
 						if let error = error {
 							self.hadError = NSNumber(bool: true)
-							var errorPopup = ErrorPopupViewController()
-							errorPopup.error = error
-							errorPopup.show()
+							error.show()
 						}
 						return
 					}

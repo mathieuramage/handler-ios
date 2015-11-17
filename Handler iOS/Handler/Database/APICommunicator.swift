@@ -61,6 +61,7 @@ class APICommunicator: NSObject {
 					AppDelegate.sharedInstance().window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
 				}
 			}else{
+                // TODO: Remove for production
 				print(authToken)
 				HRUserSessionManager.updateCurrentSession(token: authToken, expiryDate: expirationDate)
 				completion?(error: nil)
@@ -281,9 +282,7 @@ class APICommunicator: NSObject {
 			if error.status == 401 {
 				self.checkForCurrentSessionOrAuth({ (error) -> Void in
 					if let error = error {
-						var errorPopup = ErrorPopupViewController()
-						errorPopup.error = error
-						errorPopup.show()
+						error.show()
 						return
 					}
 					self.createAttachment(fileType, filename: filename, callback: callback)

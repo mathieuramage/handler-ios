@@ -59,6 +59,7 @@
 		2F8D8CE21BCC12B30020A41C /* HRSendAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8D8CDC1BCC12B30020A41C /* HRSendAction.swift */; };
 		2F8D8CE51BCC20B40020A41C /* HRActionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8D8CE41BCC20B40020A41C /* HRActionsManager.swift */; };
 		2F8E379B1BB1E95000C6A82D /* TTTTimeIntervalFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8E379A1BB1E95000C6A82D /* TTTTimeIntervalFormatter.m */; };
+		2F92E7581BFB921300E5F6A2 /* ErrorPopupQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F92E7571BFB921300E5F6A2 /* ErrorPopupQueue.swift */; };
 		2F994E4D1BB2AE3500A63B9B /* NSMutableArray+SWUtilityButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F994E421BB2AE3500A63B9B /* NSMutableArray+SWUtilityButtons.m */; };
 		2F994E4E1BB2AE3500A63B9B /* SWCellScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F994E441BB2AE3500A63B9B /* SWCellScrollView.m */; };
 		2F994E4F1BB2AE3500A63B9B /* SWLongPressGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F994E461BB2AE3500A63B9B /* SWLongPressGestureRecognizer.m */; };
@@ -251,6 +252,7 @@
 		2F8E37971BB1E91D00C6A82D /* Handler-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Handler-Bridging-Header.h"; sourceTree = "<group>"; };
 		2F8E37991BB1E95000C6A82D /* TTTTimeIntervalFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTTimeIntervalFormatter.h; sourceTree = "<group>"; };
 		2F8E379A1BB1E95000C6A82D /* TTTTimeIntervalFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTTimeIntervalFormatter.m; sourceTree = "<group>"; };
+		2F92E7571BFB921300E5F6A2 /* ErrorPopupQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorPopupQueue.swift; sourceTree = "<group>"; };
 		2F994E411BB2AE3500A63B9B /* NSMutableArray+SWUtilityButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+SWUtilityButtons.h"; sourceTree = "<group>"; };
 		2F994E421BB2AE3500A63B9B /* NSMutableArray+SWUtilityButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+SWUtilityButtons.m"; sourceTree = "<group>"; };
 		2F994E431BB2AE3500A63B9B /* SWCellScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWCellScrollView.h; sourceTree = "<group>"; };
@@ -401,6 +403,7 @@
 			isa = PBXGroup;
 			children = (
 				2F1D2C2F1BBBF83600A504A8 /* MessageActionsAlertController.swift */,
+				2F92E7571BFB921300E5F6A2 /* ErrorPopupQueue.swift */,
 			);
 			path = "Alert Controllers";
 			sourceTree = "<group>";
@@ -996,6 +999,7 @@
 				2F8D8CDF1BCC12B30020A41C /* HRAction+CoreDataProperties.swift in Sources */,
 				2FB0E9451BB5718600A0426E /* UIImage+HanderImages.swift in Sources */,
 				2F09DB241BC69F3F00B81FE2 /* AttachmentThumbnailCollectionViewCell.swift in Sources */,
+				2F92E7581BFB921300E5F6A2 /* ErrorPopupQueue.swift in Sources */,
 				2F994E4F1BB2AE3500A63B9B /* SWLongPressGestureRecognizer.m in Sources */,
 				2F4E41571BB0977C00AA2DEF /* UIButton+ImageFitting.swift in Sources */,
 				2FDDE0FE1BAEB26C006C3500 /* NSManagedObject+Convenience.swift in Sources */,
