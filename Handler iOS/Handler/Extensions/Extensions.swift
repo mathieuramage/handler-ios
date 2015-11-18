@@ -11,8 +11,6 @@ import HandlerSDK
 
 extension HRError {
     func show(){
-        let errorPopup = ErrorPopupViewController()
-        errorPopup.error = self
-        ErrorPopupQueue.sharedInstance.enqueueError(errorPopup)
+        ErrorPopupQueue.sharedInstance.enqueueError(self)
     }
 }

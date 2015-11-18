@@ -12,7 +12,6 @@ import HandlerSDK
 class ErrorPopupViewController: UIViewController, UIViewControllerShow {
 	
 	var window: UIWindow?
-    var dismissalCallback: (()->Void)?
 	
 	var error: HRError? {
 		didSet {
@@ -33,11 +32,6 @@ class ErrorPopupViewController: UIViewController, UIViewControllerShow {
 	required init?(coder aDecoder: NSCoder) {
 	    fatalError("init(coder:) has not been implemented")
 	}
-    
-    init(dismissalCallback: (()->Void)){
-        super.init(nibName: "ErrorPopupViewController", bundle: NSBundle.mainBundle())
-        self.dismissalCallback = dismissalCallback
-    }
 	
 	@IBOutlet weak var displayMessageLabel: UILabel!
 
@@ -46,11 +40,15 @@ class ErrorPopupViewController: UIViewController, UIViewControllerShow {
     }
 	
 	@IBAction func dismissPressed(sender: UIButton) {
-		dismiss()
+        if let next = ErrorPopupQueue.sharedInstance.nextError() {
+            self.error = next
+        }else{
+            dismiss()
+        }
 	}
 	
 	func dismiss(){
-        dismissalCallback?()
+        ErrorPopupQueue.sharedInstance.currentError = nil
 		UIView.animateWithDuration(0.3, animations: { () -> Void in
 			self.window?.alpha = 0
 			UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)

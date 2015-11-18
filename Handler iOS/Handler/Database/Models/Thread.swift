@@ -43,7 +43,8 @@ class Thread: NSManagedObject {
 				}
 			}
 		}
-		self.showInInbox = NSNumber(bool: show)
+        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "showInInbox", value: NSNumber(bool: show)))
+        DatabaseChangesCache.sharedInstance.executeChangesForObjectID(self.objectID)
 	}
 	
 	var mostRecentMessage: Message? {
