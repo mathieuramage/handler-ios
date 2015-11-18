@@ -904,6 +904,9 @@
                                 <state key="normal" title="Create a Twitter account">
                                     <color key="titleColor" red="0.24584815234611862" green="0.50050832455433869" blue="0.69144715314136129" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="registerButtonPressed:" destination="P2V-Aw-u7B" eventType="touchUpInside" id="Pfb-vM-3DO"/>
+                                </connections>
                             </button>
                         </subviews>
                         <animations/>

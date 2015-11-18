@@ -22,6 +22,10 @@ class LoginViewController: UIViewController {
         APICommunicator.sharedInstance.signOut()
     }
     
+    @IBAction func registerButtonPressed(button: UIButton){
+        UIApplication.sharedApplication().openURL(NSURL(string: "https://twitter.com/signup")!)
+    }
+    
     @IBAction func loginButtonPressed(button: UIButton){
         Twitter.sharedInstance().logInWithCompletion { (session, error) -> Void in
             if let error = error {
