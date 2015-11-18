@@ -18,6 +18,8 @@ class LoginViewController: UIViewController {
         
         let layer = CAGradientLayer.gradientLayerForBounds(UIScreen.mainScreen().bounds)
         self.view.layer.insertSublayer(layer, atIndex: 0)
+        
+        APICommunicator.sharedInstance.signOut()
     }
     
     @IBAction func loginButtonPressed(button: UIButton){

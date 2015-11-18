@@ -144,13 +144,15 @@ class MailDatabaseManager: NSObject {
     
     func saveContext () {
         if(DatabaseChangesCache.sharedInstance.allChangesApplied){
-            if managedObjectContext.hasChanges {
-                do {
-                    try managedObjectContext.save()
-                    
-                } catch {
-                    let nserror = error as NSError
-                    NSLog("Error saving context \(nserror), \(nserror.userInfo)")
+            managedObjectContext.performBlock { () -> Void in
+                if self.managedObjectContext.hasChanges {
+                    do {
+                        try self.managedObjectContext.save()
+                        
+                    } catch {
+                        let nserror = error as NSError
+                        NSLog("Error saving context \(nserror), \(nserror.userInfo)")
+                    }
                 }
             }
         }else{

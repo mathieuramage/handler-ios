@@ -9,7 +9,6 @@
 #ifndef Handler_Bridging_Header_h
 #define Handler_Bridging_Header_h
 
-#import "TTTTimeIntervalFormatter.h"
 #import "SWTableViewCell.h"
 #import "CLTokenInputView.h"
 #import "CLTokenView.h"

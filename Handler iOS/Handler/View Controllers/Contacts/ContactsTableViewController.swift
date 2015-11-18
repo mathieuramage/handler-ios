@@ -20,8 +20,6 @@ class ContactsTableViewController: UITableViewController {
 	
 	lazy var fetchedResultsController: NSFetchedResultsController = {
 		let fetchRequest = NSFetchRequest(entityName: "User")
-//		let predicate = NSPredicate(format: "isContact == YES")
-//		fetchRequest.predicate = predicate
 		fetchRequest.fetchBatchSize = 20
 		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
 		let fetchResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: MailDatabaseManager.sharedInstance.managedObjectContext, sectionNameKeyPath: "name", cacheName: nil)

@@ -19,11 +19,10 @@ class MessageTableViewCell: SWTableViewCell {
     @IBOutlet weak var messageTimeLabel: UILabel!
     @IBOutlet weak var messageContentPreviewLabel: UILabel!
     
-    lazy var timeFormatter: TTTTimeIntervalFormatter = {
-        let formatter = TTTTimeIntervalFormatter()
-        formatter.usesIdiomaticDeicticExpressions = true
-        formatter.presentTimeIntervalMargin = 60
-        formatter.presentDeicticExpression = "now"
+    lazy var timeFormatter: NSDateFormatter = {
+        let formatter = NSDateFormatter()
+        formatter.timeStyle = NSDateFormatterStyle.NoStyle
+        formatter.dateStyle = NSDateFormatterStyle.ShortStyle
         return formatter
     }()
     
@@ -61,7 +60,8 @@ class MessageTableViewCell: SWTableViewCell {
                 messageSubjectLabel.text = message.subject
                 messageContentPreviewLabel.text = message.content
                 if let sent_at = message.sent_at {
-                    messageTimeLabel.text = timeFormatter.stringForTimeInterval(sent_at.timeIntervalSinceNow)
+                    
+                    messageTimeLabel.text = timeFormatter.stringFromDate(sent_at)
                 }else{
                     messageTimeLabel.text = "-"
                 }
