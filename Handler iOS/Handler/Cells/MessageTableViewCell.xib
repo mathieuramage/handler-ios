@@ -112,6 +112,6 @@
     </objects>
     <resources>
         <image name="Blue_Dot" width="27" height="27"/>
-        <image name="ghost_blue" width="192" height="192"/>
+        <image name="ghost_blue" width="66" height="66"/>
     </resources>
 </document>

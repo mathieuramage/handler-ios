@@ -17,7 +17,8 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 	@IBOutlet weak var profileNameLabel: UILabel!
 	@IBOutlet weak var profileHandleLabel: UILabel!
     @IBOutlet weak var profileBannerImageView: UIImageView!
-	
+    @IBOutlet weak var logoutButton: UIButton!
+    @IBOutlet weak var helpButton: UIButton!
 	
 	var optionsTableViewController: MailBoxOptionsTableViewController? {
 		didSet {
@@ -111,9 +112,13 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 			AppDelegate.sharedInstance().window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
 			}, completion: nil)
 	}
+    
+    @IBAction func helpPressed(sender: UIButton) {
+        // TODO: Show help
+    }
+    
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "embedMailBoxOptions" {
 			self.optionsTableViewController = segue.destinationViewController as? MailBoxOptionsTableViewController
