@@ -39,7 +39,7 @@ class ErrorPopupViewController: UIViewController, UIViewControllerShow {
         super.viewDidLoad()
     }
 	
-	@IBAction func dismissPressed(sender: UIButton) {
+	@IBAction func dismissPressed(sender: AnyObject?) {
         if let next = ErrorPopupQueue.sharedInstance.nextError() {
             self.error = next
         }else{

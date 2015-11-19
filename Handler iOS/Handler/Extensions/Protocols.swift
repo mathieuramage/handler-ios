@@ -71,6 +71,7 @@ protocol UIViewControllerShow {
 	mutating func show()
 	mutating func dismiss()
 	var window: UIWindow? { get set }
+    func dismissPressed(sender: AnyObject?)
 }
 
 extension UIViewControllerShow where Self: UIViewController {
@@ -78,6 +79,7 @@ extension UIViewControllerShow where Self: UIViewController {
 		window = UIWindow(frame: UIScreen.mainScreen().bounds)
 		window?.windowLevel = UIWindowLevelAlert - 1
 		window?.rootViewController = self
+        window?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "dismissPressed:"))
 		self.window?.makeKeyAndVisible()
 		window?.alpha = 0
 		UIView.animateWithDuration(0.3, animations: { () -> Void in

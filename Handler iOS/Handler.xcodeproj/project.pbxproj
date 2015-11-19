@@ -47,6 +47,10 @@
 		2F51BCA71BC9AFA80024397B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F51BCA61BC9AFA80024397B /* Extensions.swift */; };
 		2F6112811BC12F1E0003071B /* UploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6112801BC12F1E0003071B /* UploadManager.swift */; };
 		2F76D4D01BB48F1600235A95 /* MailboxObserversManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F76D4CF1BB48F1600235A95 /* MailboxObserversManager.swift */; };
+		2F7B0CFD1BFDC8910015C43A /* InboxFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7B0CFC1BFDC8910015C43A /* InboxFormatter.swift */; };
+		2F7B0CFF1BFDCAB30015C43A /* FormatterProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7B0CFE1BFDCAB30015C43A /* FormatterProtocols.swift */; };
+		2F7B0D011BFDCB230015C43A /* FormattingPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7B0D001BFDCB230015C43A /* FormattingPluginProvider.swift */; };
+		2F7B0D031BFDCEDE0015C43A /* MessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F7B0D021BFDCEDE0015C43A /* MessageTableViewCell.xib */; };
 		2F81A6331BC179BF007F2D43 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F81A6321BC179BF007F2D43 /* Operators.swift */; };
 		2F88F1CB1BD43C8B00844A90 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F88F1CA1BD43C8B00844A90 /* DownloadManager.swift */; };
 		2F88F1CE1BD43CF700844A90 /* HRDownloadAction+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F88F1CC1BD43CF700844A90 /* HRDownloadAction+CoreDataProperties.swift */; };
@@ -237,6 +241,10 @@
 		2F51BCA61BC9AFA80024397B /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		2F6112801BC12F1E0003071B /* UploadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadManager.swift; sourceTree = "<group>"; };
 		2F76D4CF1BB48F1600235A95 /* MailboxObserversManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MailboxObserversManager.swift; sourceTree = "<group>"; };
+		2F7B0CFC1BFDC8910015C43A /* InboxFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxFormatter.swift; sourceTree = "<group>"; };
+		2F7B0CFE1BFDCAB30015C43A /* FormatterProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatterProtocols.swift; sourceTree = "<group>"; };
+		2F7B0D001BFDCB230015C43A /* FormattingPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormattingPluginProvider.swift; sourceTree = "<group>"; };
+		2F7B0D021BFDCEDE0015C43A /* MessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageTableViewCell.xib; sourceTree = "<group>"; };
 		2F81A6321BC179BF007F2D43 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		2F88F1CA1BD43C8B00844A90 /* DownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		2F88F1CC1BD43CF700844A90 /* HRDownloadAction+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HRDownloadAction+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -428,8 +436,19 @@
 				2F4E415D1BB0A13700AA2DEF /* MessageTableViewCell.swift */,
 				2F0136A01BD10422008BAD9D /* ContactTableViewCell.swift */,
 				2FEA14611BF77CC0008E31F1 /* MailBoxMenuOptionTableViewCell.swift */,
+				2F7B0D021BFDCEDE0015C43A /* MessageTableViewCell.xib */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		2F7B0CFB1BFDC8660015C43A /* Formatting Plugins */ = {
+			isa = PBXGroup;
+			children = (
+				2F7B0CFC1BFDC8910015C43A /* InboxFormatter.swift */,
+				2F7B0CFE1BFDCAB30015C43A /* FormatterProtocols.swift */,
+				2F7B0D001BFDCB230015C43A /* FormattingPluginProvider.swift */,
+			);
+			path = "Formatting Plugins";
 			sourceTree = "<group>";
 		};
 		2F8D8CD61BCC118B0020A41C /* Actions System */ = {
@@ -706,6 +725,7 @@
 		DF1FD2DA1B62360600A58B71 /* Handler */ = {
 			isa = PBXGroup;
 			children = (
+				2F7B0CFB1BFDC8660015C43A /* Formatting Plugins */,
 				2F8D8CD61BCC118B0020A41C /* Actions System */,
 				2F1D2C2E1BBBF80300A504A8 /* Alert Controllers */,
 				2FA2EA941BADA6240027EA77 /* Authentication */,
@@ -847,6 +867,7 @@
 				2F43E0B11BDA4A5A00C68E1D /* LaunchScreen.xib in Resources */,
 				2F1DACF21BC7EFC500FB6173 /* AddAttachmentView.xib in Resources */,
 				2F1D2C401BBC48E600A504A8 /* ErrorPopupViewController.xib in Resources */,
+				2F7B0D031BFDCEDE0015C43A /* MessageTableViewCell.xib in Resources */,
 				2F1D2C381BBC3DCA00A504A8 /* ContactCardViewController.xib in Resources */,
 				2FDB44731BD3EB110040014E /* TwitterKitResources.bundle in Resources */,
 				2F09DB1F1BC69CEC00B81FE2 /* AttachmentThumbnailView.xib in Resources */,
@@ -958,6 +979,7 @@
 				2F0136A31BD10EE4008BAD9D /* TwitterAPICommunicator.swift in Sources */,
 				2FDDE1471BB04FA4006C3500 /* WhiteBorderViews.swift in Sources */,
 				DF1FD2DE1B62360600A58B71 /* AppDelegate.swift in Sources */,
+				2F7B0CFF1BFDCAB30015C43A /* FormatterProtocols.swift in Sources */,
 				2F8D8CDD1BCC12B30020A41C /* HRUploadAction+CoreDataProperties.swift in Sources */,
 				2F4E41551BB08A3200AA2DEF /* SSASideMenu.swift in Sources */,
 				2FEA14641BF8B61D008E31F1 /* DatabaseChangesCache.swift in Sources */,
@@ -966,6 +988,7 @@
 				2F76D4D01BB48F1600235A95 /* MailboxObserversManager.swift in Sources */,
 				2FDDE0EE1BAEA957006C3500 /* Message.swift in Sources */,
 				2FDDE0ED1BAEA957006C3500 /* Message+CoreDataProperties.swift in Sources */,
+				2F7B0D011BFDCB230015C43A /* FormattingPluginProvider.swift in Sources */,
 				2FF788441BB5CB1B00B297D3 /* MessageComposeTableViewController.swift in Sources */,
 				2F1D2C301BBBF83600A504A8 /* MessageActionsAlertController.swift in Sources */,
 				2F041D541BCA7D24009985EB /* ErrorHandler.swift in Sources */,
@@ -978,6 +1001,7 @@
 				2F994E501BB2AE3500A63B9B /* SWTableViewCell.m in Sources */,
 				2F1D2C371BBC3DCA00A504A8 /* ContactCardViewController.swift in Sources */,
 				2F8D8CE51BCC20B40020A41C /* HRActionsManager.swift in Sources */,
+				2F7B0CFD1BFDC8910015C43A /* InboxFormatter.swift in Sources */,
 				2F88F1CF1BD43CF700844A90 /* HRDownloadAction.swift in Sources */,
 				2FDDE0F31BAEA957006C3500 /* User+CoreDataProperties.swift in Sources */,
 				2F4E41631BB0AC7300AA2DEF /* GradientNavigationController.swift in Sources */,

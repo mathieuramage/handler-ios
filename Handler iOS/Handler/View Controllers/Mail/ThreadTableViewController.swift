@@ -29,12 +29,13 @@ class ThreadTableViewController: UITableViewController, SWTableViewCellDelegate 
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+        tableView.registerNib(UINib(nibName: "MessageTableViewCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "mailCell")
 	}
 	
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 		for cell in tableView.visibleCells {
-			(cell as? MessageTableViewCell)?.refreshFlags()
+			FormattingPluginProvider.messageCellPluginForInboxType(.Inbox)?.populateView(data: orderedMessages[tableView.indexPathForCell(cell)!.row], view: cell as! MessageTableViewCell)
 		}
 	}
 	
@@ -51,10 +52,8 @@ class ThreadTableViewController: UITableViewController, SWTableViewCellDelegate 
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCellWithIdentifier("mailCell", forIndexPath: indexPath) as! MessageTableViewCell
 		if indexPath.row < orderedMessages.count {
-			cell.message = orderedMessages[indexPath.row]
+            FormattingPluginProvider.messageCellPluginForInboxType(.Inbox)?.populateView(data: orderedMessages[indexPath.row], view: cell)
 		}
-		cell.leftUtilityButtons = cell.leftButtons()
-		cell.rightUtilityButtons = cell.rightButtons()
 		cell.delegate = self
 		return cell
 	}
@@ -71,31 +70,12 @@ class ThreadTableViewController: UITableViewController, SWTableViewCellDelegate 
 	}
 	
 	func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerLeftUtilityButtonWithIndex index: Int) {
-		if let cell = cell as? MessageTableViewCell, let message = cell.message {
-			message.markAsUnread()
-			cell.message = message
-		}
+        // TODO: Implement action handling plugins
 	}
 	
 	func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerRightUtilityButtonWithIndex index: Int) {
-		if let cell = cell as? MessageTableViewCell, let message = cell.message {
-			switch index {
-			case 0:
-				// More
-				let alert = MessageActionsAlertController(message: message, vc: self)
-				presentViewController(alert, animated: true, completion: nil)
-				break;
-			case 1:
-				// Flag
-				message.flag()
-				break;
-			case 2:
-				// Archive
-				message.moveToArchive()
-			default:
-				break;
-			}
-		}
+        // TODO: Implement action handling plugins
+
 	}
 	
 	func swipeableTableViewCellShouldHideUtilityButtonsOnSwipe(cell: SWTableViewCell!) -> Bool {

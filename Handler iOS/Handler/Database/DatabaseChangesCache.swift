@@ -11,11 +11,11 @@ import CoreData
 
 class DatabaseChange: NSObject {
     var object: NSManagedObject
-    var property: String
+    var property: String?
     var value: AnyObject?
     var executed = false
     
-    init(object: NSManagedObject, property: String, value: AnyObject?){
+    init(object: NSManagedObject, property: String?, value: AnyObject?){
         self.object = object
         self.property = property
         self.value = value
@@ -23,7 +23,7 @@ class DatabaseChange: NSObject {
     
     func apply() {
         // Use DE locale because first will always be uppercase
-        object.setValue(value, forKey: property)
+        object.setValue(value, forKey: property!)
         self.executed = true;
     }
 }
@@ -38,7 +38,7 @@ class DatabaseRelationshipChange: DatabaseChange {
     }
     
     override func apply() {
-        if let set = object.valueForKey(property) as? NSSet {
+        if let set = object.valueForKey(property!) as? NSSet {
             var newSet: NSSet?
             if !remove {
                 newSet = set.setByAddingObject(value!)
@@ -47,10 +47,22 @@ class DatabaseRelationshipChange: DatabaseChange {
                 newLabels.removeObject(value!)
                 newSet = newLabels as NSSet
             }
-            object.setValue(newSet, forKey: property)
+            object.setValue(newSet, forKey: property!)
         }else{
             print("NSSet property not found on object of type \(object.entity.name)")
         }
+        self.executed = true;
+    }
+}
+
+class DatabaseDeleteObject: DatabaseChange {
+    
+    init(object: NSManagedObject){
+        super.init(object: object, property: nil, value: nil)
+    }
+    
+    override func apply() {
+        object.managedObjectContext?.deleteObject(object)
         self.executed = true;
     }
 }

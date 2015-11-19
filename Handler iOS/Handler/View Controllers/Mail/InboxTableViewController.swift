@@ -10,8 +10,9 @@ import UIKit
 import CoreData
 import Async
 import Bond
+import DZNEmptyDataSet
 
-class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, NSFetchedResultsControllerDelegate {
+class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, NSFetchedResultsControllerDelegate, DZNEmptyDataSetSource {
     
     var threadForSegue: Thread?
     
@@ -33,6 +34,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.registerNib(UINib(nibName: "MessageTableViewCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "mailCell")
         tableView.tableFooterView = UIView()
         self.refreshControl = UIRefreshControl()
         self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
@@ -103,7 +105,9 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
         self.navigationController?.navigationBar.addSubview(progressBar)
         if let cells = self.tableView.visibleCells as? [MessageTableViewCell]{
             for cell in cells {
-                cell.refreshFlags()
+                if let path = tableView.indexPathForCell(cell) where path.row < fetchedObjects.count, let data = fetchedObjects[path.row].mostRecentMessage {
+                    FormattingPluginProvider.messageCellPluginForInboxType(.Inbox)?.refreshFlags(data: data, view: cell)
+                }
             }
         }
     }
@@ -127,9 +131,9 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("mailCell", forIndexPath: indexPath) as! MessageTableViewCell
         if indexPath.row < fetchedObjects.count {
-            cell.message = fetchedObjects[indexPath.row].mostRecentMessage
-        }else{
-            cell.message = nil
+            if let data = fetchedObjects[indexPath.row].mostRecentMessage {
+                FormattingPluginProvider.messageCellPluginForInboxType(.Inbox)?.populateView(data: data, view: cell)
+            }
         }
         cell.delegate = self
         return cell
@@ -146,9 +150,6 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
             
             let thread = fetchedObjects[indexPath.row]
             threadForSegue = thread
-            if let cell = tableView.cellForRowAtIndexPath(indexPath) as? MessageTableViewCell {
-                cell.message = thread.mostRecentMessage
-            }
             if let count = thread.messages?.count where count > 1 {
                 performSegueWithIdentifier("showThreadTableViewController", sender: self)
             }else{
@@ -202,34 +203,13 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
     }
     
     func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerLeftUtilityButtonWithIndex index: Int) {
-        if let cell = cell as? MessageTableViewCell, let message = cell.message {
-            message.isUnread ? message.markAsRead() : message.markAsUnread()
-            cell.message = message
-        }
+        // TODO: Implement action handling plugins
+
     }
     
     func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerRightUtilityButtonWithIndex index: Int) {
-        if let cell = cell as? MessageTableViewCell, let message = cell.message {
-            cell.hideUtilityButtonsAnimated(true)
-            switch index {
-            case 0:
-                // More
-                let alert = MessageActionsAlertController(message: message, vc: self)
-                presentViewController(alert, animated: true, completion: nil)
-                break;
-            case 1:
-                // Flag
-                message.isFlagged ? message.unflag() : message.flag()
-                break;
-            case 2:
-                // Archive
-                if !message.isArchived{
-                    message.moveToArchive()
-                }
-            default:
-                break;
-            }
-        }
+        // TODO: Implement action handling plugins
+
     }
     
     func swipeableTableViewCellShouldHideUtilityButtonsOnSwipe(cell: SWTableViewCell!) -> Bool {
@@ -245,5 +225,15 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
             let dc = segue.destinationViewController as! ThreadTableViewController
             dc.thread = self.threadForSegue
         }
+    }
+    
+    // MARK: Empty Dataset DataSource
+    
+    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
+        return UIImage(named: "Inbox_Zero_Graphic_1")
+    }
+    
+    func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+        return NSAttributedString(string: "Don't forget to reach out to old friends you played with.", attributes: [NSForegroundColorAttributeName: UIColor.grayColor(), NSFontAttributeName: UIFont.systemFontOfSize(14)])
     }
 }

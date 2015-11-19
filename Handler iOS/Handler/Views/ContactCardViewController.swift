@@ -107,6 +107,10 @@ class ContactCardViewController: UIViewController, UIViewControllerShow {
 	required init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
+    
+    func dismissPressed(sender: AnyObject?) {
+        dismiss()
+    }
 	
 	@IBAction func dismiss(){
 		UIView.animateWithDuration(0.3, animations: { () -> Void in

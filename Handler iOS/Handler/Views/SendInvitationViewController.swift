@@ -72,6 +72,10 @@ class SendInvitationViewController: UIViewController, UIViewControllerShow, MFMe
 		composer.body = "Hey \(twitterHandle)! check out Handler, a new email app for Twitter. http://handlerapp.com/get"
 		presentViewController(composer, animated: true, completion: nil)
 	}
+    
+    func dismissPressed(sender: AnyObject?) {
+        dismiss()
+    }
 	
 	@IBAction func inviteByTweet(sender: UIButton) {
 		let composer = TWTRComposer()

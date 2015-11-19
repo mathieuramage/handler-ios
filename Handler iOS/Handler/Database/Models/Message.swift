@@ -352,6 +352,11 @@ final class Message: NSManagedObject, CoreDataConvertible {
         self.sender = User.me()
     }
     
+    func deleteFromDatabase(){
+        DatabaseChangesCache.sharedInstance.addChange(DatabaseDeleteObject(object: self))
+        DatabaseChangesCache.sharedInstance.executeChangesForObjectID(self.objectID)
+    }
+    
     
     // MARK: Fetch Requests
     
