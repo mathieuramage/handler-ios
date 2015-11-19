@@ -36,6 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         APICommunicator.sharedInstance
         UserTwitterStatusManager.startUpdating()
         HRActionsManager.setupSharedInstance()
+        UIImageView.appearance().clipsToBounds = true
 		if NSUserDefaults.standardUserDefaults().boolForKey("didFinishWalkthrough") {
 			if let _ = Twitter.sharedInstance().sessionStore.session() {
 				window?.rootViewController = sideMenu

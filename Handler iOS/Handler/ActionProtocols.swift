@@ -1,5 +1,5 @@
 //
-//  FormatterProtocols.swift
+//  ActionProtocols.swift
 //  Handler
 //
 //  Created by Christian Praiss on 19/11/15.
@@ -8,9 +8,9 @@
 
 import UIKit
 
-protocol MessageTableViewCellFormatter {
-    func populateView(data message: Message, view: MessageTableViewCell)
-    func refreshFlags(data message: Message, view: MessageTableViewCell)
+protocol MessageTableViewCellActions {
     func leftButtonsForData(data message: Message)->[AnyObject]
     func rightButtonsForData(data message: Message)->[AnyObject]
+    func rightButtonTriggered(index: Int, data message: Message, callback: (()->Void)?)
+    func leftButtonTriggered(index: Int, data message: Message, callback: (()->Void)?)
 }

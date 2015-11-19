@@ -66,28 +66,10 @@ struct InboxFormatter: MessageTableViewCellFormatter {
     }
     
     func leftButtonsForData(data message: Message)->[AnyObject]{
-        let array = NSMutableArray()
-        if !message.isUnread {
-            array.sw_addUtilityButtonWithColor(UIColor.hrBlueColor(), icon: UIImage(named: "Mark_Unread_icon"), andTitle: "Unread")
-        }else{
-            array.sw_addUtilityButtonWithColor(UIColor.hrBlueColor(), icon: UIImage(named: "Mark_Read_icon"), andTitle: "Read")
-        }
-        return array as [AnyObject]
+        return ActionPluginProvider.messageCellPluginForInboxType(.Inbox)?.leftButtonsForData(data: message) ?? [AnyObject]()
     }
     
     func rightButtonsForData(data message: Message)->[AnyObject]{
-        let array = NSMutableArray()
-            array.sw_addUtilityButtonWithColor(UIColor.hrLightGrayColor(), icon: UIImage(named: "More_Dots_Icon"), andTitle: "More")
-            if message.isFlagged {
-                array.sw_addUtilityButtonWithColor(UIColor.hrOrangeColor(), icon: UIImage(named: "Flag_Icon"), andTitle: "Unflag")
-            }else{
-                array.sw_addUtilityButtonWithColor(UIColor.hrOrangeColor(), icon: UIImage(named: "Flag_Icon"), andTitle: "Flag")
-            }
-            
-            if message.isArchived {
-                array.sw_addUtilityButtonWithColor(UIColor.hrDarkBlueColor(), icon: UIImage(named: "Archive_Icon"), andTitle: "Unarchive")
-            }else{
-                array.sw_addUtilityButtonWithColor(UIColor.hrDarkBlueColor(), icon: UIImage(named: "Archive_Icon"), andTitle: "Archive")
-            }
-        return array as [AnyObject]    }
+        return ActionPluginProvider.messageCellPluginForInboxType(.Inbox)?.rightButtonsForData(data: message) ?? [AnyObject]()
+    }
 }
