@@ -108,9 +108,6 @@
 		2FDB44731BD3EB110040014E /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2FDB446F1BD3EB110040014E /* TwitterKitResources.bundle */; };
 		2FDB44741BD3EB110040014E /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB44701BD3EB110040014E /* TwitterCore.framework */; };
 		2FDB44761BD3EB380040014E /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB44751BD3EB380040014E /* Crashlytics.framework */; };
-		2FDB86AA1BD711FB0011C6C2 /* ActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDB86A91BD711FB0011C6C2 /* ActionViewController.swift */; };
-		2FDB86AD1BD711FB0011C6C2 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2FDB86AB1BD711FB0011C6C2 /* MainInterface.storyboard */; };
-		2FDB86B11BD711FB0011C6C2 /* Action Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2FDB86A71BD711FB0011C6C2 /* Action Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2FDBBC901BB9CBC500B2BFBF /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDBBC8F1BB9CBC500B2BFBF /* UIView+Extensions.swift */; };
 		2FDDE0ED1BAEA957006C3500 /* Message+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE0E31BAEA957006C3500 /* Message+CoreDataProperties.swift */; };
 		2FDDE0EE1BAEA957006C3500 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE0E41BAEA957006C3500 /* Message.swift */; };
@@ -141,16 +138,6 @@
 		DF1FD2E51B62360600A58B71 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF1FD2E41B62360600A58B71 /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		2FDB86AF1BD711FB0011C6C2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DF1FD2D01B62360600A58B71 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 2FDB86A61BD711FB0011C6C2;
-			remoteInfo = "Action Extension";
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		2F03A1FF1BAAC027003F4B1E /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -169,7 +156,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				2FDB86B11BD711FB0011C6C2 /* Action Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -315,10 +301,6 @@
 		2FDB446F1BD3EB110040014E /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TwitterKitResources.bundle; path = TwitterKit.framework/Versions/A/Resources/TwitterKitResources.bundle; sourceTree = SOURCE_ROOT; };
 		2FDB44701BD3EB110040014E /* TwitterCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterCore.framework; sourceTree = SOURCE_ROOT; };
 		2FDB44751BD3EB380040014E /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = SOURCE_ROOT; };
-		2FDB86A71BD711FB0011C6C2 /* Action Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Action Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2FDB86A91BD711FB0011C6C2 /* ActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionViewController.swift; sourceTree = "<group>"; };
-		2FDB86AC1BD711FB0011C6C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
-		2FDB86AE1BD711FB0011C6C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2FDBBC8F1BB9CBC500B2BFBF /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		2FDDE0E31BAEA957006C3500 /* Message+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Message+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2FDDE0E41BAEA957006C3500 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Message.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -354,13 +336,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		2FDB86A41BD711FB0011C6C2 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		DF1FD2D51B62360600A58B71 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -599,16 +574,6 @@
 			path = Frameworks;
 			sourceTree = "<group>";
 		};
-		2FDB86A81BD711FB0011C6C2 /* Action Extension */ = {
-			isa = PBXGroup;
-			children = (
-				2FDB86A91BD711FB0011C6C2 /* ActionViewController.swift */,
-				2FDB86AE1BD711FB0011C6C2 /* Info.plist */,
-				2FDB86AB1BD711FB0011C6C2 /* MainInterface.storyboard */,
-			);
-			path = "Action Extension";
-			sourceTree = "<group>";
-		};
 		2FDDE0E21BAEA92E006C3500 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -730,7 +695,6 @@
 		DF1FD2CF1B62360600A58B71 = {
 			isa = PBXGroup;
 			children = (
-				2FDB86A81BD711FB0011C6C2 /* Action Extension */,
 				2F43E0C31BDA4A9300C68E1D /* Dsyms */,
 				2FDB52021BA8BC12003C074F /* Frameworks */,
 				DF1FD2DA1B62360600A58B71 /* Handler */,
@@ -742,7 +706,6 @@
 			isa = PBXGroup;
 			children = (
 				DF1FD2D81B62360600A58B71 /* Handler.app */,
-				2FDB86A71BD711FB0011C6C2 /* Action Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -780,23 +743,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2FDB86A61BD711FB0011C6C2 /* Action Extension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 2FDB86B21BD711FC0011C6C2 /* Build configuration list for PBXNativeTarget "Action Extension" */;
-			buildPhases = (
-				2FDB86A31BD711FB0011C6C2 /* Sources */,
-				2FDB86A41BD711FB0011C6C2 /* Frameworks */,
-				2FDB86A51BD711FB0011C6C2 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Action Extension";
-			productName = "Action Extension";
-			productReference = 2FDB86A71BD711FB0011C6C2 /* Action Extension.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
 		DF1FD2D71B62360600A58B71 /* Handler */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DF1FD2F71B62360600A58B71 /* Build configuration list for PBXNativeTarget "Handler" */;
@@ -815,7 +761,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				2FDB86B01BD711FB0011C6C2 /* PBXTargetDependency */,
 			);
 			name = Handler;
 			productName = Handler;
@@ -833,10 +778,6 @@
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "Handler, Inc";
 				TargetAttributes = {
-					2FDB86A61BD711FB0011C6C2 = {
-						CreatedOnToolsVersion = 7.0.1;
-						DevelopmentTeam = 2338J96222;
-					};
 					DF1FD2D71B62360600A58B71 = {
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = 2338J96222;
@@ -871,20 +812,11 @@
 			projectRoot = "";
 			targets = (
 				DF1FD2D71B62360600A58B71 /* Handler */,
-				2FDB86A61BD711FB0011C6C2 /* Action Extension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		2FDB86A51BD711FB0011C6C2 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2FDB86AD1BD711FB0011C6C2 /* MainInterface.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		DF1FD2D61B62360600A58B71 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -959,14 +891,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		2FDB86A31BD711FB0011C6C2 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2FDB86AA1BD711FB0011C6C2 /* ActionViewController.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		DF1FD2D41B62360600A58B71 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1063,24 +987,7 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		2FDB86B01BD711FB0011C6C2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 2FDB86A61BD711FB0011C6C2 /* Action Extension */;
-			targetProxy = 2FDB86AF1BD711FB0011C6C2 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXVariantGroup section */
-		2FDB86AB1BD711FB0011C6C2 /* MainInterface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2FDB86AC1BD711FB0011C6C2 /* Base */,
-			);
-			name = MainInterface.storyboard;
-			path = .;
-			sourceTree = "<group>";
-		};
 		DF1FD2E61B62360600A58B71 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1093,38 +1000,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		2FDB86B31BD711FC0011C6C2 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				INFOPLIST_FILE = "Action Extension/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.handler.handlerapp.Action-Extension";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "";
-			};
-			name = Debug;
-		};
-		2FDB86B41BD711FC0011C6C2 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				INFOPLIST_FILE = "Action Extension/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.handler.handlerapp.Action-Extension";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
 		DF1FD2F51B62360600A58B71 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1262,15 +1137,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2FDB86B21BD711FC0011C6C2 /* Build configuration list for PBXNativeTarget "Action Extension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				2FDB86B31BD711FC0011C6C2 /* Debug */,
-				2FDB86B41BD711FC0011C6C2 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		DF1FD2D31B62360600A58B71 /* Build configuration list for PBXProject "Handler" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
