@@ -1,14 +1,12 @@
 //
-//  InboxActionHandler.swift
+//  FlaggedActionHandler.swift
 //  Handler
 //
-//  Created by Christian Praiss on 19/11/15.
+//  Created by Guillaume Kermorgant on 19/11/15.
 //  Copyright © 2015 Handler, Inc. All rights reserved.
 //
 
-import UIKit
-
-class InboxActionHandler: MessageTableViewCellActions {
+class FlaggedActionHandler: MessageTableViewCellActions {
     
     // MARK: Actions
     
@@ -25,19 +23,18 @@ class InboxActionHandler: MessageTableViewCellActions {
             }
         }
         
-        // TODO: Implement actions
+        // TODO: Add success messages
     }
     
     func rightButtonTriggered(index: Int, data message: Message, callback: (() -> Void)?) {
         defer{
             switch index {
             case 0:
-                break
-            case 1:
                 message.isFlagged ? message.unflag() : message.flag()
-            case 2:
+            case 1:
                 message.isArchived ? message.moveToInbox() : message.moveToArchive()
-                break
+            case 2:
+                reply(data: message)
             default:
                 break
             }
@@ -46,7 +43,7 @@ class InboxActionHandler: MessageTableViewCellActions {
             }
         }
         
-        // TODO: Implement actions
+        // TODO: Add success messages
     }
     
     // MARK: Data Source
@@ -63,7 +60,6 @@ class InboxActionHandler: MessageTableViewCellActions {
     
     func rightButtonsForData(data message: Message)->[AnyObject]{
         let array = NSMutableArray()
-        array.sw_addUtilityButtonWithColor(UIColor.hrLightGrayColor(), icon: UIImage(named: "More_Dots_Icon"), andTitle: "More")
         if message.isFlagged {
             array.sw_addUtilityButtonWithColor(UIColor.hrOrangeColor(), icon: UIImage(named: "Flag_Icon"), andTitle: "Unflag")
         }else{
@@ -75,6 +71,13 @@ class InboxActionHandler: MessageTableViewCellActions {
         }else{
             array.sw_addUtilityButtonWithColor(UIColor.hrDarkBlueColor(), icon: UIImage(named: "Archive_Icon"), andTitle: "Archive")
         }
+        array.sw_addUtilityButtonWithColor(UIColor.hrGreenColor(), icon: UIImage(named: "Reply"), andTitle: "Reply")
         return array as [AnyObject]
+    }
+    
+    func reply(data message: Message) {
+        
+        // TODO: Implement reply action
+        return
     }
 }

@@ -14,15 +14,15 @@ class FormattingPluginProvider: NSObject {
         case .Inbox:
             return InboxFormatter()
         case .Unread:
-            return nil
+            return UnreadFormatter()
         case .Flagged:
-            return nil
+            return FlaggedFormatter()
         case .Drafts:
-            return nil
+            return DraftsFormatter()
         case .Sent:
-            return nil
+            return SentFormatter()
         case .Archive:
-            return nil
+            return ArchiveFormatter()
         default:
             return nil
         }

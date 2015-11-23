@@ -1,14 +1,12 @@
 //
-//  InboxActionHandler.swift
+//  UnreadActionHandler.swift
 //  Handler
 //
-//  Created by Christian Praiss on 19/11/15.
+//  Created by Guillaume Kermorgant on 19/11/15.
 //  Copyright © 2015 Handler, Inc. All rights reserved.
 //
 
-import UIKit
-
-class InboxActionHandler: MessageTableViewCellActions {
+class UnreadActionHandler: MessageTableViewCellActions {
     
     // MARK: Actions
     
@@ -25,17 +23,15 @@ class InboxActionHandler: MessageTableViewCellActions {
             }
         }
         
-        // TODO: Implement actions
+        // TODO: Add success messages
     }
     
     func rightButtonTriggered(index: Int, data message: Message, callback: (() -> Void)?) {
         defer{
             switch index {
             case 0:
-                break
-            case 1:
                 message.isFlagged ? message.unflag() : message.flag()
-            case 2:
+            case 1:
                 message.isArchived ? message.moveToInbox() : message.moveToArchive()
                 break
             default:
@@ -46,7 +42,7 @@ class InboxActionHandler: MessageTableViewCellActions {
             }
         }
         
-        // TODO: Implement actions
+        // TODO: Add success messages
     }
     
     // MARK: Data Source
@@ -63,7 +59,6 @@ class InboxActionHandler: MessageTableViewCellActions {
     
     func rightButtonsForData(data message: Message)->[AnyObject]{
         let array = NSMutableArray()
-        array.sw_addUtilityButtonWithColor(UIColor.hrLightGrayColor(), icon: UIImage(named: "More_Dots_Icon"), andTitle: "More")
         if message.isFlagged {
             array.sw_addUtilityButtonWithColor(UIColor.hrOrangeColor(), icon: UIImage(named: "Flag_Icon"), andTitle: "Unflag")
         }else{
