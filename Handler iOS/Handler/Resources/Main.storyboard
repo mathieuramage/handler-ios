@@ -369,7 +369,7 @@
                             <tableViewSection id="RIC-yN-exa">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="90" id="Wk4-hG-05I">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
+                                        <rect key="frame" x="0.0" y="64" width="375" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Wk4-hG-05I" id="1B8-Qp-xdI">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="89.5"/>
@@ -445,7 +445,7 @@
                                         <animations/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="90" id="ZsX-09-miv">
-                                        <rect key="frame" x="0.0" y="90" width="375" height="90"/>
+                                        <rect key="frame" x="0.0" y="154" width="375" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZsX-09-miv" id="IUi-gW-5Gi">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="89.5"/>
@@ -471,7 +471,7 @@
                                         <inset key="separatorInset" minX="1000" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="100" id="Ifq-hK-2Nm" customClass="MessageAttachmentsTableViewCell" customModule="Handler" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="180" width="375" height="100"/>
+                                        <rect key="frame" x="0.0" y="244" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ifq-hK-2Nm" id="aQs-ck-v6n">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
@@ -1239,9 +1239,9 @@
         <image name="twitter_default" width="2247" height="190"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Evc-eB-gJq"/>
-        <segue reference="FuE-Pp-2sp"/>
-        <segue reference="9Tl-Gf-wkv"/>
+        <segue reference="37u-X4-Rqh"/>
+        <segue reference="z5m-Xz-TsX"/>
+        <segue reference="l3v-e4-Wcd"/>
         <segue reference="XtR-7h-DTu"/>
     </inferredMetricsTieBreakers>
 </document>
