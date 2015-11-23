@@ -32,11 +32,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
 		Twitter.sharedInstance().startWithConsumerKey("d6IKDpduuacAAHgtVydTvMo6t", consumerSecret: "tjaZYfuxDaEqY1RxLse0KvNzvCYPYpq57EgE0uawo2cuMzVoAE")
-		
-		APICommunicator.sharedInstance
-		UserTwitterStatusManager.startUpdating()
-		HRActionsManager.setupSharedInstance()
 		Fabric.with([Twitter.sharedInstance(), Crashlytics.self()])
+        APICommunicator.sharedInstance
+        UserTwitterStatusManager.startUpdating()
+        HRActionsManager.setupSharedInstance()
+        UIImageView.appearance().clipsToBounds = true
 		if NSUserDefaults.standardUserDefaults().boolForKey("didFinishWalkthrough") {
 			if let _ = Twitter.sharedInstance().sessionStore.session() {
 				window?.rootViewController = sideMenu
@@ -51,6 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		let settings = UIUserNotificationSettings(forTypes: [UIUserNotificationType.Badge, UIUserNotificationType.Sound, UIUserNotificationType.Alert], categories: nil)
 		UIApplication.sharedApplication().registerUserNotificationSettings(settings)
 		UIApplication.sharedApplication().registerForRemoteNotifications()
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
 		return true
 	}
 	
@@ -114,7 +115,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 	
 	func applicationWillTerminate(application: UIApplication) {
+		HRActionsManager.stopAll()
 		MailDatabaseManager.sharedInstance.saveContext()
+	}
+}
+
+
+
+// MARK: Utilities
+
+extension AppDelegate {
+	static func sharedInstance()->AppDelegate{
+		return UIApplication.sharedApplication().delegate as! AppDelegate
 	}
 }
 

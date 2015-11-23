@@ -39,11 +39,16 @@ class ErrorPopupViewController: UIViewController, UIViewControllerShow {
         super.viewDidLoad()
     }
 	
-	@IBAction func dismissPressed(sender: UIButton) {
-		dismiss()
+	@IBAction func dismissPressed(sender: AnyObject?) {
+        if let next = ErrorPopupQueue.sharedInstance.nextError() {
+            self.error = next
+        }else{
+            dismiss()
+        }
 	}
 	
 	func dismiss(){
+        ErrorPopupQueue.sharedInstance.currentError = nil
 		UIView.animateWithDuration(0.3, animations: { () -> Void in
 			self.window?.alpha = 0
 			UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)

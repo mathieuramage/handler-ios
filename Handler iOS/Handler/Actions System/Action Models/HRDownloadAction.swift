@@ -21,6 +21,11 @@ class HRDownloadAction: HRAction {
 	}
 	
 	override func execute() {
+        if(!FeaturesManager.attachmentsActivated) {
+            return
+        }
+        
+		print("excuted downlaod for \(attachment?.filename)")
 		self.running = NSNumber(bool: true)
 		do {
 			downloadManager = try DownloadManager(action: self) { (success, error) -> Void in
@@ -34,6 +39,7 @@ class HRDownloadAction: HRAction {
 				print(error)
 				self.hadError = NSNumber(bool: true)
 				self.completed = NSNumber(bool: true)
+				self.running = NSNumber(bool: false)
 				self.parentDependency?.dependencyDidComplete(self)
 			}
 		} catch {

@@ -12,7 +12,6 @@ extension NSDate {
 	class func fromString(string: String) -> NSDate? {
 		let formatter = NSDateFormatter()
 		formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-		
 		return formatter.dateFromString(string)
 	}
 	

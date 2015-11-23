@@ -9,6 +9,8 @@
 import UIKit
 import CoreData
 
+let ActionProgressDidChangeNotification = "ActionProgressDidChange"
+
 class HRActionsManager: NSObject, NSFetchedResultsControllerDelegate {
 	private static let sharedInstance = HRActionsManager()
 	
@@ -44,5 +46,18 @@ class HRActionsManager: NSObject, NSFetchedResultsControllerDelegate {
 				hrAction.execute()
 			}
 		}
+	}
+	
+	class func stopAll(){
+		let fr = NSFetchRequest(entityName: "HRAction")
+		let predicate = NSPredicate(format: "running == YES AND completed == NO AND hadError == NO")
+		fr.predicate = predicate
+		fr.sortDescriptors = [NSSortDescriptor(key: "running", ascending: true)]
+		if let results = try? MailDatabaseManager.sharedInstance.managedObjectContext.executeFetchRequest(fr), let convResults = results as? [HRAction] {
+			for result in convResults {
+				result.running = NSNumber(bool: false)
+			}
+		}
+		MailDatabaseManager.sharedInstance.saveContext()
 	}
 }

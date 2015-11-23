@@ -22,6 +22,7 @@ protocol CoreDataConvertible {
 	static func fetchRequestForID(id: String) -> NSFetchRequest?
 	static func backgroundFetchRequestForID(id: String) -> NSFetchRequest?
 	func updateFromHRType(hrType: HRType)
+    func toManageObjectContext(context: NSManagedObjectContext)->Self?
 }
 
 
@@ -36,10 +37,9 @@ extension CoreDataConvertible where HRType : HRIDProvider  {
 		
 		if let cdObject = MailDatabaseManager.sharedInstance.executeBackgroundFetchRequest(fetchrequest)?.first as? Self {
 			//print("Found \(Self.self) in database")
-			cdObject.updateFromHRType(hrType)
+			//cdObject.updateFromHRType(hrType)
 			return cdObject
 		}else{
-			print("Didn't find \(Self.self), create new one in database")
 			return Self(hrType: hrType, managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
 		}
 	}
@@ -52,6 +52,10 @@ extension CoreDataConvertible where HRType : HRIDProvider  {
 		
 		return MailDatabaseManager.sharedInstance.executeBackgroundFetchRequest(fetchrequest)?.first as? Self
 	}
+
+    func toManageObjectContext(context: NSManagedObjectContext)->Self?{
+        return context.objectWithID((self as! NSManagedObject).objectID) as? Self
+    }
 }
 
 // MARK: HRAction
@@ -67,6 +71,7 @@ protocol UIViewControllerShow {
 	mutating func show()
 	mutating func dismiss()
 	var window: UIWindow? { get set }
+    func dismissPressed(sender: AnyObject?)
 }
 
 extension UIViewControllerShow where Self: UIViewController {
@@ -74,6 +79,7 @@ extension UIViewControllerShow where Self: UIViewController {
 		window = UIWindow(frame: UIScreen.mainScreen().bounds)
 		window?.windowLevel = UIWindowLevelAlert - 1
 		window?.rootViewController = self
+        window?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "dismissPressed:"))
 		self.window?.makeKeyAndVisible()
 		window?.alpha = 0
 		UIView.animateWithDuration(0.3, animations: { () -> Void in
@@ -88,15 +94,6 @@ extension UIViewControllerShow where Self: UIViewController {
 protocol MailboxCountObserver {
 	func mailboxCountDidChange(mailboxType: MailboxType, newCount: Int)
 }
-
-// MARK: Utilities
-
-extension AppDelegate {
-	static func sharedInstance()->AppDelegate{
-		return UIApplication.sharedApplication().delegate as! AppDelegate
-	}
-}
-
 extension Array {
 	func randomItem() -> Element {
 		let index = Int(arc4random_uniform(UInt32(self.count)))

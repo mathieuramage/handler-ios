@@ -20,15 +20,16 @@ final class User: NSManagedObject, CoreDataConvertible {
 	}
 	
 	func updateFromHRType(user: HRType) {
-		self.id = user.id
-		self.desc = user.desc
-		self.handle = user.handle
-		self.name = user.name
-		self.profile_picture_url = user.picture_url
-		self.provider = user.provider
-		self.created_at = NSDate.fromString(user.created_at)
-		self.updated_at = NSDate.fromString(user.updated_at)
-		self.twtterFollowStatus = NSNumber(integer: TwitterAPICommunicator.followStatusForID(self.name!).rawValue)
+        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "id", value: user.id))
+        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "desc", value: user.desc))
+        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "handle", value: user.handle))
+        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "name", value: user.name))
+        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "profile_picture_url", value: user.picture_url))
+        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "provider", value: user.provider))
+        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "created_at", value: NSDate.fromString(user.created_at)))
+        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "updated_at", value: NSDate.fromString(user.updated_at)))
+        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "twtterFollowStatus", value: NSNumber(integer: TwitterAPICommunicator.followStatusForID(user.name).rawValue)))
+        DatabaseChangesCache.sharedInstance.executeChangesForObjectID(self.objectID)
 	}
 	
 	func toHRType() -> HRUser {
@@ -50,5 +51,21 @@ final class User: NSManagedObject, CoreDataConvertible {
 		}else{
 			return nil
 		}
+	}
+	
+	class func fromHandle(handle: String)->User{
+		if let user = (MailDatabaseManager.sharedInstance.executeBackgroundFetchRequest(User.backgroundFetchRequestForHandle(handle)) as? [User])?.first {
+			return user
+		}else{
+			let user = HRUser()
+			user.handle = handle
+			return User(hrType: user, managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
+		}
+	}
+	
+	static func backgroundFetchRequestForHandle(handle: String) -> NSFetchRequest {
+		let fetchRequest = NSFetchRequest(entityName: self.entityName())
+		fetchRequest.predicate = NSPredicate(format: "%K == %@", "handle", handle)
+		return fetchRequest
 	}
 }

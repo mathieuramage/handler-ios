@@ -9,13 +9,16 @@
 import UIKit
 import HandlerSDK
 import Kingfisher
+import Async
 
 class SideMenuViewController: UIViewController, UITableViewDelegate {
 	
 	@IBOutlet weak var profileImageView: WhiteBorderImageView!
 	@IBOutlet weak var profileNameLabel: UILabel!
 	@IBOutlet weak var profileHandleLabel: UILabel!
-	
+    @IBOutlet weak var profileBannerImageView: UIImageView!
+    @IBOutlet weak var logoutButton: UIButton!
+    @IBOutlet weak var helpButton: UIButton!
 	
 	var optionsTableViewController: MailBoxOptionsTableViewController? {
 		didSet {
@@ -33,11 +36,26 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
     }
 	
 	func updateCurrentUser(){
-		if let user = HRUserSessionManager.sharedManager.currentUser {
-			self.profileHandleLabel.text = user.handle
-			self.profileNameLabel.text = user.name
-			if let url = NSURL(string: user.picture_url) {
-				self.profileImageView.kf_setImageWithURL(url, placeholderImage: UIImage.randomGhostImage())
+		Async.main { () -> Void in
+			if let user = HRUserSessionManager.sharedManager.currentUser {
+				self.profileHandleLabel.text = user.handle
+				self.profileNameLabel.text = user.name
+				if let url = NSURL(string: user.picture_url) {
+					self.profileImageView.kf_setImageWithURL(url, placeholderImage: UIImage.randomGhostImage())
+				}
+                TwitterAPICommunicator.getAccountInfoForTwitterUser(user.handle, callback: { (json, error) -> Void in
+                    guard let json = json else {
+                        print(error)
+                        return
+                    }
+                    Async.main {
+                        if let urlString = json["profile_banner_url"].string, let url = NSURL(string: urlString){
+                            self.profileBannerImageView.kf_setImageWithURL(url, placeholderImage: UIImage(named: "twitter_default"), optionsInfo: [.Transition(ImageTransition.Fade(0.3))])
+                        }
+                        
+                    }
+                })
+
 			}
 		}
 	}
@@ -94,9 +112,13 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 			AppDelegate.sharedInstance().window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
 			}, completion: nil)
 	}
+    
+    @IBAction func helpPressed(sender: UIButton) {
+        // TODO: Show help
+    }
+    
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "embedMailBoxOptions" {
 			self.optionsTableViewController = segue.destinationViewController as? MailBoxOptionsTableViewController

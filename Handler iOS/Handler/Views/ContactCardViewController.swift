@@ -63,11 +63,11 @@ class ContactCardViewController: UIViewController, UIViewControllerShow {
 				self.websiteLinkButton.setTitle(json["entities"]["url"]["urls"][0]["display_url"].stringValue, forState: UIControlState.Normal)
 				
 				if let urlString = json["profile_banner_url"].string, let url = NSURL(string: urlString){
-					self.bannerImageView.kf_setImageWithURL(url, placeholderImage: UIImage(named: "twitter_default"), optionsInfo: [.Transition: ImageTransition.Fade(0.3)])
+					self.bannerImageView.kf_setImageWithURL(url, placeholderImage: UIImage(named: "twitter_default"), optionsInfo: [.Transition(ImageTransition.Fade(0.3))])
 				}
 				if let urlString = json["profile_image_url"].string, let url = NSURL(string: urlString){
 					
-					self.profileImageView.kf_setImageWithURL(url, placeholderImage: UIImage(named: "twitter_default"), optionsInfo: [.Transition: ImageTransition.Fade(0.3)])
+					self.profileImageView.kf_setImageWithURL(url, placeholderImage: UIImage(named: "twitter_default"), optionsInfo: [.Transition(ImageTransition.Fade(0.3))])
 				}
 				
 				UIView.animateWithDuration(0.3, animations: { () -> Void in
@@ -107,6 +107,10 @@ class ContactCardViewController: UIViewController, UIViewControllerShow {
 	required init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
+    
+    func dismissPressed(sender: AnyObject?) {
+        dismiss()
+    }
 	
 	@IBAction func dismiss(){
 		UIView.animateWithDuration(0.3, animations: { () -> Void in

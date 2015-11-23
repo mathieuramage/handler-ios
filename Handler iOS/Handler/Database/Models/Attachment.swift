@@ -40,12 +40,11 @@ final class Attachment: NSManagedObject, CoreDataConvertible {
 	
 	convenience init(localFile: NSURL, filename: String){
 		self.init(managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
-		self.filename = filename
-		if let locfilename = localFile.lastPathComponent {
-			self.localFileURL = locfilename
-			self.content_type = UTI(filenameExtension: localFile.pathExtension ?? "").MIMEType
-		}
-		self.upload_complete = false
+        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "filename", value: filename))
+        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "localFileURL", value: localFile.path))
+        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "content_type", value: UTI(filenameExtension: localFile.pathExtension ?? "").MIMEType))
+        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "upload_complete", value: false))
+        DatabaseChangesCache.sharedInstance.executeChangesForObjectID(self.objectID)
 	}
 	
 	required convenience init(hrType: HRType, managedObjectContext: NSManagedObjectContext) {
@@ -55,22 +54,25 @@ final class Attachment: NSManagedObject, CoreDataConvertible {
 	}
 	
 	func updateFromHRType(attachment: HRType) {
-		self.id = attachment.id
-		self.content_type = attachment.content_type
-		self.url = attachment.url
-		self.filename = attachment.filename
-		self.size = attachment.size
-		self.upload_complete = attachment.uploadComplete
-		self.upload_url = attachment.upload_url
+        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "id", value: attachment.id))
+        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "content_type", value: attachment.content_type))
+        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "url", value: attachment.url))
+        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "filename", value: attachment.filename))
+        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "size", value: attachment.size))
+        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "upload_complete", value: attachment.uploadComplete))
+        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "upload_url", value: attachment.upload_url))
+        DatabaseChangesCache.sharedInstance.executeChangesForObjectID(self.objectID)
+
 		
-		guard let _ = self.localFileURL else{
+		guard let fl = self.localFileURL where fl == "" else{
 			guard let docsDirString = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, .UserDomainMask, true).first else {
 				return
 			}
 			if let filetype = NSURL(string: attachment.filename)?.pathExtension {
-				self.localFileURL = docsDirString.stringByAppendingString("/"+NSUUID().UUIDString.stringByAppendingString("." + filetype))
+                DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "localFileURL", value: docsDirString.stringByAppendingString("/"+NSUUID().UUIDString.stringByAppendingString("." + filetype))))
+                DatabaseChangesCache.sharedInstance.executeChangesForObjectID(self.objectID)
 			}
-			return
+            return
 		}
 	}
 	
@@ -114,12 +116,13 @@ final class Attachment: NSManagedObject, CoreDataConvertible {
 	
 	func getData() -> NSData? {
 		if let search = localFileURL {
+			
 			if let data = NSData(contentsOfFile: search){
 				return data
-			} else if (self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) as! Attachment).involved_download == nil {
+			} else if self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext)?.involved_download == nil {
 				// Data not yet loaded, start download
 				print("starting downlaod for \(self.filename) to \(self.localFileURL)")
-				let _ = HRDownloadAction(attachment: self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) as! Attachment)
+				let _ = HRDownloadAction(attachment: self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext)!)
 			}
 			return NSData(contentsOfFile: search)
 		}else{

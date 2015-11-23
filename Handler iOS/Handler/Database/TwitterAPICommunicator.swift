@@ -25,7 +25,7 @@ class TwitterAPICommunicator: NSObject {
 			let friendsEndpoint = "https://api.twitter.com/1.1/friends/ids.json"
 			let params = ["stringify_ids": "true"]
 			
-			let request = Twitter.sharedInstance().APIClient.URLRequestWithMethod("GET", URL: friendsEndpoint, parameters: params, error: nil)
+			let request = client.URLRequestWithMethod("GET", URL: friendsEndpoint, parameters: params, error: nil)
 			
 			client.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
 				guard let error = connectionError else {
@@ -41,7 +41,7 @@ class TwitterAPICommunicator: NSObject {
 			
 			let followersEndpoint = "https://api.twitter.com/1.1/followers/ids.json"
 			
-			let secondrequest = Twitter.sharedInstance().APIClient.URLRequestWithMethod("GET", URL: followersEndpoint, parameters: params, error: nil)
+			let secondrequest = client.URLRequestWithMethod("GET", URL: followersEndpoint, parameters: params, error: nil)
 			
 			client.sendTwitterRequest(secondrequest) { (response, data, connectionError) -> Void in
 				guard let error = connectionError else {
@@ -63,7 +63,7 @@ class TwitterAPICommunicator: NSObject {
 			let endPoint = "https://api.twitter.com/1.1/users/show.json"
 			let params = ["screen_name": handle]
 			
-			let request = Twitter.sharedInstance().APIClient.URLRequestWithMethod("GET", URL: endPoint, parameters: params, error: nil)
+			let request = client.URLRequestWithMethod("GET", URL: endPoint, parameters: params, error: nil)
 			
 			client.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
 				guard let error = connectionError else {

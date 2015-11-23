@@ -21,7 +21,8 @@ class UserTwitterStatusManager: NSObject {
 			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
 			if let users = MailDatabaseManager.sharedInstance.executeBackgroundFetchRequest(fetchRequest) as? [User] {
 				for user in users {
-					user.twtterFollowStatus = NSNumber(integer: TwitterAPICommunicator.followStatusForID(user.name!).rawValue)
+                    DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: user, property: "twtterFollowStatus", value: NSNumber(integer: TwitterAPICommunicator.followStatusForID(user.name!).rawValue)))
+                    DatabaseChangesCache.sharedInstance.executeChangesForObjectID(user.objectID)
 				}
 			}
 			MailDatabaseManager.sharedInstance.saveBackgroundContext()

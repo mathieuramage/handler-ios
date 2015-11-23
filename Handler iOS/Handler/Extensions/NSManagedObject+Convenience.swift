@@ -46,8 +46,4 @@ extension NSManagedObject {
 		
 		return fetchRequest
 	}
-	
-	func toManageObjectContext(context: NSManagedObjectContext)->NSManagedObject{
-		return context.objectWithID(self.objectID)
-	}
 }

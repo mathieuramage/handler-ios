@@ -30,7 +30,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	var messageToReplyTo: Message? {
 		set(new){
 			if new?.managedObjectContext != MailDatabaseManager.sharedInstance.backgroundContext {
-				self.internalmessageToReplyTo = new?.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) as? Message
+				self.internalmessageToReplyTo = new?.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext)
 			}else{
 				self.internalmessageToReplyTo = new
 			}
@@ -45,7 +45,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	var draftMessage: Message? {
 		set(new){
 			if new?.managedObjectContext != MailDatabaseManager.sharedInstance.backgroundContext {
-				self.internalDraftmessage = new?.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) as? Message
+				self.internalDraftmessage = new?.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext)
 			}else{
 				self.internalDraftmessage = new
 			}
@@ -214,16 +214,14 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		for token in tokenView.allTokens {
 			for valdtoken in validatedTokens {
 				if valdtoken.isOnHandler && valdtoken.name == token.displayText.stringByReplacingOccurrencesOfString("@", withString: ""){
-					let user = HRUser()
-					user.handle = valdtoken.name
-					receivers.append(User(hrType: user, managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext))
+ 					receivers.append(User.fromHandle(valdtoken.name))
 				}
 			}
 		}
 		
 		var attachments = [Attachment]()
 		for attachment in attachmentsCell.attachments ?? [Attachment]() {
-			if let converted = attachment.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) as? Attachment {
+			if let converted = attachment.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) {
 				attachments.append(converted)
 			}
 		}
@@ -323,7 +321,6 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 				self.validatedTokens.append(ValidatedToken(name: string.stringByReplacingOccurrencesOfString("@", withString: ""), isOnHandler: false))
 				self.tokenView.validatedString(string, withResult: false)
 				self.ccTokenView.validatedString(string, withResult: false)
-				print(error)
 				return
 			}
 			self.validatedTokens.append(ValidatedToken(name: string.stringByReplacingOccurrencesOfString("@", withString: ""), isOnHandler: true, user: user))
@@ -344,7 +341,11 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		if indexPath.row == 3 {
 			return max(CGFloat(contentTextView.contentSize.height + 40), CGFloat(300))
 		} else if indexPath.row == 4 {
-			return max(attachmentsCell.intrinsicContentSize().height + 20, 50+20)
+            if FeaturesManager.attachmentsActivated {
+                return max(attachmentsCell.intrinsicContentSize().height + 20, 50+20)
+            }else{
+                return 0
+            }
 		}
 		return UITableViewAutomaticDimension
 	}
@@ -411,6 +412,6 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	}
 	
 	func documentInteractionControllerViewControllerForPreview(controller: UIDocumentInteractionController) -> UIViewController {
-		return self
+		return self.navigationController ?? self
 	}
 }

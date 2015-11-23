@@ -50,16 +50,18 @@ class APICommunicator: NSObject {
 				}
 				if let session = Twitter.sharedInstance().sessionStore.session() as? TWTRSession {
 					let oauthSigning = TWTROAuthSigning(authConfig:Twitter.sharedInstance().authConfig, authSession:session)
-					HRTwitterAuthManager.startAuth(oauthSigning.OAuthEchoHeadersToVerifyCredentials(), callback: { (error) -> Void in
+					HRTwitterAuthManager.startAuth(oauthSigning.OAuthEchoHeadersToVerifyCredentials(), callback: { (error, session) -> Void in
 						completion?(error: nil)
 						if let error = error {
 							print(error)
+                            AppDelegate.sharedInstance().window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
 						}
 					})
 				}else{
 					AppDelegate.sharedInstance().window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
 				}
 			}else{
+                // TODO: Remove for production
 				print(authToken)
 				HRUserSessionManager.updateCurrentSession(token: authToken, expiryDate: expirationDate)
 				completion?(error: nil)
@@ -67,10 +69,11 @@ class APICommunicator: NSObject {
 		}else{
 			if let session = Twitter.sharedInstance().sessionStore.session() as? TWTRSession {
 				let oauthSigning = TWTROAuthSigning(authConfig:Twitter.sharedInstance().authConfig, authSession:session)
-				HRTwitterAuthManager.startAuth(oauthSigning.OAuthEchoHeadersToVerifyCredentials(), callback: { (error) -> Void in
+				HRTwitterAuthManager.startAuth(oauthSigning.OAuthEchoHeadersToVerifyCredentials(), callback: { (error, session) -> Void in
 					completion?(error: error)
 					if let error = error {
 						print(error)
+                        AppDelegate.sharedInstance().window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
 					}
 				})
 			}else{
@@ -133,7 +136,7 @@ class APICommunicator: NSObject {
 				return
 			}
 			for label in labels {
-				MailDatabaseManager.sharedInstance.storeLabel(label)
+                MailDatabaseManager.sharedInstance.storeLabel(label, save: false)
 			}
 			
 		}
@@ -170,7 +173,7 @@ class APICommunicator: NSObject {
 				return
 			}
 			for message in messages {
-				MailDatabaseManager.sharedInstance.storeMessage(message)
+                MailDatabaseManager.sharedInstance.storeMessage(message, save: false)
 			}
 			completion?(error: nil)
 		}
@@ -279,9 +282,7 @@ class APICommunicator: NSObject {
 			if error.status == 401 {
 				self.checkForCurrentSessionOrAuth({ (error) -> Void in
 					if let error = error {
-						var errorPopup = ErrorPopupViewController()
-						errorPopup.error = error
-						errorPopup.show()
+						error.show()
 						return
 					}
 					self.createAttachment(fileType, filename: filename, callback: callback)

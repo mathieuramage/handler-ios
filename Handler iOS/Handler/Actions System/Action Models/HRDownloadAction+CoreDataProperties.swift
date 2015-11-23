@@ -2,7 +2,7 @@
 //  HRDownloadAction+CoreDataProperties.swift
 //  Handler
 //
-//  Created by Christian Praiss on 18/10/15.
+//  Created by Christian Praiss on 19/10/15.
 //  Copyright © 2015 Handler, Inc. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -14,6 +14,7 @@ import CoreData
 
 extension HRDownloadAction {
 
+    @NSManaged var progress: NSNumber?
     @NSManaged var attachment: Attachment?
 
 }
