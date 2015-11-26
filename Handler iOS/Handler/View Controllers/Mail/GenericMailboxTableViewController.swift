@@ -47,6 +47,14 @@ class GenericMailboxTableViewController: UITableViewController, NSFetchedResults
         MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(mailboxType ?? .Inbox, observer: self)
     }
     
+    override func viewWillAppear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "replyToMessage:", name:"ReplyToMessage", object: nil)
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "ReplyToMessage", object: nil)
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -54,6 +62,18 @@ class GenericMailboxTableViewController: UITableViewController, NSFetchedResults
     
     @IBAction func showSideMenu(sender: UIBarButtonItem) {
         presentLeftMenuViewController()
+    }
+    
+    func replyToMessage(notification: NSNotification) {
+        
+        if let message = notification.object {
+            if message is Message {
+                let replyNC = (UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("MessageComposeNavigationController") as! GradientNavigationController)
+                let replyVC = replyNC.viewControllers.first as! MessageComposeTableViewController
+                replyVC.messageToReplyTo = message as? Message
+                self.presentViewController(replyNC, animated: true, completion: nil)
+            }
+        }
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {

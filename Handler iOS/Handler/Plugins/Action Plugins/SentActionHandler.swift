@@ -56,7 +56,7 @@ class SentActionHandler: MessageTableViewCellActions {
     
     func reply(data message: Message) {
         
-//        NSNotificationCenter.defaultCenter().postNotificationName("ReplyToMessage", object: message)
+        NSNotificationCenter.defaultCenter().postNotificationName("ReplyToMessage", object: message)
         return
     }
 }

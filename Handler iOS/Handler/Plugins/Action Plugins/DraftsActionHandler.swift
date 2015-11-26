@@ -59,8 +59,8 @@ class DraftsActionHandler: MessageTableViewCellActions {
     }
     
     func reply(data message: Message) {
-        
-        // TODO: Implement reply action
+            
+        NSNotificationCenter.defaultCenter().postNotificationName("ReplyToMessage", object: message)
         return
     }
 }

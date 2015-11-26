@@ -16,8 +16,6 @@ class ArchiveActionHandler: MessageTableViewCellActions {
                 cb()
             }
         }
-        
-        // TODO: Implement actions
     }
     
     func rightButtonTriggered(index: Int, data message: Message, callback: (() -> Void)?) {
@@ -66,7 +64,7 @@ class ArchiveActionHandler: MessageTableViewCellActions {
     
     func reply(data message: Message) {
         
-        // TODO: Implement reply action
+        NSNotificationCenter.defaultCenter().postNotificationName("ReplyToMessage", object: message)
         return
     }
 }

@@ -17,6 +17,7 @@ class InboxActionHandler: MessageTableViewCellActions {
             switch index {
             case 0:
                 message.isUnread ? message.markAsRead() : message.markAsUnread()
+                break;
             default:
                 break
             }
@@ -32,10 +33,9 @@ class InboxActionHandler: MessageTableViewCellActions {
         defer{
             switch index {
             case 0:
-                break
-            case 1:
                 message.isFlagged ? message.unflag() : message.flag()
-            case 2:
+                break;
+            case 1:
                 message.isArchived ? message.moveToInbox() : message.moveToArchive()
                 break
             default:
@@ -63,7 +63,6 @@ class InboxActionHandler: MessageTableViewCellActions {
     
     func rightButtonsForData(data message: Message)->[AnyObject]{
         let array = NSMutableArray()
-        array.sw_addUtilityButtonWithColor(UIColor.hrLightGrayColor(), icon: UIImage(named: "More_Dots_Icon"), andTitle: "More")
         if message.isFlagged {
             array.sw_addUtilityButtonWithColor(UIColor.hrOrangeColor(), icon: UIImage(named: "Flag_Icon"), andTitle: "Unflag")
         }else{
