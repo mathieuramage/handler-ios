@@ -61,10 +61,11 @@ class IntroViewController: UIViewController, UIScrollViewDelegate {
 			pageControl.currentPage = Int((Double(scrollView.contentOffset.x) / totalWidth )*3)
             
             if pageControl.currentPage == 2 {
-                var token: dispatch_once_t = 08
-                dispatch_once(&token) { () -> Void in
-                    NSRunLoop.mainRunLoop().addTimer(NSTimer(timeInterval: 3, target: self, selector: "finishWalkthrough:", userInfo: nil, repeats: false), forMode: NSRunLoopCommonModes)
-                }
+                // Don't know why it crashes here, just commented the dispatch closure for now
+//                var token: dispatch_once_t = 08
+//                dispatch_once(&token) { () -> Void in
+                NSRunLoop.mainRunLoop().addTimer(NSTimer(timeInterval: 3, target: self, selector: "finishWalkthrough:", userInfo: nil, repeats: false), forMode: NSRunLoopCommonModes)
+//                }
             }
 		}else{
 			pageControl.currentPage = 0
