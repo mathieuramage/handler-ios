@@ -1,15 +1,15 @@
 //
-//  InboxFormatter.swift
+//  UnreadFormatter.swift
 //  Handler
 //
-//  Created by Christian Praiss on 19/11/15.
+//  Created by Guillaume Kermorgant on 19/11/15.
 //  Copyright © 2015 Handler, Inc. All rights reserved.
 //
 
 import UIKit
 import Async
 
-struct InboxFormatter: MessageTableViewCellFormatter {
+struct UnreadFormatter: MessageTableViewCellFormatter {
     
     var timeFormatter: NSDateFormatter = {
         let formatter = NSDateFormatter()
@@ -51,11 +51,9 @@ struct InboxFormatter: MessageTableViewCellFormatter {
         }else{
             view.messageTimeLabel.text = "-"
         }
-        
         setUpReadFlagMessage(data: message, view: view)
-        
     }
-        
+    
     func refreshFlags(data message: Message, view: MessageTableViewCell){
         setUpReadFlagMessage(data: message, view: view)
     }
@@ -77,10 +75,10 @@ struct InboxFormatter: MessageTableViewCellFormatter {
     }
     
     func leftButtonsForData(data message: Message)->[AnyObject]{
-        return ActionPluginProvider.messageCellPluginForInboxType(.Inbox)?.leftButtonsForData(data: message) ?? [AnyObject]()
+        return ActionPluginProvider.messageCellPluginForInboxType(.Unread)?.leftButtonsForData(data: message) ?? [AnyObject]()
     }
     
     func rightButtonsForData(data message: Message)->[AnyObject]{
-        return ActionPluginProvider.messageCellPluginForInboxType(.Inbox)?.rightButtonsForData(data: message) ?? [AnyObject]()
+        return ActionPluginProvider.messageCellPluginForInboxType(.Unread)?.rightButtonsForData(data: message) ?? [AnyObject]()
     }
 }

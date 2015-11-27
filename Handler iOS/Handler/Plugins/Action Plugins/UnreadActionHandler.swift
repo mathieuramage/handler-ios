@@ -1,14 +1,12 @@
 //
-//  InboxActionHandler.swift
+//  UnreadActionHandler.swift
 //  Handler
 //
-//  Created by Christian Praiss on 19/11/15.
+//  Created by Guillaume Kermorgant on 19/11/15.
 //  Copyright © 2015 Handler, Inc. All rights reserved.
 //
 
-import UIKit
-
-class InboxActionHandler: MessageTableViewCellActions {
+class UnreadActionHandler: MessageTableViewCellActions {
     
     // MARK: Actions
     
@@ -17,7 +15,6 @@ class InboxActionHandler: MessageTableViewCellActions {
             switch index {
             case 0:
                 message.isUnread ? message.markAsRead() : message.markAsUnread()
-                break;
             default:
                 break
             }
@@ -26,7 +23,7 @@ class InboxActionHandler: MessageTableViewCellActions {
             }
         }
         
-        // TODO: Implement actions
+        // TODO: Add success messages
     }
     
     func rightButtonTriggered(index: Int, data message: Message, callback: (() -> Void)?) {
@@ -34,7 +31,6 @@ class InboxActionHandler: MessageTableViewCellActions {
             switch index {
             case 0:
                 message.isFlagged ? message.unflag() : message.flag()
-                break;
             case 1:
                 message.isArchived ? message.moveToInbox() : message.moveToArchive()
                 break
@@ -46,7 +42,7 @@ class InboxActionHandler: MessageTableViewCellActions {
             }
         }
         
-        // TODO: Implement actions
+        // TODO: Add success messages
     }
     
     // MARK: Data Source
