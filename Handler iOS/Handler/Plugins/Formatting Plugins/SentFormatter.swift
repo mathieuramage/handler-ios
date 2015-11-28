@@ -1,15 +1,15 @@
 //
-//  InboxFormatter.swift
+//  SentFormatter.swift
 //  Handler
 //
-//  Created by Christian Praiss on 19/11/15.
+//  Created by Guillaume Kermorgant on 19/11/15.
 //  Copyright © 2015 Handler, Inc. All rights reserved.
 //
 
 import UIKit
 import Async
 
-struct InboxFormatter: MessageTableViewCellFormatter {
+struct SentFormatter: MessageTableViewCellFormatter {
     
     var timeFormatter: NSDateFormatter = {
         let formatter = NSDateFormatter()
@@ -31,7 +31,7 @@ struct InboxFormatter: MessageTableViewCellFormatter {
         
         view.leftUtilityButtons = leftButtonsForData(data: message)
         view.rightUtilityButtons = rightButtonsForData(data: message)
-        if let urlString = message.sender?.profile_picture_url, let profileUrl = NSURL(string: urlString) {
+        if let urlString = (message.recipients?.allObjects.first as? User)?.profile_picture_url, let profileUrl = NSURL(string: urlString) {
             view.senderProfileImageView.kf_setImageWithURL(profileUrl, placeholderImage: UIImage.randomGhostImage(), optionsInfo: nil, completionHandler: { (image, error, cacheType, imageURL) -> () in
                 Async.main(block: { () -> Void in
                     view.senderProfileImageView.image = image
@@ -39,8 +39,8 @@ struct InboxFormatter: MessageTableViewCellFormatter {
             })
         }
         
-        view.senderNameLabel.text = message.sender?.name
-        if let handle = message.sender?.handle {
+        view.senderNameLabel.text = (message.recipients?.allObjects.first as? User)?.name
+        if let handle = (message.recipients?.allObjects.first as? User)?.handle {
             view.senderHandleLabel.text = "@" + handle
         }
         view.messageSubjectLabel.text = message.subject
@@ -51,11 +51,10 @@ struct InboxFormatter: MessageTableViewCellFormatter {
         }else{
             view.messageTimeLabel.text = "-"
         }
-        
         setUpReadFlagMessage(data: message, view: view)
         
     }
-        
+    
     func refreshFlags(data message: Message, view: MessageTableViewCell){
         setUpReadFlagMessage(data: message, view: view)
     }
@@ -77,10 +76,10 @@ struct InboxFormatter: MessageTableViewCellFormatter {
     }
     
     func leftButtonsForData(data message: Message)->[AnyObject]{
-        return ActionPluginProvider.messageCellPluginForInboxType(.Inbox)?.leftButtonsForData(data: message) ?? [AnyObject]()
+        return ActionPluginProvider.messageCellPluginForInboxType(.Sent)?.leftButtonsForData(data: message) ?? [AnyObject]()
     }
     
     func rightButtonsForData(data message: Message)->[AnyObject]{
-        return ActionPluginProvider.messageCellPluginForInboxType(.Inbox)?.rightButtonsForData(data: message) ?? [AnyObject]()
+        return ActionPluginProvider.messageCellPluginForInboxType(.Sent)?.rightButtonsForData(data: message) ?? [AnyObject]()
     }
 }

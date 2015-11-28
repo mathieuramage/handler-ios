@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
@@ -11,25 +11,18 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="GradientBackground" translatesAutoresizingMaskIntoConstraints="NO" id="5u3-bu-cpP">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
-                    <animations/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="64" id="a4x-oW-zRE"/>
-                    </constraints>
-                </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Inbox" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pzj-D9-Ssl">
-                    <rect key="frame" x="164" y="30.5" width="46.5" height="23"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Inbox" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pzj-D9-Ssl">
+                    <rect key="frame" x="164" y="31" width="47" height="23"/>
                     <animations/>
                     <fontDescription key="fontDescription" type="system" pointSize="19"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="Contacts_Icon" translatesAutoresizingMaskIntoConstraints="NO" id="u2U-wc-zhv">
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" misplaced="YES" image="Contacts_Icon" translatesAutoresizingMaskIntoConstraints="NO" id="u2U-wc-zhv">
                     <rect key="frame" x="336" y="32" width="24" height="20"/>
                     <animations/>
                 </imageView>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="Hamburger_Icon" translatesAutoresizingMaskIntoConstraints="NO" id="Xm6-NB-V9H">
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" misplaced="YES" image="Hamburger_Icon" translatesAutoresizingMaskIntoConstraints="NO" id="Xm6-NB-V9H">
                     <rect key="frame" x="15" y="35" width="14" height="14"/>
                     <animations/>
                 </imageView>
@@ -37,15 +30,10 @@
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="Pzj-D9-Ssl" firstAttribute="centerX" secondItem="5u3-bu-cpP" secondAttribute="centerX" id="0x3-df-pnP"/>
                 <constraint firstItem="Xm6-NB-V9H" firstAttribute="centerY" secondItem="Pzj-D9-Ssl" secondAttribute="centerY" id="3fS-50-jop"/>
                 <constraint firstItem="u2U-wc-zhv" firstAttribute="centerY" secondItem="Pzj-D9-Ssl" secondAttribute="centerY" id="4sc-kA-tDw"/>
                 <constraint firstItem="Xm6-NB-V9H" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="Oti-7g-mu8"/>
                 <constraint firstAttribute="trailing" secondItem="u2U-wc-zhv" secondAttribute="trailing" constant="15" id="SX2-Le-pDl"/>
-                <constraint firstItem="5u3-bu-cpP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="XND-1G-Yn4"/>
-                <constraint firstAttribute="trailing" secondItem="5u3-bu-cpP" secondAttribute="trailing" id="ZHg-6A-WJb"/>
-                <constraint firstItem="5u3-bu-cpP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="nor-c1-aRi"/>
-                <constraint firstItem="Pzj-D9-Ssl" firstAttribute="centerY" secondItem="5u3-bu-cpP" secondAttribute="centerY" constant="10" id="rO4-cm-tFe"/>
             </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
@@ -54,7 +42,6 @@
     </objects>
     <resources>
         <image name="Contacts_Icon" width="24" height="20"/>
-        <image name="GradientBackground" width="743" height="128"/>
         <image name="Hamburger_Icon" width="14" height="14"/>
     </resources>
 </document>

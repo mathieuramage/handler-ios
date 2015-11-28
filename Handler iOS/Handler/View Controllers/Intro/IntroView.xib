@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
@@ -9,7 +9,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="IntroViewController" customModule="Handler" customModuleProvider="target">
             <connections>
                 <outlet property="firstView" destination="2T5-r7-N6t" id="a3L-Zv-8t3"/>
-                <outlet property="fourthView" destination="mBD-q3-pr6" id="jq7-ij-Aee"/>
                 <outlet property="pageControl" destination="P5M-4u-BLK" id="BMy-Gn-xna"/>
                 <outlet property="scrollView" destination="zte-vi-dSl" id="IJl-q1-Azw"/>
                 <outlet property="secondView" destination="iN0-l3-epB" id="3CH-wn-G1X"/>
@@ -21,63 +20,58 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" misplaced="YES" image="Full logo" translatesAutoresizingMaskIntoConstraints="NO" id="iZt-OF-Nwe">
-                    <rect key="frame" x="156" y="140" width="70" height="61"/>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="Onboarding_1" translatesAutoresizingMaskIntoConstraints="NO" id="vqj-mb-hRW">
+                    <rect key="frame" x="65" y="75" width="245" height="248"/>
                     <animations/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="70" id="Ie5-wF-2V0"/>
-                        <constraint firstAttribute="width" secondItem="iZt-OF-Nwe" secondAttribute="height" multiplier="70:61" id="KHV-A8-7EP"/>
+                        <constraint firstAttribute="width" secondItem="vqj-mb-hRW" secondAttribute="height" multiplier="244:247" id="Qy2-Ka-ARY"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email. Reinvented." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aEe-mc-TnY">
-                    <rect key="frame" x="77" y="380" width="220" height="24"/>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="Gradient Logo" translatesAutoresizingMaskIntoConstraints="NO" id="iQa-Lr-n80">
+                    <rect key="frame" x="130" y="336" width="115" height="92"/>
                     <animations/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="220" id="2ut-AK-pe0"/>
+                        <constraint firstAttribute="width" secondItem="iQa-Lr-n80" secondAttribute="height" multiplier="5:4" id="f9p-Yt-fKi"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xQE-1P-yCb" customClass="RoundedBorderButton" customModule="Handler" customModuleProvider="target">
-                    <rect key="frame" x="62.5" y="502" width="250" height="50"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="f3K-gi-44n">
+                    <rect key="frame" x="25" y="458" width="325" height="84"/>
                     <animations/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="50" id="4rF-0H-dBa"/>
-                        <constraint firstAttribute="width" constant="250" id="km1-fV-MFF"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <state key="normal" title="Begin Tour">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="beginButtonPressed:" destination="-1" eventType="touchUpInside" id="dN9-dw-kBZ"/>
-                    </connections>
-                </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Handler" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cxB-HV-amV">
-                    <rect key="frame" x="104" y="302" width="166" height="62.5"/>
-                    <animations/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="166" id="NH3-E2-IZ7"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <attributedString key="attributedText">
+                        <fragment>
+                            <string key="content">Handler is a next-generation email client, with Twitter integrated at its heart, to better share information &amp; ideas with the world.</string>
+                            <attributes>
+                                <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <font key="NSFont" size="16" name="HelveticaNeue"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="truncatingTail" baseWritingDirection="natural" lineHeightMultiple="1.5" tighteningFactorForTruncation="0.0"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="iZt-OF-Nwe" firstAttribute="top" secondItem="2T5-r7-N6t" secondAttribute="top" constant="140" id="7Xz-xy-BNv"/>
-                <constraint firstItem="cxB-HV-amV" firstAttribute="centerX" secondItem="2T5-r7-N6t" secondAttribute="centerX" id="8EM-5c-IUL"/>
-                <constraint firstItem="aEe-mc-TnY" firstAttribute="centerX" secondItem="cxB-HV-amV" secondAttribute="centerX" id="9w5-gf-a6f"/>
-                <constraint firstItem="aEe-mc-TnY" firstAttribute="top" secondItem="cxB-HV-amV" secondAttribute="bottom" constant="15" id="NEl-np-MnV"/>
-                <constraint firstAttribute="bottom" secondItem="xQE-1P-yCb" secondAttribute="bottom" constant="115" id="ODx-7V-uII"/>
-                <constraint firstItem="xQE-1P-yCb" firstAttribute="centerX" secondItem="2T5-r7-N6t" secondAttribute="centerX" id="dFk-TQ-UKL"/>
-                <constraint firstItem="iZt-OF-Nwe" firstAttribute="centerX" secondItem="2T5-r7-N6t" secondAttribute="centerX" id="hSr-hS-u7y"/>
-                <constraint firstItem="cxB-HV-amV" firstAttribute="centerY" secondItem="2T5-r7-N6t" secondAttribute="centerY" id="slj-Wv-OEt"/>
+                <constraint firstItem="f3K-gi-44n" firstAttribute="leading" secondItem="2T5-r7-N6t" secondAttribute="leading" constant="25" id="5HH-EM-kUu"/>
+                <constraint firstItem="iQa-Lr-n80" firstAttribute="trailing" secondItem="vqj-mb-hRW" secondAttribute="trailing" constant="-65" id="76S-N0-AFV"/>
+                <constraint firstItem="iQa-Lr-n80" firstAttribute="top" secondItem="vqj-mb-hRW" secondAttribute="bottom" constant="13" id="BAu-5M-Rt2"/>
+                <constraint firstItem="iQa-Lr-n80" firstAttribute="leading" secondItem="vqj-mb-hRW" secondAttribute="leading" constant="65" id="Bgd-0a-V6Z"/>
+                <constraint firstItem="f3K-gi-44n" firstAttribute="top" secondItem="iQa-Lr-n80" secondAttribute="bottom" constant="30" id="bmf-83-noc"/>
+                <constraint firstAttribute="trailing" secondItem="f3K-gi-44n" secondAttribute="trailing" constant="25" id="cq6-1z-M6B"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="f3K-gi-44n" secondAttribute="bottom" constant="20" id="hAX-40-K3b"/>
+                <constraint firstItem="iQa-Lr-n80" firstAttribute="centerX" secondItem="vqj-mb-hRW" secondAttribute="centerX" id="hL2-1E-7wh"/>
+                <constraint firstItem="vqj-mb-hRW" firstAttribute="top" secondItem="2T5-r7-N6t" secondAttribute="top" constant="75" id="iDH-24-b0X"/>
+                <constraint firstAttribute="trailing" secondItem="vqj-mb-hRW" secondAttribute="trailing" constant="65" id="kll-4R-Jl3"/>
+                <constraint firstAttribute="bottom" secondItem="f3K-gi-44n" secondAttribute="bottom" constant="65" id="qJB-rK-nNT"/>
+                <constraint firstItem="vqj-mb-hRW" firstAttribute="leading" secondItem="2T5-r7-N6t" secondAttribute="leading" constant="65" id="z6o-qN-6zU"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="qJB-rK-nNT"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="-84.5" y="471.5"/>
         </view>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -85,25 +79,57 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="Telephone" translatesAutoresizingMaskIntoConstraints="NO" id="Ed3-9V-9K6">
-                    <rect key="frame" x="34" y="138" width="300" height="300"/>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="Onboarding_2" translatesAutoresizingMaskIntoConstraints="NO" id="SKC-bl-Eoj">
+                    <rect key="frame" x="26" y="80" width="323" height="212"/>
                     <animations/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="300" id="Gsz-Ch-7br"/>
+                        <constraint firstAttribute="width" secondItem="SKC-bl-Eoj" secondAttribute="height" multiplier="323:212" id="Fhc-ft-RmV"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pn7-Bf-WHC">
-                    <rect key="frame" x="45" y="463" width="285" height="126"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="2Sn-35-ygA">
+                    <rect key="frame" x="20" y="463" width="335" height="84"/>
                     <animations/>
                     <attributedString key="attributedText">
-                        <fragment>
-                            <string key="content">Handler is a unique email client
-with no limits on attachments’ size,
-no spam, and optimized for mobile.</string>
+                        <fragment content="Use Twitter @handles to instantly email your favorite people &amp; organizations around the world, without barriers.">
                             <attributes>
-                                <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <font key="NSFont" size="18" name="HelveticaNeue"/>
-                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.5" tighteningFactorForTruncation="0.0"/>
+                                <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <font key="NSFont" size="16" name="HelveticaNeue"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="truncatingTail" baseWritingDirection="natural" lineHeightMultiple="1.5" tighteningFactorForTruncation="0.0"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aln-27-p6h">
+                    <rect key="frame" x="121" y="302" width="133" height="201"/>
+                    <animations/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="133" id="mhl-9M-aTi"/>
+                    </constraints>
+                    <attributedString key="attributedText">
+                        <fragment content="Use everyone's ">
+                            <attributes>
+                                <color key="NSColor" red="0.25882352941176473" green="0.60784313725490191" blue="0.9137254901960784" alpha="1" colorSpace="calibratedRGB"/>
+                                <font key="NSFont" size="17" name="HelveticaNeue"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                            </attributes>
+                        </fragment>
+                        <fragment>
+                            <string key="content" base64-UTF8="YES">
+Cg
+</string>
+                            <attributes>
+                                <color key="NSColor" red="0.25882352941176473" green="0.60784313725490191" blue="0.9137254901960784" alpha="1" colorSpace="calibratedRGB"/>
+                                <font key="NSFont" size="17" name="HelveticaNeue-Bold"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                            </attributes>
+                        </fragment>
+                        <fragment content="Twitter @handle">
+                            <attributes>
+                                <color key="NSColor" red="0.25882352941176473" green="0.60784313725490191" blue="0.9137254901960784" alpha="1" colorSpace="calibratedRGB"/>
+                                <font key="NSFont" size="17" name="HelveticaNeue-Bold"/>
+                                <font key="NSOriginalFont" size="17" name="HelveticaNeue-Bold"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                             </attributes>
                         </fragment>
                     </attributedString>
@@ -113,204 +139,98 @@ no spam, and optimized for mobile.</string>
             <animations/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="Ed3-9V-9K6" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="34" id="Hiv-qk-f16"/>
-                <constraint firstAttribute="trailing" secondItem="Ed3-9V-9K6" secondAttribute="trailing" constant="41" id="JuM-rw-p3E"/>
-                <constraint firstAttribute="trailing" secondItem="pn7-Bf-WHC" secondAttribute="trailing" constant="45" id="U4q-jl-oC0"/>
-                <constraint firstItem="Ed3-9V-9K6" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-45" id="jd9-7N-g5C"/>
-                <constraint firstItem="pn7-Bf-WHC" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="45" id="v75-hH-3Zo"/>
-                <constraint firstItem="pn7-Bf-WHC" firstAttribute="top" secondItem="Ed3-9V-9K6" secondAttribute="bottom" constant="25" id="ydH-kJ-Umi"/>
+                <constraint firstItem="Aln-27-p6h" firstAttribute="centerX" secondItem="SKC-bl-Eoj" secondAttribute="centerX" id="134-21-fDj"/>
+                <constraint firstAttribute="bottom" secondItem="2Sn-35-ygA" secondAttribute="bottom" constant="120" id="6MS-ma-Scj"/>
+                <constraint firstAttribute="trailing" secondItem="SKC-bl-Eoj" secondAttribute="trailing" constant="26" id="8BS-Al-tG6"/>
+                <constraint firstItem="Aln-27-p6h" firstAttribute="top" secondItem="SKC-bl-Eoj" secondAttribute="bottom" constant="10" id="Mhn-d8-fHB"/>
+                <constraint firstItem="SKC-bl-Eoj" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="26" id="R3W-wD-2H6"/>
+                <constraint firstItem="2Sn-35-ygA" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="iPu-BC-Ryk"/>
+                <constraint firstItem="SKC-bl-Eoj" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="80" id="mxK-Ki-Btl"/>
+                <constraint firstAttribute="bottom" secondItem="2Sn-35-ygA" secondAttribute="bottom" constant="65" id="oYT-ng-c3G"/>
+                <constraint firstAttribute="trailing" secondItem="2Sn-35-ygA" secondAttribute="trailing" constant="20" id="tHg-a0-tpG"/>
+                <constraint firstItem="2Sn-35-ygA" firstAttribute="top" secondItem="Aln-27-p6h" secondAttribute="bottom" constant="-15" id="zMQ-qL-6Cb"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="oYT-ng-c3G"/>
+                    <exclude reference="zMQ-qL-6Cb"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="371.5" y="471.5"/>
         </view>
         <view clipsSubviews="YES" contentMode="scaleToFill" id="aBX-AY-AHE" userLabel="Third View">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qlX-Vv-22N">
-                    <rect key="frame" x="45" y="500" width="285" height="88.5"/>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="Onboarding_3" translatesAutoresizingMaskIntoConstraints="NO" id="jGQ-Ya-qiX">
+                    <rect key="frame" x="56" y="80" width="263" height="248"/>
+                    <animations/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="jGQ-Ya-qiX" secondAttribute="height" multiplier="262:247" id="2EB-l4-Ega"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="laM-zb-4wu">
+                    <rect key="frame" x="20" y="463" width="335" height="84"/>
                     <animations/>
                     <attributedString key="attributedText">
-                        <fragment>
-                            <string key="content">Handler lets you email
-</string>
+                        <fragment content="Add any document, photos and videos to your emails, directly from your phone. No limit on the size of email attachments.">
                             <attributes>
-                                <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <font key="NSFont" size="18" name="HelveticaNeue"/>
-                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineHeightMultiple="1.4000000000000001" defaultTabInterval="36" tighteningFactorForTruncation="0.0">
-                                    <tabStops/>
-                                </paragraphStyle>
-                                <color key="NSUnderlineColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </attributes>
-                        </fragment>
-                        <fragment>
-                            <string key="content">the people and businesses 
-you know from Twitter.</string>
-                            <attributes>
-                                <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <font key="NSFont" size="18" name="HelveticaNeue"/>
-                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineHeightMultiple="1.4791666666666667" defaultTabInterval="36" tighteningFactorForTruncation="0.0">
-                                    <tabStops/>
-                                </paragraphStyle>
-                                <color key="NSUnderlineColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <font key="NSFont" size="16" name="HelveticaNeue"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="truncatingTail" baseWritingDirection="natural" lineHeightMultiple="1.5" tighteningFactorForTruncation="0.0"/>
                             </attributes>
                         </fragment>
                     </attributedString>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="Twitter profile right" translatesAutoresizingMaskIntoConstraints="NO" id="gCL-Fx-u5u">
-                    <rect key="frame" x="170" y="321" width="155" height="100"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U4z-VQ-wzv">
+                    <rect key="frame" x="100" y="385" width="175" height="41"/>
                     <animations/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="155" id="DKQ-Gz-HDa"/>
-                        <constraint firstAttribute="height" constant="100" id="m2I-pt-aCA"/>
+                        <constraint firstAttribute="width" constant="175" id="smS-sv-fSI"/>
                     </constraints>
-                </imageView>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="Twitter profile top left" translatesAutoresizingMaskIntoConstraints="NO" id="qRj-7E-DtV">
-                    <rect key="frame" x="23" y="91.5" width="155" height="100"/>
-                    <animations/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="155" id="Bk8-Rl-h5n"/>
-                        <constraint firstAttribute="height" constant="100" id="C39-P8-QsK"/>
-                    </constraints>
-                </imageView>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="Twitter profile top right" translatesAutoresizingMaskIntoConstraints="NO" id="nas-ug-Sji">
-                    <rect key="frame" x="245" y="175" width="155" height="100"/>
-                    <animations/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="155" id="Mxc-pB-vga"/>
-                        <constraint firstAttribute="height" constant="100" id="d5Q-rP-Jpb"/>
-                    </constraints>
-                </imageView>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="TwitterLogo_white copy" translatesAutoresizingMaskIntoConstraints="NO" id="HxO-WZ-nuz">
-                    <rect key="frame" x="162" y="213" width="50" height="40.5"/>
-                    <animations/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="HxO-WZ-nuz" secondAttribute="height" multiplier="101:82" id="UqO-D8-x27"/>
-                        <constraint firstAttribute="width" constant="50" id="dsB-AS-5iN"/>
-                    </constraints>
-                </imageView>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="Twitter profile left" translatesAutoresizingMaskIntoConstraints="NO" id="5Cy-xC-yeZ">
-                    <rect key="frame" x="-45" y="283" width="155" height="100"/>
-                    <animations/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="100" id="7YK-jM-qZh"/>
-                        <constraint firstAttribute="width" constant="155" id="xVc-pQ-i9z"/>
-                    </constraints>
-                </imageView>
+                    <attributedString key="attributedText">
+                        <fragment>
+                            <string key="content">Greater 
+</string>
+                            <attributes>
+                                <color key="NSColor" red="0.25882352941176473" green="0.60784313725490191" blue="0.9137254901960784" alpha="1" colorSpace="calibratedRGB"/>
+                                <font key="NSFont" size="17" name="HelveticaNeue"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                            </attributes>
+                        </fragment>
+                        <fragment content="email attachments">
+                            <attributes>
+                                <color key="NSColor" red="0.25882352941176473" green="0.60784313725490191" blue="0.9137254901960784" alpha="1" colorSpace="calibratedRGB"/>
+                                <font key="NSFont" size="17" name="HelveticaNeue-Bold"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="HxO-WZ-nuz" firstAttribute="centerY" secondItem="aBX-AY-AHE" secondAttribute="centerY" constant="-100" id="1I1-Nn-q1m"/>
-                <constraint firstItem="5Cy-xC-yeZ" firstAttribute="leading" secondItem="aBX-AY-AHE" secondAttribute="leading" constant="-45" id="5yb-Yf-XJ7"/>
-                <constraint firstItem="nas-ug-Sji" firstAttribute="centerY" secondItem="HxO-WZ-nuz" secondAttribute="centerY" constant="-8" id="9lD-fp-GpW"/>
-                <constraint firstItem="qRj-7E-DtV" firstAttribute="trailing" secondItem="HxO-WZ-nuz" secondAttribute="trailing" constant="-34" id="Faa-G9-hLt"/>
-                <constraint firstItem="gCL-Fx-u5u" firstAttribute="top" secondItem="HxO-WZ-nuz" secondAttribute="bottom" constant="67.5" id="NyE-3Y-dwf"/>
-                <constraint firstAttribute="trailing" secondItem="nas-ug-Sji" secondAttribute="trailing" constant="-25" id="Opv-kf-EFU"/>
-                <constraint firstItem="HxO-WZ-nuz" firstAttribute="top" secondItem="qRj-7E-DtV" secondAttribute="bottom" constant="22" id="QYm-46-1Gg"/>
-                <constraint firstItem="qlX-Vv-22N" firstAttribute="leading" secondItem="aBX-AY-AHE" secondAttribute="leading" constant="45" id="XE1-32-Rjv"/>
-                <constraint firstItem="HxO-WZ-nuz" firstAttribute="centerX" secondItem="aBX-AY-AHE" secondAttribute="centerX" id="ZdP-HR-btj"/>
-                <constraint firstItem="gCL-Fx-u5u" firstAttribute="leading" secondItem="HxO-WZ-nuz" secondAttribute="leading" constant="8" id="duc-G8-ZqX"/>
-                <constraint firstAttribute="trailing" secondItem="qlX-Vv-22N" secondAttribute="trailing" constant="45" id="hqS-5n-xif"/>
-                <constraint firstItem="5Cy-xC-yeZ" firstAttribute="top" secondItem="HxO-WZ-nuz" secondAttribute="bottom" constant="30" id="mjX-Xj-K9q"/>
-                <constraint firstAttribute="bottom" secondItem="qlX-Vv-22N" secondAttribute="bottom" constant="78" id="vHd-Sp-7BO"/>
+                <constraint firstItem="laM-zb-4wu" firstAttribute="top" secondItem="U4z-VQ-wzv" secondAttribute="bottom" constant="15" id="Fva-Ov-sFa"/>
+                <constraint firstItem="U4z-VQ-wzv" firstAttribute="top" secondItem="jGQ-Ya-qiX" secondAttribute="bottom" constant="57" id="SgV-ii-pAu"/>
+                <constraint firstItem="jGQ-Ya-qiX" firstAttribute="leading" secondItem="aBX-AY-AHE" secondAttribute="leading" constant="56" id="Tfv-1v-pVc"/>
+                <constraint firstItem="jGQ-Ya-qiX" firstAttribute="top" secondItem="aBX-AY-AHE" secondAttribute="top" constant="80" id="Vqq-Wf-6pp"/>
+                <constraint firstItem="laM-zb-4wu" firstAttribute="leading" secondItem="aBX-AY-AHE" secondAttribute="leading" constant="20" id="Xgg-D7-X6P"/>
+                <constraint firstItem="U4z-VQ-wzv" firstAttribute="centerX" secondItem="jGQ-Ya-qiX" secondAttribute="centerX" id="iq9-pJ-M8Z"/>
+                <constraint firstAttribute="bottom" secondItem="laM-zb-4wu" secondAttribute="bottom" constant="120" id="pcj-Az-YCE"/>
+                <constraint firstAttribute="trailing" secondItem="jGQ-Ya-qiX" secondAttribute="trailing" constant="56" id="s1J-2Q-BCG"/>
+                <constraint firstAttribute="trailing" secondItem="laM-zb-4wu" secondAttribute="trailing" constant="20" id="tny-bB-V1n"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="Fva-Ov-sFa"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="811.5" y="471.5"/>
-        </view>
-        <view clipsSubviews="YES" contentMode="scaleToFill" id="mBD-q3-pr6" userLabel="Fourth View">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jpt-lC-6BQ">
-                    <rect key="frame" x="45" y="430" width="285" height="87"/>
-                    <animations/>
-                    <attributedString key="attributedText">
-                        <fragment>
-                            <string key="content">Use Twitter @usernames
-</string>
-                            <attributes>
-                                <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <font key="NSFont" size="18" name="Helvetica"/>
-                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineHeightMultiple="1.4000000000000001" defaultTabInterval="36" tighteningFactorForTruncation="0.0">
-                                    <tabStops/>
-                                </paragraphStyle>
-                                <color key="NSUnderlineColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </attributes>
-                        </fragment>
-                        <fragment>
-                            <string key="content">as email addresses,
-and compose your email.</string>
-                            <attributes>
-                                <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <font key="NSFont" size="18" name="Helvetica"/>
-                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineHeightMultiple="1.4791666666666667" defaultTabInterval="36" tighteningFactorForTruncation="0.0">
-                                    <tabStops/>
-                                </paragraphStyle>
-                                <color key="NSUnderlineColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </attributes>
-                        </fragment>
-                    </attributedString>
-                    <nil key="highlightedColor"/>
-                </label>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="Telephone Magnolia" translatesAutoresizingMaskIntoConstraints="NO" id="gaO-6b-np1">
-                    <rect key="frame" x="37" y="103" width="300" height="267"/>
-                    <animations/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="300" id="pQZ-mm-5cD"/>
-                        <constraint firstAttribute="width" secondItem="gaO-6b-np1" secondAttribute="height" multiplier="201:179" id="uKv-eG-yWQ"/>
-                    </constraints>
-                </imageView>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="Twitter profile right" translatesAutoresizingMaskIntoConstraints="NO" id="wKk-Gx-N2U">
-                    <rect key="frame" x="195" y="291" width="155" height="100"/>
-                    <animations/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="wKk-Gx-N2U" secondAttribute="height" multiplier="31:20" id="C1K-Ru-Z9c"/>
-                        <constraint firstAttribute="height" constant="100" id="VUO-Op-WgH"/>
-                    </constraints>
-                </imageView>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="Twitter Circle" translatesAutoresizingMaskIntoConstraints="NO" id="ivN-BZ-wHY">
-                    <rect key="frame" x="325" y="271" width="50" height="50"/>
-                    <animations/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="50" id="Yew-8Q-j52"/>
-                        <constraint firstAttribute="width" secondItem="ivN-BZ-wHY" secondAttribute="height" multiplier="1:1" id="a4W-MZ-gOt"/>
-                    </constraints>
-                </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="abm-AB-amy" customClass="RoundedBorderButton" customModule="Handler" customModuleProvider="target">
-                    <rect key="frame" x="62" y="547" width="250" height="50"/>
-                    <animations/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="250" id="6yX-yO-r7w"/>
-                        <constraint firstAttribute="height" constant="50" id="AEK-ew-HWU"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <state key="normal" title="Get Started">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="finishWalkthrough:" destination="-1" eventType="touchUpInside" id="zZc-2Z-VJr"/>
-                    </connections>
-                </button>
-            </subviews>
-            <animations/>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-            <constraints>
-                <constraint firstItem="gaO-6b-np1" firstAttribute="centerX" secondItem="mBD-q3-pr6" secondAttribute="centerX" id="1bX-yh-4C9"/>
-                <constraint firstItem="wKk-Gx-N2U" firstAttribute="bottom" secondItem="gaO-6b-np1" secondAttribute="bottom" constant="21" id="7pz-4I-NMt"/>
-                <constraint firstItem="abm-AB-amy" firstAttribute="top" secondItem="jpt-lC-6BQ" secondAttribute="bottom" constant="30" id="G9j-NF-4n8"/>
-                <constraint firstItem="ivN-BZ-wHY" firstAttribute="trailing" secondItem="wKk-Gx-N2U" secondAttribute="trailing" constant="25" id="Hxj-ep-ouN"/>
-                <constraint firstItem="wKk-Gx-N2U" firstAttribute="trailing" secondItem="gaO-6b-np1" secondAttribute="trailing" constant="13" id="Ibl-y3-0e6"/>
-                <constraint firstItem="jpt-lC-6BQ" firstAttribute="leading" secondItem="mBD-q3-pr6" secondAttribute="leading" constant="45" id="idu-Uu-XSk"/>
-                <constraint firstItem="abm-AB-amy" firstAttribute="centerX" secondItem="mBD-q3-pr6" secondAttribute="centerX" id="jXR-ey-ORp"/>
-                <constraint firstAttribute="bottom" secondItem="abm-AB-amy" secondAttribute="bottom" constant="70" id="oRK-Sm-CQ9"/>
-                <constraint firstItem="ivN-BZ-wHY" firstAttribute="bottom" secondItem="wKk-Gx-N2U" secondAttribute="bottom" constant="-70" id="rmp-fQ-5AT"/>
-                <constraint firstItem="jpt-lC-6BQ" firstAttribute="top" secondItem="gaO-6b-np1" secondAttribute="bottom" constant="60" id="sPi-wJ-8tl"/>
-                <constraint firstAttribute="trailing" secondItem="jpt-lC-6BQ" secondAttribute="trailing" constant="45" id="tNL-Vw-MW7"/>
-            </constraints>
-            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-            <point key="canvasLocation" x="1272.5" y="471.5"/>
         </view>
         <view contentMode="scaleToFill" id="NZV-7o-Rf8">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -319,7 +239,7 @@ and compose your email.</string>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zte-vi-dSl">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <animations/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="J1J-dJ-QQ3"/>
                     </connections>
@@ -334,16 +254,18 @@ and compose your email.</string>
                         <action selector="finishWalkthrough:" destination="-1" eventType="touchUpInside" id="c5T-p2-XgT"/>
                     </connections>
                 </button>
-                <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" hidesForSinglePage="YES" numberOfPages="4" translatesAutoresizingMaskIntoConstraints="NO" id="P5M-4u-BLK">
-                    <rect key="frame" x="160" y="615" width="55" height="37"/>
+                <pageControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" hidesForSinglePage="YES" numberOfPages="4" translatesAutoresizingMaskIntoConstraints="NO" id="P5M-4u-BLK" customClass="HRPageControl">
+                    <rect key="frame" x="168" y="615" width="39" height="37"/>
                     <animations/>
+                    <color key="pageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="currentPageIndicatorTintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                 </pageControl>
             </subviews>
             <animations/>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="zte-vi-dSl" secondAttribute="trailing" id="6Pf-QO-6gZ"/>
-                <constraint firstAttribute="bottom" secondItem="P5M-4u-BLK" secondAttribute="bottom" constant="15" id="A4q-LC-VDz"/>
+                <constraint firstAttribute="bottom" secondItem="P5M-4u-BLK" secondAttribute="bottom" constant="45" id="A4q-LC-VDz"/>
                 <constraint firstAttribute="bottom" secondItem="zte-vi-dSl" secondAttribute="bottom" id="Mkf-23-4jt"/>
                 <constraint firstItem="zte-vi-dSl" firstAttribute="top" secondItem="NZV-7o-Rf8" secondAttribute="top" id="OPH-VJ-W0Z"/>
                 <constraint firstItem="Tkk-Ij-XNf" firstAttribute="top" secondItem="NZV-7o-Rf8" secondAttribute="top" constant="25" id="Xk7-7G-TpQ"/>
@@ -356,14 +278,9 @@ and compose your email.</string>
         </view>
     </objects>
     <resources>
-        <image name="Full logo" width="140" height="121"/>
-        <image name="Telephone" width="603" height="537"/>
-        <image name="Telephone Magnolia" width="603" height="537"/>
-        <image name="Twitter Circle" width="108" height="108"/>
-        <image name="Twitter profile left" width="310" height="192"/>
-        <image name="Twitter profile right" width="310" height="200"/>
-        <image name="Twitter profile top left" width="310" height="191"/>
-        <image name="Twitter profile top right" width="310" height="187"/>
-        <image name="TwitterLogo_white copy" width="101" height="82"/>
+        <image name="Gradient Logo" width="230" height="183"/>
+        <image name="Onboarding_1" width="488" height="494"/>
+        <image name="Onboarding_2" width="646" height="423"/>
+        <image name="Onboarding_3" width="523" height="494"/>
     </resources>
 </document>

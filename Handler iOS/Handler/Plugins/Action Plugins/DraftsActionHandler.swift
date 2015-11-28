@@ -1,32 +1,21 @@
 //
-//  InboxActionHandler.swift
+//  DraftsActionHandler.swift
 //  Handler
 //
-//  Created by Christian Praiss on 19/11/15.
+//  Created by Guillaume Kermorgant on 19/11/15.
 //  Copyright © 2015 Handler, Inc. All rights reserved.
 //
 
-import UIKit
-
-class InboxActionHandler: MessageTableViewCellActions {
+class DraftsActionHandler: MessageTableViewCellActions {
     
     // MARK: Actions
     
     func leftButtonTriggered(index: Int, data message: Message, callback: (() -> Void)?) {
         defer{
-            switch index {
-            case 0:
-                message.isUnread ? message.markAsRead() : message.markAsUnread()
-                break;
-            default:
-                break
-            }
             if let cb = callback {
                 cb()
             }
         }
-        
-        // TODO: Implement actions
     }
     
     func rightButtonTriggered(index: Int, data message: Message, callback: (() -> Void)?) {
@@ -34,10 +23,8 @@ class InboxActionHandler: MessageTableViewCellActions {
             switch index {
             case 0:
                 message.isFlagged ? message.unflag() : message.flag()
-                break;
             case 1:
-                message.isArchived ? message.moveToInbox() : message.moveToArchive()
-                break
+                reply(data: message)
             default:
                 break
             }
@@ -46,18 +33,14 @@ class InboxActionHandler: MessageTableViewCellActions {
             }
         }
         
-        // TODO: Implement actions
+        // TODO: Add success messages
+        // TODO: Add send to trash action
     }
     
     // MARK: Data Source
     
     func leftButtonsForData(data message: Message)->[AnyObject]{
         let array = NSMutableArray()
-        if message.isUnread {
-            array.sw_addUtilityButtonWithColor(UIColor.hrBlueColor(), icon: UIImage(named: "Read_Icon"), andTitle: "Read")
-        }else{
-            array.sw_addUtilityButtonWithColor(UIColor.hrBlueColor(), icon: UIImage(named: "Unread_Icon"), andTitle: "Unread")
-        }
         return array as [AnyObject]
     }
     
@@ -68,12 +51,16 @@ class InboxActionHandler: MessageTableViewCellActions {
         }else{
             array.sw_addUtilityButtonWithColor(UIColor.hrOrangeColor(), icon: UIImage(named: "Flag_Icon"), andTitle: "Flag")
         }
+        array.sw_addUtilityButtonWithColor(UIColor.hrGreenColor(), icon: UIImage(named: "Reply"), andTitle: "Reply")
         
-        if message.isArchived {
-            array.sw_addUtilityButtonWithColor(UIColor.hrDarkBlueColor(), icon: UIImage(named: "Archive_Icon"), andTitle: "Unarchive")
-        }else{
-            array.sw_addUtilityButtonWithColor(UIColor.hrDarkBlueColor(), icon: UIImage(named: "Archive_Icon"), andTitle: "Archive")
-        }
+        // TODO: Add trash button
+        
         return array as [AnyObject]
+    }
+    
+    func reply(data message: Message) {
+            
+        NSNotificationCenter.defaultCenter().postNotificationName("ReplyToMessage", object: message)
+        return
     }
 }

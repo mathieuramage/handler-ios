@@ -134,6 +134,17 @@
 		2FF788391BB5C6E700B297D3 /* Enumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF788381BB5C6E700B297D3 /* Enumerations.swift */; };
 		2FF788441BB5CB1B00B297D3 /* MessageComposeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF788431BB5CB1B00B297D3 /* MessageComposeTableViewController.swift */; };
 		2FF8B8EC1BD4F53E00014C9E /* CurrentStatusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF8B8EB1BD4F53E00014C9E /* CurrentStatusManager.swift */; };
+		6C9BD0751C075FA10053C868 /* HRPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C9BD0741C075FA10053C868 /* HRPageControl.m */; };
+		6C9BD0641C06031A0053C868 /* ArchiveActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9BD05F1C06031A0053C868 /* ArchiveActionHandler.swift */; };
+		6C9BD0651C06031A0053C868 /* DraftsActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9BD0601C06031A0053C868 /* DraftsActionHandler.swift */; };
+		6C9BD0661C06031A0053C868 /* FlaggedActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9BD0611C06031A0053C868 /* FlaggedActionHandler.swift */; };
+		6C9BD0671C06031A0053C868 /* SentActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9BD0621C06031A0053C868 /* SentActionHandler.swift */; };
+		6C9BD0681C06031A0053C868 /* UnreadActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9BD0631C06031A0053C868 /* UnreadActionHandler.swift */; };
+		6C9BD06E1C0603250053C868 /* ArchiveFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9BD0691C0603250053C868 /* ArchiveFormatter.swift */; };
+		6C9BD06F1C0603250053C868 /* DraftsFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9BD06A1C0603250053C868 /* DraftsFormatter.swift */; };
+		6C9BD0701C0603250053C868 /* FlaggedFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9BD06B1C0603250053C868 /* FlaggedFormatter.swift */; };
+		6C9BD0711C0603250053C868 /* SentFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9BD06C1C0603250053C868 /* SentFormatter.swift */; };
+		6C9BD0721C0603250053C868 /* UnreadFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9BD06D1C0603250053C868 /* UnreadFormatter.swift */; };
 		DF1FD2DE1B62360600A58B71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1FD2DD1B62360600A58B71 /* AppDelegate.swift */; };
 		DF1FD2E51B62360600A58B71 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF1FD2E41B62360600A58B71 /* Images.xcassets */; };
 /* End PBXBuildFile section */
@@ -328,6 +339,18 @@
 		2FF788381BB5C6E700B297D3 /* Enumerations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enumerations.swift; sourceTree = "<group>"; };
 		2FF788431BB5CB1B00B297D3 /* MessageComposeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageComposeTableViewController.swift; sourceTree = "<group>"; };
 		2FF8B8EB1BD4F53E00014C9E /* CurrentStatusManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentStatusManager.swift; sourceTree = "<group>"; };
+		6C9BD0731C075FA10053C868 /* HRPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRPageControl.h; sourceTree = "<group>"; };
+		6C9BD0741C075FA10053C868 /* HRPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRPageControl.m; sourceTree = "<group>"; };
+		6C9BD05F1C06031A0053C868 /* ArchiveActionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArchiveActionHandler.swift; sourceTree = "<group>"; };
+		6C9BD0601C06031A0053C868 /* DraftsActionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraftsActionHandler.swift; sourceTree = "<group>"; };
+		6C9BD0611C06031A0053C868 /* FlaggedActionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlaggedActionHandler.swift; sourceTree = "<group>"; };
+		6C9BD0621C06031A0053C868 /* SentActionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentActionHandler.swift; sourceTree = "<group>"; };
+		6C9BD0631C06031A0053C868 /* UnreadActionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnreadActionHandler.swift; sourceTree = "<group>"; };
+		6C9BD0691C0603250053C868 /* ArchiveFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArchiveFormatter.swift; sourceTree = "<group>"; };
+		6C9BD06A1C0603250053C868 /* DraftsFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraftsFormatter.swift; sourceTree = "<group>"; };
+		6C9BD06B1C0603250053C868 /* FlaggedFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlaggedFormatter.swift; sourceTree = "<group>"; };
+		6C9BD06C1C0603250053C868 /* SentFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentFormatter.swift; sourceTree = "<group>"; };
+		6C9BD06D1C0603250053C868 /* UnreadFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnreadFormatter.swift; sourceTree = "<group>"; };
 		DF1FD2D81B62360600A58B71 /* Handler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Handler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF1FD2DC1B62360600A58B71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF1FD2DD1B62360600A58B71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -373,6 +396,8 @@
 			children = (
 				2F0136971BCFD82E008BAD9D /* IntroView.xib */,
 				2F0136951BCFD744008BAD9D /* IntroViewController.swift */,
+				6C9BD0731C075FA10053C868 /* HRPageControl.h */,
+				6C9BD0741C075FA10053C868 /* HRPageControl.m */,
 			);
 			path = Intro;
 			sourceTree = "<group>";
@@ -426,6 +451,11 @@
 		2F7B0CFB1BFDC8660015C43A /* Formatting Plugins */ = {
 			isa = PBXGroup;
 			children = (
+				6C9BD0691C0603250053C868 /* ArchiveFormatter.swift */,
+				6C9BD06A1C0603250053C868 /* DraftsFormatter.swift */,
+				6C9BD06B1C0603250053C868 /* FlaggedFormatter.swift */,
+				6C9BD06C1C0603250053C868 /* SentFormatter.swift */,
+				6C9BD06D1C0603250053C868 /* UnreadFormatter.swift */,
 				2F7B0CFE1BFDCAB30015C43A /* FormatterProtocols.swift */,
 				2F7B0D001BFDCB230015C43A /* FormattingPluginProvider.swift */,
 				2F7B0CFC1BFDC8910015C43A /* InboxFormatter.swift */,
@@ -445,6 +475,11 @@
 		2F7B0D051BFDD9910015C43A /* Action Plugins */ = {
 			isa = PBXGroup;
 			children = (
+				6C9BD05F1C06031A0053C868 /* ArchiveActionHandler.swift */,
+				6C9BD0601C06031A0053C868 /* DraftsActionHandler.swift */,
+				6C9BD0611C06031A0053C868 /* FlaggedActionHandler.swift */,
+				6C9BD0621C06031A0053C868 /* SentActionHandler.swift */,
+				6C9BD0631C06031A0053C868 /* UnreadActionHandler.swift */,
 				2F7B0D081BFDDA920015C43A /* ActionPluginProvider.swift */,
 				2F7B0D061BFDD9A20015C43A /* ActionProtocols.swift */,
 				2F7B0D0A1BFDDA9E0015C43A /* InboxActionHandler.swift */,
@@ -908,18 +943,21 @@
 				2F51BCA71BC9AFA80024397B /* Extensions.swift in Sources */,
 				2FDDE0F21BAEA957006C3500 /* Thread.swift in Sources */,
 				2FEA14621BF77CC0008E31F1 /* MailBoxMenuOptionTableViewCell.swift in Sources */,
+				6C9BD0651C06031A0053C868 /* DraftsActionHandler.swift in Sources */,
 				2FDDE1441BB01AD3006C3500 /* InboxTableViewController.swift in Sources */,
 				2FB9D55F1BCAB89B0093C1DC /* CWStatusBarNotification.swift in Sources */,
 				2F8D8CE11BCC12B30020A41C /* HRSendAction+CoreDataProperties.swift in Sources */,
 				2F01369A1BCFDA98008BAD9D /* RoundedBorderButton.swift in Sources */,
 				2F6112811BC12F1E0003071B /* UploadManager.swift in Sources */,
 				2F88F1CB1BD43C8B00844A90 /* DownloadManager.swift in Sources */,
+				6C9BD0641C06031A0053C868 /* ArchiveActionHandler.swift in Sources */,
 				2F4E414D1BB061C500AA2DEF /* SideMenuViewController.swift in Sources */,
 				2F4E415E1BB0A13700AA2DEF /* MessageTableViewCell.swift in Sources */,
 				2FDDE1421BAF5A17006C3500 /* Protocols.swift in Sources */,
 				2F994E4E1BB2AE3500A63B9B /* SWCellScrollView.m in Sources */,
 				2FA271A11BB69ED000B22C8B /* CLBackspaceDetectingTextField.m in Sources */,
 				2FDDE1031BAEBFE9006C3500 /* APICommunicator.swift in Sources */,
+				6C9BD0681C06031A0053C868 /* UnreadActionHandler.swift in Sources */,
 				2FF0D1301BB4A802009467B5 /* ThreadTableViewController.swift in Sources */,
 				2F8D8CDE1BCC12B30020A41C /* HRUploadAction.swift in Sources */,
 				2F41F3141BB357B6003276E0 /* MessageDetailViewController.swift in Sources */,
@@ -936,6 +974,7 @@
 				2F01369F1BD1029A008BAD9D /* ContactsTableViewController.swift in Sources */,
 				2FA2EA6C1BAC4EA80027EA77 /* MailDatabaseManager.swift in Sources */,
 				2F76D4D01BB48F1600235A95 /* MailboxObserversManager.swift in Sources */,
+				6C9BD0661C06031A0053C868 /* FlaggedActionHandler.swift in Sources */,
 				2FDDE0EE1BAEA957006C3500 /* Message.swift in Sources */,
 				2FDDE0ED1BAEA957006C3500 /* Message+CoreDataProperties.swift in Sources */,
 				2F7B0D011BFDCB230015C43A /* FormattingPluginProvider.swift in Sources */,
@@ -945,13 +984,17 @@
 				2F1D2C3F1BBC48E600A504A8 /* ErrorPopupViewController.swift in Sources */,
 				2FF0D13A1BB4C386009467B5 /* String+Extensions.swift in Sources */,
 				2FDDE1011BAEB5A6006C3500 /* NSDate+FromString.swift in Sources */,
+				6C9BD0751C075FA10053C868 /* HRPageControl.m in Sources */,
+				6C9BD0701C0603250053C868 /* FlaggedFormatter.swift in Sources */,
 				2FB9D5601BCAB89B0093C1DC /* CWStatusBarNotificationUtils.swift in Sources */,
 				2FDDE0F91BAEAA27006C3500 /* Attachment+CoreDataProperties.swift in Sources */,
 				2F88F1CE1BD43CF700844A90 /* HRDownloadAction+CoreDataProperties.swift in Sources */,
 				2F994E501BB2AE3500A63B9B /* SWTableViewCell.m in Sources */,
 				2F7B0D0B1BFDDA9E0015C43A /* InboxActionHandler.swift in Sources */,
+				6C9BD0711C0603250053C868 /* SentFormatter.swift in Sources */,
 				2F1D2C371BBC3DCA00A504A8 /* ContactCardViewController.swift in Sources */,
 				2F8D8CE51BCC20B40020A41C /* HRActionsManager.swift in Sources */,
+				6C9BD06E1C0603250053C868 /* ArchiveFormatter.swift in Sources */,
 				2F7B0CFD1BFDC8910015C43A /* InboxFormatter.swift in Sources */,
 				2F88F1CF1BD43CF700844A90 /* HRDownloadAction.swift in Sources */,
 				2FDDE0F31BAEA957006C3500 /* User+CoreDataProperties.swift in Sources */,
@@ -959,6 +1002,7 @@
 				2F4E41631BB0AC7300AA2DEF /* GradientNavigationController.swift in Sources */,
 				2FB5A4471BB20A6E0087D006 /* MailBoxOptionsTableViewController.swift in Sources */,
 				2F8D8CDF1BCC12B30020A41C /* HRAction+CoreDataProperties.swift in Sources */,
+				6C9BD0671C06031A0053C868 /* SentActionHandler.swift in Sources */,
 				2FB0E9451BB5718600A0426E /* UIImage+HanderImages.swift in Sources */,
 				2F09DB241BC69F3F00B81FE2 /* AttachmentThumbnailCollectionViewCell.swift in Sources */,
 				2F92E7581BFB921300E5F6A2 /* ErrorPopupQueue.swift in Sources */,
@@ -974,9 +1018,11 @@
 				2F994E541BB2AE8100A63B9B /* UIColor+HandlerColors.swift in Sources */,
 				2F994E4D1BB2AE3500A63B9B /* NSMutableArray+SWUtilityButtons.m in Sources */,
 				2FF0D1321BB4BAAB009467B5 /* GenericMailboxTableViewController.swift in Sources */,
+				6C9BD0721C0603250053C868 /* UnreadFormatter.swift in Sources */,
 				2FA271A41BB69ED000B22C8B /* CLTokenView.m in Sources */,
 				2FDAFF791BF76AEC004CE17D /* FeaturesManager.swift in Sources */,
 				2FDDE0EF1BAEA957006C3500 /* Label+CoreDataProperties.swift in Sources */,
+				6C9BD06F1C0603250053C868 /* DraftsFormatter.swift in Sources */,
 				2F994E511BB2AE3500A63B9B /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
 				2FDDE0F11BAEA957006C3500 /* Thread+CoreDataProperties.swift in Sources */,
 				2F8D8CE21BCC12B30020A41C /* HRSendAction.swift in Sources */,
