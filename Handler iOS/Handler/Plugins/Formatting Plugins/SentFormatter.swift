@@ -31,7 +31,7 @@ struct SentFormatter: MessageTableViewCellFormatter {
         
         view.leftUtilityButtons = leftButtonsForData(data: message)
         view.rightUtilityButtons = rightButtonsForData(data: message)
-        if let urlString = message.sender?.profile_picture_url, let profileUrl = NSURL(string: urlString) {
+        if let urlString = (message.recipients?.allObjects.first as? User)?.profile_picture_url, let profileUrl = NSURL(string: urlString) {
             view.senderProfileImageView.kf_setImageWithURL(profileUrl, placeholderImage: UIImage.randomGhostImage(), optionsInfo: nil, completionHandler: { (image, error, cacheType, imageURL) -> () in
                 Async.main(block: { () -> Void in
                     view.senderProfileImageView.image = image
@@ -39,8 +39,8 @@ struct SentFormatter: MessageTableViewCellFormatter {
             })
         }
         
-        view.senderNameLabel.text = message.sender?.name
-        if let handle = message.sender?.handle {
+        view.senderNameLabel.text = (message.recipients?.allObjects.first as? User)?.name
+        if let handle = (message.recipients?.allObjects.first as? User)?.handle {
             view.senderHandleLabel.text = "@" + handle
         }
         view.messageSubjectLabel.text = message.subject
