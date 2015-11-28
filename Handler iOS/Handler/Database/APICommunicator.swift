@@ -97,18 +97,26 @@ class APICommunicator: NSObject {
 			print(error)
 			
 		}
-		if let pushToken = NSUserDefaults.standardUserDefaults().stringForKey("pushtoken") where pushToken != "" {
-			NSUserDefaults.standardUserDefaults().removeObjectForKey("pushtoken")
-			var data: [String: String] = ["token": pushToken, "os": "ios", "os_version": UIDevice.currentDevice().systemVersion, "name":UIDevice.currentDevice().name]
-			if let vendorID = UIDevice.currentDevice().identifierForVendor?.UUIDString {
-				data["deviceId"] = vendorID
-			}
-			//HandlerAPI.uploadDeviceData(data)
-		}
-		fetchNewMessages(nil)
+        uploadToken()
+        fetchNewMessages(nil)
 		fetchNewLabels()
 		fetchSend()
 	}
+    
+    func uploadToken (){
+        guard let _ = HRUserSessionManager.sharedManager.currentSession else {
+            print("No current session")
+            return
+        }
+        if let pushToken = NSUserDefaults.standardUserDefaults().stringForKey("pushtoken") where pushToken != "" {
+            NSUserDefaults.standardUserDefaults().removeObjectForKey("pushtoken")
+            var data: [String: String] = ["token": pushToken, "os": "ios", "os_version": UIDevice.currentDevice().systemVersion, "name":UIDevice.currentDevice().name]
+            if let vendorID = UIDevice.currentDevice().identifierForVendor?.UUIDString {
+                data["deviceId"] = vendorID
+            }
+            HandlerAPI.uploadDeviceData(data)
+        }
+    }
 	
 	func userDidSet(){
 		if let _ = HRUserSessionManager.sharedManager.currentUser {
