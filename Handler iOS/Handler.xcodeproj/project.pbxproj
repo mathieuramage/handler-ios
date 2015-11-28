@@ -134,7 +134,6 @@
 		2FF788391BB5C6E700B297D3 /* Enumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF788381BB5C6E700B297D3 /* Enumerations.swift */; };
 		2FF788441BB5CB1B00B297D3 /* MessageComposeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF788431BB5CB1B00B297D3 /* MessageComposeTableViewController.swift */; };
 		2FF8B8EC1BD4F53E00014C9E /* CurrentStatusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF8B8EB1BD4F53E00014C9E /* CurrentStatusManager.swift */; };
-		6C9BD0751C075FA10053C868 /* HRPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C9BD0741C075FA10053C868 /* HRPageControl.m */; };
 		6C9BD0641C06031A0053C868 /* ArchiveActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9BD05F1C06031A0053C868 /* ArchiveActionHandler.swift */; };
 		6C9BD0651C06031A0053C868 /* DraftsActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9BD0601C06031A0053C868 /* DraftsActionHandler.swift */; };
 		6C9BD0661C06031A0053C868 /* FlaggedActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9BD0611C06031A0053C868 /* FlaggedActionHandler.swift */; };
@@ -145,6 +144,7 @@
 		6C9BD0701C0603250053C868 /* FlaggedFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9BD06B1C0603250053C868 /* FlaggedFormatter.swift */; };
 		6C9BD0711C0603250053C868 /* SentFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9BD06C1C0603250053C868 /* SentFormatter.swift */; };
 		6C9BD0721C0603250053C868 /* UnreadFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9BD06D1C0603250053C868 /* UnreadFormatter.swift */; };
+		6C9BD0751C075FA10053C868 /* HRPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C9BD0741C075FA10053C868 /* HRPageControl.m */; };
 		DF1FD2DE1B62360600A58B71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1FD2DD1B62360600A58B71 /* AppDelegate.swift */; };
 		DF1FD2E51B62360600A58B71 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF1FD2E41B62360600A58B71 /* Images.xcassets */; };
 /* End PBXBuildFile section */
@@ -339,8 +339,6 @@
 		2FF788381BB5C6E700B297D3 /* Enumerations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enumerations.swift; sourceTree = "<group>"; };
 		2FF788431BB5CB1B00B297D3 /* MessageComposeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageComposeTableViewController.swift; sourceTree = "<group>"; };
 		2FF8B8EB1BD4F53E00014C9E /* CurrentStatusManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentStatusManager.swift; sourceTree = "<group>"; };
-		6C9BD0731C075FA10053C868 /* HRPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRPageControl.h; sourceTree = "<group>"; };
-		6C9BD0741C075FA10053C868 /* HRPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRPageControl.m; sourceTree = "<group>"; };
 		6C9BD05F1C06031A0053C868 /* ArchiveActionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArchiveActionHandler.swift; sourceTree = "<group>"; };
 		6C9BD0601C06031A0053C868 /* DraftsActionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraftsActionHandler.swift; sourceTree = "<group>"; };
 		6C9BD0611C06031A0053C868 /* FlaggedActionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlaggedActionHandler.swift; sourceTree = "<group>"; };
@@ -351,6 +349,8 @@
 		6C9BD06B1C0603250053C868 /* FlaggedFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlaggedFormatter.swift; sourceTree = "<group>"; };
 		6C9BD06C1C0603250053C868 /* SentFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentFormatter.swift; sourceTree = "<group>"; };
 		6C9BD06D1C0603250053C868 /* UnreadFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnreadFormatter.swift; sourceTree = "<group>"; };
+		6C9BD0731C075FA10053C868 /* HRPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRPageControl.h; sourceTree = "<group>"; };
+		6C9BD0741C075FA10053C868 /* HRPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRPageControl.m; sourceTree = "<group>"; };
 		DF1FD2D81B62360600A58B71 /* Handler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Handler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF1FD2DC1B62360600A58B71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF1FD2DD1B62360600A58B71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
