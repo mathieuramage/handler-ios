@@ -44,6 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
 			}
 		}else{
+            APICommunicator.sharedInstance.signOut()
 			window?.rootViewController = IntroViewController(nibName: "IntroView", bundle: nil)
 		}
 		window?.makeKeyAndVisible()

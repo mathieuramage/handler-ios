@@ -13,14 +13,16 @@ class InboxActionHandler: MessageTableViewCellActions {
     // MARK: Actions
     
     func leftButtonTriggered(index: Int, data message: Message, callback: (() -> Void)?) {
+        
+        switch index {
+        case 0:
+            message.isUnread ? message.markAsRead() : message.markAsUnread()
+            break;
+        default:
+            break
+        }
+        
         defer{
-            switch index {
-            case 0:
-                message.isUnread ? message.markAsRead() : message.markAsUnread()
-                break;
-            default:
-                break
-            }
             if let cb = callback {
                 cb()
             }
@@ -30,17 +32,19 @@ class InboxActionHandler: MessageTableViewCellActions {
     }
     
     func rightButtonTriggered(index: Int, data message: Message, callback: (() -> Void)?) {
+        
+        switch index {
+        case 0:
+            message.isFlagged ? message.unflag() : message.flag()
+            break;
+        case 1:
+            message.isArchived ? message.moveToInbox() : message.moveToArchive()
+            break
+        default:
+            break
+        }
+        
         defer{
-            switch index {
-            case 0:
-                message.isFlagged ? message.unflag() : message.flag()
-                break;
-            case 1:
-                message.isArchived ? message.moveToInbox() : message.moveToArchive()
-                break
-            default:
-                break
-            }
             if let cb = callback {
                 cb()
             }

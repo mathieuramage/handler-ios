@@ -29,7 +29,7 @@ class APICommunicator: NSObject {
 		} catch {
 			print(error)
 		}
-		if let session = Twitter.sharedInstance().sessionStore.session() {
+		for session in Twitter.sharedInstance().sessionStore.existingUserSessions() as! [TWTRSession]  {
 			Twitter.sharedInstance().sessionStore.logOutUserID(session.userID)
 		}
 		MailDatabaseManager.sharedInstance.deleteStore()
@@ -62,8 +62,8 @@ class APICommunicator: NSObject {
 				}
 			}else{
                 // TODO: Remove for production
-				print(authToken)
-				HRUserSessionManager.updateCurrentSession(token: authToken, expiryDate: expirationDate)
+
+                HRUserSessionManager.updateCurrentSession(token: authToken, expiryDate: expirationDate)
 				completion?(error: nil)
 			}
 		}else{
@@ -87,7 +87,7 @@ class APICommunicator: NSObject {
 			print("No current session")
 			return
 		}
-		
+        MailDatabaseManager.sharedInstance.initStoreForUser()
 		TwitterAPICommunicator.sharedInstance.getTwitterData()
 		
 		do {

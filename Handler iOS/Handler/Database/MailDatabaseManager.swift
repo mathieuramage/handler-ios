@@ -67,20 +67,15 @@ class MailDatabaseManager: NSObject {
         return NSManagedObjectModel(contentsOfURL: modelURL)!
     }()
     
-    lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
-        
+    func initStoreForUser(){
         let containerPath = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier("group.handler.handlerapp")
-        
-        
-        let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
         let url = containerPath!.URLByAppendingPathComponent("database.sqlite")
-        var failureReason = "There was an error creating or loading the application's saved data."
         do {
-            try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
+            try persistentStoreCoordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
         } catch {
             var dict = [String: AnyObject]()
             dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
-            dict[NSLocalizedFailureReasonErrorKey] = failureReason
+            dict[NSLocalizedFailureReasonErrorKey] = "Failed because of idiotism"
             
             dict[NSUnderlyingErrorKey] = error as NSError
             let wrappedError = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
@@ -90,7 +85,11 @@ class MailDatabaseManager: NSObject {
             // MARK: TODO - Remove for shipping
             abort()
         }
-        
+
+    }
+    
+    lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
+        let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
         return coordinator
     }()
     
@@ -109,12 +108,10 @@ class MailDatabaseManager: NSObject {
     
     func deleteStore(){
         let containerPath = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier("group.handler.handlerapp")
-        
-        
-        let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
+        let coordinator = persistentStoreCoordinator
         let url = containerPath!.URLByAppendingPathComponent("database.sqlite")
         do {
-            for store in coordinator.persistentStores {
+            if let store = self.persistentStoreCoordinator.persistentStoreForURL(url) {
                 try coordinator.removePersistentStore(store)
                 if let url = store.URL {
                     try NSFileManager.defaultManager().removeItemAtURL(url)
@@ -123,20 +120,6 @@ class MailDatabaseManager: NSObject {
         } catch {
             print(error)
             return
-        }
-        do {
-            try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
-        } catch {
-            var dict = [String: AnyObject]()
-            dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
-            
-            dict[NSUnderlyingErrorKey] = error as NSError
-            let wrappedError = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
-            
-            NSLog("Unresolved error \(wrappedError), \(wrappedError.userInfo)")
-            
-            // MARK: TODO - Remove for shipping
-            abort()
         }
     }
     

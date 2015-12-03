@@ -35,6 +35,7 @@ class LoginViewController: UIViewController {
             if let session = session {
                 let twitter = Twitter.sharedInstance()
                 let oauthSigning = TWTROAuthSigning(authConfig:twitter.authConfig, authSession:session)
+                print(oauthSigning.OAuthEchoHeadersToVerifyCredentials());
                 HRTwitterAuthManager.startAuth(oauthSigning.OAuthEchoHeadersToVerifyCredentials(), callback: { (error, session) -> Void in
                     print(error)
                     if let error = error {

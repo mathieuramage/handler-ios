@@ -101,32 +101,26 @@ final class Message: NSManagedObject, CoreDataConvertible {
     
     func moveToArchive(){
         self.removeLabelWithID(SystemLabels.Inbox.rawValue)
-        self.thread?.updateInbox()
     }
     
     func moveToInbox(){
         self.addLabelWithID(SystemLabels.Inbox.rawValue)
-        self.thread?.updateInbox()
     }
     
     func flag(){
         self.addLabelWithID(SystemLabels.Flagged.rawValue)
-        self.thread?.updateInbox()
     }
     
     func unflag(){
         self.removeLabelWithID(SystemLabels.Flagged.rawValue)
-        self.thread?.updateInbox()
     }
     
     func markAsRead(){
         self.removeLabelWithID(SystemLabels.Unread.rawValue)
-        self.thread?.updateInbox()
     }
     
     func markAsUnread(){
         self.addLabelWithID(SystemLabels.Unread.rawValue)
-        self.thread?.updateInbox()
     }
     
     // MARK: Refresh
