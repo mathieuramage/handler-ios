@@ -47,14 +47,6 @@ class GenericMailboxTableViewController: UITableViewController, NSFetchedResults
         MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(mailboxType ?? .Inbox, observer: self)
     }
     
-    override func viewWillAppear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "replyToMessage:", name:"ReplyToMessage", object: nil)
-    }
-    
-    override func viewDidDisappear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: "ReplyToMessage", object: nil)
-    }
-    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         

@@ -93,7 +93,7 @@ class DatabaseChangesCache: NSObject {
     func addChange(change: DatabaseChange){
         let objectID = change.object.objectID
         if let _ = self.changesList[objectID]{
-
+            
         }else{
             self.changesList[objectID] = [DatabaseChange]()
         }

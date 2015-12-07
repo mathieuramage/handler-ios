@@ -36,6 +36,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
         super.viewDidLoad()
         tableView.registerNib(UINib(nibName: "MessageTableViewCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "mailCell")
         tableView.tableFooterView = UIView()
+        tableView.emptyDataSetSource = self
         self.refreshControl = UIRefreshControl()
         self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(refreshControl!)

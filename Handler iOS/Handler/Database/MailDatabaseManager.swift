@@ -57,26 +57,23 @@ class MailDatabaseManager: NSObject {
     
     // MARK: - Core Data stack
     
-    lazy var applicationDocumentsDirectory: NSURL = {
-        let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        return urls[urls.count-1]
-    }()
-    
     lazy var managedObjectModel: NSManagedObjectModel = {
         let modelURL = NSBundle.mainBundle().URLForResource("HandlerDatabaseModel", withExtension: "mom")!
         return NSManagedObjectModel(contentsOfURL: modelURL)!
     }()
     
-    func initStoreForUser(){
+    lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
         let containerPath = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier("group.handler.handlerapp")
+        
+        let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
         let url = containerPath!.URLByAppendingPathComponent("database.sqlite")
         do {
-            try persistentStoreCoordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
+            try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
         } catch {
             var dict = [String: AnyObject]()
             dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
-            dict[NSLocalizedFailureReasonErrorKey] = "Failed because of idiotism"
-            
+            let failureReason = "There was an error creating or loading the application's saved data."
+            dict[NSLocalizedFailureReasonErrorKey] = failureReason
             dict[NSUnderlyingErrorKey] = error as NSError
             let wrappedError = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
             
@@ -85,43 +82,20 @@ class MailDatabaseManager: NSObject {
             // MARK: TODO - Remove for shipping
             abort()
         }
-
-    }
-    
-    lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
-        let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
         return coordinator
     }()
     
     lazy var managedObjectContext: NSManagedObjectContext = {
-        let coordinator = self.persistentStoreCoordinator
-        var managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
-        managedObjectContext.persistentStoreCoordinator = coordinator
-        return managedObjectContext
+        let context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+        context.persistentStoreCoordinator = self.persistentStoreCoordinator
+        return context
     }()
     
     lazy var backgroundContext: NSManagedObjectContext = {
-        let backgroundContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType)
-        backgroundContext.parentContext = self.managedObjectContext
-        return backgroundContext
+        let context = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType)
+        context.parentContext = self.managedObjectContext
+        return context
     }()
-    
-    func deleteStore(){
-        let containerPath = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier("group.handler.handlerapp")
-        let coordinator = persistentStoreCoordinator
-        let url = containerPath!.URLByAppendingPathComponent("database.sqlite")
-        do {
-            if let store = self.persistentStoreCoordinator.persistentStoreForURL(url) {
-                try coordinator.removePersistentStore(store)
-                if let url = store.URL {
-                    try NSFileManager.defaultManager().removeItemAtURL(url)
-                }
-            }
-        } catch {
-            print(error)
-            return
-        }
-    }
     
     // MARK: - Core Data Saving
     

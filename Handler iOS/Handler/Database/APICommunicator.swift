@@ -10,6 +10,7 @@ import Foundation
 import HandlerSDK
 import KeychainAccess
 import TwitterKit
+import Async
 
 class APICommunicator: NSObject {
 	static let sharedInstance = APICommunicator()
@@ -19,7 +20,6 @@ class APICommunicator: NSObject {
 		
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidAuth", name: HRUserSessionDidStartNotification, object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidSet", name: HRCurrentUserDidSetNotification, object: nil)
-		checkForCurrentSessionOrAuth()
 	}
 	
 	func signOut(){
@@ -32,13 +32,13 @@ class APICommunicator: NSObject {
 		for session in Twitter.sharedInstance().sessionStore.existingUserSessions() as! [TWTRSession]  {
 			Twitter.sharedInstance().sessionStore.logOutUserID(session.userID)
 		}
-		MailDatabaseManager.sharedInstance.deleteStore()
-		HRUserSessionManager.logout()
+        HRUserSessionManager.logout() 
 	}
 	
 	// MARK: Auth
 	
 	func checkForCurrentSessionOrAuth(completion: ((error: HRError?)->Void)? = nil){
+        Async.main {
 		if let authToken = Keychain(service: "com.handlerapp.Handler")[string: "authToken"], let expirationData = Keychain(service: "com.handlerapp.Handler")[data: "expirationDate"], let expirationDate = NSKeyedUnarchiver.unarchiveObjectWithData(expirationData) as? NSDate {
 			if expirationDate.timeIntervalSince1970 <= NSDate().timeIntervalSince1970 {
 				print("Session has expired")
@@ -53,7 +53,7 @@ class APICommunicator: NSObject {
 					HRTwitterAuthManager.startAuth(oauthSigning.OAuthEchoHeadersToVerifyCredentials(), callback: { (error, session) -> Void in
 						completion?(error: nil)
 						if let error = error {
-							print(error)
+							error.show()
                             AppDelegate.sharedInstance().window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
 						}
 					})
@@ -61,8 +61,6 @@ class APICommunicator: NSObject {
 					AppDelegate.sharedInstance().window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
 				}
 			}else{
-                // TODO: Remove for production
-
                 HRUserSessionManager.updateCurrentSession(token: authToken, expiryDate: expirationDate)
 				completion?(error: nil)
 			}
@@ -72,22 +70,23 @@ class APICommunicator: NSObject {
 				HRTwitterAuthManager.startAuth(oauthSigning.OAuthEchoHeadersToVerifyCredentials(), callback: { (error, session) -> Void in
 					completion?(error: error)
 					if let error = error {
-						print(error)
-                        AppDelegate.sharedInstance().window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
+                        error.show()
+                        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
+                        AppDelegate.sharedInstance().window?.rootViewController = vc
 					}
 				})
 			}else{
 				AppDelegate.sharedInstance().window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
 			}
 		}
+        }
 	}
 	
 	func userDidAuth(){
 		guard let currentSession = HRUserSessionManager.sharedManager.currentSession else {
-			print("No current session")
+			print("User did auth: No current session")
 			return
 		}
-        MailDatabaseManager.sharedInstance.initStoreForUser()
 		TwitterAPICommunicator.sharedInstance.getTwitterData()
 		
 		do {
@@ -98,7 +97,7 @@ class APICommunicator: NSObject {
 			
 		}
         uploadToken()
-        fetchNewMessages(nil)
+        fetchNewMessages()
 		fetchNewLabels()
 		fetchSend()
 	}
@@ -125,7 +124,7 @@ class APICommunicator: NSObject {
 		}
 	}
 	
-	func fetchNewMessagseWithCompletion(completion: (error: HRError?)->Void){
+	func fetchNewMessagseWithCompletion(completion: ((error: HRError?)->Void)? = nil){
 		fetchNewMessages(completion)
 	}
 	
@@ -167,7 +166,7 @@ class APICommunicator: NSObject {
 		}
 	}
 	
-	private func fetchNewMessages(completion: ((error: HRError?)->Void)?){
+	private func fetchNewMessages(completion: ((error: HRError?)->Void)? = nil){
 		HandlerAPI.getNewMessagesWithCallback() { (messages, error) -> Void in
 			guard let messages = messages else {
 				print(error)

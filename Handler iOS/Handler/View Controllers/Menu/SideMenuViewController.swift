@@ -34,6 +34,12 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 		updateCurrentUser()
         // Do any additional setup after loading the view.
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        APICommunicator.sharedInstance.checkForCurrentSessionOrAuth()
+    }
 	
 	func updateCurrentUser(){
 		Async.main { () -> Void in

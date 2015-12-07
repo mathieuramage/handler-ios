@@ -18,8 +18,6 @@ class LoginViewController: UIViewController {
         
         let layer = CAGradientLayer.gradientLayerForBounds(UIScreen.mainScreen().bounds)
         self.view.layer.insertSublayer(layer, atIndex: 0)
-        
-        APICommunicator.sharedInstance.signOut()
     }
     
     @IBAction func registerButtonPressed(button: UIButton){
@@ -29,15 +27,13 @@ class LoginViewController: UIViewController {
     @IBAction func loginButtonPressed(button: UIButton){
         Twitter.sharedInstance().logInWithCompletion { (session, error) -> Void in
             if let error = error {
-                print(error)
+                HRError(errorType: error).show()
                 return
             }
             if let session = session {
                 let twitter = Twitter.sharedInstance()
                 let oauthSigning = TWTROAuthSigning(authConfig:twitter.authConfig, authSession:session)
-                print(oauthSigning.OAuthEchoHeadersToVerifyCredentials());
                 HRTwitterAuthManager.startAuth(oauthSigning.OAuthEchoHeadersToVerifyCredentials(), callback: { (error, session) -> Void in
-                    print(error)
                     if let error = error {
                         if error.status == 401 {
                             // register new user
