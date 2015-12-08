@@ -39,7 +39,9 @@ final class Attachment: NSManagedObject, CoreDataConvertible {
 		}
 	
 	convenience init(localFile: NSURL, filename: String){
-		self.init(managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
+        self.init(managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
+        DatabaseChangesCache.sharedInstance.waitingForInit = false
+
         DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "filename", value: filename))
         DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "localFileURL", value: localFile.path))
         DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "content_type", value: UTI(filenameExtension: localFile.pathExtension ?? "").MIMEType))

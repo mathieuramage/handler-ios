@@ -30,6 +30,7 @@ protocol CoreDataConvertible {
 extension CoreDataConvertible where HRType : HRIDProvider  {
 	
 	static func fromHRType(hrType: HRType) -> Self? {
+        if APICommunicator.sharedInstance.allowsObjectCreation {
 		guard let fetchrequest = self.backgroundFetchRequestForID(hrType.id) else {
 			print("Failed to create fetchRequest for \(Self.self)")
 			return nil
@@ -40,8 +41,13 @@ extension CoreDataConvertible where HRType : HRIDProvider  {
 			//cdObject.updateFromHRType(hrType)
 			return cdObject
 		}else{
+            DatabaseChangesCache.sharedInstance.waitingForInit = true
 			return Self(hrType: hrType, managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
 		}
+        }else{
+            print("datastore blocked")
+            return nil
+        }
 	}
 	
 	static func fromID(id: String) -> Self? {

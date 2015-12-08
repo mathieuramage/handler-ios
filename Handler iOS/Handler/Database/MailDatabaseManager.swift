@@ -126,12 +126,48 @@ class MailDatabaseManager: NSObject {
                         try self.managedObjectContext.save()
                     } catch {
                         let nserror = error as NSError
-                        NSLog("Error saving backgroundcontext \(nserror), \(nserror.userInfo)")
+                        NSLog("Error saving backgroundContext \(nserror), \(nserror.userInfo)")
                     }
                 }
             }
         }else{
             print("There were still changes tbd")
+        }
+    }
+    
+    func flushDatastore(){
+        DatabaseChangesCache.sharedInstance.removeAllChanges()
+        for entity in managedObjectModel.entities {
+            deleteDataForEntity(entity.name ?? "")
+        }
+        backgroundContext.performBlock { () -> Void in
+            do {
+                try self.backgroundContext.save()
+                try self.managedObjectContext.save()
+            } catch {
+                let nserror = error as NSError
+                NSLog("Error saving backgroundContext \(nserror), \(nserror.userInfo)")
+            }
+            APICommunicator.sharedInstance.finishedFlushingStore()
+        }
+    }
+    
+    func deleteDataForEntity(entity: String)
+    {
+        let managedContext = backgroundContext
+        let fetchRequest = NSFetchRequest(entityName: entity)
+        fetchRequest.returnsObjectsAsFaults = false
+        
+        do
+        {
+            let results = try managedContext.executeFetchRequest(fetchRequest)
+            for managedObject in results
+            {
+                let managedObjectData:NSManagedObject = managedObject as! NSManagedObject
+                managedContext.deleteObject(managedObjectData)
+            }
+        } catch let error as NSError {
+            print("Delete all \(entity)s: \(error) \(error.userInfo)")
         }
     }
 }

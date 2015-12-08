@@ -44,7 +44,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
     }
     
     func refresh(control: UIRefreshControl){
-        APICommunicator.sharedInstance.fetchNewMessagseWithCompletion { (error) -> Void in
+        APICommunicator.sharedInstance.fetchNewMessagesWithCompletion { (error) -> Void in
             Async.main(block: { () -> Void in
                 control.endRefreshing()
                 guard let error = error else {

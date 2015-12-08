@@ -16,6 +16,7 @@ final class User: NSManagedObject, CoreDataConvertible {
 	
 	required convenience init(hrType user: HRType, managedObjectContext: NSManagedObjectContext){
 		self.init(managedObjectContext: managedObjectContext)
+        DatabaseChangesCache.sharedInstance.waitingForInit = false
 		self.updateFromHRType(user)
 	}
 	

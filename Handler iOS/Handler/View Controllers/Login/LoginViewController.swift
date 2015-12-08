@@ -43,15 +43,10 @@ class LoginViewController: UIViewController {
                                     return
                                 }
                                 if let _ = user {
-                                    APICommunicator.sharedInstance.checkForCurrentSessionOrAuth({ (error) -> Void in
-                                        if let error = error {
-                                            error.show()
-                                            return
-                                        }
-                                        UIView.transitionWithView(AppDelegate.sharedInstance().window!, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: { () -> Void in
-                                            AppDelegate.sharedInstance().window?.rootViewController = AppDelegate.sharedInstance().sideMenu
-                                            }, completion: nil)
-                                    })
+                                    APICommunicator.sharedInstance.attemptRelogin()
+                                    UIView.transitionWithView(AppDelegate.sharedInstance().window!, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: { () -> Void in
+                                        AppDelegate.sharedInstance().window?.rootViewController = AppDelegate.sharedInstance().sideMenu
+                                        }, completion: nil)
                                 }
                             })
                         }else{

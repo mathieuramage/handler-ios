@@ -16,6 +16,8 @@ final class Label: NSManagedObject, CoreDataConvertible {
 	
 	required convenience init(hrType label: HRLabel, managedObjectContext: NSManagedObjectContext){
 		self.init(managedObjectContext: managedObjectContext)
+        DatabaseChangesCache.sharedInstance.waitingForInit = false
+
 		self.updateFromHRType(label)
 	}
 	

@@ -33,18 +33,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Override point for customization after application launch.
 		Twitter.sharedInstance().startWithConsumerKey("d6IKDpduuacAAHgtVydTvMo6t", consumerSecret: "tjaZYfuxDaEqY1RxLse0KvNzvCYPYpq57EgE0uawo2cuMzVoAE")
 		Fabric.with([Twitter.sharedInstance(), Crashlytics.self()])
-        APICommunicator.sharedInstance
+        APICommunicator.sharedInstance.start()
         UserTwitterStatusManager.startUpdating()
         HRActionsManager.setupSharedInstance()
         UIImageView.appearance().clipsToBounds = true
 		if NSUserDefaults.standardUserDefaults().boolForKey("didFinishWalkthrough") {
 			if let _ = Twitter.sharedInstance().sessionStore.session() {
+                APICommunicator.sharedInstance.attemptRelogin()
 				window?.rootViewController = sideMenu
 			}else{
 				window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
 			}
 		}else{
-            APICommunicator.sharedInstance.signOut()
 			window?.rootViewController = IntroViewController(nibName: "IntroView", bundle: nil)
 		}
 		window?.makeKeyAndVisible()

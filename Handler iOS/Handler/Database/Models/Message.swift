@@ -16,7 +16,8 @@ final class Message: NSManagedObject, CoreDataConvertible {
     
     required convenience init(hrType message: HRType, managedObjectContext: NSManagedObjectContext){
         self.init(managedObjectContext: managedObjectContext)
-        
+        DatabaseChangesCache.sharedInstance.waitingForInit = false
+
         updateFromHRType(message)
     }
     

@@ -71,8 +71,12 @@ class DatabaseChangesCache: NSObject {
     private var changesList: [NSManagedObjectID: [DatabaseChange]] = [NSManagedObjectID: [DatabaseChange]]()
     static let sharedInstance = DatabaseChangesCache()
     
+    var waitingForInit: Bool = false
     var allChangesApplied: Bool {
         get {
+            if(waitingForInit){
+                return false
+            }
             var allEmpty = true
             
             // perform cleanup
@@ -91,13 +95,17 @@ class DatabaseChangesCache: NSObject {
     }
     
     func addChange(change: DatabaseChange){
-        let objectID = change.object.objectID
-        if let _ = self.changesList[objectID]{
-            
+        if APICommunicator.sharedInstance.allowsObjectCreation {
+            let objectID = change.object.objectID
+            if let _ = self.changesList[objectID]{
+                
+            }else{
+                self.changesList[objectID] = [DatabaseChange]()
+            }
+            self.changesList[objectID]?.append(change)
         }else{
-            self.changesList[objectID] = [DatabaseChange]()
+            print("Not allowed to add change")
         }
-        self.changesList[objectID]?.append(change)
     }
     
     func executeChangesForObjectID(objectID: NSManagedObjectID) {
@@ -122,5 +130,9 @@ class DatabaseChangesCache: NSObject {
     
     func removeAllChangesForObjectID(objectID: NSManagedObjectID) {
         self.changesList[objectID]?.removeAll()
+    }
+    
+    func removeAllChanges(){
+        changesList = [NSManagedObjectID: [DatabaseChange]]()
     }
 }

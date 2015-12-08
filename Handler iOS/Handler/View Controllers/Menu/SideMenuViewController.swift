@@ -37,8 +37,6 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
-        APICommunicator.sharedInstance.checkForCurrentSessionOrAuth()
     }
 	
 	func updateCurrentUser(){
@@ -61,7 +59,6 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
                         
                     }
                 })
-
 			}
 		}
 	}
@@ -113,10 +110,22 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 	}
 
 	@IBAction func signoutPressed(sender: UIButton) {
+        
+        self.profileHandleLabel.text = ""
+        self.profileNameLabel.text = ""
+        self.profileImageView.image = UIImage.randomGhostImage()
+        self.profileBannerImageView.image = UIImage(named: "twitter_default")
+        
 		APICommunicator.sharedInstance.signOut()
 		UIView.transitionWithView(AppDelegate.sharedInstance().window!, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: { () -> Void in
 			AppDelegate.sharedInstance().window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
-			}, completion: nil)
+            }, completion: { (success) in
+                AppDelegate.sharedInstance().sideMenu.hideMenuViewController()
+                let inboxViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("InboxTableViewController") as! InboxTableViewController
+                if let nc = AppDelegate.sharedInstance().sideMenu.contentViewController as? UINavigationController {
+                    nc.setViewControllers([inboxViewController], animated: true)
+                }
+        })
 	}
     
     @IBAction func helpPressed(sender: UIButton) {
