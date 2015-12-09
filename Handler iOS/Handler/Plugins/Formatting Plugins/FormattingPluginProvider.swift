@@ -9,6 +9,10 @@
 import UIKit
 
 class FormattingPluginProvider: NSObject {
+    class func messageContentCellPluginForConversation()->MessageContentCellFormatter?{
+        return MessageContentFormatter()
+    }
+
     class func messageCellPluginForInboxType(type: MailboxType)->MessageTableViewCellFormatter?{
         switch type {
         case .Inbox:

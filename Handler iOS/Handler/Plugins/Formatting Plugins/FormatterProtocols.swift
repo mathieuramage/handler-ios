@@ -14,3 +14,8 @@ protocol MessageTableViewCellFormatter {
     func leftButtonsForData(data message: Message)->[AnyObject]
     func rightButtonsForData(data message: Message)->[AnyObject]
 }
+
+protocol MessageContentCellFormatter {
+    func populateView(data message: Message, view: MessageContentTableViewCell)
+    func populateView(data message: Message, view: MessageSenderTableViewCell)
+}

@@ -203,8 +203,8 @@ final class Message: NSManagedObject, CoreDataConvertible {
         if let bgSelf = self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext){
             DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: bgSelf, property: "labels", value: labelsSet))
             DatabaseChangesCache.sharedInstance.executeChangesForObjectID(bgSelf.objectID)
-            bgSelf.thread?.updateInbox()
             MailDatabaseManager.sharedInstance.saveBackgroundContext()
+            bgSelf.thread?.updateInbox()
         }
     }
     

@@ -46,6 +46,7 @@ class Thread: NSManagedObject {
 		}
         DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "showInInbox", value: NSNumber(bool: show)))
         DatabaseChangesCache.sharedInstance.executeChangesForObjectID(self.objectID)
+        MailDatabaseManager.sharedInstance.saveBackgroundContext()
 	}
 	
 	var mostRecentMessage: Message? {
