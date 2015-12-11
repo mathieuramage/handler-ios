@@ -13,7 +13,7 @@ struct MessageContentFormatter: MessageContentCellFormatter {
     
     var timeFormatter: NSDateFormatter = {
         let formatter = NSDateFormatter()
-        formatter.timeStyle = NSDateFormatterStyle.NoStyle
+        formatter.timeStyle = NSDateFormatterStyle.ShortStyle
         formatter.dateStyle = NSDateFormatterStyle.ShortStyle
         return formatter
     }()

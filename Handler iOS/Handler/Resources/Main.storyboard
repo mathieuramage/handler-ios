@@ -417,6 +417,34 @@
                                     <outlet property="contentLabel" destination="6Lf-Xg-aCN" id="TQl-wZ-H7z"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="messageConnectionCell" rowHeight="45" id="q2a-nv-pF8" customClass="MessageContentTableViewCell" customModule="Handler" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="264" width="375" height="45"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="q2a-nv-pF8" id="TxF-YZ-jM1">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Ef-Xs-vRF">
+                                            <rect key="frame" x="22" y="10" width="3" height="25"/>
+                                            <color key="backgroundColor" red="0.53333333333333333" green="0.59999999999999998" blue="0.65098039215686276" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="3" id="KD6-Qk-Cy3"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <real key="value" value="1.5"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.96078431372549022" green="0.97254901960784312" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstItem="3Ef-Xs-vRF" firstAttribute="top" secondItem="TxF-YZ-jM1" secondAttribute="top" constant="10" id="Ncj-n9-KM0"/>
+                                        <constraint firstAttribute="bottom" secondItem="3Ef-Xs-vRF" secondAttribute="bottom" constant="10" id="aEy-gJ-odW"/>
+                                        <constraint firstItem="3Ef-Xs-vRF" firstAttribute="leading" secondItem="TxF-YZ-jM1" secondAttribute="leading" constant="22" id="fhH-SF-vmY"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="HoU-qP-OJS" id="xxr-LX-kZG"/>

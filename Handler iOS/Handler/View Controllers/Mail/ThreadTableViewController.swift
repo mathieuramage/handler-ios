@@ -10,8 +10,43 @@ import UIKit
 
 class ThreadTableViewController: UITableViewController, SWTableViewCellDelegate {
     
-    var thread: Thread?
+    enum CellType: Int {
+        case Connector = 0
+        case Sender = 1
+        case Content = 2
+    }
+    
+    var thread: Thread? {
+        didSet {
+            primaryMessage = orderedMessages.first
+        }
+    }
     var messageForSegue: Message?
+    var primaryMessage: Message? {
+        didSet(previous) {
+            var scrollIndex: NSIndexPath?
+            var pathsToReload = [NSIndexPath]()
+            if let previous = previous {
+                let oldindex = orderedMessages.indexOf(previous)! * 3
+                for i in oldindex...oldindex+2 {
+                    print(i)
+                    pathsToReload.append(NSIndexPath(forRow: i, inSection: 0))
+                }
+            }
+            if let primaryMessage = primaryMessage {
+                let newindex = orderedMessages.indexOf(primaryMessage)! * 3
+                for i in newindex...newindex+2 {
+                    pathsToReload.append(NSIndexPath(forRow: i, inSection: 0))
+                }
+                scrollIndex = NSIndexPath(forRow: newindex, inSection: 0)
+            }
+            
+            tableView.reloadRowsAtIndexPaths(pathsToReload, withRowAnimation: UITableViewRowAnimation.Automatic)
+            if let index = scrollIndex {
+                tableView.scrollToRowAtIndexPath(index, atScrollPosition: .Top, animated: true)
+            }
+        }
+    }
     
     var orderedMessages: [Message] {
         if let thread = thread, let msg = thread.messages?.allObjects as? [Message] {
@@ -27,9 +62,17 @@ class ThreadTableViewController: UITableViewController, SWTableViewCellDelegate 
         }
     }
     
+    func messageForIndexPath(indexPath: NSIndexPath)->Message{
+        return orderedMessages[Int(floor(Float(indexPath.row / 3)))]
+    }
+    
+    func cellTypeForIndexPath(indexPath: NSIndexPath)->CellType{
+        return CellType(rawValue: Int(indexPath.row % 3))!
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.registerNib(UINib(nibName: "MessageTableViewCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "mailCell")
+        tableView.tableFooterView = UIView()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -43,17 +86,33 @@ class ThreadTableViewController: UITableViewController, SWTableViewCellDelegate 
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return orderedMessages.count * 2
+        return orderedMessages.count * 3
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.row % 2 == 0 {
-            let cell = tableView.dequeueReusableCellWithIdentifier("messageSenderCell", forIndexPath: indexPath) as! MessageSenderTableViewCell
-            FormattingPluginProvider.messageContentCellPluginForConversation()?.populateView(data: orderedMessages[Int(floor(Float(indexPath.row / 2)))], view: cell)
-            return cell
+        var bgColor: UIColor?
+        
+        let message = messageForIndexPath(indexPath)
+        if message == primaryMessage {
+            bgColor = UIColor.whiteColor()
         }else{
+            bgColor = UIColor.blueGrayBackgroundColor()
+        }
+        
+        switch cellTypeForIndexPath(indexPath){
+        case .Connector:
+            let cell = tableView.dequeueReusableCellWithIdentifier("messageConnectionCell", forIndexPath: indexPath)
+            cell.contentView.backgroundColor = bgColor
+            return cell
+        case .Content:
             let cell = tableView.dequeueReusableCellWithIdentifier("messageContentCell", forIndexPath: indexPath) as! MessageContentTableViewCell
-            FormattingPluginProvider.messageContentCellPluginForConversation()?.populateView(data: orderedMessages[Int(floor(Float(indexPath.row / 2)))], view: cell)
+            cell.contentView.backgroundColor = bgColor
+            FormattingPluginProvider.messageContentCellPluginForConversation()?.populateView(data: message, view: cell)
+            return cell
+        case .Sender:
+            let cell = tableView.dequeueReusableCellWithIdentifier("messageSenderCell", forIndexPath: indexPath) as! MessageSenderTableViewCell
+            cell.contentView.backgroundColor = bgColor
+            FormattingPluginProvider.messageContentCellPluginForConversation()?.populateView(data: message, view: cell)
             return cell
         }
     }
@@ -73,7 +132,7 @@ class ThreadTableViewController: UITableViewController, SWTableViewCellDelegate 
         label.text = orderedMessages.last?.subject ?? "No Subject"
         
         let bottomView = UIView()
-        bottomView.frame = CGRectMake(0, view.frame.height-1, view.frame.width, 1)
+        bottomView.frame = CGRectMake(0, view.frame.height-0.5, view.frame.width, 0.5)
         bottomView.backgroundColor = UIColor.lightGrayColor()
         bottomView.autoresizingMask = [UIViewAutoresizing.FlexibleLeftMargin, UIViewAutoresizing.FlexibleRightMargin, UIViewAutoresizing.FlexibleBottomMargin]
         bottomView.translatesAutoresizingMaskIntoConstraints = true
@@ -86,26 +145,33 @@ class ThreadTableViewController: UITableViewController, SWTableViewCellDelegate 
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.row % 2 == 0 {
+        if indexPath.row == 0 {
+            return 0
+        }
+        
+        if let primaryMessage = primaryMessage {
+            let newindex = orderedMessages.indexOf(primaryMessage)! * 3
+            if indexPath.row == newindex {
+                return 0
+            }
+        }
+        
+        if indexPath.row % 3 == 0 {
+            return 45
+        } else if indexPath.row % 3 == 1 {
             return 86
-        }else{
+            
+        } else {
             return UITableViewAutomaticDimension
         }
     }
     
     override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.row % 2 == 0 {
-            return 86
-        }else{
-            return UITableViewAutomaticDimension
-        }
+        return self.tableView(tableView, heightForRowAtIndexPath: indexPath)
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.row < orderedMessages.count {
-            messageForSegue = orderedMessages[indexPath.row]
-            performSegueWithIdentifier("showMessageDetailViewController", sender: self)
-        }
+        primaryMessage = messageForIndexPath(indexPath)
     }
     
     func swipeableTableViewCell(cell: SWTableViewCell!, canSwipeToState state: SWCellState) -> Bool {
@@ -113,15 +179,15 @@ class ThreadTableViewController: UITableViewController, SWTableViewCellDelegate 
     }
     
     func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerLeftUtilityButtonWithIndex index: Int) {
-        if let path = tableView.indexPathForCell(cell) where path.row < orderedMessages.count {
-            let data = orderedMessages[path.row]
+        if let path = tableView.indexPathForCell(cell) where path.row/2 < orderedMessages.count {
+            let data = orderedMessages[Int(floor(Float(path.row / 2)))]
             ActionPluginProvider.messageCellPluginForInboxType(.Inbox)?.leftButtonTriggered(index, data: data, callback: nil)
         }
     }
     
     func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerRightUtilityButtonWithIndex index: Int) {
-        if let path = tableView.indexPathForCell(cell) where path.row < orderedMessages.count {
-            let data = orderedMessages[path.row]
+        if let path = tableView.indexPathForCell(cell) where path.row/2 < orderedMessages.count {
+            let data = orderedMessages[Int(floor(Float(path.row / 2)))]
             ActionPluginProvider.messageCellPluginForInboxType(.Inbox)?.rightButtonTriggered(index, data: data, callback: nil)
         }
     }

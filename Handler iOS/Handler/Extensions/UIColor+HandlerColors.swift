@@ -25,6 +25,10 @@ extension UIColor {
 	class func hrDarkBlueColor() -> UIColor {
 		return UIColor(red: 39/255, green: 127/255, blue: 197/255, alpha: 1)
 	}
+    
+    class func blueGrayBackgroundColor() -> UIColor {
+        return UIColor(red: 245/255, green: 248/255, blue: 250/255, alpha: 1)
+    }
 	
 	class func hrLightGrayColor() -> UIColor {
 		return UIColor(red: 203/255, green: 213/255, blue: 221/255, alpha: 1)
