@@ -18,4 +18,9 @@ class MessageTableViewCell: SWTableViewCell {
     @IBOutlet weak var messageSubjectLabel: UILabel!
     @IBOutlet weak var messageTimeLabel: UILabel!
     @IBOutlet weak var messageContentPreviewLabel: UILabel!
+    @IBOutlet weak var additionalsStackView: UIStackView!
+    
+    @IBOutlet weak var threadCountLabel: UILabel!
+    @IBOutlet weak var attachmentIconView: UIImageView!
+    @IBOutlet weak var repliedIconView: UIImageView!
 }

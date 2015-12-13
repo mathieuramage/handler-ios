@@ -37,8 +37,8 @@ extension CoreDataConvertible where HRType : HRIDProvider  {
 		}
 		
 		if let cdObject = MailDatabaseManager.sharedInstance.executeBackgroundFetchRequest(fetchrequest)?.first as? Self {
-			//print("Found \(Self.self) in database")
-			//cdObject.updateFromHRType(hrType)
+			// TODO: check updating alg later
+			// cdObject.updateFromHRType(hrType)
 			return cdObject
 		}else{
             DatabaseChangesCache.sharedInstance.waitingForInit = true

@@ -41,8 +41,11 @@
                             <constraint firstAttribute="height" constant="7" id="Vj4-93-RP4"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Subject" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ToC-vJ-Ray">
-                        <rect key="frame" x="80" y="31" width="277" height="18"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" text="Subject" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ToC-vJ-Ray">
+                        <rect key="frame" x="134" y="31" width="223" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="18" id="CNU-V2-IeK"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -64,9 +67,51 @@
                         <color key="textColor" red="0.39187690619999999" green="0.4703056216" blue="0.52657049889999996" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="250" alignment="center" spacing="6" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IHF-AW-iTT">
+                        <rect key="frame" x="74" y="31" width="54" height="18"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zmV-DJ-ytF">
+                                <rect key="frame" x="0.0" y="3" width="0.0" height="12"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="12" id="0h1-26-IxZ"/>
+                                    <constraint firstAttribute="width" id="LBT-DL-Emz"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tt0-8w-n0v">
+                                <rect key="frame" x="6" y="3" width="12" height="12"/>
+                                <color key="backgroundColor" red="0.80000000000000004" green="0.83921568627450982" blue="0.8666666666666667" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="12" id="BSc-T3-3ju"/>
+                                    <constraint firstAttribute="height" constant="12" id="cmD-IE-9B8"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <color key="textColor" red="0.16078431372549018" green="0.18431372549019609" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Attachment" translatesAutoresizingMaskIntoConstraints="NO" id="Hoo-Nl-pfD">
+                                <rect key="frame" x="24" y="3" width="12" height="12"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="12" id="pHW-2n-18Q"/>
+                                    <constraint firstAttribute="width" constant="12" id="qP6-Cv-B27"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Reply" translatesAutoresizingMaskIntoConstraints="NO" id="bpx-Rt-j8X">
+                                <rect key="frame" x="42" y="3" width="12" height="12"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="12" id="97O-cC-CWd"/>
+                                    <constraint firstAttribute="height" constant="12" id="aap-V8-pbn"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                    </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="gZR-Ph-NgN" firstAttribute="leading" secondItem="ToC-vJ-Ray" secondAttribute="leading" id="1UV-hI-pqz"/>
                     <constraint firstItem="yxR-pX-PYM" firstAttribute="top" secondItem="9Tf-wz-fxW" secondAttribute="top" id="3Qi-Hs-Ts6"/>
                     <constraint firstItem="jJY-1d-8iD" firstAttribute="top" secondItem="EAr-aF-vT4" secondAttribute="top" constant="13" id="6Mu-gX-eKO"/>
                     <constraint firstItem="jJY-1d-8iD" firstAttribute="leading" secondItem="EAr-aF-vT4" secondAttribute="leading" constant="12" id="9hm-nR-4T5"/>
@@ -78,28 +123,38 @@
                     <constraint firstItem="gZR-Ph-NgN" firstAttribute="bottom" secondItem="jJY-1d-8iD" secondAttribute="bottom" constant="4" id="Zge-2Q-46L"/>
                     <constraint firstItem="9Tf-wz-fxW" firstAttribute="top" secondItem="zDN-Nu-8aJ" secondAttribute="top" id="dor-I8-2of"/>
                     <constraint firstItem="KmM-wh-4e1" firstAttribute="top" secondItem="jJY-1d-8iD" secondAttribute="top" id="doz-Hb-c62"/>
-                    <constraint firstItem="ToC-vJ-Ray" firstAttribute="leading" secondItem="zDN-Nu-8aJ" secondAttribute="leading" id="h7F-p5-YmW"/>
+                    <constraint firstItem="IHF-AW-iTT" firstAttribute="top" secondItem="ToC-vJ-Ray" secondAttribute="top" id="lEB-1m-7Tg"/>
+                    <constraint firstItem="ToC-vJ-Ray" firstAttribute="leading" secondItem="IHF-AW-iTT" secondAttribute="trailing" constant="6" id="lEy-IF-vat"/>
                     <constraint firstItem="ToC-vJ-Ray" firstAttribute="trailing" secondItem="yxR-pX-PYM" secondAttribute="trailing" id="luD-RF-Owa"/>
                     <constraint firstItem="ToC-vJ-Ray" firstAttribute="top" secondItem="zDN-Nu-8aJ" secondAttribute="bottom" constant="0.5" id="nYv-P2-bgv"/>
                     <constraint firstAttribute="bottom" secondItem="jJY-1d-8iD" secondAttribute="bottom" constant="13" id="pbp-gb-jcf"/>
+                    <constraint firstItem="IHF-AW-iTT" firstAttribute="bottom" secondItem="ToC-vJ-Ray" secondAttribute="bottom" id="pjS-Ec-kAg"/>
+                    <constraint firstItem="IHF-AW-iTT" firstAttribute="leading" secondItem="zDN-Nu-8aJ" secondAttribute="leading" constant="-6" id="tno-oa-tW9"/>
+                    <constraint firstItem="gZR-Ph-NgN" firstAttribute="leading" secondItem="zDN-Nu-8aJ" secondAttribute="leading" id="wUO-fh-ln7"/>
                     <constraint firstItem="KmM-wh-4e1" firstAttribute="leading" secondItem="jJY-1d-8iD" secondAttribute="leading" id="zEC-MM-T6F"/>
                     <constraint firstItem="gZR-Ph-NgN" firstAttribute="trailing" secondItem="ToC-vJ-Ray" secondAttribute="trailing" id="zeH-hx-OLK"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="additionalsStackView" destination="IHF-AW-iTT" id="qX5-ej-EwV"/>
+                <outlet property="attachmentIconView" destination="Hoo-Nl-pfD" id="x6t-9a-2Mh"/>
                 <outlet property="messageContentPreviewLabel" destination="gZR-Ph-NgN" id="sr0-gA-pbC"/>
                 <outlet property="messageSubjectLabel" destination="ToC-vJ-Ray" id="TCh-9D-O3C"/>
                 <outlet property="messageTimeLabel" destination="yxR-pX-PYM" id="Fmq-2w-fiq"/>
                 <outlet property="readFlaggedImageView" destination="KmM-wh-4e1" id="k9M-El-b1T"/>
+                <outlet property="repliedIconView" destination="bpx-Rt-j8X" id="tkC-ud-GN7"/>
                 <outlet property="senderHandleLabel" destination="9Tf-wz-fxW" id="6fG-WO-SKL"/>
                 <outlet property="senderNameLabel" destination="zDN-Nu-8aJ" id="Op0-ow-Z0K"/>
                 <outlet property="senderProfileImageView" destination="jJY-1d-8iD" id="WZ7-PC-QAZ"/>
+                <outlet property="threadCountLabel" destination="tt0-8w-n0v" id="LI8-gJ-Kx1"/>
             </connections>
-            <point key="canvasLocation" x="393.5" y="352.75"/>
+            <point key="canvasLocation" x="370.5" y="323.75"/>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="Attachment" width="13" height="12"/>
         <image name="Blue_Dot" width="27" height="27"/>
+        <image name="Reply" width="28" height="35"/>
         <image name="ghost_blue" width="66" height="66"/>
     </resources>
 </document>

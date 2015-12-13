@@ -113,7 +113,7 @@
 		2FDBBC901BB9CBC500B2BFBF /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDBBC8F1BB9CBC500B2BFBF /* UIView+Extensions.swift */; };
 		2FDC6FAA1C18B91C008D334A /* MessageSenderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDC6FA91C18B91C008D334A /* MessageSenderTableViewCell.swift */; };
 		2FDC6FAC1C18BB97008D334A /* MessageContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDC6FAB1C18BB97008D334A /* MessageContentTableViewCell.swift */; };
-		2FDC6FAE1C18BD89008D334A /* MessageContentCellFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDC6FAD1C18BD89008D334A /* MessageContentCellFormatter.swift */; };
+		2FDC6FAE1C18BD89008D334A /* ConversationContentCellFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDC6FAD1C18BD89008D334A /* ConversationContentCellFormatter.swift */; };
 		2FDDE0ED1BAEA957006C3500 /* Message+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE0E31BAEA957006C3500 /* Message+CoreDataProperties.swift */; };
 		2FDDE0EE1BAEA957006C3500 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE0E41BAEA957006C3500 /* Message.swift */; };
 		2FDDE0EF1BAEA957006C3500 /* Label+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE0E51BAEA957006C3500 /* Label+CoreDataProperties.swift */; };
@@ -317,7 +317,7 @@
 		2FDBBC8F1BB9CBC500B2BFBF /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		2FDC6FA91C18B91C008D334A /* MessageSenderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageSenderTableViewCell.swift; sourceTree = "<group>"; };
 		2FDC6FAB1C18BB97008D334A /* MessageContentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageContentTableViewCell.swift; sourceTree = "<group>"; };
-		2FDC6FAD1C18BD89008D334A /* MessageContentCellFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageContentCellFormatter.swift; sourceTree = "<group>"; };
+		2FDC6FAD1C18BD89008D334A /* ConversationContentCellFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationContentCellFormatter.swift; sourceTree = "<group>"; };
 		2FDDE0E31BAEA957006C3500 /* Message+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Message+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2FDDE0E41BAEA957006C3500 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Message.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2FDDE0E51BAEA957006C3500 /* Label+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Label+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -461,7 +461,7 @@
 				2F7B0CFE1BFDCAB30015C43A /* FormatterProtocols.swift */,
 				2F7B0D001BFDCB230015C43A /* FormattingPluginProvider.swift */,
 				2F7B0CFC1BFDC8910015C43A /* InboxFormatter.swift */,
-				2FDC6FAD1C18BD89008D334A /* MessageContentCellFormatter.swift */,
+				2FDC6FAD1C18BD89008D334A /* ConversationContentCellFormatter.swift */,
 			);
 			path = "Formatting Plugins";
 			sourceTree = "<group>";
@@ -956,7 +956,7 @@
 				2FDDE1441BB01AD3006C3500 /* InboxTableViewController.swift in Sources */,
 				2FB9D55F1BCAB89B0093C1DC /* CWStatusBarNotification.swift in Sources */,
 				2F8D8CE11BCC12B30020A41C /* HRSendAction+CoreDataProperties.swift in Sources */,
-				2FDC6FAE1C18BD89008D334A /* MessageContentCellFormatter.swift in Sources */,
+				2FDC6FAE1C18BD89008D334A /* ConversationContentCellFormatter.swift in Sources */,
 				2F01369A1BCFDA98008BAD9D /* RoundedBorderButton.swift in Sources */,
 				2F6112811BC12F1E0003071B /* UploadManager.swift in Sources */,
 				2FDC6FAA1C18B91C008D334A /* MessageSenderTableViewCell.swift in Sources */,
@@ -1090,7 +1090,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1127,7 +1127,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -1151,7 +1151,7 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = "Handler/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.handler.handlerapp;
@@ -1179,7 +1179,7 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = "Handler/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.handler.handlerapp;

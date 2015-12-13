@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import HandlerSDK
 import Async
 
 struct InboxFormatter: MessageTableViewCellFormatter {
@@ -50,6 +51,26 @@ struct InboxFormatter: MessageTableViewCellFormatter {
             view.messageTimeLabel.text = timeFormatter.stringFromDate(sent_at)
         }else{
             view.messageTimeLabel.text = "-"
+        }
+        
+        if let count = message.thread?.messages?.count where count > 1 {
+            view.threadCountLabel.hidden = false
+            view.threadCountLabel.text = "\(count)"
+        }else{
+            view.threadCountLabel.hidden = true
+            view.threadCountLabel.text = "-"
+        }
+        
+        if let count = message.attachments?.count where count > 1 {
+            view.attachmentIconView.hidden = false
+        }else{
+            view.attachmentIconView.hidden = true
+        }
+        
+        if message.thread?.mostRecentMessage?.sender?.id == HRUserSessionManager.sharedManager.currentUser?.id {
+            view.repliedIconView.hidden = false
+        }else{
+            view.repliedIconView.hidden = true
         }
         
         setUpReadFlagMessage(data: message, view: view)

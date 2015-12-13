@@ -47,9 +47,7 @@ class WhiteBorderButton: UIButton {
     @IBInspectable var borderWidth: CGFloat = 1.0
     
     override func prepareForInterfaceBuilder() {
-        layer.borderColor = UIColor.whiteColor().CGColor
-        layer.borderWidth = borderWidth
-        clipsToBounds = true
+        commonInit()
     }
     
     func commonInit(){

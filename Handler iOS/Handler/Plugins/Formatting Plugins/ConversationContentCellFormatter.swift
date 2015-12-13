@@ -9,7 +9,7 @@
 import UIKit
 import Async
 
-struct MessageContentFormatter: MessageContentCellFormatter {
+struct ConversationContentFormatter: MessageContentCellFormatter {
     
     var timeFormatter: NSDateFormatter = {
         let formatter = NSDateFormatter()
