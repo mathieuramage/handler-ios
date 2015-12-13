@@ -18,32 +18,62 @@ class ThreadTableViewController: UITableViewController, SWTableViewCellDelegate 
     
     var thread: Thread? {
         didSet {
+            primaryMessage = nil
             primaryMessage = orderedMessages.first
+            tableView.reloadData()
         }
+    }
+    var allThreads: [Thread] = [Thread]()
+    var nextThread: Thread? {
+        if let thread = thread, let indexOfCurrent = allThreads.indexOf(thread) {
+            if allThreads.count > indexOfCurrent + 1 {
+                return allThreads[indexOfCurrent + 1]
+            }
+        }
+        return nil
+    }
+    var plugin: BottomBarActionPlugin!
+    var previousThread: Thread? {
+        if let thread = thread, let indexOfCurrent = allThreads.indexOf(thread) {
+            if indexOfCurrent >= 1 && indexOfCurrent < allThreads.count {
+                return allThreads[indexOfCurrent - 1]
+            }
+        }
+        return nil
     }
     var messageForSegue: Message?
     var primaryMessage: Message? {
         didSet(previous) {
-            var scrollIndex: NSIndexPath?
-            var pathsToReload = [NSIndexPath]()
-            if let previous = previous {
-                let oldindex = orderedMessages.indexOf(previous)! * 3
-                for i in oldindex...oldindex+2 {
-                    print(i)
-                    pathsToReload.append(NSIndexPath(forRow: i, inSection: 0))
+            if primaryMessage != previous {
+                var scrollIndex: NSIndexPath?
+                var pathsToReload = [NSIndexPath]()
+                if let previous = previous {
+                    if var oldindex = orderedMessages.indexOf(previous) {
+                        oldindex *= 3
+                        for i in oldindex...oldindex+2 {
+                            pathsToReload.append(NSIndexPath(forRow: i, inSection: 0))
+                        }
+                    }
                 }
-            }
-            if let primaryMessage = primaryMessage {
-                let newindex = orderedMessages.indexOf(primaryMessage)! * 3
-                for i in newindex...newindex+2 {
-                    pathsToReload.append(NSIndexPath(forRow: i, inSection: 0))
+                if let primaryMessage = primaryMessage {
+                    if var newindex = orderedMessages.indexOf(primaryMessage) {
+                        newindex *= 3
+                    for i in newindex...newindex+2 {
+                        pathsToReload.append(NSIndexPath(forRow: i, inSection: 0))
+                    }
+                        
+                    scrollIndex = NSIndexPath(forRow: newindex, inSection: 0)
+                    }
                 }
-                scrollIndex = NSIndexPath(forRow: newindex, inSection: 0)
-            }
-            
-            tableView.reloadRowsAtIndexPaths(pathsToReload, withRowAnimation: UITableViewRowAnimation.Automatic)
-            if let index = scrollIndex {
-                tableView.scrollToRowAtIndexPath(index, atScrollPosition: .Top, animated: true)
+                
+                if pathsToReload.count == 0 {
+                    tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+                } else {
+                    tableView.reloadRowsAtIndexPaths(pathsToReload, withRowAnimation: UITableViewRowAnimation.Automatic)
+                    if let index = scrollIndex {
+                        tableView.scrollToRowAtIndexPath(index, atScrollPosition: .Top, animated: true)
+                    }
+                }
             }
         }
     }
@@ -67,16 +97,37 @@ class ThreadTableViewController: UITableViewController, SWTableViewCellDelegate 
     }
     
     func cellTypeForIndexPath(indexPath: NSIndexPath)->CellType{
+        
+        let message = messageForIndexPath(indexPath)
+        if let primaryMessage = primaryMessage where primaryMessage != message, let indexPrimary = orderedMessages.indexOf(primaryMessage), let indexSecondary = orderedMessages.indexOf(message) {
+            if indexSecondary < indexPrimary {
+                switch indexPath.row % 3 {
+                case 0:
+                    return CellType.Sender
+                case 1:
+                    return CellType.Content
+                case 2:
+                    return CellType.Connector
+                default:
+                    return CellType(rawValue: Int(indexPath.row % 3))!
+                }
+            }
+        }
+        
+        
         return CellType(rawValue: Int(indexPath.row % 3))!
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.backgroundColor = UIColor(rgba: HexCodes.offWhite)
         tableView.tableFooterView = UIView()
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        self.plugin = BottomBarActionPluginProvider.plugin(self)
+        self.navigationController!.toolbar!.items = plugin.barButtonItemsForThread(thread)
     }
     
     // MARK: - Table view data source
@@ -96,7 +147,7 @@ class ThreadTableViewController: UITableViewController, SWTableViewCellDelegate 
         if message == primaryMessage {
             bgColor = UIColor.whiteColor()
         }else{
-            bgColor = UIColor.blueGrayBackgroundColor()
+            bgColor = UIColor(rgba: HexCodes.offWhite)
         }
         
         switch cellTypeForIndexPath(indexPath){
@@ -125,15 +176,16 @@ class ThreadTableViewController: UITableViewController, SWTableViewCellDelegate 
         view.frame = CGRectMake(0, 0, width, height)
         let label = UILabel()
         label.backgroundColor = UIColor.clearColor()
-        label.textColor = UIColor.darkGrayColor()
+        label.textColor = UIColor(rgba: HexCodes.darkGray)
         label.font = UIFont.systemFontOfSize(15)
-        label.frame = CGRectInset(view.bounds, 12, 15)
+        label.frame = CGRectInset(view.bounds, 12, 10)
+        label.clipsToBounds = false
         view.addSubview(label)
         label.text = orderedMessages.last?.subject ?? "No Subject"
         
         let bottomView = UIView()
         bottomView.frame = CGRectMake(0, view.frame.height-0.5, view.frame.width, 0.5)
-        bottomView.backgroundColor = UIColor.lightGrayColor()
+        bottomView.backgroundColor = UIColor(rgba: HexCodes.lightGray)
         bottomView.autoresizingMask = [UIViewAutoresizing.FlexibleLeftMargin, UIViewAutoresizing.FlexibleRightMargin, UIViewAutoresizing.FlexibleBottomMargin]
         bottomView.translatesAutoresizingMaskIntoConstraints = true
         view.addSubview(bottomView)
@@ -145,23 +197,17 @@ class ThreadTableViewController: UITableViewController, SWTableViewCellDelegate 
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.row == 0 {
+        
+        if messageForIndexPath(indexPath) == primaryMessage && cellTypeForIndexPath(indexPath) == .Connector {
             return 0
         }
         
-        if let primaryMessage = primaryMessage {
-            let newindex = orderedMessages.indexOf(primaryMessage)! * 3
-            if indexPath.row == newindex {
-                return 0
-            }
-        }
-        
-        if indexPath.row % 3 == 0 {
+        switch cellTypeForIndexPath(indexPath){
+        case .Connector:
             return 45
-        } else if indexPath.row % 3 == 1 {
+        case .Sender:
             return 86
-            
-        } else {
+        case .Content:
             return UITableViewAutomaticDimension
         }
     }
@@ -171,7 +217,9 @@ class ThreadTableViewController: UITableViewController, SWTableViewCellDelegate 
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        primaryMessage = messageForIndexPath(indexPath)
+        if cellTypeForIndexPath(indexPath) == .Sender {
+            primaryMessage = messageForIndexPath(indexPath)
+        }
     }
     
     func swipeableTableViewCell(cell: SWTableViewCell!, canSwipeToState state: SWCellState) -> Bool {
@@ -194,13 +242,5 @@ class ThreadTableViewController: UITableViewController, SWTableViewCellDelegate 
     
     func swipeableTableViewCellShouldHideUtilityButtonsOnSwipe(cell: SWTableViewCell!) -> Bool {
         return true
-    }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        super.prepareForSegue(segue, sender: sender)
-        if segue.identifier == "showMessageDetailViewController" {
-            let dc = segue.destinationViewController as! MessageDetailViewController
-            dc.message = self.messageForSegue
-        }
     }
 }

@@ -140,6 +140,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
         return cell
     }
     
+        
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         for cell in tableView.visibleCells {
             if let cell = cell as? SWTableViewCell {
@@ -151,11 +152,9 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
             
             let thread = fetchedObjects[indexPath.row]
             threadForSegue = thread
-            if let count = thread.messages?.count where count > 1 {
-                performSegueWithIdentifier("showThreadTableViewController", sender: self)
-            }else{
-                performSegueWithIdentifier("showMessageDetailViewController", sender: self)
-            }
+            performSegueWithIdentifier("showThreadTableViewController", sender: self)
+        }else{
+            
         }
     }
     
@@ -221,12 +220,10 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         super.prepareForSegue(segue, sender: sender)
-        if segue.identifier == "showMessageDetailViewController" {
-            let dc = segue.destinationViewController as! MessageDetailViewController
-            dc.message = self.threadForSegue?.messages?.allObjects.first as? Message
-        } else if segue.identifier == "showThreadTableViewController" {
+        if segue.identifier == "showThreadTableViewController" {
             let dc = segue.destinationViewController as! ThreadTableViewController
             dc.thread = self.threadForSegue
+            dc.allThreads = self.fetchedObjects
         }
     }
     

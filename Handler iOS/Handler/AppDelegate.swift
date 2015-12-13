@@ -36,6 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         APICommunicator.sharedInstance.start()
         UserTwitterStatusManager.startUpdating()
         HRActionsManager.setupSharedInstance()
+        UIToolbar.appearance().tintColor = UIColor(rgba: HexCodes.lightBlue)
         UIImageView.appearance().clipsToBounds = true
 		if NSUserDefaults.standardUserDefaults().boolForKey("didFinishWalkthrough") {
 			if let _ = Twitter.sharedInstance().sessionStore.session() {

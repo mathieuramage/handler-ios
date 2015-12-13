@@ -28,7 +28,6 @@
 		2F1D2C3F1BBC48E600A504A8 /* ErrorPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F1D2C3D1BBC48E600A504A8 /* ErrorPopupViewController.swift */; };
 		2F1D2C401BBC48E600A504A8 /* ErrorPopupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F1D2C3E1BBC48E600A504A8 /* ErrorPopupViewController.xib */; };
 		2F1DACF21BC7EFC500FB6173 /* AddAttachmentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F1DACF11BC7EFC500FB6173 /* AddAttachmentView.xib */; };
-		2F41F3141BB357B6003276E0 /* MessageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F41F3131BB357B6003276E0 /* MessageDetailViewController.swift */; };
 		2F43E0B11BDA4A5A00C68E1D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF1FD2E61B62360600A58B71 /* LaunchScreen.xib */; };
 		2F43E0BB1BDA4A8C00C68E1D /* APIKit.framework.dSYM in Carthage Dsyms */ = {isa = PBXBuildFile; fileRef = 2F43E0B31BDA4A8C00C68E1D /* APIKit.framework.dSYM */; };
 		2F43E0BC1BDA4A8C00C68E1D /* Async.framework.dSYM in Carthage Dsyms */ = {isa = PBXBuildFile; fileRef = 2F43E0B41BDA4A8C00C68E1D /* Async.framework.dSYM */; };
@@ -55,6 +54,7 @@
 		2F7B0D091BFDDA920015C43A /* ActionPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7B0D081BFDDA920015C43A /* ActionPluginProvider.swift */; };
 		2F7B0D0B1BFDDA9E0015C43A /* InboxActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7B0D0A1BFDDA9E0015C43A /* InboxActionHandler.swift */; };
 		2F81A6331BC179BF007F2D43 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F81A6321BC179BF007F2D43 /* Operators.swift */; };
+		2F81E78A1C1C67B200642337 /* BottomBarActionPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F81E7891C1C67B200642337 /* BottomBarActionPluginProvider.swift */; };
 		2F88F1CB1BD43C8B00844A90 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F88F1CA1BD43C8B00844A90 /* DownloadManager.swift */; };
 		2F88F1CE1BD43CF700844A90 /* HRDownloadAction+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F88F1CC1BD43CF700844A90 /* HRDownloadAction+CoreDataProperties.swift */; };
 		2F88F1CF1BD43CF700844A90 /* HRDownloadAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F88F1CD1BD43CF700844A90 /* HRDownloadAction.swift */; };
@@ -66,6 +66,8 @@
 		2F8D8CE21BCC12B30020A41C /* HRSendAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8D8CDC1BCC12B30020A41C /* HRSendAction.swift */; };
 		2F8D8CE51BCC20B40020A41C /* HRActionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8D8CE41BCC20B40020A41C /* HRActionsManager.swift */; };
 		2F92E7581BFB921300E5F6A2 /* ErrorPopupQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F92E7571BFB921300E5F6A2 /* ErrorPopupQueue.swift */; };
+		2F952DAE1C1D9191006A6BCA /* BottomBarProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F952DAD1C1D9191006A6BCA /* BottomBarProtocol.swift */; };
+		2F952DB01C1D91D0006A6BCA /* ConversationsBottomBarActionsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F952DAF1C1D91D0006A6BCA /* ConversationsBottomBarActionsHandler.swift */; };
 		2F994E4D1BB2AE3500A63B9B /* NSMutableArray+SWUtilityButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F994E421BB2AE3500A63B9B /* NSMutableArray+SWUtilityButtons.m */; };
 		2F994E4E1BB2AE3500A63B9B /* SWCellScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F994E441BB2AE3500A63B9B /* SWCellScrollView.m */; };
 		2F994E4F1BB2AE3500A63B9B /* SWLongPressGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F994E461BB2AE3500A63B9B /* SWLongPressGestureRecognizer.m */; };
@@ -221,7 +223,6 @@
 		2F1D2C3D1BBC48E600A504A8 /* ErrorPopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorPopupViewController.swift; sourceTree = "<group>"; };
 		2F1D2C3E1BBC48E600A504A8 /* ErrorPopupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorPopupViewController.xib; sourceTree = "<group>"; };
 		2F1DACF11BC7EFC500FB6173 /* AddAttachmentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddAttachmentView.xib; sourceTree = "<group>"; };
-		2F41F3131BB357B6003276E0 /* MessageDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDetailViewController.swift; sourceTree = "<group>"; };
 		2F43E0B31BDA4A8C00C68E1D /* APIKit.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = APIKit.framework.dSYM; sourceTree = "<group>"; };
 		2F43E0B41BDA4A8C00C68E1D /* Async.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = Async.framework.dSYM; sourceTree = "<group>"; };
 		2F43E0B51BDA4A8C00C68E1D /* Bond.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = Bond.framework.dSYM; sourceTree = "<group>"; };
@@ -247,6 +248,7 @@
 		2F7B0D081BFDDA920015C43A /* ActionPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionPluginProvider.swift; sourceTree = "<group>"; };
 		2F7B0D0A1BFDDA9E0015C43A /* InboxActionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxActionHandler.swift; sourceTree = "<group>"; };
 		2F81A6321BC179BF007F2D43 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
+		2F81E7891C1C67B200642337 /* BottomBarActionPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomBarActionPluginProvider.swift; sourceTree = "<group>"; };
 		2F88F1CA1BD43C8B00844A90 /* DownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		2F88F1CC1BD43CF700844A90 /* HRDownloadAction+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HRDownloadAction+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2F88F1CD1BD43CF700844A90 /* HRDownloadAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HRDownloadAction.swift; sourceTree = "<group>"; };
@@ -259,6 +261,8 @@
 		2F8D8CE41BCC20B40020A41C /* HRActionsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HRActionsManager.swift; sourceTree = "<group>"; };
 		2F8E37971BB1E91D00C6A82D /* Handler-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Handler-Bridging-Header.h"; sourceTree = "<group>"; };
 		2F92E7571BFB921300E5F6A2 /* ErrorPopupQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorPopupQueue.swift; sourceTree = "<group>"; };
+		2F952DAD1C1D9191006A6BCA /* BottomBarProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomBarProtocol.swift; sourceTree = "<group>"; };
+		2F952DAF1C1D91D0006A6BCA /* ConversationsBottomBarActionsHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationsBottomBarActionsHandler.swift; sourceTree = "<group>"; };
 		2F994E411BB2AE3500A63B9B /* NSMutableArray+SWUtilityButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+SWUtilityButtons.h"; sourceTree = "<group>"; };
 		2F994E421BB2AE3500A63B9B /* NSMutableArray+SWUtilityButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+SWUtilityButtons.m"; sourceTree = "<group>"; };
 		2F994E431BB2AE3500A63B9B /* SWCellScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWCellScrollView.h; sourceTree = "<group>"; };
@@ -465,20 +469,32 @@
 		2F7B0D041BFDD9880015C43A /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
-				2F7B0D051BFDD9910015C43A /* Action Plugins */,
+				2F81E7881C1C676700642337 /* Bottom Action Plugins */,
+				2F7B0D051BFDD9910015C43A /* Swipe Action Plugins */,
 				2F7B0CFB1BFDC8660015C43A /* Formatting Plugins */,
 			);
 			path = Plugins;
 			sourceTree = "<group>";
 		};
-		2F7B0D051BFDD9910015C43A /* Action Plugins */ = {
+		2F7B0D051BFDD9910015C43A /* Swipe Action Plugins */ = {
 			isa = PBXGroup;
 			children = (
 				2F7B0D081BFDDA920015C43A /* ActionPluginProvider.swift */,
 				2F7B0D061BFDD9A20015C43A /* ActionProtocols.swift */,
 				2F7B0D0A1BFDDA9E0015C43A /* InboxActionHandler.swift */,
 			);
+			name = "Swipe Action Plugins";
 			path = "Action Plugins";
+			sourceTree = "<group>";
+		};
+		2F81E7881C1C676700642337 /* Bottom Action Plugins */ = {
+			isa = PBXGroup;
+			children = (
+				2F81E7891C1C67B200642337 /* BottomBarActionPluginProvider.swift */,
+				2F952DAD1C1D9191006A6BCA /* BottomBarProtocol.swift */,
+				2F952DAF1C1D91D0006A6BCA /* ConversationsBottomBarActionsHandler.swift */,
+			);
+			name = "Bottom Action Plugins";
 			sourceTree = "<group>";
 		};
 		2F8D8CD61BCC118B0020A41C /* Actions System */ = {
@@ -671,7 +687,6 @@
 			children = (
 				2FF0D1311BB4BAAB009467B5 /* GenericMailboxTableViewController.swift */,
 				2FDDE1431BB01AD3006C3500 /* InboxTableViewController.swift */,
-				2F41F3131BB357B6003276E0 /* MessageDetailViewController.swift */,
 				2FF0D12F1BB4A802009467B5 /* ThreadTableViewController.swift */,
 			);
 			path = Mail;
@@ -931,6 +946,7 @@
 				2FDBBC901BB9CBC500B2BFBF /* UIView+Extensions.swift in Sources */,
 				2F0136A51BD11C87008BAD9D /* UserTwitterStatusManager.swift in Sources */,
 				2FA271A31BB69ED000B22C8B /* CLTokenInputView.m in Sources */,
+				2F952DB01C1D91D0006A6BCA /* ConversationsBottomBarActionsHandler.swift in Sources */,
 				2F09DB261BC6A0A300B81FE2 /* MessageAttachmentsTableViewCell.swift in Sources */,
 				2F994E521BB2AE3500A63B9B /* SWUtilityButtonView.m in Sources */,
 				2F4E41611BB0AC4A00AA2DEF /* CALayer+Extensions.swift in Sources */,
@@ -953,7 +969,6 @@
 				2FDDE1031BAEBFE9006C3500 /* APICommunicator.swift in Sources */,
 				2FF0D1301BB4A802009467B5 /* ThreadTableViewController.swift in Sources */,
 				2F8D8CDE1BCC12B30020A41C /* HRUploadAction.swift in Sources */,
-				2F41F3141BB357B6003276E0 /* MessageDetailViewController.swift in Sources */,
 				2F81A6331BC179BF007F2D43 /* Operators.swift in Sources */,
 				2FA271A21BB69ED000B22C8B /* CLToken.m in Sources */,
 				2F0136A31BD10EE4008BAD9D /* TwitterAPICommunicator.swift in Sources */,
@@ -1004,6 +1019,7 @@
 				2F090CC01BC8397000F00893 /* UTI.swift in Sources */,
 				2F0580571BC02FBC00600B8B /* HandlerDatabaseModel.xcdatamodel in Sources */,
 				2FDDE0F41BAEA957006C3500 /* User.swift in Sources */,
+				2F81E78A1C1C67B200642337 /* BottomBarActionPluginProvider.swift in Sources */,
 				2FDDE0F01BAEA957006C3500 /* Label.swift in Sources */,
 				2F0136A11BD10422008BAD9D /* ContactTableViewCell.swift in Sources */,
 				2FF788391BB5C6E700B297D3 /* Enumerations.swift in Sources */,
@@ -1017,6 +1033,7 @@
 				6C9BD06F1C0603250053C868 /* DraftsFormatter.swift in Sources */,
 				2F994E511BB2AE3500A63B9B /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
 				2FDDE0F11BAEA957006C3500 /* Thread+CoreDataProperties.swift in Sources */,
+				2F952DAE1C1D9191006A6BCA /* BottomBarProtocol.swift in Sources */,
 				2F8D8CE21BCC12B30020A41C /* HRSendAction.swift in Sources */,
 				2F1D2C3B1BBC477000A504A8 /* SendInvitationViewController.swift in Sources */,
 				2F8D8CE01BCC12B30020A41C /* HRAction.swift in Sources */,

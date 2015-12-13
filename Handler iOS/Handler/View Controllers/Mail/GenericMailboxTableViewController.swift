@@ -95,10 +95,8 @@ class GenericMailboxTableViewController: UITableViewController, NSFetchedResults
             
             if mailboxType == .Drafts {
                 performSegueWithIdentifier("showMessageComposeNavigationController", sender: self)
-            } else if let thread = message.thread where thread.messages?.count > 1 {
+            } else if let _ = message.thread {
                 performSegueWithIdentifier("showThreadTableViewController", sender: self)
-            }else{
-                performSegueWithIdentifier("showMessageDetailViewController", sender: self)
             }
         }
     }
@@ -170,12 +168,16 @@ class GenericMailboxTableViewController: UITableViewController, NSFetchedResults
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         super.prepareForSegue(segue, sender: sender)
         
-        if segue.identifier == "showMessageDetailViewController" {
-            let dc = segue.destinationViewController as! MessageDetailViewController
-            dc.message = self.messageForSegue
-        } else if segue.identifier == "showThreadTableViewController" {
+        if segue.identifier == "showThreadTableViewController" {
             let dc = segue.destinationViewController as! ThreadTableViewController
             dc.thread = self.messageForSegue?.thread
+            var threads = [Thread]()
+            for message in self.fetchedObjects {
+                if let thread = message.thread {
+                    threads.append(thread)
+                }
+            }
+            dc.allThreads = threads
         } else if segue.identifier == "showMessageComposeNavigationController" {
             let dc = (segue.destinationViewController as! UINavigationController).viewControllers.first as! MessageComposeTableViewController
             dc.draftMessage = self.messageForSegue

@@ -16,15 +16,15 @@ class MessageSenderTableViewCell: UITableViewCell {
     @IBOutlet var timeStampeLabel: UILabel!
     @IBOutlet weak var senderImageView: UIImageView!
 
-    var message: Message? {
-        didSet {
-            // TODO: Populate cell
+    var sender: User?
+    
+    @IBAction func didPressUsername(sender: UIButton) {
+        if let sender = self.sender {
+            ContactCardViewController.showWithUser(sender)
         }
     }
     
-    @IBAction func didPressUsername(sender: UIButton) {
-        if let sender = self.message?.sender {
-            ContactCardViewController.showWithUser(sender)
-        }
+    override func setSelected(selected: Bool, animated: Bool) {
+        super.setSelected(false, animated: true)
     }
 }

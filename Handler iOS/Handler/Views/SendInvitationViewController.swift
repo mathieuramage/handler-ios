@@ -24,10 +24,10 @@ class SendInvitationViewController: UIViewController, UIViewControllerShow, MFMe
 	var twitterHandle: String? {
 		didSet {
 			if let _ = twitterHandle {
-				byTweetButton.backgroundColor = UIColor.hrTwitterBlueColor()
+				byTweetButton.backgroundColor = UIColor(rgba: HexCodes.lightBlue)
 				if MFMessageComposeViewController.canSendText() {
 					bySmsButton.enabled = true
-					bySmsButton.backgroundColor = UIColor.hrGreenColor()
+					bySmsButton.backgroundColor = UIColor(rgba: HexCodes.green)
 				}else{
 					bySmsButton.enabled = false
 					bySmsButton.backgroundColor = UIColor.lightGrayColor()

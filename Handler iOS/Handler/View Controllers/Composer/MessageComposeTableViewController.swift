@@ -72,8 +72,8 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		tableView.tableFooterView = UIView()
-		tokenView.tintColor = UIColor.hrLightGrayColor()
-		ccTokenView.tintColor = UIColor.hrLightGrayColor()
+		tokenView.tintColor = UIColor(rgba: HexCodes.lightGray)
+		ccTokenView.tintColor = UIColor(rgba: HexCodes.lightGray)
 		
 		// UI Configuration
 		
@@ -262,14 +262,14 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	
 	func textColorForTokenViewWithToken(token: CLToken) -> UIColor {
 		guard token.displayText.lowercaseString.stringByReplacingOccurrencesOfString("@", withString: "") != "" else {
-			return UIColor.hrLightGrayColor()
+			return UIColor(rgba: HexCodes.lightGray)
 		}
 		for validatedToken in validatedTokens {
 			if validatedToken.name != "" && validatedToken.name.lowercaseString == token.displayText.lowercaseString.stringByReplacingOccurrencesOfString("@", withString: "") && validatedToken.isOnHandler {
-				return UIColor.hrBlueColor()
+                return UIColor(rgba: HexCodes.blue)
 			}
 		}
-		return UIColor.hrLightGrayColor()
+        return UIColor(rgba: HexCodes.lightGray)
 	}
 	
 	func tokenInputView(view: CLTokenInputView, didChangeHeightTo height: CGFloat) {
