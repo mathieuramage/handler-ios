@@ -85,7 +85,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
         containerView.addSubview(newEmailsLabel!)
         let item = UIBarButtonItem(customView: containerView)
         
-        let composeItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Compose, target: self, action: "composeNewMessage:")
+        let composeItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Compose, target: self, action: "composeNewMessage")
         
         self.navigationController!.toolbar.items = [space, item, space, composeItem]
         
@@ -112,8 +112,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
             }
         }
     }
-    
-    func composeNewMessage(item: UIBarButtonItem){
+    func composeNewMessage(){
         performSegueWithIdentifier("showMessageComposeNavigationController", sender: self)
     }
     
@@ -126,7 +125,8 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return fetchedObjects.count ?? 0
+        return 0
+        // return fetchedObjects.count ?? 0
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -229,11 +229,10 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
     
     // MARK: Empty Dataset DataSource
     
-    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
-        return UIImage(named: "Inbox_Zero_Graphic_1")
-    }
-    
-    func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
-        return NSAttributedString(string: "Don't forget to reach out to old friends you played with.", attributes: [NSForegroundColorAttributeName: UIColor.grayColor(), NSFontAttributeName: UIFont.systemFontOfSize(14)])
+    func customViewForEmptyDataSet(scrollView: UIScrollView!) -> UIView! {
+        let view = UINib(nibName: "EmptyInbox", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! UIView
+        let button = view.viewWithTag(300) as! UIButton
+        button.addTarget(self, action: "composeNewMessage", forControlEvents: .TouchUpInside)
+        return view
     }
 }

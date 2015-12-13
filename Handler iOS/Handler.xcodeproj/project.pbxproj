@@ -135,6 +135,7 @@
 		2FE75EBB1BDA38F00061AE03 /* KeychainAccess.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FE75EBA1BDA38F00061AE03 /* KeychainAccess.framework */; };
 		2FEA14621BF77CC0008E31F1 /* MailBoxMenuOptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA14611BF77CC0008E31F1 /* MailBoxMenuOptionTableViewCell.swift */; };
 		2FEA14641BF8B61D008E31F1 /* DatabaseChangesCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FEA14631BF8B61D008E31F1 /* DatabaseChangesCache.swift */; };
+		2FED1D4B1C1E0E1700490798 /* EmptyInbox.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2FED1D4A1C1E0E1700490798 /* EmptyInbox.xib */; };
 		2FF0D1301BB4A802009467B5 /* ThreadTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF0D12F1BB4A802009467B5 /* ThreadTableViewController.swift */; };
 		2FF0D1321BB4BAAB009467B5 /* GenericMailboxTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF0D1311BB4BAAB009467B5 /* GenericMailboxTableViewController.swift */; };
 		2FF0D13A1BB4C386009467B5 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF0D1391BB4C386009467B5 /* String+Extensions.swift */; };
@@ -341,6 +342,7 @@
 		2FE75EBA1BDA38F00061AE03 /* KeychainAccess.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KeychainAccess.framework; path = Carthage/Build/iOS/KeychainAccess.framework; sourceTree = SOURCE_ROOT; };
 		2FEA14611BF77CC0008E31F1 /* MailBoxMenuOptionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MailBoxMenuOptionTableViewCell.swift; sourceTree = "<group>"; };
 		2FEA14631BF8B61D008E31F1 /* DatabaseChangesCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseChangesCache.swift; sourceTree = "<group>"; };
+		2FED1D4A1C1E0E1700490798 /* EmptyInbox.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyInbox.xib; sourceTree = "<group>"; };
 		2FF0D12F1BB4A802009467B5 /* ThreadTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadTableViewController.swift; sourceTree = "<group>"; };
 		2FF0D1311BB4BAAB009467B5 /* GenericMailboxTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericMailboxTableViewController.swift; sourceTree = "<group>"; };
 		2FF0D1391BB4C386009467B5 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
@@ -460,11 +462,11 @@
 				6C9BD0691C0603250053C868 /* ArchiveFormatter.swift */,
 				6C9BD06A1C0603250053C868 /* DraftsFormatter.swift */,
 				6C9BD06B1C0603250053C868 /* FlaggedFormatter.swift */,
+				2F7B0CFC1BFDC8910015C43A /* InboxFormatter.swift */,
 				6C9BD06C1C0603250053C868 /* SentFormatter.swift */,
 				6C9BD06D1C0603250053C868 /* UnreadFormatter.swift */,
 				2F7B0CFE1BFDCAB30015C43A /* FormatterProtocols.swift */,
 				2F7B0D001BFDCB230015C43A /* FormattingPluginProvider.swift */,
-				2F7B0CFC1BFDC8910015C43A /* InboxFormatter.swift */,
 				2FDC6FAD1C18BD89008D334A /* ConversationContentCellFormatter.swift */,
 			);
 			path = "Formatting Plugins";
@@ -675,6 +677,7 @@
 				2FDDE1461BB04FA4006C3500 /* WhiteBorderViews.swift */,
 				2FB2FA901C1DF6AE00F492EF /* GreetingViewController.swift */,
 				2FB2FA911C1DF6AE00F492EF /* GreetingViewController.xib */,
+				2FED1D4A1C1E0E1700490798 /* EmptyInbox.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -871,6 +874,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FED1D4B1C1E0E1700490798 /* EmptyInbox.xib in Resources */,
 				2F43E0B11BDA4A5A00C68E1D /* LaunchScreen.xib in Resources */,
 				2F1DACF21BC7EFC500FB6173 /* AddAttachmentView.xib in Resources */,
 				2F1D2C401BBC48E600A504A8 /* ErrorPopupViewController.xib in Resources */,
