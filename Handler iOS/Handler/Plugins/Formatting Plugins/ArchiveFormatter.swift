@@ -8,6 +8,7 @@
 
 import UIKit
 import Async
+import HandlerSDK
 
 struct ArchiveFormatter: MessageTableViewCellFormatter {
     

@@ -92,6 +92,8 @@
 		2FA2EA8C1BAD9C970027EA77 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA2EA8B1BAD9C970027EA77 /* LoginViewController.swift */; };
 		2FA2EA8E1BAD9CBA0027EA77 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2FA2EA8D1BAD9CBA0027EA77 /* Main.storyboard */; };
 		2FB0E9451BB5718600A0426E /* UIImage+HanderImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB0E9441BB5718600A0426E /* UIImage+HanderImages.swift */; };
+		2FB2FA921C1DF6AE00F492EF /* GreetingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB2FA901C1DF6AE00F492EF /* GreetingViewController.swift */; };
+		2FB2FA931C1DF6AE00F492EF /* GreetingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2FB2FA911C1DF6AE00F492EF /* GreetingViewController.xib */; };
 		2FB5A4471BB20A6E0087D006 /* MailBoxOptionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB5A4461BB20A6E0087D006 /* MailBoxOptionsTableViewController.swift */; };
 		2FB9D55F1BCAB89B0093C1DC /* CWStatusBarNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB9D55D1BCAB89B0093C1DC /* CWStatusBarNotification.swift */; };
 		2FB9D5601BCAB89B0093C1DC /* CWStatusBarNotificationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB9D55E1BCAB89B0093C1DC /* CWStatusBarNotificationUtils.swift */; };
@@ -297,6 +299,8 @@
 		2FA2EA8B1BAD9C970027EA77 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2FA2EA8D1BAD9CBA0027EA77 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		2FB0E9441BB5718600A0426E /* UIImage+HanderImages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+HanderImages.swift"; sourceTree = "<group>"; };
+		2FB2FA901C1DF6AE00F492EF /* GreetingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreetingViewController.swift; sourceTree = "<group>"; };
+		2FB2FA911C1DF6AE00F492EF /* GreetingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GreetingViewController.xib; sourceTree = "<group>"; };
 		2FB5A4461BB20A6E0087D006 /* MailBoxOptionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MailBoxOptionsTableViewController.swift; sourceTree = "<group>"; };
 		2FB9D55D1BCAB89B0093C1DC /* CWStatusBarNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CWStatusBarNotification.swift; sourceTree = "<group>"; };
 		2FB9D55E1BCAB89B0093C1DC /* CWStatusBarNotificationUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CWStatusBarNotificationUtils.swift; sourceTree = "<group>"; };
@@ -669,6 +673,8 @@
 				2F1D2C391BBC477000A504A8 /* SendInvitationViewController.swift */,
 				2F1D2C3A1BBC477000A504A8 /* SendInvitationViewController.xib */,
 				2FDDE1461BB04FA4006C3500 /* WhiteBorderViews.swift */,
+				2FB2FA901C1DF6AE00F492EF /* GreetingViewController.swift */,
+				2FB2FA911C1DF6AE00F492EF /* GreetingViewController.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -876,6 +882,7 @@
 				2F1D2C3C1BBC477000A504A8 /* SendInvitationViewController.xib in Resources */,
 				2FA2EA8E1BAD9CBA0027EA77 /* Main.storyboard in Resources */,
 				2F0136981BCFD82E008BAD9D /* IntroView.xib in Resources */,
+				2FB2FA931C1DF6AE00F492EF /* GreetingViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1018,6 +1025,7 @@
 				2FDDE0FE1BAEB26C006C3500 /* NSManagedObject+Convenience.swift in Sources */,
 				2F090CC01BC8397000F00893 /* UTI.swift in Sources */,
 				2F0580571BC02FBC00600B8B /* HandlerDatabaseModel.xcdatamodel in Sources */,
+				2FB2FA921C1DF6AE00F492EF /* GreetingViewController.swift in Sources */,
 				2FDDE0F41BAEA957006C3500 /* User.swift in Sources */,
 				2F81E78A1C1C67B200642337 /* BottomBarActionPluginProvider.swift in Sources */,
 				2FDDE0F01BAEA957006C3500 /* Label.swift in Sources */,
