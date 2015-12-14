@@ -20,6 +20,7 @@ class GreetingViewController: UIViewController, UIViewControllerShow {
 
     var window: UIWindow?
     
+    var welcomeBack: Bool = false
     var handle: String? {
         didSet {
             if let handle = handle {
@@ -43,7 +44,11 @@ class GreetingViewController: UIViewController, UIViewControllerShow {
                 return
             }
             Async.main {
+                if !self.welcomeBack {
                 self.handleLabel.text = "Welcome @\(json["screen_name"].stringValue)"
+                }else{
+                    self.handleLabel.text = "Welcome back @\(json["screen_name"].stringValue)"
+                }
                 self.continueButton.borderColor = UIColor(rgba: HexCodes.lightBlue)
                 self.continueButton.setTitleColor(UIColor(rgba: HexCodes.lightBlue), forState: .Normal)
 
@@ -64,14 +69,16 @@ class GreetingViewController: UIViewController, UIViewControllerShow {
         })
     }
     
-    class func show() {
+    class func show(back: Bool = false) {
         var contactCard = GreetingViewController(nibName: "GreetingViewController", bundle: nil)
+        contactCard.welcomeBack = back
         NSNotificationCenter.defaultCenter().addObserver(contactCard, selector: "updateView", name: HRCurrentUserDidSetNotification, object: nil)
         contactCard.show()
     }
     
-    class func showWithHandle(handle: String){
+    class func showWithHandle(handle: String, back: Bool = false){
         var contactCard = GreetingViewController(nibName: "GreetingViewController", bundle: nil)
+        contactCard.welcomeBack = back
         contactCard.handle = handle
         contactCard.show()
     }

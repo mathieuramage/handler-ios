@@ -19,7 +19,6 @@ class ThreadTableViewController: UITableViewController, SWTableViewCellDelegate 
     var thread: Thread? {
         didSet {
             tableView.reloadData()
-            primaryMessage = nil
             primaryMessage = orderedMessages.first
         }
     }
@@ -44,37 +43,18 @@ class ThreadTableViewController: UITableViewController, SWTableViewCellDelegate 
     var messageForSegue: Message?
     var primaryMessage: Message? {
         didSet(previous) {
-            tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
-
-            return /* DISABLES CODE */
+            
             if primaryMessage != previous {
+                tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
                 var scrollIndex: NSIndexPath?
-                var pathsToReload = [NSIndexPath]()
-                if let previous = previous {
-                    if var oldindex = orderedMessages.indexOf(previous) {
-                        oldindex *= 3
-                        for i in oldindex...oldindex+2 {
-                            pathsToReload.append(NSIndexPath(forRow: i, inSection: 0))
-                        }
-                    }
-                }
                 if let primaryMessage = primaryMessage {
                     if var newindex = orderedMessages.indexOf(primaryMessage) {
                         newindex *= 3
-                    for i in newindex...newindex+2 {
-                        pathsToReload.append(NSIndexPath(forRow: i, inSection: 0))
-                    }
-                        
-                    scrollIndex = NSIndexPath(forRow: newindex, inSection: 0)
+                        scrollIndex = NSIndexPath(forRow: newindex, inSection: 0)
                     }
                 }
-                
-                if pathsToReload.count == 0 {
-                } else {
-                    tableView.reloadRowsAtIndexPaths(pathsToReload, withRowAnimation: UITableViewRowAnimation.Automatic)
-                    if let index = scrollIndex {
-                        tableView.scrollToRowAtIndexPath(index, atScrollPosition: .Top, animated: true)
-                    }
+                if let index = scrollIndex {
+                    tableView.scrollToRowAtIndexPath(index, atScrollPosition: .Top, animated: true)
                 }
             }
         }
@@ -106,19 +86,19 @@ class ThreadTableViewController: UITableViewController, SWTableViewCellDelegate 
     func cellTypeForIndexPath(indexPath: NSIndexPath)->CellType{
         
         if let message = messageForIndexPath(indexPath) {
-        if let primaryMessage = primaryMessage where primaryMessage != message, let indexPrimary = orderedMessages.indexOf(primaryMessage), let indexSecondary = orderedMessages.indexOf(message) {
-            if indexSecondary < indexPrimary {
-                switch indexPath.row % 3 {
-                case 0:
-                    return CellType.Sender
-                case 1:
-                    return CellType.Content
-                case 2:
-                    return CellType.Connector
-                default:
-                    return CellType(rawValue: Int(indexPath.row % 3))!
+            if let primaryMessage = primaryMessage where primaryMessage != message, let indexPrimary = orderedMessages.indexOf(primaryMessage), let indexSecondary = orderedMessages.indexOf(message) {
+                if indexSecondary < indexPrimary {
+                    switch indexPath.row % 3 {
+                    case 0:
+                        return CellType.Sender
+                    case 1:
+                        return CellType.Content
+                    case 2:
+                        return CellType.Connector
+                    default:
+                        return CellType(rawValue: Int(indexPath.row % 3))!
+                    }
                 }
-            }
             }
         }else{
             return CellType.Connector

@@ -46,7 +46,7 @@ class LoginViewController: UIViewController {
                                     APICommunicator.sharedInstance.attemptRelogin()
                                     UIView.transitionWithView(AppDelegate.sharedInstance().window!, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: { () -> Void in
                                         AppDelegate.sharedInstance().window?.rootViewController = AppDelegate.sharedInstance().sideMenu
-                                        GreetingViewController.showWithHandle(user?.handle ?? "")
+                                        GreetingViewController.showWithHandle(user?.handle ?? "", back: false)
                                         }, completion: nil)
                                 }
                             })
