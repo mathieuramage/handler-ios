@@ -18,9 +18,9 @@ class ThreadTableViewController: UITableViewController, SWTableViewCellDelegate 
     
     var thread: Thread? {
         didSet {
+            tableView.reloadData()
             primaryMessage = nil
             primaryMessage = orderedMessages.first
-            tableView.reloadData()
         }
     }
     var allThreads: [Thread] = [Thread]()
@@ -44,6 +44,9 @@ class ThreadTableViewController: UITableViewController, SWTableViewCellDelegate 
     var messageForSegue: Message?
     var primaryMessage: Message? {
         didSet(previous) {
+            tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+
+            return /* DISABLES CODE */
             if primaryMessage != previous {
                 var scrollIndex: NSIndexPath?
                 var pathsToReload = [NSIndexPath]()
@@ -67,7 +70,6 @@ class ThreadTableViewController: UITableViewController, SWTableViewCellDelegate 
                 }
                 
                 if pathsToReload.count == 0 {
-                    tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
                 } else {
                     tableView.reloadRowsAtIndexPaths(pathsToReload, withRowAnimation: UITableViewRowAnimation.Automatic)
                     if let index = scrollIndex {
@@ -92,13 +94,18 @@ class ThreadTableViewController: UITableViewController, SWTableViewCellDelegate 
         }
     }
     
-    func messageForIndexPath(indexPath: NSIndexPath)->Message{
-        return orderedMessages[Int(floor(Float(indexPath.row / 3)))]
+    func messageForIndexPath(indexPath: NSIndexPath)->Message?{
+        let index = Int(floor(Float(indexPath.row / 3)))
+        if index < orderedMessages.count {
+            return orderedMessages[index]
+        }else{
+            return nil
+        }
     }
     
     func cellTypeForIndexPath(indexPath: NSIndexPath)->CellType{
         
-        let message = messageForIndexPath(indexPath)
+        if let message = messageForIndexPath(indexPath) {
         if let primaryMessage = primaryMessage where primaryMessage != message, let indexPrimary = orderedMessages.indexOf(primaryMessage), let indexSecondary = orderedMessages.indexOf(message) {
             if indexSecondary < indexPrimary {
                 switch indexPath.row % 3 {
@@ -112,6 +119,9 @@ class ThreadTableViewController: UITableViewController, SWTableViewCellDelegate 
                     return CellType(rawValue: Int(indexPath.row % 3))!
                 }
             }
+            }
+        }else{
+            return CellType.Connector
         }
         
         

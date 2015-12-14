@@ -34,9 +34,7 @@ struct ArchiveFormatter: MessageTableViewCellFormatter {
         view.rightUtilityButtons = rightButtonsForData(data: message)
         if let urlString = message.sender?.profile_picture_url, let profileUrl = NSURL(string: urlString) {
             view.senderProfileImageView.kf_setImageWithURL(profileUrl, placeholderImage: UIImage.randomGhostImage(), optionsInfo: nil, completionHandler: { (image, error, cacheType, imageURL) -> () in
-                Async.main(block: { () -> Void in
-                    view.senderProfileImageView.image = image
-                })
+
             })
         }
         

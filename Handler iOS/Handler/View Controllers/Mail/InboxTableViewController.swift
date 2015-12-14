@@ -125,8 +125,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
-        // return fetchedObjects.count ?? 0
+        return fetchedObjects.count ?? 0
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

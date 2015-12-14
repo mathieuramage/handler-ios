@@ -50,6 +50,7 @@ class GreetingViewController: UIViewController, UIViewControllerShow {
                 if let urlString = json["profile_banner_url"].string, let url = NSURL(string: urlString){
                     self.bannerImageView.kf_setImageWithURL(url, placeholderImage: UIImage(named: "twitter_default"), optionsInfo: [.Transition(ImageTransition.Fade(0.3))])
                 }
+                print(json)
                 if let urlString = json["profile_image_url"].string, let url = NSURL(string: urlString){
                     
                     self.profileImageView.kf_setImageWithURL(url, placeholderImage: UIImage(named: "twitter_default"), optionsInfo: [.Transition(ImageTransition.Fade(0.3))])

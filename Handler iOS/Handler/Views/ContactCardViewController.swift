@@ -53,7 +53,7 @@ class ContactCardViewController: UIViewController, UIViewControllerShow {
 			}
 			Async.main {
 				self.statusLabel.text = json["description"].stringValue
-				self.handleLabel.text = json["screen_name"].stringValue
+				self.handleLabel.text = "@" + json["screen_name"].stringValue
 				self.nameLabel.text = json["name"].stringValue
 				self.locationLabel.text = json["location"].stringValue
 				
