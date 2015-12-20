@@ -13,6 +13,8 @@ import HandlerSDK
 
 class LoginViewController: UIViewController {
     
+    @IBOutlet weak var loadingView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,7 +27,15 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func loginButtonPressed(button: UIButton){
+        
+        //Displaying loading view
+        UIView.animateWithDuration(1, animations: {
+            self.loadingView.alpha = 1.0
+        })
+        
         Twitter.sharedInstance().logInWithCompletion { (session, error) -> Void in
+            
+            
             if let error = error {
                 HRError(errorType: error).show()
                 return
@@ -34,8 +44,15 @@ class LoginViewController: UIViewController {
                 let twitter = Twitter.sharedInstance()
                 let oauthSigning = TWTROAuthSigning(authConfig:twitter.authConfig, authSession:session)
                 HRTwitterAuthManager.startAuth(oauthSigning.OAuthEchoHeadersToVerifyCredentials(), callback: { (error, session) -> Void in
+                    
+                    //Fading out loading view
+                    UIView.animateWithDuration(1, animations: {
+                        self.loadingView.alpha = 0.0
+                    })
+                    
                     if let error = error {
                         if error.status == 401 {
+                            
                             // register new user
                             HandlerAPI.createUserWithCallback(oauthSigning.OAuthEchoHeadersToVerifyCredentials(), provider: "twitter", callback: { (user, error) -> Void in
                                 if let error = error {

@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import Async
 
 class IntroViewController: UIViewController, UIScrollViewDelegate {
     
     @IBOutlet var firstView: UIView!
     @IBOutlet var secondView: UIView!
     @IBOutlet var thirdView: UIView!
+    @IBOutlet var fourthView: UIView!
     var contentView: UIView = UIView()
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet var scrollView: UIScrollView!
@@ -21,23 +23,44 @@ class IntroViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        totalWidth = Double(UIScreen.mainScreen().bounds.width * 3)
-        contentView = UIView(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width * 3, UIScreen.mainScreen().bounds.height))
+        totalWidth = Double(UIScreen.mainScreen().bounds.width * 4)
+        contentView = UIView(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width * 4, UIScreen.mainScreen().bounds.height))
         firstView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height)
         secondView.frame = CGRectMake(firstView.bounds.width, 0, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height)
         thirdView.frame = CGRectMake(firstView.bounds.width * 2, 0, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height)
+        fourthView.frame = CGRectMake(firstView.bounds.width * 3, 0, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height)
         
+        contentView.addSubview(fourthView)
         contentView.addSubview(thirdView)
         contentView.addSubview(secondView)
         contentView.addSubview(firstView)
         
         scrollView.addSubview(contentView)
         
-        scrollView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.width * 3, UIScreen.mainScreen().bounds.height)
+        scrollView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.width * 4, UIScreen.mainScreen().bounds.height)
+        scrollView.scrollEnabled = false;
+        pageControl.alpha = 0;
     }
     
+//MARK: IBAction methods
     @IBAction func beginButtonPressed(sender: RoundedBorderButton) {
+        scrollView.scrollEnabled = true
+        pageControl.alpha = 1
         scrollView.setContentOffset(CGPointMake(firstView.bounds.width, 0), animated: true)
+//        pageControl.currentPage = 0
+        
+        //Removing the first page from the scrollview and reload
+        Async.main(after: 0.5) {
+            self.firstView.removeFromSuperview();
+            self.totalWidth = Double(UIScreen.mainScreen().bounds.width * 3)
+            self.contentView = UIView(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width * 3, UIScreen.mainScreen().bounds.height))
+            self.secondView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height)
+            self.thirdView.frame = CGRectMake(self.firstView.bounds.width * 1, 0, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height)
+            self.fourthView.frame = CGRectMake(self.firstView.bounds.width * 2, 0, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height)
+            self.scrollView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.width * 3, UIScreen.mainScreen().bounds.height)
+            self.scrollView.setContentOffset(CGPointMake(0, 0), animated: false)
+        }
+
     }
     
     @IBAction func finishWalkthrough(sender: AnyObject) {
@@ -60,14 +83,15 @@ class IntroViewController: UIViewController, UIScrollViewDelegate {
         if scrollView.contentOffset.x > 0 {
             pageControl.currentPage = Int((Double(scrollView.contentOffset.x) / totalWidth )*3)
             
-            if pageControl.currentPage == 2 {
-                var token: dispatch_once_t = 0
-                dispatch_once(&token) { () -> Void in
-                    NSRunLoop.mainRunLoop().addTimer(NSTimer(timeInterval: 3, target: self, selector: "finishWalkthrough:", userInfo: nil, repeats: false), forMode: NSRunLoopCommonModes)
-                }
-            }
         }else{
             pageControl.currentPage = 0
+        }
+        
+        if pageControl.currentPage == 2{ //Removing the botton page controller
+            pageControl.alpha = 0;
+        }
+        else{
+            pageControl.alpha = 1;
         }
     }
 }

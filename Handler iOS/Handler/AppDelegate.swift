@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         HRActionsManager.setupSharedInstance()
         UIToolbar.appearance().tintColor = UIColor(rgba: HexCodes.lightBlue)
         UIImageView.appearance().clipsToBounds = true
-		if NSUserDefaults.standardUserDefaults().boolForKey("didFinishWalkthrough") {
+		if (NSUserDefaults.standardUserDefaults().boolForKey("didFinishWalkthrough") && !ENABLE_ONBOARDING_EVERY_RUN) {
 			if let _ = Twitter.sharedInstance().sessionStore.session() {
                 APICommunicator.sharedInstance.attemptRelogin()
 				window?.rootViewController = sideMenu
