@@ -1,6 +1,6 @@
 github "duemunk/Async" "1.6.4"
 github "SwiftBond/Bond" "v4.3.0"
-github "dzenbot/DZNEmptyDataSet" "v1.7.2"
+github "dzenbot/DZNEmptyDataSet" "v1.7.1"
 github "kishikawakatsumi/KeychainAccess" "v2.3.3"
 github "onevcat/Kingfisher" "1.8.5"
 github "kevinlawler/NSDate-TimeAgo" "v1.0.3"

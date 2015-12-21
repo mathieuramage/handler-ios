@@ -323,7 +323,7 @@
                         <color key="separatorColor" red="0.80000000000000004" green="0.83921568627450982" blue="0.8666666666666667" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="messageSenderCell" id="lV9-U4-Tqr" customClass="MessageSenderTableViewCell" customModule="Handler" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="86"/>
+                                <rect key="frame" x="0.0" y="92" width="375" height="86"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lV9-U4-Tqr" id="06A-lf-05x">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="85"/>
@@ -401,7 +401,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="messageContentCell" id="Eny-Dt-DcE" customClass="MessageContentTableViewCell" customModule="Handler" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="114" width="375" height="86"/>
+                                <rect key="frame" x="0.0" y="178" width="375" height="86"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Eny-Dt-DcE" id="vql-1K-suS">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="85"/>
@@ -437,7 +437,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="messageConnectionCell" rowHeight="45" id="q2a-nv-pF8" customClass="MessageContentTableViewCell" customModule="Handler" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="200" width="375" height="45"/>
+                                <rect key="frame" x="0.0" y="264" width="375" height="45"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="q2a-nv-pF8" id="TxF-YZ-jM1">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -1165,8 +1165,8 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="XtR-7h-DTu"/>
-        <segue reference="FuE-Pp-2sp"/>
-        <segue reference="Evc-eB-gJq"/>
+        <segue reference="l3v-e4-Wcd"/>
+        <segue reference="37u-X4-Rqh"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
 </document>
