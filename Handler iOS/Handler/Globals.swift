@@ -9,5 +9,6 @@
 /// This Globals class is used as a controller manager for the whole Handlerapp
 //import Foundation
 
-//Debugging Flags
+//======================================= Debugging Flags =============================//
 let ENABLE_ONBOARDING_EVERY_RUN = false
+let PRINT_TWITTER_USERDATA_RESPONSE = false

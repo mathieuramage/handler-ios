@@ -4,6 +4,17 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="System San Francisco Display Bold.ttf">
+            <string>.HelveticaNeueDeskInterface-Bold</string>
+        </mutableArray>
+        <mutableArray key="System San Francisco Display Regular.ttf">
+            <string>.HelveticaNeueDeskInterface-Regular</string>
+        </mutableArray>
+        <mutableArray key="System San Francisco Display Thin.ttf">
+            <string>.HelveticaNeueDeskInterface-Thin</string>
+        </mutableArray>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GreetingViewController" customModule="Handler" customModuleProvider="target">
             <connections>
@@ -20,20 +31,18 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="leU-z0-jsA">
-                    <rect key="frame" x="27" y="180.5" width="320" height="307"/>
+                    <rect key="frame" x="27" y="160" width="320" height="347"/>
                     <subviews>
-                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" image="twitter_default" translatesAutoresizingMaskIntoConstraints="NO" id="BGW-Lj-Exx">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="100" id="Ksj-NW-fXZ"/>
-                            </constraints>
+                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" fixedFrame="YES" image="twitter_default" translatesAutoresizingMaskIntoConstraints="NO" id="BGW-Lj-Exx">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="127"/>
                         </imageView>
                         <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="2x9-WQ-QCi" customClass="WhiteBorderImageView" customModule="Handler" customModuleProvider="target">
-                            <rect key="frame" x="100" y="10" width="120" height="120"/>
+                            <rect key="frame" x="101" y="10" width="117" height="117"/>
                             <color key="backgroundColor" red="0.73333333333333328" green="0.8666666666666667" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
+                                <constraint firstAttribute="width" secondItem="2x9-WQ-QCi" secondAttribute="height" multiplier="1:1" id="MxU-4S-Ibx"/>
                                 <constraint firstAttribute="width" secondItem="2x9-WQ-QCi" secondAttribute="height" multiplier="1:1" id="gsm-b5-4vI"/>
-                                <constraint firstAttribute="width" constant="120" id="vIW-Kg-spc"/>
+                                <constraint firstAttribute="width" constant="117" id="vIW-Kg-spc"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -44,70 +53,75 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome @user" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="EYD-QV-bgH">
-                            <rect key="frame" x="76" y="140" width="169" height="21.5"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="EYD-QV-bgH">
+                            <rect key="frame" x="20" y="140" width="282" height="18"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="169" id="gCv-l2-a6X"/>
+                                <constraint firstAttribute="width" constant="282" id="gCv-l2-a6X"/>
                                 <constraint firstAttribute="height" constant="50" id="tFq-xr-MHr"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" name=".HelveticaNeueDeskInterface-Regular" family="SFNS Display" pointSize="15"/>
+                            <color key="textColor" red="0.16078431372549018" green="0.18431372549019609" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                             <variation key="default">
                                 <mask key="constraints">
+                                    <exclude reference="gCv-l2-a6X"/>
                                     <exclude reference="tFq-xr-MHr"/>
                                 </mask>
                             </variation>
                         </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PA5-R6-aZJ" userLabel="Body label">
+                            <rect key="frame" x="20" y="175" width="282" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="1vA-Aj-2Gb"/>
+                            </constraints>
+                            <string key="text">Your new email inbox is ready.
+  Happy emailing!</string>
+                            <fontDescription key="fontDescription" name=".HelveticaNeueDeskInterface-Thin" family="SFNS Display" pointSize="15"/>
+                            <color key="textColor" red="0.53333333333333333" green="0.59999999999999998" blue="0.65098039215686276" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <button opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lbc-f1-lUf" customClass="WhiteBorderButton" customModule="Handler" customModuleProvider="target">
-                            <rect key="frame" x="18" y="249" width="284" height="40"/>
+                            <rect key="frame" x="20" y="247" width="280" height="44"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="40" id="MgA-D2-cYn"/>
+                                <constraint firstAttribute="height" constant="44" id="l89-gQ-Zwk"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                            <fontDescription key="fontDescription" name=".HelveticaNeueDeskInterface-Bold" family="SFNS Display" pointSize="15"/>
                             <state key="normal" title="Start emailing with Handler">
-                                <color key="titleColor" red="0.53333333329999999" green="0.59999999999999998" blue="0.65098039220000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleColor" red="0.31372549020000001" green="0.67450980390000004" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                     <integer key="value" value="3"/>
                                 </userDefinedRuntimeAttribute>
                                 <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                    <color key="value" red="0.53333333329999999" green="0.59999999999999998" blue="0.65098039220000004" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="value" red="0.31372549019607843" green="0.67450980392156867" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
                                 </userDefinedRuntimeAttribute>
                                 <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                    <real key="value" value="1"/>
+                                    <real key="value" value="1.5"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="dismiss" destination="-1" eventType="touchUpInside" id="tUx-Li-shg"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PA5-R6-aZJ">
-                            <rect key="frame" x="64" y="185.5" width="193.5" height="33.5"/>
-                            <string key="text">Your new email inbox is ready.
-  Happy emailing!</string>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <color key="textColor" red="0.53333333333333333" green="0.59999999999999998" blue="0.65098039215686276" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="BGW-Lj-Exx" firstAttribute="top" secondItem="leU-z0-jsA" secondAttribute="top" id="EG8-rg-KGO"/>
-                        <constraint firstItem="2x9-WQ-QCi" firstAttribute="top" secondItem="leU-z0-jsA" secondAttribute="top" constant="10" id="Ivl-3g-nPP"/>
-                        <constraint firstAttribute="trailing" secondItem="Lbc-f1-lUf" secondAttribute="trailing" constant="18" id="N4B-DL-V5K"/>
-                        <constraint firstAttribute="trailing" secondItem="BGW-Lj-Exx" secondAttribute="trailing" id="PwL-ev-3bS"/>
-                        <constraint firstItem="PA5-R6-aZJ" firstAttribute="centerX" secondItem="EYD-QV-bgH" secondAttribute="centerX" id="QIR-Ac-Wzp"/>
-                        <constraint firstItem="Lbc-f1-lUf" firstAttribute="leading" secondItem="leU-z0-jsA" secondAttribute="leading" constant="18" id="RtR-wO-MRd"/>
-                        <constraint firstItem="EYD-QV-bgH" firstAttribute="centerX" secondItem="2x9-WQ-QCi" secondAttribute="centerX" id="bO7-pj-B7r"/>
-                        <constraint firstItem="Lbc-f1-lUf" firstAttribute="top" secondItem="PA5-R6-aZJ" secondAttribute="bottom" constant="30" id="cfs-Rr-uJA"/>
-                        <constraint firstAttribute="bottom" secondItem="Lbc-f1-lUf" secondAttribute="bottom" constant="18" id="flh-RI-4ke"/>
-                        <constraint firstItem="2x9-WQ-QCi" firstAttribute="centerX" secondItem="leU-z0-jsA" secondAttribute="centerX" id="qNX-5J-qb9"/>
-                        <constraint firstItem="BGW-Lj-Exx" firstAttribute="leading" secondItem="leU-z0-jsA" secondAttribute="leading" id="wGi-Zp-Ov9"/>
-                        <constraint firstItem="EYD-QV-bgH" firstAttribute="top" secondItem="2x9-WQ-QCi" secondAttribute="bottom" constant="10" id="yjT-DR-rDv"/>
-                        <constraint firstItem="PA5-R6-aZJ" firstAttribute="top" secondItem="EYD-QV-bgH" secondAttribute="bottom" constant="24" id="zYw-1H-QpR"/>
+                        <constraint firstItem="PA5-R6-aZJ" firstAttribute="leading" secondItem="leU-z0-jsA" secondAttribute="leading" constant="20" id="8Ns-nY-YVu"/>
+                        <constraint firstItem="Lbc-f1-lUf" firstAttribute="top" secondItem="PA5-R6-aZJ" secondAttribute="bottom" constant="22" id="AUW-nr-UQP"/>
+                        <constraint firstItem="EYD-QV-bgH" firstAttribute="leading" secondItem="leU-z0-jsA" secondAttribute="leading" constant="20" id="Bhg-vJ-b4A"/>
+                        <constraint firstAttribute="trailing" secondItem="Lbc-f1-lUf" secondAttribute="trailing" constant="20" id="Hcy-VZ-DFP"/>
+                        <constraint firstAttribute="trailing" secondItem="EYD-QV-bgH" secondAttribute="trailing" constant="18" id="Hka-TI-URU"/>
+                        <constraint firstItem="2x9-WQ-QCi" firstAttribute="leading" secondItem="leU-z0-jsA" secondAttribute="leading" constant="101" id="Ime-nM-AsM"/>
+                        <constraint firstAttribute="width" constant="320" id="IuY-7E-B0R"/>
+                        <constraint firstItem="PA5-R6-aZJ" firstAttribute="top" secondItem="EYD-QV-bgH" secondAttribute="bottom" constant="17" id="Jzu-Z9-h5p"/>
+                        <constraint firstAttribute="height" constant="347" id="NCt-rD-0UW"/>
+                        <constraint firstItem="EYD-QV-bgH" firstAttribute="top" secondItem="2x9-WQ-QCi" secondAttribute="bottom" constant="13" id="fzw-ic-pwN"/>
+                        <constraint firstAttribute="trailing" secondItem="PA5-R6-aZJ" secondAttribute="trailing" constant="18" id="mab-6Q-pBR"/>
+                        <constraint firstItem="Lbc-f1-lUf" firstAttribute="leading" secondItem="leU-z0-jsA" secondAttribute="leading" constant="20" id="r83-R4-hPf"/>
+                        <constraint firstAttribute="trailing" secondItem="2x9-WQ-QCi" secondAttribute="trailing" constant="102" id="xBh-a7-A4D"/>
+                        <constraint firstItem="2x9-WQ-QCi" firstAttribute="top" secondItem="leU-z0-jsA" secondAttribute="top" constant="10" id="y3z-xU-baJ"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -118,12 +132,19 @@
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.75" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="leU-z0-jsA" secondAttribute="trailing" constant="28" id="9pJ-zc-67P"/>
-                <constraint firstItem="leU-z0-jsA" firstAttribute="top" relation="greaterThanOrEqual" secondItem="xgt-aP-I4c" secondAttribute="top" constant="10" id="C1H-vQ-KBc"/>
-                <constraint firstItem="leU-z0-jsA" firstAttribute="centerY" secondItem="xgt-aP-I4c" secondAttribute="centerY" id="FgZ-dL-P02"/>
-                <constraint firstItem="leU-z0-jsA" firstAttribute="leading" secondItem="xgt-aP-I4c" secondAttribute="leading" constant="27" id="ZIh-mx-5a9"/>
+                <constraint firstAttribute="trailing" secondItem="leU-z0-jsA" secondAttribute="trailing" constant="28" id="5Ql-WO-nEq"/>
+                <constraint firstItem="leU-z0-jsA" firstAttribute="leading" secondItem="xgt-aP-I4c" secondAttribute="leading" constant="27" id="6jX-1r-gLL"/>
+                <constraint firstItem="leU-z0-jsA" firstAttribute="centerY" secondItem="xgt-aP-I4c" secondAttribute="centerY" id="CEf-H6-nQG"/>
+                <constraint firstItem="leU-z0-jsA" firstAttribute="centerX" secondItem="xgt-aP-I4c" secondAttribute="centerX" id="ZLd-57-PQa"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="5Ql-WO-nEq"/>
+                    <exclude reference="6jX-1r-gLL"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="800.5" y="366.5"/>
         </view>
     </objects>
     <resources>

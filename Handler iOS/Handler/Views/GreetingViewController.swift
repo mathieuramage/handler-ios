@@ -52,12 +52,14 @@ class GreetingViewController: UIViewController, UIViewControllerShow {
                 self.continueButton.borderColor = UIColor(rgba: HexCodes.lightBlue)
                 self.continueButton.setTitleColor(UIColor(rgba: HexCodes.lightBlue), forState: .Normal)
 
-                if let urlString = json["profile_banner_url"].string, let url = NSURL(string: urlString){
+                if let urlString = json["profile_background_image_url"].string, let url = NSURL(string: urlString){
                     self.bannerImageView.kf_setImageWithURL(url, placeholderImage: UIImage(named: "twitter_default"), optionsInfo: [.Transition(ImageTransition.Fade(0.3))])
                 }
-                print(json)
-                if let urlString = json["profile_image_url"].string, let url = NSURL(string: urlString){
-                    
+                if PRINT_TWITTER_USERDATA_RESPONSE{
+                    print(json)
+                }
+                
+                if let urlString = json["profile_image_url"].string, let url = NSURL(string: urlString.stringByReplacingOccurrencesOfString("_normal", withString: "")){
                     self.profileImageView.kf_setImageWithURL(url, placeholderImage: UIImage(named: "twitter_default"), optionsInfo: [.Transition(ImageTransition.Fade(0.3))])
                 }
                 self.continueButton.userInteractionEnabled = true
