@@ -45,7 +45,9 @@ class IntroViewController: UIViewController, UIScrollViewDelegate {
 //MARK: IBAction methods
     @IBAction func beginButtonPressed(sender: RoundedBorderButton) {
         scrollView.scrollEnabled = true
-        pageControl.alpha = 1
+        UIView.animateWithDuration(1, animations: {
+            self.pageControl.alpha = 1
+        })
         scrollView.setContentOffset(CGPointMake(firstView.bounds.width, 0), animated: true)
 //        pageControl.currentPage = 0
         
@@ -86,8 +88,15 @@ class IntroViewController: UIViewController, UIScrollViewDelegate {
         }else{
             pageControl.currentPage = 0
         }
+    }
+    
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        pageControl.currentPage = Int((Double(scrollView.contentOffset.x) / totalWidth )*3)
         
-        if pageControl.currentPage == 2{ //Removing the botton page controller
+        let translation = scrollView.panGestureRecognizer.translationInView(self.view)
+        
+        if (translation.x < 0 && pageControl.currentPage == 1)
+        {
             pageControl.alpha = 0;
         }
         else{

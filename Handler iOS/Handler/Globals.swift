@@ -10,4 +10,4 @@
 //import Foundation
 
 //Debugging Flags
-let ENABLE_ONBOARDING_EVERY_RUN = false
+let ENABLE_ONBOARDING_EVERY_RUN = true

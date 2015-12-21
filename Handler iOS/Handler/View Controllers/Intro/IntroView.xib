@@ -67,10 +67,12 @@
             <constraints>
                 <constraint firstItem="nhU-Kn-iXV" firstAttribute="leading" secondItem="2T5-r7-N6t" secondAttribute="leading" constant="25" id="3FT-3I-yyT"/>
                 <constraint firstItem="f3K-gi-44n" firstAttribute="leading" secondItem="2T5-r7-N6t" secondAttribute="leading" constant="25" id="5HH-EM-kUu"/>
+                <constraint firstAttribute="bottom" secondItem="nhU-Kn-iXV" secondAttribute="bottom" constant="28" id="G0r-bV-hi3"/>
                 <constraint firstItem="f3K-gi-44n" firstAttribute="top" secondItem="2T5-r7-N6t" secondAttribute="top" constant="420" id="GQf-AT-Wae"/>
                 <constraint firstItem="nhU-Kn-iXV" firstAttribute="top" secondItem="f3K-gi-44n" secondAttribute="bottom" constant="96" id="LVD-8l-Bbe"/>
                 <constraint firstItem="f3K-gi-44n" firstAttribute="top" secondItem="vqj-mb-hRW" secondAttribute="bottom" constant="91" id="bE9-Za-hjW"/>
                 <constraint firstAttribute="trailing" secondItem="f3K-gi-44n" secondAttribute="trailing" constant="25" id="cq6-1z-M6B"/>
+                <constraint firstItem="nhU-Kn-iXV" firstAttribute="top" secondItem="f3K-gi-44n" secondAttribute="bottom" constant="118" id="h80-T6-3sf"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="f3K-gi-44n" secondAttribute="bottom" constant="20" id="hAX-40-K3b"/>
                 <constraint firstAttribute="trailing" secondItem="nhU-Kn-iXV" secondAttribute="trailing" constant="25" id="hKy-nl-byc"/>
                 <constraint firstItem="vqj-mb-hRW" firstAttribute="top" secondItem="2T5-r7-N6t" secondAttribute="top" constant="175" id="iDH-24-b0X"/>
@@ -85,7 +87,9 @@
                     <exclude reference="bE9-Za-hjW"/>
                     <exclude reference="hAX-40-K3b"/>
                     <exclude reference="qJB-rK-nNT"/>
+                    <exclude reference="G0r-bV-hi3"/>
                     <exclude reference="LVD-8l-Bbe"/>
+                    <exclude reference="h80-T6-3sf"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="-84.5" y="471.5"/>
@@ -253,7 +257,7 @@
                     </connections>
                 </scrollView>
                 <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" hidesForSinglePage="YES" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="P5M-4u-BLK" customClass="HRPageControl">
-                    <rect key="frame" x="168" y="585" width="39" height="37"/>
+                    <rect key="frame" x="168" y="600" width="39" height="37"/>
                     <color key="pageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="currentPageIndicatorTintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                 </pageControl>
@@ -261,7 +265,7 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="zte-vi-dSl" secondAttribute="trailing" id="6Pf-QO-6gZ"/>
-                <constraint firstAttribute="bottom" secondItem="P5M-4u-BLK" secondAttribute="bottom" constant="45" id="A4q-LC-VDz"/>
+                <constraint firstAttribute="bottom" secondItem="P5M-4u-BLK" secondAttribute="bottom" constant="30" id="A4q-LC-VDz"/>
                 <constraint firstAttribute="bottom" secondItem="zte-vi-dSl" secondAttribute="bottom" id="Mkf-23-4jt"/>
                 <constraint firstItem="zte-vi-dSl" firstAttribute="top" secondItem="NZV-7o-Rf8" secondAttribute="top" id="OPH-VJ-W0Z"/>
                 <constraint firstItem="P5M-4u-BLK" firstAttribute="centerX" secondItem="NZV-7o-Rf8" secondAttribute="centerX" id="jzX-QI-uyV"/>
