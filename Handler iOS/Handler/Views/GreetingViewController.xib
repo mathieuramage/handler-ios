@@ -19,8 +19,8 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="leU-z0-jsA">
-                    <rect key="frame" x="27" y="180.5" width="320" height="307"/>
+                <view clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="leU-z0-jsA">
+                    <rect key="frame" x="27" y="181" width="320" height="307"/>
                     <subviews>
                         <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" image="twitter_default" translatesAutoresizingMaskIntoConstraints="NO" id="BGW-Lj-Exx">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
@@ -45,7 +45,7 @@
                             </userDefinedRuntimeAttributes>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome @user" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="EYD-QV-bgH">
-                            <rect key="frame" x="76" y="140" width="169" height="21.5"/>
+                            <rect key="frame" x="76" y="140" width="169" height="22"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="169" id="gCv-l2-a6X"/>
                                 <constraint firstAttribute="height" constant="50" id="tFq-xr-MHr"/>
@@ -59,7 +59,7 @@
                                 </mask>
                             </variation>
                         </label>
-                        <button opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lbc-f1-lUf" customClass="WhiteBorderButton" customModule="Handler" customModuleProvider="target">
+                        <button opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lbc-f1-lUf" customClass="WhiteBorderButton" customModule="Handler" customModuleProvider="target">
                             <rect key="frame" x="18" y="249" width="284" height="40"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
@@ -84,8 +84,8 @@
                                 <action selector="dismiss" destination="-1" eventType="touchUpInside" id="tUx-Li-shg"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PA5-R6-aZJ">
-                            <rect key="frame" x="64" y="185.5" width="193.5" height="33.5"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PA5-R6-aZJ">
+                            <rect key="frame" x="64" y="186" width="194" height="33"/>
                             <string key="text">Your new email inbox is ready.
   Happy emailing!</string>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
