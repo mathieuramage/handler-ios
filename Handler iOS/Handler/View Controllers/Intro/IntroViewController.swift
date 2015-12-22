@@ -20,6 +20,26 @@ class IntroViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet var scrollView: UIScrollView!
     var totalWidth = 0.0
     
+    @IBOutlet weak var first_top_constraint: NSLayoutConstraint!
+    @IBOutlet weak var first_middle_constraint: NSLayoutConstraint!
+    @IBOutlet weak var first_bottom_constraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var second_top_constraint: NSLayoutConstraint!
+    @IBOutlet weak var second_middle_constraint: NSLayoutConstraint!
+    @IBOutlet weak var second_bottom_constraint: NSLayoutConstraint!
+    
+    
+    @IBOutlet weak var third_top_constraint: NSLayoutConstraint!
+    @IBOutlet weak var third_middle_constraint: NSLayoutConstraint!
+    @IBOutlet weak var third_bottom_constraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var fourth_top_constraint: NSLayoutConstraint!    
+    @IBOutlet weak var fourth_middle_constraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var fourth_bottom_constraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var fourth_last_constraint: NSLayoutConstraint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,6 +60,28 @@ class IntroViewController: UIViewController, UIScrollViewDelegate {
         scrollView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.width * 4, UIScreen.mainScreen().bounds.height)
         scrollView.scrollEnabled = false;
         pageControl.alpha = 0;
+        
+        self.modifyingConstraints()
+    }
+    
+    func modifyingConstraints(){
+        
+        first_top_constraint.constant /= (667/UIScreen.mainScreen().bounds.height)
+        first_middle_constraint.constant /= (667/UIScreen.mainScreen().bounds.height)
+        first_bottom_constraint.constant /= (667/UIScreen.mainScreen().bounds.height)
+        
+        second_top_constraint.constant /= (667/UIScreen.mainScreen().bounds.height)
+        second_middle_constraint.constant /= (667/UIScreen.mainScreen().bounds.height)
+        second_bottom_constraint.constant /= (667/UIScreen.mainScreen().bounds.height)
+        
+        third_top_constraint.constant /= (667/UIScreen.mainScreen().bounds.height)
+        third_middle_constraint.constant /= (667/UIScreen.mainScreen().bounds.height)
+        third_bottom_constraint.constant /= (667/UIScreen.mainScreen().bounds.height)
+        
+        fourth_top_constraint.constant /= (667/UIScreen.mainScreen().bounds.height)
+        fourth_middle_constraint.constant /= (667/UIScreen.mainScreen().bounds.height)
+        fourth_bottom_constraint.constant /= (667/UIScreen.mainScreen().bounds.height)
+        fourth_last_constraint.constant /= (667/UIScreen.mainScreen().bounds.height)
     }
     
 //MARK: IBAction methods
