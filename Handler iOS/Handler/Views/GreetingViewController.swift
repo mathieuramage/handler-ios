@@ -18,6 +18,8 @@ class GreetingViewController: UIViewController, UIViewControllerShow {
     @IBOutlet weak var handleLabel: UILabel!
     @IBOutlet weak var continueButton: WhiteBorderButton!
 
+    //GreetingCard view
+    static var contactCard = GreetingViewController(nibName: "GreetingViewController", bundle: nil)
     var window: UIWindow?
     
     var welcomeBack: Bool = false
@@ -64,6 +66,7 @@ class GreetingViewController: UIViewController, UIViewControllerShow {
                 }
                 self.continueButton.userInteractionEnabled = true
                 UIView.animateWithDuration(0.3, animations: { () -> Void in
+                    GreetingViewController.contactCard.view.alpha = 1
                     self.view.layoutSubviews()
                 })
                 
@@ -72,17 +75,17 @@ class GreetingViewController: UIViewController, UIViewControllerShow {
     }
     
     class func show(back: Bool = false) {
-        var contactCard = GreetingViewController(nibName: "GreetingViewController", bundle: nil)
         contactCard.welcomeBack = back
         NSNotificationCenter.defaultCenter().addObserver(contactCard, selector: "updateView", name: HRCurrentUserDidSetNotification, object: nil)
         contactCard.show()
+        contactCard.view.alpha = 0;
     }
     
     class func showWithHandle(handle: String, back: Bool = false){
-        var contactCard = GreetingViewController(nibName: "GreetingViewController", bundle: nil)
         contactCard.welcomeBack = back
         contactCard.handle = handle
         contactCard.show()
+        contactCard.view.alpha = 0;
     }
     
     func updateView(){

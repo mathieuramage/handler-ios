@@ -31,27 +31,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="leU-z0-jsA">
-                    <rect key="frame" x="27" y="160" width="320" height="347"/>
+                    <rect key="frame" x="27" y="160" width="320" height="327"/>
                     <subviews>
                         <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" fixedFrame="YES" image="twitter_default" translatesAutoresizingMaskIntoConstraints="NO" id="BGW-Lj-Exx">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="127"/>
-                        </imageView>
-                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="2x9-WQ-QCi" customClass="WhiteBorderImageView" customModule="Handler" customModuleProvider="target">
-                            <rect key="frame" x="101" y="10" width="117" height="117"/>
-                            <color key="backgroundColor" red="0.73333333333333328" green="0.8666666666666667" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="width" secondItem="2x9-WQ-QCi" secondAttribute="height" multiplier="1:1" id="MxU-4S-Ibx"/>
-                                <constraint firstAttribute="width" secondItem="2x9-WQ-QCi" secondAttribute="height" multiplier="1:1" id="gsm-b5-4vI"/>
-                                <constraint firstAttribute="width" constant="117" id="vIW-Kg-spc"/>
-                            </constraints>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                    <integer key="value" value="60"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                    <integer key="value" value="3"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="107"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="EYD-QV-bgH">
                             <rect key="frame" x="20" y="140" width="282" height="18"/>
@@ -105,6 +88,23 @@
                                 <action selector="dismiss" destination="-1" eventType="touchUpInside" id="tUx-Li-shg"/>
                             </connections>
                         </button>
+                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="2x9-WQ-QCi" customClass="WhiteBorderImageView" customModule="Handler" customModuleProvider="target">
+                            <rect key="frame" x="101" y="10" width="117" height="117"/>
+                            <color key="backgroundColor" red="0.73333333333333328" green="0.8666666666666667" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="2x9-WQ-QCi" secondAttribute="height" multiplier="1:1" id="MxU-4S-Ibx"/>
+                                <constraint firstAttribute="width" secondItem="2x9-WQ-QCi" secondAttribute="height" multiplier="1:1" id="gsm-b5-4vI"/>
+                                <constraint firstAttribute="width" constant="117" id="vIW-Kg-spc"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="60"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                    <real key="value" value="1.5"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </imageView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     <constraints>
@@ -116,7 +116,7 @@
                         <constraint firstItem="2x9-WQ-QCi" firstAttribute="leading" secondItem="leU-z0-jsA" secondAttribute="leading" constant="101" id="Ime-nM-AsM"/>
                         <constraint firstAttribute="width" constant="320" id="IuY-7E-B0R"/>
                         <constraint firstItem="PA5-R6-aZJ" firstAttribute="top" secondItem="EYD-QV-bgH" secondAttribute="bottom" constant="17" id="Jzu-Z9-h5p"/>
-                        <constraint firstAttribute="height" constant="347" id="NCt-rD-0UW"/>
+                        <constraint firstAttribute="height" constant="327" id="NCt-rD-0UW"/>
                         <constraint firstItem="EYD-QV-bgH" firstAttribute="top" secondItem="2x9-WQ-QCi" secondAttribute="bottom" constant="13" id="fzw-ic-pwN"/>
                         <constraint firstAttribute="trailing" secondItem="PA5-R6-aZJ" secondAttribute="trailing" constant="18" id="mab-6Q-pBR"/>
                         <constraint firstItem="Lbc-f1-lUf" firstAttribute="leading" secondItem="leU-z0-jsA" secondAttribute="leading" constant="20" id="r83-R4-hPf"/>
@@ -134,7 +134,7 @@
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="leU-z0-jsA" secondAttribute="trailing" constant="28" id="5Ql-WO-nEq"/>
                 <constraint firstItem="leU-z0-jsA" firstAttribute="leading" secondItem="xgt-aP-I4c" secondAttribute="leading" constant="27" id="6jX-1r-gLL"/>
-                <constraint firstItem="leU-z0-jsA" firstAttribute="centerY" secondItem="xgt-aP-I4c" secondAttribute="centerY" id="CEf-H6-nQG"/>
+                <constraint firstItem="leU-z0-jsA" firstAttribute="centerY" secondItem="xgt-aP-I4c" secondAttribute="centerY" constant="-10" id="CEf-H6-nQG"/>
                 <constraint firstItem="leU-z0-jsA" firstAttribute="centerX" secondItem="xgt-aP-I4c" secondAttribute="centerX" id="ZLd-57-PQa"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
