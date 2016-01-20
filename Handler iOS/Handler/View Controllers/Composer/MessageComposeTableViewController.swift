@@ -71,10 +71,14 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		tableView.tableFooterView = UIView()
-		tokenView.tintColor = UIColor(rgba: HexCodes.lightGray)
-		ccTokenView.tintColor = UIColor(rgba: HexCodes.lightGray)
-		
+
+        tableView.tableFooterView = UIView()
+
+        tokenView.tintColor = UIColor(rgba: HexCodes.darkGray)
+        ccTokenView.tintColor = UIColor(rgba: HexCodes.darkGray)
+        subjectTextField.tintColor = UIColor(rgba: HexCodes.darkGray)
+        contentTextView.tintColor = UIColor(rgba: HexCodes.darkGray)
+
 		// UI Configuration
 		
 		if let draft = draftMessage {
@@ -262,14 +266,14 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	
 	func textColorForTokenViewWithToken(token: CLToken) -> UIColor {
 		guard token.displayText.lowercaseString.stringByReplacingOccurrencesOfString("@", withString: "") != "" else {
-			return UIColor(rgba: HexCodes.lightGray)
+			return UIColor(rgba: HexCodes.darkGray)
 		}
 		for validatedToken in validatedTokens {
 			if validatedToken.name != "" && validatedToken.name.lowercaseString == token.displayText.lowercaseString.stringByReplacingOccurrencesOfString("@", withString: "") && validatedToken.isOnHandler {
-                return UIColor(rgba: HexCodes.blue)
+                return UIColor(rgba: HexCodes.lightBlue)
 			}
 		}
-        return UIColor(rgba: HexCodes.lightGray)
+        return UIColor(rgba: HexCodes.darkGray)
 	}
 	
 	func tokenInputView(view: CLTokenInputView, didChangeHeightTo height: CGFloat) {
