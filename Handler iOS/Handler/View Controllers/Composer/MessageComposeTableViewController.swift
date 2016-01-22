@@ -95,6 +95,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		}else{
 			
 			if let message = messageToReplyTo, let sender = message.sender?.handle {
+                self.title = "New Reply"
 				tokenView.addToken(CLToken(displayText: "@\(sender)", context: nil))
 				startValidationWithString("@\(sender)")
 				if let subject = message.subject {
