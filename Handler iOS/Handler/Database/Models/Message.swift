@@ -340,6 +340,22 @@ final class Message: NSManagedObject, CoreDataConvertible {
         }
     }
 
+    // TODO: Make it locale indepent
+    let replyPrefix = "Re:"
+    let forwardPrefix = "Fwd:"
+
+    func hasReplyPrefix() -> Bool {
+        return subject.lowercaseString.hasPrefix(replyPrefix.lowercaseString)
+    }
+
+    func hasFowardPrefix() -> Bool {
+        guard let subject = self.subject else {
+            return false
+        }
+
+        return subject.lowercaseString.hasPrefix(forwardPrefix.lowercaseString)
+    }
+
     func hasValidSubject() -> Bool {
         guard let subject = self.subject else {
             return false
