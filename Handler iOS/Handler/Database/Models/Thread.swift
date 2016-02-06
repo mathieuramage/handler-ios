@@ -28,9 +28,7 @@ class Thread: NSManagedObject {
 			return thread
 		}else {
 			let createdthread = Thread(managedObjectContext: context ?? MailDatabaseManager.sharedInstance.backgroundContext)
-            DatabaseChangesCache.sharedInstance.waitingForInit = false
-            DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: createdthread, property: "id", value: id))
-            DatabaseChangesCache.sharedInstance.executeChangesForObjectID(createdthread.objectID)
+            createdthread.id = id
 			return createdthread
 		}
 	}
@@ -44,8 +42,8 @@ class Thread: NSManagedObject {
 				}
 			}
 		}
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "showInInbox", value: NSNumber(bool: show)))
-        DatabaseChangesCache.sharedInstance.executeChangesForObjectID(self.objectID)
+        self.showInInbox = NSNumber(bool: show)
+
         MailDatabaseManager.sharedInstance.saveBackgroundContext()
 	}
 	

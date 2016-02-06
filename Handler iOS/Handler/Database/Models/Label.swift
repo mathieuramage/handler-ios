@@ -16,24 +16,20 @@ final class Label: NSManagedObject, CoreDataConvertible {
 	
 	required convenience init(hrType label: HRLabel, managedObjectContext: NSManagedObjectContext){
 		self.init(managedObjectContext: managedObjectContext)
-        DatabaseChangesCache.sharedInstance.waitingForInit = false
-
 		self.updateFromHRType(label)
 	}
 	
 	convenience init(id: String, managedObjectContext: NSManagedObjectContext){
 		self.init(managedObjectContext: managedObjectContext)
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "id", value: id))
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "name", value: ""))
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "type", value: ""))
-        DatabaseChangesCache.sharedInstance.executeChangesForObjectID(self.objectID)
+		self.id = id
+		self.name = ""
+		self.type = ""
 	}
 	
 	func updateFromHRType(label: HRType) {
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "id", value: label.id))
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "name", value: label.name))
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "type", value: label.type))
-        DatabaseChangesCache.sharedInstance.executeChangesForObjectID(self.objectID)
+		self.id = label.id
+		self.name = label.name
+		self.type = label.type
 	}
 	
 	func toHRType() -> HRLabel {

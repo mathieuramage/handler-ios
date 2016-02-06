@@ -94,49 +94,40 @@ class MailDatabaseManager: NSObject {
     lazy var backgroundContext: NSManagedObjectContext = {
         let context = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType)
         context.parentContext = self.managedObjectContext
-        return context
+        return self.managedObjectContext
     }()
     
     // MARK: - Core Data Saving
     
     func saveContext () {
-        if(DatabaseChangesCache.sharedInstance.allChangesApplied){
-            managedObjectContext.performBlock { () -> Void in
-                if self.managedObjectContext.hasChanges {
-                    do {
-                        try self.managedObjectContext.save()
-                        
-                    } catch {
-                        let nserror = error as NSError
-                        NSLog("Error saving context \(nserror), \(nserror.userInfo)")
-                    }
+        managedObjectContext.performBlock { () -> Void in
+            if self.managedObjectContext.hasChanges {
+                do {
+                    try self.managedObjectContext.save()
+
+                } catch {
+                    let nserror = error as NSError
+                    NSLog("Error saving context \(nserror), \(nserror.userInfo)")
                 }
             }
-        }else{
-            print("There were still changes tbd")
         }
     }
     
     func saveBackgroundContext() {
-        if(DatabaseChangesCache.sharedInstance.allChangesApplied){
-            backgroundContext.performBlock { () -> Void in
-                if self.backgroundContext.hasChanges {
-                    do {
-                        try self.backgroundContext.save()
-                        try self.managedObjectContext.save()
-                    } catch {
-                        let nserror = error as NSError
-                        NSLog("Error saving backgroundContext \(nserror), \(nserror.userInfo)")
-                    }
+        backgroundContext.performBlock { () -> Void in
+            if self.backgroundContext.hasChanges {
+                do {
+                    try self.backgroundContext.save()
+                    try self.managedObjectContext.save()
+                } catch {
+                    let nserror = error as NSError
+                    NSLog("Error saving backgroundContext \(nserror), \(nserror.userInfo)")
                 }
             }
-        }else{
-            print("There were still changes tbd")
         }
     }
     
     func flushDatastore(){
-        DatabaseChangesCache.sharedInstance.removeAllChanges()
         for entity in managedObjectModel.entities {
             deleteDataForEntity(entity.name ?? "")
         }
