@@ -40,13 +40,11 @@ final class Attachment: NSManagedObject, CoreDataConvertible {
 	
 	convenience init(localFile: NSURL, filename: String){
         self.init(managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
-        DatabaseChangesCache.sharedInstance.waitingForInit = false
 
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "filename", value: filename))
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "localFileURL", value: localFile.path))
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "content_type", value: UTI(filenameExtension: localFile.pathExtension ?? "").MIMEType))
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "upload_complete", value: false))
-        DatabaseChangesCache.sharedInstance.executeChangesForObjectID(self.objectID)
+        self.filename = filename
+        self.localFileURL = localFile.path
+        self.content_type = UTI(filenameExtension: localFile.pathExtension ?? "").MIMEType
+        self.upload_complete = false
 	}
 	
 	required convenience init(hrType: HRType, managedObjectContext: NSManagedObjectContext) {
@@ -56,23 +54,20 @@ final class Attachment: NSManagedObject, CoreDataConvertible {
 	}
 	
 	func updateFromHRType(attachment: HRType) {
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "id", value: attachment.id))
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "content_type", value: attachment.content_type))
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "url", value: attachment.url))
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "filename", value: attachment.filename))
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "size", value: attachment.size))
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "upload_complete", value: attachment.uploadComplete))
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "upload_url", value: attachment.upload_url))
-        DatabaseChangesCache.sharedInstance.executeChangesForObjectID(self.objectID)
+        self.id = attachment.id
+        self.content_type = attachment.content_type
+        self.url = attachment.url
+        self.filename = attachment.filename
+        self.size = attachment.size
+        self.upload_complete = attachment.uploadComplete
+        self.upload_url = attachment.upload_url
 
-		
 		guard let fl = self.localFileURL where fl == "" else{
 			guard let docsDirString = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, .UserDomainMask, true).first else {
 				return
 			}
 			if let filetype = NSURL(string: attachment.filename)?.pathExtension {
-                DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "localFileURL", value: docsDirString.stringByAppendingString("/"+NSUUID().UUIDString.stringByAppendingString("." + filetype))))
-                DatabaseChangesCache.sharedInstance.executeChangesForObjectID(self.objectID)
+                self.localFileURL = docsDirString.stringByAppendingString("/" + NSUUID().UUIDString.stringByAppendingString("." + filetype))
 			}
             return
 		}

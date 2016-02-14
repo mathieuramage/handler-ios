@@ -41,7 +41,6 @@ extension CoreDataConvertible where HRType : HRIDProvider  {
 			// cdObject.updateFromHRType(hrType)
 			return cdObject
 		}else{
-            DatabaseChangesCache.sharedInstance.waitingForInit = true
 			return Self(hrType: hrType, managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
 		}
         }else{
