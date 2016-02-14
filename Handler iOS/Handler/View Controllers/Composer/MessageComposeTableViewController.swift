@@ -102,13 +102,13 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
                 self.title = "New Reply"
 				tokenView.addToken(CLToken(displayText: "@\(sender)", context: nil))
 				startValidationWithString("@\(sender)")
-				if let subject = message.subject {
-					if let subject = message.subject where !subject.containsString("RE: ") {
-						subjectTextField.text = "RE:\(subject)"
-					}else{
-						subjectTextField.text = "\(subject)"
-					}
-				}
+
+                if message.hasReplyPrefix() {
+                    subjectTextField.text = message.subject
+                }
+                else {
+                    subjectTextField.text = "\(message.replyPrefix) \(message.subject ?? "")"
+                }
 			}
 			if let receivers = messageToReplyTo?.recipientsWithoutSelf(), let all = receivers.allObjects as? [User] {
 				for receiver in all {
