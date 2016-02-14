@@ -10,7 +10,7 @@ import UIKit
 import HandlerSDK
 import Async
 
-class MessageComposeTableViewController: UITableViewController, CLTokenInputViewDelegate, UITextViewDelegate, FilePickerDelegate, UIDocumentPickerDelegate, UIDocumentInteractionControllerDelegate, ContactSelectionDelegate {
+class MessageComposeTableViewController: UITableViewController, CLTokenInputViewDelegate, UITextViewDelegate, FilePickerDelegate, UIDocumentPickerDelegate, UIDocumentInteractionControllerDelegate, ContactSelectionDelegate, AutoCompleteDelegate {
 	
 	struct ValidatedToken {
 		var name: String
@@ -66,9 +66,11 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	@IBOutlet weak var contentTextView: UITextView!
 	
 	@IBOutlet weak var attachmentsCell: MessageAttachmentsTableViewCell!
+
+    var autocompleteViewController: ContactsAutoCompleteViewController!
 	
 	var validatedTokens = [ValidatedToken]()
-	
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
@@ -78,6 +80,15 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
         ccTokenView.tintColor = UIColor(rgba: HexCodes.darkGray)
         subjectTextField.tintColor = UIColor(rgba: HexCodes.darkGray)
         contentTextView.tintColor = UIColor(rgba: HexCodes.darkGray)
+
+        autocompleteViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ContactsAutoComplete") as! ContactsAutoCompleteViewController
+
+        autocompleteViewController.willMoveToParentViewController(self)
+        self.addChildViewController(autocompleteViewController)
+        self.view.addSubview(autocompleteViewController.view)
+        autocompleteViewController.view.frame = CGRectMake(0, 100, autocompleteViewController.view.frame.size.width, autocompleteViewController.view.frame.size.height - 100)
+        autocompleteViewController.didMoveToParentViewController(self)
+        autocompleteViewController.delegate = self
 
 		// UI Configuration
 		
@@ -285,6 +296,16 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	}
 	
 	// MARK: TokenViewDelegate
+
+    func tokenInputView(view: CLTokenInputView, didChangeText text: String?) {
+        guard let text = text else {
+            return
+        }
+
+        let escapedString = text.stringByReplacingOccurrencesOfString("@", withString: "")
+
+        autocompleteViewController.autoCompleteUserForPrefix(escapedString)
+    }
 	
 	func textColorForTokenViewWithToken(token: CLToken) -> UIColor {
 		guard token.displayText.lowercaseString.stringByReplacingOccurrencesOfString("@", withString: "") != "" else {
@@ -331,6 +352,18 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	func tokenView(view: CLTokenView, didUnselectToken token: CLToken) {
 		
 	}
+
+    // Fix a bug where more than one token where being deleted with backspace
+    func tokenInputView(view: CLTokenInputView, didAddToken token: CLToken) {
+        view.endEditing()
+        view.beginEditing()
+    }
+
+    // Fix a bug where more than one token where being deleted with backspace
+    func tokenInputView(view: CLTokenInputView, didRemoveToken token: CLToken) {
+        view.endEditing()
+        view.beginEditing()
+    }
 	
 	func startValidationWithString(string: String) {
 		guard string.stringByReplacingOccurrencesOfString("@", withString: "") != "" else {
@@ -440,4 +473,23 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	func documentInteractionControllerViewControllerForPreview(controller: UIDocumentInteractionController) -> UIViewController {
 		return self.navigationController ?? self
 	}
+
+    // Mark: AutoCompleteDelegate
+
+    func contactsAutoCompleteDidSelectUser(controller: ContactsAutoCompleteViewController, user: User) {
+        guard let handle = user.handle else {
+            return
+        }
+
+        validatedTokens.append(ValidatedToken(name: handle, isOnHandler: true))
+
+        let token = CLToken(displayText: "@\(handle)", context: nil)
+        if self.tokenView.editing {
+            self.tokenView.addToken(token)
+
+        }
+        else if self.ccTokenView.editing {
+            self.ccTokenView.addToken(token)
+        }
+    }
 }

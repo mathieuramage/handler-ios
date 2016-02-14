@@ -147,6 +147,9 @@
 		6C9BD0711C0603250053C868 /* SentFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9BD06C1C0603250053C868 /* SentFormatter.swift */; };
 		6C9BD0721C0603250053C868 /* UnreadFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9BD06D1C0603250053C868 /* UnreadFormatter.swift */; };
 		6C9BD0751C075FA10053C868 /* HRPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C9BD0741C075FA10053C868 /* HRPageControl.m */; };
+		7A372D771C6FA4A5009E400C /* ContactsAutoCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A372D761C6FA4A5009E400C /* ContactsAutoCompleteViewController.swift */; };
+		7A372D7A1C6FA721009E400C /* ContactAutocompleteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A372D781C6FA721009E400C /* ContactAutocompleteCell.swift */; };
+		7A372D7B1C6FA721009E400C /* ContactAutocompleteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A372D791C6FA721009E400C /* ContactAutocompleteCell.xib */; };
 		B72C59D11C26BBE500D6651D /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72C59D01C26BBE500D6651D /* Globals.swift */; };
 		B72C59D41C26C63200D6651D /* System San Francisco Display Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B72C59D31C26C63200D6651D /* System San Francisco Display Regular.ttf */; };
 		DF1FD2DE1B62360600A58B71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1FD2DD1B62360600A58B71 /* AppDelegate.swift */; };
@@ -357,6 +360,9 @@
 		6C9BD06D1C0603250053C868 /* UnreadFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnreadFormatter.swift; sourceTree = "<group>"; };
 		6C9BD0731C075FA10053C868 /* HRPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRPageControl.h; sourceTree = "<group>"; };
 		6C9BD0741C075FA10053C868 /* HRPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRPageControl.m; sourceTree = "<group>"; };
+		7A372D761C6FA4A5009E400C /* ContactsAutoCompleteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsAutoCompleteViewController.swift; sourceTree = "<group>"; };
+		7A372D781C6FA721009E400C /* ContactAutocompleteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactAutocompleteCell.swift; sourceTree = "<group>"; };
+		7A372D791C6FA721009E400C /* ContactAutocompleteCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactAutocompleteCell.xib; sourceTree = "<group>"; };
 		B72C59D01C26BBE500D6651D /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		B72C59D31C26C63200D6651D /* System San Francisco Display Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "System San Francisco Display Regular.ttf"; sourceTree = "<group>"; };
 		B72C59D51C26C72C00D6651D /* System San Francisco Display Ultralight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "System San Francisco Display Ultralight.ttf"; sourceTree = "<group>"; };
@@ -449,6 +455,8 @@
 		2F4E415C1BB0A11700AA2DEF /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				7A372D781C6FA721009E400C /* ContactAutocompleteCell.swift */,
+				7A372D791C6FA721009E400C /* ContactAutocompleteCell.xib */,
 				2F09DB231BC69F3F00B81FE2 /* AttachmentThumbnailCollectionViewCell.swift */,
 				2F0136A01BD10422008BAD9D /* ContactTableViewCell.swift */,
 				2FEA14611BF77CC0008E31F1 /* MailBoxMenuOptionTableViewCell.swift */,
@@ -746,6 +754,7 @@
 			isa = PBXGroup;
 			children = (
 				2FF788431BB5CB1B00B297D3 /* MessageComposeTableViewController.swift */,
+				7A372D761C6FA4A5009E400C /* ContactsAutoCompleteViewController.swift */,
 			);
 			path = Composer;
 			sourceTree = "<group>";
@@ -904,6 +913,7 @@
 				2F1D2C3C1BBC477000A504A8 /* SendInvitationViewController.xib in Resources */,
 				2FA2EA8E1BAD9CBA0027EA77 /* Main.storyboard in Resources */,
 				2F0136981BCFD82E008BAD9D /* IntroView.xib in Resources */,
+				7A372D7B1C6FA721009E400C /* ContactAutocompleteCell.xib in Resources */,
 				2FB2FA931C1DF6AE00F492EF /* GreetingViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1001,6 +1011,7 @@
 				2F81A6331BC179BF007F2D43 /* Operators.swift in Sources */,
 				2FA271A21BB69ED000B22C8B /* CLToken.m in Sources */,
 				2F0136A31BD10EE4008BAD9D /* TwitterAPICommunicator.swift in Sources */,
+				7A372D771C6FA4A5009E400C /* ContactsAutoCompleteViewController.swift in Sources */,
 				2FDDE1471BB04FA4006C3500 /* WhiteBorderViews.swift in Sources */,
 				DF1FD2DE1B62360600A58B71 /* AppDelegate.swift in Sources */,
 				2F7B0CFF1BFDCAB30015C43A /* FormatterProtocols.swift in Sources */,
@@ -1048,6 +1059,7 @@
 				2F0580571BC02FBC00600B8B /* HandlerDatabaseModel.xcdatamodel in Sources */,
 				2FB2FA921C1DF6AE00F492EF /* GreetingViewController.swift in Sources */,
 				2FDDE0F41BAEA957006C3500 /* User.swift in Sources */,
+				7A372D7A1C6FA721009E400C /* ContactAutocompleteCell.swift in Sources */,
 				2F81E78A1C1C67B200642337 /* BottomBarActionPluginProvider.swift in Sources */,
 				2FDDE0F01BAEA957006C3500 /* Label.swift in Sources */,
 				2F0136A11BD10422008BAD9D /* ContactTableViewCell.swift in Sources */,
