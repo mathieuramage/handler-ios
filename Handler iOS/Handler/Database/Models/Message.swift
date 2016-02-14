@@ -349,6 +349,10 @@ final class Message: NSManagedObject, CoreDataConvertible {
     let forwardPrefix = "Fwd:"
 
     func hasReplyPrefix() -> Bool {
+        guard let subject = self.subject else {
+            return false
+        }
+
         return subject.lowercaseString.hasPrefix(replyPrefix.lowercaseString)
     }
 
