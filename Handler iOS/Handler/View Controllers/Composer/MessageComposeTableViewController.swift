@@ -186,19 +186,40 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	
 	@IBAction func send(sender: UIBarButtonItem) {
 		switchUserInteractionState(false, sender: sender)
-		
-		let message = createMessageFromUI()
-		
-		if message.isValidToSend {
-			var errorPopup = ErrorPopupViewController()
-			errorPopup.displayMessageLabel.text = "You need at least one receiver and a subject / content"
-			errorPopup.show()
-			switchUserInteractionState(true, sender: sender)
-			return
-		}
-		
-		HRActionsManager.enqueueMessage(message, replyTo: messageToReplyTo)
-		self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+
+        let message = createMessageFromUI()
+
+        if !message.hasValidSubject() {
+            let alertController = UIAlertController(title: nil, message: "You are about to send a message without subject, are you sure?", preferredStyle: .Alert)
+
+            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action) in
+                self.switchUserInteractionState(true, sender: sender)
+            }
+
+            let sendAnywayAction = UIAlertAction(title: "Send", style: .Default) { (action) in
+                HRActionsManager.enqueueMessage(message, replyTo: self.messageToReplyTo)
+                self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+
+                self.switchUserInteractionState(true, sender: sender)
+            }
+
+            alertController.addAction(cancelAction)
+            alertController.addAction(sendAnywayAction)
+
+            self.presentViewController(alertController, animated: true, completion: nil)
+        }
+        else {
+            if !message.isValidToSend() {
+                var errorPopup = ErrorPopupViewController()
+                errorPopup.displayMessageLabel.text = "You need at least one receiver and a subject / content"
+                errorPopup.show()
+                switchUserInteractionState(true, sender: sender)
+                return
+            }
+
+            HRActionsManager.enqueueMessage(message, replyTo: messageToReplyTo)
+            self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+        }
 	}
 	
 	func updateDraftFromUI(draft draft: Message) -> Message {

@@ -339,9 +339,25 @@ final class Message: NSManagedObject, CoreDataConvertible {
             return false
         }
     }
+
+    func hasValidSubject() -> Bool {
+        guard let subject = self.subject else {
+            return false
+        }
+
+        return !subject.isEmpty
+    }
+
+    func hasValidContent() -> Bool {
+        guard let content = self.content else {
+            return false
+        }
+
+        return !content.isEmpty
+    }
     
-    var isValidToSend: Bool {
-        return (recipients?.count != 0 && content != "" && subject == "")
+    func isValidToSend() -> Bool {
+        return (recipients?.count > 0 && hasValidSubject() && hasValidSubject())
     }
     
     // MARK: Drafts
