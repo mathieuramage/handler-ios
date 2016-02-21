@@ -67,9 +67,18 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	
 	@IBOutlet weak var attachmentsCell: MessageAttachmentsTableViewCell!
 
+    weak var wrapperController: UIViewController!
+
     var autocompleteViewController: ContactsAutoCompleteViewController!
 	
 	var validatedTokens = [ValidatedToken]()
+
+    var activeTokenField: CLTokenInputView?
+    var keyboardFirstTime: Bool = true
+
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -85,10 +94,12 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
         autocompleteViewController.willMoveToParentViewController(self)
         self.addChildViewController(autocompleteViewController)
-        self.view.addSubview(autocompleteViewController.view)
-        autocompleteViewController.view.frame = CGRectMake(0, 100, autocompleteViewController.view.frame.size.width, autocompleteViewController.view.frame.size.height - 100)
+        self.wrapperController.view.addSubview(autocompleteViewController.view)
+        autocompleteViewController.view.frame = CGRectMake(0, 60, autocompleteViewController.view.frame.size.width, autocompleteViewController.view.frame.size.height - 60)
+        autocompleteViewController.view.autoresizingMask = [.FlexibleWidth]
         autocompleteViewController.didMoveToParentViewController(self)
         autocompleteViewController.delegate = self
+        autocompleteViewController.view.hidden = true
 
 		// UI Configuration
 		
@@ -138,6 +149,37 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 			self.tableView.endUpdates()
 		}
 		attachmentsCell.filePickerDelegate = self
+
+
+        NSNotificationCenter.defaultCenter().addObserverForName(
+            UIKeyboardWillShowNotification,
+            object: nil, queue: nil,
+            usingBlock: { notification in
+                if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+                    let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
+
+                    self.autocompleteViewController.tableView.contentInset = contentInsets
+
+                    if let activeTokenField = self.activeTokenField {
+                            let rect = self.tableView.convertRect(activeTokenField.bounds, fromView: activeTokenField)
+                            self.tableView.contentOffset = CGPointMake(0, rect.origin.y)
+                    }
+
+                    self.keyboardFirstTime = false
+                }
+        })
+
+        NSNotificationCenter.defaultCenter().addObserverForName(
+            UIKeyboardWillHideNotification,
+            object: nil, queue: nil,
+            usingBlock: { notification in
+                if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+                    let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
+
+                    self.tableView.contentInset = contentInsets
+                    self.autocompleteViewController.tableView.contentInset = contentInsets
+                }
+        })
 	}
 	
 	// MARK: Contacts Add Buttons 
@@ -304,6 +346,8 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
         let escapedString = text.stringByReplacingOccurrencesOfString("@", withString: "")
 
+        autocompleteViewController.view.hidden = escapedString == ""
+
         autocompleteViewController.autoCompleteUserForPrefix(escapedString)
     }
 	
@@ -334,6 +378,8 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		}else{
 			addCCContactButton.hidden = false
 		}
+
+        activeTokenField = view
 	}
 	
 	func tokenInputViewDidEndEditing(view: CLTokenInputView) {
@@ -342,6 +388,8 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		}else{
 			addCCContactButton.hidden = true
 		}
+
+        activeTokenField = nil
 	}
 	
 	func tokenView(view: CLTokenView, didSelectToken token: CLToken) {

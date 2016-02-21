@@ -150,6 +150,7 @@
 		7A372D771C6FA4A5009E400C /* ContactsAutoCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A372D761C6FA4A5009E400C /* ContactsAutoCompleteViewController.swift */; };
 		7A372D7A1C6FA721009E400C /* ContactAutocompleteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A372D781C6FA721009E400C /* ContactAutocompleteCell.swift */; };
 		7A372D7B1C6FA721009E400C /* ContactAutocompleteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A372D791C6FA721009E400C /* ContactAutocompleteCell.xib */; };
+		7A75D7631C7A430800E201A3 /* MessageComposerWrapperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A75D7621C7A430800E201A3 /* MessageComposerWrapperViewController.swift */; };
 		B72C59D11C26BBE500D6651D /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72C59D01C26BBE500D6651D /* Globals.swift */; };
 		B72C59D41C26C63200D6651D /* System San Francisco Display Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B72C59D31C26C63200D6651D /* System San Francisco Display Regular.ttf */; };
 		DF1FD2DE1B62360600A58B71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1FD2DD1B62360600A58B71 /* AppDelegate.swift */; };
@@ -363,6 +364,7 @@
 		7A372D761C6FA4A5009E400C /* ContactsAutoCompleteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsAutoCompleteViewController.swift; sourceTree = "<group>"; };
 		7A372D781C6FA721009E400C /* ContactAutocompleteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactAutocompleteCell.swift; sourceTree = "<group>"; };
 		7A372D791C6FA721009E400C /* ContactAutocompleteCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactAutocompleteCell.xib; sourceTree = "<group>"; };
+		7A75D7621C7A430800E201A3 /* MessageComposerWrapperViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageComposerWrapperViewController.swift; sourceTree = "<group>"; };
 		B72C59D01C26BBE500D6651D /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		B72C59D31C26C63200D6651D /* System San Francisco Display Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "System San Francisco Display Regular.ttf"; sourceTree = "<group>"; };
 		B72C59D51C26C72C00D6651D /* System San Francisco Display Ultralight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "System San Francisco Display Ultralight.ttf"; sourceTree = "<group>"; };
@@ -753,6 +755,7 @@
 		2FF788421BB5CAF600B297D3 /* Composer */ = {
 			isa = PBXGroup;
 			children = (
+				7A75D7621C7A430800E201A3 /* MessageComposerWrapperViewController.swift */,
 				2FF788431BB5CB1B00B297D3 /* MessageComposeTableViewController.swift */,
 				7A372D761C6FA4A5009E400C /* ContactsAutoCompleteViewController.swift */,
 			);
@@ -1054,6 +1057,7 @@
 				2F92E7581BFB921300E5F6A2 /* ErrorPopupQueue.swift in Sources */,
 				2F994E4F1BB2AE3500A63B9B /* SWLongPressGestureRecognizer.m in Sources */,
 				2F4E41571BB0977C00AA2DEF /* UIButton+ImageFitting.swift in Sources */,
+				7A75D7631C7A430800E201A3 /* MessageComposerWrapperViewController.swift in Sources */,
 				2FDDE0FE1BAEB26C006C3500 /* NSManagedObject+Convenience.swift in Sources */,
 				2F090CC01BC8397000F00893 /* UTI.swift in Sources */,
 				2F0580571BC02FBC00600B8B /* HandlerDatabaseModel.xcdatamodel in Sources */,

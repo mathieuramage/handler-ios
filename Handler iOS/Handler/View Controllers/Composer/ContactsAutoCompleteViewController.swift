@@ -102,6 +102,8 @@ class ContactsAutoCompleteViewController: UIViewController, UITableViewDelegate,
     }
 
     internal func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        self.view.hidden = matchedUsers.count == 0
+
         return matchedUsers.count
     }
 
