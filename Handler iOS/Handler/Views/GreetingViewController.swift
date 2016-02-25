@@ -17,7 +17,7 @@ class GreetingViewController: UIViewController, UIViewControllerShow {
     @IBOutlet weak var bannerImageView: UIImageView!
     @IBOutlet weak var handleLabel: UILabel!
     @IBOutlet weak var continueButton: WhiteBorderButton!
-
+    
     //GreetingCard view
     static var contactCard = GreetingViewController(nibName: "GreetingViewController", bundle: nil)
     var window: UIWindow?
@@ -47,15 +47,18 @@ class GreetingViewController: UIViewController, UIViewControllerShow {
             }
             Async.main {
                 if !self.welcomeBack {
-                self.handleLabel.text = "Welcome @\(json["screen_name"].stringValue)"
+                    self.handleLabel.text = "Welcome @\(json["screen_name"].stringValue)"
                 }else{
                     self.handleLabel.text = "Welcome back @\(json["screen_name"].stringValue)"
                 }
                 self.continueButton.borderColor = UIColor(rgba: HexCodes.lightBlue)
                 self.continueButton.setTitleColor(UIColor(rgba: HexCodes.lightBlue), forState: .Normal)
-
-                if let urlString = json["profile_background_image_url"].string, let url = NSURL(string: urlString){
-                    self.bannerImageView.kf_setImageWithURL(url, placeholderImage: UIImage(named: "twitter_default"), optionsInfo: [.Transition(ImageTransition.Fade(0.3))])
+                
+                if let urlString = json["profile_banner_url"].string {
+                    let bannerURLString = urlString + "/600x200"
+                    if let url = NSURL(string: bannerURLString){
+                        self.bannerImageView.kf_setImageWithURL(url, placeholderImage: UIImage(named: "twitter_default"), optionsInfo: [.Transition(ImageTransition.Fade(0.3))])
+                    }
                 }
                 if PRINT_TWITTER_USERDATA_RESPONSE{
                     print(json)
