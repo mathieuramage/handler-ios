@@ -12,3 +12,6 @@
 //======================================= Debugging Flags =============================//
 let ENABLE_ONBOARDING_EVERY_RUN = false
 let PRINT_TWITTER_USERDATA_RESPONSE = false
+
+//======================================= Global Variables =============================//
+let DEFAULT_BANNER_RESOLUTION = "/600x200"

@@ -53,14 +53,9 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
                         return
                     }
                     Async.main {
-                        
-                        if let urlString = json["profile_banner_url"].string {
-                            let bannerURLString = urlString + "/600x200"
-                            if let url = NSURL(string: bannerURLString){
-                                self.profileBannerImageView.kf_setImageWithURL(url, placeholderImage: UIImage(named: "twitter_default"), optionsInfo: [.Transition(ImageTransition.Fade(0.3))])
-                            }
+                        if let urlString = json["profile_banner_url"].string, let url = NSURL(string: urlString + DEFAULT_BANNER_RESOLUTION){
+                            self.profileBannerImageView.kf_setImageWithURL(url, placeholderImage: UIImage(named: "twitter_default"), optionsInfo: [.Transition(ImageTransition.Fade(0.3))])
                         }
-                        
                     }
                 })
             }
