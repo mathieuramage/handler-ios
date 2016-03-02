@@ -67,8 +67,6 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
     
     @IBOutlet weak var attachmentsCell: MessageAttachmentsTableViewCell!
     
-    weak var wrapperController: UIViewController!
-    
     var autocompleteViewController: ContactsAutoCompleteViewController!
     
     var validatedTokens = [ValidatedToken]()
@@ -85,16 +83,11 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
         
         tableView.tableFooterView = UIView()
         
-        //        tokenView.tintColor = UIColor(rgba: HexCodes.darkGray)
-        //        ccTokenView.tintColor = UIColor(rgba: HexCodes.darkGray)
-        //        subjectTextField.tintColor = UIColor(rgba: HexCodes.darkGray)
-        //        contentTextView.tintColor = UIColor(rgba: HexCodes.darkGray)
-        
         autocompleteViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ContactsAutoComplete") as! ContactsAutoCompleteViewController
         
         autocompleteViewController.willMoveToParentViewController(self)
         self.addChildViewController(autocompleteViewController)
-        self.wrapperController.view.addSubview(autocompleteViewController.view)
+        view.addSubview(autocompleteViewController.view)
         autocompleteViewController.view.frame = CGRectMake(0, 60, autocompleteViewController.view.frame.size.width, autocompleteViewController.view.frame.size.height - 60)
         autocompleteViewController.view.autoresizingMask = [.FlexibleWidth]
         autocompleteViewController.didMoveToParentViewController(self)

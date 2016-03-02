@@ -9,26 +9,31 @@
 import UIKit
 
 class MessageComposerWrapperViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
+    
+    var messageToReplyTo : Message?
+    
+    var messageComposerController : MessageComposeTableViewController? {
+        get {
+            if let vc = self.childViewControllers[0] as? MessageComposeTableViewController  {
+                return vc
+            }
+            return nil
+        }
     }
-
-    weak var messageComposerController : MessageComposeTableViewController!
-
+    
     @IBAction func dismiss(sender: UIBarButtonItem) {
-        self.messageComposerController.dismiss(sender)
+        self.messageComposerController?.dismiss(sender)
     }
-
+    
     @IBAction func send(sender: UIBarButtonItem) {
-        self.messageComposerController.send(sender)
+        self.messageComposerController?.send(sender)
     }
-
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "embedComposer" {
-            messageComposerController = segue.destinationViewController as! MessageComposeTableViewController
-            messageComposerController.wrapperController = self
+            if let composerTableViewController = segue.destinationViewController as? MessageComposeTableViewController {
+                composerTableViewController.messageToReplyTo = messageToReplyTo
+            }
         }
     }
 }
