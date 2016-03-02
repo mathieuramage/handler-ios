@@ -24,10 +24,10 @@ class SendInvitationViewController: UIViewController, UIViewControllerShow, MFMe
 	var twitterHandle: String? {
 		didSet {
 			if let _ = twitterHandle {
-				byTweetButton.backgroundColor = UIColor.hrTwitterBlueColor()
+				byTweetButton.backgroundColor = UIColor(rgba: HexCodes.lightBlue)
 				if MFMessageComposeViewController.canSendText() {
 					bySmsButton.enabled = true
-					bySmsButton.backgroundColor = UIColor.hrGreenColor()
+					bySmsButton.backgroundColor = UIColor(rgba: HexCodes.green)
 				}else{
 					bySmsButton.enabled = false
 					bySmsButton.backgroundColor = UIColor.lightGrayColor()
@@ -60,7 +60,7 @@ class SendInvitationViewController: UIViewController, UIViewControllerShow, MFMe
 	@IBAction func dismiss(){
 		UIView.animateWithDuration(0.3, animations: { () -> Void in
 			self.window?.alpha = 0
-			UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
+			UIApplication.sharedApplication().statusBarStyle = .LightContent
 			}) { (success) -> Void in
 				self.window = nil
 		}
@@ -100,4 +100,8 @@ class SendInvitationViewController: UIViewController, UIViewControllerShow, MFMe
 			dismiss()
 		}
 	}
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
+    }
 }

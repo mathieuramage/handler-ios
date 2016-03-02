@@ -34,7 +34,7 @@ class GradientNavigationController: UINavigationController {
 		UIGraphicsBeginImageContext(layer.bounds.size)
 		layer.renderInContext(UIGraphicsGetCurrentContext()!)
 		let image = UIGraphicsGetImageFromCurrentImageContext()
-		UIGraphicsEndImageContext()
+		UIGraphicsEndImageContext() 
 		return image
 	}
 	

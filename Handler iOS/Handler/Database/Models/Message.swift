@@ -16,23 +16,21 @@ final class Message: NSManagedObject, CoreDataConvertible {
     
     required convenience init(hrType message: HRType, managedObjectContext: NSManagedObjectContext){
         self.init(managedObjectContext: managedObjectContext)
-        
+
         updateFromHRType(message)
     }
     
     func updateFromHRType(message: HRType) {
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "shouldBeSent", value: NSNumber(bool: false)))
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "content", value: message.content))
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "id", value: message.id))
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "sent_at", value: NSDate.fromString(message.sent_at)))
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "subject", value: message.subject))
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "sender", value: User.fromHRType(message.sender!)))
-        DatabaseChangesCache.sharedInstance.executeChangesForObjectID(self.objectID)
-        
+        self.shouldBeSent = NSNumber(bool: false)
+        self.content = message.content
+        self.id = message.id
+        self.sent_at = NSDate.fromString(message.sent_at)
+        self.subject = message.subject
+        self.sender = User.fromHRType(message.sender!)
+
         if message.thread != "" {
-            DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "thread", value: Thread.fromID(message.thread, inContext: self.managedObjectContext)))
-            DatabaseChangesCache.sharedInstance.executeChangesForObjectID(self.objectID)
-            
+            self.thread = Thread.fromID(message.thread, inContext: self.managedObjectContext)
+
             if let sentAt = self.sent_at {
                 if let threadDate = self.thread?.last_message_date {
                     self.thread?.last_message_date = threadDate.laterDate(sentAt)
@@ -66,7 +64,7 @@ final class Message: NSManagedObject, CoreDataConvertible {
                     recipientsSet.addObject(cdRecipient)
                 }
             }
-            DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "recipients", value: recipientsSet))
+            self.recipients = recipientsSet
         }
         
         if let attachments = message.attachments {
@@ -76,9 +74,9 @@ final class Message: NSManagedObject, CoreDataConvertible {
                     attachmentsSet.addObject(cdAttachment)
                 }
             }
-            DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "attachments", value: attachmentsSet))
+            self.attachments = attachmentsSet
         }
-        DatabaseChangesCache.sharedInstance.executeChangesForObjectID(objectID)
+
         MailDatabaseManager.sharedInstance.saveBackgroundContext()
     }
     
@@ -101,32 +99,26 @@ final class Message: NSManagedObject, CoreDataConvertible {
     
     func moveToArchive(){
         self.removeLabelWithID(SystemLabels.Inbox.rawValue)
-        self.thread?.updateInbox()
     }
     
     func moveToInbox(){
         self.addLabelWithID(SystemLabels.Inbox.rawValue)
-        self.thread?.updateInbox()
     }
     
     func flag(){
         self.addLabelWithID(SystemLabels.Flagged.rawValue)
-        self.thread?.updateInbox()
     }
     
     func unflag(){
         self.removeLabelWithID(SystemLabels.Flagged.rawValue)
-        self.thread?.updateInbox()
     }
     
     func markAsRead(){
         self.removeLabelWithID(SystemLabels.Unread.rawValue)
-        self.thread?.updateInbox()
     }
     
     func markAsUnread(){
         self.addLabelWithID(SystemLabels.Unread.rawValue)
-        self.thread?.updateInbox()
     }
     
     // MARK: Refresh
@@ -168,8 +160,11 @@ final class Message: NSManagedObject, CoreDataConvertible {
     private func addLabelWithID(id: String, updateOnApi: Bool = true){
         if let backgroundSelf = self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) {
             if let label = Label.fromID(id) {
-                DatabaseChangesCache.sharedInstance.addChange(DatabaseRelationshipChange(remove: false, object: backgroundSelf, property: "labels", value: label))
-                DatabaseChangesCache.sharedInstance.executeChangesForObjectID(backgroundSelf.objectID)
+                if let myLabels = backgroundSelf.labels {
+                    let newSet = myLabels.setByAddingObject(label)
+                    backgroundSelf.labels = newSet
+                }
+
                 if updateOnApi {
                     backgroundSelf.updateLabelsOnHRAPI()
                 }
@@ -184,8 +179,12 @@ final class Message: NSManagedObject, CoreDataConvertible {
             if let labelsArray = backgroundSelf.labels?.allObjects {
                 for label in labelsArray {
                     if label.id == id {
-                        DatabaseChangesCache.sharedInstance.addChange(DatabaseRelationshipChange(remove: true, object: backgroundSelf, property: "labels", value: label))
-                        DatabaseChangesCache.sharedInstance.executeChangesForObjectID(backgroundSelf.objectID)
+                        if let myLabels = backgroundSelf.labels {
+                            let newSet = NSMutableSet(set: myLabels)
+                            newSet.removeObject(label)
+                            backgroundSelf.labels = NSSet(set: newSet)
+                        }
+
                         if updateOnApi {
                             backgroundSelf.updateLabelsOnHRAPI()
                         }
@@ -206,10 +205,10 @@ final class Message: NSManagedObject, CoreDataConvertible {
             }
         }
         if let bgSelf = self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext){
-            DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: bgSelf, property: "labels", value: labelsSet))
-            DatabaseChangesCache.sharedInstance.executeChangesForObjectID(bgSelf.objectID)
-            bgSelf.thread?.updateInbox()
+            bgSelf.labels = labelsSet
+
             MailDatabaseManager.sharedInstance.saveBackgroundContext()
+            bgSelf.thread?.updateInbox()
         }
     }
     
@@ -344,9 +343,45 @@ final class Message: NSManagedObject, CoreDataConvertible {
             return false
         }
     }
+
+    // TODO: Make it locale indepent
+    let replyPrefix = "Re:"
+    let forwardPrefix = "Fwd:"
+
+    func hasReplyPrefix() -> Bool {
+        guard let subject = self.subject else {
+            return false
+        }
+
+        return subject.lowercaseString.hasPrefix(replyPrefix.lowercaseString)
+    }
+
+    func hasFowardPrefix() -> Bool {
+        guard let subject = self.subject else {
+            return false
+        }
+
+        return subject.lowercaseString.hasPrefix(forwardPrefix.lowercaseString)
+    }
+
+    func hasValidSubject() -> Bool {
+        guard let subject = self.subject else {
+            return false
+        }
+
+        return !subject.isEmpty
+    }
+
+    func hasValidContent() -> Bool {
+        guard let content = self.content else {
+            return false
+        }
+
+        return !content.isEmpty
+    }
     
-    var isValidToSend: Bool {
-        return (recipients?.count != 0 && content != "" && subject == "")
+    func isValidToSend() -> Bool {
+        return (recipients?.count > 0 && hasValidSubject() && hasValidSubject())
     }
     
     // MARK: Drafts
@@ -357,8 +392,9 @@ final class Message: NSManagedObject, CoreDataConvertible {
     }
     
     func deleteFromDatabase(){
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseDeleteObject(object: self))
-        DatabaseChangesCache.sharedInstance.executeChangesForObjectID(self.objectID)
+        let context = self.managedObjectContext
+
+        context?.deleteObject(self)
     }
     
     

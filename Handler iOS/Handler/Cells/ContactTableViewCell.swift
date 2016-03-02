@@ -21,9 +21,6 @@ class ContactTableViewCell: UITableViewCell {
         didSet {
             if let urlString = user?.profile_picture_url, let profileUrl = NSURL(string: urlString) {
                 self.profileImageView.kf_setImageWithURL(profileUrl, placeholderImage: UIImage.randomGhostImage(), optionsInfo: nil, completionHandler: { (image, error, cacheType, imageURL) -> () in
-                    Async.main(block: { () -> Void in
-                        self.profileImageView.image = image
-                    })
                 })
             }
             self.followButton.setImage(UIImage.imageForTwitterStatus(TwitterFriendshipStatus(rawValue: user?.twtterFollowStatus?.integerValue ?? 2)!), forState: UIControlState.Normal)

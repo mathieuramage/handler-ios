@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="System San Francisco Display Bold.ttf">
+            <string>.HelveticaNeueDeskInterface-Bold</string>
+        </mutableArray>
+        <mutableArray key="System San Francisco Display Regular.ttf">
+            <string>.HelveticaNeueDeskInterface-Regular</string>
+        </mutableArray>
+        <mutableArray key="System San Francisco Display Thin.ttf">
+            <string>.HelveticaNeueDeskInterface-Thin</string>
+        </mutableArray>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GreetingViewController" customModule="Handler" customModuleProvider="target">
+            <connections>
+                <outlet property="bannerImageView" destination="BGW-Lj-Exx" id="iUB-fs-66M"/>
+                <outlet property="continueButton" destination="Lbc-f1-lUf" id="xtL-9Y-1nh"/>
+                <outlet property="handleLabel" destination="EYD-QV-bgH" id="2Jl-WD-tJH"/>
+                <outlet property="profileImageView" destination="2x9-WQ-QCi" id="A2s-iY-tfo"/>
+                <outlet property="view" destination="xgt-aP-I4c" id="aKw-gf-KjM"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="xgt-aP-I4c">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="leU-z0-jsA">
+                    <rect key="frame" x="27" y="160" width="320" height="327"/>
+                    <subviews>
+                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" image="twitter_default" translatesAutoresizingMaskIntoConstraints="NO" id="BGW-Lj-Exx">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="107"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="107" id="vym-Q5-dn0"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="EYD-QV-bgH">
+                            <rect key="frame" x="20" y="140" width="282" height="18"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="282" id="gCv-l2-a6X"/>
+                                <constraint firstAttribute="height" constant="50" id="tFq-xr-MHr"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name=".HelveticaNeueDeskInterface-Regular" family="SFNS Display" pointSize="15"/>
+                            <color key="textColor" red="0.16078431372549018" green="0.18431372549019609" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="gCv-l2-a6X"/>
+                                    <exclude reference="tFq-xr-MHr"/>
+                                </mask>
+                            </variation>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PA5-R6-aZJ" userLabel="Body label">
+                            <rect key="frame" x="20" y="175" width="282" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="1vA-Aj-2Gb"/>
+                            </constraints>
+                            <string key="text">Your new email inbox is ready.
+  Happy emailing!</string>
+                            <fontDescription key="fontDescription" name=".HelveticaNeueDeskInterface-Thin" family="SFNS Display" pointSize="15"/>
+                            <color key="textColor" red="0.53333333333333333" green="0.59999999999999998" blue="0.65098039215686276" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lbc-f1-lUf" customClass="WhiteBorderButton" customModule="Handler" customModuleProvider="target">
+                            <rect key="frame" x="20" y="247" width="280" height="44"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="l89-gQ-Zwk"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name=".HelveticaNeueDeskInterface-Bold" family="SFNS Display" pointSize="15"/>
+                            <state key="normal" title="Start emailing with Handler">
+                                <color key="titleColor" red="0.31372549020000001" green="0.67450980390000004" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="3"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                    <color key="value" red="0.31372549019607843" green="0.67450980392156867" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                    <real key="value" value="1.5"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="dismiss" destination="-1" eventType="touchUpInside" id="tUx-Li-shg"/>
+                            </connections>
+                        </button>
+                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="2x9-WQ-QCi" customClass="WhiteBorderImageView" customModule="Handler" customModuleProvider="target">
+                            <rect key="frame" x="101" y="10" width="117" height="117"/>
+                            <color key="backgroundColor" red="0.73333333333333328" green="0.8666666666666667" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="2x9-WQ-QCi" secondAttribute="height" multiplier="1:1" id="MxU-4S-Ibx"/>
+                                <constraint firstAttribute="width" secondItem="2x9-WQ-QCi" secondAttribute="height" multiplier="1:1" id="gsm-b5-4vI"/>
+                                <constraint firstAttribute="width" constant="117" id="vIW-Kg-spc"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="60"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                    <real key="value" value="1.5"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="2x9-WQ-QCi" firstAttribute="centerX" secondItem="leU-z0-jsA" secondAttribute="centerX" id="1eK-4s-YcH"/>
+                        <constraint firstItem="PA5-R6-aZJ" firstAttribute="leading" secondItem="leU-z0-jsA" secondAttribute="leading" constant="20" id="8Ns-nY-YVu"/>
+                        <constraint firstItem="Lbc-f1-lUf" firstAttribute="top" secondItem="PA5-R6-aZJ" secondAttribute="bottom" constant="22" id="AUW-nr-UQP"/>
+                        <constraint firstItem="EYD-QV-bgH" firstAttribute="leading" secondItem="leU-z0-jsA" secondAttribute="leading" constant="20" id="Bhg-vJ-b4A"/>
+                        <constraint firstItem="BGW-Lj-Exx" firstAttribute="leading" secondItem="leU-z0-jsA" secondAttribute="leading" id="FcQ-B1-CfP"/>
+                        <constraint firstAttribute="trailing" secondItem="Lbc-f1-lUf" secondAttribute="trailing" constant="20" id="Hcy-VZ-DFP"/>
+                        <constraint firstAttribute="trailing" secondItem="EYD-QV-bgH" secondAttribute="trailing" constant="18" id="Hka-TI-URU"/>
+                        <constraint firstItem="2x9-WQ-QCi" firstAttribute="leading" secondItem="leU-z0-jsA" secondAttribute="leading" constant="101" id="Ime-nM-AsM"/>
+                        <constraint firstAttribute="width" constant="320" id="IuY-7E-B0R"/>
+                        <constraint firstItem="PA5-R6-aZJ" firstAttribute="top" secondItem="EYD-QV-bgH" secondAttribute="bottom" constant="17" id="Jzu-Z9-h5p"/>
+                        <constraint firstAttribute="height" constant="327" id="NCt-rD-0UW"/>
+                        <constraint firstAttribute="trailing" secondItem="BGW-Lj-Exx" secondAttribute="trailing" id="SkA-4U-pGS"/>
+                        <constraint firstItem="EYD-QV-bgH" firstAttribute="top" secondItem="2x9-WQ-QCi" secondAttribute="bottom" constant="13" id="fzw-ic-pwN"/>
+                        <constraint firstAttribute="trailing" secondItem="PA5-R6-aZJ" secondAttribute="trailing" constant="18" id="mab-6Q-pBR"/>
+                        <constraint firstItem="Lbc-f1-lUf" firstAttribute="leading" secondItem="leU-z0-jsA" secondAttribute="leading" constant="20" id="r83-R4-hPf"/>
+                        <constraint firstItem="BGW-Lj-Exx" firstAttribute="top" secondItem="leU-z0-jsA" secondAttribute="top" id="vg4-sG-H83"/>
+                        <constraint firstAttribute="trailing" secondItem="2x9-WQ-QCi" secondAttribute="trailing" constant="102" id="xBh-a7-A4D"/>
+                        <constraint firstItem="2x9-WQ-QCi" firstAttribute="top" secondItem="leU-z0-jsA" secondAttribute="top" constant="10" id="y3z-xU-baJ"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="6"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="Ime-nM-AsM"/>
+                            <exclude reference="xBh-a7-A4D"/>
+                        </mask>
+                    </variation>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.75" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="leU-z0-jsA" secondAttribute="trailing" constant="28" id="5Ql-WO-nEq"/>
+                <constraint firstItem="leU-z0-jsA" firstAttribute="leading" secondItem="xgt-aP-I4c" secondAttribute="leading" constant="27" id="6jX-1r-gLL"/>
+                <constraint firstItem="leU-z0-jsA" firstAttribute="centerY" secondItem="xgt-aP-I4c" secondAttribute="centerY" constant="-10" id="CEf-H6-nQG"/>
+                <constraint firstItem="leU-z0-jsA" firstAttribute="centerX" secondItem="xgt-aP-I4c" secondAttribute="centerX" id="ZLd-57-PQa"/>
+            </constraints>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="5Ql-WO-nEq"/>
+                    <exclude reference="6jX-1r-gLL"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="800.5" y="366.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="twitter_default" width="2247" height="190"/>
+    </resources>
+</document>

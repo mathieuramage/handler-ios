@@ -44,16 +44,23 @@ class WhiteBorderImageView: UIImageView {
 @IBDesignable
 class WhiteBorderButton: UIButton {
     
-    @IBInspectable var borderWidth: CGFloat = 1.0
+    @IBInspectable var borderWidth: CGFloat = 1.0 {
+        didSet {
+            commonInit()
+        }
+    }
+    @IBInspectable var borderColor: UIColor = UIColor.whiteColor() {
+        didSet {
+            commonInit()
+        }
+    }
     
     override func prepareForInterfaceBuilder() {
-        layer.borderColor = UIColor.whiteColor().CGColor
-        layer.borderWidth = borderWidth
-        clipsToBounds = true
+        commonInit()
     }
     
     func commonInit(){
-        layer.borderColor = UIColor.whiteColor().CGColor
+        layer.borderColor = borderColor.CGColor
         layer.borderWidth = borderWidth
         layer.cornerRadius = bounds.size.height / 2
         clipsToBounds = true

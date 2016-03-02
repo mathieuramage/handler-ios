@@ -36,6 +36,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
         super.viewDidLoad()
         tableView.registerNib(UINib(nibName: "MessageTableViewCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "mailCell")
         tableView.tableFooterView = UIView()
+        tableView.emptyDataSetSource = self
         self.refreshControl = UIRefreshControl()
         self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(refreshControl!)
@@ -43,7 +44,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
     }
     
     func refresh(control: UIRefreshControl){
-        APICommunicator.sharedInstance.fetchNewMessagseWithCompletion { (error) -> Void in
+        APICommunicator.sharedInstance.fetchNewMessagesWithCompletion { (error) -> Void in
             Async.main(block: { () -> Void in
                 control.endRefreshing()
                 guard let error = error else {
@@ -84,7 +85,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
         containerView.addSubview(newEmailsLabel!)
         let item = UIBarButtonItem(customView: containerView)
         
-        let composeItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Compose, target: self, action: "composeNewMessage:")
+        let composeItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Compose, target: self, action: "composeNewMessage")
         
         self.navigationController!.toolbar.items = [space, item, space, composeItem]
         
@@ -111,8 +112,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
             }
         }
     }
-    
-    func composeNewMessage(item: UIBarButtonItem){
+    func composeNewMessage(){
         performSegueWithIdentifier("showMessageComposeNavigationController", sender: self)
     }
     
@@ -139,6 +139,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
         return cell
     }
     
+        
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         for cell in tableView.visibleCells {
             if let cell = cell as? SWTableViewCell {
@@ -150,11 +151,9 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
             
             let thread = fetchedObjects[indexPath.row]
             threadForSegue = thread
-            if let count = thread.messages?.count where count > 1 {
-                performSegueWithIdentifier("showThreadTableViewController", sender: self)
-            }else{
-                performSegueWithIdentifier("showMessageDetailViewController", sender: self)
-            }
+            performSegueWithIdentifier("showThreadTableViewController", sender: self)
+        }else{
+            
         }
     }
     
@@ -220,22 +219,19 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         super.prepareForSegue(segue, sender: sender)
-        if segue.identifier == "showMessageDetailViewController" {
-            let dc = segue.destinationViewController as! MessageDetailViewController
-            dc.message = self.threadForSegue?.messages?.allObjects.first as? Message
-        } else if segue.identifier == "showThreadTableViewController" {
+        if segue.identifier == "showThreadTableViewController" {
             let dc = segue.destinationViewController as! ThreadTableViewController
             dc.thread = self.threadForSegue
+            dc.allThreads = self.fetchedObjects
         }
     }
     
     // MARK: Empty Dataset DataSource
     
-    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
-        return UIImage(named: "Inbox_Zero_Graphic_1")
-    }
-    
-    func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
-        return NSAttributedString(string: "Don't forget to reach out to old friends you played with.", attributes: [NSForegroundColorAttributeName: UIColor.grayColor(), NSFontAttributeName: UIFont.systemFontOfSize(14)])
+    func customViewForEmptyDataSet(scrollView: UIScrollView!) -> UIView! {
+        let view = UINib(nibName: "EmptyInbox", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! UIView
+        let button = view.viewWithTag(300) as! UIButton
+        button.addTarget(self, action: "composeNewMessage", forControlEvents: .TouchUpInside)
+        return view
     }
 }

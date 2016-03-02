@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TWTRTimelineDataSource.h"
+#import <TwitterKit/TWTRTimelineDataSource.h>
 
 @class TWTRAPIClient;
 
@@ -19,6 +19,11 @@ NS_ASSUME_NONNULL_BEGIN
  *  The number of Tweets to request in each query to the Twitter Timeline API when fetching the next batch of Tweets.
  */
 @property (nonatomic, assign, readonly) NSInteger maxTweetsPerRequest;
+
+/**
+ *  ID of the collection.
+ */
+@property (nonatomic, copy, readonly) NSString *collectionID;
 
 /**
  *  Convenience initializer.

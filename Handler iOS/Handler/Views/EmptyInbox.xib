@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="330" height="360"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your new emails will be here" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FBU-Ob-bdW">
+                    <rect key="frame" x="20" y="282" width="290" height="26"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="22"/>
+                    <color key="textColor" red="0.40000000000000002" green="0.45882352941176469" blue="0.49803921568627452" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" tag="300" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fou-cH-jqC">
+                    <rect key="frame" x="65" y="320" width="200" height="40"/>
+                    <color key="backgroundColor" red="0.3320851293" green="0.66610991379999995" blue="0.92362607760000004" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="Xdq-x2-1Uq"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                    <state key="normal" title="Compose your next email">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </button>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="Empty Inbox Illustration" translatesAutoresizingMaskIntoConstraints="NO" id="DCy-XP-z8m">
+                    <rect key="frame" x="34" y="0.0" width="262" height="203"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="DCy-XP-z8m" secondAttribute="height" multiplier="262:203" id="gzI-s8-Nb1"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="Fou-cH-jqC" secondAttribute="bottom" id="A1w-dt-Hkj"/>
+                <constraint firstItem="FBU-Ob-bdW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="KbE-xS-BTH"/>
+                <constraint firstItem="DCy-XP-z8m" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="34" id="X2R-5P-CHh"/>
+                <constraint firstAttribute="trailing" secondItem="DCy-XP-z8m" secondAttribute="trailing" constant="34" id="YBY-lp-PHU"/>
+                <constraint firstItem="Fou-cH-jqC" firstAttribute="top" secondItem="FBU-Ob-bdW" secondAttribute="bottom" constant="12" id="ZyA-Lw-GtE"/>
+                <constraint firstAttribute="trailing" secondItem="FBU-Ob-bdW" secondAttribute="trailing" constant="20" id="c0w-tX-fbF"/>
+                <constraint firstItem="DCy-XP-z8m" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ne3-VQ-6Ye"/>
+                <constraint firstAttribute="trailing" secondItem="Fou-cH-jqC" secondAttribute="trailing" constant="65" id="o0P-n3-Deu"/>
+                <constraint firstItem="Fou-cH-jqC" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="65" id="vZg-1K-O77"/>
+                <constraint firstItem="FBU-Ob-bdW" firstAttribute="centerX" secondItem="Fou-cH-jqC" secondAttribute="centerX" id="wbX-KJ-dm8"/>
+                <constraint firstItem="FBU-Ob-bdW" firstAttribute="top" secondItem="DCy-XP-z8m" secondAttribute="bottom" constant="78.5" id="zyj-Gk-bbS"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="365" y="350"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Empty Inbox Illustration" width="262" height="203"/>
+    </resources>
+</document>
