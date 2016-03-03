@@ -8,27 +8,63 @@
 
 import UIKit
 
-class MessageComposerWrapperViewController: UIViewController {
-
+class MessageComposerWrapperViewController: UIViewController, AutoCompleteDelegate, MessageComposeTableViewControllerDelegate {
+    
+    var messageToReplyTo : Message?
+    
+    @IBOutlet weak var autoCompleteContainerView: UIView!
+    
+    var messageComposerController : MessageComposeTableViewController?
+    var autoCompleteViewController : ContactsAutoCompleteViewController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        autoCompleteContainerView.hidden = true
     }
-
-    weak var messageComposerController : MessageComposeTableViewController!
-
+    
+    
     @IBAction func dismiss(sender: UIBarButtonItem) {
-        self.messageComposerController.dismiss(sender)
+        self.messageComposerController?.dismiss(sender)
     }
-
+    
     @IBAction func send(sender: UIBarButtonItem) {
-        self.messageComposerController.send(sender)
+        self.messageComposerController?.send(sender)
     }
-
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
         if segue.identifier == "embedComposer" {
-            messageComposerController = segue.destinationViewController as! MessageComposeTableViewController
-            messageComposerController.wrapperController = self
+            
+            if let composerTableViewController = segue.destinationViewController as? MessageComposeTableViewController {
+                self.messageComposerController = composerTableViewController
+                composerTableViewController.delegate = self
+                composerTableViewController.messageToReplyTo = messageToReplyTo
+            }
+        } else if segue.identifier == "embedAutoComplete" {
+            
+            if let autoCompleteViewController = segue.destinationViewController as? ContactsAutoCompleteViewController {
+                self.autoCompleteViewController = autoCompleteViewController
+                autoCompleteViewController.delegate = self
+                autoCompleteViewController.view.hidden = true
+            }
+            
         }
     }
+    
+    //MARK : MessageComposeTableViewControllerDelegate
+    func autoCompleteUserForPrefix(prefix : String) {
+        autoCompleteContainerView.hidden = prefix == ""
+        autoCompleteViewController?.autoCompleteUserForPrefix(prefix)
+    }
+    
+    func setAutoCompleteInsets(insets : UIEdgeInsets) {
+        autoCompleteViewController?.tableView.contentInset = insets
+    }
+    
+    //MARK : AutoCompleteDelegate
+    
+    func contactsAutoCompleteDidSelectUser(controller: ContactsAutoCompleteViewController, user: User) {
+        messageComposerController?.didSelectUser(user)
+    }
+    
 }
