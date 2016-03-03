@@ -10,7 +10,7 @@ import UIKit
 import HandlerSDK
 import Async
 
-class MessageComposeTableViewController: UITableViewController, CLTokenInputViewDelegate, UITextViewDelegate, FilePickerDelegate, UIDocumentPickerDelegate, UIDocumentInteractionControllerDelegate, ContactSelectionDelegate, AutoCompleteDelegate {
+class MessageComposeTableViewController: UITableViewController, CLTokenInputViewDelegate, UITextViewDelegate, FilePickerDelegate, UIDocumentPickerDelegate, UIDocumentInteractionControllerDelegate, ContactSelectionDelegate {
     
     struct ValidatedToken {
         var name: String
@@ -67,12 +67,12 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
     
     @IBOutlet weak var attachmentsCell: MessageAttachmentsTableViewCell!
     
-    var autocompleteViewController: ContactsAutoCompleteViewController!
-    
     var validatedTokens = [ValidatedToken]()
     
     var activeTokenField: CLTokenInputView?
     var keyboardFirstTime: Bool = true
+    
+    var delegate : MessageComposeTableViewControllerDelegate?
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
@@ -82,17 +82,6 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
         super.viewDidLoad()
         
         tableView.tableFooterView = UIView()
-        
-        autocompleteViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ContactsAutoComplete") as! ContactsAutoCompleteViewController
-        
-        autocompleteViewController.willMoveToParentViewController(self)
-        self.addChildViewController(autocompleteViewController)
-        view.addSubview(autocompleteViewController.view)
-        autocompleteViewController.view.frame = CGRectMake(0, 60, autocompleteViewController.view.frame.size.width, autocompleteViewController.view.frame.size.height - 60)
-        autocompleteViewController.view.autoresizingMask = [.FlexibleWidth]
-        autocompleteViewController.didMoveToParentViewController(self)
-        autocompleteViewController.delegate = self
-        autocompleteViewController.view.hidden = true
         
         // UI Configuration
         
@@ -151,7 +140,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
                 if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
                     let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
                     
-                    self.autocompleteViewController.tableView.contentInset = contentInsets
+                    self.delegate?.setAutoCompleteInsets(contentInsets)
                     
                     if let activeTokenField = self.activeTokenField {
                         let rect = self.tableView.convertRect(activeTokenField.bounds, fromView: activeTokenField)
@@ -170,7 +159,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
                     let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
                     
                     self.tableView.contentInset = contentInsets
-                    self.autocompleteViewController.tableView.contentInset = contentInsets
+                    self.delegate?.setAutoCompleteInsets(contentInsets)
                 }
         })
     }
@@ -339,9 +328,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
         
         let escapedString = text.stringByReplacingOccurrencesOfString("@", withString: "")
         
-        autocompleteViewController.view.hidden = escapedString == ""
-        
-        autocompleteViewController.autoCompleteUserForPrefix(escapedString)
+        delegate?.autoCompleteUserForPrefix(escapedString)
     }
     
     func textColorForTokenViewWithToken(token: CLToken) -> UIColor {
@@ -533,4 +520,10 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
             self.ccTokenView.addToken(token)
         }
     }
+}
+
+
+protocol MessageComposeTableViewControllerDelegate {
+    func autoCompleteUserForPrefix(prefix : String)
+    func setAutoCompleteInsets(insets : UIEdgeInsets)
 }
