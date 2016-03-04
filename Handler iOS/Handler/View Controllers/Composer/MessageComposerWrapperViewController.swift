@@ -61,10 +61,9 @@ class MessageComposerWrapperViewController: UIViewController, AutoCompleteDelega
         autoCompleteViewController?.tableView.contentInset = insets
     }
     
-    //MARK : AutoCompleteDelegate
-    
+    //MARK : AutoCompleteDelegate    
     func contactsAutoCompleteDidSelectUser(controller: ContactsAutoCompleteViewController, user: User) {
-        messageComposerController?.didSelectUser(user)
+        messageComposerController?.contactsAutoCompleteDidSelectUser(controller, user: user)
     }
     
 }
