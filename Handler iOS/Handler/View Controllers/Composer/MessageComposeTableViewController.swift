@@ -155,11 +155,14 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
             UIKeyboardWillShowNotification,
             object: nil, queue: nil,
             usingBlock: { notification in
-                if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
-                    let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
-                    
-                    self.autocompleteViewController.tableView.contentInset = contentInsets
-                    
+                if let keyboardEndFrame = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.CGRectValue() {
+                    let keyboardFrameInAutoComplete = self.autocompleteViewController.tableView.convertRect(keyboardEndFrame, fromView: nil);
+                    let autoCompleteBottomInset = max(CGRectGetHeight(self.autocompleteViewController.tableView.bounds) - CGRectGetMinY(keyboardFrameInAutoComplete), 0);
+                    let autoCompleteContentInsets = UIEdgeInsets(top: 0, left: 0, bottom: autoCompleteBottomInset, right: 0)
+
+                    self.autocompleteViewController.tableView.contentInset = autoCompleteContentInsets
+                    self.autocompleteViewController.tableView.scrollIndicatorInsets = autoCompleteContentInsets
+
                     if let activeTokenField = self.activeTokenField {
                         let rect = self.tableView.convertRect(activeTokenField.bounds, fromView: activeTokenField)
                         self.tableView.contentOffset = CGPointMake(0, rect.origin.y)
@@ -173,12 +176,8 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
             UIKeyboardWillHideNotification,
             object: nil, queue: nil,
             usingBlock: { notification in
-                if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
-                    let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
-                    
-                    self.tableView.contentInset = contentInsets
-                    self.autocompleteViewController.tableView.contentInset = contentInsets
-                }
+                self.tableView.contentInset = UIEdgeInsetsZero
+                self.autocompleteViewController.tableView.contentInset = UIEdgeInsetsZero
         })
     }
     

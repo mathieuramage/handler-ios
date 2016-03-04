@@ -12,7 +12,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Eef-Vm-jmS" id="EAr-aF-vT4">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="54.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="54"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ghost_blue" translatesAutoresizingMaskIntoConstraints="NO" id="jJY-1d-8iD" userLabel="Contact Photo">
@@ -23,18 +23,18 @@
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                <integer key="value" value="12"/>
+                                <integer key="value" value="17"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="1000" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zDN-Nu-8aJ">
-                        <rect key="frame" x="59" y="15" width="301" height="18"/>
+                        <rect key="frame" x="59" y="9" width="301" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.40000000000000002" green="0.45882352941176469" blue="0.49803921568627452" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="250" text="@UserHandle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gZR-Ph-NgN" userLabel="UserHandle">
-                        <rect key="frame" x="59" y="32" width="301" height="16"/>
+                        <rect key="frame" x="59" y="27" width="301" height="16"/>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                         <color key="textColor" red="0.32006663079999997" green="0.3941266537" blue="0.45170778039999998" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -47,9 +47,9 @@
                     <constraint firstItem="zDN-Nu-8aJ" firstAttribute="leading" secondItem="jJY-1d-8iD" secondAttribute="trailing" constant="10" id="T19-wP-RuO"/>
                     <constraint firstItem="gZR-Ph-NgN" firstAttribute="leading" secondItem="jJY-1d-8iD" secondAttribute="trailing" constant="10" id="dDo-7a-8O5"/>
                     <constraint firstItem="jJY-1d-8iD" firstAttribute="leading" secondItem="EAr-aF-vT4" secondAttribute="leading" constant="15" id="e4a-4d-pfb"/>
-                    <constraint firstItem="gZR-Ph-NgN" firstAttribute="top" secondItem="EAr-aF-vT4" secondAttribute="top" constant="32" id="mbg-L1-riy"/>
+                    <constraint firstItem="gZR-Ph-NgN" firstAttribute="top" secondItem="EAr-aF-vT4" secondAttribute="centerY" id="j2s-eL-J1O"/>
                     <constraint firstItem="jJY-1d-8iD" firstAttribute="centerY" secondItem="EAr-aF-vT4" secondAttribute="centerYWithinMargins" id="ozj-n8-yYI"/>
-                    <constraint firstItem="zDN-Nu-8aJ" firstAttribute="top" secondItem="EAr-aF-vT4" secondAttribute="top" constant="15" id="u9w-o6-otS"/>
+                    <constraint firstItem="zDN-Nu-8aJ" firstAttribute="bottom" secondItem="EAr-aF-vT4" secondAttribute="centerY" id="xxC-e2-ip0"/>
                     <constraint firstItem="gZR-Ph-NgN" firstAttribute="leading" secondItem="EAr-aF-vT4" secondAttribute="leading" constant="59" id="zFn-7T-5nF"/>
                 </constraints>
                 <variation key="default">
