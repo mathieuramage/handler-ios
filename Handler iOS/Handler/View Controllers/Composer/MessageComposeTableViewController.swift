@@ -137,30 +137,23 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
             UIKeyboardWillShowNotification,
             object: nil, queue: nil,
             usingBlock: { notification in
-                if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
-                    let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
-                    
-                    self.delegate?.setAutoCompleteInsets(contentInsets)
-                    
-                    if let activeTokenField = self.activeTokenField {
-                        let rect = self.tableView.convertRect(activeTokenField.bounds, fromView: activeTokenField)
-                        self.tableView.contentOffset = CGPointMake(0, rect.origin.y)
-                    }
-                    
+                
+                
+                if let activeTokenField = self.activeTokenField, let keyboardFrame = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.CGRectValue() {
+                    let frame = self.view.convertRect(activeTokenField.frame, toView: nil)                    
+                    let insetTop = frame.origin.y + frame.size.height
+                    self.delegate?.setAutoCompleteViewInsets(UIEdgeInsets(top: insetTop, left: 0, bottom: keyboardFrame.size.height, right: 0))
                     self.keyboardFirstTime = false
                 }
+                
         })
         
         NSNotificationCenter.defaultCenter().addObserverForName(
             UIKeyboardWillHideNotification,
             object: nil, queue: nil,
             usingBlock: { notification in
-                if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
-                    let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
-                    
-                    self.tableView.contentInset = contentInsets
-                    self.delegate?.setAutoCompleteInsets(contentInsets)
-                }
+                self.tableView.contentInset = UIEdgeInsetsZero
+                self.delegate?.setAutoCompleteViewInsets(UIEdgeInsetsZero)
         })
     }
     
@@ -525,5 +518,5 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
 protocol MessageComposeTableViewControllerDelegate {
     func autoCompleteUserForPrefix(prefix : String)
-    func setAutoCompleteInsets(insets : UIEdgeInsets)
+    func setAutoCompleteViewInsets(insets : UIEdgeInsets)
 }

@@ -92,7 +92,7 @@ class ContactsAutoCompleteViewController: UIViewController, UITableViewDelegate,
         tableView.registerNib(UINib(nibName: "ContactAutocompleteCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier:ContactsAutoCompleteViewController.AutoCompleteCellID)
         tableView.tableFooterView = UIView()
         tableView.dataSource = self
-        tableView.delegate = self
+        tableView.delegate = self        
     }
     
     // MARK: TableView DataSource & Delegate
@@ -118,41 +118,51 @@ class ContactsAutoCompleteViewController: UIViewController, UITableViewDelegate,
     internal func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(ContactsAutoCompleteViewController.AutoCompleteCellID, forIndexPath: indexPath) as! ContactAutocompleteCell
         
-        if indexPath.row < matchedUsers.count {
-            let matchedUser = matchedUsers[indexPath.row]
-            
-            // TODO: Photo
-            if let name = matchedUser.user.name {
-                if let matchedNameRange = matchedUser.nameMatchRange {
-                    let attributedString = NSMutableAttributedString(string: name, attributes: [ NSForegroundColorAttributeName: UIColor(rgba: HexCodes.gray)])
-                    attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor(rgba: HexCodes.darkGray), range: name.NSRangeFromRange(matchedNameRange))
-                    
-                    cell.contactName.attributedText = attributedString
-                }
-                else {
-                    cell.contactName.text = name
-                }
+        guard indexPath.row < matchedUsers.count else {
+            return cell
+        }
+        
+        let matchedUser = matchedUsers[indexPath.row]
+        
+        if let name = matchedUser.user.name {
+            if let matchedNameRange = matchedUser.nameMatchRange {
+                let attributedString = NSMutableAttributedString(string: name, attributes: [ NSForegroundColorAttributeName: UIColor(rgba: HexCodes.gray)])
+                attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor(rgba: HexCodes.darkGray), range: name.NSRangeFromRange(matchedNameRange))
+                
+                cell.contactName.attributedText = attributedString
             }
             else {
-                cell.contactName.text = nil
+                cell.contactName.text = name
             }
             
-            if let handle = matchedUser.user.handle {
-                if let matchedNameRange = matchedUser.handleMatchRange {
-                    let attributedString = NSMutableAttributedString(string: handle, attributes: [ NSForegroundColorAttributeName: UIColor(rgba: HexCodes.gray)])
-                    attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor(rgba: HexCodes.darkGray), range: handle.NSRangeFromRange(matchedNameRange))
-                    
-                    let attributedWithAtSymbol = NSMutableAttributedString(string: "@", attributes: [ NSForegroundColorAttributeName: UIColor(rgba: HexCodes.gray)])
-                    attributedWithAtSymbol.appendAttributedString(attributedString)
-                    cell.contactHandle.attributedText = attributedWithAtSymbol
-                }
-                else {
-                    cell.contactHandle.text = handle
-                }
+        }
+        else {
+            cell.contactName.text = nil
+        }
+        
+        if let handle = matchedUser.user.handle {
+            if let matchedNameRange = matchedUser.handleMatchRange {
+                let attributedString = NSMutableAttributedString(string: handle, attributes: [ NSForegroundColorAttributeName: UIColor(rgba: HexCodes.gray)])
+                attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor(rgba: HexCodes.darkGray), range: handle.NSRangeFromRange(matchedNameRange))
+                
+                let attributedWithAtSymbol = NSMutableAttributedString(string: "@", attributes: [ NSForegroundColorAttributeName: UIColor(rgba: HexCodes.gray)])
+                attributedWithAtSymbol.appendAttributedString(attributedString)
+                cell.contactHandle.attributedText = attributedWithAtSymbol
             }
             else {
-                cell.contactHandle.text = nil
+                cell.contactHandle.text = "@" + handle
             }
+        }
+            
+        else {
+            cell.contactHandle.text = nil
+        }
+        
+        if let urlString = matchedUser.user.profile_picture_url, let profileURL = NSURL(string: urlString) {
+            cell.contactPhoto.kf_setImageWithURL(profileURL, placeholderImage: UIImage.randomGhostImage(), optionsInfo: nil, completionHandler:nil)
+        }
+        else {
+            cell.contactPhoto.image = UIImage.randomGhostImage()
         }
         
         return cell

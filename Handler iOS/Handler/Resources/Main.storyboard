@@ -530,7 +530,7 @@
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vxF-ks-X1a">
-                                <rect key="frame" x="0.0" y="124" width="375" height="543"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <connections>
                                     <segue destination="WJ2-cQ-HB2" kind="embed" identifier="embedAutoComplete" id="1M5-cy-xly"/>
                                 </connections>
@@ -540,7 +540,7 @@
                         <constraints>
                             <constraint firstItem="vxF-ks-X1a" firstAttribute="leading" secondItem="Edx-wZ-XOK" secondAttribute="leading" id="4Oo-cg-Lxd"/>
                             <constraint firstItem="Edx-wZ-XOK" firstAttribute="top" secondItem="8dc-LV-Hu2" secondAttribute="bottom" id="HOX-fQ-MDw"/>
-                            <constraint firstItem="vxF-ks-X1a" firstAttribute="top" secondItem="8dc-LV-Hu2" secondAttribute="bottom" constant="60" id="HPB-JN-Dn8"/>
+                            <constraint firstItem="vxF-ks-X1a" firstAttribute="top" secondItem="8dc-LV-Hu2" secondAttribute="bottom" id="HPB-JN-Dn8"/>
                             <constraint firstItem="sFm-pu-Rwc" firstAttribute="top" secondItem="Edx-wZ-XOK" secondAttribute="bottom" id="PbQ-MW-sGo"/>
                             <constraint firstItem="vxF-ks-X1a" firstAttribute="bottom" secondItem="sFm-pu-Rwc" secondAttribute="top" id="PwA-v4-MFm"/>
                             <constraint firstItem="Edx-wZ-XOK" firstAttribute="leading" secondItem="KgH-ko-WUs" secondAttribute="leading" id="fBf-xm-rsf"/>
@@ -565,6 +565,8 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="autoCompleteContainerView" destination="vxF-ks-X1a" id="ZJ9-bh-VcO"/>
+                        <outlet property="bottomInsetConstraint" destination="PwA-v4-MFm" id="OkM-rk-1Cn"/>
+                        <outlet property="topInsetConstraint" destination="HPB-JN-Dn8" id="Yep-9A-gaI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JwS-1c-dh1" userLabel="First Responder" sceneMemberID="firstResponder"/>

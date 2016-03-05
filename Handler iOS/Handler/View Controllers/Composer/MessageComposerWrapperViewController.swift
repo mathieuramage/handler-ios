@@ -14,6 +14,9 @@ class MessageComposerWrapperViewController: UIViewController, AutoCompleteDelega
     
     @IBOutlet weak var autoCompleteContainerView: UIView!
     
+    @IBOutlet weak var topInsetConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bottomInsetConstraint: NSLayoutConstraint!
+    
     var messageComposerController : MessageComposeTableViewController?
     var autoCompleteViewController : ContactsAutoCompleteViewController?
     
@@ -57,9 +60,12 @@ class MessageComposerWrapperViewController: UIViewController, AutoCompleteDelega
         autoCompleteViewController?.autoCompleteUserForPrefix(prefix)
     }
     
-    func setAutoCompleteInsets(insets : UIEdgeInsets) {
-        autoCompleteViewController?.tableView.contentInset = insets
+    func setAutoCompleteViewInsets(inset : UIEdgeInsets) {
+        self.topInsetConstraint.constant = inset.top
+        self.bottomInsetConstraint.constant = inset.bottom
+        self.view.layoutIfNeeded()
     }
+    
     
     //MARK : AutoCompleteDelegate    
     func contactsAutoCompleteDidSelectUser(controller: ContactsAutoCompleteViewController, user: User) {
