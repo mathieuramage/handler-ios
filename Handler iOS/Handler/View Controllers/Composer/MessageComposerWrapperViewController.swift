@@ -14,8 +14,7 @@ class MessageComposerWrapperViewController: UIViewController, AutoCompleteDelega
     
     @IBOutlet weak var autoCompleteContainerView: UIView!
     
-    @IBOutlet weak var topInsetConstraint: NSLayoutConstraint!
-    @IBOutlet weak var bottomInsetConstraint: NSLayoutConstraint!
+    @IBOutlet weak var autoCompleteTopConstraint: NSLayoutConstraint!    
     
     var messageComposerController : MessageComposeTableViewController?
     var autoCompleteViewController : ContactsAutoCompleteViewController?
@@ -23,6 +22,37 @@ class MessageComposerWrapperViewController: UIViewController, AutoCompleteDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         autoCompleteContainerView.hidden = true
+        
+        
+        NSNotificationCenter.defaultCenter().addObserverForName(
+            UIKeyboardWillShowNotification,
+            object: nil, queue: nil,
+            usingBlock: { notification in
+                
+                if let kbSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.CGRectValue().size {
+                    
+                    let contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0)
+                    
+                    self.messageComposerController?.tableView.contentInset = contentInsets
+                    self.messageComposerController?.tableView.scrollIndicatorInsets = contentInsets
+                    
+                    self.autoCompleteViewController?.tableView.contentInset = contentInsets
+                    self.autoCompleteViewController?.tableView.scrollIndicatorInsets = contentInsets
+                }
+                
+        })
+        
+        NSNotificationCenter.defaultCenter().addObserverForName(
+            UIKeyboardWillHideNotification,
+            object: nil, queue: nil,
+            usingBlock: { notification in
+                
+                self.messageComposerController?.tableView.contentInset = UIEdgeInsetsZero
+                self.messageComposerController?.tableView.scrollIndicatorInsets = UIEdgeInsetsZero
+                
+                self.autoCompleteViewController?.tableView.contentInset = UIEdgeInsetsZero
+                self.autoCompleteViewController?.tableView.scrollIndicatorInsets = UIEdgeInsetsZero
+        })
     }
     
     
@@ -60,9 +90,8 @@ class MessageComposerWrapperViewController: UIViewController, AutoCompleteDelega
         autoCompleteViewController?.autoCompleteUserForPrefix(prefix)
     }
     
-    func setAutoCompleteViewInsets(inset : UIEdgeInsets) {
-        self.topInsetConstraint.constant = inset.top
-        self.bottomInsetConstraint.constant = inset.bottom
+    func setAutoCompleteViewTopInset(topInset : CGFloat) {
+        autoCompleteTopConstraint.constant = topInset
         self.view.layoutIfNeeded()
     }
     

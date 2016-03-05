@@ -292,16 +292,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mnj-r0-Kki">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mnj-r0-Kki">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                                 <color key="backgroundColor" red="0.96078431369999995" green="0.97254901959999995" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
                             </tableView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="RYe-oD-pCo" firstAttribute="top" secondItem="mnj-r0-Kki" secondAttribute="bottom" id="C9M-F2-XSg"/>
-                            <constraint firstItem="mnj-r0-Kki" firstAttribute="leading" secondItem="vHW-uQ-Drx" secondAttribute="leading" id="Nhl-3c-l12"/>
-                            <constraint firstAttribute="trailing" secondItem="mnj-r0-Kki" secondAttribute="trailing" id="WJR-Hb-KIB"/>
-                            <constraint firstItem="mnj-r0-Kki" firstAttribute="top" secondItem="BmF-dW-Blq" secondAttribute="bottom" id="qZ6-Dp-PWp"/>
+                            <constraint firstAttribute="trailing" secondItem="mnj-r0-Kki" secondAttribute="trailing" id="Frb-Mw-5c6"/>
+                            <constraint firstItem="mnj-r0-Kki" firstAttribute="leading" secondItem="vHW-uQ-Drx" secondAttribute="leading" id="Udb-XR-P5J"/>
+                            <constraint firstItem="mnj-r0-Kki" firstAttribute="top" secondItem="BmF-dW-Blq" secondAttribute="bottom" id="fjP-Cp-L3J"/>
+                            <constraint firstAttribute="bottom" secondItem="mnj-r0-Kki" secondAttribute="bottom" constant="20" symbolic="YES" id="ldb-rt-k7n"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
@@ -541,7 +541,7 @@
                             <constraint firstItem="vxF-ks-X1a" firstAttribute="leading" secondItem="Edx-wZ-XOK" secondAttribute="leading" id="4Oo-cg-Lxd"/>
                             <constraint firstItem="Edx-wZ-XOK" firstAttribute="top" secondItem="8dc-LV-Hu2" secondAttribute="bottom" id="HOX-fQ-MDw"/>
                             <constraint firstItem="vxF-ks-X1a" firstAttribute="top" secondItem="8dc-LV-Hu2" secondAttribute="bottom" id="HPB-JN-Dn8"/>
-                            <constraint firstItem="sFm-pu-Rwc" firstAttribute="top" secondItem="Edx-wZ-XOK" secondAttribute="bottom" id="PbQ-MW-sGo"/>
+                            <constraint firstItem="Edx-wZ-XOK" firstAttribute="bottom" secondItem="sFm-pu-Rwc" secondAttribute="top" id="PbQ-MW-sGo"/>
                             <constraint firstItem="vxF-ks-X1a" firstAttribute="bottom" secondItem="sFm-pu-Rwc" secondAttribute="top" id="PwA-v4-MFm"/>
                             <constraint firstItem="Edx-wZ-XOK" firstAttribute="leading" secondItem="KgH-ko-WUs" secondAttribute="leading" id="fBf-xm-rsf"/>
                             <constraint firstItem="vxF-ks-X1a" firstAttribute="trailing" secondItem="Edx-wZ-XOK" secondAttribute="trailing" id="rY6-fg-uY9"/>
@@ -565,8 +565,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="autoCompleteContainerView" destination="vxF-ks-X1a" id="ZJ9-bh-VcO"/>
-                        <outlet property="bottomInsetConstraint" destination="PwA-v4-MFm" id="OkM-rk-1Cn"/>
-                        <outlet property="topInsetConstraint" destination="HPB-JN-Dn8" id="Yep-9A-gaI"/>
+                        <outlet property="autoCompleteTopConstraint" destination="HPB-JN-Dn8" id="8P6-UI-NxQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JwS-1c-dh1" userLabel="First Responder" sceneMemberID="firstResponder"/>

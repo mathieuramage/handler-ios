@@ -132,32 +132,9 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
         }
         attachmentsCell.filePickerDelegate = self
         
-        
-        NSNotificationCenter.defaultCenter().addObserverForName(
-            UIKeyboardWillShowNotification,
-            object: nil, queue: nil,
-            usingBlock: { notification in
-                
-                
-                if let activeTokenField = self.activeTokenField, let keyboardFrame = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.CGRectValue() {
-                    let frame = self.view.convertRect(activeTokenField.frame, toView: nil)                    
-                    let insetTop = frame.origin.y + frame.size.height
-                    self.delegate?.setAutoCompleteViewInsets(UIEdgeInsets(top: insetTop, left: 0, bottom: keyboardFrame.size.height, right: 0))
-                    self.keyboardFirstTime = false
-                }
-                
-        })
-        
-        NSNotificationCenter.defaultCenter().addObserverForName(
-            UIKeyboardWillHideNotification,
-            object: nil, queue: nil,
-            usingBlock: { notification in
-                self.tableView.contentInset = UIEdgeInsetsZero
-                self.delegate?.setAutoCompleteViewInsets(UIEdgeInsetsZero)
-        })
     }
     
-    // MARK: Contacts Add Buttons 
+    // MARK: Contacts Add Buttons
     
     @IBAction func contactButtonPressed(button: UIButton){
         if button == self.addToContactButton {
@@ -353,6 +330,12 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
         }
         
         activeTokenField = view
+        
+        if let frame = activeTokenField!.superview?.convertRect(activeTokenField!.frame, toView: nil) {
+            let tableY = self.tableView.superview!.convertRect(self.tableView.frame, toView: nil).origin.y
+            let insetTop = frame.origin.y + frame.size.height - tableY + 15 // 15 to accomodate for bottom spacing in cells
+            self.delegate?.setAutoCompleteViewTopInset(insetTop)
+        }
     }
     
     func tokenInputViewDidEndEditing(view: CLTokenInputView) {
@@ -518,5 +501,5 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
 protocol MessageComposeTableViewControllerDelegate {
     func autoCompleteUserForPrefix(prefix : String)
-    func setAutoCompleteViewInsets(insets : UIEdgeInsets)
+    func setAutoCompleteViewTopInset(topInset: CGFloat)
 }
