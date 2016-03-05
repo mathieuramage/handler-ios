@@ -3,7 +3,8 @@
 //  Handler
 //
 //  Created by Christian Praiss on 25/09/15.
-//  Copyright © 2015 Handler, Inc. All rights reserved.
+//  Updated by Cagdas Altinkaya on 03/03/16.
+//  Copyright (c) 2013-2016 Mathieu Ramage - All Rights Reserved.
 //
 
 import UIKit

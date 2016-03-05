@@ -794,6 +794,9 @@
 		DF1FD2DA1B62360600A58B71 /* Handler */ = {
 			isa = PBXGroup;
 			children = (
+				DF1FD2DD1B62360600A58B71 /* AppDelegate.swift */,
+				2FF788261BB5B05000B297D3 /* Handler.entitlements */,
+				B72C59D01C26BBE500D6651D /* Globals.swift */,
 				2F8D8CD61BCC118B0020A41C /* Actions System */,
 				2F1D2C2E1BBBF80300A504A8 /* Alert Controllers */,
 				2FA2EA941BADA6240027EA77 /* Authentication */,
@@ -801,13 +804,10 @@
 				2FA2EA6D1BAC4EAC0027EA77 /* Database */,
 				2FDDE0FF1BAEB270006C3500 /* Extensions */,
 				2F7B0D041BFDD9880015C43A /* Plugins */,
-				2FA2EA8F1BAD9D1F0027EA77 /* Resources */,
-				DF1FD2DB1B62360600A58B71 /* Supporting Files */,
 				2FA2EA8A1BAD9C7A0027EA77 /* View Controllers */,
 				2FDDE1451BB04F8A006C3500 /* Views */,
-				DF1FD2DD1B62360600A58B71 /* AppDelegate.swift */,
-				2FF788261BB5B05000B297D3 /* Handler.entitlements */,
-				B72C59D01C26BBE500D6651D /* Globals.swift */,
+				2FA2EA8F1BAD9D1F0027EA77 /* Resources */,
+				DF1FD2DB1B62360600A58B71 /* Supporting Files */,
 			);
 			path = Handler;
 			sourceTree = "<group>";
