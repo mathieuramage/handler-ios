@@ -167,31 +167,50 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
     }
     // MARK: Sending / Cancelling
     
-    @IBAction func dismiss(sender: UIBarButtonItem) {
-        if let draft = draftMessage {
-            self.updateDraftFromUI(draft: draft).saveAsDraft()
-            self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
-        }else{
-            let alertController = UIAlertController(title: "Save as draft", message: "Do you want to save this message as a draft?", preferredStyle: UIAlertControllerStyle.Alert)
-            alertController.addAction(UIAlertAction(title: "Save as Draft", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-                self.createMessageFromUI().saveAsDraft()
-                self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
-            }))
-            alertController.addAction(UIAlertAction(title: "Delete", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
-                if let attachments = self.attachmentsCell.attachments {
-                    for attachment in attachments {
-                        attachment.delete()
-                    }
+    func dismiss() {
+        
+        let alertController = UIAlertController(title: "Cancel Message", message: "Do you want to cancel this message?", preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: "Stay", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+
+        }))
+        
+        alertController.addAction(UIAlertAction(title: "Cancel & Delete Message", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
+            if let attachments = self.attachmentsCell.attachments {
+                for attachment in attachments {
+                    attachment.delete()
                 }
-                self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
-            }))
-            alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
-            presentViewController(alertController, animated: true, completion: nil)
-        }
+            }
+            self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+        }))
+        presentViewController(alertController, animated: true, completion: nil)        
+        
+        
+        // Draft disabled for now as per IOS-96
+        
+//        if let draft = draftMessage {
+//            self.updateDraftFromUI(draft: draft).saveAsDraft()
+//            self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+//        }else{
+//            let alertController = UIAlertController(title: "Save as draft", message: "Do you want to save this message as a draft?", preferredStyle: UIAlertControllerStyle.Alert)
+//            alertController.addAction(UIAlertAction(title: "Save as Draft", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+//                self.createMessageFromUI().saveAsDraft()
+//                self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+//            }))
+//            alertController.addAction(UIAlertAction(title: "Delete", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
+//                if let attachments = self.attachmentsCell.attachments {
+//                    for attachment in attachments {
+//                        attachment.delete()
+//                    }
+//                }
+//                self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+//            }))
+//            alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+//            presentViewController(alertController, animated: true, completion: nil)
+//        }
     }
     
-    @IBAction func send(sender: UIBarButtonItem) {
-        switchUserInteractionState(false, sender: sender)
+    func send() {
+        switchUserInteractionState(false)
         
         let message = createMessageFromUI()
         
@@ -199,14 +218,14 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
             let alertController = UIAlertController(title: nil, message: "You are about to send a message without subject, are you sure?", preferredStyle: .Alert)
             
             let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action) in
-                self.switchUserInteractionState(true, sender: sender)
+                self.switchUserInteractionState(true)
             }
             
             let sendAnywayAction = UIAlertAction(title: "Send", style: .Default) { (action) in
                 HRActionsManager.enqueueMessage(message, replyTo: self.messageToReplyTo)
                 self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
                 
-                self.switchUserInteractionState(true, sender: sender)
+                self.switchUserInteractionState(true)
             }
             
             alertController.addAction(cancelAction)
@@ -219,7 +238,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
                 var errorPopup = ErrorPopupViewController()
                 errorPopup.displayMessageLabel.text = "You need at least one receiver and a subject / content"
                 errorPopup.show()
-                switchUserInteractionState(true, sender: sender)
+                switchUserInteractionState(true)
                 return
             }
             
@@ -267,11 +286,10 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
     
     // MARK: UI Utils
     
-    func switchUserInteractionState(enabled: Bool, sender: UIBarButtonItem? = nil){
+    func switchUserInteractionState(enabled: Bool){
         if !enabled {
             resignAll()
         }
-        sender?.enabled = enabled
         subjectTextField.enabled = enabled
         contentTextView.userInteractionEnabled = enabled
         tokenView.userInteractionEnabled = enabled
