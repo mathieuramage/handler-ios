@@ -3,7 +3,7 @@
 //  Handler
 //
 //  Created by Christian Praiß on 12/13/15.
-//  Copyright © 2015 Handler, Inc. All rights reserved.
+//  Copyright (c) 2013-2016 Mathieu Ramage - All Rights Reserved.
 //
 
 import UIKit
@@ -108,8 +108,8 @@ class ConversationsBottomBarActionsHandler: NSObject, BottomBarActionPlugin {
                 let cont = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
                 cont.addAction(UIAlertAction(title: "Reply", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                     let replyNC = (UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("MessageComposeNavigationController") as! GradientNavigationController)
-                    let replyVC = replyNC.viewControllers.first as! MessageComposeTableViewController
-                    replyVC.messageToReplyTo = message
+                    let replyWrapper = replyNC.viewControllers.first as! MessageComposerWrapperViewController
+                    replyWrapper.messageToReplyTo = message
                     self.vc.presentViewController(replyNC, animated: true, completion: nil)
                 }))
                 cont.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))

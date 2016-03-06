@@ -3,7 +3,7 @@
 //  Handler
 //
 //  Created by Christian Praiss on 22/09/15.
-//  Copyright © 2015 Handler, Inc. All rights reserved.
+//  Copyright (c) 2013-2016 Mathieu Ramage - All Rights Reserved.
 //
 
 #ifndef Handler_Bridging_Header_h
