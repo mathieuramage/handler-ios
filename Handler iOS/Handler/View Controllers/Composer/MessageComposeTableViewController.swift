@@ -11,7 +11,7 @@ import UIKit
 import HandlerSDK
 import Async
 
-class MessageComposeTableViewController: UITableViewController, CLTokenInputViewDelegate, UITextViewDelegate, FilePickerDelegate, UIDocumentPickerDelegate, UIDocumentInteractionControllerDelegate, ContactSelectionDelegate {
+class MessageComposeTableViewController: UITableViewController, CLTokenInputViewDelegate, UITextViewDelegate, UITextFieldDelegate, FilePickerDelegate, UIDocumentPickerDelegate, UIDocumentInteractionControllerDelegate, ContactSelectionDelegate {
     
     struct ValidatedToken {
         var name: String
@@ -57,6 +57,9 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
         }
     }
     
+    private var originalReplySubject : String?
+    private var replySubjectChanged : Bool = false
+    
     @IBOutlet weak var tokenView: CLTokenInputView!
     @IBOutlet weak var ccTokenView: CLTokenInputView!
     
@@ -83,6 +86,8 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
         super.viewDidLoad()
         
         tableView.tableFooterView = UIView()
+        
+        subjectTextField.delegate = self
         
         // UI Configuration
         
@@ -114,6 +119,8 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
                 else {
                     subjectTextField.text = "\(message.replyPrefix) \(message.subject ?? "")"
                 }
+                
+                originalReplySubject = subjectTextField.text
             }
             if let receivers = messageToReplyTo?.recipientsWithoutSelf(), let all = receivers.allObjects as? [User] {
                 for receiver in all {
@@ -497,9 +504,9 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
         return self.navigationController ?? self
     }
     
-    // Mark: AutoCompleteDelegate
+    // Mark: ContactsAutoCompleteViewControllerDelegateDelegate
     
-    func contactsAutoCompleteDidSelectUser(controller: ContactsAutoCompleteViewController, user: User) {
+    func contactsAutoCompleteDidSelectUser(user: User) {
         guard let handle = user.handle else {
             return
         }
@@ -514,6 +521,37 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
         else if self.ccTokenView.editing {
             self.ccTokenView.addToken(token)
         }
+    }
+    
+    
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        
+        if (textField == subjectTextField && internalmessageToReplyTo != nil) {
+            
+            if (replySubjectChanged) { // already changed subject
+                return true
+            }
+            
+            if (string != originalReplySubject) {
+                
+                let alertController = UIAlertController(title: "New Message", message: "Changing the subject line will create a new thread. Do you want to continue?", preferredStyle: UIAlertControllerStyle.Alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                    self.replySubjectChanged = true
+                    self.messageToReplyTo = nil
+                }))
+                
+                alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                }))
+                
+                presentViewController(alertController, animated: true, completion: nil)
+                
+            }
+            
+            return false
+        }
+        
+        return true
+        
     }
 }
 

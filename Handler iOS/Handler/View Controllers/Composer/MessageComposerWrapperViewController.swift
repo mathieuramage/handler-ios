@@ -99,7 +99,7 @@ class MessageComposerWrapperViewController: UIViewController, AutoCompleteDelega
     
     //MARK : AutoCompleteDelegate    
     func contactsAutoCompleteDidSelectUser(controller: ContactsAutoCompleteViewController, user: User) {
-        messageComposerController?.contactsAutoCompleteDidSelectUser(controller, user: user)
+        messageComposerController?.contactsAutoCompleteDidSelectUser(user)
     }
     
 }
