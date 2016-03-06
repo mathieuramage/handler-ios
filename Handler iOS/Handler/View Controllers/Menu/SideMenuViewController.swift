@@ -75,7 +75,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
             //Inbox
             let inboxViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("InboxTableViewController") as! InboxTableViewController
             if let nc = AppDelegate.sharedInstance().sideMenu.contentViewController as? UINavigationController {
-                nc.setViewControllers([inboxViewController], animated: true)
+                nc.setViewControllers([inboxViewController], animated: false)
             }
             return
         case 1:
@@ -104,7 +104,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
         }
         
         if indexPath.row != 0, let nc = AppDelegate.sharedInstance().sideMenu.contentViewController as? UINavigationController {
-            nc.setViewControllers([genericMailVc], animated: true)
+            nc.setViewControllers([genericMailVc], animated: false)
         }
     }
     
