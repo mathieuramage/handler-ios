@@ -58,11 +58,11 @@ class MessageComposerWrapperViewController: UIViewController, AutoCompleteDelega
     
     
     @IBAction func dismiss(sender: UIBarButtonItem) {
-        self.messageComposerController?.dismiss(sender)
+        self.messageComposerController?.dismiss()
     }
     
     @IBAction func send(sender: UIBarButtonItem) {
-        self.messageComposerController?.send(sender)
+        self.messageComposerController?.send()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
