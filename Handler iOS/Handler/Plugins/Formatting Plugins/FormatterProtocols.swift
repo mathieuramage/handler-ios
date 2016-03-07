@@ -16,6 +16,6 @@ protocol MessageTableViewCellFormatter {
 }
 
 protocol MessageContentCellFormatter {
-    func populateView(data message: Message?, view: MessageContentTableViewCell)
-    func populateView(data message: Message?, view: MessageSenderTableViewCell)
+    func populateView(data message: Message?, view: ThreadMessageTableViewCell)
+    func populateView(data message: Message?, view: ThreadMessageTableViewCell, lastMessage: Bool, primary: Bool)
 }
