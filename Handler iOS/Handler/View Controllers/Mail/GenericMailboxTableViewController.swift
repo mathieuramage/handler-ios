@@ -178,6 +178,39 @@ class GenericMailboxTableViewController: UITableViewController, NSFetchedResults
                 }
             }
             dc.allThreads = threads
+            
+            // If we're in the Unread mailbox, find the oldest unread message and display it as primary.
+            if (mailboxType == .Unread) {
+                
+                var latestUnread : Message? = nil
+                
+                for thread in threads {
+                    if let messages = thread.messages {
+                        for message in messages {
+                            
+                            let m = message as! Message
+                            
+                            if (m.isUnread) {
+                                
+                                if latestUnread == nil {
+                                    latestUnread = m
+                                } else {
+                                    if latestUnread!.sent_at!.compare(m.sent_at!) == .OrderedAscending {
+                                        latestUnread = m
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                
+                if let destination = segue.destinationViewController as? ThreadTableViewController {
+                    destination.primaryMessage = latestUnread
+                }
+                
+            }
+            
         } else if segue.identifier == "showMessageComposeNavigationController" {
             let dc = (segue.destinationViewController as! UINavigationController).viewControllers.first as! MessageComposeTableViewController
             dc.draftMessage = self.messageForSegue
