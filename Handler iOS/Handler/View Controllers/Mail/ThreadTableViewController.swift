@@ -8,18 +8,29 @@
 
 import UIKit
 
-class ThreadTableViewController: UITableViewController, SWTableViewCellDelegate {
-    
-    enum CellType: Int {
-        case Connector = 0
-        case Sender = 1
-        case Content = 2
-    }
-    
+class ThreadTableViewController: UITableViewController {
+
+    let MessageCellID = "MessageCellID"
+
     var thread: Thread? {
         didSet {
-            tableView.reloadData()
+            if let allMessages = thread?.messages?.allObjects as? [Message] {
+                orderedMessages = allMessages.sort({ (item1, item2) -> Bool in
+                    if let firstDate = item1.sent_at, let secondDate = item2.sent_at {
+                        return firstDate.compare(secondDate) == NSComparisonResult.OrderedDescending
+                    }
+                    else {
+                        return true
+                    }
+                })
+            }
+            else {
+                orderedMessages = [Message]()
+            }
+
             primaryMessage = orderedMessages.first
+
+            tableView.reloadData()
         }
     }
     var allThreads: [Thread] = [Thread]()
@@ -40,124 +51,74 @@ class ThreadTableViewController: UITableViewController, SWTableViewCellDelegate 
         }
         return nil
     }
-    var messageForSegue: Message?
+
     var primaryMessage: Message? {
         didSet(previous) {
-            
             if primaryMessage != previous {
-                tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
-                var scrollIndex: NSIndexPath?
-                if let primaryMessage = primaryMessage {
-                    if var newindex = orderedMessages.indexOf(primaryMessage) {
-                        newindex *= 3
-                        scrollIndex = NSIndexPath(forRow: newindex, inSection: 0)
-                    }
+                guard let primaryMessage = primaryMessage, newIndex = orderedMessages.indexOf(primaryMessage) else {
+                    return
                 }
-                if let index = scrollIndex {
-                    tableView.scrollToRowAtIndexPath(index, atScrollPosition: .Top, animated: true)
+
+                guard let previous = previous, previousIndex = orderedMessages.indexOf(previous) else {
+                    return
                 }
+
+                let scrollIndexPath = NSIndexPath(forRow: newIndex, inSection: 0)
+                let previousIndexPath = NSIndexPath(forRow: previousIndex, inSection: 0)
+                let indexesToReload = [scrollIndexPath, previousIndexPath]
+
+                tableView.reloadRowsAtIndexPaths(indexesToReload, withRowAnimation: .Automatic)
+                tableView.scrollToRowAtIndexPath(scrollIndexPath, atScrollPosition: .Top, animated: true)
             }
         }
     }
-    
-    var orderedMessages: [Message] {
-        if let thread = thread, let msg = thread.messages?.allObjects as? [Message] {
-            return msg.sort({ (item1, item2) -> Bool in
-                if let firstDate = item1.sent_at, let secondDate = item2.sent_at {
-                    return firstDate.compare(secondDate) == NSComparisonResult.OrderedDescending
-                }else{
-                    return true
-                }
-            })
-        }else{
-            return [Message]()
-        }
-    }
-    
-    func messageForIndexPath(indexPath: NSIndexPath)->Message?{
-        let index = Int(floor(Float(indexPath.row / 3)))
-        if index < orderedMessages.count {
-            return orderedMessages[index]
-        }else{
-            return nil
-        }
-    }
-    
-    func cellTypeForIndexPath(indexPath: NSIndexPath)->CellType{
-        
-        if let message = messageForIndexPath(indexPath) {
-            if let primaryMessage = primaryMessage where primaryMessage != message, let indexPrimary = orderedMessages.indexOf(primaryMessage), let indexSecondary = orderedMessages.indexOf(message) {
-                if indexSecondary < indexPrimary {
-                    switch indexPath.row % 3 {
-                    case 0:
-                        return CellType.Sender
-                    case 1:
-                        return CellType.Content
-                    case 2:
-                        return CellType.Connector
-                    default:
-                        return CellType(rawValue: Int(indexPath.row % 3))!
-                    }
-                }
+
+    var orderedMessages = [Message]()
+
+    var _sizingCell: ThreadMessageTableViewCell?
+    var sizingCell: ThreadMessageTableViewCell {
+        get {
+            if _sizingCell == nil {
+                _sizingCell = self.tableView.dequeueReusableCellWithIdentifier(MessageCellID) as? ThreadMessageTableViewCell
             }
-        }else{
-            return CellType.Connector
+
+            return _sizingCell!
         }
-        
-        
-        return CellType(rawValue: Int(indexPath.row % 3))!
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        let messageNib = UINib(nibName: "ThreadMessageTableViewCell", bundle: nil);
+        tableView.registerNib(messageNib, forCellReuseIdentifier: MessageCellID)
         tableView.backgroundColor = UIColor(rgba: HexCodes.offWhite)
         tableView.tableFooterView = UIView()
     }
-    
+
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.plugin = BottomBarActionPluginProvider.plugin(self)
         self.navigationController!.toolbar!.items = plugin.barButtonItemsForThread(thread)
     }
-    
+
     // MARK: - Table view data source
-    
+
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
-    
+
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return orderedMessages.count * 3
+        return orderedMessages.count
     }
-    
+
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var bgColor: UIColor?
-        
-        let message = messageForIndexPath(indexPath)
-        if message == primaryMessage {
-            bgColor = UIColor.whiteColor()
-        }else{
-            bgColor = UIColor(rgba: HexCodes.offWhite)
-        }
-        
-        switch cellTypeForIndexPath(indexPath){
-        case .Connector:
-            let cell = tableView.dequeueReusableCellWithIdentifier("messageConnectionCell", forIndexPath: indexPath)
-            cell.contentView.backgroundColor = bgColor
-            return cell
-        case .Content:
-            let cell = tableView.dequeueReusableCellWithIdentifier("messageContentCell", forIndexPath: indexPath) as! MessageContentTableViewCell
-            cell.contentView.backgroundColor = bgColor
-            FormattingPluginProvider.messageContentCellPluginForConversation()?.populateView(data: message, view: cell)
-            return cell
-        case .Sender:
-            let cell = tableView.dequeueReusableCellWithIdentifier("messageSenderCell", forIndexPath: indexPath) as! MessageSenderTableViewCell
-            cell.contentView.backgroundColor = bgColor
-            FormattingPluginProvider.messageContentCellPluginForConversation()?.populateView(data: message, view: cell)
-            return cell
-        }
+        let cell = tableView.dequeueReusableCellWithIdentifier(MessageCellID, forIndexPath: indexPath) as! ThreadMessageTableViewCell
+
+        configureCell(cell, indexPath: indexPath)
+
+        return cell
     }
-    
+
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
         view.backgroundColor = UIColor.whiteColor()
@@ -172,7 +133,7 @@ class ThreadTableViewController: UITableViewController, SWTableViewCellDelegate 
         label.clipsToBounds = false
         view.addSubview(label)
         label.text = orderedMessages.last?.subject ?? "No Subject"
-        
+
         let bottomView = UIView()
         bottomView.frame = CGRectMake(0, view.frame.height-0.5, view.frame.width, 0.5)
         bottomView.backgroundColor = UIColor(rgba: HexCodes.lightGray)
@@ -181,56 +142,33 @@ class ThreadTableViewController: UITableViewController, SWTableViewCellDelegate 
         view.addSubview(bottomView)
         return view
     }
-    
+
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 45
     }
-    
+
+    // Note: We could use UITableViewAutomaticDimension here however this make the animation really weird on first run
+    // This old school code makes things way smoother.
+    // TODO: Check with a time profiler if this code is slow
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        
-        if messageForIndexPath(indexPath) == primaryMessage && cellTypeForIndexPath(indexPath) == .Connector {
-            return 0
-        }
-        
-        switch cellTypeForIndexPath(indexPath){
-        case .Connector:
-            return 45
-        case .Sender:
-            return 86
-        case .Content:
-            return UITableViewAutomaticDimension
-        }
+        configureCell(sizingCell, indexPath: indexPath)
+
+        return sizingCell.contentView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize).height
     }
-    
+
     override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return self.tableView(tableView, heightForRowAtIndexPath: indexPath)
     }
-    
+
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if cellTypeForIndexPath(indexPath) == .Sender {
-            primaryMessage = messageForIndexPath(indexPath)
-        }
+        primaryMessage = orderedMessages[indexPath.row]
     }
-    
-    func swipeableTableViewCell(cell: SWTableViewCell!, canSwipeToState state: SWCellState) -> Bool {
-        return true
-    }
-    
-    func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerLeftUtilityButtonWithIndex index: Int) {
-        if let path = tableView.indexPathForCell(cell) where path.row/2 < orderedMessages.count {
-            let data = orderedMessages[Int(floor(Float(path.row / 2)))]
-            ActionPluginProvider.messageCellPluginForInboxType(.Inbox)?.leftButtonTriggered(index, data: data, callback: nil)
-        }
-    }
-    
-    func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerRightUtilityButtonWithIndex index: Int) {
-        if let path = tableView.indexPathForCell(cell) where path.row/2 < orderedMessages.count {
-            let data = orderedMessages[Int(floor(Float(path.row / 2)))]
-            ActionPluginProvider.messageCellPluginForInboxType(.Inbox)?.rightButtonTriggered(index, data: data, callback: nil)
-        }
-    }
-    
-    func swipeableTableViewCellShouldHideUtilityButtonsOnSwipe(cell: SWTableViewCell!) -> Bool {
-        return true
+
+    func configureCell(cell: ThreadMessageTableViewCell, indexPath: NSIndexPath) {
+        let message = orderedMessages[indexPath.row]
+
+        let lastMessage = indexPath.row + 1 >= orderedMessages.count
+        let primary = message == primaryMessage
+        FormattingPluginProvider.messageContentCellPluginForConversation()?.populateView(data: message, view: cell, lastMessage: lastMessage, primary: primary)
     }
 }

@@ -113,8 +113,7 @@
 		2FDB44741BD3EB110040014E /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB44701BD3EB110040014E /* TwitterCore.framework */; };
 		2FDB44761BD3EB380040014E /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB44751BD3EB380040014E /* Crashlytics.framework */; };
 		2FDBBC901BB9CBC500B2BFBF /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDBBC8F1BB9CBC500B2BFBF /* UIView+Extensions.swift */; };
-		2FDC6FAA1C18B91C008D334A /* MessageSenderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDC6FA91C18B91C008D334A /* MessageSenderTableViewCell.swift */; };
-		2FDC6FAC1C18BB97008D334A /* MessageContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDC6FAB1C18BB97008D334A /* MessageContentTableViewCell.swift */; };
+		2FDC6FAA1C18B91C008D334A /* ThreadMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDC6FA91C18B91C008D334A /* ThreadMessageTableViewCell.swift */; };
 		2FDC6FAE1C18BD89008D334A /* ConversationContentCellFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDC6FAD1C18BD89008D334A /* ConversationContentCellFormatter.swift */; };
 		2FDDE0ED1BAEA957006C3500 /* Message+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE0E31BAEA957006C3500 /* Message+CoreDataProperties.swift */; };
 		2FDDE0EE1BAEA957006C3500 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE0E41BAEA957006C3500 /* Message.swift */; };
@@ -151,6 +150,7 @@
 		7A372D7A1C6FA721009E400C /* ContactAutocompleteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A372D781C6FA721009E400C /* ContactAutocompleteCell.swift */; };
 		7A372D7B1C6FA721009E400C /* ContactAutocompleteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A372D791C6FA721009E400C /* ContactAutocompleteCell.xib */; };
 		7A75D7631C7A430800E201A3 /* MessageComposerWrapperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A75D7621C7A430800E201A3 /* MessageComposerWrapperViewController.swift */; };
+		7ACDBD5D1C8CAD7F004F5E25 /* ThreadMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ACDBD5C1C8CAD7F004F5E25 /* ThreadMessageTableViewCell.xib */; };
 		B72C59D11C26BBE500D6651D /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72C59D01C26BBE500D6651D /* Globals.swift */; };
 		B72C59D41C26C63200D6651D /* System San Francisco Display Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B72C59D31C26C63200D6651D /* System San Francisco Display Regular.ttf */; };
 		DF1FD2DE1B62360600A58B71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1FD2DD1B62360600A58B71 /* AppDelegate.swift */; };
@@ -325,8 +325,7 @@
 		2FDB44701BD3EB110040014E /* TwitterCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterCore.framework; sourceTree = SOURCE_ROOT; };
 		2FDB44751BD3EB380040014E /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = SOURCE_ROOT; };
 		2FDBBC8F1BB9CBC500B2BFBF /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
-		2FDC6FA91C18B91C008D334A /* MessageSenderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageSenderTableViewCell.swift; sourceTree = "<group>"; };
-		2FDC6FAB1C18BB97008D334A /* MessageContentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageContentTableViewCell.swift; sourceTree = "<group>"; };
+		2FDC6FA91C18B91C008D334A /* ThreadMessageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadMessageTableViewCell.swift; sourceTree = "<group>"; };
 		2FDC6FAD1C18BD89008D334A /* ConversationContentCellFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationContentCellFormatter.swift; sourceTree = "<group>"; };
 		2FDDE0E31BAEA957006C3500 /* Message+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Message+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2FDDE0E41BAEA957006C3500 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Message.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -365,6 +364,7 @@
 		7A372D781C6FA721009E400C /* ContactAutocompleteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactAutocompleteCell.swift; sourceTree = "<group>"; };
 		7A372D791C6FA721009E400C /* ContactAutocompleteCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactAutocompleteCell.xib; sourceTree = "<group>"; };
 		7A75D7621C7A430800E201A3 /* MessageComposerWrapperViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageComposerWrapperViewController.swift; sourceTree = "<group>"; };
+		7ACDBD5C1C8CAD7F004F5E25 /* ThreadMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThreadMessageTableViewCell.xib; sourceTree = "<group>"; };
 		B72C59D01C26BBE500D6651D /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		B72C59D31C26C63200D6651D /* System San Francisco Display Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "System San Francisco Display Regular.ttf"; sourceTree = "<group>"; };
 		B72C59D51C26C72C00D6651D /* System San Francisco Display Ultralight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "System San Francisco Display Ultralight.ttf"; sourceTree = "<group>"; };
@@ -465,8 +465,8 @@
 				2F09DB251BC6A0A300B81FE2 /* MessageAttachmentsTableViewCell.swift */,
 				2F4E415D1BB0A13700AA2DEF /* MessageTableViewCell.swift */,
 				2F7B0D021BFDCEDE0015C43A /* MessageTableViewCell.xib */,
-				2FDC6FA91C18B91C008D334A /* MessageSenderTableViewCell.swift */,
-				2FDC6FAB1C18BB97008D334A /* MessageContentTableViewCell.swift */,
+				2FDC6FA91C18B91C008D334A /* ThreadMessageTableViewCell.swift */,
+				7ACDBD5C1C8CAD7F004F5E25 /* ThreadMessageTableViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -917,6 +917,7 @@
 				2FA2EA8E1BAD9CBA0027EA77 /* Main.storyboard in Resources */,
 				2F0136981BCFD82E008BAD9D /* IntroView.xib in Resources */,
 				7A372D7B1C6FA721009E400C /* ContactAutocompleteCell.xib in Resources */,
+				7ACDBD5D1C8CAD7F004F5E25 /* ThreadMessageTableViewCell.xib in Resources */,
 				2FB2FA931C1DF6AE00F492EF /* GreetingViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1001,7 +1002,7 @@
 				2FDC6FAE1C18BD89008D334A /* ConversationContentCellFormatter.swift in Sources */,
 				2F01369A1BCFDA98008BAD9D /* RoundedBorderButton.swift in Sources */,
 				2F6112811BC12F1E0003071B /* UploadManager.swift in Sources */,
-				2FDC6FAA1C18B91C008D334A /* MessageSenderTableViewCell.swift in Sources */,
+				2FDC6FAA1C18B91C008D334A /* ThreadMessageTableViewCell.swift in Sources */,
 				2F88F1CB1BD43C8B00844A90 /* DownloadManager.swift in Sources */,
 				2F4E414D1BB061C500AA2DEF /* SideMenuViewController.swift in Sources */,
 				2F4E415E1BB0A13700AA2DEF /* MessageTableViewCell.swift in Sources */,
@@ -1024,7 +1025,6 @@
 				2F01369F1BD1029A008BAD9D /* ContactsTableViewController.swift in Sources */,
 				2FA2EA6C1BAC4EA80027EA77 /* MailDatabaseManager.swift in Sources */,
 				2F76D4D01BB48F1600235A95 /* MailboxObserversManager.swift in Sources */,
-				2FDC6FAC1C18BB97008D334A /* MessageContentTableViewCell.swift in Sources */,
 				2FDDE0EE1BAEA957006C3500 /* Message.swift in Sources */,
 				2FDDE0ED1BAEA957006C3500 /* Message+CoreDataProperties.swift in Sources */,
 				2F7B0D011BFDCB230015C43A /* FormattingPluginProvider.swift in Sources */,
