@@ -466,6 +466,7 @@
 				2F4E415D1BB0A13700AA2DEF /* MessageTableViewCell.swift */,
 				2F7B0D021BFDCEDE0015C43A /* MessageTableViewCell.xib */,
 				2FDC6FA91C18B91C008D334A /* ThreadMessageTableViewCell.swift */,
+				7ACDBD5C1C8CAD7F004F5E25 /* ThreadMessageTableViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -679,7 +680,6 @@
 		2FDDE1451BB04F8A006C3500 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				7ACDBD5C1C8CAD7F004F5E25 /* ThreadMessageTableViewCell.xib */,
 				2F1DACF11BC7EFC500FB6173 /* AddAttachmentView.xib */,
 				2F09DB1E1BC69CEC00B81FE2 /* AttachmentThumbnailView.xib */,
 				2F1D2C351BBC3DCA00A504A8 /* ContactCardViewController.swift */,
