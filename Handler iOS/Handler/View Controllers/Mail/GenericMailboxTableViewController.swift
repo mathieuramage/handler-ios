@@ -181,7 +181,7 @@ class GenericMailboxTableViewController: UITableViewController, NSFetchedResults
             
             if (mailboxType == .Unread) {
                 if let destination = segue.destinationViewController as? ThreadTableViewController {
-//                    destination.primaryMessage = self.messageForSegue!.thread?.oldestUnreadMessage
+                    destination.primaryMessage = self.messageForSegue!.thread?.oldestUnreadMessage
                 }
             }
             
