@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 class Thread: NSManagedObject {
-
+	
 	class func fromID(id: String, inContext: NSManagedObjectContext?) -> Thread? {
 		var thread: Thread?
 		let context = inContext ?? MailDatabaseManager.sharedInstance.backgroundContext
@@ -23,7 +23,7 @@ class Thread: NSManagedObject {
 				print(error)
 			}
 		}
-
+		
 		if let thread = thread {
 			return thread
 		}else {
@@ -32,7 +32,7 @@ class Thread: NSManagedObject {
 			return createdthread
 		}
 	}
-
+	
 	func updateInbox(){
 		var show = false
 		if let messages = self.messages {
@@ -43,10 +43,10 @@ class Thread: NSManagedObject {
 			}
 		}
 		self.showInInbox = NSNumber(bool: show)
-
+		
 		MailDatabaseManager.sharedInstance.saveBackgroundContext()
 	}
-
+	
 	var mostRecentMessage: Message? {
 		if let messages = messages {
 			let msgSet = NSSet(set: messages)
@@ -61,8 +61,7 @@ class Thread: NSManagedObject {
 		}
 		return nil
 	}
-
-
+	
 	var oldestUnreadMessage : Message? {
 		var oldestUnread : Message? = nil
 		if let messages = messages {
