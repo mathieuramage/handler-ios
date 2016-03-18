@@ -97,8 +97,8 @@ class ConversationsBottomBarActionsHandler: NSObject, BottomBarActionPlugin {
                 break;
             case archive:
                 let cont = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
-                cont.addAction(UIAlertAction(title: "Archive", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-                    message.isArchived ? message.moveToInbox() : message.moveToArchive()
+                cont.addAction(UIAlertAction(title: message.isArchived ? "Unarchive" : "Archive", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                    message.isArchived ? message.thread?.unarchive() : message.thread?.archive()
                     // TODO: Add success message
                 }))
                 cont.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))

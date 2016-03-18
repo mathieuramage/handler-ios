@@ -36,30 +36,9 @@ class InboxActionHandler: MessageTableViewCellActions {
         switch index {
         case 0:
             message.isFlagged ? message.unflag() : message.flag()
-            break;
+            break
         case 1:
-            if (message.isArchived) {
-                if let thread = message.thread {
-                    for message in thread.messages! {
-                        let m = message as! Message
-                        if m.isArchived {
-                            m.moveToInbox()
-                        }
-                    }
-                }
-                
-            } else {
-                
-                if let thread = message.thread {
-                    for message in thread.messages! {
-                        let m = message as! Message
-                        if !m.isArchived {
-                            m.moveToArchive()
-                        }
-                    }
-                }
-                
-            }
+            message.isArchived ? message.thread?.unarchive() : message.thread?.archive()
             break
         default:
             break
@@ -70,7 +49,6 @@ class InboxActionHandler: MessageTableViewCellActions {
                 cb()
             }
         }
-        
         // TODO: Implement actions
     }
     
