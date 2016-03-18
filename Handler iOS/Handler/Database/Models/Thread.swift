@@ -43,7 +43,6 @@ class Thread: NSManagedObject {
 			}
 		}
 		self.showInInbox = NSNumber(bool: show)
-		
 		MailDatabaseManager.sharedInstance.saveBackgroundContext()
 	}
 	
@@ -77,5 +76,25 @@ class Thread: NSManagedObject {
 			}
 		}
 		return oldestUnread
+	}
+	
+	func archive() {
+		if let messages = self.messages {
+			for message in messages {
+				if let m = message as? Message {
+					m.moveToArchive()
+				}
+			}
+		}
+	}
+	
+	func unarchive() {
+		if let messages = self.messages {
+			for message in messages {
+				if let m = message as? Message {
+					m.moveToInbox()
+				}
+			}
+		}
 	}
 }

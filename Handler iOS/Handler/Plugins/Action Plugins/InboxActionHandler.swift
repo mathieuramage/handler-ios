@@ -36,9 +36,9 @@ class InboxActionHandler: MessageTableViewCellActions {
         switch index {
         case 0:
             message.isFlagged ? message.unflag() : message.flag()
-            break;
+            break
         case 1:
-            message.isArchived ? message.moveToInbox() : message.moveToArchive()
+            message.isArchived ? message.thread?.unarchive() : message.thread?.archive()
             break
         default:
             break
@@ -49,7 +49,6 @@ class InboxActionHandler: MessageTableViewCellActions {
                 cb()
             }
         }
-        
         // TODO: Implement actions
     }
     
