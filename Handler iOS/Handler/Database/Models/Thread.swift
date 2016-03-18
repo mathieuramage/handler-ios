@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 class Thread: NSManagedObject {
-
+	
 	class func fromID(id: String, inContext: NSManagedObjectContext?) -> Thread? {
 		var thread: Thread?
 		let context = inContext ?? MailDatabaseManager.sharedInstance.backgroundContext
@@ -23,7 +23,7 @@ class Thread: NSManagedObject {
 				print(error)
 			}
 		}
-
+		
 		if let thread = thread {
 			return thread
 		}else {
@@ -32,7 +32,7 @@ class Thread: NSManagedObject {
 			return createdthread
 		}
 	}
-
+	
 	func updateInbox(){
 		var show = false
 		if let messages = self.messages {
@@ -43,22 +43,41 @@ class Thread: NSManagedObject {
 			}
 		}
 		self.showInInbox = NSNumber(bool: show)
-
 		MailDatabaseManager.sharedInstance.saveBackgroundContext()
 	}
-
+	
 	var mostRecentMessage: Message? {
-		let msgSet = NSSet(set: messages!)
-		let messageList = msgSet.allObjects as? [Message]
-		let sorted =  messageList?.sort({
-			if let firstSent = $0.sent_at, let secondSent = $1.sent_at {
-				return firstSent.compare(secondSent) == NSComparisonResult.OrderedDescending
-			}
-			return true
-		})
-		return sorted?.first
+		if let messages = messages {
+			let msgSet = NSSet(set: messages)
+			let messageList = msgSet.allObjects as? [Message]
+			let sorted =  messageList?.sort({
+				if let firstSent = $0.sent_at, let secondSent = $1.sent_at {
+					return firstSent.compare(secondSent) == NSComparisonResult.OrderedDescending
+				}
+				return true
+			})
+			return sorted?.first
+		}
+		return nil
 	}
-
+	
+	var oldestUnreadMessage : Message? {
+		var oldestUnread : Message? = nil
+		if let messages = messages {
+			for message in messages {
+				let m = message as! Message
+				if m.isUnread {
+					if oldestUnread == nil {
+						oldestUnread = m
+					} else if oldestUnread!.sent_at!.compare(m.sent_at!) == .OrderedAscending {
+						oldestUnread = m
+					}
+				}
+			}
+		}
+		return oldestUnread
+	}
+	
 	func archive() {
 		if let messages = self.messages {
 			for message in messages {
@@ -68,7 +87,7 @@ class Thread: NSManagedObject {
 			}
 		}
 	}
-
+	
 	func unarchive() {
 		if let messages = self.messages {
 			for message in messages {
