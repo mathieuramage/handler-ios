@@ -87,6 +87,9 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		}
 	}
 
+	private var originalRecipients = [String]()
+	private var originalRecipientsChanged = false
+
 	private var originalReplySubject : String?
 	private var replySubjectChanged : Bool = false
 
@@ -142,8 +145,11 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
 			if let message = messageToReplyTo, let sender = message.sender?.handle {
 				self.title = "New Reply"
+				validatedTokens.append(ValidatedToken(name: sender, isOnHandler: true))
+
 				tokenView.addToken(CLToken(displayText: "@\(sender)", context: nil))
-				startValidationWithString("@\(sender)")
+				tokenView.validatedString(sender, withResult: true)
+				tokenView.reloadTokenWithTitle(sender)
 
 				if message.hasReplyPrefix() {
 					subjectTextField.text = message.subject
@@ -156,10 +162,17 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 			}
 			if let receivers = messageToReplyTo?.recipientsWithoutSelf(), let all = receivers.allObjects as? [User] {
 				for receiver in all {
-					ccTokenView.addToken(CLToken(displayText: "@\(receiver.handle!)", context: nil))
-					startValidationWithString("@\(receiver.handle!)")
+					if let senderHandle = receiver.handle {
+						validatedTokens.append(ValidatedToken(name: senderHandle, isOnHandler: true))
+
+						ccTokenView.addToken(CLToken(displayText: "@\(senderHandle)", context: nil))
+						ccTokenView.validatedString(senderHandle, withResult: true)
+						ccTokenView.reloadTokenWithTitle(senderHandle)
+					}
 				}
 			}
+
+			originalRecipients = validatedTokens.map( { $0.name } )
 			if let msg = messageToForward {
 				attachmentsCell.attachments = msg.attachments?.allObjects as? [Attachment]
 			}
@@ -421,10 +434,50 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		view.beginEditing()
 	}
 
-	// Fix a bug where more than one token where being deleted with backspace
+
 	func tokenInputView(view: CLTokenInputView, didRemoveToken token: CLToken) {
+		// Fix a bug where more than one token where being deleted with backspace
 		view.endEditing()
 		view.beginEditing()
+
+		if shouldShowAlertForOriginalRecipientChange(token) {
+			let alertController = UIAlertController(title: "New thread", message: "Removing an original recipient will create  a new thread. Do you want to continue?", preferredStyle: UIAlertControllerStyle.Alert)
+			alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+				self.originalRecipientsChanged = true
+				self.messageToReplyTo = nil
+			}))
+
+			alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+				view.addToken(token)
+			}))
+
+			presentViewController(alertController, animated: true, completion: nil)
+		}
+	}
+
+	func shouldShowAlertForOriginalRecipientChange(token: CLToken) -> Bool {
+		if originalRecipientsChanged || messageToReplyTo == nil {
+			return false
+		}
+
+		let escapedToken = token.displayText.stringByReplacingOccurrencesOfString("@", withString: "")
+
+		if escapedToken == "" {
+			return false
+		}
+
+		if !originalRecipients.contains(escapedToken) {
+			return false
+		}
+
+		// Handle a case where the user added an original recipient to the list so it appears more than one time
+		for typedToken in (tokenView.allTokens + ccTokenView.allTokens) {
+			if typedToken.displayText == token.displayText {
+				return false
+			}
+		}
+
+		return true
 	}
 
 	func startValidationWithString(string: String) {
