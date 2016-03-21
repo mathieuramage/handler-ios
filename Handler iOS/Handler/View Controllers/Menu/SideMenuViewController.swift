@@ -12,137 +12,140 @@ import Kingfisher
 import Async
 
 class SideMenuViewController: UIViewController, UITableViewDelegate {
-    
-    @IBOutlet weak var profileImageView: WhiteBorderImageView!
-    @IBOutlet weak var profileNameLabel: UILabel!
-    @IBOutlet weak var profileHandleLabel: UILabel!
-    @IBOutlet weak var profileBannerImageView: UIImageView!
-    @IBOutlet weak var logoutButton: UIButton!
-    @IBOutlet weak var helpButton: UIButton!
-    
-    var optionsTableViewController: MailBoxOptionsTableViewController? {
-        didSet {
-            optionsTableViewController?.tableView.delegate = self
-        }
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateCurrentUser", name: HRCurrentUserDidSetNotification, object: nil)
-        
-        updateCurrentUser()
-        // Do any additional setup after loading the view.
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
-    func updateCurrentUser(){
-        Async.main { () -> Void in
-            if let user = HRUserSessionManager.sharedManager.currentUser {
-                self.profileHandleLabel.text = user.handle
-                self.profileNameLabel.text = user.name
-                if let url = NSURL(string: user.picture_url) {
-                    self.profileImageView.kf_setImageWithURL(url, placeholderImage: UIImage.randomGhostImage())
-                }
-                TwitterAPICommunicator.getAccountInfoForTwitterUser(user.handle, callback: { (json, error) -> Void in
-                    guard let json = json else {
-                        print(error)
-                        return
-                    }
-                    Async.main {
-                        if let urlString = json["profile_banner_url"].string, let url = NSURL(string: urlString + DEFAULT_BANNER_RESOLUTION){
-                            self.profileBannerImageView.kf_setImageWithURL(url, placeholderImage: UIImage(named: "twitter_default"), optionsInfo: [.Transition(ImageTransition.Fade(0.3))])
-                        }
-                    }
-                })
-            }
-        }
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        AppDelegate.sharedInstance().sideMenu.hideMenuViewController()
-        let genericMailVc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("GenericMailboxTableViewController") as! GenericMailboxTableViewController
-        switch indexPath.row {
-        case 0:
-            //Inbox
-            let inboxViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("InboxTableViewController") as! InboxTableViewController
-            if let nc = AppDelegate.sharedInstance().sideMenu.contentViewController as? UINavigationController {
-                nc.setViewControllers([inboxViewController], animated: false)
-            }
-            return
-        case 1:
-            // Unread
-            genericMailVc.mailboxType = .Unread
-            break;
-        case 2:
-            // Flagged
-            genericMailVc.mailboxType = .Flagged
-            break;
-        case 3:
-            // Drafts
-            genericMailVc.mailboxType = .Drafts
-            break;
-        case 4:
-            // Sent
-            genericMailVc.mailboxType = .Sent
-            break;
-        case 5:
-            // Archive
-            genericMailVc.mailboxType = .Archive
-            break;
-        default:
-            // Error
-            break;
-        }
-        
-        if indexPath.row != 0, let nc = AppDelegate.sharedInstance().sideMenu.contentViewController as? UINavigationController {
-            nc.setViewControllers([genericMailVc], animated: false)
-        }
-    }
-    
-    @IBAction func signoutPressed(sender: UIButton) {
-        
-        self.profileHandleLabel.text = ""
-        self.profileNameLabel.text = ""
-        self.profileImageView.image = UIImage.randomGhostImage()
-        self.profileBannerImageView.image = UIImage(named: "twitter_default")
-        
-        Async.main {
-            APICommunicator.sharedInstance.signOut()
-            
-            UIView.transitionWithView(AppDelegate.sharedInstance().window!, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: { () -> Void in
-                AppDelegate.sharedInstance().window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
-                }, completion: { (success) in
-                    AppDelegate.sharedInstance().sideMenu.hideMenuViewController()
-                    let inboxViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("InboxTableViewController") as! InboxTableViewController
-                    if let nc = AppDelegate.sharedInstance().sideMenu.contentViewController as? UINavigationController {
-                        nc.setViewControllers([inboxViewController], animated: true)
-                    }
-            })
-        }
-    }
-    
-    @IBAction func helpPressed(sender: UIButton) {
-        // TODO: Show help
-    }
-    
-    // MARK: - Navigation
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "embedMailBoxOptions" {
-            self.optionsTableViewController = segue.destinationViewController as? MailBoxOptionsTableViewController
-        }
-    }
-    
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
-    }
+
+	@IBOutlet weak var profileImageView: WhiteBorderImageView!
+	@IBOutlet weak var profileNameLabel: UILabel!
+	@IBOutlet weak var profileHandleLabel: UILabel!
+	@IBOutlet weak var profileBannerImageView: UIImageView!
+	@IBOutlet weak var logoutButton: UIButton!
+	@IBOutlet weak var helpButton: UIButton!
+
+	var optionsTableViewController: MailBoxOptionsTableViewController? {
+		didSet {
+			optionsTableViewController?.tableView.delegate = self
+		}
+	}
+
+	override func viewDidLoad() {
+		super.viewDidLoad()
+
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateCurrentUser", name: HRCurrentUserDidSetNotification, object: nil)
+
+		updateCurrentUser()
+		// Do any additional setup after loading the view.
+	}
+
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+	}
+
+	func updateCurrentUser(){
+		Async.main { () -> Void in
+			if let user = HRUserSessionManager.sharedManager.currentUser {
+				self.profileHandleLabel.text = user.handle
+				self.profileNameLabel.text = user.name
+				if let url = NSURL(string: user.picture_url) {
+					self.profileImageView.kf_setImageWithURL(url, placeholderImage: UIImage.randomGhostImage())
+				}
+				TwitterAPICommunicator.getAccountInfoForTwitterUser(user.handle, callback: { (json, error) -> Void in
+					guard let json = json else {
+						print(error)
+						return
+					}
+					Async.main {
+						if let urlString = json["profile_banner_url"].string, let url = NSURL(string: urlString + DEFAULT_BANNER_RESOLUTION){
+							self.profileBannerImageView.kf_setImageWithURL(url, placeholderImage: UIImage(named: "twitter_default"), optionsInfo: [.Transition(ImageTransition.Fade(0.3))])
+						}
+					}
+				})
+			}
+		}
+	}
+
+	override func didReceiveMemoryWarning() {
+		super.didReceiveMemoryWarning()
+		// Dispose of any resources that can be recreated.
+	}
+
+	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		AppDelegate.sharedInstance().sideMenu.hideMenuViewController()
+
+		if let nc = AppDelegate.sharedInstance().sideMenu.contentViewController as? UINavigationController {
+
+			switch indexPath.row {
+			case 0:
+				//Inbox
+				let inboxViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("InboxTableViewController")
+				nc.setViewControllers([inboxViewController], animated: false)
+				return
+			case 1:
+				// Unread
+				let unreadVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("UnreadMailboxViewController")
+				nc.setViewControllers([unreadVC], animated: false)
+				break;
+			case 2:
+				// Flagged
+				let flaggedVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("FlaggedMailboxViewController")
+				nc.setViewControllers([flaggedVC], animated: false)
+				break;
+			case 3:
+				// Drafts
+				let draftsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("DraftsMailboxViewController")
+				nc.setViewControllers([draftsVC], animated: false)
+				break;
+			case 4:
+				// Sent
+				let sentVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SentMailboxViewController")
+				nc.setViewControllers([sentVC], animated: false)
+				break;
+			case 5:
+				// Archive
+				let archiveVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("ArchiveMailboxViewController")
+				nc.setViewControllers([archiveVC], animated: false)
+				break;
+			default:
+				// Error
+				break;
+			}
+		}
+
+	}
+
+	@IBAction func signoutPressed(sender: UIButton) {
+
+		self.profileHandleLabel.text = ""
+		self.profileNameLabel.text = ""
+		self.profileImageView.image = UIImage.randomGhostImage()
+		self.profileBannerImageView.image = UIImage(named: "twitter_default")
+
+		Async.main {
+			APICommunicator.sharedInstance.signOut()
+
+			UIView.transitionWithView(AppDelegate.sharedInstance().window!, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: { () -> Void in
+				AppDelegate.sharedInstance().window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
+				}, completion: { (success) in
+					AppDelegate.sharedInstance().sideMenu.hideMenuViewController()
+					let inboxViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("InboxTableViewController") as! InboxTableViewController
+					if let nc = AppDelegate.sharedInstance().sideMenu.contentViewController as? UINavigationController {
+						nc.setViewControllers([inboxViewController], animated: true)
+					}
+			})
+		}
+	}
+
+	@IBAction func helpPressed(sender: UIButton) {
+		// TODO: Show help
+	}
+
+	// MARK: - Navigation
+
+	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+		if segue.identifier == "embedMailBoxOptions" {
+			self.optionsTableViewController = segue.destinationViewController as? MailBoxOptionsTableViewController
+		}
+	}
+
+	override func preferredStatusBarStyle() -> UIStatusBarStyle {
+		return .LightContent
+	}
 }
