@@ -89,7 +89,27 @@ class ConversationsBottomBarActionsHandler: NSObject, BottomBarActionPlugin {
                     // TODO: Add success message
                 }))
                 cont.addAction(UIAlertAction(title: "Mark as unread", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-                    message.isUnread ? message.markAsRead() : message.markAsUnread()
+                    if message.isUnread {
+                        message.markAsRead()
+                    } else {
+                        message.markAsUnread()
+                        if let thread = message.thread {
+                            if let messages = thread.messages {
+                                
+                                if let currentMessageDate = message.sent_at {
+                                    for msg in messages {
+                                        if let messageToCompare = msg as? Message {
+                                            if let date = messageToCompare.sent_at {
+                                                if date.isGreaterThanDate(currentMessageDate) {
+                                                    msg.markAsUnread()
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                     // TODO: Add success message
                 }))
                 cont.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
