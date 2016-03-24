@@ -446,8 +446,8 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		let secondPredicate = NSPredicate(format: "shouldBeSent == YES")
 		
 		let fetchRequest = NSFetchRequest(entityName: entityName())
-        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, secondPredicate])
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sent_at", ascending: false)]
-        return fetchRequest
-    }
+		fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, secondPredicate])
+		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sent_at", ascending: false)]
+		return fetchRequest
+	}
 }

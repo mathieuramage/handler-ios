@@ -97,4 +97,45 @@ class Thread: NSManagedObject {
 			}
 		}
 	}
+	
+	func markAsRead() {
+		
+		guard self.messages != nil  else {
+			return
+		}
+		
+		for msg in self.messages! {
+			
+			let message = msg as? Message
+			guard message != nil else	{
+				return
+			}
+			message?.markAsRead()
+		}
+	}
+	
+	func markAsUnread(message:Message){
+		
+		guard (self.messages != nil && message.sent_at != nil) else {
+			return
+		}
+		
+		for msg in self.messages! {
+			let messageToCompare = msg as? Message
+			guard messageToCompare != nil else	{
+				return
+			}
+			
+			guard messageToCompare!.sent_at != nil else {
+				return
+			}
+			
+			let currentMessageDate = message.sent_at!
+			let messageToCompareDate = messageToCompare!.sent_at!
+			
+			if messageToCompareDate.isLaterThanDate(currentMessageDate) || messageToCompareDate.isEqualToDate(currentMessageDate) {
+				messageToCompare!.markAsUnread()
+			}
+		}
+	}
 }

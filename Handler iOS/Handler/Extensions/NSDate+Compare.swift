@@ -3,43 +3,18 @@
 //  Handler
 //
 //  Created by Ryniere S Silva on 21/03/16.
-//  Copyright © 2016 Handler, Inc. All rights reserved.
+//  Copyright (c) 2013-2016 Mathieu Ramage - All Rights Reserved.
 //
 
 import Foundation
 
 extension NSDate {
-    
-    func isGreaterThanDate(dateToCompare: NSDate) -> Bool {
-        
-        var isGreater = false
-        
-        if self.compare(dateToCompare) == NSComparisonResult.OrderedDescending {
-            isGreater = true
-        }
-        
-        return isGreater
-    }
-    
-    func isLessThanDate(dateToCompare: NSDate) -> Bool {
-
-        var isLess = false
-        
-        if self.compare(dateToCompare) == NSComparisonResult.OrderedAscending {
-            isLess = true
-        }
-        
-        return isLess
-    }
-    
-    func equalToDate(dateToCompare: NSDate) -> Bool {
-
-        var isEqualTo = false
-        
-        if self.compare(dateToCompare) == NSComparisonResult.OrderedSame {
-            isEqualTo = true
-        }
-        
-        return isEqualTo
-    }
+	
+	func isLaterThanDate(dateToCompare: NSDate) -> Bool {
+		return self.timeIntervalSinceReferenceDate > dateToCompare.timeIntervalSinceReferenceDate
+	}
+	
+	func isEarlierThan(dateToCompare: NSDate) -> Bool {
+		return self.timeIntervalSinceReferenceDate < dateToCompare.timeIntervalSinceReferenceDate
+	}
 }

@@ -177,9 +177,17 @@ class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UI
 	}
 	
 	func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerLeftUtilityButtonWithIndex index: Int) {
-		if let path = tableView.indexPathForCell(cell) where path.row < fetchedObjects.count {
-			let data = fetchedObjects[path.row]
-			ActionPluginProvider.messageCellPluginForInboxType(mailboxType)?.leftButtonTriggered(index, data: data, callback: nil)
+		
+		if mailboxType == .Unread {
+			if let path = tableView.indexPathForCell(cell) where path.row < fetchedObjectsThread.count, let data = fetchedObjectsThread[path.row].mostRecentMessage {
+				ActionPluginProvider.messageCellPluginForInboxType(.Inbox)?.leftButtonTriggered(index, data: data, callback: nil)
+			}
+		} else {
+			
+			if let path = tableView.indexPathForCell(cell) where path.row < fetchedObjects.count {
+				let data = fetchedObjects[path.row]
+				ActionPluginProvider.messageCellPluginForInboxType(mailboxType)?.leftButtonTriggered(index, data: data, callback: nil)
+			}
 		}
 	}
 	
