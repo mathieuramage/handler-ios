@@ -11,7 +11,7 @@ import UIKit
 class ThreadTableViewController: UITableViewController {
 	
 	let MessageCellID = "MessageCellID"
-	
+
 	var thread: Thread? {
 		didSet {
 			if let allMessages = thread?.messages?.allObjects as? [Message] {
@@ -29,6 +29,7 @@ class ThreadTableViewController: UITableViewController {
 			}
 
 			primaryMessage = orderedMessages.first
+
 			tableView.reloadData()
 		}
 	}
@@ -50,7 +51,7 @@ class ThreadTableViewController: UITableViewController {
 		}
 		return nil
 	}
-	
+
 	var primaryMessage: Message? {
 		didSet(previous) {
 			if primaryMessage != previous {
@@ -93,7 +94,7 @@ class ThreadTableViewController: UITableViewController {
 		tableView.backgroundColor = UIColor(rgba: HexCodes.offWhite)
 		tableView.tableFooterView = UIView()
 	}
-	
+
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 		self.plugin = BottomBarActionPluginProvider.plugin(self)
@@ -149,6 +150,17 @@ class ThreadTableViewController: UITableViewController {
 	// TODO: Check with a time profiler if this code is slow
 	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		configureCell(sizingCell, indexPath: indexPath)
+
+		// This is needed due the internal implementation of RichTextEditor being loaded into a webview and thus the height might not be available right way.
+		var loopUntil = NSDate(timeIntervalSinceNow: 0.05)
+		let timeOut = NSDate(timeIntervalSinceNow:2)
+		while (!sizingCell.isCellReady() && NSRunLoop.currentRunLoop().runMode(NSDefaultRunLoopMode, beforeDate: loopUntil)) {
+			if NSDate().timeIntervalSinceReferenceDate >= timeOut.timeIntervalSinceReferenceDate {
+				return 200
+			}
+
+			loopUntil = NSDate(timeIntervalSinceNow: 0.05)
+		}
 
 		return sizingCell.contentView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize).height
 	}

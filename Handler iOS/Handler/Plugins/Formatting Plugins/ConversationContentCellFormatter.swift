@@ -18,7 +18,14 @@ struct ConversationContentFormatter: MessageContentCellFormatter {
     }()
 
     func populateView(data message: Message?, view: ThreadMessageTableViewCell) {
-        view.contentTextView.text = message?.content ?? "No content"
+		view.richTextContent.editingEnabled = false
+        view.richTextContent.setHTML(message?.content ?? "No content")
+		view.contentHeightConstraint.constant = CGFloat(view.richTextContent.editorHeight)
+		view.richTextContent.webView.dataDetectorTypes = [.All]
+		view.richTextContent.backgroundColor = UIColor.clearColor()
+		view.richTextContent.webView.backgroundColor = UIColor.clearColor()
+		view.richTextContent.webView.scrollView.backgroundColor = UIColor.clearColor()
+		view.richTextContent.webView.opaque = false
         view.senderLabel.text = message?.sender?.name
         view.senderHandleButton.setTitle("@" + (message?.sender?.handle ?? ""), forState: .Normal)
         if let recipient = message?.recipients?.allObjects.first as? User, let displayName = recipient.name, let handle = recipient.handle {

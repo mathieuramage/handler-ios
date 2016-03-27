@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import Async
+import RichEditorView
 
 class ThreadMessageTableViewCell: UITableViewCell {
-	
+
 	@IBOutlet var senderLabel: UILabel!
 	@IBOutlet var senderHandleButton: UIButton!
 	@IBOutlet var recipientLabel: UILabel!
@@ -24,6 +26,8 @@ class ThreadMessageTableViewCell: UITableViewCell {
 	@IBOutlet var messageDividerHeightContraint: NSLayoutConstraint!
 	@IBOutlet var separatorLineView: UIView!
 	@IBOutlet var separatorLineHeightConstraint: NSLayoutConstraint!
+	@IBOutlet var richTextContent: RichEditorView!
+	@IBOutlet var contentHeightConstraint: NSLayoutConstraint!
 
 	@IBOutlet var threadLine: UIView!
 
@@ -38,12 +42,32 @@ class ThreadMessageTableViewCell: UITableViewCell {
 		self.recipientDividerHeightConstraint.constant = 1/UIScreen.mainScreen().scale
 		self.messageDividerHeightContraint.constant = 1/UIScreen.mainScreen().scale
 		self.separatorLineHeightConstraint.constant = 1/UIScreen.mainScreen().scale
-		
+		self.richTextContent.delegate = self
 	}
 
 	@IBAction func didPressUsername(sender: UIButton) {
 		if let sender = self.sender {
 			ContactCardViewController.showWithUser(sender)
 		}
+	}
+
+	private var cellReady = false
+	func isCellReady() -> Bool {
+		return cellReady
+	}
+}
+
+extension ThreadMessageTableViewCell: RichEditorDelegate {
+
+	func richEditor(editor: RichEditorView, shouldInteractWithURL url: NSURL) -> Bool {
+		Async.main {
+			UIApplication.sharedApplication().openURL(url)
+		}
+
+		return false
+	}
+
+	func richEditorDidLoad(editor: RichEditorView) {
+		cellReady = true
 	}
 }
