@@ -9,13 +9,13 @@
 import UIKit
 
 class ConversationsBottomBarActionsHandler: NSObject, BottomBarActionPlugin {
-	
+
 	let vc: ThreadTableViewController
-	
+
 	init(vc: ThreadTableViewController){
 		self.vc = vc
 	}
-	
+
 	lazy var left: UIBarButtonItem = {
 		let element = UIBarButtonItem(image: UIImage(named: "Left_toolbar"), style: UIBarButtonItemStyle.Plain, target: self, action: "action:")
 		if let _ = self.vc.previousThread {
@@ -44,11 +44,11 @@ class ConversationsBottomBarActionsHandler: NSObject, BottomBarActionPlugin {
 		return UIBarButtonItem(image: UIImage(named: "Reply_toolbar"), style: UIBarButtonItemStyle.Plain, target: self, action: "action:")
 	}()
 	let space = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
-	
+
 	func barButtonItemsForThread(thread: Thread? = nil) -> [UIBarButtonItem] {
 		return [left, space, right, space, flag, space, archive, space, reply]
 	}
-	
+
 	func action(item: UIBarButtonItem){
 		if let message = vc.primaryMessage {
 			switch item {

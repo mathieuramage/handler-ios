@@ -11,15 +11,15 @@ import CoreData
 import HandlerSDK
 
 final class Message: NSManagedObject, CoreDataConvertible {
-	
+
 	typealias HRType = HRMessage
-	
+
 	required convenience init(hrType message: HRType, managedObjectContext: NSManagedObjectContext){
 		self.init(managedObjectContext: managedObjectContext)
-		
+
 		updateFromHRType(message)
 	}
-	
+
 	func updateFromHRType(message: HRType) {
 		self.shouldBeSent = NSNumber(bool: false)
 		self.content = message.content
@@ -27,22 +27,22 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		self.sent_at = NSDate.fromString(message.sent_at)
 		self.subject = message.subject
 		self.sender = User.fromHRType(message.sender!)
-		
+
 		if message.thread != "" {
 			self.thread = Thread.fromID(message.thread, inContext: self.managedObjectContext)
-			
+
 			if let sentAt = self.sent_at {
 				if let threadDate = self.thread?.last_message_date {
 					self.thread?.last_message_date = threadDate.laterDate(sentAt)
-					
+
 				}else{
 					self.thread?.last_message_date = sentAt
-					
+
 				}
 			}
 			self.thread?.updateInbox()
 		}
-		
+
 		if let id = self.id {
 			APICommunicator.sharedInstance.fetchLabelsForMessageWithID(id, callback: { (labels, error) -> Void in
 				guard let labels = labels else {
@@ -51,12 +51,12 @@ final class Message: NSManagedObject, CoreDataConvertible {
 					}
 					return
 				}
-				
+
 				self.setLabelsFromHRTypes(labels)
 				self.thread?.updateInbox()
 			})
 		}
-		
+
 		if let recipients = message.recipients {
 			let recipientsSet = NSMutableSet()
 			for recipient in recipients {
@@ -66,7 +66,7 @@ final class Message: NSManagedObject, CoreDataConvertible {
 			}
 			self.recipients = recipientsSet
 		}
-		
+
 		if let attachments = message.attachments {
 			let attachmentsSet = NSMutableSet()
 			for attachment in attachments {
@@ -76,10 +76,10 @@ final class Message: NSManagedObject, CoreDataConvertible {
 			}
 			self.attachments = attachmentsSet
 		}
-		
+
 		MailDatabaseManager.sharedInstance.saveBackgroundContext()
 	}
-	
+
 	func toHRType() -> HRMessage {
 		let hrMessage = HRMessage()
 		hrMessage.content = self.content ?? ""
@@ -91,38 +91,38 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		hrMessage.labels = self.hrTypeLabels()
 		hrMessage.recipients = self.hrTypeRecipients()
 		hrMessage.attachments = self.hrTypeAttachments()
-		
+
 		return hrMessage
 	}
-	
+
 	// MARK: Mailboxes
-	
+
 	func moveToArchive(){
 		self.removeLabelWithID(SystemLabels.Inbox.rawValue)
 	}
-	
+
 	func moveToInbox(){
 		self.addLabelWithID(SystemLabels.Inbox.rawValue)
 	}
-	
+
 	func flag(){
 		self.addLabelWithID(SystemLabels.Flagged.rawValue)
 	}
-	
+
 	func unflag(){
 		self.removeLabelWithID(SystemLabels.Flagged.rawValue)
 	}
-	
+
 	func markAsRead(){
 		self.removeLabelWithID(SystemLabels.Unread.rawValue)
 	}
-	
+
 	func markAsUnread(){
 		self.addLabelWithID(SystemLabels.Unread.rawValue)
 	}
-	
+
 	// MARK: Refresh
-	
+
 	func refreshFromAPI(){
 		if let id = self.id {
 			APICommunicator.sharedInstance.getMessageWithCallback(id) { (message, error) -> Void in
@@ -136,9 +136,9 @@ final class Message: NSManagedObject, CoreDataConvertible {
 			}
 		}
 	}
-	
+
 	// MARK: Labels
-	
+
 	func updateLabelsOnHRAPI(completion: ((success: Bool)->Void)? = nil){
 		if let id = self.id {
 			APICommunicator.sharedInstance.setLabelsToMessageWithID(id, setLabels: hrTypeLabels(), callback: { (labels, error) -> Void in
@@ -149,14 +149,14 @@ final class Message: NSManagedObject, CoreDataConvertible {
 					completion?(success: false)
 					return
 				}
-				
+
 				self.setLabelsFromHRTypes(labels)
 				MailDatabaseManager.sharedInstance.saveBackgroundContext()
 				completion?(success: true)
 			})
 		}
 	}
-	
+
 	private func addLabelWithID(id: String, updateOnApi: Bool = true){
 		if let backgroundSelf = self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) {
 			if let label = Label.fromID(id) {
@@ -164,7 +164,7 @@ final class Message: NSManagedObject, CoreDataConvertible {
 					let newSet = myLabels.setByAddingObject(label)
 					backgroundSelf.labels = newSet
 				}
-				
+
 				if updateOnApi {
 					backgroundSelf.updateLabelsOnHRAPI()
 				}
@@ -173,7 +173,7 @@ final class Message: NSManagedObject, CoreDataConvertible {
 			}
 		}
 	}
-	
+
 	private func removeLabelWithID(id: String, updateOnApi: Bool = true){
 		if let backgroundSelf = self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) {
 			if let labelsArray = backgroundSelf.labels?.allObjects {
@@ -184,7 +184,7 @@ final class Message: NSManagedObject, CoreDataConvertible {
 							newSet.removeObject(label)
 							backgroundSelf.labels = NSSet(set: newSet)
 						}
-						
+
 						if updateOnApi {
 							backgroundSelf.updateLabelsOnHRAPI()
 						}
@@ -196,7 +196,7 @@ final class Message: NSManagedObject, CoreDataConvertible {
 			}
 		}
 	}
-	
+
 	func setLabelsFromHRTypes(labels: [HRLabel]){
 		let labelsSet = NSMutableSet()
 		for label in labels {
@@ -206,12 +206,12 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		}
 		if let bgSelf = self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext){
 			bgSelf.labels = labelsSet
-			
+
 			MailDatabaseManager.sharedInstance.saveBackgroundContext()
 			bgSelf.thread?.updateInbox()
 		}
 	}
-	
+
 	func hrTypeLabels() -> [HRLabel] {
 		var hrLabels = [HRLabel]()
 		if let labels = self.labels {
@@ -222,7 +222,7 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		}
 		return hrLabels
 	}
-	
+
 	func hrTypeRecipients() -> [HRUser] {
 		var hrUsers = [HRUser]()
 		if let users = self.recipients {
@@ -233,7 +233,7 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		}
 		return hrUsers
 	}
-	
+
 	func hrTypeAttachments() -> [HRAttachment] {
 		var hrAttachments = [HRAttachment]()
 		if let attachments = self.attachments {
@@ -244,10 +244,10 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		}
 		return hrAttachments
 	}
-	
-	
+
+
 	// MARK: Utility getters
-	
+
 	func recipientsWithoutSelf()->NSSet? {
 		if let recipients = self.recipients?.allObjects as? [User] {
 			for recipient in recipients {
@@ -258,12 +258,12 @@ final class Message: NSManagedObject, CoreDataConvertible {
 				}
 			}
 		}
-		
+
 		return self.recipients
 	}
-	
+
 	// MARK: State getter utilities
-	
+
 	var isUnread: Bool {
 		get {
 			var unread = false
@@ -279,7 +279,7 @@ final class Message: NSManagedObject, CoreDataConvertible {
 			return unread
 		}
 	}
-	
+
 	var isInbox: Bool {
 		get {
 			var unread = false
@@ -295,11 +295,11 @@ final class Message: NSManagedObject, CoreDataConvertible {
 			return unread
 		}
 	}
-	
+
 	var isFlagged: Bool {
 		get {
 			if let backgroundSelf = self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) {
-				
+
 				if let labels = backgroundSelf.labels {
 					for label in labels {
 						if label.id == "IMPORTANT" {
@@ -311,11 +311,11 @@ final class Message: NSManagedObject, CoreDataConvertible {
 			return false
 		}
 	}
-	
+
 	var isArchived: Bool {
 		get {
 			if let backgroundSelf = self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) {
-				
+
 				if let labels = backgroundSelf.labels {
 					for label in labels {
 						if label.id == "INBOX" {
@@ -327,11 +327,11 @@ final class Message: NSManagedObject, CoreDataConvertible {
 			return true
 		}
 	}
-	
+
 	var isDraft: Bool {
 		get {
 			if let backgroundSelf = self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) {
-				
+
 				if let labels = backgroundSelf.labels {
 					for label in labels {
 						if label.id == "DRAFT" {
@@ -343,63 +343,63 @@ final class Message: NSManagedObject, CoreDataConvertible {
 			return false
 		}
 	}
-	
+
 	// TODO: Make it locale indepent
 	let replyPrefix = "Re:"
 	let forwardPrefix = "Fwd:"
-	
+
 	func hasReplyPrefix() -> Bool {
 		guard let subject = self.subject else {
 			return false
 		}
-		
+
 		return subject.lowercaseString.hasPrefix(replyPrefix.lowercaseString)
 	}
-	
+
 	func hasFowardPrefix() -> Bool {
 		guard let subject = self.subject else {
 			return false
 		}
-		
+
 		return subject.lowercaseString.hasPrefix(forwardPrefix.lowercaseString)
 	}
-	
+
 	func hasValidSubject() -> Bool {
 		guard let subject = self.subject else {
 			return false
 		}
-		
+
 		return !subject.isEmpty
 	}
-	
+
 	func hasValidContent() -> Bool {
 		guard let content = self.content else {
 			return false
 		}
-		
+
 		return !content.isEmpty
 	}
-	
+
 	func isValidToSend() -> Bool {
 		return (recipients?.count > 0 && hasValidSubject() && hasValidSubject())
 	}
-	
+
 	// MARK: Drafts
-	
+
 	func saveAsDraft(){
 		self.addLabelWithID("DRAFT")
 		self.sender = User.me()
 	}
-	
+
 	func deleteFromDatabase(){
 		let context = self.managedObjectContext
-		
+
 		context?.deleteObject(self)
 	}
-	
-	
+
+
 	// MARK: Fetch Requests
-	
+
 	class func fetchRequestForMessagesWithInboxType(type: MailboxType) -> NSFetchRequest {
 		if type == MailboxType.AllChanges {
 			let fetchRequest = NSFetchRequest(entityName: Message.entityName())
@@ -432,7 +432,7 @@ final class Message: NSManagedObject, CoreDataConvertible {
 			return fetchRequest
 		}
 	}
-	
+
 	class func fetchRequestForMessagesWithLabelWithId(id: String) -> NSFetchRequest {
 		let predicate = NSPredicate(format: "ANY labels.id == %@", id)
 		let fetchRequest = NSFetchRequest(entityName: entityName())
@@ -440,11 +440,11 @@ final class Message: NSManagedObject, CoreDataConvertible {
 		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sent_at", ascending: false)]
 		return fetchRequest
 	}
-	
+
 	class func fetchRequestForUploadCompletion() -> NSFetchRequest {
 		let predicate = NSPredicate(format: "NONE attachments.upload_complete == NO")
 		let secondPredicate = NSPredicate(format: "shouldBeSent == YES")
-		
+
 		let fetchRequest = NSFetchRequest(entityName: entityName())
 		fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, secondPredicate])
 		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sent_at", ascending: false)]

@@ -9,11 +9,11 @@
 import Foundation
 
 extension NSDate {
-	
+
 	func isLaterThanDate(dateToCompare: NSDate) -> Bool {
 		return self.timeIntervalSinceReferenceDate > dateToCompare.timeIntervalSinceReferenceDate
 	}
-	
+
 	func isEarlierThan(dateToCompare: NSDate) -> Bool {
 		return self.timeIntervalSinceReferenceDate < dateToCompare.timeIntervalSinceReferenceDate
 	}
