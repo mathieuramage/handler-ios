@@ -99,42 +99,27 @@ class Thread: NSManagedObject {
 	}
 
 	func markAsRead() {
-
-		guard self.messages != nil  else {
+		guard let messages = messages?.allObjects as? [Message] else {
 			return
 		}
 
-		for msg in self.messages! {
-
-			let message = msg as? Message
-			guard message != nil else	{
-				return
-			}
-			message?.markAsRead()
+		for message in messages {
+			message.markAsRead()
 		}
 	}
 
-	func markAsUnread(message:Message){
-
-		guard (self.messages != nil && message.sent_at != nil) else {
+	func markAsUnread(message: Message) {
+		guard let messages = messages?.allObjects as? [Message], let currentMessageDate = message.sent_at else {
 			return
 		}
 
-		for msg in self.messages! {
-			let messageToCompare = msg as? Message
-			guard messageToCompare != nil else	{
-				return
+		for messageToCompare in messages {
+			guard let messageToCompareDate = messageToCompare.sent_at else {
+				continue
 			}
-
-			guard messageToCompare!.sent_at != nil else {
-				return
-			}
-
-			let currentMessageDate = message.sent_at!
-			let messageToCompareDate = messageToCompare!.sent_at!
 
 			if messageToCompareDate.isLaterThanDate(currentMessageDate) || messageToCompareDate.isEqualToDate(currentMessageDate) {
-				messageToCompare!.markAsUnread()
+				messageToCompare.markAsUnread()
 			}
 		}
 	}
