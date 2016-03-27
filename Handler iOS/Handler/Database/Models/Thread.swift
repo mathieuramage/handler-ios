@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 class Thread: NSManagedObject {
-	
+
 	class func fromID(id: String, inContext: NSManagedObjectContext?) -> Thread? {
 		var thread: Thread?
 		let context = inContext ?? MailDatabaseManager.sharedInstance.backgroundContext
@@ -23,7 +23,7 @@ class Thread: NSManagedObject {
 				print(error)
 			}
 		}
-		
+
 		if let thread = thread {
 			return thread
 		}else {
@@ -32,7 +32,7 @@ class Thread: NSManagedObject {
 			return createdthread
 		}
 	}
-	
+
 	func updateInbox(){
 		var show = false
 		if let messages = self.messages {
@@ -45,7 +45,7 @@ class Thread: NSManagedObject {
 		self.showInInbox = NSNumber(bool: show)
 		MailDatabaseManager.sharedInstance.saveBackgroundContext()
 	}
-	
+
 	var mostRecentMessage: Message? {
 		if let messages = messages {
 			let msgSet = NSSet(set: messages)
@@ -60,7 +60,7 @@ class Thread: NSManagedObject {
 		}
 		return nil
 	}
-	
+
 	var oldestUnreadMessage : Message? {
 		var oldestUnread : Message? = nil
 		if let messages = messages {
@@ -77,7 +77,7 @@ class Thread: NSManagedObject {
 		}
 		return oldestUnread
 	}
-	
+
 	func archive() {
 		if let messages = self.messages {
 			for message in messages {
@@ -87,13 +87,39 @@ class Thread: NSManagedObject {
 			}
 		}
 	}
-	
+
 	func unarchive() {
 		if let messages = self.messages {
 			for message in messages {
 				if let m = message as? Message {
 					m.moveToInbox()
 				}
+			}
+		}
+	}
+
+	func markAsRead() {
+		guard let messages = messages?.allObjects as? [Message] else {
+			return
+		}
+
+		for message in messages {
+			message.markAsRead()
+		}
+	}
+
+	func markAsUnread(message: Message) {
+		guard let messages = messages?.allObjects as? [Message], let currentMessageDate = message.sent_at else {
+			return
+		}
+
+		for messageToCompare in messages {
+			guard let messageToCompareDate = messageToCompare.sent_at else {
+				continue
+			}
+
+			if messageToCompareDate.isLaterThanDate(currentMessageDate) || messageToCompareDate.isEqualToDate(currentMessageDate) {
+				messageToCompare.markAsUnread()
 			}
 		}
 	}

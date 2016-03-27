@@ -24,6 +24,12 @@ class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UI
 		}
 	}
 
+	var fetchedObjectsThread: [Thread]{
+		get {
+			return fetchedResultsController.fetchedObjects as? [Thread] ?? [Thread]()
+		}
+	}
+
 	var mailboxType: MailboxType = .Inbox {
 		didSet{
 			self.navigationItem.title = mailboxType.rawValue.firstCapitalized ?? "Mailbox"
@@ -83,7 +89,18 @@ class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UI
 
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCellWithIdentifier("mailCell", forIndexPath: indexPath) as! MessageTableViewCell
-		FormattingPluginProvider.messageCellPluginForInboxType(mailboxType)?.populateView(data: fetchedObjects[indexPath.row], view: cell)
+		if mailboxType == .Unread {
+
+			if indexPath.row < fetchedObjectsThread.count {
+				if let data = fetchedObjectsThread[indexPath.row].mostRecentMessage {
+					FormattingPluginProvider.messageCellPluginForInboxType(.Unread)?.populateView(data: data, view: cell)
+				}
+			}
+
+		} else {
+
+			FormattingPluginProvider.messageCellPluginForInboxType(mailboxType)?.populateView(data: fetchedObjects[indexPath.row], view: cell)
+		}
 		cell.delegate = self
 		return cell
 	}
@@ -95,8 +112,14 @@ class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UI
 				cell.hideUtilityButtonsAnimated(true)
 			}
 		}
-		if indexPath.row < fetchedObjects.count {
-			let message = fetchedObjects[indexPath.row]
+
+		let isUnreadBox = mailboxType == .Unread
+		let count = isUnreadBox ? fetchedObjectsThread.count : fetchedObjects.count
+
+
+		if indexPath.row < count {
+
+			let message = isUnreadBox ? fetchedObjectsThread[indexPath.row].messages?.anyObject() as! Message: fetchedObjects[indexPath.row]
 			messageForSegue = message
 
 			if mailboxType == .Drafts {
@@ -154,9 +177,17 @@ class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UI
 	}
 
 	func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerLeftUtilityButtonWithIndex index: Int) {
-		if let path = tableView.indexPathForCell(cell) where path.row < fetchedObjects.count {
-			let data = fetchedObjects[path.row]
-			ActionPluginProvider.messageCellPluginForInboxType(mailboxType)?.leftButtonTriggered(index, data: data, callback: nil)
+
+		if mailboxType == .Unread {
+			if let path = tableView.indexPathForCell(cell) where path.row < fetchedObjectsThread.count, let data = fetchedObjectsThread[path.row].mostRecentMessage {
+				ActionPluginProvider.messageCellPluginForInboxType(.Inbox)?.leftButtonTriggered(index, data: data, callback: nil)
+			}
+		} else {
+
+			if let path = tableView.indexPathForCell(cell) where path.row < fetchedObjects.count {
+				let data = fetchedObjects[path.row]
+				ActionPluginProvider.messageCellPluginForInboxType(mailboxType)?.leftButtonTriggered(index, data: data, callback: nil)
+			}
 		}
 	}
 

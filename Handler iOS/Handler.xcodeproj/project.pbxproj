@@ -139,6 +139,7 @@
 		2FF788391BB5C6E700B297D3 /* Enumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF788381BB5C6E700B297D3 /* Enumerations.swift */; };
 		2FF788441BB5CB1B00B297D3 /* MessageComposeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF788431BB5CB1B00B297D3 /* MessageComposeTableViewController.swift */; };
 		2FF8B8EC1BD4F53E00014C9E /* CurrentStatusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF8B8EB1BD4F53E00014C9E /* CurrentStatusManager.swift */; };
+		4168A1DB1CA0E6CB00B4CB11 /* NSDate+Compare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4168A1DA1CA0E6CB00B4CB11 /* NSDate+Compare.swift */; };
 		6C9BD06E1C0603250053C868 /* ArchiveFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9BD0691C0603250053C868 /* ArchiveFormatter.swift */; };
 		6C9BD06F1C0603250053C868 /* DraftsFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9BD06A1C0603250053C868 /* DraftsFormatter.swift */; };
 		6C9BD0701C0603250053C868 /* FlaggedFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9BD06B1C0603250053C868 /* FlaggedFormatter.swift */; };
@@ -357,6 +358,7 @@
 		2FF788381BB5C6E700B297D3 /* Enumerations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enumerations.swift; sourceTree = "<group>"; };
 		2FF788431BB5CB1B00B297D3 /* MessageComposeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageComposeTableViewController.swift; sourceTree = "<group>"; };
 		2FF8B8EB1BD4F53E00014C9E /* CurrentStatusManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentStatusManager.swift; sourceTree = "<group>"; };
+		4168A1DA1CA0E6CB00B4CB11 /* NSDate+Compare.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+Compare.swift"; sourceTree = "<group>"; };
 		6C9BD0691C0603250053C868 /* ArchiveFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArchiveFormatter.swift; sourceTree = "<group>"; };
 		6C9BD06A1C0603250053C868 /* DraftsFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraftsFormatter.swift; sourceTree = "<group>"; };
 		6C9BD06B1C0603250053C868 /* FlaggedFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlaggedFormatter.swift; sourceTree = "<group>"; };
@@ -670,6 +672,7 @@
 		2FDDE0FF1BAEB270006C3500 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				4168A1DA1CA0E6CB00B4CB11 /* NSDate+Compare.swift */,
 				2F4E41601BB0AC4A00AA2DEF /* CALayer+Extensions.swift */,
 				2FF788381BB5C6E700B297D3 /* Enumerations.swift */,
 				2F51BCA61BC9AFA80024397B /* Extensions.swift */,
@@ -1033,6 +1036,7 @@
 				2F81A6331BC179BF007F2D43 /* Operators.swift in Sources */,
 				2FA271A21BB69ED000B22C8B /* CLToken.m in Sources */,
 				2F0136A31BD10EE4008BAD9D /* TwitterAPICommunicator.swift in Sources */,
+				4168A1DB1CA0E6CB00B4CB11 /* NSDate+Compare.swift in Sources */,
 				7A372D771C6FA4A5009E400C /* ContactsAutoCompleteViewController.swift in Sources */,
 				2FDDE1471BB04FA4006C3500 /* WhiteBorderViews.swift in Sources */,
 				DF1FD2DE1B62360600A58B71 /* AppDelegate.swift in Sources */,

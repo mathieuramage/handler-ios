@@ -9,22 +9,22 @@
 import UIKit
 
 class ActionPluginProvider: NSObject {
-    class func messageCellPluginForInboxType(type: MailboxType)->MessageTableViewCellActions?{
-        switch type {
-        case .Inbox:
-            return InboxActionHandler()
-        case .Unread:
-            return nil
-        case .Flagged:
-            return nil
-        case .Drafts:
-            return nil
-        case .Sent:
-            return nil
-        case .Archive:
-            return nil
-        default:
-            return nil
-        }
-    }
+	class func messageCellPluginForInboxType(type: MailboxType)->MessageTableViewCellActions?{
+		switch type {
+		case .Inbox:
+			return InboxActionHandler()
+		case .Unread:
+			return InboxActionHandler()
+		case .Flagged:
+			return nil
+		case .Drafts:
+			return nil
+		case .Sent:
+			return nil
+		case .Archive:
+			return nil
+		default:
+			return nil
+		}
+	}
 }
