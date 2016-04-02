@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -62,6 +62,21 @@
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8VJ-0a-gnD" userLabel="Message Separator Container">
                         <rect key="frame" x="0.0" y="289" width="375" height="44"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aIZ-JU-xTU" userLabel="Message Divider">
+                                <rect key="frame" x="17" y="5" width="346" height="1"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="ofQ-ui-xel"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cZS-8Y-gTg" userLabel="Separator Line">
+                                <rect key="frame" x="0.0" y="43" width="375" height="1"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="3zn-tn-E4C"/>
+                                    <constraint firstAttribute="height" constant="1" id="TGA-as-Ao1"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W9b-Dy-8D4" userLabel="Separator">
                                 <rect key="frame" x="20" y="10" width="3" height="25"/>
                                 <color key="backgroundColor" red="0.53333333329999999" green="0.59999999999999998" blue="0.65098039220000004" alpha="1" colorSpace="calibratedRGB"/>
@@ -77,9 +92,13 @@
                             </view>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="cZS-8Y-gTg" firstAttribute="leading" secondItem="8VJ-0a-gnD" secondAttribute="leading" id="GXm-LK-JEL"/>
                             <constraint firstItem="W9b-Dy-8D4" firstAttribute="centerY" secondItem="8VJ-0a-gnD" secondAttribute="centerY" id="VAR-7g-gmH"/>
+                            <constraint firstAttribute="trailing" secondItem="cZS-8Y-gTg" secondAttribute="trailing" id="YCK-KO-bcf"/>
                             <constraint firstAttribute="height" constant="44" id="gWf-jR-NmO"/>
+                            <constraint firstAttribute="bottom" secondItem="cZS-8Y-gTg" secondAttribute="bottom" id="kfl-JD-49c"/>
                             <constraint firstItem="W9b-Dy-8D4" firstAttribute="leading" secondItem="8VJ-0a-gnD" secondAttribute="leading" constant="20" id="mzX-cw-vHa"/>
+                            <constraint firstItem="aIZ-JU-xTU" firstAttribute="top" secondItem="8VJ-0a-gnD" secondAttribute="top" constant="5" id="xbE-8s-WJF"/>
                         </constraints>
                     </view>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="44d-ZP-hDf">
@@ -96,10 +115,19 @@
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
                     </textView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bqx-GB-mkF" userLabel="Recipient Divider">
+                        <rect key="frame" x="17" y="84" width="346" height="1"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="yJ9-N8-F3z"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="7zR-Bm-GMt" firstAttribute="top" secondItem="Jrq-yt-0m6" secondAttribute="top" constant="15" id="1Jt-Aq-Aq9"/>
+                    <constraint firstItem="bqx-GB-mkF" firstAttribute="trailing" secondItem="44d-ZP-hDf" secondAttribute="trailing" id="3eE-J7-XaO"/>
                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="xau-q4-at8" secondAttribute="trailing" constant="24" id="7YU-dt-K2D"/>
+                    <constraint firstItem="aIZ-JU-xTU" firstAttribute="leading" secondItem="bqx-GB-mkF" secondAttribute="leading" id="8dv-DP-baB"/>
                     <constraint firstAttribute="trailing" secondItem="8VJ-0a-gnD" secondAttribute="trailing" id="8oH-Jk-SqQ"/>
                     <constraint firstItem="JDz-qR-R3r" firstAttribute="bottom" secondItem="7zR-Bm-GMt" secondAttribute="bottom" id="EOq-NO-BGu"/>
                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="JDz-qR-R3r" secondAttribute="trailing" constant="24" id="GJe-DG-3kV"/>
@@ -112,9 +140,12 @@
                     <constraint firstItem="JDz-qR-R3r" firstAttribute="leading" secondItem="7zR-Bm-GMt" secondAttribute="trailing" constant="10" id="R2Q-gD-o1j"/>
                     <constraint firstItem="8VJ-0a-gnD" firstAttribute="leading" secondItem="Jrq-yt-0m6" secondAttribute="leading" id="SQA-wA-hsx"/>
                     <constraint firstAttribute="trailing" secondItem="44d-ZP-hDf" secondAttribute="trailing" constant="12" id="SYF-1e-ZVV"/>
+                    <constraint firstItem="bqx-GB-mkF" firstAttribute="top" secondItem="xau-q4-at8" secondAttribute="bottom" constant="10" id="SoW-0V-uvi"/>
+                    <constraint firstItem="bqx-GB-mkF" firstAttribute="leading" secondItem="44d-ZP-hDf" secondAttribute="leading" constant="5" id="a25-Ip-0nI"/>
                     <constraint firstItem="7zR-Bm-GMt" firstAttribute="leading" secondItem="Kms-KP-E1G" secondAttribute="trailing" constant="10" id="aDY-hg-jGN"/>
                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="5Z4-dw-1Hy" secondAttribute="trailing" constant="24" id="gxk-AX-owe"/>
                     <constraint firstItem="7zR-Bm-GMt" firstAttribute="top" secondItem="Kms-KP-E1G" secondAttribute="top" id="j5E-2C-iVo"/>
+                    <constraint firstItem="aIZ-JU-xTU" firstAttribute="trailing" secondItem="bqx-GB-mkF" secondAttribute="trailing" id="kck-bw-t5z"/>
                     <constraint firstItem="xau-q4-at8" firstAttribute="leading" secondItem="5Z4-dw-1Hy" secondAttribute="leading" id="q1t-re-bVr"/>
                     <constraint firstAttribute="bottom" secondItem="8VJ-0a-gnD" secondAttribute="bottom" id="sJi-SR-iLa"/>
                     <constraint firstItem="5Z4-dw-1Hy" firstAttribute="top" secondItem="7zR-Bm-GMt" secondAttribute="bottom" constant="2" id="slQ-CA-J0E"/>
@@ -124,11 +155,14 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="contentTextView" destination="44d-ZP-hDf" id="bRY-kG-5zE"/>
+                <outlet property="messageDividerView" destination="aIZ-JU-xTU" id="gnA-nd-7Uj"/>
+                <outlet property="recipientDividerView" destination="bqx-GB-mkF" id="hru-QZ-e31"/>
                 <outlet property="recipientLabel" destination="5Z4-dw-1Hy" id="JAj-Br-7nd"/>
                 <outlet property="senderHandleButton" destination="JDz-qR-R3r" id="mps-1x-k10"/>
                 <outlet property="senderImageView" destination="Kms-KP-E1G" id="eGA-Lq-ZSb"/>
                 <outlet property="senderLabel" destination="7zR-Bm-GMt" id="y3Q-Wp-VHB"/>
                 <outlet property="separatorContainerHeightConstraint" destination="gWf-jR-NmO" id="Hah-Uf-OYw"/>
+                <outlet property="separatorLineView" destination="cZS-8Y-gTg" id="VXY-hx-obN"/>
                 <outlet property="timeStampeLabel" destination="xau-q4-at8" id="QX9-Yu-HKy"/>
             </connections>
             <point key="canvasLocation" x="1094.5" y="337"/>

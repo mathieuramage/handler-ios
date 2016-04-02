@@ -485,7 +485,7 @@
         <scene sceneID="n8g-XI-hXq">
             <objects>
                 <tableViewController storyboardIdentifier="ThreadTableViewController" id="HoU-qP-OJS" userLabel="Thread" customClass="ThreadTableViewController" customModule="Handler" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="86" sectionHeaderHeight="28" sectionFooterHeight="28" id="csc-fR-Lhv">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="86" sectionHeaderHeight="28" sectionFooterHeight="28" id="csc-fR-Lhv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1250,8 +1250,8 @@
         <image name="twitter_default" width="2247" height="190"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="l3v-e4-Wcd"/>
-        <segue reference="37u-X4-Rqh"/>
+        <segue reference="0Lu-NQ-iqa"/>
+        <segue reference="9KK-2a-G6b"/>
         <segue reference="241-TL-jtr"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
