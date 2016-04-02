@@ -560,7 +560,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
 	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		if indexPath.section == 0 {
-			if indexPath.row == 3 {
+			if indexPath.row == 2 {
 				return max(CGFloat(contentTextView.contentSize.height + 40), CGFloat(300))
 			} else if indexPath.row == 4 {
 				if FeaturesManager.attachmentsActivated {
