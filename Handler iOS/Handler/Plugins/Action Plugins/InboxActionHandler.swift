@@ -57,9 +57,9 @@ class InboxActionHandler: MessageTableViewCellActions {
 	func leftButtonsForData(data message: Message)->[AnyObject]{
 		let array = NSMutableArray()
 		if message.isUnread {
-			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.blue), icon: UIImage(named: "Read_Icon"), andTitle: "Read")
+			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.lightBlue), icon: UIImage(named: "icon_unread"))
 		}else{
-			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.lightBlue), icon: UIImage(named: "Unread_Icon"), andTitle: "Unread")
+			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.lightBlue), icon: UIImage(named: "icon_read"))
 		}
 		return array as [AnyObject]
 	}
@@ -67,15 +67,15 @@ class InboxActionHandler: MessageTableViewCellActions {
 	func rightButtonsForData(data message: Message)->[AnyObject]{
 		let array = NSMutableArray()
 		if message.isFlagged {
-			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.orange), icon: UIImage(named: "Flag_Icon"), andTitle: "Unflag")
+			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.orange), icon: UIImage(named: "icon_unflag"))
 		}else{
-			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.orange), icon: UIImage(named: "Flag_Icon"), andTitle: "Flag")
+			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.orange), icon: UIImage(named: "icon_flag"))
 		}
 
 		if message.isArchived {
-			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.darkBlue), icon: UIImage(named: "Archive_Icon"), andTitle: "Unarchive")
+			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.darkBlue), icon: UIImage(named: "icon_unarchive"))
 		}else{
-			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.darkBlue), icon: UIImage(named: "Archive_Icon"), andTitle: "Archive")
+			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.darkBlue), icon: UIImage(named: "icon_archive"))
 		}
 		return array as [AnyObject]
 	}
