@@ -275,7 +275,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		let message = createMessageFromUI()
 
 		if !message.hasValidSubject() {
-			let alertController = UIAlertController(title: "Empty subject", message: "This message has no subject line.\n Do you want to send it anyway you?", preferredStyle: .Alert)
+			let alertController = UIAlertController(title: "Empty subject", message: "This message has no subject line.\n Do you want to send it anyway?", preferredStyle: .Alert)
 
 			let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action) in
 				self.switchUserInteractionState(true)
