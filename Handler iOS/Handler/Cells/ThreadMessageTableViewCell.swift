@@ -18,8 +18,13 @@ class ThreadMessageTableViewCell: UITableViewCell {
 	@IBOutlet var contentTextView: UITextView!
 	@IBOutlet var separatorContainerHeightConstraint: NSLayoutConstraint!
 	@IBOutlet var recipientDividerView: UIView!
+	@IBOutlet var recipientDividerHeightConstraint: NSLayoutConstraint!
 	@IBOutlet var messageDividerView: UIView!
+	@IBOutlet var messageDividerHeightContraint: NSLayoutConstraint!
 	@IBOutlet var separatorLineView: UIView!
+	@IBOutlet var separatorLineHeightConstraint: NSLayoutConstraint!
+
+	@IBOutlet var threadLine: UIView!
 
 	var sender: User?
 	
@@ -27,7 +32,12 @@ class ThreadMessageTableViewCell: UITableViewCell {
 		super.awakeFromNib()
 		self.recipientDividerView.backgroundColor = UIColor(rgba: HexCodes.lightGray)
 		self.messageDividerView.backgroundColor = UIColor(rgba: HexCodes.lightGray)
-		self.separatorLineView.backgroundColor = UIColor(rgba: HexCodes.lighterGray)
+		self.separatorLineView.backgroundColor = UIColor(rgba: HexCodes.lightGray)
+		self.threadLine.backgroundColor = UIColor(rgba: HexCodes.lighterGray)
+		self.recipientDividerHeightConstraint.constant = 0.5
+		self.messageDividerHeightContraint.constant = 0.5
+		self.separatorLineHeightConstraint.constant = 0.5
+		
 	}
 
 	@IBAction func didPressUsername(sender: UIButton) {

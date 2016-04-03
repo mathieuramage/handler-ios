@@ -63,7 +63,7 @@
                         <rect key="frame" x="0.0" y="289" width="375" height="44"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aIZ-JU-xTU" userLabel="Message Divider">
-                                <rect key="frame" x="17" y="5" width="346" height="1"/>
+                                <rect key="frame" x="17" y="0.0" width="346" height="1"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="ofQ-ui-xel"/>
@@ -73,7 +73,6 @@
                                 <rect key="frame" x="0.0" y="43" width="375" height="1"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="3zn-tn-E4C"/>
                                     <constraint firstAttribute="height" constant="1" id="TGA-as-Ao1"/>
                                 </constraints>
                             </view>
@@ -98,11 +97,11 @@
                             <constraint firstAttribute="height" constant="44" id="gWf-jR-NmO"/>
                             <constraint firstAttribute="bottom" secondItem="cZS-8Y-gTg" secondAttribute="bottom" id="kfl-JD-49c"/>
                             <constraint firstItem="W9b-Dy-8D4" firstAttribute="leading" secondItem="8VJ-0a-gnD" secondAttribute="leading" constant="20" id="mzX-cw-vHa"/>
-                            <constraint firstItem="aIZ-JU-xTU" firstAttribute="top" secondItem="8VJ-0a-gnD" secondAttribute="top" constant="5" id="xbE-8s-WJF"/>
+                            <constraint firstItem="aIZ-JU-xTU" firstAttribute="top" secondItem="8VJ-0a-gnD" secondAttribute="top" id="xbE-8s-WJF"/>
                         </constraints>
                     </view>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="44d-ZP-hDf">
-                        <rect key="frame" x="12" y="94" width="351" height="195"/>
+                        <rect key="frame" x="12" y="94" width="351" height="190"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <attributedString key="attributedText">
                             <fragment content="Message content">
@@ -132,7 +131,7 @@
                     <constraint firstItem="JDz-qR-R3r" firstAttribute="bottom" secondItem="7zR-Bm-GMt" secondAttribute="bottom" id="EOq-NO-BGu"/>
                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="JDz-qR-R3r" secondAttribute="trailing" constant="24" id="GJe-DG-3kV"/>
                     <constraint firstItem="xau-q4-at8" firstAttribute="top" secondItem="5Z4-dw-1Hy" secondAttribute="bottom" constant="5" id="HYf-iQ-Prj"/>
-                    <constraint firstItem="8VJ-0a-gnD" firstAttribute="top" secondItem="44d-ZP-hDf" secondAttribute="bottom" id="IbK-4g-RDC"/>
+                    <constraint firstItem="8VJ-0a-gnD" firstAttribute="top" secondItem="44d-ZP-hDf" secondAttribute="bottom" constant="5" id="IbK-4g-RDC"/>
                     <constraint firstItem="Kms-KP-E1G" firstAttribute="leading" secondItem="Jrq-yt-0m6" secondAttribute="leading" constant="12" id="IiR-zC-he7"/>
                     <constraint firstItem="Kms-KP-E1G" firstAttribute="top" secondItem="Jrq-yt-0m6" secondAttribute="top" constant="15" id="JEj-9b-74m"/>
                     <constraint firstItem="44d-ZP-hDf" firstAttribute="leading" secondItem="Jrq-yt-0m6" secondAttribute="leading" constant="12" id="JKT-rP-LUi"/>
@@ -155,14 +154,18 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="contentTextView" destination="44d-ZP-hDf" id="bRY-kG-5zE"/>
+                <outlet property="messageDividerHeightContraint" destination="ofQ-ui-xel" id="WEz-hV-CU7"/>
                 <outlet property="messageDividerView" destination="aIZ-JU-xTU" id="gnA-nd-7Uj"/>
+                <outlet property="recipientDividerHeightConstraint" destination="yJ9-N8-F3z" id="maX-a9-fbq"/>
                 <outlet property="recipientDividerView" destination="bqx-GB-mkF" id="hru-QZ-e31"/>
                 <outlet property="recipientLabel" destination="5Z4-dw-1Hy" id="JAj-Br-7nd"/>
                 <outlet property="senderHandleButton" destination="JDz-qR-R3r" id="mps-1x-k10"/>
                 <outlet property="senderImageView" destination="Kms-KP-E1G" id="eGA-Lq-ZSb"/>
                 <outlet property="senderLabel" destination="7zR-Bm-GMt" id="y3Q-Wp-VHB"/>
                 <outlet property="separatorContainerHeightConstraint" destination="gWf-jR-NmO" id="Hah-Uf-OYw"/>
-                <outlet property="separatorLineView" destination="cZS-8Y-gTg" id="VXY-hx-obN"/>
+                <outlet property="separatorLineHeightConstraint" destination="TGA-as-Ao1" id="80f-Ss-Kgr"/>
+                <outlet property="separatorLineView" destination="cZS-8Y-gTg" id="DSX-2v-bmk"/>
+                <outlet property="threadLine" destination="W9b-Dy-8D4" id="zRX-AO-DmY"/>
                 <outlet property="timeStampeLabel" destination="xau-q4-at8" id="QX9-Yu-HKy"/>
             </connections>
             <point key="canvasLocation" x="1094.5" y="337"/>
