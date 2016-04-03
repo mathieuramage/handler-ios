@@ -16,6 +16,7 @@ class ThreadMessageTableViewCell: UITableViewCell {
     @IBOutlet var timeStampeLabel: UILabel!
     @IBOutlet var senderImageView: UIImageView!
     @IBOutlet var contentTextView: UITextView!
+	@IBOutlet weak var dotImageView: UIImageView!
     @IBOutlet var separatorContainerHeightConstraint: NSLayoutConstraint!
 
     var sender: User?

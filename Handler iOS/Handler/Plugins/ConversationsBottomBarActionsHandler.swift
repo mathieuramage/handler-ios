@@ -86,6 +86,7 @@ class ConversationsBottomBarActionsHandler: NSObject, BottomBarActionPlugin {
 				let cont = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
 				cont.addAction(UIAlertAction(title: message.isFlagged ? "Unflag" : "Flag", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
 					message.isFlagged ? message.unflag() : message.flag()
+					self.vc.reloadCellForMessage(message)
 					// TODO: Add success message
 				}))
 				cont.addAction(UIAlertAction(title: "Mark as unread", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
@@ -94,6 +95,7 @@ class ConversationsBottomBarActionsHandler: NSObject, BottomBarActionPlugin {
 					} else {
 						message.thread?.markAsUnread(message)
 					}
+					self.vc.tableView.reloadData() //All newer messages will be reloaded
 					// TODO: Add success message
 				}))
 				cont.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))

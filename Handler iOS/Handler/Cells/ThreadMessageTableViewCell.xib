@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -54,7 +54,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xau-q4-at8" userLabel="Time Stamp Label">
-                        <rect key="frame" x="72" y="57" width="35" height="17"/>
+                        <rect key="frame" x="72" y="57" width="272" height="17"/>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                         <color key="textColor" red="0.46274509800000002" green="0.52941176469999995" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -96,10 +96,16 @@
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
                     </textView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="active_dot" translatesAutoresizingMaskIntoConstraints="NO" id="ufG-0p-mKg">
+                        <rect key="frame" x="354" y="59" width="13" height="13"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="13" id="CL6-7f-hJM"/>
+                            <constraint firstAttribute="height" constant="13" id="dgL-W7-zxh"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="7zR-Bm-GMt" firstAttribute="top" secondItem="Jrq-yt-0m6" secondAttribute="top" constant="15" id="1Jt-Aq-Aq9"/>
-                    <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="xau-q4-at8" secondAttribute="trailing" constant="24" id="7YU-dt-K2D"/>
                     <constraint firstAttribute="trailing" secondItem="8VJ-0a-gnD" secondAttribute="trailing" id="8oH-Jk-SqQ"/>
                     <constraint firstItem="JDz-qR-R3r" firstAttribute="bottom" secondItem="7zR-Bm-GMt" secondAttribute="bottom" id="EOq-NO-BGu"/>
                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="JDz-qR-R3r" secondAttribute="trailing" constant="24" id="GJe-DG-3kV"/>
@@ -112,9 +118,12 @@
                     <constraint firstItem="JDz-qR-R3r" firstAttribute="leading" secondItem="7zR-Bm-GMt" secondAttribute="trailing" constant="10" id="R2Q-gD-o1j"/>
                     <constraint firstItem="8VJ-0a-gnD" firstAttribute="leading" secondItem="Jrq-yt-0m6" secondAttribute="leading" id="SQA-wA-hsx"/>
                     <constraint firstAttribute="trailing" secondItem="44d-ZP-hDf" secondAttribute="trailing" constant="12" id="SYF-1e-ZVV"/>
+                    <constraint firstItem="ufG-0p-mKg" firstAttribute="trailing" secondItem="Jrq-yt-0m6" secondAttribute="trailingMargin" id="aBe-lf-4FH"/>
+                    <constraint firstItem="xau-q4-at8" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ufG-0p-mKg" secondAttribute="leading" constant="-10" id="aCy-iz-57E"/>
                     <constraint firstItem="7zR-Bm-GMt" firstAttribute="leading" secondItem="Kms-KP-E1G" secondAttribute="trailing" constant="10" id="aDY-hg-jGN"/>
                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="5Z4-dw-1Hy" secondAttribute="trailing" constant="24" id="gxk-AX-owe"/>
                     <constraint firstItem="7zR-Bm-GMt" firstAttribute="top" secondItem="Kms-KP-E1G" secondAttribute="top" id="j5E-2C-iVo"/>
+                    <constraint firstItem="ufG-0p-mKg" firstAttribute="top" secondItem="Jrq-yt-0m6" secondAttribute="topMargin" constant="51" id="mFg-vl-0gC"/>
                     <constraint firstItem="xau-q4-at8" firstAttribute="leading" secondItem="5Z4-dw-1Hy" secondAttribute="leading" id="q1t-re-bVr"/>
                     <constraint firstAttribute="bottom" secondItem="8VJ-0a-gnD" secondAttribute="bottom" id="sJi-SR-iLa"/>
                     <constraint firstItem="5Z4-dw-1Hy" firstAttribute="top" secondItem="7zR-Bm-GMt" secondAttribute="bottom" constant="2" id="slQ-CA-J0E"/>
@@ -124,6 +133,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="contentTextView" destination="44d-ZP-hDf" id="bRY-kG-5zE"/>
+                <outlet property="dotImageView" destination="ufG-0p-mKg" id="W2x-de-S6D"/>
                 <outlet property="recipientLabel" destination="5Z4-dw-1Hy" id="JAj-Br-7nd"/>
                 <outlet property="senderHandleButton" destination="JDz-qR-R3r" id="mps-1x-k10"/>
                 <outlet property="senderImageView" destination="Kms-KP-E1G" id="eGA-Lq-ZSb"/>
@@ -131,7 +141,10 @@
                 <outlet property="separatorContainerHeightConstraint" destination="gWf-jR-NmO" id="Hah-Uf-OYw"/>
                 <outlet property="timeStampeLabel" destination="xau-q4-at8" id="QX9-Yu-HKy"/>
             </connections>
-            <point key="canvasLocation" x="1094.5" y="337"/>
+            <point key="canvasLocation" x="564.5" y="326"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="active_dot" width="21" height="21"/>
+    </resources>
 </document>
