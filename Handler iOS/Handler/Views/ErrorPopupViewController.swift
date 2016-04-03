@@ -3,7 +3,7 @@
 //  Handler
 //
 //  Created by Christian Praiss on 30/09/15.
-//  Copyright © 2015 Handler, Inc. All rights reserved.
+//  Copyright (c) 2013-2016 Mathieu Ramage - All Rights Reserved.
 //
 
 import UIKit
@@ -51,9 +51,13 @@ class ErrorPopupViewController: UIViewController, UIViewControllerShow {
         ErrorPopupQueue.sharedInstance.currentError = nil
 		UIView.animateWithDuration(0.3, animations: { () -> Void in
 			self.window?.alpha = 0
-			UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
+			UIApplication.sharedApplication().statusBarStyle = .LightContent
 			}) { (success) -> Void in
 				self.window = nil
 		}
 	}
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
+    }
 }

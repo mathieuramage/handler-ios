@@ -3,7 +3,7 @@
 //  Handler
 //
 //  Created by Guillaume Kermorgant on 26/11/15.
-//  Copyright © 2015 Handler, Inc. All rights reserved.
+//  Copyright (c) 2013-2016 Mathieu Ramage - All Rights Reserved.
 //
 
 #import "HRPageControl.h"
@@ -18,8 +18,8 @@
     self = [super initWithCoder:aDecoder];
     if(self)
     {
-        activeImage = [UIImage imageNamed:@"active_dot.png"];
-        inactiveImage = [UIImage imageNamed:@"inactive_dot.png"];
+        activeImage = [UIImage imageNamed:@"active_dot"];
+        inactiveImage = [UIImage imageNamed:@"inactive_dot"];
     }
     return self;
 }
@@ -49,7 +49,7 @@
         }
         if (dot == nil)
         {
-            dot = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, view.frame.size.width, view.frame.size.height)];
+            dot = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 10.5, 10.5)];
             [view addSubview:dot];
         }
     }

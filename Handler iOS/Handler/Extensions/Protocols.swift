@@ -3,7 +3,7 @@
 //  Handler
 //
 //  Created by Christian Praiss on 20/09/15.
-//  Copyright © 2015 Handler, Inc. All rights reserved.
+//  Copyright (c) 2013-2016 Mathieu Ramage - All Rights Reserved.
 //
 
 import Foundation
@@ -30,18 +30,23 @@ protocol CoreDataConvertible {
 extension CoreDataConvertible where HRType : HRIDProvider  {
 	
 	static func fromHRType(hrType: HRType) -> Self? {
+        if APICommunicator.sharedInstance.allowsObjectCreation {
 		guard let fetchrequest = self.backgroundFetchRequestForID(hrType.id) else {
 			print("Failed to create fetchRequest for \(Self.self)")
 			return nil
 		}
 		
 		if let cdObject = MailDatabaseManager.sharedInstance.executeBackgroundFetchRequest(fetchrequest)?.first as? Self {
-			//print("Found \(Self.self) in database")
-			//cdObject.updateFromHRType(hrType)
+			// TODO: check updating alg later
+			// cdObject.updateFromHRType(hrType)
 			return cdObject
 		}else{
 			return Self(hrType: hrType, managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
 		}
+        }else{
+            print("datastore blocked")
+            return nil
+        }
 	}
 	
 	static func fromID(id: String) -> Self? {

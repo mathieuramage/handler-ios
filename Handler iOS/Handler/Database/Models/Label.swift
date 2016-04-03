@@ -3,7 +3,7 @@
 //  Handler
 //
 //  Created by Christian Praiss on 20/09/15.
-//  Copyright © 2015 Handler, Inc. All rights reserved.
+//  Copyright (c) 2013-2016 Mathieu Ramage - All Rights Reserved.
 //
 
 import Foundation
@@ -21,17 +21,15 @@ final class Label: NSManagedObject, CoreDataConvertible {
 	
 	convenience init(id: String, managedObjectContext: NSManagedObjectContext){
 		self.init(managedObjectContext: managedObjectContext)
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "id", value: id))
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "name", value: ""))
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "type", value: ""))
-        DatabaseChangesCache.sharedInstance.executeChangesForObjectID(self.objectID)
+		self.id = id
+		self.name = ""
+		self.type = ""
 	}
 	
 	func updateFromHRType(label: HRType) {
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "id", value: label.id))
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "name", value: label.name))
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "type", value: label.type))
-        DatabaseChangesCache.sharedInstance.executeChangesForObjectID(self.objectID)
+		self.id = label.id
+		self.name = label.name
+		self.type = label.type
 	}
 	
 	func toHRType() -> HRLabel {

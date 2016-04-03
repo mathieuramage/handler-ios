@@ -3,7 +3,7 @@
 //  Handler
 //
 //  Created by Christian Praiss on 08/10/15.
-//  Copyright © 2015 Handler, Inc. All rights reserved.
+//  Copyright (c) 2013-2016 Mathieu Ramage - All Rights Reserved.
 //
 
 import UIKit
@@ -42,7 +42,7 @@ class AttachmentThumbnailCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "update:", name: AttachmentDownloadDidFinishNotification, object: nil)
         self.layer.borderWidth = 1.0
-        self.layer.borderColor = UIColor.hrLightGrayColor().CGColor
+        self.layer.borderColor = UIColor(rgba: HexCodes.lightGray).CGColor
     }
 	
 	deinit {
@@ -61,6 +61,6 @@ class AddAttachmentCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         
         self.layer.borderWidth = 1.0
-        self.layer.borderColor = UIColor.hrLightGrayColor().CGColor
+        self.layer.borderColor = UIColor(rgba: HexCodes.lightGray).CGColor
     }
 }

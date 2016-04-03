@@ -3,7 +3,7 @@
 //  Handler
 //
 //  Created by Christian Praiss on 20/09/15.
-//  Copyright © 2015 Handler, Inc. All rights reserved.
+//  Copyright (c) 2013-2016 Mathieu Ramage - All Rights Reserved.
 //
 
 import Foundation
@@ -16,20 +16,20 @@ final class User: NSManagedObject, CoreDataConvertible {
 	
 	required convenience init(hrType user: HRType, managedObjectContext: NSManagedObjectContext){
 		self.init(managedObjectContext: managedObjectContext)
+        
 		self.updateFromHRType(user)
 	}
 	
 	func updateFromHRType(user: HRType) {
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "id", value: user.id))
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "desc", value: user.desc))
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "handle", value: user.handle))
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "name", value: user.name))
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "profile_picture_url", value: user.picture_url))
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "provider", value: user.provider))
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "created_at", value: NSDate.fromString(user.created_at)))
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "updated_at", value: NSDate.fromString(user.updated_at)))
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "twtterFollowStatus", value: NSNumber(integer: TwitterAPICommunicator.followStatusForID(user.name).rawValue)))
-        DatabaseChangesCache.sharedInstance.executeChangesForObjectID(self.objectID)
+        self.id = user.id
+        self.desc = user.desc
+        self.handle = user.handle
+        self.name = user.name
+        self.profile_picture_url = user.picture_url
+        self.provider = user.provider
+        self.created_at = NSDate.fromString(user.created_at)
+        self.updated_at = NSDate.fromString(user.updated_at)
+        self.twtterFollowStatus = NSNumber(integer: TwitterAPICommunicator.followStatusForID(user.name).rawValue)
 	}
 	
 	func toHRType() -> HRUser {

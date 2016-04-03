@@ -3,14 +3,14 @@
 //  Handler
 //
 //  Created by Christian Praiss on 20/09/15.
-//  Copyright © 2015 Handler, Inc. All rights reserved.
+//  Copyright (c) 2013-2016 Mathieu Ramage - All Rights Reserved.
 //
 
 import Foundation
 import CoreData
 
 class Thread: NSManagedObject {
-	
+
 	class func fromID(id: String, inContext: NSManagedObjectContext?) -> Thread? {
 		var thread: Thread?
 		let context = inContext ?? MailDatabaseManager.sharedInstance.backgroundContext
@@ -23,17 +23,16 @@ class Thread: NSManagedObject {
 				print(error)
 			}
 		}
-		
+
 		if let thread = thread {
 			return thread
 		}else {
 			let createdthread = Thread(managedObjectContext: context ?? MailDatabaseManager.sharedInstance.backgroundContext)
-            DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: createdthread, property: "id", value: id))
-            DatabaseChangesCache.sharedInstance.executeChangesForObjectID(createdthread.objectID)
+			createdthread.id = id
 			return createdthread
 		}
 	}
-	
+
 	func updateInbox(){
 		var show = false
 		if let messages = self.messages {
@@ -43,19 +42,85 @@ class Thread: NSManagedObject {
 				}
 			}
 		}
-        DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: self, property: "showInInbox", value: NSNumber(bool: show)))
-        DatabaseChangesCache.sharedInstance.executeChangesForObjectID(self.objectID)
+		self.showInInbox = NSNumber(bool: show)
+		MailDatabaseManager.sharedInstance.saveBackgroundContext()
 	}
-	
+
 	var mostRecentMessage: Message? {
-		let msgSet = NSSet(set: messages!)
-		let messageList = msgSet.allObjects as? [Message]
-		let sorted =  messageList?.sort({
-			if let firstSent = $0.sent_at, let secondSent = $1.sent_at {
-				return firstSent.compare(secondSent) == NSComparisonResult.OrderedDescending
+		if let messages = messages {
+			let msgSet = NSSet(set: messages)
+			let messageList = msgSet.allObjects as? [Message]
+			let sorted =  messageList?.sort({
+				if let firstSent = $0.sent_at, let secondSent = $1.sent_at {
+					return firstSent.compare(secondSent) == NSComparisonResult.OrderedDescending
+				}
+				return true
+			})
+			return sorted?.first
+		}
+		return nil
+	}
+
+	var oldestUnreadMessage : Message? {
+		var oldestUnread : Message? = nil
+		if let messages = messages {
+			for message in messages {
+				let m = message as! Message
+				if m.isUnread {
+					if oldestUnread == nil {
+						oldestUnread = m
+					} else if oldestUnread!.sent_at!.compare(m.sent_at!) == .OrderedAscending {
+						oldestUnread = m
+					}
+				}
 			}
-			return true
-		})
-		return sorted?.first
+		}
+		return oldestUnread
+	}
+
+	func archive() {
+		if let messages = self.messages {
+			for message in messages {
+				if let m = message as? Message {
+					m.moveToArchive()
+				}
+			}
+		}
+	}
+
+	func unarchive() {
+		if let messages = self.messages {
+			for message in messages {
+				if let m = message as? Message {
+					m.moveToInbox()
+				}
+			}
+		}
+	}
+
+	func markAsRead() {
+		guard let messages = messages?.allObjects as? [Message] else {
+			return
+		}
+
+		for message in messages {
+			message.markAsRead()
+		}
+	}
+
+	func markAsUnread(message: Message) {
+		guard let messages = messages?.allObjects as? [Message], let currentMessageDate = message.sent_at else {
+			return
+		}
+
+		for messageToCompare in messages {
+			guard let messageToCompareDate = messageToCompare.sent_at else {
+				continue
+			}
+
+			if messageToCompareDate.isLaterThanDate(currentMessageDate) || messageToCompareDate.isEqualToDate(currentMessageDate) {
+				messageToCompare.markAsUnread()
+			}
+		}
 	}
 }

@@ -3,12 +3,16 @@
 //  Handler
 //
 //  Created by Christian Praiss on 19/11/15.
-//  Copyright © 2015 Handler, Inc. All rights reserved.
+//  Copyright (c) 2013-2016 Mathieu Ramage - All Rights Reserved.
 //
 
 import UIKit
 
 class FormattingPluginProvider: NSObject {
+    class func messageContentCellPluginForConversation()->MessageContentCellFormatter?{
+        return ConversationContentFormatter()
+    }
+
     class func messageCellPluginForInboxType(type: MailboxType)->MessageTableViewCellFormatter?{
         switch type {
         case .Inbox:

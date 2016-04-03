@@ -3,10 +3,11 @@
 //  Handler
 //
 //  Created by Christian Praiss on 19/11/15.
-//  Copyright © 2015 Handler, Inc. All rights reserved.
+//  Copyright (c) 2013-2016 Mathieu Ramage - All Rights Reserved.
 //
 
 import UIKit
+import HandlerSDK
 import Async
 
 struct InboxFormatter: MessageTableViewCellFormatter {
@@ -33,9 +34,6 @@ struct InboxFormatter: MessageTableViewCellFormatter {
         view.rightUtilityButtons = rightButtonsForData(data: message)
         if let urlString = message.sender?.profile_picture_url, let profileUrl = NSURL(string: urlString) {
             view.senderProfileImageView.kf_setImageWithURL(profileUrl, placeholderImage: UIImage.randomGhostImage(), optionsInfo: nil, completionHandler: { (image, error, cacheType, imageURL) -> () in
-                Async.main(block: { () -> Void in
-                    view.senderProfileImageView.image = image
-                })
             })
         }
         
@@ -50,6 +48,26 @@ struct InboxFormatter: MessageTableViewCellFormatter {
             view.messageTimeLabel.text = timeFormatter.stringFromDate(sent_at)
         }else{
             view.messageTimeLabel.text = "-"
+        }
+        
+        if let count = message.thread?.messages?.count where count > 1 {
+            view.threadCountLabel.hidden = false
+            view.threadCountLabel.text = "\(count)"
+        }else{
+            view.threadCountLabel.hidden = true
+            view.threadCountLabel.text = "-"
+        }
+        
+        if let count = message.attachments?.count where count > 1 {
+            view.attachmentIconView.hidden = false
+        }else{
+            view.attachmentIconView.hidden = true
+        }
+        
+        if message.thread?.mostRecentMessage?.sender?.id == HRUserSessionManager.sharedManager.currentUser?.id {
+            view.repliedIconView.hidden = false
+        }else{
+            view.repliedIconView.hidden = true
         }
         
         setUpReadFlagMessage(data: message, view: view)

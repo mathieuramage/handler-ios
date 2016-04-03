@@ -3,7 +3,7 @@
 //  Handler
 //
 //  Created by Christian Praiss on 19/11/15.
-//  Copyright © 2015 Handler, Inc. All rights reserved.
+//  Copyright (c) 2013-2016 Mathieu Ramage - All Rights Reserved.
 //
 
 import UIKit
@@ -13,4 +13,9 @@ protocol MessageTableViewCellFormatter {
     func refreshFlags(data message: Message, view: MessageTableViewCell)
     func leftButtonsForData(data message: Message)->[AnyObject]
     func rightButtonsForData(data message: Message)->[AnyObject]
+}
+
+protocol MessageContentCellFormatter {
+    func populateView(data message: Message?, view: ThreadMessageTableViewCell)
+    func populateView(data message: Message?, view: ThreadMessageTableViewCell, lastMessage: Bool, primary: Bool)
 }

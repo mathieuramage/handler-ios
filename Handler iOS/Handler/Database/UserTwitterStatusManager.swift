@@ -3,7 +3,7 @@
 //  Handler
 //
 //  Created by Christian Praiss on 16/10/15.
-//  Copyright © 2015 Handler, Inc. All rights reserved.
+//  Copyright (c) 2013-2016 Mathieu Ramage - All Rights Reserved.
 //
 
 import UIKit
@@ -21,8 +21,7 @@ class UserTwitterStatusManager: NSObject {
 			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
 			if let users = MailDatabaseManager.sharedInstance.executeBackgroundFetchRequest(fetchRequest) as? [User] {
 				for user in users {
-                    DatabaseChangesCache.sharedInstance.addChange(DatabaseChange(object: user, property: "twtterFollowStatus", value: NSNumber(integer: TwitterAPICommunicator.followStatusForID(user.name!).rawValue)))
-                    DatabaseChangesCache.sharedInstance.executeChangesForObjectID(user.objectID)
+                    user.twtterFollowStatus = NSNumber(integer: TwitterAPICommunicator.followStatusForID(user.name!).rawValue)
 				}
 			}
 			MailDatabaseManager.sharedInstance.saveBackgroundContext()
