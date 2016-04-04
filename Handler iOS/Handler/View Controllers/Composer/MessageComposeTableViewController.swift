@@ -123,9 +123,11 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		tableView.tableFooterView = UIView()
 
 		subjectTextField.delegate = self
+		
 
 		// UI Configuration
-
+		self.contentTextView.text = "Share something"
+		self.contentTextView.textColor = UIColor(rgba: HexCodes.lightGray)
 		if let draft = draftMessage {
 
 			if let recipients = draft.recipients?.allObjects as? [User] {
@@ -185,6 +187,12 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		}
 		attachmentsCell.filePickerDelegate = self
 
+	}
+	
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		
+		enableSendButton()
 	}
 
 	// MARK: Contacts Add Buttons
@@ -267,7 +275,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		let message = createMessageFromUI()
 
 		if !message.hasValidSubject() {
-			let alertController = UIAlertController(title: nil, message: "You are about to send a message without subject, are you sure?", preferredStyle: .Alert)
+			let alertController = UIAlertController(title: "Empty subject", message: "This message has no subject line.\n Do you want to send it anyway?", preferredStyle: .Alert)
 
 			let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action) in
 				self.switchUserInteractionState(true)
@@ -432,6 +440,8 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	func tokenInputView(view: CLTokenInputView, didAddToken token: CLToken) {
 		view.endEditing()
 		view.beginEditing()
+	
+		enableSendButton()
 	}
 
 
@@ -453,6 +463,8 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
 			presentViewController(alertController, animated: true, completion: nil)
 		}
+		
+		enableSendButton()
 	}
 
 	func shouldShowAlertForOriginalRecipientChange(token: CLToken) -> Bool {
@@ -548,7 +560,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
 	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		if indexPath.section == 0 {
-			if indexPath.row == 3 {
+			if indexPath.row == 2 {
 				return max(CGFloat(contentTextView.contentSize.height + 40), CGFloat(300))
 			} else if indexPath.row == 4 {
 				if FeaturesManager.attachmentsActivated {
@@ -687,6 +699,30 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		let lastMessage = indexPath.row + 1 >= orderedThreadMessages.count
 		let primary = message == orderedThreadMessages
 		FormattingPluginProvider.messageContentCellPluginForConversation()?.populateView(data: message, view: cell, lastMessage: lastMessage, primary: primary)
+	}
+	
+	// MARK: UITextViewDelegate
+	func textViewDidBeginEditing(textView: UITextView) {
+		if textView.textColor == UIColor(rgba: HexCodes.lightGray) {
+			textView.text = nil
+			textView.textColor = UIColor(rgba: HexCodes.darkGray)
+		}
+	}
+	
+	func enableSendButton() {
+		
+		guard let navC = self.navigationController else {
+			return
+		}
+		guard let messageComposerWrapperViewController = navC.topViewController as? MessageComposerWrapperViewController else {
+			return
+		}
+		
+		guard let sendButton = messageComposerWrapperViewController.navigationItem.rightBarButtonItem  else {
+			return
+		}
+		
+		sendButton.enabled = !self.tokenView.allTokens.isEmpty
 	}
 }
 

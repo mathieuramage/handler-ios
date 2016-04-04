@@ -9,9 +9,9 @@
 import UIKit
 
 class ThreadTableViewController: UITableViewController {
-
+	
 	let MessageCellID = "MessageCellID"
-
+	
 	var thread: Thread? {
 		didSet {
 			if let allMessages = thread?.messages?.allObjects as? [Message] {
@@ -27,6 +27,7 @@ class ThreadTableViewController: UITableViewController {
 			else {
 				orderedMessages = [Message]()
 			}
+
 			primaryMessage = orderedMessages.first
 			tableView.reloadData()
 		}
@@ -49,7 +50,7 @@ class ThreadTableViewController: UITableViewController {
 		}
 		return nil
 	}
-
+	
 	var primaryMessage: Message? {
 		didSet(previous) {
 			if primaryMessage != previous {
@@ -92,7 +93,7 @@ class ThreadTableViewController: UITableViewController {
 		tableView.backgroundColor = UIColor(rgba: HexCodes.offWhite)
 		tableView.tableFooterView = UIView()
 	}
-
+	
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 		self.plugin = BottomBarActionPluginProvider.plugin(self)
@@ -130,7 +131,6 @@ class ThreadTableViewController: UITableViewController {
 		label.clipsToBounds = false
 		view.addSubview(label)
 		label.text = orderedMessages.last?.subject ?? "No Subject"
-
 		let bottomView = UIView()
 		bottomView.frame = CGRectMake(0, view.frame.height-0.5, view.frame.width, 0.5)
 		bottomView.backgroundColor = UIColor(rgba: HexCodes.lightGray)

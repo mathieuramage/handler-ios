@@ -116,6 +116,7 @@ class ConversationsBottomBarActionsHandler: NSObject, BottomBarActionPlugin {
 					let replyNC = (UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("MessageComposeNavigationController") as! GradientNavigationController)
 					let replyWrapper = replyNC.viewControllers.first as! MessageComposerWrapperViewController
 					replyWrapper.messageToReplyTo = message
+					replyWrapper.title = "New Reply"
 					self.vc.presentViewController(replyNC, animated: true, completion: nil)
 				}))
 				cont.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))

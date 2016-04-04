@@ -32,7 +32,7 @@ class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UI
 
 	var mailboxType: MailboxType = .Inbox {
 		didSet{
-			self.navigationItem.title = mailboxType.rawValue.firstCapitalized ?? "Mailbox"
+			self.navigationItem.title = mailboxType == .Flagged ? "Flagged" : mailboxType.rawValue.firstCapitalized ?? "Mailbox"
 		}
 	}
 
