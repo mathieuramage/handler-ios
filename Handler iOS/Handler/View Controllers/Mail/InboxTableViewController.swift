@@ -229,9 +229,9 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 	// MARK: Empty Dataset DataSource
 
 	func customViewForEmptyDataSet(scrollView: UIScrollView!) -> UIView! {
-		let view = UINib(nibName: "EmptyInbox", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! UIView
-		let button = view.viewWithTag(300) as! UIButton
-		button.addTarget(self, action: "composeNewMessage", forControlEvents: .TouchUpInside)
+
+		let view = NSBundle.mainBundle().loadNibNamed("EmptyInboxView", owner: self, options: nil).first as! EmptyInboxView
+		view.actionButton.addTarget(self, action: #selector(InboxTableViewController.composeNewMessage), forControlEvents: .TouchUpInside)
 		return view
 	}
 }

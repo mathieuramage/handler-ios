@@ -238,5 +238,9 @@ class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UI
 		style.alignment = .Center
 		return NSAttributedString(string: "Don't forget to reach out to\nold friends you played with.", attributes: [NSForegroundColorAttributeName: UIColor.grayColor(), NSFontAttributeName: UIFont.systemFontOfSize(14), NSParagraphStyleAttributeName: style])
 	}
+
+	func composeNewMessage() {
+		self.performSegueWithIdentifier("showMessageComposeNavigationController", sender: self)
+	}
 	
 }
