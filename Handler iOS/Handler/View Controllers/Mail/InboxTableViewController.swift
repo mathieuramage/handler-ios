@@ -31,6 +31,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 	var progressBar: UIProgressView!
 	var lastupdatedLabel: UILabel?
 	var newEmailsLabel: UILabel?
+	var refreshTimer: dispatch_source_t!
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -38,9 +39,10 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		tableView.tableFooterView = UIView()
 		tableView.emptyDataSetSource = self
 		self.refreshControl = UIRefreshControl()
-		self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+		self.refreshControl!.addTarget(self, action: #selector(InboxTableViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
 		self.tableView.addSubview(refreshControl!)
 		MailboxObserversManager.sharedInstance.addObserverForMailboxType(.Inbox, observer: self)
+		startTimer()
 	}
 
 	func refresh(control: UIRefreshControl){
@@ -85,7 +87,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		containerView.addSubview(newEmailsLabel!)
 		let item = UIBarButtonItem(customView: containerView)
 
-		let composeItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Compose, target: self, action: "composeNewMessage")
+		let composeItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Compose, target: self, action: #selector(InboxTableViewController.composeNewMessage))
 
 		self.navigationController!.toolbar.items = [space, item, space, composeItem]
 
@@ -233,6 +235,29 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		let view = NSBundle.mainBundle().loadNibNamed("EmptyInboxView", owner: self, options: nil).first as! EmptyInboxView
 		view.actionButton.addTarget(self, action: #selector(InboxTableViewController.composeNewMessage), forControlEvents: .TouchUpInside)
 		return view
+	}
+	
+	func startTimer() {
+		let queue = dispatch_queue_create("com.domain.app.timer", nil)
+		refreshTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue)
+		dispatch_source_set_timer(refreshTimer, DISPATCH_TIME_NOW, 900 * NSEC_PER_SEC, 1 * NSEC_PER_SEC) // every 15 minutes, with leeway of 1 second
+		dispatch_source_set_event_handler(refreshTimer) {
+			// do whatever you want here
+			APICommunicator.sharedInstance.fetchNewMessagesWithCompletion { (error) -> Void in
+				Async.main(block: { () -> Void in
+					guard let error = error else {
+						return
+					}
+					error.show()
+				})
+			}
+		}
+		dispatch_resume(refreshTimer)
+	}
+	
+	func stopTimer() {
+		dispatch_source_cancel(refreshTimer)
+		refreshTimer = nil
 	}
 }
 
