@@ -229,12 +229,9 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
 	func dismiss() {
 
-		let alertController = UIAlertController(title: "Cancel Message", message: "Do you want to cancel this message?", preferredStyle: UIAlertControllerStyle.Alert)
-		alertController.addAction(UIAlertAction(title: "Stay", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+		let alertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
 
-		}))
-
-		alertController.addAction(UIAlertAction(title: "Cancel & Delete Message", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
+		alertController.addAction(UIAlertAction(title: "Delete Draft", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
 			if let attachments = self.attachmentsCell.attachments {
 				for attachment in attachments {
 					attachment.delete()
@@ -242,6 +239,12 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 			}
 			self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
 		}))
+
+
+		alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+
+		}))
+
 		presentViewController(alertController, animated: true, completion: nil)
 
 
@@ -451,14 +454,15 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		view.beginEditing()
 
 		if shouldShowAlertForOriginalRecipientChange(token) {
-			let alertController = UIAlertController(title: "New thread", message: "Removing an original recipient will create  a new thread. Do you want to continue?", preferredStyle: UIAlertControllerStyle.Alert)
+			let alertController = UIAlertController(title: "New thread", message: "Removing someone from a thread will create a new, seperate thread.", preferredStyle: UIAlertControllerStyle.Alert)
+
+			alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+				view.addToken(token)
+			}))
+
 			alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
 				self.originalRecipientsChanged = true
 				self.messageToReplyTo = nil
-			}))
-
-			alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-				view.addToken(token)
 			}))
 
 			presentViewController(alertController, animated: true, completion: nil)
@@ -673,13 +677,14 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
 			if (string != originalReplySubject) {
 
-				let alertController = UIAlertController(title: "New Message", message: "Changing the subject line will create a new thread. Do you want to continue?", preferredStyle: UIAlertControllerStyle.Alert)
+				let alertController = UIAlertController(title: "New Thread", message: "Changing the subject line will create a new thread. Do you want to continue?", preferredStyle: UIAlertControllerStyle.Alert)
+
+				alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+				}))
+
 				alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
 					self.replySubjectChanged = true
 					self.messageToReplyTo = nil
-				}))
-
-				alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
 				}))
 
 				presentViewController(alertController, animated: true, completion: nil)
