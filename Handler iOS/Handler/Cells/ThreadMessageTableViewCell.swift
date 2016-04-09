@@ -35,9 +35,9 @@ class ThreadMessageTableViewCell: UITableViewCell {
 		self.messageDividerView.backgroundColor = UIColor(rgba: HexCodes.lightGray)
 		self.separatorLineView.backgroundColor = UIColor(rgba: HexCodes.lightGray)
 		self.threadLine.backgroundColor = UIColor(rgba: HexCodes.lighterGray)
-		self.recipientDividerHeightConstraint.constant = 0.5
-		self.messageDividerHeightContraint.constant = 0.5
-		self.separatorLineHeightConstraint.constant = 0.5
+		self.recipientDividerHeightConstraint.constant = 1/UIScreen.mainScreen().scale
+		self.messageDividerHeightContraint.constant = 1/UIScreen.mainScreen().scale
+		self.separatorLineHeightConstraint.constant = 1/UIScreen.mainScreen().scale
 		
 	}
 
