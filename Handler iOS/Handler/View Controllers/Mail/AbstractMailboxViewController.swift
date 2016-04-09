@@ -222,8 +222,9 @@ class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UI
 				}
 			}
 		} else if segue.identifier == "showMessageComposeNavigationController" {
-			let dc = (segue.destinationViewController as! UINavigationController).viewControllers.first as! MessageComposeTableViewController
-			dc.draftMessage = self.messageForSegue
+			if let dc = (segue.destinationViewController as? UINavigationController)?.viewControllers.first as? MessageComposerWrapperViewController {
+				dc.draftMessage = self.messageForSegue
+			}
 		}
 	}
 
