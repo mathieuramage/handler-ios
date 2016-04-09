@@ -47,3 +47,4 @@ class SentMailboxViewController: AbstractMailboxViewController {
 		return view
 	}
 }
+

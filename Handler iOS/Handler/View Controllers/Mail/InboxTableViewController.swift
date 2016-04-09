@@ -235,3 +235,4 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		return view
 	}
 }
+

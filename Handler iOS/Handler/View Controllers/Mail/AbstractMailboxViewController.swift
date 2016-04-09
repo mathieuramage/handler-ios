@@ -244,3 +244,4 @@ class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UI
 	}
 	
 }
+
