@@ -12,7 +12,7 @@ import CoreData
 class UserTwitterStatusManager: NSObject {
 	
 	class func startUpdating(){
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "newDataFetched", name: fetchedTwitterDataNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserTwitterStatusManager.newDataFetched), name: fetchedTwitterDataNotification, object: nil)
 	}
 	
 	class func newDataFetched(){

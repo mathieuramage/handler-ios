@@ -100,6 +100,10 @@ class APICommunicator: NSObject {
         HRUserSessionManager.logout()
         MailDatabaseManager.sharedInstance.flushDatastore()
     }
+	
+	func flushOldArchivedMessages(){
+		 MailDatabaseManager.sharedInstance.flushOldArchiveDatastore()
+	}
     
     func signOut(){
         if authenticationState != .LoggingOut {

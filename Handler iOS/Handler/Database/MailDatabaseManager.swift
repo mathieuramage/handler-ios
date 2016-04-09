@@ -142,7 +142,22 @@ class MailDatabaseManager: NSObject {
             APICommunicator.sharedInstance.finishedFlushingStore()
         }
     }
-    
+	
+	func flushOldArchiveDatastore(){
+		
+		deleteOldArchivedMessages()
+		deleteArchivedMessagesAfter1000()
+		backgroundContext.performBlock { () -> Void in
+			do {
+				try self.backgroundContext.save()
+				try self.managedObjectContext.save()
+			} catch {
+				let nserror = error as NSError
+				NSLog("Error saving backgroundContext \(nserror), \(nserror.userInfo)")
+			}
+		}
+	}
+	
     func deleteDataForEntity(entity: String)
     {
         let managedContext = backgroundContext
@@ -161,4 +176,49 @@ class MailDatabaseManager: NSObject {
             print("Delete all \(entity)s: \(error) \(error.userInfo)")
         }
     }
+	
+	func deleteOldArchivedMessages()
+	{
+		let managedContext = backgroundContext
+		let fetchRequest = NSFetchRequest(entityName: "Message")
+		fetchRequest.returnsObjectsAsFaults = false
+		
+		let limitDate = NSDate().removeNoOfDays(60)
+		fetchRequest.predicate = NSPredicate(format: "NONE labels.id == %@ && NONE labels.id == %@ && sent_at < %@", "INBOX", "SENT", limitDate)
+		
+		do
+		{
+			let results = try managedContext.executeFetchRequest(fetchRequest)
+			for managedObject in results
+			{
+				let managedObjectData:NSManagedObject = managedObject as! NSManagedObject
+				print(managedObjectData)
+				managedContext.deleteObject(managedObjectData)
+			}
+		} catch let error as NSError {
+			print("Delete old Messages: \(error) \(error.userInfo)")
+		}
+	}
+	
+	// keeping only 1000 messages, deleting the rest
+	func deleteArchivedMessagesAfter1000()
+	{
+		let managedContext = backgroundContext
+		let fetchRequest = NSFetchRequest(entityName: "Message")
+		fetchRequest.returnsObjectsAsFaults = false
+		fetchRequest.predicate = NSPredicate(format: "NONE labels.id == %@ && NONE labels.id == %@", "INBOX", "SENT")
+		do
+		{
+			let results = try managedContext.executeFetchRequest(fetchRequest)
+			if results.count > 1000 {
+				
+				for i in 1000...results.count - 1 {
+					let managedObjectData:NSManagedObject =	results[i] as! NSManagedObject
+					managedContext.deleteObject(managedObjectData)
+				}
+			}
+		} catch let error as NSError {
+			print("Delete Messages: \(error) \(error.userInfo)")
+		}
+	}
 }

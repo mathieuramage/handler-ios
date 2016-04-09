@@ -14,4 +14,10 @@ class ArchiveMailboxViewController: AbstractMailboxViewController {
 		super.init(coder: aDecoder)
 		mailboxType = .Archive
 	}
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		
+		APICommunicator.sharedInstance.flushOldArchivedMessages()
+	}
 }
