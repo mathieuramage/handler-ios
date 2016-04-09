@@ -677,7 +677,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
 			if (string != originalReplySubject) {
 
-				let alertController = UIAlertController(title: "New Thread", message: "Changing the subject line will create a new thread. Do you want to continue?", preferredStyle: UIAlertControllerStyle.Alert)
+				let alertController = UIAlertController(title: "New Thread", message: "Changing the subject line of a thread will create a new, separate thread.", preferredStyle: UIAlertControllerStyle.Alert)
 
 				alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
 				}))
