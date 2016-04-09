@@ -222,8 +222,9 @@ class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UI
 				}
 			}
 		} else if segue.identifier == "showMessageComposeNavigationController" {
-			let dc = (segue.destinationViewController as! UINavigationController).viewControllers.first as! MessageComposeTableViewController
-			dc.draftMessage = self.messageForSegue
+			if let dc = (segue.destinationViewController as? UINavigationController)?.viewControllers.first as? MessageComposerWrapperViewController {
+				dc.draftMessage = self.messageForSegue
+			}
 		}
 	}
 
@@ -238,5 +239,10 @@ class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UI
 		style.alignment = .Center
 		return NSAttributedString(string: "Don't forget to reach out to\nold friends you played with.", attributes: [NSForegroundColorAttributeName: UIColor.grayColor(), NSFontAttributeName: UIFont.systemFontOfSize(14), NSParagraphStyleAttributeName: style])
 	}
+
+	func composeNewMessage() {
+		self.performSegueWithIdentifier("showMessageComposeNavigationController", sender: self)
+	}
 	
 }
+
