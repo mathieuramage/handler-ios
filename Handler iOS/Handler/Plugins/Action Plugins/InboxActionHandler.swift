@@ -57,9 +57,9 @@ class InboxActionHandler: MessageTableViewCellActions {
 	func leftButtonsForData(data message: Message)->[AnyObject]{
 		let array = NSMutableArray()
 		if message.isUnread {
-			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.lightBlue), icon: UIImage(named: "icon_unread"))
-		}else{
 			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.lightBlue), icon: UIImage(named: "icon_read"))
+		}else{
+			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.lightBlue), icon: UIImage(named: "icon_unread"))
 		}
 		return array as [AnyObject]
 	}
