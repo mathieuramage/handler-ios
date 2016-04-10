@@ -17,7 +17,14 @@ class ArchiveMailboxViewController: AbstractMailboxViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
 		APICommunicator.sharedInstance.flushOldArchivedMessages()
+	}
+
+	func customViewForEmptyDataSet(scrollView: UIScrollView!) -> UIView! {
+		let view = NSBundle.mainBundle().loadNibNamed("EmptyInboxView", owner: self, options: nil).first as! EmptyInboxView
+		view.imageView.image = UIImage(named: "mailbox_archive_empty")
+		view.descriptionLabel.text = "Your archive emails will be here."
+		view.actionButton.addTarget(self, action: #selector(ArchiveMailboxViewController.composeNewMessage), forControlEvents: .TouchUpInside)
+		return view
 	}
 }
