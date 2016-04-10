@@ -31,7 +31,6 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 	var progressBar: UIProgressView!
 	var lastupdatedLabel: UILabel?
 	var newEmailsLabel: UILabel?
-	var refreshTimer: dispatch_source_t!
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
