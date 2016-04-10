@@ -59,7 +59,7 @@ class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UI
 
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
-		self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Hamburger_Icon"), style: UIBarButtonItemStyle.Plain, target: self, action: "showSideMenu:")
+		self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Hamburger_Icon"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(AbstractMailboxViewController.showSideMenu(_:)))
 
 	}
 

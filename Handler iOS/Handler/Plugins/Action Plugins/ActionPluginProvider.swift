@@ -16,13 +16,13 @@ class ActionPluginProvider: NSObject {
 		case .Unread:
 			return InboxActionHandler()
 		case .Flagged:
-			return nil
+			return InboxActionHandler()
 		case .Drafts:
 			return nil
 		case .Sent:
 			return nil
 		case .Archive:
-			return nil
+			return InboxActionHandler()
 		default:
 			return nil
 		}
