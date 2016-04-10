@@ -144,11 +144,10 @@ class MailDatabaseManager: NSObject {
 	}
 
 	func flushOldArchiveDatastore(){
-
-		deleteOldArchivedMessages()
-		deleteArchivedMessagesAfter1000()
 		backgroundContext.performBlock { () -> Void in
 			do {
+				self.deleteOldArchivedMessages()
+				self.deleteArchivedMessagesAfter1000()
 				try self.backgroundContext.save()
 				try self.managedObjectContext.save()
 			} catch {
@@ -196,21 +195,22 @@ class MailDatabaseManager: NSObject {
 		}
 	}
 
-	// keeping only 1000 messages, deleting the rest
+	// Keeps only the most recent 1000 messages
 	func deleteArchivedMessagesAfter1000()
 	{
 		let managedContext = backgroundContext
 		let fetchRequest = NSFetchRequest(entityName: "Message")
 		fetchRequest.returnsObjectsAsFaults = false
 		fetchRequest.predicate = NSPredicate(format: "NONE labels.id == %@ && NONE labels.id == %@", "INBOX", "SENT")
+		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sent_at", ascending: false)]
 		do
 		{
-			let results = try managedContext.executeFetchRequest(fetchRequest)
-			if results.count > 1000 {
-
-				for i in 1000...results.count - 1 {
-					let managedObjectData:NSManagedObject =	results[i] as! NSManagedObject
-					managedContext.deleteObject(managedObjectData)
+			if let messages = try managedContext.executeFetchRequest(fetchRequest) as? [Message] {
+				if messages.count > 1000 {
+					for i in 1000...messages.count - 1 {
+						let message = messages[i]
+						managedContext.deleteObject(message)
+					}
 				}
 			}
 		} catch let error as NSError {
