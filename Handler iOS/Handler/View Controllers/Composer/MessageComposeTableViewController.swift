@@ -10,6 +10,7 @@
 import UIKit
 import HandlerSDK
 import Async
+import RichEditorView
 
 class MessageComposeTableViewController: UITableViewController, CLTokenInputViewDelegate, UITextViewDelegate, UITextFieldDelegate, FilePickerDelegate, UIDocumentPickerDelegate, UIDocumentInteractionControllerDelegate, ContactSelectionDelegate {
 
@@ -100,7 +101,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	@IBOutlet weak var addCCContactButton: UIButton!
 
 	@IBOutlet weak var subjectTextField: UITextField!
-	@IBOutlet weak var contentTextView: UITextView!
+	@IBOutlet weak var richTextContentView: RichEditorView!
 
 	@IBOutlet weak var attachmentsCell: MessageAttachmentsTableViewCell!
 
@@ -126,8 +127,14 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		
 
 		// UI Configuration
-		self.contentTextView.text = "Share something"
-		self.contentTextView.textColor = UIColor(rgba: HexCodes.lightGray)
+		self.richTextContentView.setHTML("Share something")
+		self.richTextContentView.setTextColor(UIColor(rgba: HexCodes.lightGray))
+		self.richTextContentView.delegate = self
+		self.richTextContentView.webView.dataDetectorTypes = [.All]
+		self.richTextContentView.webView.backgroundColor = UIColor.clearColor()
+		self.richTextContentView.webView.scrollView.backgroundColor = UIColor.clearColor()
+		self.richTextContentView.backgroundColor = UIColor.clearColor()
+		self.richTextContentView.webView.opaque = false
 		if let draft = draftMessage {
 
 			if let recipients = draft.recipients?.allObjects as? [User] {
@@ -140,7 +147,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 			}
 
 			self.subjectTextField.text = draft.subject
-			self.contentTextView.text = draft.content
+			self.richTextContentView.setHTML(draft.content ?? "")
 			attachmentsCell.attachments = draft.attachments?.allObjects as? [Attachment]
 
 		}else{
@@ -342,7 +349,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
 		message.attachments = NSSet(array: attachments)
 		message.recipients = NSSet(array: receivers)
-		message.content = contentTextView.text
+		message.content = richTextContentView.contentHTML
 		message.subject = subjectTextField.text ?? ""
 		return message
 	}
@@ -354,14 +361,14 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 			resignAll()
 		}
 		subjectTextField.enabled = enabled
-		contentTextView.userInteractionEnabled = enabled
+		richTextContentView.userInteractionEnabled = enabled
 		tokenView.userInteractionEnabled = enabled
 		ccTokenView.userInteractionEnabled = enabled
 	}
 
 	func resignAll(){
 		subjectTextField.resignFirstResponder()
-		contentTextView.resignFirstResponder()
+		richTextContentView.resignFirstResponder()
 		tokenView.resignFirstResponder()
 		ccTokenView.resignFirstResponder()
 	}
@@ -565,7 +572,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		if indexPath.section == 0 {
 			if indexPath.row == 2 {
-				return max(CGFloat(contentTextView.contentSize.height + 40), CGFloat(300))
+				return max(CGFloat(richTextContentView.editorHeight + 40), CGFloat(300))
 			} else if indexPath.row == 4 {
 				if FeaturesManager.attachmentsActivated {
 					return max(attachmentsCell.intrinsicContentSize().height + 20, 50+20)
@@ -735,4 +742,11 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 protocol MessageComposeTableViewControllerDelegate {
 	func autoCompleteUserForPrefix(prefix : String)
 	func setAutoCompleteViewTopInset(topInset: CGFloat)
+}
+
+extension MessageComposeTableViewController: RichEditorDelegate {
+
+	func richEditor(editor: RichEditorView, shouldInteractWithURL url: NSURL) -> Bool {
+		return false
+	}
 }
