@@ -15,3 +15,4 @@ let PRINT_TWITTER_USERDATA_RESPONSE = false
 
 //======================================= Global Variables =============================//
 let DEFAULT_BANNER_RESOLUTION = "/600x200"
+let MAILBOX_REFRESH_INTERVAL = NSTimeInterval(15 * 60) // 15 minutes

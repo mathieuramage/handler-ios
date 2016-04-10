@@ -38,7 +38,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		tableView.tableFooterView = UIView()
 		tableView.emptyDataSetSource = self
 		self.refreshControl = UIRefreshControl()
-		self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+		self.refreshControl!.addTarget(self, action: #selector(InboxTableViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
 		self.tableView.addSubview(refreshControl!)
 		MailboxObserversManager.sharedInstance.addObserverForMailboxType(.Inbox, observer: self)
 	}
@@ -85,7 +85,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		containerView.addSubview(newEmailsLabel!)
 		let item = UIBarButtonItem(customView: containerView)
 
-		let composeItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Compose, target: self, action: "composeNewMessage")
+		let composeItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Compose, target: self, action: #selector(InboxTableViewController.composeNewMessage))
 
 		self.navigationController!.toolbar.items = [space, item, space, composeItem]
 

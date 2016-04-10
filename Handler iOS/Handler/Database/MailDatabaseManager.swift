@@ -12,153 +12,209 @@ import Async
 import HandlerSDK
 
 class MailDatabaseManager: NSObject {
-    static let sharedInstance = MailDatabaseManager()
-    
-    // MARK: - Core Data Object Creation Utilities
-    
-    func storeMessage(message: HRMessage, save: Bool = true){
-        backgroundContext.performBlock { () -> Void in
-            Message.fromHRType(message)
-            if save {
-                self.saveBackgroundContext()
-            }
-        }
-    }
-    
-    func storeLabel(label: HRLabel, save: Bool = true){
-        backgroundContext.performBlock { () -> Void in
-            Label.fromHRType(label)
-            if save {
-                self.saveBackgroundContext()
-            }
-        }
-    }
-    
-    override init(){
-        super.init()
-        let _ = managedObjectContext
-    }
-    
-    func executeFetchRequest(fetchRequest: NSFetchRequest) -> [AnyObject]? {
-        do {
-            return try managedObjectContext.executeFetchRequest(fetchRequest)
-        } catch {
-            return nil
-        }
-    }
-    
-    func executeBackgroundFetchRequest(fetchRequest: NSFetchRequest) -> [AnyObject]? {
-        do {
-            return try backgroundContext.executeFetchRequest(fetchRequest)
-        } catch {
-            return nil
-        }
-    }
-    
-    // MARK: - Core Data stack
-    
-    lazy var managedObjectModel: NSManagedObjectModel = {
-        let modelURL = NSBundle.mainBundle().URLForResource("HandlerDatabaseModel", withExtension: "mom")!
-        return NSManagedObjectModel(contentsOfURL: modelURL)!
-    }()
-    
-    lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
-        let containerPath = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier("group.handler.handlerapp")
-        
-        let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-        let url = containerPath!.URLByAppendingPathComponent("database.sqlite")
-        do {
-            try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
-        } catch {
-            var dict = [String: AnyObject]()
-            dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
-            let failureReason = "There was an error creating or loading the application's saved data."
-            dict[NSLocalizedFailureReasonErrorKey] = failureReason
-            dict[NSUnderlyingErrorKey] = error as NSError
-            let wrappedError = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
-            
-            NSLog("Unresolved error \(wrappedError), \(wrappedError.userInfo)")
-            
-            // MARK: TODO - Remove for shipping
-            abort()
-        }
-        return coordinator
-    }()
-    
-    lazy var managedObjectContext: NSManagedObjectContext = {
-        let context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
-        context.persistentStoreCoordinator = self.persistentStoreCoordinator
-        return context
-    }()
-    
-    lazy var backgroundContext: NSManagedObjectContext = {
-        let context = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType)
-        context.parentContext = self.managedObjectContext
-        return self.managedObjectContext
-    }()
-    
-    // MARK: - Core Data Saving
-    
-    func saveContext () {
-        managedObjectContext.performBlock { () -> Void in
-            if self.managedObjectContext.hasChanges {
-                do {
-                    try self.managedObjectContext.save()
+	static let sharedInstance = MailDatabaseManager()
 
-                } catch {
-                    let nserror = error as NSError
-                    NSLog("Error saving context \(nserror), \(nserror.userInfo)")
-                }
-            }
-        }
-    }
-    
-    func saveBackgroundContext() {
-        backgroundContext.performBlock { () -> Void in
-            if self.backgroundContext.hasChanges {
-                do {
-                    try self.backgroundContext.save()
-                    try self.managedObjectContext.save()
-                } catch {
-                    let nserror = error as NSError
-                    NSLog("Error saving backgroundContext \(nserror), \(nserror.userInfo)")
-                }
-            }
-        }
-    }
-    
-    func flushDatastore(){
-        for entity in managedObjectModel.entities {
-            deleteDataForEntity(entity.name ?? "")
-        }
-        backgroundContext.performBlock { () -> Void in
-            do {
-                try self.backgroundContext.save()
-                try self.managedObjectContext.save()
-            } catch {
-                let nserror = error as NSError
-                NSLog("Error saving backgroundContext \(nserror), \(nserror.userInfo)")
-            }
-            APICommunicator.sharedInstance.finishedFlushingStore()
-        }
-    }
-    
-    func deleteDataForEntity(entity: String)
-    {
-        let managedContext = backgroundContext
-        let fetchRequest = NSFetchRequest(entityName: entity)
-        fetchRequest.returnsObjectsAsFaults = false
-        
-        do
-        {
-            let results = try managedContext.executeFetchRequest(fetchRequest)
-            for managedObject in results
-            {
-                let managedObjectData:NSManagedObject = managedObject as! NSManagedObject
-                managedContext.deleteObject(managedObjectData)
-            }
-        } catch let error as NSError {
-            print("Delete all \(entity)s: \(error) \(error.userInfo)")
-        }
-    }
+	// MARK: - Core Data Object Creation Utilities
+
+	func storeMessage(message: HRMessage, save: Bool = true){
+		backgroundContext.performBlock { () -> Void in
+			Message.fromHRType(message)
+			if save {
+				self.saveBackgroundContext()
+			}
+		}
+	}
+
+	func storeLabel(label: HRLabel, save: Bool = true){
+		backgroundContext.performBlock { () -> Void in
+			Label.fromHRType(label)
+			if save {
+				self.saveBackgroundContext()
+			}
+		}
+	}
+
+	override init(){
+		super.init()
+		let _ = managedObjectContext
+	}
+
+	func executeFetchRequest(fetchRequest: NSFetchRequest) -> [AnyObject]? {
+		do {
+			return try managedObjectContext.executeFetchRequest(fetchRequest)
+		} catch {
+			return nil
+		}
+	}
+
+	func executeBackgroundFetchRequest(fetchRequest: NSFetchRequest) -> [AnyObject]? {
+		do {
+			return try backgroundContext.executeFetchRequest(fetchRequest)
+		} catch {
+			return nil
+		}
+	}
+
+	// MARK: - Core Data stack
+
+	lazy var managedObjectModel: NSManagedObjectModel = {
+		let modelURL = NSBundle.mainBundle().URLForResource("HandlerDatabaseModel", withExtension: "mom")!
+		return NSManagedObjectModel(contentsOfURL: modelURL)!
+	}()
+
+	lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
+		let containerPath = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier("group.handler.handlerapp")
+
+		let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
+		let url = containerPath!.URLByAppendingPathComponent("database.sqlite")
+		do {
+			try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
+		} catch {
+			var dict = [String: AnyObject]()
+			dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
+			let failureReason = "There was an error creating or loading the application's saved data."
+			dict[NSLocalizedFailureReasonErrorKey] = failureReason
+			dict[NSUnderlyingErrorKey] = error as NSError
+			let wrappedError = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
+
+			NSLog("Unresolved error \(wrappedError), \(wrappedError.userInfo)")
+
+			// MARK: TODO - Remove for shipping
+			abort()
+		}
+		return coordinator
+	}()
+
+	lazy var managedObjectContext: NSManagedObjectContext = {
+		let context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+		context.persistentStoreCoordinator = self.persistentStoreCoordinator
+		return context
+	}()
+
+	lazy var backgroundContext: NSManagedObjectContext = {
+		let context = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType)
+		context.parentContext = self.managedObjectContext
+		return self.managedObjectContext
+	}()
+
+	// MARK: - Core Data Saving
+
+	func saveContext () {
+		managedObjectContext.performBlock { () -> Void in
+			if self.managedObjectContext.hasChanges {
+				do {
+					try self.managedObjectContext.save()
+
+				} catch {
+					let nserror = error as NSError
+					NSLog("Error saving context \(nserror), \(nserror.userInfo)")
+				}
+			}
+		}
+	}
+
+	func saveBackgroundContext() {
+		backgroundContext.performBlock { () -> Void in
+			if self.backgroundContext.hasChanges {
+				do {
+					try self.backgroundContext.save()
+					try self.managedObjectContext.save()
+				} catch {
+					let nserror = error as NSError
+					NSLog("Error saving backgroundContext \(nserror), \(nserror.userInfo)")
+				}
+			}
+		}
+	}
+
+	func flushDatastore(){
+		for entity in managedObjectModel.entities {
+			deleteDataForEntity(entity.name ?? "")
+		}
+		backgroundContext.performBlock { () -> Void in
+			do {
+				try self.backgroundContext.save()
+				try self.managedObjectContext.save()
+			} catch {
+				let nserror = error as NSError
+				NSLog("Error saving backgroundContext \(nserror), \(nserror.userInfo)")
+			}
+			APICommunicator.sharedInstance.finishedFlushingStore()
+		}
+	}
+
+	func flushOldArchiveDatastore(){
+		backgroundContext.performBlock { () -> Void in
+			do {
+				self.deleteOldArchivedMessages()
+				self.deleteArchivedMessagesAfter1000()
+				try self.backgroundContext.save()
+				try self.managedObjectContext.save()
+			} catch {
+				let nserror = error as NSError
+				NSLog("Error saving backgroundContext \(nserror), \(nserror.userInfo)")
+			}
+		}
+	}
+
+	func deleteDataForEntity(entity: String)
+	{
+		let managedContext = backgroundContext
+		let fetchRequest = NSFetchRequest(entityName: entity)
+		fetchRequest.returnsObjectsAsFaults = false
+
+		do
+		{
+			let results = try managedContext.executeFetchRequest(fetchRequest)
+			for managedObject in results
+			{
+				let managedObjectData:NSManagedObject = managedObject as! NSManagedObject
+				managedContext.deleteObject(managedObjectData)
+			}
+		} catch let error as NSError {
+			print("Delete all \(entity)s: \(error) \(error.userInfo)")
+		}
+	}
+
+	func deleteOldArchivedMessages() {
+		let managedContext = backgroundContext
+		let fetchRequest = NSFetchRequest(entityName: "Message")
+		fetchRequest.returnsObjectsAsFaults = false
+
+		let limitDate = NSDate().dateByAddingTimeInterval(-60 * 24 * 60 * 60)
+		fetchRequest.predicate = NSPredicate(format: "NONE labels.id == %@ && NONE labels.id == %@ && sent_at < %@", "INBOX", "SENT", limitDate)
+
+		do {
+			let results = try managedContext.executeFetchRequest(fetchRequest)
+			for managedObject in results {
+				let managedObjectData:NSManagedObject = managedObject as! NSManagedObject
+				managedContext.deleteObject(managedObjectData)
+			}
+		} catch let error as NSError {
+			print("Delete old Messages: \(error) \(error.userInfo)")
+		}
+	}
+
+	// Keeps only the most recent 1000 messages
+	func deleteArchivedMessagesAfter1000()
+	{
+		let managedContext = backgroundContext
+		let fetchRequest = NSFetchRequest(entityName: "Message")
+		fetchRequest.returnsObjectsAsFaults = false
+		fetchRequest.predicate = NSPredicate(format: "NONE labels.id == %@ && NONE labels.id == %@", "INBOX", "SENT")
+		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sent_at", ascending: false)]
+		do
+		{
+			if let messages = try managedContext.executeFetchRequest(fetchRequest) as? [Message] {
+				if messages.count > 1000 {
+					for i in 1000...messages.count - 1 {
+						let message = messages[i]
+						managedContext.deleteObject(message)
+					}
+				}
+			}
+		} catch let error as NSError {
+			print("Delete Messages: \(error) \(error.userInfo)")
+		}
+	}
 }

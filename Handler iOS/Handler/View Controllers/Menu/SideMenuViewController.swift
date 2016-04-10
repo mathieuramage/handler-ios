@@ -29,7 +29,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateCurrentUser", name: HRCurrentUserDidSetNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SideMenuViewController.updateCurrentUser), name: HRCurrentUserDidSetNotification, object: nil)
 
 		updateCurrentUser()
 		// Do any additional setup after loading the view.
