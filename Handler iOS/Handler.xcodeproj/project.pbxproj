@@ -163,6 +163,7 @@
 		BF03D66F1C9F13D6002EF4CC /* SentMailboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF03D66E1C9F13D6002EF4CC /* SentMailboxViewController.swift */; };
 		BF03D6711C9F13EB002EF4CC /* ArchiveMailboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF03D6701C9F13EB002EF4CC /* ArchiveMailboxViewController.swift */; };
 		BF0D39EF1CB9248100048834 /* EmptyInboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0D39EE1CB9248100048834 /* EmptyInboxView.swift */; };
+		BF6EB1501CC28DD800F1595C /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6EB14F1CC28DD800F1595C /* GradientView.swift */; };
 		DF1FD2DE1B62360600A58B71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1FD2DD1B62360600A58B71 /* AppDelegate.swift */; };
 		DF1FD2E51B62360600A58B71 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF1FD2E41B62360600A58B71 /* Images.xcassets */; };
 /* End PBXBuildFile section */
@@ -391,6 +392,7 @@
 		BF03D66E1C9F13D6002EF4CC /* SentMailboxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentMailboxViewController.swift; sourceTree = "<group>"; };
 		BF03D6701C9F13EB002EF4CC /* ArchiveMailboxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArchiveMailboxViewController.swift; sourceTree = "<group>"; };
 		BF0D39EE1CB9248100048834 /* EmptyInboxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyInboxView.swift; sourceTree = "<group>"; };
+		BF6EB14F1CC28DD800F1595C /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		DF1FD2D81B62360600A58B71 /* Handler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Handler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF1FD2DC1B62360600A58B71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF1FD2DD1B62360600A58B71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -752,6 +754,7 @@
 			children = (
 				2FDAFF781BF76AEC004CE17D /* FeaturesManager.swift */,
 				2F4E41621BB0AC7300AA2DEF /* GradientNavigationController.swift */,
+				BF6EB14F1CC28DD800F1595C /* GradientView.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -1014,6 +1017,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2F0136961BCFD744008BAD9D /* IntroViewController.swift in Sources */,
+				BF6EB1501CC28DD800F1595C /* GradientView.swift in Sources */,
 				2FF8B8EC1BD4F53E00014C9E /* CurrentStatusManager.swift in Sources */,
 				BF03D6711C9F13EB002EF4CC /* ArchiveMailboxViewController.swift in Sources */,
 				2FA2EA8C1BAD9C970027EA77 /* LoginViewController.swift in Sources */,
