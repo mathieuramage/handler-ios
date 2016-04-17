@@ -71,8 +71,8 @@ class MessageComposerWrapperViewController: UIViewController, AutoCompleteDelega
 			if let composerTableViewController = segue.destinationViewController as? MessageComposeTableViewController {
 				self.messageComposerController = composerTableViewController
 				composerTableViewController.delegate = self
-				composerTableViewController.messageToReplyTo = messageToReplyTo
 				composerTableViewController.draftMessage = draftMessage
+				composerTableViewController.messageToReplyTo = messageToReplyTo
 			}
 		} else if segue.identifier == "embedAutoComplete" {
 
