@@ -144,12 +144,12 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KM9-Zp-Ha6" userLabel="Compose Rich Text" customClass="RichEditorView" customModule="RichEditorView">
-                                                    <rect key="frame" x="8" y="8" width="359" height="283"/>
+                                                    <rect key="frame" x="15" y="8" width="352" height="283"/>
                                                 </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="KM9-Zp-Ha6" firstAttribute="top" secondItem="CAi-aP-scj" secondAttribute="topMargin" id="Who-ik-zq6"/>
-                                                <constraint firstItem="KM9-Zp-Ha6" firstAttribute="leading" secondItem="CAi-aP-scj" secondAttribute="leadingMargin" id="bhK-G4-vQQ"/>
+                                                <constraint firstItem="KM9-Zp-Ha6" firstAttribute="leading" secondItem="CAi-aP-scj" secondAttribute="leading" constant="15" id="bhK-G4-vQQ"/>
                                                 <constraint firstItem="KM9-Zp-Ha6" firstAttribute="bottom" secondItem="CAi-aP-scj" secondAttribute="bottomMargin" id="eJ9-i0-85O"/>
                                                 <constraint firstItem="KM9-Zp-Ha6" firstAttribute="trailing" secondItem="CAi-aP-scj" secondAttribute="trailingMargin" id="eub-sk-W0h"/>
                                             </constraints>

@@ -127,7 +127,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		
 
 		// UI Configuration
-		self.richTextContentView.setHTML("Share something")
+		self.richTextContentView.setPlaceholderText("Share something")
 		self.richTextContentView.setTextColor(UIColor(rgba: HexCodes.lightGray))
 		self.richTextContentView.delegate = self
 		self.richTextContentView.webView.dataDetectorTypes = [.All]
