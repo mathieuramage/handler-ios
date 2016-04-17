@@ -19,6 +19,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 	@IBOutlet weak var profileBannerImageView: UIImageView!
 	@IBOutlet weak var logoutButton: UIButton!
 	@IBOutlet weak var helpButton: UIButton!
+	@IBOutlet weak var gradientView: GradientView!
 
 	var optionsTableViewController: MailBoxOptionsTableViewController? {
 		didSet {
@@ -32,7 +33,9 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SideMenuViewController.updateCurrentUser), name: HRCurrentUserDidSetNotification, object: nil)
 
 		updateCurrentUser()
-		// Do any additional setup after loading the view.
+		gradientView.colors = [UIColor.whiteColor(), UIColor.blackColor().colorWithAlphaComponent(0.5)]
+		view.sendSubviewToBack(gradientView)
+		view.sendSubviewToBack(profileBannerImageView) //Workaround
 	}
 
 	override func viewDidAppear(animated: Bool) {
@@ -54,7 +57,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 					}
 					Async.main {
 						if let urlString = json["profile_banner_url"].string, let url = NSURL(string: urlString + DEFAULT_BANNER_RESOLUTION){
-							self.profileBannerImageView.kf_setImageWithURL(url, placeholderImage: UIImage(named: "twitter_default"), optionsInfo: [.Transition(ImageTransition.Fade(0.3))])
+							self.profileBannerImageView.kf_setImageWithURL(url, placeholderImage: nil, optionsInfo: [.Transition(ImageTransition.Fade(0.3))])
 						}
 					}
 				})
@@ -113,10 +116,36 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 
 	@IBAction func signoutPressed(sender: UIButton) {
 
+		let alert = UIAlertController(title: "Sign Out", message: "Are you sure? Signing out will remove all Handler data from your phone", preferredStyle: .Alert)
+		alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) in
+			self.signOut()
+		}))
+
+		alert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: { (action) in
+		}))
+
+		presentViewController(alert, animated: true, completion: nil)
+	}
+
+	@IBAction func helpPressed(sender: UIButton) {
+		let messageNC = (UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("MessageComposeNavigationController") as! GradientNavigationController)
+		let messageWrapper = messageNC.viewControllers.first as! MessageComposerWrapperViewController
+		messageWrapper.title = "New Message"
+
+
+		let message = Message(managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
+		message.recipients = NSSet(array: [User.fromHandle("handlerHQ")])
+		message.subject = "Help & feedback"
+
+		messageWrapper.draftMessage = message
+
+		self.presentViewController(messageNC, animated: true, completion: nil)
+	}
+
+	func signOut() {
 		self.profileHandleLabel.text = ""
 		self.profileNameLabel.text = ""
 		self.profileImageView.image = UIImage.randomGhostImage()
-		self.profileBannerImageView.image = UIImage(named: "twitter_default")
 
 		Async.main {
 			APICommunicator.sharedInstance.signOut()
@@ -131,10 +160,6 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 					}
 			})
 		}
-	}
-
-	@IBAction func helpPressed(sender: UIButton) {
-		// TODO: Show help
 	}
 
 	// MARK: - Navigation
