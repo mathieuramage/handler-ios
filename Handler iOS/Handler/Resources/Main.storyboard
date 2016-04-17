@@ -143,18 +143,13 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="299.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KM9-Zp-Ha6">
-                                                    <rect key="frame" x="8" y="8" width="359" height="283"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                    <connections>
-                                                        <outlet property="delegate" destination="R4V-8Z-GOe" id="Lnd-x5-aF7"/>
-                                                    </connections>
-                                                </textView>
+                                                <view clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KM9-Zp-Ha6" userLabel="Compose Rich Text" customClass="RichEditorView" customModule="RichEditorView">
+                                                    <rect key="frame" x="15" y="8" width="352" height="283"/>
+                                                </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="KM9-Zp-Ha6" firstAttribute="top" secondItem="CAi-aP-scj" secondAttribute="topMargin" id="Who-ik-zq6"/>
-                                                <constraint firstItem="KM9-Zp-Ha6" firstAttribute="leading" secondItem="CAi-aP-scj" secondAttribute="leadingMargin" id="bhK-G4-vQQ"/>
+                                                <constraint firstItem="KM9-Zp-Ha6" firstAttribute="leading" secondItem="CAi-aP-scj" secondAttribute="leading" constant="15" id="bhK-G4-vQQ"/>
                                                 <constraint firstItem="KM9-Zp-Ha6" firstAttribute="bottom" secondItem="CAi-aP-scj" secondAttribute="bottomMargin" id="eJ9-i0-85O"/>
                                                 <constraint firstItem="KM9-Zp-Ha6" firstAttribute="trailing" secondItem="CAi-aP-scj" secondAttribute="trailingMargin" id="eub-sk-W0h"/>
                                             </constraints>
@@ -259,7 +254,7 @@
                         <outlet property="addToContactButton" destination="1w1-mc-jAw" id="DYL-3d-Vwk"/>
                         <outlet property="attachmentsCell" destination="za4-xx-KsT" id="Cgn-bS-d1S"/>
                         <outlet property="ccTokenView" destination="0ya-Os-omQ" id="wm1-YV-8fj"/>
-                        <outlet property="contentTextView" destination="KM9-Zp-Ha6" id="Bfs-75-YFu"/>
+                        <outlet property="richTextContentView" destination="KM9-Zp-Ha6" id="sVC-UR-81o"/>
                         <outlet property="subjectTextField" destination="8Xl-EX-lJN" id="lCI-Wt-R27"/>
                         <outlet property="tokenView" destination="ayM-Sc-WNI" id="5Pd-oR-5mk"/>
                         <segue destination="h86-ZE-kk4" kind="show" identifier="showContacts" id="241-TL-jtr"/>
