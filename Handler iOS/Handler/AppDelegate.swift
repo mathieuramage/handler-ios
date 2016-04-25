@@ -44,16 +44,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		UITextField.appearance().tintColor = UIColor(rgba: HexCodes.lightBlue)
 		UITextView.appearance().tintColor = UIColor(rgba: HexCodes.lightBlue)
 		UIImageView.appearance().clipsToBounds = true
-		if (NSUserDefaults.standardUserDefaults().boolForKey("didFinishWalkthrough") && !ENABLE_ONBOARDING_EVERY_RUN) {
-			if let _ = Twitter.sharedInstance().sessionStore.session() {
-				APICommunicator.sharedInstance.attemptRelogin()
-				window?.rootViewController = sideMenu
-			}else{
-				window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
-			}
-		}else{
-			window?.rootViewController = IntroViewController(nibName: "IntroView", bundle: nil)
-		}
+//		if (NSUserDefaults.standardUserDefaults().boolForKey("didFinishWalkthrough") && !ENABLE_ONBOARDING_EVERY_RUN) {
+//			if let _ = Twitter.sharedInstance().sessionStore.session() {
+//				APICommunicator.sharedInstance.attemptRelogin()
+//				window?.rootViewController = sideMenu
+//			}else{
+//				window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
+//			}
+//		}else{
+//			window?.rootViewController = IntroViewController(nibName: "IntroView", bundle: nil)
+//		}
+
+		window?.rootViewController =  UIStoryboard(name: "Contacts", bundle: nil).instantiateInitialViewController()
+
 		window?.makeKeyAndVisible()
 
 		let settings = UIUserNotificationSettings(forTypes: [UIUserNotificationType.Badge, UIUserNotificationType.Sound, UIUserNotificationType.Alert], categories: nil)

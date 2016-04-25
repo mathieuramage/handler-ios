@@ -83,6 +83,34 @@ class TwitterAPICommunicator: NSObject {
 			}
 		}
 	}
+
+
+	class func getTwitterFriends(callback : (users : [User]) -> ()) {
+
+		if let session = Twitter.sharedInstance().sessionStore.session() as? TWTRSession {
+
+			let client = TWTRAPIClient(userID: session.userID)
+			let friendsEndpoint = "https://api.twitter.com/1.1/friends/ids.json"
+			let params = ["stringify_ids": "true"]
+
+			let request = client.URLRequestWithMethod("GET", URL: friendsEndpoint, parameters: params, error: nil)
+
+			client.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
+
+				guard connectionError == nil else {
+					callback(users: [])
+					return
+				}
+
+				print(response)
+				print(data)
+
+
+			}
+
+		}
+
+	}
 	
 	class func followStatusForID(id: String)->TwitterFriendshipStatus{
 		for friendID in sharedInstance.friendIDS {

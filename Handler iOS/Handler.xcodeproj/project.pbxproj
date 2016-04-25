@@ -11,7 +11,7 @@
 		2F0136981BCFD82E008BAD9D /* IntroView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F0136971BCFD82E008BAD9D /* IntroView.xib */; };
 		2F01369A1BCFDA98008BAD9D /* RoundedBorderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0136991BCFDA98008BAD9D /* RoundedBorderButton.swift */; };
 		2F01369F1BD1029A008BAD9D /* ContactsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F01369E1BD1029A008BAD9D /* ContactsTableViewController.swift */; };
-		2F0136A11BD10422008BAD9D /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0136A01BD10422008BAD9D /* ContactTableViewCell.swift */; };
+		2F0136A11BD10422008BAD9D /* ContactLegacyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0136A01BD10422008BAD9D /* ContactLegacyTableViewCell.swift */; };
 		2F0136A31BD10EE4008BAD9D /* TwitterAPICommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0136A21BD10EE4008BAD9D /* TwitterAPICommunicator.swift */; };
 		2F0136A51BD11C87008BAD9D /* UserTwitterStatusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0136A41BD11C87008BAD9D /* UserTwitterStatusManager.swift */; };
 		2F041D541BCA7D24009985EB /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F041D531BCA7D24009985EB /* ErrorHandler.swift */; };
@@ -164,6 +164,9 @@
 		BF03D6711C9F13EB002EF4CC /* ArchiveMailboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF03D6701C9F13EB002EF4CC /* ArchiveMailboxViewController.swift */; };
 		BF0D39EF1CB9248100048834 /* EmptyInboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0D39EE1CB9248100048834 /* EmptyInboxView.swift */; };
 		BF6EB1501CC28DD800F1595C /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6EB14F1CC28DD800F1595C /* GradientView.swift */; };
+		BFE739C61CCA1DED002F84CD /* Contacts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFE739C51CCA1DED002F84CD /* Contacts.storyboard */; };
+		BFE739C81CCA2FAA002F84CD /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE739C71CCA2FAA002F84CD /* ContactsViewController.swift */; };
+		BFE739CA1CCA36E7002F84CD /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE739C91CCA36E7002F84CD /* ContactTableViewCell.swift */; };
 		DF1FD2DE1B62360600A58B71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1FD2DD1B62360600A58B71 /* AppDelegate.swift */; };
 		DF1FD2E51B62360600A58B71 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF1FD2E41B62360600A58B71 /* Images.xcassets */; };
 /* End PBXBuildFile section */
@@ -227,7 +230,7 @@
 		2F0136971BCFD82E008BAD9D /* IntroView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntroView.xib; sourceTree = "<group>"; };
 		2F0136991BCFDA98008BAD9D /* RoundedBorderButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedBorderButton.swift; sourceTree = "<group>"; };
 		2F01369E1BD1029A008BAD9D /* ContactsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsTableViewController.swift; sourceTree = "<group>"; };
-		2F0136A01BD10422008BAD9D /* ContactTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
+		2F0136A01BD10422008BAD9D /* ContactLegacyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactLegacyTableViewCell.swift; sourceTree = "<group>"; };
 		2F0136A21BD10EE4008BAD9D /* TwitterAPICommunicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterAPICommunicator.swift; sourceTree = "<group>"; };
 		2F0136A41BD11C87008BAD9D /* UserTwitterStatusManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTwitterStatusManager.swift; sourceTree = "<group>"; };
 		2F041D531BCA7D24009985EB /* ErrorHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
@@ -393,6 +396,9 @@
 		BF03D6701C9F13EB002EF4CC /* ArchiveMailboxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArchiveMailboxViewController.swift; sourceTree = "<group>"; };
 		BF0D39EE1CB9248100048834 /* EmptyInboxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyInboxView.swift; sourceTree = "<group>"; };
 		BF6EB14F1CC28DD800F1595C /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		BFE739C51CCA1DED002F84CD /* Contacts.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Contacts.storyboard; sourceTree = "<group>"; };
+		BFE739C71CCA2FAA002F84CD /* ContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
+		BFE739C91CCA36E7002F84CD /* ContactTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
 		DF1FD2D81B62360600A58B71 /* Handler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Handler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF1FD2DC1B62360600A58B71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF1FD2DD1B62360600A58B71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -449,6 +455,8 @@
 			isa = PBXGroup;
 			children = (
 				2F01369E1BD1029A008BAD9D /* ContactsTableViewController.swift */,
+				BFE739C71CCA2FAA002F84CD /* ContactsViewController.swift */,
+				BFE739C91CCA36E7002F84CD /* ContactTableViewCell.swift */,
 			);
 			path = Contacts;
 			sourceTree = "<group>";
@@ -485,7 +493,7 @@
 				7A372D781C6FA721009E400C /* ContactAutocompleteCell.swift */,
 				7A372D791C6FA721009E400C /* ContactAutocompleteCell.xib */,
 				2F09DB231BC69F3F00B81FE2 /* AttachmentThumbnailCollectionViewCell.swift */,
-				2F0136A01BD10422008BAD9D /* ContactTableViewCell.swift */,
+				2F0136A01BD10422008BAD9D /* ContactLegacyTableViewCell.swift */,
 				2FEA14611BF77CC0008E31F1 /* MailBoxMenuOptionTableViewCell.swift */,
 				2F09DB251BC6A0A300B81FE2 /* MessageAttachmentsTableViewCell.swift */,
 				2F4E415D1BB0A13700AA2DEF /* MessageTableViewCell.swift */,
@@ -620,7 +628,6 @@
 				2FF0D1371BB4BC4E009467B5 /* SwipeCell */,
 				2F0580561BC02FBC00600B8B /* HandlerDatabaseModel.xcdatamodel */,
 				DF1FD2E41B62360600A58B71 /* Images.xcassets */,
-				2FA2EA8D1BAD9CBA0027EA77 /* Main.storyboard */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -807,6 +814,15 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		BFE739C41CCA1D9D002F84CD /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				2FA2EA8D1BAD9CBA0027EA77 /* Main.storyboard */,
+				BFE739C51CCA1DED002F84CD /* Contacts.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
 		DF1FD2CF1B62360600A58B71 = {
 			isa = PBXGroup;
 			children = (
@@ -838,6 +854,7 @@
 				2FA2EA6D1BAC4EAC0027EA77 /* Database */,
 				2FDDE0FF1BAEB270006C3500 /* Extensions */,
 				2F7B0D041BFDD9880015C43A /* Plugins */,
+				BFE739C41CCA1D9D002F84CD /* Storyboards */,
 				2FA2EA8A1BAD9C7A0027EA77 /* View Controllers */,
 				2FDDE1451BB04F8A006C3500 /* Views */,
 				2FA2EA8F1BAD9D1F0027EA77 /* Resources */,
@@ -952,6 +969,7 @@
 				2F0136981BCFD82E008BAD9D /* IntroView.xib in Resources */,
 				7A372D7B1C6FA721009E400C /* ContactAutocompleteCell.xib in Resources */,
 				7ACDBD5D1C8CAD7F004F5E25 /* ThreadMessageTableViewCell.xib in Resources */,
+				BFE739C61CCA1DED002F84CD /* Contacts.storyboard in Resources */,
 				2FB2FA931C1DF6AE00F492EF /* GreetingViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1091,6 +1109,7 @@
 				2F88F1CF1BD43CF700844A90 /* HRDownloadAction.swift in Sources */,
 				2FDDE0F31BAEA957006C3500 /* User+CoreDataProperties.swift in Sources */,
 				2F7B0D071BFDD9A20015C43A /* ActionProtocols.swift in Sources */,
+				BFE739CA1CCA36E7002F84CD /* ContactTableViewCell.swift in Sources */,
 				BF0D39EF1CB9248100048834 /* EmptyInboxView.swift in Sources */,
 				2F4E41631BB0AC7300AA2DEF /* GradientNavigationController.swift in Sources */,
 				2FB5A4471BB20A6E0087D006 /* MailBoxOptionsTableViewController.swift in Sources */,
@@ -1105,11 +1124,12 @@
 				2F090CC01BC8397000F00893 /* UTI.swift in Sources */,
 				2F0580571BC02FBC00600B8B /* HandlerDatabaseModel.xcdatamodel in Sources */,
 				2FB2FA921C1DF6AE00F492EF /* GreetingViewController.swift in Sources */,
+				BFE739C81CCA2FAA002F84CD /* ContactsViewController.swift in Sources */,
 				2FDDE0F41BAEA957006C3500 /* User.swift in Sources */,
 				7A372D7A1C6FA721009E400C /* ContactAutocompleteCell.swift in Sources */,
 				2F81E78A1C1C67B200642337 /* BottomBarActionPluginProvider.swift in Sources */,
 				2FDDE0F01BAEA957006C3500 /* Label.swift in Sources */,
-				2F0136A11BD10422008BAD9D /* ContactTableViewCell.swift in Sources */,
+				2F0136A11BD10422008BAD9D /* ContactLegacyTableViewCell.swift in Sources */,
 				2FF788391BB5C6E700B297D3 /* Enumerations.swift in Sources */,
 				2F994E541BB2AE8100A63B9B /* UIColor+HandlerColors.swift in Sources */,
 				2F994E4D1BB2AE3500A63B9B /* NSMutableArray+SWUtilityButtons.m in Sources */,

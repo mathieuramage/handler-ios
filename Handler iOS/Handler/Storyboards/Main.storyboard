@@ -35,7 +35,7 @@
                         <barButtonItem key="rightBarButtonItem" image="Contacts_Icon" id="N5f-YM-ju6">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
-                                <segue destination="h86-ZE-kk4" kind="show" id="XtR-7h-DTu"/>
+                                <segue destination="A8C-NE-NAc" kind="presentation" id="yZh-h4-TiK"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -673,6 +673,14 @@
             <point key="canvasLocation" x="634.5" y="-151.5"/>
         </scene>
         <!--Contacts-->
+        <scene sceneID="IsC-dE-kFN">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Contacts" id="A8C-NE-NAc" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IKS-wY-Fmu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1979.5" y="-1799"/>
+        </scene>
+        <!--Contacts-->
         <scene sceneID="9Bu-bD-fVT">
             <objects>
                 <tableViewController storyboardIdentifier="ContactsTableViewController" id="h86-ZE-kk4" customClass="ContactsTableViewController" customModule="Handler" customModuleProvider="target" sceneMemberID="viewController">
@@ -681,7 +689,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="contactCell" rowHeight="50" id="coe-iU-1Lk" customClass="ContactTableViewCell" customModule="Handler" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="contactCell" rowHeight="50" id="coe-iU-1Lk" customClass="ContactLegacyTableViewCell" customModule="Handler" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="coe-iU-1Lk" id="yh3-TD-BIA">
@@ -753,7 +761,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aMU-Ab-8mQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1636.5" y="1736.5"/>
+            <point key="canvasLocation" x="1872.5" y="2028.5"/>
         </scene>
         <!--Mail Box Options Table View Controller-->
         <scene sceneID="i2f-Tf-RVn">
@@ -1232,9 +1240,8 @@
         <image name="menu_help_icon" width="16" height="14"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="0Lu-NQ-iqa"/>
-        <segue reference="241-TL-jtr"/>
-        <segue reference="ztf-hg-YcD"/>
+        <segue reference="37u-X4-Rqh"/>
+        <segue reference="l3v-e4-Wcd"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
 </document>

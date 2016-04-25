@@ -10,7 +10,7 @@ import UIKit
 import Async
 import Kingfisher
 
-class ContactTableViewCell: UITableViewCell {
+class ContactLegacyTableViewCell: UITableViewCell {
     
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
