@@ -229,7 +229,7 @@
         </view>
     </objects>
     <resources>
-        <image name="Cancel" width="102" height="102"/>
+        <image name="Cancel" width="40" height="39"/>
         <image name="twitter_default" width="2247" height="190"/>
     </resources>
 </document>
