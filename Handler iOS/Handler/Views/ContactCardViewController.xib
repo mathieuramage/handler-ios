@@ -31,7 +31,7 @@
                         <constraint firstAttribute="height" constant="50" id="GST-kS-w0X"/>
                         <constraint firstAttribute="width" constant="50" id="Qhu-K0-dKe"/>
                     </constraints>
-                    <state key="normal" image="Cancel">
+                    <state key="normal" image="cancel">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
@@ -229,7 +229,7 @@
         </view>
     </objects>
     <resources>
-        <image name="Cancel" width="40" height="39"/>
+        <image name="cancel" width="40" height="39"/>
         <image name="twitter_default" width="2247" height="190"/>
     </resources>
 </document>
