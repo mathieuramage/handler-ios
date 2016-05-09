@@ -78,32 +78,32 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 			switch indexPath.row {
 			case 0:
 				//Inbox
-				let inboxViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("InboxTableViewController")
+				let inboxViewController = Storyboards.Main.instantiateViewControllerWithIdentifier("InboxTableViewController")
 				nc.setViewControllers([inboxViewController], animated: false)
 				return
 			case 1:
 				// Unread
-				let unreadVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("UnreadMailboxViewController")
+				let unreadVC = Storyboards.Main.instantiateViewControllerWithIdentifier("UnreadMailboxViewController")
 				nc.setViewControllers([unreadVC], animated: false)
 				break;
 			case 2:
 				// Flagged
-				let flaggedVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("FlaggedMailboxViewController")
+				let flaggedVC = Storyboards.Main.instantiateViewControllerWithIdentifier("FlaggedMailboxViewController")
 				nc.setViewControllers([flaggedVC], animated: false)
 				break;
 			case 3:
 				// Drafts
-				let draftsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("DraftsMailboxViewController")
+				let draftsVC = Storyboards.Main.instantiateViewControllerWithIdentifier("DraftsMailboxViewController")
 				nc.setViewControllers([draftsVC], animated: false)
 				break;
 			case 4:
 				// Sent
-				let sentVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SentMailboxViewController")
+				let sentVC = Storyboards.Main.instantiateViewControllerWithIdentifier("SentMailboxViewController")
 				nc.setViewControllers([sentVC], animated: false)
 				break;
 			case 5:
 				// Archive
-				let archiveVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("ArchiveMailboxViewController")
+				let archiveVC = Storyboards.Main.instantiateViewControllerWithIdentifier("ArchiveMailboxViewController")
 				nc.setViewControllers([archiveVC], animated: false)
 				break;
 			default:
@@ -128,7 +128,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 	}
 
 	@IBAction func helpPressed(sender: UIButton) {
-		let messageNC = (UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("MessageComposeNavigationController") as! GradientNavigationController)
+		let messageNC = Storyboards.Compose.instantiateViewControllerWithIdentifier("MessageComposeNavigationController") as! GradientNavigationController
 		let messageWrapper = messageNC.viewControllers.first as! MessageComposerWrapperViewController
 		messageWrapper.title = "New Message"
 
@@ -151,10 +151,10 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 			APICommunicator.sharedInstance.signOut()
 
 			UIView.transitionWithView(AppDelegate.sharedInstance().window!, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: { () -> Void in
-				AppDelegate.sharedInstance().window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
+				AppDelegate.sharedInstance().window?.rootViewController = Storyboards.Intro.instantiateViewControllerWithIdentifier("LoginViewController")
 				}, completion: { (success) in
 					AppDelegate.sharedInstance().sideMenu.hideMenuViewController()
-					let inboxViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("InboxTableViewController") as! InboxTableViewController
+					let inboxViewController = Storyboards.Main.instantiateViewControllerWithIdentifier("InboxTableViewController") as! InboxTableViewController
 					if let nc = AppDelegate.sharedInstance().sideMenu.contentViewController as? UINavigationController {
 						nc.setViewControllers([inboxViewController], animated: true)
 					}

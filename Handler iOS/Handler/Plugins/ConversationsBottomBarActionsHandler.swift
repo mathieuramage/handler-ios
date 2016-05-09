@@ -113,7 +113,7 @@ class ConversationsBottomBarActionsHandler: NSObject, BottomBarActionPlugin {
 			case reply:
 				let cont = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
 				cont.addAction(UIAlertAction(title: "Reply", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-					let replyNC = (UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("MessageComposeNavigationController") as! GradientNavigationController)
+					let replyNC = Storyboards.Compose.instantiateViewControllerWithIdentifier("MessageComposeNavigationController") as! GradientNavigationController
 					let replyWrapper = replyNC.viewControllers.first as! MessageComposerWrapperViewController
 					replyWrapper.messageToReplyTo = message
 					replyWrapper.title = "New Reply"

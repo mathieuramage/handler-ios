@@ -21,8 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
 	lazy var sideMenu: SSASideMenu = {
-		let menuViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SideMenuViewController") as! SideMenuViewController
-		let mainController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("MainNavigationController")
+		let menuViewController = Storyboards.Main.instantiateViewControllerWithIdentifier("SideMenuViewController") as! SideMenuViewController
+		let mainController = Storyboards.Main.instantiateViewControllerWithIdentifier("MainNavigationController")
 		let sideMenu = SSASideMenu(contentViewController: mainController, leftMenuViewController: menuViewController)
 		sideMenu.type = SSASideMenu.SSASideMenuType.Slip
 		sideMenu.contentViewInPortraitOffsetCenterX = 30
@@ -44,18 +44,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		UITextField.appearance().tintColor = UIColor(rgba: HexCodes.lightBlue)
 		UITextView.appearance().tintColor = UIColor(rgba: HexCodes.lightBlue)
 		UIImageView.appearance().clipsToBounds = true
-//		if (NSUserDefaults.standardUserDefaults().boolForKey("didFinishWalkthrough") && !ENABLE_ONBOARDING_EVERY_RUN) {
-//			if let _ = Twitter.sharedInstance().sessionStore.session() {
-//				APICommunicator.sharedInstance.attemptRelogin()
-//				window?.rootViewController = sideMenu
-//			}else{
-//				window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
-//			}
-//		}else{
-//			window?.rootViewController = IntroViewController(nibName: "IntroView", bundle: nil)
-//		}
-
-		window?.rootViewController =  UIStoryboard(name: "Contacts", bundle: nil).instantiateInitialViewController()
+		if (NSUserDefaults.standardUserDefaults().boolForKey("didFinishWalkthrough") && !ENABLE_ONBOARDING_EVERY_RUN) {
+			if let _ = Twitter.sharedInstance().sessionStore.session() {
+				APICommunicator.sharedInstance.attemptRelogin()
+				window?.rootViewController = sideMenu
+			}else{
+				window?.rootViewController = Storyboards.Intro.instantiateViewControllerWithIdentifier("LoginViewController")
+			}
+		}else{
+			window?.rootViewController = IntroViewController(nibName: "IntroView", bundle: nil)
+		}
 
 		window?.makeKeyAndVisible()
 

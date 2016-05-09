@@ -76,14 +76,14 @@ class APICommunicator: NSObject {
                 if let error = error {
                     self.authenticationState = .LoggedOut
                     error.show()
-                    AppDelegate.sharedInstance().window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
+                    AppDelegate.sharedInstance().window?.rootViewController = Storyboards.Intro.instantiateViewControllerWithIdentifier("LoginViewController")
                 }else if let _ = session {
                     self.authenticationState = .LoggedIn
                 }
             });
         }else{
             self.authenticationState = .LoggedOut
-            AppDelegate.sharedInstance().window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
+            AppDelegate.sharedInstance().window?.rootViewController = Storyboards.Intro.instantiateViewControllerWithIdentifier("LoginViewController")
         }
     }
     

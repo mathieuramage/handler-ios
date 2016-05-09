@@ -12,5 +12,6 @@
 #import "SWTableViewCell.h"
 #import "CLTokenInputView.h"
 #import "CLTokenView.h"
+#import "APAddressBook-Bridging.h"
 
 #endif /* Handler_Bridging_Header_h */
