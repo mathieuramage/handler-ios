@@ -21,8 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
 	lazy var sideMenu: SSASideMenu = {
-		let menuViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SideMenuViewController") as! SideMenuViewController
-		let mainController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("MainNavigationController")
+		let menuViewController = Storyboards.Main.instantiateViewControllerWithIdentifier("SideMenuViewController") as! SideMenuViewController
+		let mainController = Storyboards.Main.instantiateViewControllerWithIdentifier("MainNavigationController")
 		let sideMenu = SSASideMenu(contentViewController: mainController, leftMenuViewController: menuViewController)
 		sideMenu.type = SSASideMenu.SSASideMenuType.Slip
 		sideMenu.contentViewInPortraitOffsetCenterX = 30
@@ -49,11 +49,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				APICommunicator.sharedInstance.attemptRelogin()
 				window?.rootViewController = sideMenu
 			}else{
-				window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
+				window?.rootViewController = Storyboards.Intro.instantiateViewControllerWithIdentifier("LoginViewController")
 			}
 		}else{
 			window?.rootViewController = IntroViewController(nibName: "IntroView", bundle: nil)
 		}
+
 		window?.makeKeyAndVisible()
 
 		let settings = UIUserNotificationSettings(forTypes: [UIUserNotificationType.Badge, UIUserNotificationType.Sound, UIUserNotificationType.Alert], categories: nil)

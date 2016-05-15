@@ -71,7 +71,7 @@ class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UI
 
 		if let message = notification.object {
 			if message is Message {
-				let replyNC = (UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("MessageComposeNavigationController") as! GradientNavigationController)
+				let replyNC = Storyboards.Main.instantiateViewControllerWithIdentifier("MessageComposeNavigationController") as! GradientNavigationController
 				let replyVC = replyNC.viewControllers.first as! MessageComposeTableViewController
 				replyVC.messageToReplyTo = message as? Message
 				self.presentViewController(replyNC, animated: true, completion: nil)
