@@ -1,3 +1,0 @@
-[submodule "HandlerSDK"]
-	path = HandlerSDK
-	url = git@github.com:mathieuramage/handler-ios-sdk.git
