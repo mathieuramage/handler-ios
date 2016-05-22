@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import HandlerSDK
+import HandleriOSSDK
 import Async
 
 struct InboxFormatter: MessageTableViewCellFormatter {

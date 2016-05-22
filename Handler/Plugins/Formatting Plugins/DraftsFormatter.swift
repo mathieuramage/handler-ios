@@ -8,7 +8,7 @@
 
 import UIKit
 import Async
-import HandlerSDK
+import HandleriOSSDK
 
 struct DraftsFormatter: MessageTableViewCellFormatter {
     

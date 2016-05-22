@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import HandlerSDK
+import HandleriOSSDK
 
 class ErrorPopupQueue: NSObject {
     private var errors: [HRError] = [HRError]()

@@ -9,7 +9,7 @@
 import UIKit
 import TwitterKit
 import KeychainAccess
-import HandlerSDK
+import HandleriOSSDK
 
 class LoginViewController: UIViewController {
     

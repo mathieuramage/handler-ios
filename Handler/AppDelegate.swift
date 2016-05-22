@@ -9,7 +9,7 @@
 import UIKit
 import Fabric
 import TwitterKit
-import HandlerSDK
+import HandleriOSSDK
 import Crashlytics
 import Async
 
@@ -54,6 +54,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}else{
 			window?.rootViewController = IntroViewController(nibName: "IntroView", bundle: nil)
 		}
+
+		HandlerAPI.startWithClientId("9c3594fbb153aec6c70477a66229bca7786b7b7b5beb6b2c68c2997ab7ca1e4f", clientSecret : "58614156d6144ed0fd76a0cad80e00cfb5bd2fc33ec1e348fd8d6ffa18d66007")
 
 		window?.makeKeyAndVisible()
 

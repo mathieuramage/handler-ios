@@ -8,7 +8,7 @@
 
 import Foundation
 import CoreData
-import HandlerSDK
+import HandleriOSSDK
 
 // MARK: Database Type Conversino
 

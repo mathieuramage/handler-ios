@@ -8,7 +8,7 @@
 //
 
 import UIKit
-import HandlerSDK
+import HandleriOSSDK
 import Async
 import RichEditorView
 

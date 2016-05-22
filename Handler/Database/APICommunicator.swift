@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import HandlerSDK
+import HandleriOSSDK
 import KeychainAccess
 import TwitterKit
 import Async

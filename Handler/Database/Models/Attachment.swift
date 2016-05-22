@@ -8,7 +8,7 @@
 
 import Foundation
 import CoreData
-import HandlerSDK
+import HandleriOSSDK
 import MobileCoreServices
 
 final class Attachment: NSManagedObject, CoreDataConvertible {

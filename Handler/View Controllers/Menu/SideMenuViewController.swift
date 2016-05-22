@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import HandlerSDK
+import HandleriOSSDK
 import Kingfisher
 import Async
 

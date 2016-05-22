@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import HandlerSDK
+import HandleriOSSDK
 
 class UploadManager: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
 	

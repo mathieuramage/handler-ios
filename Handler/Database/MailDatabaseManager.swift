@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 import Async
-import HandlerSDK
+import HandleriOSSDK
 
 class MailDatabaseManager: NSObject {
 	static let sharedInstance = MailDatabaseManager()

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import HandlerSDK
+import HandleriOSSDK
 
 class ErrorHandler: NSObject {
     class func performErrorActions(error: HRError){

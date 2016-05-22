@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import HandlerSDK
+import HandleriOSSDK
 
 class ErrorPopupViewController: UIViewController, UIViewControllerShow {
 	

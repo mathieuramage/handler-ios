@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import HandlerSDK
+import HandleriOSSDK
 
 extension HRError {
     func show(){

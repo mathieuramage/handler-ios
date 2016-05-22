@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import HandlerSDK
+import HandleriOSSDK
 
 let AttachmentDownloadDidFinishNotification = "AttachmentDownloadDidFinish"
 let AttachmentDownloadDidErrorNotification = "AttachmentDownloadDidError"
