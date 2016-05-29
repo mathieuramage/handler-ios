@@ -1,0 +1,10 @@
+github "kishikawakatsumi/KeychainAccess"
+github "duemunk/Async"
+github "SwiftBond/Bond"
+github "dzenbot/DZNEmptyDataSet" == 1.7.1
+github "onevcat/Kingfisher" "2.0.4"
+github "SwiftyJSON/SwiftyJSON"
+github "ishkawa/APIKit" "1.0.0-beta.14"
+github "kevinlawler/NSDate-TimeAgo"
+github "cjwirth/RichEditorView"
+github "mathieuramage/handler-ios-sdk"

@@ -1,3 +1,30 @@
-[submodule "HandlerSDK"]
-	path = HandlerSDK
-	url = git@github.com:mathieuramage/handler-ios-sdk.git
+[submodule "Carthage/Checkouts/Async"]
+	path = Carthage/Checkouts/Async
+	url = ssh://git@github.com/duemunk/Async.git
+[submodule "Carthage/Checkouts/Bond"]
+	path = Carthage/Checkouts/Bond
+	url = ssh://git@github.com/SwiftBond/Bond.git
+[submodule "Carthage/Checkouts/DZNEmptyDataSet"]
+	path = Carthage/Checkouts/DZNEmptyDataSet
+	url = ssh://git@github.com/dzenbot/DZNEmptyDataSet.git
+[submodule "Carthage/Checkouts/KeychainAccess"]
+	path = Carthage/Checkouts/KeychainAccess
+	url = ssh://git@github.com/kishikawakatsumi/KeychainAccess.git
+[submodule "Carthage/Checkouts/Kingfisher"]
+	path = Carthage/Checkouts/Kingfisher
+	url = ssh://git@github.com/onevcat/Kingfisher.git
+[submodule "Carthage/Checkouts/NSDate-TimeAgo"]
+	path = Carthage/Checkouts/NSDate-TimeAgo
+	url = ssh://git@github.com/kevinlawler/NSDate-TimeAgo.git
+[submodule "Carthage/Checkouts/Result"]
+	path = Carthage/Checkouts/Result
+	url = ssh://git@github.com/antitypical/Result.git
+[submodule "Carthage/Checkouts/APIKit"]
+	path = Carthage/Checkouts/APIKit
+	url = ssh://git@github.com/ishkawa/APIKit.git
+[submodule "Carthage/Checkouts/RichEditorView"]
+	path = Carthage/Checkouts/RichEditorView
+	url = ssh://git@github.com/cjwirth/RichEditorView.git
+[submodule "Carthage/Checkouts/SwiftyJSON"]
+	path = Carthage/Checkouts/SwiftyJSON
+	url = ssh://git@github.com/SwiftyJSON/SwiftyJSON.git
