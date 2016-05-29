@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "17EB10681116E13A10247A4298262A166B704242",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "86A642FF74E4DC2F66D92F577F4C5E03714B59A6" : 0,
+    "17EB10681116E13A10247A4298262A166B704242" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "AAF94A9D-D9DB-43FE-8CD2-4B3495840239",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "86A642FF74E4DC2F66D92F577F4C5E03714B59A6" : "handler-ios\/Carthage\/Checkouts\/handler-ios-sdk\/",
+    "17EB10681116E13A10247A4298262A166B704242" : "handler-ios\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Handler",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Handler.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/mathieuramage\/handler-ios",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "17EB10681116E13A10247A4298262A166B704242"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "ssh:\/\/github.com\/mathieuramage\/handler-ios-sdk.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "86A642FF74E4DC2F66D92F577F4C5E03714B59A6"
+    }
+  ]
+}
