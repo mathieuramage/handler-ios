@@ -34,8 +34,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var backgroundSessionCompletionHandler: (() -> Void)?
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-		// Override point for customization after application launch.
-		Twitter.sharedInstance().startWithConsumerKey("d6IKDpduuacAAHgtVydTvMo6t", consumerSecret: "tjaZYfuxDaEqY1RxLse0KvNzvCYPYpq57EgE0uawo2cuMzVoAE")
+		HandlerAPI.startWithClientId("9c3594fbb153aec6c70477a66229bca7786b7b7b5beb6b2c68c2997ab7ca1e4f", clientSecret : "58614156d6144ed0fd76a0cad80e00cfb5bd2fc33ec1e348fd8d6ffa18d66007")
+
+
+		Twitter.sharedInstance().startWithConsumerKey("bH6FU5R4bVQ5QJhYvNyFZywFm", consumerSecret: "64VOfx9rmBBf98v7dNFQa9m4NEKsTpX82JSSyGlN5W4A4i8cTy")
 		Fabric.with([Twitter.sharedInstance(), Crashlytics.self()])
 		APICommunicator.sharedInstance.start()
 		UserTwitterStatusManager.startUpdating()
@@ -55,7 +57,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			window?.rootViewController = IntroViewController(nibName: "IntroView", bundle: nil)
 		}
 
-		HandlerAPI.startWithClientId("9c3594fbb153aec6c70477a66229bca7786b7b7b5beb6b2c68c2997ab7ca1e4f", clientSecret : "58614156d6144ed0fd76a0cad80e00cfb5bd2fc33ec1e348fd8d6ffa18d66007")
 
 		window?.makeKeyAndVisible()
 
