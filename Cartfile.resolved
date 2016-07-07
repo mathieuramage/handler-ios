@@ -1,3 +1,4 @@
+github "Alamofire/Alamofire" "3.4.1"
 github "duemunk/Async" "1.7.2"
 github "SwiftBond/Bond" "v4.3.1"
 github "dzenbot/DZNEmptyDataSet" "v1.7.1"

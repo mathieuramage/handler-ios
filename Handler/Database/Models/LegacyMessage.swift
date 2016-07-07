@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 import HandleriOSSDK
 
-final class Message: NSManagedObject, CoreDataConvertible {
+final class LegacyMessage: NSManagedObject, CoreDataConvertible {
 
 	typealias HRType = HRMessage
 
