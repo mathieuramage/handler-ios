@@ -85,7 +85,7 @@ class TwitterAPICommunicator: NSObject {
 	}
 
 
-	class func getTwitterFriends(cursor : Int?, callback : (users : [User], nextCursor : Int?) -> ()) {
+	class func getTwitterFriends(cursor : Int?, callback : (users : [LegacyUser], nextCursor : Int?) -> ()) {
 
 		if let session = Twitter.sharedInstance().sessionStore.session() as? TWTRSession {
 
@@ -110,10 +110,10 @@ class TwitterAPICommunicator: NSObject {
 				do {
 					let dict = try NSJSONSerialization.JSONObjectWithData(data, options: [NSJSONReadingOptions.AllowFragments])
 					let json = JSON(dict)
-					var users : [User] = []
+					var users : [LegacyUser] = []
 					for userJson in json["users"].arrayValue {
 						let handle = userJson["screen_name"].stringValue
-						let user = User.fromHandle(handle)
+						let user = LegacyUser.fromHandle(handle)
 						user.name = userJson["name"].stringValue
 						let unescapedUrl = userJson["profile_image_url_https"].stringValue as NSString
 						user.profile_picture_url = unescapedUrl.stringByReplacingOccurrencesOfString("\\", withString: "", options: .LiteralSearch, range: NSMakeRange(0, unescapedUrl.length))
@@ -157,10 +157,10 @@ class TwitterAPICommunicator: NSObject {
 				do {
 					let dict = try NSJSONSerialization.JSONObjectWithData(data, options: [NSJSONReadingOptions.AllowFragments])
 					let json = JSON(dict)
-					var users : [User] = []
+					var users : [LegacyUser] = []
 					for userJson in json["users"].arrayValue {
 						let handle = userJson["screen_name"].stringValue
-						let user = User.fromHandle(handle)
+						let user = LegacyUser.fromHandle(handle)
 						user.name = userJson["name"].stringValue
 						let unescapedUrl = userJson["profile_image_url_https"].stringValue as NSString
 						user.profile_picture_url = unescapedUrl.stringByReplacingOccurrencesOfString("\\", withString: "", options: .LiteralSearch, range: NSMakeRange(0, unescapedUrl.length))

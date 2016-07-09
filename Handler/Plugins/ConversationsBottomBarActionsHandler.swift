@@ -17,7 +17,7 @@ class ConversationsBottomBarActionsHandler: NSObject, BottomBarActionPlugin {
 	}
 
 	lazy var left: UIBarButtonItem = {
-		let element = UIBarButtonItem(image: UIImage(named: "Left_toolbar"), style: UIBarButtonItemStyle.Plain, target: self, action: "action:")
+		let element = UIBarButtonItem(image: UIImage(named: "Left_toolbar"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(ConversationsBottomBarActionsHandler.action(_:)))
 		if let _ = self.vc.previousThread {
 			element.tintColor = UIColor(rgba: HexCodes.lightBlue)
 		}else{
@@ -26,7 +26,7 @@ class ConversationsBottomBarActionsHandler: NSObject, BottomBarActionPlugin {
 		return element
 	}()
 	lazy var right: UIBarButtonItem = {
-		let element = UIBarButtonItem(image: UIImage(named: "Right_toolbar"), style: UIBarButtonItemStyle.Plain, target: self, action: "action:")
+		let element = UIBarButtonItem(image: UIImage(named: "Right_toolbar"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(ConversationsBottomBarActionsHandler.action(_:)))
 		if let _ = self.vc.nextThread {
 			element.tintColor = UIColor(rgba: HexCodes.lightBlue)
 		}else{
@@ -35,13 +35,13 @@ class ConversationsBottomBarActionsHandler: NSObject, BottomBarActionPlugin {
 		return element
 	}()
 	lazy var flag: UIBarButtonItem = {
-		return UIBarButtonItem(image: UIImage(named: "Flag_toolbar"), style: UIBarButtonItemStyle.Plain, target: self, action: "action:")
+		return UIBarButtonItem(image: UIImage(named: "Flag_toolbar"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(ConversationsBottomBarActionsHandler.action(_:)))
 	}()
 	lazy var archive: UIBarButtonItem = {
-		return UIBarButtonItem(image: UIImage(named: "Archive_toolbar"), style: UIBarButtonItemStyle.Plain, target: self, action: "action:")
+		return UIBarButtonItem(image: UIImage(named: "Archive_toolbar"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(ConversationsBottomBarActionsHandler.action(_:)))
 	}()
 	lazy var reply: UIBarButtonItem = {
-		return UIBarButtonItem(image: UIImage(named: "Reply_toolbar"), style: UIBarButtonItemStyle.Plain, target: self, action: "action:")
+		return UIBarButtonItem(image: UIImage(named: "Reply_toolbar"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(ConversationsBottomBarActionsHandler.action(_:)))
 	}()
 	let space = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
 

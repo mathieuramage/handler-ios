@@ -75,11 +75,11 @@ struct SentFormatter: MessageTableViewCellFormatter {
         
     }
     
-    func refreshFlags(data message: Message, view: MessageTableViewCell){
+    func refreshFlags(data message: LegacyMessage, view: MessageTableViewCell){
         setUpReadFlagMessage(data: message, view: view)
     }
     
-    func setUpReadFlagMessage(data message: Message, view: MessageTableViewCell) {
+    func setUpReadFlagMessage(data message: LegacyMessage, view: MessageTableViewCell) {
         if message.isFlagged && message.isUnread {
             view.readFlaggedImageView.image = UIImage(named: "Orange_Dot")
             // TODO: Add blue button encircled by orange

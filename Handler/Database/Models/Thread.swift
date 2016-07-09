@@ -36,7 +36,7 @@ class Thread: NSManagedObject {
 	func updateInbox(){
 		var show = false
 		if let messages = self.messages {
-			for message in messages.allObjects as! [Message] {
+			for message in messages.allObjects as! [LegacyMessage] {
 				if message.isInbox {
 					show = true
 				}
@@ -61,11 +61,11 @@ class Thread: NSManagedObject {
 		return nil
 	}
 
-	var oldestUnreadMessage : Message? {
-		var oldestUnread : Message? = nil
+	var oldestUnreadMessage : LegacyMessage? {
+		var oldestUnread : LegacyMessage? = nil
 		if let messages = messages {
 			for message in messages {
-				let m = message as! Message
+				let m = message as! LegacyMessage
 				if m.isUnread {
 					if oldestUnread == nil {
 						oldestUnread = m
@@ -81,7 +81,7 @@ class Thread: NSManagedObject {
 	func archive() {
 		if let messages = self.messages {
 			for message in messages {
-				if let m = message as? Message {
+				if let m = message as? LegacyMessage {
 					m.moveToArchive()
 				}
 			}
@@ -91,7 +91,7 @@ class Thread: NSManagedObject {
 	func unarchive() {
 		if let messages = self.messages {
 			for message in messages {
-				if let m = message as? Message {
+				if let m = message as? LegacyMessage {
 					m.moveToInbox()
 				}
 			}
@@ -109,7 +109,7 @@ class Thread: NSManagedObject {
 	}
 
 	func markAsUnread(message: Message) {
-		guard let messages = messages?.allObjects as? [Message], let currentMessageDate = message.sent_at else {
+		guard let messages = messages?.allObjects as? [LegacyMessage], let currentMessageDate = message.sent_at else {
 			return
 		}
 

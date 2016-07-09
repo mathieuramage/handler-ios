@@ -52,7 +52,7 @@ class ThreadTableViewController: UITableViewController {
 		return nil
 	}
 
-	var primaryMessage: Message? {
+	var primaryMessage: LegacyMessage? {
 		didSet(previous) {
 			if primaryMessage != previous {
 				guard let primaryMessage = primaryMessage, newIndex = orderedMessages.indexOf(primaryMessage) else {
@@ -73,7 +73,7 @@ class ThreadTableViewController: UITableViewController {
 		}
 	}
 
-	var orderedMessages = [Message]()
+	var orderedMessages = [LegacyMessage]()
 
 	var _sizingCell: ThreadMessageTableViewCell?
 	var sizingCell: ThreadMessageTableViewCell {
