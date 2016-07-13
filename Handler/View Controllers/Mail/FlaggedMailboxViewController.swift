@@ -28,7 +28,7 @@ class FlaggedMailboxViewController: AbstractMailboxViewController {
 				}
 			}
 			dc.allThreads = threads
-			dc.primaryMessage = self.messageForSegue
+//			dc.primaryMessage = self.messageForSegue
 
 		} else if segue.identifier == "showMessageComposeNavigationController" { //TODO : This part will work when we have a bottom bar.
 			let dc = (segue.destinationViewController as! UINavigationController).viewControllers.first as! MessageComposeTableViewController

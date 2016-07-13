@@ -11,29 +11,35 @@ import Alamofire
 
 struct APIUtility {
 
-	var defaultHeaders : [String: Anyobject] = [:]
+	static var defaultHeaders : [String: String] = [:]
 
 	static func request(method : Alamofire.Method, route : String, parameters : [String : AnyObject]?) -> Request {
+		return request(method, route: route, parameters: parameters, headers: nil)
+	}
 
-		let URLString = APIConfig.rootURL + route
+	static func request(method : Alamofire.Method, route : String, parameters : [String : AnyObject]?, headers : [String : String]?) -> Request {
 
-		var params : [String  : AnyObject]
+		let URLString = Config.APIURL + route
 
-		if parameters == nil {
-			params = [String : AnyObject]()
-		} else {
-			params = parameters!
+		var allHeaders = defaultHeaders
+
+		if let headers = headers {
+			for (key, val) in headers {
+				allHeaders[key] = val
+			}
+		}
+
+		if let token = AuthUtility.oAuthToken {
+			allHeaders["Authorization"] = "Bearer \(token)"
 		}
 
 		var parameterEncoding : ParameterEncoding
-
 		if (method == .GET || method == .DELETE) {
 			parameterEncoding = .URL
 		} else {
 			parameterEncoding = .JSON
 		}
-
-		return Alamofire.request(method, URLString, parameters: params, encoding: parameterEncoding, headers: defaultHeaders)
+		return Alamofire.request(method, URLString, parameters: parameters, encoding: parameterEncoding, headers: allHeaders)
 	}
-
+	
 }

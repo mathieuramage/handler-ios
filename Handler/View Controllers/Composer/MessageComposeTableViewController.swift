@@ -41,9 +41,9 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
 	var addContactToCC = false
 
-	var orderedThreadMessages = [Message]()
-	private var internalmessageToReplyTo: Message?
-	var messageToReplyTo: Message? {
+	var orderedThreadMessages = [LegacyMessage]()
+	private var internalmessageToReplyTo: LegacyMessage?
+	var messageToReplyTo: LegacyMessage? {
 		set(new){
 			if new?.managedObjectContext != MailDatabaseManager.sharedInstance.backgroundContext {
 				self.internalmessageToReplyTo = new?.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext)
@@ -51,7 +51,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 				self.internalmessageToReplyTo = new
 			}
 
-			if let allMessages = new?.thread?.messages?.allObjects as? [Message] {
+			if let allMessages = new?.thread?.messages?.allObjects as? [LegacyMessage] {
 				orderedThreadMessages = allMessages.sort({ (item1, item2) -> Bool in
 					if let firstDate = item1.sent_at, let secondDate = item2.sent_at {
 						return firstDate.compare(secondDate) == NSComparisonResult.OrderedDescending
@@ -62,7 +62,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 				})
 			}
 			else {
-				orderedThreadMessages = [Message]()
+				orderedThreadMessages = [LegacyMessage]()
 			}
 
 			tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: .Automatic)
@@ -72,9 +72,9 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 			return self.internalmessageToReplyTo
 		}
 	}
-	var messageToForward: Message?
-	private var internalDraftmessage: Message?
-	var draftMessage: Message? {
+	var messageToForward: LegacyMessage?
+	private var internalDraftmessage: LegacyMessage?
+	var draftMessage: LegacyMessage? {
 		set(new){
 			if new?.managedObjectContext != MailDatabaseManager.sharedInstance.backgroundContext {
 				self.internalDraftmessage = new?.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext)
@@ -137,7 +137,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		self.richTextContentView.webView.opaque = false
 		if let draft = draftMessage {
 
-			if let recipients = draft.recipients?.allObjects as? [User] {
+			if let recipients = draft.recipients?.allObjects as? [LegacyUser] {
 				for recipient in recipients {
 					if let handle = recipient.handle {
 						tokenView.addToken(CLToken(displayText: "@\(handle)", context: nil))
@@ -169,7 +169,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
 				originalReplySubject = subjectTextField.text
 			}
-			if let receivers = messageToReplyTo?.recipientsWithoutSelf(), let all = receivers.allObjects as? [User] {
+			if let receivers = messageToReplyTo?.recipientsWithoutSelf(), let all = receivers.allObjects as? [LegacyUser] {
 				for receiver in all {
 					if let senderHandle = receiver.handle {
 						validatedTokens.append(ValidatedToken(name: senderHandle, isOnHandler: true))
@@ -223,7 +223,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		}
 	}
 
-	func didSelectUser(user: User) {
+	func didSelectUser(user: LegacyUser) {
 		navigationController?.popViewControllerAnimated(true)
 		validatedTokens.append(ValidatedToken(name: user.handle ?? "", isOnHandler: true))
 		if addContactToCC {
@@ -317,25 +317,25 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		}
 	}
 
-	func updateDraftFromUI(draft draft: Message) -> Message {
+	func updateDraftFromUI(draft draft: LegacyMessage) -> LegacyMessage {
 		configMsg(draft)
 		return draft
 	}
 
-	func createMessageFromUI() -> Message {
-		let message = Message(managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
+	func createMessageFromUI() -> LegacyMessage {
+		let message = LegacyMessage(managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
 		configMsg(message)
 
 		return message
 	}
 
-	func configMsg(message: Message)->Message {
+	func configMsg(message: LegacyMessage)->LegacyMessage {
 
-		var receivers = [User]()
+		var receivers = [LegacyUser]()
 		for token in tokenView.allTokens {
 			for valdtoken in validatedTokens {
 				if valdtoken.isOnHandler && valdtoken.name == token.displayText.stringByReplacingOccurrencesOfString("@", withString: ""){
-					receivers.append(User.fromHandle(valdtoken.name))
+					receivers.append(LegacyUser.fromHandle(valdtoken.name))
 				}
 			}
 		}
@@ -656,7 +656,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
 	// Mark: ContactsAutoCompleteViewControllerDelegateDelegate
 
-	func contactsAutoCompleteDidSelectUser(user: User) {
+	func contactsAutoCompleteDidSelectUser(user: LegacyUser) {
 		guard let handle = user.handle else {
 			return
 		}

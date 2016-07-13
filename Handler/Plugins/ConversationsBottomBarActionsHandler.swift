@@ -86,14 +86,14 @@ class ConversationsBottomBarActionsHandler: NSObject, BottomBarActionPlugin {
 				let cont = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
 				cont.addAction(UIAlertAction(title: message.isFlagged ? "Unflag" : "Flag", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
 					message.isFlagged ? message.unflag() : message.flag()
-					self.vc.reloadCellForMessage(message)
+//					self.vc.reloadCellForMessage(message)
 					// TODO: Add success message
 				}))
 				cont.addAction(UIAlertAction(title: "Mark as unread", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
 					if message.isUnread {
 						message.markAsRead()
 					} else {
-						message.thread?.markAsUnread(message)
+//						message.thread?.markAsUnread(message)
 					}
 					self.vc.tableView.reloadData() //All newer messages will be reloaded
 					// TODO: Add success message
@@ -104,7 +104,7 @@ class ConversationsBottomBarActionsHandler: NSObject, BottomBarActionPlugin {
 			case archive:
 				let cont = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
 				cont.addAction(UIAlertAction(title: message.isArchived ? "Move to Inbox" : "Archive", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-					message.isArchived ? message.thread?.unarchive() : message.thread?.archive()
+//					message.isArchived ? message.thread?.unarchive() : message.thread?.archive()
 					// TODO: Add success message
 				}))
 				cont.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
@@ -115,7 +115,7 @@ class ConversationsBottomBarActionsHandler: NSObject, BottomBarActionPlugin {
 				cont.addAction(UIAlertAction(title: "Reply", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
 					let replyNC = Storyboards.Compose.instantiateViewControllerWithIdentifier("MessageComposeNavigationController") as! GradientNavigationController
 					let replyWrapper = replyNC.viewControllers.first as! MessageComposerWrapperViewController
-					replyWrapper.messageToReplyTo = message
+//					replyWrapper.messageToReplyTo = message
 					replyWrapper.title = "New Reply"
 					self.vc.presentViewController(replyNC, animated: true, completion: nil)
 				}))

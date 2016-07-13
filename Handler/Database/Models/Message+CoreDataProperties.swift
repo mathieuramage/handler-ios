@@ -12,7 +12,7 @@
 import Foundation
 import CoreData
 
-extension Message {
+extension LegacyMessage {
 
     @NSManaged var content: String?
     @NSManaged var id: String?
@@ -23,7 +23,7 @@ extension Message {
     @NSManaged var attachments: NSSet?
     @NSManaged var labels: NSSet?
     @NSManaged var recipients: NSSet?
-    @NSManaged var sender: User?
+    @NSManaged var sender: LegacyUser?
     @NSManaged var thread: Thread?
     @NSManaged var willBeRepliedToInAction: HRSendAction?
 

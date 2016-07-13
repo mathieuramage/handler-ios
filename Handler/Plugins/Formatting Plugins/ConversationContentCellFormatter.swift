@@ -17,7 +17,7 @@ struct ConversationContentFormatter: MessageContentCellFormatter {
 		return formatter
 	}()
 
-	func populateView(data message: Message?, view: ThreadMessageTableViewCell) {
+	func populateView(data message: LegacyMessage?, view: ThreadMessageTableViewCell) {
 		view.richTextContent.editingEnabled = false
 		view.richTextContent.setHTML(message?.content ?? "No content")
 		view.contentHeightConstraint.constant = CGFloat(view.richTextContent.editorHeight)
@@ -28,7 +28,7 @@ struct ConversationContentFormatter: MessageContentCellFormatter {
 		view.richTextContent.webView.opaque = false
 		view.senderLabel.text = message?.sender?.name
 		view.senderHandleButton.setTitle("@" + (message?.sender?.handle ?? ""), forState: .Normal)
-		if let recipient = message?.recipients?.allObjects.first as? User, let displayName = recipient.name, let handle = recipient.handle {
+		if let recipient = message?.recipients?.allObjects.first as? LegacyUser, let displayName = recipient.name, let handle = recipient.handle {
 			view.recipientLabel.text = "To: " + displayName + " @" + handle
 		}
 		else {
@@ -41,7 +41,7 @@ struct ConversationContentFormatter: MessageContentCellFormatter {
 		}
 	}
 
-	func populateView(data message: Message?, view: ThreadMessageTableViewCell, lastMessage: Bool, primary: Bool) {
+	func populateView(data message: LegacyMessage?, view: ThreadMessageTableViewCell, lastMessage: Bool, primary: Bool) {
 		self.populateView(data: message, view: view)
 
 		var bgColor: UIColor?

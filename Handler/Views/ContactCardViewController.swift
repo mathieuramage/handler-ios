@@ -40,7 +40,7 @@ class ContactCardViewController: UIViewController, UIViewControllerShow {
 		}
 	}
 	
-	var user: User? {
+	var user: LegacyUser? {
 		didSet {
 			if let user = user, let handle = user.handle {
 				getDataWithHandle(handle)
@@ -80,7 +80,7 @@ class ContactCardViewController: UIViewController, UIViewControllerShow {
 		})
 	}
 	
-	class func showWithUser(user: User){
+	class func showWithUser(user: LegacyUser){
 		var contactCard = ContactCardViewController(nibName: "ContactCardViewController", bundle: nil)
 		contactCard.user = user
 		contactCard.show()

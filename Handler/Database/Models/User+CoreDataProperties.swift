@@ -12,7 +12,7 @@
 import Foundation
 import CoreData
 
-extension User {
+extension LegacyUser {
 
     @NSManaged var created_at: NSDate?
     @NSManaged var desc: String?

@@ -31,7 +31,7 @@ class ThreadMessageTableViewCell: UITableViewCell {
 
 	@IBOutlet var threadLine: UIView!
 
-	var sender: User?
+	var sender: LegacyUser?
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()

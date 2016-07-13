@@ -14,18 +14,18 @@ class ThreadTableViewController: UITableViewController {
 
 	var thread: Thread? {
 		didSet {
-			if let allMessages = thread?.messages?.allObjects as? [Message] {
-				orderedMessages = allMessages.sort({ (item1, item2) -> Bool in
-					if let firstDate = item1.sent_at, let secondDate = item2.sent_at {
-						return firstDate.compare(secondDate) == NSComparisonResult.OrderedDescending
-					}
-					else {
-						return true
-					}
-				})
+			if let allMessages = thread?.messages?.allObjects as? [LegacyMessage] {
+//				orderedMessages = allMessages.sort({ (item1, item2) -> Bool in
+//					if let firstDate = item1.sent_at, let secondDate = item2.sent_at {
+//						return firstDate.compare(secondDate) == NSComparisonResult.OrderedDescending
+//					}
+//					else {
+//						return true
+//					}
+//				})
 			}
 			else {
-				orderedMessages = [Message]()
+				orderedMessages = [LegacyMessage]()
 			}
 
 			primaryMessage = orderedMessages.first
@@ -131,7 +131,7 @@ class ThreadTableViewController: UITableViewController {
 		label.frame = CGRectInset(view.bounds, 12, 10)
 		label.clipsToBounds = false
 		view.addSubview(label)
-		label.text = orderedMessages.last?.subject ?? "No Subject"
+//		label.text = orderedMessages.last?.subject ?? "No Subject"
 		let bottomView = UIView()
 		bottomView.frame = CGRectMake(0, view.frame.height-0.5, view.frame.width, 0.5)
 		bottomView.backgroundColor = UIColor(rgba: HexCodes.lightGray)
@@ -187,7 +187,7 @@ class ThreadTableViewController: UITableViewController {
 		let lastMessage = indexPath.row + 1 >= orderedMessages.count
 		let primary = message == primaryMessage
 		configureDotColorForCell(cell, indexPath: indexPath)
-		FormattingPluginProvider.messageContentCellPluginForConversation()?.populateView(data: message, view: cell, lastMessage: lastMessage, primary: primary)
+//		FormattingPluginProvider.messageContentCellPluginForConversation()?.populateView(data: message, view: cell, lastMessage: lastMessage, primary: primary)
 	}
 
 	func configureDotColorForCell(cell: ThreadMessageTableViewCell, indexPath: NSIndexPath) {
@@ -202,7 +202,7 @@ class ThreadTableViewController: UITableViewController {
 		}
 	}
 
-	func reloadCellForMessage(message : Message) {
+	func reloadCellForMessage(message : LegacyMessage) {
 		if let index = orderedMessages.indexOf(message) {
 			let indexPath = NSIndexPath(forRow: index, inSection: 0)
 			let cell = tableView.cellForRowAtIndexPath(indexPath) as! ThreadMessageTableViewCell

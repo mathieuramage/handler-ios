@@ -133,13 +133,13 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 		messageWrapper.title = "New Message"
 
 
-		let message = Message(managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
-		message.recipients = NSSet(array: [User.fromHandle("handlerHQ")])
-		message.subject = "Help & feedback"
-
-		messageWrapper.draftMessage = message
-
-		self.presentViewController(messageNC, animated: true, completion: nil)
+//		let message = Message(managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
+//		message.recipients = NSSet(array: [User.fromHandle("handlerHQ")])
+//		message.subject = "Help & feedback"
+//
+//		messageWrapper.draftMessage = message
+//
+//		self.presentViewController(messageNC, animated: true, completion: nil)
 	}
 
 	func signOut() {

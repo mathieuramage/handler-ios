@@ -19,7 +19,7 @@ class UserTwitterStatusManager: NSObject {
 		MailDatabaseManager.sharedInstance.backgroundContext.performBlock { () -> Void in
 			let fetchRequest = NSFetchRequest(entityName: "User")
 			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
-			if let users = MailDatabaseManager.sharedInstance.executeBackgroundFetchRequest(fetchRequest) as? [User] {
+			if let users = MailDatabaseManager.sharedInstance.executeBackgroundFetchRequest(fetchRequest) as? [LegacyUser] {
 				for user in users {
                     user.twtterFollowStatus = NSNumber(integer: TwitterAPICommunicator.followStatusForID(user.name!).rawValue)
 				}

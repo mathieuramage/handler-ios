@@ -12,7 +12,7 @@ import CoreData
 
 class HRSendAction: HRAction {
 	
-	required convenience init(message: Message, inReplyTo: Message? = nil){
+	required convenience init(message: LegacyMessage, inReplyTo: LegacyMessage? = nil){
 		self.init(managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
 		self.message = message
 		self.replyTo = inReplyTo

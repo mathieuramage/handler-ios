@@ -155,6 +155,8 @@
 		BF03D66F1C9F13D6002EF4CC /* SentMailboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF03D66E1C9F13D6002EF4CC /* SentMailboxViewController.swift */; };
 		BF03D6711C9F13EB002EF4CC /* ArchiveMailboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF03D6701C9F13EB002EF4CC /* ArchiveMailboxViewController.swift */; };
 		BF0D39EF1CB9248100048834 /* EmptyInboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0D39EE1CB9248100048834 /* EmptyInboxView.swift */; };
+		BF24C3C01D327F6400CC1667 /* AuthUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF24C3BF1D327F6400CC1667 /* AuthUtility.swift */; };
+		BF24C3C21D327FBA00CC1667 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF24C3C11D327FBA00CC1667 /* Config.swift */; };
 		BF27F37D1CDDF01C003A92D9 /* APContactBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = BF27F3421CDDF01C003A92D9 /* APContactBuilder.m */; };
 		BF27F37E1CDDF01C003A92D9 /* APContactListBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = BF27F3441CDDF01C003A92D9 /* APContactListBuilder.m */; };
 		BF27F37F1CDDF01C003A92D9 /* APContactDataExtractor.m in Sources */ = {isa = PBXBuildFile; fileRef = BF27F3491CDDF01C003A92D9 /* APContactDataExtractor.m */; };
@@ -187,7 +189,6 @@
 		BF862B2D1D16ED3200E4AE34 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF862B2C1D16ED3200E4AE34 /* User.swift */; };
 		BF862B2F1D16ED9200E4AE34 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF862B2E1D16ED9200E4AE34 /* Message.swift */; };
 		BF862B311D16EDA700E4AE34 /* MessageOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF862B301D16EDA700E4AE34 /* MessageOperations.swift */; };
-		BF862B331D16EE8500E4AE34 /* APIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF862B321D16EE8500E4AE34 /* APIConfig.swift */; };
 		BFA307561CF25EAC00642A8D /* NSDateTimeAgo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFA307551CF25EAC00642A8D /* NSDateTimeAgo.framework */; };
 		BFA307571CF260F200642A8D /* RichEditorView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0D136A1CA8595200E91136 /* RichEditorView.framework */; };
 		BFE739C61CCA1DED002F84CD /* Contacts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFE739C51CCA1DED002F84CD /* Contacts.storyboard */; };
@@ -420,6 +421,8 @@
 		BF03D66E1C9F13D6002EF4CC /* SentMailboxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentMailboxViewController.swift; sourceTree = "<group>"; };
 		BF03D6701C9F13EB002EF4CC /* ArchiveMailboxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArchiveMailboxViewController.swift; sourceTree = "<group>"; };
 		BF0D39EE1CB9248100048834 /* EmptyInboxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyInboxView.swift; sourceTree = "<group>"; };
+		BF24C3BF1D327F6400CC1667 /* AuthUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthUtility.swift; sourceTree = "<group>"; };
+		BF24C3C11D327FBA00CC1667 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		BF27F3411CDDF01C003A92D9 /* APContactBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APContactBuilder.h; sourceTree = "<group>"; };
 		BF27F3421CDDF01C003A92D9 /* APContactBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APContactBuilder.m; sourceTree = "<group>"; };
 		BF27F3431CDDF01C003A92D9 /* APContactListBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APContactListBuilder.h; sourceTree = "<group>"; };
@@ -479,7 +482,6 @@
 		BF862B2C1D16ED3200E4AE34 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		BF862B2E1D16ED9200E4AE34 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		BF862B301D16EDA700E4AE34 /* MessageOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageOperations.swift; sourceTree = "<group>"; };
-		BF862B321D16EE8500E4AE34 /* APIConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIConfig.swift; sourceTree = "<group>"; };
 		BFA307531CF25D0800642A8D /* HandleriOSSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HandleriOSSDK.framework; path = Carthage/Build/iOS/HandleriOSSDK.framework; sourceTree = SOURCE_ROOT; };
 		BFA307551CF25EAC00642A8D /* NSDateTimeAgo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NSDateTimeAgo.framework; path = Carthage/Build/iOS/NSDateTimeAgo.framework; sourceTree = SOURCE_ROOT; };
 		BFE739C51CCA1DED002F84CD /* Contacts.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Contacts.storyboard; sourceTree = "<group>"; };
@@ -1072,9 +1074,9 @@
 			isa = PBXGroup;
 			children = (
 				BF862B281D16ECE100E4AE34 /* APIUtility.swift */,
+				BF24C3BF1D327F6400CC1667 /* AuthUtility.swift */,
 				BF862B2A1D16ECF700E4AE34 /* UserOperations.swift */,
 				BF862B301D16EDA700E4AE34 /* MessageOperations.swift */,
-				BF862B321D16EE8500E4AE34 /* APIConfig.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -1123,6 +1125,7 @@
 			children = (
 				DF1FD2DD1B62360600A58B71 /* AppDelegate.swift */,
 				2FF788261BB5B05000B297D3 /* Handler.entitlements */,
+				BF24C3C11D327FBA00CC1667 /* Config.swift */,
 				B72C59D01C26BBE500D6651D /* Globals.swift */,
 				BF862B261D16EC7600E4AE34 /* API */,
 				BF862B271D16EC8400E4AE34 /* Model */,
@@ -1289,6 +1292,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/NSDateTimeAgo.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RichEditorView.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
 			);
 			name = "Carthage Integrate";
 			outputPaths = (
@@ -1361,6 +1365,7 @@
 				BF27F38B1CDDF01C003A92D9 /* APContactDate.m in Sources */,
 				BF27F3891CDDF01C003A92D9 /* APAddress.m in Sources */,
 				2FF0D1301BB4A802009467B5 /* ThreadTableViewController.swift in Sources */,
+				BF24C3C01D327F6400CC1667 /* AuthUtility.swift in Sources */,
 				BF27F38A1CDDF01C003A92D9 /* APContact.m in Sources */,
 				2F8D8CDE1BCC12B30020A41C /* HRUploadAction.swift in Sources */,
 				BF27F37E1CDDF01C003A92D9 /* APContactListBuilder.m in Sources */,
@@ -1386,6 +1391,7 @@
 				2FDDE0EE1BAEA957006C3500 /* LegacyMessage.swift in Sources */,
 				BF27F38F1CDDF01C003A92D9 /* APPhone.m in Sources */,
 				BF27F3851CDDF01C003A92D9 /* APAddressBookBaseRoutine.m in Sources */,
+				BF24C3C21D327FBA00CC1667 /* Config.swift in Sources */,
 				2FDDE0ED1BAEA957006C3500 /* Message+CoreDataProperties.swift in Sources */,
 				2F7B0D011BFDCB230015C43A /* FormattingPluginProvider.swift in Sources */,
 				BF03D66D1C9F13CB002EF4CC /* DraftsMailboxViewController.swift in Sources */,
@@ -1428,7 +1434,6 @@
 				2F4E41571BB0977C00AA2DEF /* UIButton+ImageFitting.swift in Sources */,
 				BF27F3911CDDF01C003A92D9 /* APRelatedPerson.m in Sources */,
 				7A75D7631C7A430800E201A3 /* MessageComposerWrapperViewController.swift in Sources */,
-				BF862B331D16EE8500E4AE34 /* APIConfig.swift in Sources */,
 				2FDDE0FE1BAEB26C006C3500 /* NSManagedObject+Convenience.swift in Sources */,
 				2F0580571BC02FBC00600B8B /* HandlerDatabaseModel.xcdatamodel in Sources */,
 				2FB2FA921C1DF6AE00F492EF /* GreetingViewController.swift in Sources */,

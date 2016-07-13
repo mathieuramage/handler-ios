@@ -19,7 +19,7 @@ struct SentFormatter: MessageTableViewCellFormatter {
         return formatter
     }()
     
-    func populateView(data message: Message, view: MessageTableViewCell){
+    func populateView(data message: LegacyMessage, view: MessageTableViewCell){
         view.readFlaggedImageView.image = nil
         view.senderProfileImageView.image = nil
         view.senderNameLabel.text = nil
@@ -32,14 +32,14 @@ struct SentFormatter: MessageTableViewCellFormatter {
         
         view.leftUtilityButtons = leftButtonsForData(data: message)
         view.rightUtilityButtons = rightButtonsForData(data: message)
-        if let urlString = (message.recipients?.allObjects.first as? User)?.profile_picture_url, let profileUrl = NSURL(string: urlString) {
+        if let urlString = (message.recipients?.allObjects.first as? LegacyUser)?.profile_picture_url, let profileUrl = NSURL(string: urlString) {
             view.senderProfileImageView.kf_setImageWithURL(profileUrl, placeholderImage: UIImage.randomGhostImage(), optionsInfo: nil, completionHandler: { (image, error, cacheType, imageURL) -> () in
 
             })
         }
         
-        view.senderNameLabel.text = (message.recipients?.allObjects.first as? User)?.name
-        if let handle = (message.recipients?.allObjects.first as? User)?.handle {
+        view.senderNameLabel.text = (message.recipients?.allObjects.first as? LegacyUser)?.name
+        if let handle = (message.recipients?.allObjects.first as? LegacyUser)?.handle {
             view.senderHandleLabel.text = "@" + handle
         }
         view.messageSubjectLabel.text = message.subject
@@ -95,11 +95,11 @@ struct SentFormatter: MessageTableViewCellFormatter {
         }
     }
     
-    func leftButtonsForData(data message: Message)->[AnyObject]{
+    func leftButtonsForData(data message: LegacyMessage)->[AnyObject]{
         return ActionPluginProvider.messageCellPluginForInboxType(.Sent)?.leftButtonsForData(data: message) ?? [AnyObject]()
     }
     
-    func rightButtonsForData(data message: Message)->[AnyObject]{
+    func rightButtonsForData(data message: LegacyMessage)->[AnyObject]{
         return ActionPluginProvider.messageCellPluginForInboxType(.Sent)?.rightButtonsForData(data: message) ?? [AnyObject]()
     }
 }

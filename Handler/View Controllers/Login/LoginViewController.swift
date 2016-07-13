@@ -32,62 +32,92 @@ class LoginViewController: UIViewController {
         UIView.animateWithDuration(1, animations: {
             self.loadingView.alpha = 1.0
         })
-        
-        Twitter.sharedInstance().logInWithCompletion { (session, error) -> Void in
-            
-            
-            if let error = error {
-                HRError(errorType: error).show()
-                return
-            }
-            if let session = session {
-                let twitter = Twitter.sharedInstance()
-                let oauthSigning = TWTROAuthSigning(authConfig:twitter.authConfig, authSession:session)
-                HRTwitterAuthManager.startAuth(oauthSigning.OAuthEchoHeadersToVerifyCredentials(), callback: { (error, session) -> Void in
-                    
-                    //Fading out loading view
-                    UIView.animateWithDuration(1, animations: {
-                        self.loadingView.alpha = 0.0
-                    })
-                    
-                    if let error = error {
-                        if error.status == 401 {
-                            
-                            // register new user
-                            HandlerAPI.createUserWithCallback(oauthSigning.OAuthEchoHeadersToVerifyCredentials(), provider: "twitter", callback: { (user, error) -> Void in
-                                if let error = error {
-                                    error.show()
-                                    return
-                                }
-                                if let _ = user {
-                                    APICommunicator.sharedInstance.attemptRelogin()
-                                    UIView.transitionWithView(AppDelegate.sharedInstance().window!, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: { () -> Void in
-                                        AppDelegate.sharedInstance().window?.rootViewController = AppDelegate.sharedInstance().sideMenu
-                                        GreetingViewController.showWithHandle(user?.handle ?? "", back: false)
-                                        }, completion: nil)
-                                }
-                            })
-                        }else{
-                            error.show()
-                            return
-                        }
-                    } else {
-                        if let _ = session {
-                            UIView.transitionWithView(AppDelegate.sharedInstance().window!, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: { () -> Void in
-                                AppDelegate.sharedInstance().window?.rootViewController = AppDelegate.sharedInstance().sideMenu
-                                GreetingViewController.show()
-                                }, completion: nil)
-                        }else{
-                            let sessionError = HRError(title: "No session", status: 500, detail: "Current session couldn't be retrieved", displayMessage: "Current session couldn't be retrieved")
-                            sessionError.show()
-                        }
-                    }
-                })
-            }else{
-                let sessionError = HRError(title: "No session", status: 500, detail: "Current session couldn't be retrieved", displayMessage: "Current session couldn't be retrieved")
-                sessionError.show()
-            }
-        }
+
+
+		Twitter.sharedInstance().logInWithCompletion { session, error in
+			if (session != nil) {
+				print(session)
+				print("signed in as \(session?.userName)");
+			} else {
+				print("error: \(error?.localizedDescription)");
+			}
+
+			if let session = session {
+
+				let twitter = Twitter.sharedInstance()
+				let oauthSigning = TWTROAuthSigning(authConfig:twitter.authConfig, authSession:session)
+
+				print(oauthSigning.OAuthEchoHeadersToVerifyCredentials())
+
+				var headers : [String : String] = [:]
+
+				for (key, val) in oauthSigning.OAuthEchoHeadersToVerifyCredentials() {
+					headers[String(key)] = String(val)
+				}
+
+				AuthUtility.login(headers, callback: { (success) in
+
+				})
+
+			}
+		}
+
+
+//        Twitter.sharedInstance().logInWithCompletion { (session, error) -> Void in
+//            
+//            
+//            if let error = error {
+//                HRError(errorType: error).show()
+//                return
+//            }
+//            if let session = session {
+//                let twitter = Twitter.sharedInstance()
+//                let oauthSigning = TWTROAuthSigning(authConfig:twitter.authConfig, authSession:session)
+//                HRTwitterAuthManager.startAuth(oauthSigning.OAuthEchoHeadersToVerifyCredentials(), callback: { (error, session) -> Void in
+//                    
+//                    //Fading out loading view
+//                    UIView.animateWithDuration(1, animations: {
+//                        self.loadingView.alpha = 0.0
+//                    })
+//                    
+//                    if let error = error {
+//                        if error.status == 401 {
+//                            
+//                            // register new user
+//                            HandlerAPI.createUserWithCallback(oauthSigning.OAuthEchoHeadersToVerifyCredentials(), provider: "twitter", callback: { (user, error) -> Void in
+//                                if let error = error {
+//                                    error.show()
+//                                    return
+//                                }
+//                                if let _ = user {
+//                                    APICommunicator.sharedInstance.attemptRelogin()
+//                                    UIView.transitionWithView(AppDelegate.sharedInstance().window!, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: { () -> Void in
+//                                        AppDelegate.sharedInstance().window?.rootViewController = AppDelegate.sharedInstance().sideMenu
+//                                        GreetingViewController.showWithHandle(user?.handle ?? "", back: false)
+//                                        }, completion: nil)
+//                                }
+//                            })
+//                        }else{
+//                            error.show()
+//                            return
+//                        }
+//                    } else {
+//                        if let _ = session {
+//                            UIView.transitionWithView(AppDelegate.sharedInstance().window!, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: { () -> Void in
+//                                AppDelegate.sharedInstance().window?.rootViewController = AppDelegate.sharedInstance().sideMenu
+//                                GreetingViewController.show()
+//                                }, completion: nil)
+//                        }else{
+//                            let sessionError = HRError(title: "No session", status: 500, detail: "Current session couldn't be retrieved", displayMessage: "Current session couldn't be retrieved")
+//                            sessionError.show()
+//                        }
+//                    }
+//                })
+//            }else{
+//                let sessionError = HRError(title: "No session", status: 500, detail: "Current session couldn't be retrieved", displayMessage: "Current session couldn't be retrieved")
+//                sessionError.show()
+//            }
+//        }
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {

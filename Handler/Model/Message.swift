@@ -24,10 +24,13 @@ class Message: NSObject {
  labels	[String]	# Can be empty. Sample: 'job', 'invoices', ...
  isStar	Boolean	# Can be empty.
 */
-    
-    
+	
+	var identifier : String
+	var user : User
+	var sender : User
+
     var folder : Folder = .Inbox //TODO
-	var unread : Bool = false
+	var read : Bool = false
     var starred : Bool = false
     
     var archived : Bool {
@@ -37,10 +40,12 @@ class Message: NSObject {
     }
     
     var labels : [String] = []
-    
     var recipients : [User] = []
     
     init(json : JSON) {
+		identifier = json["_id"].stringValue
+		user = User(json: json["_user"])
+		sender = User(json : json["_sender"])
         
     }
 

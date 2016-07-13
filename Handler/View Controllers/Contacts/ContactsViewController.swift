@@ -20,9 +20,9 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 	@IBOutlet weak var deviceButton: UIButton!
 	@IBOutlet weak var borderView: UIView!
 
-	var twitterFollowerList: [User] = []
-	var twitterFollowingList : [User] = []
-	var deviceContactList : [User] = []
+	var twitterFollowerList: [LegacyUser] = []
+	var twitterFollowingList : [LegacyUser] = []
+	var deviceContactList : [LegacyUser] = []
 
 	let addressBook = APAddressBook()
 
@@ -122,7 +122,7 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 					for website in contact.websites! {
 						handle = self.extractTwitterHandle(website)
 						if let handle = handle where handle.characters.count > 0 {
-							let user = User.fromHandle(handle)
+							let user = LegacyUser.fromHandle(handle)
 							user.name = contact.name?.compositeName
 							self.deviceContactList.append(user)
 						}
@@ -153,7 +153,7 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 		let cell = tableView.dequeueReusableCellWithIdentifier("contactTableViewCell", forIndexPath: indexPath) as! ContactTableViewCell
 		cell.profileImageView.image = UIImage.randomGhostImage()
 
-		let user : User = activeTabContacts[indexPath.row]
+		let user : LegacyUser = activeTabContacts[indexPath.row]
 
 		cell.handleLabel.text = user.handle
 		cell.nameLabel.text = user.name
@@ -173,7 +173,7 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		tableView.deselectRowAtIndexPath(indexPath, animated: false)
-		let user : User = activeTabContacts[indexPath.row]
+		let user : LegacyUser = activeTabContacts[indexPath.row]
 		ContactCardViewController.showWithUser(user)
 	}
 
@@ -197,7 +197,7 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 		}
 	}
 
-	var activeTabContacts : [User] {
+	var activeTabContacts : [LegacyUser] {
 		get {
 			switch selectedTab {
 			case 0:

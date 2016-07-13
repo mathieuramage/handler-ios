@@ -12,7 +12,7 @@ class InboxActionHandler: MessageTableViewCellActions {
 
 	// MARK: Actions
 
-	func leftButtonTriggered(index: Int, data message: Message, callback: (() -> Void)?) {
+	func leftButtonTriggered(index: Int, data message: LegacyMessage, callback: (() -> Void)?) {
 
 		switch index {
 		case 0:
@@ -31,7 +31,7 @@ class InboxActionHandler: MessageTableViewCellActions {
 		// TODO: Implement actions
 	}
 
-	func rightButtonTriggered(index: Int, data message: Message, callback: (() -> Void)?) {
+	func rightButtonTriggered(index: Int, data message: LegacyMessage, callback: (() -> Void)?) {
 
 		switch index {
 		case 0:
@@ -54,7 +54,7 @@ class InboxActionHandler: MessageTableViewCellActions {
 
 	// MARK: Data Source
 
-	func leftButtonsForData(data message: Message)->[AnyObject]{
+	func leftButtonsForData(data message: LegacyMessage)->[AnyObject]{
 		let array = NSMutableArray()
 		if message.isUnread {
 			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.lightBlue), icon: UIImage(named: "icon_read"))
@@ -64,7 +64,7 @@ class InboxActionHandler: MessageTableViewCellActions {
 		return array as [AnyObject]
 	}
 
-	func rightButtonsForData(data message: Message)->[AnyObject]{
+	func rightButtonsForData(data message: LegacyMessage)->[AnyObject]{
 		let array = NSMutableArray()
 		if message.isFlagged {
 			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.orange), icon: UIImage(named: "icon_unflag"))

@@ -11,8 +11,8 @@ import UIKit
 
 class MessageComposerWrapperViewController: UIViewController, AutoCompleteDelegate, MessageComposeTableViewControllerDelegate {
 
-	var messageToReplyTo : Message?
-	var draftMessage : Message?
+	var messageToReplyTo : LegacyMessage?
+	var draftMessage : LegacyMessage?
 
 	@IBOutlet weak var autoCompleteContainerView: UIView!
 	@IBOutlet weak var autoCompleteTopConstraint: NSLayoutConstraint!
@@ -97,7 +97,7 @@ class MessageComposerWrapperViewController: UIViewController, AutoCompleteDelega
 
 
 	//MARK : AutoCompleteDelegate
-	func contactsAutoCompleteDidSelectUser(controller: ContactsAutoCompleteViewController, user: User) {
+	func contactsAutoCompleteDidSelectUser(controller: ContactsAutoCompleteViewController, user: LegacyUser) {
 		messageComposerController?.contactsAutoCompleteDidSelectUser(user)
 	}
 

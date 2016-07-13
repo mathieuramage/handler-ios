@@ -13,16 +13,16 @@ import CoreData
 
 protocol AutoCompleteDelegate {
     
-    func contactsAutoCompleteDidSelectUser(controller: ContactsAutoCompleteViewController, user: User)
+    func contactsAutoCompleteDidSelectUser(controller: ContactsAutoCompleteViewController, user: LegacyUser)
 }
 
 private struct MatchedUser {
     
-    let user: User
+    let user: LegacyUser
     let handleMatchRange: Range<String.Index>?
     let nameMatchRange: Range<String.Index>?
     
-    init(user: User, handleMatchRange: Range<String.Index>?, nameMatchRange: Range<String.Index>?) {
+    init(user: LegacyUser, handleMatchRange: Range<String.Index>?, nameMatchRange: Range<String.Index>?) {
         self.user = user
         self.handleMatchRange = handleMatchRange
         self.nameMatchRange = nameMatchRange
@@ -38,7 +38,7 @@ private struct AutoCompleteMatcher {
         self.predicate = predicate
     }
     
-    func evaluate(user: User, searchedText: String) -> MatchedUser? {
+    func evaluate(user: LegacyUser, searchedText: String) -> MatchedUser? {
         let match = self.predicate.evaluateWithObject(user)
         
         if match {
@@ -66,7 +66,7 @@ class ContactsAutoCompleteViewController: UIViewController, UITableViewDelegate,
     var delegate: AutoCompleteDelegate? = nil
     
     lazy var fetchedResultsController: NSFetchedResultsController = {
-        let fetchRequest = NSFetchRequest(entityName: User.entityName())
+        let fetchRequest = NSFetchRequest(entityName: LegacyUser.entityName())
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true), NSSortDescriptor(key: "handle", ascending: true)]
         
         let fetchedController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: MailDatabaseManager.sharedInstance.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
@@ -81,9 +81,9 @@ class ContactsAutoCompleteViewController: UIViewController, UITableViewDelegate,
         return fetchedController
     }()
     
-    var fetchedUsers: [User] {
+    var fetchedUsers: [LegacyUser] {
         get {
-            return fetchedResultsController.fetchedObjects as? [User] ?? [User]()
+            return fetchedResultsController.fetchedObjects as? [LegacyUser] ?? [LegacyUser]()
         }
     }
     

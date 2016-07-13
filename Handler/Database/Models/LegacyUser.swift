@@ -47,14 +47,14 @@ final class LegacyUser: NSManagedObject, CoreDataConvertible {
 	
 	class func me()->LegacyUser?{
 		if let user = HRUserSessionManager.sharedManager.currentUser {
-			return User.fromHRType(user)
+			return LegacyUser.fromHRType(user)
 		}else{
 			return nil
 		}
 	}
 	
 	class func fromHandle(handle: String)->LegacyUser{
-		if let user = (MailDatabaseManager.sharedInstance.executeBackgroundFetchRequest(User.backgroundFetchRequestForHandle(handle)) as? [LegacyUser])?.first {
+		if let user = (MailDatabaseManager.sharedInstance.executeBackgroundFetchRequest(LegacyUser.backgroundFetchRequestForHandle(handle)) as? [LegacyUser])?.first {
 			return user
 		}else{
 			let user = HRUser()

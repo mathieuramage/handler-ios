@@ -18,9 +18,9 @@ class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UI
 		}
 	}
 
-	var fetchedObjects: [Message]{
+	var fetchedObjects: [LegacyMessage]{
 		get {
-			return fetchedResultsController.fetchedObjects as? [Message] ?? [Message]()
+			return fetchedResultsController.fetchedObjects as? [LegacyMessage] ?? [LegacyMessage]()
 		}
 	}
 
@@ -36,7 +36,7 @@ class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UI
 		}
 	}
 
-	var messageForSegue: Message?
+	var messageForSegue: LegacyMessage?
 
 	@IBOutlet weak var tableView: UITableView!
 
@@ -73,7 +73,7 @@ class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UI
 			if message is Message {
 				let replyNC = Storyboards.Main.instantiateViewControllerWithIdentifier("MessageComposeNavigationController") as! GradientNavigationController
 				let replyVC = replyNC.viewControllers.first as! MessageComposeTableViewController
-				replyVC.messageToReplyTo = message as? Message
+				replyVC.messageToReplyTo = message as? LegacyMessage
 				self.presentViewController(replyNC, animated: true, completion: nil)
 			}
 		}
@@ -119,7 +119,7 @@ class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UI
 
 		if indexPath.row < count {
 
-			let message = isUnreadBox ? fetchedObjectsThread[indexPath.row].messages?.anyObject() as! Message: fetchedObjects[indexPath.row]
+			let message = isUnreadBox ? fetchedObjectsThread[indexPath.row].messages?.anyObject() as! LegacyMessage: fetchedObjects[indexPath.row]
 			messageForSegue = message
 
 			if mailboxType == .Drafts {

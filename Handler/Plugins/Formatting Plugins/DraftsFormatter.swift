@@ -19,7 +19,7 @@ struct DraftsFormatter: MessageTableViewCellFormatter {
         return formatter
     }()
     
-    func populateView(data message: Message, view: MessageTableViewCell){
+    func populateView(data message: LegacyMessage, view: MessageTableViewCell){
         view.readFlaggedImageView.image = nil
         view.senderProfileImageView.image = nil
         view.senderNameLabel.text = nil
@@ -75,11 +75,11 @@ struct DraftsFormatter: MessageTableViewCellFormatter {
         
     }
     
-    func refreshFlags(data message: Message, view: MessageTableViewCell){
+    func refreshFlags(data message: LegacyMessage, view: MessageTableViewCell){
         setUpReadFlagMessage(data: message, view: view)
     }
     
-    func setUpReadFlagMessage(data message: Message, view: MessageTableViewCell) {
+    func setUpReadFlagMessage(data message: LegacyMessage, view: MessageTableViewCell) {
         if message.isFlagged && message.isUnread {
             view.readFlaggedImageView.image = UIImage(named: "Orange_Dot")
             // TODO: Add blue button encircled by orange
@@ -95,11 +95,11 @@ struct DraftsFormatter: MessageTableViewCellFormatter {
         }
     }
     
-    func leftButtonsForData(data message: Message)->[AnyObject]{
+    func leftButtonsForData(data message: LegacyMessage)->[AnyObject]{
         return ActionPluginProvider.messageCellPluginForInboxType(.Drafts)?.leftButtonsForData(data: message) ?? [AnyObject]()
     }
     
-    func rightButtonsForData(data message: Message)->[AnyObject]{
+    func rightButtonsForData(data message: LegacyMessage)->[AnyObject]{
         return ActionPluginProvider.messageCellPluginForInboxType(.Drafts)?.rightButtonsForData(data: message) ?? [AnyObject]()
     }
 }

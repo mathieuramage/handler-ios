@@ -10,7 +10,7 @@ import UIKit
 
 class MessageActionsAlertController: UIAlertController {
 
-	convenience init(message: Message, vc: UIViewController){
+	convenience init(message: LegacyMessage, vc: UIViewController){
 		self.init()
 
 		addAction(UIAlertAction(title: "Reply", style: UIAlertActionStyle.Default, handler: { (action) -> Void in

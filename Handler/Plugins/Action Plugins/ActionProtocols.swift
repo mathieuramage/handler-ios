@@ -9,8 +9,8 @@
 import UIKit
 
 protocol MessageTableViewCellActions {
-    func leftButtonsForData(data message: Message)->[AnyObject]
-    func rightButtonsForData(data message: Message)->[AnyObject]
-    func rightButtonTriggered(index: Int, data message: Message, callback: (()->Void)?)
-    func leftButtonTriggered(index: Int, data message: Message, callback: (()->Void)?)
+    func leftButtonsForData(data message: LegacyMessage)->[AnyObject]
+    func rightButtonsForData(data message: LegacyMessage)->[AnyObject]
+    func rightButtonTriggered(index: Int, data message: LegacyMessage, callback: (()->Void)?)
+    func leftButtonTriggered(index: Int, data message: LegacyMessage, callback: (()->Void)?)
 }

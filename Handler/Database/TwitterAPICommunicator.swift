@@ -132,7 +132,7 @@ class TwitterAPICommunicator: NSObject {
 	}
 
 
-	class func getTwitterFollowers(cursor : Int?, callback : (users : [User], nextCursor : Int?) -> ()) {
+	class func getTwitterFollowers(cursor : Int?, callback : (users : [LegacyUser], nextCursor : Int?) -> ()) {
 
 		if let session = Twitter.sharedInstance().sessionStore.session() as? TWTRSession {
 

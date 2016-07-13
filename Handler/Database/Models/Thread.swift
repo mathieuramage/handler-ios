@@ -46,10 +46,10 @@ class Thread: NSManagedObject {
 		MailDatabaseManager.sharedInstance.saveBackgroundContext()
 	}
 
-	var mostRecentMessage: Message? {
+	var mostRecentMessage: LegacyMessage? {
 		if let messages = messages {
 			let msgSet = NSSet(set: messages)
-			let messageList = msgSet.allObjects as? [Message]
+			let messageList = msgSet.allObjects as? [LegacyMessage]
 			let sorted =  messageList?.sort({
 				if let firstSent = $0.sent_at, let secondSent = $1.sent_at {
 					return firstSent.compare(secondSent) == NSComparisonResult.OrderedDescending
@@ -63,18 +63,18 @@ class Thread: NSManagedObject {
 
 	var oldestUnreadMessage : LegacyMessage? {
 		var oldestUnread : LegacyMessage? = nil
-		if let messages = messages {
-			for message in messages {
-				let m = message as! LegacyMessage
-				if m.isUnread {
-					if oldestUnread == nil {
-						oldestUnread = m
-					} else if oldestUnread!.sent_at!.compare(m.sent_at!) == .OrderedAscending {
-						oldestUnread = m
-					}
-				}
-			}
-		}
+//		if let messages = messages {
+//			for message in messages {
+//				let m = message as! LegacyMessage
+//				if m.isUnread {
+//					if oldestUnread == nil {
+//						oldestUnread = m
+//					} else if oldestUnread!.sent_at!.compare(m.sent_at!) == .OrderedAscending {
+//						oldestUnread = m
+//					}
+//				}
+//			}
+//		}
 		return oldestUnread
 	}
 
@@ -99,28 +99,28 @@ class Thread: NSManagedObject {
 	}
 
 	func markAsRead() {
-		guard let messages = messages?.allObjects as? [Message] else {
+		guard let messages = messages?.allObjects as? [LegacyMessage] else {
 			return
 		}
 
 		for message in messages {
-			message.markAsRead()
+//			message.markAsRead()
 		}
 	}
 
-	func markAsUnread(message: Message) {
+	func markAsUnread(message: LegacyMessage) {
 		guard let messages = messages?.allObjects as? [LegacyMessage], let currentMessageDate = message.sent_at else {
 			return
 		}
 
 		for messageToCompare in messages {
-			guard let messageToCompareDate = messageToCompare.sent_at else {
-				continue
-			}
+//			guard let messageToCompareDate = messageToCompare.sent_at else {
+//				continue
+//			}
 
-			if messageToCompareDate.isLaterThanDate(currentMessageDate) || messageToCompareDate.isEqualToDate(currentMessageDate) {
-				messageToCompare.markAsUnread()
-			}
+//			if messageToCompareDate.isLaterThanDate(currentMessageDate) || messageToCompareDate.isEqualToDate(currentMessageDate) {
+//				messageToCompare.markAsUnread()
+//			}
 		}
 	}
 }
