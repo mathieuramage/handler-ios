@@ -11,7 +11,7 @@ import Alamofire
 
 struct APIUtility {
 
-	static var defaultHeaders : [String: String] = [:]
+	static var defaultHeaders : [String: String] = ["Cache-Control" : "no-cache", "Content-Type" : "application/json"]
 
 	static func request(method : Alamofire.Method, route : String, parameters : [String : AnyObject]?) -> Request {
 		return request(method, route: route, parameters: parameters, headers: nil)
@@ -29,8 +29,8 @@ struct APIUtility {
 			}
 		}
 
-		if let token = AuthUtility.oAuthToken {
-			allHeaders["Authorization"] = "Bearer \(token)"
+		if let accessToken = AuthUtility.accessToken {
+			allHeaders["Authorization"] = "bearer \(accessToken.token)"
 		}
 
 		var parameterEncoding : ParameterEncoding
@@ -39,7 +39,11 @@ struct APIUtility {
 		} else {
 			parameterEncoding = .JSON
 		}
+
 		return Alamofire.request(method, URLString, parameters: parameters, encoding: parameterEncoding, headers: allHeaders)
 	}
-	
+}
+
+struct ServerResponse {
+
 }

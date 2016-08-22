@@ -23,11 +23,22 @@ struct Config {
 		//Messaging
 		static let messages = Config.APIVersion + "messages"
 		static let message = Config.APIVersion + "messages/:message_id"
+		static func message(messageId : String) -> String {
+			return message.stringByReplacingOccurrencesOfString(":message_id", withString: messageId)
+		}
+
+		static let user = Config.APIVersion + "users/:user_id"
+		static func user(userId : String) -> String {
+			return user.stringByReplacingOccurrencesOfString(":user_id", withString: userId)
+		}
 				
 	}
 
 	struct Twitter {
-		static let consumerKey = "H39589t6PVVSCD9nLvPQnYoT6"
-		static let consumerSecret = "GPS9xgLaZ2NQ2ZCunX1AfnyzdP122vARdEGD6m4iJM08Cte9H0"
+		static let consumerKey = "bH6FU5R4bVQ5QJhYvNyFZywFm"
+		static let consumerSecret = "64VOfx9rmBBf98v7dNFQa9m4NEKsTpX82JSSyGlN5W4A4i8cTy"
+
+//		static let consumerKey = "H39589t6PVVSCD9nLvPQnYoT6"
+//		static let consumerSecret = "GPS9xgLaZ2NQ2ZCunX1AfnyzdP122vARdEGD6m4iJM08Cte9H0"
 	}
 }

@@ -154,6 +154,7 @@
 		BF03D66D1C9F13CB002EF4CC /* DraftsMailboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF03D66C1C9F13CB002EF4CC /* DraftsMailboxViewController.swift */; };
 		BF03D66F1C9F13D6002EF4CC /* SentMailboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF03D66E1C9F13D6002EF4CC /* SentMailboxViewController.swift */; };
 		BF03D6711C9F13EB002EF4CC /* ArchiveMailboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF03D6701C9F13EB002EF4CC /* ArchiveMailboxViewController.swift */; };
+		BF09A9701D569C1500D3ADFD /* AccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF09A96F1D569C1500D3ADFD /* AccessToken.swift */; };
 		BF0D39EF1CB9248100048834 /* EmptyInboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0D39EE1CB9248100048834 /* EmptyInboxView.swift */; };
 		BF24C3C01D327F6400CC1667 /* AuthUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF24C3BF1D327F6400CC1667 /* AuthUtility.swift */; };
 		BF24C3C21D327FBA00CC1667 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF24C3C11D327FBA00CC1667 /* Config.swift */; };
@@ -191,6 +192,7 @@
 		BF862B311D16EDA700E4AE34 /* MessageOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF862B301D16EDA700E4AE34 /* MessageOperations.swift */; };
 		BFA307561CF25EAC00642A8D /* NSDateTimeAgo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFA307551CF25EAC00642A8D /* NSDateTimeAgo.framework */; };
 		BFA307571CF260F200642A8D /* RichEditorView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0D136A1CA8595200E91136 /* RichEditorView.framework */; };
+		BFBBA6D41D68F3D900D6AD08 /* InboxMessageTableViewCellHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBBA6D31D68F3D900D6AD08 /* InboxMessageTableViewCellHelper.swift */; };
 		BFE739C61CCA1DED002F84CD /* Contacts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFE739C51CCA1DED002F84CD /* Contacts.storyboard */; };
 		BFE739C81CCA2FAA002F84CD /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE739C71CCA2FAA002F84CD /* ContactsViewController.swift */; };
 		BFE739CA1CCA36E7002F84CD /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE739C91CCA36E7002F84CD /* ContactTableViewCell.swift */; };
@@ -420,6 +422,7 @@
 		BF03D66C1C9F13CB002EF4CC /* DraftsMailboxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraftsMailboxViewController.swift; sourceTree = "<group>"; };
 		BF03D66E1C9F13D6002EF4CC /* SentMailboxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentMailboxViewController.swift; sourceTree = "<group>"; };
 		BF03D6701C9F13EB002EF4CC /* ArchiveMailboxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArchiveMailboxViewController.swift; sourceTree = "<group>"; };
+		BF09A96F1D569C1500D3ADFD /* AccessToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessToken.swift; sourceTree = "<group>"; };
 		BF0D39EE1CB9248100048834 /* EmptyInboxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyInboxView.swift; sourceTree = "<group>"; };
 		BF24C3BF1D327F6400CC1667 /* AuthUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthUtility.swift; sourceTree = "<group>"; };
 		BF24C3C11D327FBA00CC1667 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
@@ -484,6 +487,7 @@
 		BF862B301D16EDA700E4AE34 /* MessageOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageOperations.swift; sourceTree = "<group>"; };
 		BFA307531CF25D0800642A8D /* HandleriOSSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HandleriOSSDK.framework; path = Carthage/Build/iOS/HandleriOSSDK.framework; sourceTree = SOURCE_ROOT; };
 		BFA307551CF25EAC00642A8D /* NSDateTimeAgo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NSDateTimeAgo.framework; path = Carthage/Build/iOS/NSDateTimeAgo.framework; sourceTree = SOURCE_ROOT; };
+		BFBBA6D31D68F3D900D6AD08 /* InboxMessageTableViewCellHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxMessageTableViewCellHelper.swift; sourceTree = "<group>"; };
 		BFE739C51CCA1DED002F84CD /* Contacts.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Contacts.storyboard; sourceTree = "<group>"; };
 		BFE739C71CCA2FAA002F84CD /* ContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 		BFE739C91CCA36E7002F84CD /* ContactTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
@@ -1084,10 +1088,19 @@
 		BF862B271D16EC8400E4AE34 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				BF09A96F1D569C1500D3ADFD /* AccessToken.swift */,
 				BF862B2C1D16ED3200E4AE34 /* User.swift */,
 				BF862B2E1D16ED9200E4AE34 /* Message.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		BFBBA6D21D68D74900D6AD08 /* View Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				BFBBA6D31D68F3D900D6AD08 /* InboxMessageTableViewCellHelper.swift */,
+			);
+			name = "View Helpers";
 			sourceTree = "<group>";
 		};
 		BFE739C41CCA1D9D002F84CD /* Storyboards */ = {
@@ -1139,6 +1152,7 @@
 				BFE739C41CCA1D9D002F84CD /* Storyboards */,
 				2FA2EA8A1BAD9C7A0027EA77 /* View Controllers */,
 				2FDDE1451BB04F8A006C3500 /* Views */,
+				BFBBA6D21D68D74900D6AD08 /* View Helpers */,
 				2FA2EA8F1BAD9D1F0027EA77 /* Resources */,
 				DF1FD2DB1B62360600A58B71 /* Supporting Files */,
 			);
@@ -1414,6 +1428,7 @@
 				BFF78C971CD56931007380C7 /* UTI.swift in Sources */,
 				2F7B0D0B1BFDDA9E0015C43A /* InboxActionHandler.swift in Sources */,
 				6C9BD0711C0603250053C868 /* SentFormatter.swift in Sources */,
+				BFBBA6D41D68F3D900D6AD08 /* InboxMessageTableViewCellHelper.swift in Sources */,
 				2F1D2C371BBC3DCA00A504A8 /* ContactCardViewController.swift in Sources */,
 				2F8D8CE51BCC20B40020A41C /* HRActionsManager.swift in Sources */,
 				6C9BD06E1C0603250053C868 /* ArchiveFormatter.swift in Sources */,
@@ -1455,6 +1470,7 @@
 				2FDDE0EF1BAEA957006C3500 /* Label+CoreDataProperties.swift in Sources */,
 				6C9BD06F1C0603250053C868 /* DraftsFormatter.swift in Sources */,
 				BF27F3811CDDF01C003A92D9 /* APSocialServiceHelper.m in Sources */,
+				BF09A9701D569C1500D3ADFD /* AccessToken.swift in Sources */,
 				2F994E511BB2AE3500A63B9B /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
 				BF862B2D1D16ED3200E4AE34 /* User.swift in Sources */,
 				2FDDE0F11BAEA957006C3500 /* Thread+CoreDataProperties.swift in Sources */,

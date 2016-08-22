@@ -42,11 +42,13 @@ class User: NSObject {
 	var twitterPictureUrl : NSURL?
 	var twitterDescription : String?
 
+	var name : String
+
 	var devices : [String]? //??
 	var friendsCount : Int?
 	var role : String?
 	var riskRating : Int
-	var status : UserStatus
+	var status : UserStatus?
 	//TODO
 	var emailThreadCount : Int
 
@@ -57,12 +59,12 @@ class User: NSObject {
 		if let twitterPictureUrlStr = json["twitter"]["pictureUrl"].string {
 			twitterPictureUrl = NSURL(string: twitterPictureUrlStr)
 		}
-
+		name = json["name"].stringValue
 		friendsCount = json["friendsCount"].int
 		role = json["role"].string
 		riskRating = json["riskRating"].intValue
 
-		status = UserStatus(rawValue: json["userStatus"].stringValue)!
+		status = UserStatus(rawValue: json["userStatus"].stringValue)
 
 		//flags?
 		emailThreadCount = json["emailThreads"].intValue

@@ -19,9 +19,9 @@ class MailBoxOptionsTableViewController: UITableViewController, MailboxCountObse
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		for type in MailboxType.allValues {
-			MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(type, observer: self)
-		}
+//		for type in MailboxType.allValues {
+//			MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(type, observer: self)
+//		}
 	}
 	
 	func mailboxCountDidChange(mailboxType: MailboxType, newCount: Int) {

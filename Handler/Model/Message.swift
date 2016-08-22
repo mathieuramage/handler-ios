@@ -28,25 +28,70 @@ class Message: NSObject {
 	var identifier : String
 	var user : User
 	var sender : User
+	var conversationId : String
 
-    var folder : Folder = .Inbox //TODO
-	var read : Bool = false
-    var starred : Bool = false
-    
+    var folder : Folder
+	var read : Bool
+    var starred : Bool?
     var archived : Bool {
         get {
             return folder == .Archived
         }
     }
     
-    var labels : [String] = []
-    var recipients : [User] = []
-    
+    var labels : [String]
+    var recipients : [User]
+	var subject : String
+	var message : String
+
+	var createdAt : NSDate
+	var updatedAt : NSDate
+
     init(json : JSON) {
 		identifier = json["_id"].stringValue
 		user = User(json: json["_user"])
-		sender = User(json : json["_sender"])
-        
+		sender = User(json : json["sender"])
+		conversationId = json["conversationId"].stringValue
+
+		subject = json["subject"].stringValue
+		message = json["message"].stringValue
+
+		recipients = []
+		if let recipientJsons = json["recipients"].array {
+			for recipientJson in recipientJsons {
+				recipients.append(User(json: recipientJson))
+			}
+		}
+
+		read = json["isRead"].boolValue
+
+		folder = Folder(rawValue: json["folder"].stringValue)!
+
+		labels = []
+		if let labelJsons = json["labels"].array {
+			for labelJson in labelJsons {
+				labels.append(labelJson.stringValue)
+			}
+		}
+
+		starred = json["isStar"].bool
+
+
+		if let createdAtStr = json["createdAt"].string {
+			let formatter = NSDateFormatter()
+			formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+			createdAt = formatter.dateFromString(createdAtStr)!
+		} else {
+			createdAt = NSDate()
+		}
+
+		if let updatedAtStr = json["updatedAt"].string {
+			let formatter = NSDateFormatter()
+			formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+			updatedAt = formatter.dateFromString(updatedAtStr)!
+		} else {
+			updatedAt = NSDate()
+		}
     }
 
 }

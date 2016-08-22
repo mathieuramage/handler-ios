@@ -16,17 +16,19 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 
 	var threadForSegue: Thread?
 
-	var fetchedResultsController: NSFetchedResultsController {
-		get {
-			return MailboxObserversManager.sharedInstance.fetchedResultsControllerForType(.Inbox)
-		}
-	}
+//	var fetchedResultsController: NSFetchedResultsController {
+//		get {
+//			return MailboxObserversManager.sharedInstance.fetchedResultsControllerForType(.Inbox)
+//		}
+//	}
 
-	var fetchedObjects: [Thread] {
-		get {
-			return fetchedResultsController.fetchedObjects as? [Thread] ?? [Thread]()
-		}
-	}
+//	var fetchedObjects: [Thread] {
+//		get {
+//			return fetchedResultsController.fetchedObjects as? [Thread] ?? [Thread]()
+//		}
+//	}
+
+	var messages : [Message]?
 
 	var progressBar: UIProgressView!
 	var lastupdatedLabel: UILabel?
@@ -40,19 +42,14 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		self.refreshControl = UIRefreshControl()
 		self.refreshControl!.addTarget(self, action: #selector(InboxTableViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
 		self.tableView.addSubview(refreshControl!)
-		MailboxObserversManager.sharedInstance.addObserverForMailboxType(.Inbox, observer: self)
+//		MailboxObserversManager.sharedInstance.addObserverForMailboxType(.Inbox, observer: self)
 	}
 
-	func refresh(control: UIRefreshControl){
-		APICommunicator.sharedInstance.fetchNewMessagesWithCompletion { (error) -> Void in
-			Async.main(block: { () -> Void in
-				control.endRefreshing()
-				guard let error = error else {
-					return
-				}
-				error.show()
-			})
-		}
+
+
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		refresh()
 	}
 
 	override func viewDidAppear(animated: Bool) {
@@ -63,19 +60,19 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		navigationItem.rightBarButtonItem?.enabled = true
 
 		lastupdatedLabel = UILabel(frame: CGRectMake(0, 8, 140, 14))
-		CurrentStatusManager.sharedInstance.currentStatusSubtitle.observe { text in
-			Async.main(block: { () -> Void in
-				self.lastupdatedLabel?.text = text
-			})
-		}
+//		CurrentStatusManager.sharedInstance.currentStatusSubtitle.observe { text in
+//			Async.main(block: { () -> Void in
+//				self.lastupdatedLabel?.text = text
+//			})
+//		}
 		lastupdatedLabel?.textAlignment = .Center
 		lastupdatedLabel?.font = UIFont.systemFontOfSize(14)
 		newEmailsLabel = UILabel(frame: CGRectMake(0, 26, 140, 10))
-		CurrentStatusManager.sharedInstance.currentStatus.observe { text in
-			Async.main(block: { () -> Void in
-				self.newEmailsLabel?.text = text
-			})
-		}
+//		CurrentStatusManager.sharedInstance.currentStatus.observe { text in
+//			Async.main(block: { () -> Void in
+//				self.newEmailsLabel?.text = text
+//			})
+//		}
 		newEmailsLabel?.textAlignment = .Center
 		newEmailsLabel?.font = UIFont.systemFontOfSize(10)
 		newEmailsLabel?.textColor = UIColor.darkGrayColor()
@@ -96,22 +93,38 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		progressBar.progressTintColor = UIColor.whiteColor()
 		progressBar.hidden = true
 
-		CurrentStatusManager.sharedInstance.currentUploadProgress.observe { progress in
-			Async.main(block: { () -> Void in
-				self.progressBar.progress = progress
-				self.progressBar.hidden = progress == 0 || progress == 1
-			})
-		}
+//		CurrentStatusManager.sharedInstance.currentUploadProgress.observe { progress in
+//			Async.main(block: { () -> Void in
+//				self.progressBar.progress = progress
+//				self.progressBar.hidden = progress == 0 || progress == 1
+//			})
+//		}
 
 		self.navigationController?.navigationBar.addSubview(progressBar)
-		if let cells = self.tableView.visibleCells as? [MessageTableViewCell]{
-			for cell in cells {
-				if let path = tableView.indexPathForCell(cell) where path.row < fetchedObjects.count, let data = fetchedObjects[path.row].mostRecentMessage {
-					FormattingPluginProvider.messageCellPluginForInboxType(.Inbox)?.refreshFlags(data: data, view: cell)
-				}
-			}
-		}
+//		if let cells = self.tableView.visibleCells as? [MessageTableViewCell]{
+//			for cell in cells {
+//				if let path = tableView.indexPathForCell(cell) where path.row < fetchedObjects.count, let data = fetchedObjects[path.row].mostRecentMessage {
+//					FormattingPluginProvider.messageCellPluginForInboxType(.Inbox)?.refreshFlags(data: data, view: cell)
+//				}
+//			}
+//		}
 	}
+
+
+	func refresh(control: UIRefreshControl) {
+		refresh()
+	}
+
+	func refresh(){
+
+		MessageOperations.getAllMessages(before: NSDate(), after: nil, limit: 10) { (success, messages) in
+			self.messages = messages
+			self.tableView.reloadData()
+		}
+		
+	}
+
+
 	func composeNewMessage(){
 		performSegueWithIdentifier("showMessageComposeNavigationController", sender: self)
 	}
@@ -125,20 +138,26 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 	}
 
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return fetchedObjects.count ?? 0
+		return messages?.count ?? 0
 	}
 
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCellWithIdentifier("mailCell", forIndexPath: indexPath) as! MessageTableViewCell
-		if indexPath.row < fetchedObjects.count {
-			if let data = fetchedObjects[indexPath.row].mostRecentMessage {
-				FormattingPluginProvider.messageCellPluginForInboxType(.Inbox)?.populateView(data: data, view: cell)
-			}
+
+		guard let message = messages?[indexPath.row] else {
+			return cell
 		}
+
+		InboxMessageTableViewCellHelper.configureCell(cell, message: message)
 		cell.delegate = self
+		
 		return cell
 	}
 
+
+	func configureCell(cell : MessageTableViewCell, message : Message) {
+
+	}
 
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		for cell in tableView.visibleCells {
@@ -146,15 +165,15 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 				cell.hideUtilityButtonsAnimated(true)
 			}
 		}
-		if indexPath.row < fetchedObjects.count {
-			navigationItem.rightBarButtonItem?.enabled = false
-
-			let thread = fetchedObjects[indexPath.row]
-			threadForSegue = thread
-			performSegueWithIdentifier("showThreadTableViewController", sender: self)
-		}else{
-
-		}
+//		if indexPath.row < fetchedObjects.count {
+//			navigationItem.rightBarButtonItem?.enabled = false
+//
+//			let thread = fetchedObjects[indexPath.row]
+//			threadForSegue = thread
+//			performSegueWithIdentifier("showThreadTableViewController", sender: self)
+//		}else{
+//
+//		}
 	}
 
 	override func preferredStatusBarStyle() -> UIStatusBarStyle {
@@ -202,15 +221,15 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 	}
 
 	func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerLeftUtilityButtonWithIndex index: Int) {
-		if let path = tableView.indexPathForCell(cell) where path.row < fetchedObjects.count, let data = fetchedObjects[path.row].mostRecentMessage {
-			ActionPluginProvider.messageCellPluginForInboxType(.Inbox)?.leftButtonTriggered(index, data: data, callback: nil)
-		}
+//		if let path = tableView.indexPathForCell(cell) where path.row < fetchedObjects.count, let data = fetchedObjects[path.row].mostRecentMessage {
+//			ActionPluginProvider.messageCellPluginForInboxType(.Inbox)?.leftButtonTriggered(index, data: data, callback: nil)
+//		}
 	}
 
 	func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerRightUtilityButtonWithIndex index: Int) {
-		if let path = tableView.indexPathForCell(cell) where path.row < fetchedObjects.count, let data = fetchedObjects[path.row].mostRecentMessage {
-			ActionPluginProvider.messageCellPluginForInboxType(.Inbox)?.rightButtonTriggered(index, data: data, callback: nil)
-		}
+//		if let path = tableView.indexPathForCell(cell) where path.row < fetchedObjects.count, let data = fetchedObjects[path.row].mostRecentMessage {
+//			ActionPluginProvider.messageCellPluginForInboxType(.Inbox)?.rightButtonTriggered(index, data: data, callback: nil)
+//		}
 	}
 
 	func swipeableTableViewCellShouldHideUtilityButtonsOnSwipe(cell: SWTableViewCell!) -> Bool {
@@ -219,11 +238,11 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		super.prepareForSegue(segue, sender: sender)
-		if segue.identifier == "showThreadTableViewController" {
-			let dc = segue.destinationViewController as! ThreadTableViewController
-			dc.thread = self.threadForSegue
-			dc.allThreads = self.fetchedObjects
-		}
+//		if segue.identifier == "showThreadTableViewController" {
+//			let dc = segue.destinationViewController as! ThreadTableViewController
+//			dc.thread = self.threadForSegue
+//			dc.allThreads = self.fetchedObjects
+//		}
 	}
 
 	// MARK: Empty Dataset DataSource
