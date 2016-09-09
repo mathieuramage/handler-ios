@@ -11,7 +11,21 @@ import Alamofire
 
 struct APIUtility {
 
+	// Temp memory caches
+	static var allConversations : [Conversation] = []
+	static var cachedTwitterUsers : [TwitterUser] = []
+
+	static var lastUpdated : NSDate? {
+		get {
+			if allConversations.count > 0 {
+				return allConversations[0].latestMessage.createdAt
+			}
+			return nil
+		}
+	}
+
 	static var defaultHeaders : [String: String] = ["Cache-Control" : "no-cache", "Content-Type" : "application/json"]
+
 
 	static func request(method : Alamofire.Method, route : String, parameters : [String : AnyObject]?) -> Request {
 		return request(method, route: route, parameters: parameters, headers: nil)
@@ -44,6 +58,8 @@ struct APIUtility {
 	}
 }
 
-struct ServerResponse {
-
+struct APIError {
+	var status : Int
+	var title : String
+	var detail : String
 }

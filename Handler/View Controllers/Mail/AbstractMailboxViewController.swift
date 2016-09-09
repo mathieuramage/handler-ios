@@ -12,23 +12,9 @@ import DZNEmptyDataSet
 
 class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, SWTableViewCellDelegate, MailboxCountObserver, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
 
-	var fetchedResultsController: NSFetchedResultsController {
-		get {
-			return MailboxObserversManager.sharedInstance.fetchedResultsControllerForType(mailboxType ?? .Inbox)
-		}
-	}
+	var conversations : [Conversation] = []
 
-	var fetchedObjects: [LegacyMessage]{
-		get {
-			return fetchedResultsController.fetchedObjects as? [LegacyMessage] ?? [LegacyMessage]()
-		}
-	}
-
-	var fetchedObjectsThread: [Thread]{
-		get {
-			return fetchedResultsController.fetchedObjects as? [Thread] ?? [Thread]()
-		}
-	}
+	var activeConversation : Conversation?
 
 	var mailboxType: MailboxType = .Inbox {
 		didSet{
@@ -36,7 +22,7 @@ class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UI
 		}
 	}
 
-	var messageForSegue: LegacyMessage?
+	var messageForSegue: Message?
 
 	@IBOutlet weak var tableView: UITableView!
 
@@ -46,7 +32,7 @@ class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UI
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		tableView.registerNib(UINib(nibName: "MessageTableViewCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "mailCell")
+		tableView.registerNib(UINib(nibName: "MessageTableViewCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "MessageTableViewCell")
 		tableView.tableFooterView = UIView()
 		tableView.dataSource = self
 		tableView.delegate = self
@@ -73,7 +59,7 @@ class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UI
 			if message is Message {
 				let replyNC = Storyboards.Main.instantiateViewControllerWithIdentifier("MessageComposeNavigationController") as! GradientNavigationController
 				let replyVC = replyNC.viewControllers.first as! MessageComposeTableViewController
-				replyVC.messageToReplyTo = message as? LegacyMessage
+				replyVC.messageToReplyTo = message as? Message
 				self.presentViewController(replyNC, animated: true, completion: nil)
 			}
 		}
@@ -84,22 +70,23 @@ class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UI
 	}
 
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return fetchedResultsController.fetchedObjects?.count ?? 0
+//		return fetchedResultsController.fetchedObjects?.count ?? 0
+		return conversations.count
 	}
 
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCellWithIdentifier("mailCell", forIndexPath: indexPath) as! MessageTableViewCell
+		let cell = tableView.dequeueReusableCellWithIdentifier("MessageTableViewCell", forIndexPath: indexPath) as! MessageTableViewCell
 		if mailboxType == .Unread {
 
-			if indexPath.row < fetchedObjectsThread.count {
-				if let data = fetchedObjectsThread[indexPath.row].mostRecentMessage {
-					FormattingPluginProvider.messageCellPluginForInboxType(.Unread)?.populateView(data: data, view: cell)
-				}
-			}
+//			if indexPath.row < fetchedObjectsThread.count {
+//				if let data = fetchedObjectsThread[indexPath.row].mostRecentMessage {
+//					FormattingPluginProvider.messageCellPluginForInboxType(.Unread)?.populateView(data: data, view: cell)
+//				}
+//			}
 
 		} else {
 
-			FormattingPluginProvider.messageCellPluginForInboxType(mailboxType)?.populateView(data: fetchedObjects[indexPath.row], view: cell)
+//			FormattingPluginProvider.messageCellPluginForInboxType(mailboxType)?.populateView(data: fetchedObjects[indexPath.row], view: cell)
 		}
 		cell.delegate = self
 		return cell
@@ -113,21 +100,21 @@ class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UI
 			}
 		}
 
-		let isUnreadBox = mailboxType == .Unread
-		let count = isUnreadBox ? fetchedObjectsThread.count : fetchedObjects.count
-
-
-		if indexPath.row < count {
-
-			let message = isUnreadBox ? fetchedObjectsThread[indexPath.row].messages?.anyObject() as! LegacyMessage: fetchedObjects[indexPath.row]
-			messageForSegue = message
-
-			if mailboxType == .Drafts {
-				performSegueWithIdentifier("showMessageComposeNavigationController", sender: self)
-			} else if let _ = message.thread {
-				performSegueWithIdentifier("showThreadTableViewController", sender: self)
-			}
-		}
+//		let isUnreadBox = mailboxType == .Unread
+//		let count = isUnreadBox ? conversations.count : fetchedObjects.count
+//
+//
+//		if indexPath.row < count {
+//
+//			let message = isUnreadBox ? fetchedObjectsThread[indexPath.row].messages?.anyObject() as! LegacyMessage: fetchedObjects[indexPath.row]
+//			messageForSegue = message
+//
+//			if mailboxType == .Drafts {
+//				performSegueWithIdentifier("showMessageComposeNavigationController", sender: self)
+//			} else if let _ = message.thread {
+//				performSegueWithIdentifier("showThreadTableViewController", sender: self)
+//			}
+//		}
 	}
 
 	func controllerWillChangeContent(controller: NSFetchedResultsController) {
@@ -179,23 +166,23 @@ class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UI
 	func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerLeftUtilityButtonWithIndex index: Int) {
 
 		if mailboxType == .Unread {
-			if let path = tableView.indexPathForCell(cell) where path.row < fetchedObjectsThread.count, let data = fetchedObjectsThread[path.row].mostRecentMessage {
-				ActionPluginProvider.messageCellPluginForInboxType(.Inbox)?.leftButtonTriggered(index, data: data, callback: nil)
-			}
+//			if let path = tableView.indexPathForCell(cell) where path.row < fetchedObjectsThread.count, let data = fetchedObjectsThread[path.row].mostRecentMessage {
+//				ActionPluginProvider.messageCellPluginForInboxType(.Inbox)?.leftButtonTriggered(index, data: data, callback: nil)
+//			}
 		} else {
 
-			if let path = tableView.indexPathForCell(cell) where path.row < fetchedObjects.count {
-				let data = fetchedObjects[path.row]
-				ActionPluginProvider.messageCellPluginForInboxType(mailboxType)?.leftButtonTriggered(index, data: data, callback: nil)
-			}
+//			if let path = tableView.indexPathForCell(cell) where path.row < fetchedObjects.count {
+//				let data = fetchedObjects[path.row]
+//				ActionPluginProvider.messageCellPluginForInboxType(mailboxType)?.leftButtonTriggered(index, data: data, callback: nil)
+//			}
 		}
 	}
 
 	func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerRightUtilityButtonWithIndex index: Int) {
-		if let path = tableView.indexPathForCell(cell) where path.row < fetchedObjects.count {
-			let data = fetchedObjects[path.row]
-			ActionPluginProvider.messageCellPluginForInboxType(mailboxType)?.rightButtonTriggered(index, data: data, callback: nil)
-		}
+//		if let path = tableView.indexPathForCell(cell) where path.row < fetchedObjects.count {
+//			let data = fetchedObjects[path.row]
+//			ActionPluginProvider.messageCellPluginForInboxType(mailboxType)?.rightButtonTriggered(index, data: data, callback: nil)
+//		}
 	}
 
 	func swipeableTableViewCellShouldHideUtilityButtonsOnSwipe(cell: SWTableViewCell!) -> Bool {
@@ -205,25 +192,28 @@ class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UI
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		super.prepareForSegue(segue, sender: sender)
 
-		if segue.identifier == "showThreadTableViewController" {
-			let dc = segue.destinationViewController as! ThreadTableViewController
-			dc.thread = self.messageForSegue?.thread
-			var threads = [Thread]()
-			for message in self.fetchedObjects {
-				if let thread = message.thread {
-					threads.append(thread)
-				}
-			}
-			dc.allThreads = threads
+		if segue.identifier == "showConversationTableViewController" {
+			let destination = segue.destinationViewController as! ConversationTableViewController
+
+			destination.conversation = activeConversation
+			
+//			dc.thread = self.messageForSegue?.thread
+//			var threads = [Thread]()
+//			for message in self.fetchedObjects {
+//				if let thread = message.thread {
+//					threads.append(thread)
+//				}
+//			}
+//			dc.allThreads = threads
 
 			if (mailboxType == .Unread) {
-				if let destination = segue.destinationViewController as? ThreadTableViewController {
-					destination.primaryMessage = self.messageForSegue!.thread?.oldestUnreadMessage
-				}
+//				if let destination = segue.destinationViewController as? ThreadTableViewController {
+//					destination.primaryMessage = self.messageForSegue!.thread?.oldestUnreadMessage
+//				}
 			}
 		} else if segue.identifier == "showMessageComposeNavigationController" {
-			if let dc = (segue.destinationViewController as? UINavigationController)?.viewControllers.first as? MessageComposerWrapperViewController {
-				dc.draftMessage = self.messageForSegue
+			if let destination = (segue.destinationViewController as? UINavigationController)?.viewControllers.first as? MessageComposerWrapperViewController {
+//	TODO			dc.draftMessage = self.messageForSegue
 			}
 		}
 	}

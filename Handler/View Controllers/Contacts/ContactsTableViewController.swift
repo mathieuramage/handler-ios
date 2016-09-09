@@ -78,13 +78,13 @@ class ContactsTableViewController: UITableViewController {
 	}
 	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		if let user = fetchedResultsController.objectAtIndexPath(indexPath) as? LegacyUser {
-			if let delegate = self.userSelectionDelegate {
-				delegate.didSelectUser(user)
-			}else {
-				ContactCardViewController.showWithUser(user)
-			}
-		}
+//		if let user = fetchedResultsController.objectAtIndexPath(indexPath) as? LegacyUser {
+//			if let delegate = self.userSelectionDelegate {
+//				delegate.didSelectUser(user)
+//			}else {
+//				ContactCardViewController.showWithUser(user)
+//			}
+//		}
 	}
 	
     /*

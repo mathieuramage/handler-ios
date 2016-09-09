@@ -18,26 +18,27 @@ class SentMailboxViewController: AbstractMailboxViewController {
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		super.prepareForSegue(segue, sender: sender)
 
-		if segue.identifier == "showThreadTableViewController" {
-			let dc = segue.destinationViewController as! ThreadTableViewController
-			dc.thread = self.messageForSegue?.thread
-			var threads = [Thread]()
-			for message in self.fetchedObjects {
-				if let thread = message.thread {
-					threads.append(thread)
-				}
-			}
-			dc.allThreads = threads
+		if segue.identifier == "showConversationTableViewController" {
+//			let dc = segue.destinationViewController as! ThreadTableViewController
+//			dc.thread = self.messageForSegue?.thread
+//			var threads = [Thread]()
+//			for message in self.fetchedObjects {
+//				if let thread = message.thread {
+//					threads.append(thread)
+//				}
+//			}
+//			dc.allThreads = threads
 
-			if let destination = segue.destinationViewController as? ThreadTableViewController {
+			if let destination = segue.destinationViewController as? ConversationTableViewController {
+				destination.conversation = self.activeConversation
 				destination.primaryMessage = self.messageForSegue!
 			}
 
 		} else if segue.identifier == "showMessageComposeNavigationController" {
 
-			if let dc = (segue.destinationViewController as? UINavigationController)?.viewControllers.first as? MessageComposerWrapperViewController {
-				dc.draftMessage = self.messageForSegue
-			}
+//			if let dc = (segue.destinationViewController as? UINavigationController)?.viewControllers.first as? MessageComposerWrapperViewController {
+//				dc.draftMessage = self.messageForSegue
+//			}
 		}
 	}
 

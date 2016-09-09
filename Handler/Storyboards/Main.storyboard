@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -36,7 +36,7 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
-                        <segue destination="HoU-qP-OJS" kind="show" identifier="showThreadTableViewController" id="37u-X4-Rqh"/>
+                        <segue destination="HoU-qP-OJS" kind="show" identifier="showConversationTableViewController" id="37u-X4-Rqh"/>
                         <segue destination="x4y-q9-8H2" kind="presentation" identifier="showMessageComposeNavigationController" id="ayj-ph-QJ8"/>
                     </connections>
                 </tableViewController>
@@ -72,7 +72,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="tableView" destination="BMu-2S-ngu" id="6lz-lu-qJd"/>
-                        <segue destination="HoU-qP-OJS" kind="show" identifier="showThreadTableViewController" id="qPu-ko-5gm"/>
+                        <segue destination="HoU-qP-OJS" kind="show" identifier="showConversationTableViewController" id="qPu-ko-5gm"/>
                         <segue destination="x4y-q9-8H2" kind="presentation" identifier="showMessageComposeNavigationController" id="ODR-Vb-gPe"/>
                     </connections>
                 </viewController>
@@ -108,7 +108,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="tableView" destination="tfZ-29-ymf" id="Mlt-bF-c9D"/>
-                        <segue destination="HoU-qP-OJS" kind="show" identifier="showThreadTableViewController" id="9KK-2a-G6b"/>
+                        <segue destination="HoU-qP-OJS" kind="show" identifier="showConversationTableViewController" id="9KK-2a-G6b"/>
                         <segue destination="x4y-q9-8H2" kind="presentation" identifier="showMessageComposeNavigationController" id="Ygx-jn-v8O"/>
                     </connections>
                 </viewController>
@@ -144,7 +144,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="tableView" destination="Rmp-wt-5sc" id="3oa-G9-AgN"/>
-                        <segue destination="HoU-qP-OJS" kind="show" identifier="showThreadTableViewController" id="ztf-hg-YcD"/>
+                        <segue destination="HoU-qP-OJS" kind="show" identifier="showConversationTableViewController" id="ztf-hg-YcD"/>
                         <segue destination="x4y-q9-8H2" kind="presentation" identifier="showMessageComposeNavigationController" id="lYq-E7-3Gf"/>
                     </connections>
                 </viewController>
@@ -180,7 +180,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="tableView" destination="xf7-Az-DMd" id="w3A-VO-TyQ"/>
-                        <segue destination="HoU-qP-OJS" kind="show" identifier="showThreadTableViewController" id="V4i-br-LNE"/>
+                        <segue destination="HoU-qP-OJS" kind="show" identifier="showConversationTableViewController" id="V4i-br-LNE"/>
                         <segue destination="x4y-q9-8H2" kind="presentation" identifier="showMessageComposeNavigationController" id="I0I-mz-uwE"/>
                     </connections>
                 </viewController>
@@ -216,7 +216,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="tableView" destination="bU7-Jy-VXe" id="C3b-mM-eJS"/>
-                        <segue destination="HoU-qP-OJS" kind="show" identifier="showThreadTableViewController" id="I0l-5p-pz3"/>
+                        <segue destination="HoU-qP-OJS" kind="show" identifier="showConversationTableViewController" id="I0l-5p-pz3"/>
                         <segue destination="x4y-q9-8H2" kind="presentation" identifier="showMessageComposeNavigationController" id="Wuf-nq-rPV"/>
                     </connections>
                 </viewController>
@@ -227,7 +227,7 @@
         <!--Thread-->
         <scene sceneID="n8g-XI-hXq">
             <objects>
-                <tableViewController storyboardIdentifier="ThreadTableViewController" id="HoU-qP-OJS" userLabel="Thread" customClass="ThreadTableViewController" customModule="Handler" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ConversationTableViewController" id="HoU-qP-OJS" userLabel="Thread" customClass="ConversationTableViewController" customModule="Handler" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="86" sectionHeaderHeight="28" sectionFooterHeight="28" id="csc-fR-Lhv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -713,8 +713,8 @@
         <image name="menu_help_icon" width="16" height="14"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="37u-X4-Rqh"/>
         <segue reference="ayj-ph-QJ8"/>
+        <segue reference="I0l-5p-pz3"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
 </document>

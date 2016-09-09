@@ -38,7 +38,6 @@ class ContactLegacyTableViewCell: UITableViewCell {
     
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(false, animated: animated)
-        
         // Configure the view for the selected state
     }
     

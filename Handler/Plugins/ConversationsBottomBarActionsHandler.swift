@@ -10,15 +10,15 @@ import UIKit
 
 class ConversationsBottomBarActionsHandler: NSObject, BottomBarActionPlugin {
 
-	let vc: ThreadTableViewController
+	let vc: ConversationTableViewController
 
-	init(vc: ThreadTableViewController){
+	init(vc: ConversationTableViewController){
 		self.vc = vc
 	}
 
 	lazy var left: UIBarButtonItem = {
 		let element = UIBarButtonItem(image: UIImage(named: "Left_toolbar"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(ConversationsBottomBarActionsHandler.action(_:)))
-		if let _ = self.vc.previousThread {
+		if let _ = self.vc.previousConversation {
 			element.tintColor = UIColor(rgba: HexCodes.lightBlue)
 		}else{
 			element.tintColor = UIColor(rgba: HexCodes.lighterGray)
@@ -27,7 +27,7 @@ class ConversationsBottomBarActionsHandler: NSObject, BottomBarActionPlugin {
 	}()
 	lazy var right: UIBarButtonItem = {
 		let element = UIBarButtonItem(image: UIImage(named: "Right_toolbar"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(ConversationsBottomBarActionsHandler.action(_:)))
-		if let _ = self.vc.nextThread {
+		if let _ = self.vc.nextConversation {
 			element.tintColor = UIColor(rgba: HexCodes.lightBlue)
 		}else{
 			element.tintColor = UIColor(rgba: HexCodes.lighterGray)
@@ -53,45 +53,53 @@ class ConversationsBottomBarActionsHandler: NSObject, BottomBarActionPlugin {
 		if let message = vc.primaryMessage {
 			switch item {
 			case left:
-				if let next = vc.previousThread {
-					vc.thread = next
-					if let _ = vc.previousThread {
-						left.tintColor = UIColor(rgba: HexCodes.lightBlue)
-					}else{
-						left.tintColor = UIColor(rgba: HexCodes.lighterGray)
-					}
-					if let _ = vc.nextThread {
-						right.tintColor = UIColor(rgba: HexCodes.lightBlue)
-					}else{
-						right.tintColor = UIColor(rgba: HexCodes.lighterGray)
-					}
-				}
+//				if let next = vc.previousThread {
+//					vc.thread = next
+//					if let _ = vc.previousThread {
+//						left.tintColor = UIColor(rgba: HexCodes.lightBlue)
+//					}else{
+//						left.tintColor = UIColor(rgba: HexCodes.lighterGray)
+//					}
+//					if let _ = vc.nextThread {
+//						right.tintColor = UIColor(rgba: HexCodes.lightBlue)
+//					}else{
+//						right.tintColor = UIColor(rgba: HexCodes.lighterGray)
+//					}
+//				}
 				break;
 			case right:
-				if let next = vc.nextThread {
-					vc.thread = next
-					if let _ = vc.previousThread {
-						left.tintColor = UIColor(rgba: HexCodes.lightBlue)
-					}else{
-						left.tintColor = UIColor(rgba: HexCodes.lighterGray)
-					}
-					if let _ = vc.nextThread {
-						right.tintColor = UIColor(rgba: HexCodes.lightBlue)
-					}else{
-						right.tintColor = UIColor(rgba: HexCodes.lighterGray)
-					}
-				}
+//				if let next = vc.nextThread {
+//					vc.thread = next
+//					if let _ = vc.previousThread {
+//						left.tintColor = UIColor(rgba: HexCodes.lightBlue)
+//					}else{
+//						left.tintColor = UIColor(rgba: HexCodes.lighterGray)
+//					}
+//					if let _ = vc.nextThread {
+//						right.tintColor = UIColor(rgba: HexCodes.lightBlue)
+//					}else{
+//						right.tintColor = UIColor(rgba: HexCodes.lighterGray)
+//					}
+//				}
 				break;
 			case flag:
 				let cont = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
-				cont.addAction(UIAlertAction(title: message.isFlagged ? "Unflag" : "Flag", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-					message.isFlagged ? message.unflag() : message.flag()
+
+				let title : String
+				if let starred = message.starred where starred {
+					title = "Unstar"
+				} else {
+					title = "Star"
+				}
+				cont.addAction(UIAlertAction(title: title, style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+					MessageOperations.setMessageStarred(message: message, starred: !message.starred!, callback: nil)
 //					self.vc.reloadCellForMessage(message)
 					// TODO: Add success message
 				}))
 				cont.addAction(UIAlertAction(title: "Mark as unread", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-					if message.isUnread {
-						message.markAsRead()
+					if !message.read {
+						MessageOperations.setMessageAsRead(message: message, read: true, callback: { (success) in
+						})
 					} else {
 //						message.thread?.markAsUnread(message)
 					}
@@ -103,7 +111,7 @@ class ConversationsBottomBarActionsHandler: NSObject, BottomBarActionPlugin {
 				break;
 			case archive:
 				let cont = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
-				cont.addAction(UIAlertAction(title: message.isArchived ? "Move to Inbox" : "Archive", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+				cont.addAction(UIAlertAction(title: message.archived ? "Move to Inbox" : "Archive", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
 //					message.isArchived ? message.thread?.unarchive() : message.thread?.archive()
 					// TODO: Add success message
 				}))

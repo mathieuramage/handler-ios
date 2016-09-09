@@ -1,5 +1,5 @@
 //
-//  ThreadMessageTableViewCell.swift
+//  ConversationMessageTableViewCell.swift
 //  Handler
 //
 //  Created by Christian Praiß on 12/9/15.
@@ -10,7 +10,7 @@ import UIKit
 import Async
 import RichEditorView
 
-class ThreadMessageTableViewCell: UITableViewCell {
+class ConversationMessageTableViewCell: UITableViewCell {
 
 	@IBOutlet var senderLabel: UILabel!
 	@IBOutlet var senderHandleButton: UIButton!
@@ -31,7 +31,7 @@ class ThreadMessageTableViewCell: UITableViewCell {
 
 	@IBOutlet var threadLine: UIView!
 
-	var sender: LegacyUser?
+	var sender: User?
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()
@@ -57,7 +57,7 @@ class ThreadMessageTableViewCell: UITableViewCell {
 	}
 }
 
-extension ThreadMessageTableViewCell: RichEditorDelegate {
+extension ConversationMessageTableViewCell: RichEditorDelegate {
 
 	func richEditor(editor: RichEditorView, shouldInteractWithURL url: NSURL) -> Bool {
 		Async.main {

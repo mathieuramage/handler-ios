@@ -14,7 +14,7 @@ import RichEditorView
 
 class MessageComposeTableViewController: UITableViewController, CLTokenInputViewDelegate, UITextViewDelegate, UITextFieldDelegate, FilePickerDelegate, UIDocumentPickerDelegate, UIDocumentInteractionControllerDelegate, ContactSelectionDelegate {
 
-	let ThreadMessageCellID = "ThreadMessageCellID"
+	let ConversationMessageCellID = "ConversationMessageTableViewCell"
 
 	struct ValidatedToken {
 		var name: String
@@ -28,11 +28,11 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		}
 	}
 
-	var _sizingCell: ThreadMessageTableViewCell?
-	var sizingCell: ThreadMessageTableViewCell {
+	var _sizingCell: ConversationMessageTableViewCell?
+	var sizingCell: ConversationMessageTableViewCell {
 		get {
 			if _sizingCell == nil {
-				_sizingCell = self.tableView.dequeueReusableCellWithIdentifier(ThreadMessageCellID) as? ThreadMessageTableViewCell
+				_sizingCell = self.tableView.dequeueReusableCellWithIdentifier(ConversationMessageCellID) as? ConversationMessageTableViewCell
 			}
 
 			return _sizingCell!
@@ -41,52 +41,63 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
 	var addContactToCC = false
 
-	var orderedThreadMessages = [LegacyMessage]()
-	private var internalmessageToReplyTo: LegacyMessage?
-	var messageToReplyTo: LegacyMessage? {
+	//	var orderedThreadMessages = [LegacyMessage]()
+	var conversations = [Conversation]()
+
+
+	private var internalmessageToReplyTo: Message?
+	var messageToReplyTo: Message? {
+
 		set(new){
-			if new?.managedObjectContext != MailDatabaseManager.sharedInstance.backgroundContext {
-				self.internalmessageToReplyTo = new?.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext)
-			}else{
-				self.internalmessageToReplyTo = new
-			}
 
-			if let allMessages = new?.thread?.messages?.allObjects as? [LegacyMessage] {
-				orderedThreadMessages = allMessages.sort({ (item1, item2) -> Bool in
-					if let firstDate = item1.sent_at, let secondDate = item2.sent_at {
-						return firstDate.compare(secondDate) == NSComparisonResult.OrderedDescending
-					}
-					else {
-						return true
-					}
-				})
-			}
-			else {
-				orderedThreadMessages = [LegacyMessage]()
-			}
+			// TODO
 
-			tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: .Automatic)
+			//			if new?.managedObjectContext != MailDatabaseManager.sharedInstance.backgroundContext {
+			//				self.internalmessageToReplyTo = new?.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext)
+			//			}else{
+			//				self.internalmessageToReplyTo = new
+			//			}
+			//
+			//			if let allMessages = new?.thread?.messages?.allObjects as? [LegacyMessage] {
+			//				orderedThreadMessages = allMessages.sort({ (item1, item2) -> Bool in
+			//					if let firstDate = item1.sent_at, let secondDate = item2.sent_at {
+			//						return firstDate.compare(secondDate) == NSComparisonResult.OrderedDescending
+			//					}
+			//					else {
+			//						return true
+			//					}
+			//				})
+			//			}
+			//			else {
+			//				orderedThreadMessages = [LegacyMessage]()
+			//			}
+			//
+			//			tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: .Automatic)
+
+			self.internalmessageToReplyTo = messageToReplyTo
 		}
 
 		get {
 			return self.internalmessageToReplyTo
 		}
 	}
-	var messageToForward: LegacyMessage?
-	private var internalDraftmessage: LegacyMessage?
-	var draftMessage: LegacyMessage? {
-		set(new){
-			if new?.managedObjectContext != MailDatabaseManager.sharedInstance.backgroundContext {
-				self.internalDraftmessage = new?.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext)
-			}else{
-				self.internalDraftmessage = new
-			}
-		}
-
-		get {
-			return self.internalDraftmessage
-		}
-	}
+	var messageToForward: Message?
+	private var internalDraftmessage: Message?
+	var draftMessage: Message?
+	// TODO
+	//		{
+	//		set(new){
+	//			if new?.managedObjectContext != MailDatabaseManager.sharedInstance.backgroundContext {
+	//				self.internalDraftmessage = new?.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext)
+	//			}else{
+	//				self.internalDraftmessage = new
+	//			}
+	//		}
+	//
+	//		get {
+	//			return self.internalDraftmessage
+	//		}
+	//	}
 
 	private var originalRecipients = [String]()
 	private var originalRecipientsChanged = false
@@ -119,12 +130,12 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		let messageNib = UINib(nibName: "ThreadMessageTableViewCell", bundle: nil);
-		tableView.registerNib(messageNib, forCellReuseIdentifier: ThreadMessageCellID)
+		let messageNib = UINib(nibName: "ConversationMessageTableViewCell", bundle: nil);
+		tableView.registerNib(messageNib, forCellReuseIdentifier: ConversationMessageCellID)
 		tableView.tableFooterView = UIView()
 
 		subjectTextField.delegate = self
-		
+
 
 		// UI Configuration
 		self.richTextContentView.setPlaceholderText("Share something")
@@ -135,70 +146,71 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		self.richTextContentView.webView.scrollView.backgroundColor = UIColor.clearColor()
 		self.richTextContentView.backgroundColor = UIColor.clearColor()
 		self.richTextContentView.webView.opaque = false
-		if let draft = draftMessage {
+		//		if let draft = draftMessage {
+		//
+		//
+		//				for recipient in draft.recipients {
+		//					if let handle = recipient.handle {
+		//						tokenView.addToken(CLToken(displayText: "@\(handle)", context: nil))
+		//						startValidationWithString("@\(handle)")
+		//					}
+		//				}
+		//
+		//
+		//			self.subjectTextField.text = draft.subject
+		//			self.richTextContentView.setHTML(draft.message ?? "")
+		////			attachmentsCell.attachments = draft.attachments?.allObjects as? [Attachment]
+		//
+		//		}else{
 
-			if let recipients = draft.recipients?.allObjects as? [LegacyUser] {
-				for recipient in recipients {
-					if let handle = recipient.handle {
-						tokenView.addToken(CLToken(displayText: "@\(handle)", context: nil))
-						startValidationWithString("@\(handle)")
-					}
-				}
+		if let message = messageToReplyTo where message.sender.handle.characters.count > 0 {
+			let sender = message.sender.handle
+			self.title = "New Reply"
+			validatedTokens.append(ValidatedToken(name: sender, isOnHandler: true))
+
+			tokenView.addToken(CLToken(displayText: "@\(sender)", context: nil))
+			tokenView.validatedString(sender, withResult: true)
+			tokenView.reloadTokenWithTitle(sender)
+
+			if message.hasReplyPrefix() {
+				subjectTextField.text = message.subject
+			}
+			else {
+				subjectTextField.text = "\(message.replyPrefix) \(message.subject ?? "")"
 			}
 
-			self.subjectTextField.text = draft.subject
-			self.richTextContentView.setHTML(draft.content ?? "")
-			attachmentsCell.attachments = draft.attachments?.allObjects as? [Attachment]
+			originalReplySubject = subjectTextField.text
+		}
 
-		}else{
-
-			if let message = messageToReplyTo, let sender = message.sender?.handle {
-				self.title = "New Reply"
-				validatedTokens.append(ValidatedToken(name: sender, isOnHandler: true))
-
-				tokenView.addToken(CLToken(displayText: "@\(sender)", context: nil))
-				tokenView.validatedString(sender, withResult: true)
-				tokenView.reloadTokenWithTitle(sender)
-
-				if message.hasReplyPrefix() {
-					subjectTextField.text = message.subject
-				}
-				else {
-					subjectTextField.text = "\(message.replyPrefix) \(message.subject ?? "")"
-				}
-
-				originalReplySubject = subjectTextField.text
-			}
-			if let receivers = messageToReplyTo?.recipientsWithoutSelf(), let all = receivers.allObjects as? [LegacyUser] {
-				for receiver in all {
-					if let senderHandle = receiver.handle {
-						validatedTokens.append(ValidatedToken(name: senderHandle, isOnHandler: true))
-
-						ccTokenView.addToken(CLToken(displayText: "@\(senderHandle)", context: nil))
-						ccTokenView.validatedString(senderHandle, withResult: true)
-						ccTokenView.reloadTokenWithTitle(senderHandle)
-					}
+		if let receivers = messageToReplyTo?.recipientsWithoutSelf(){
+			for receiver in receivers {
+				let senderUsername = receiver.handle
+				if senderUsername.characters.count > 0 {
+					validatedTokens.append(ValidatedToken(name: senderUsername, isOnHandler: true))
+					ccTokenView.addToken(CLToken(displayText: "@\(senderUsername)", context: nil))
+					ccTokenView.validatedString(senderUsername, withResult: true)
+					ccTokenView.reloadTokenWithTitle(senderUsername)
 				}
 			}
+			//			}
 
 			originalRecipients = validatedTokens.map( { $0.name } )
-			if let msg = messageToForward {
-				attachmentsCell.attachments = msg.attachments?.allObjects as? [Attachment]
-			}
+			//			if let msg = messageToForward {
+			//				attachmentsCell.attachments = msg.attachments?.allObjects as? [Attachment]
+			//			}
 		}
 
-		attachmentsCell.filePresentingVC = self
-		attachmentsCell.reloadClosure = {[unowned self] ()->Void in
-			self.tableView.beginUpdates()
-			self.tableView.endUpdates()
-		}
-		attachmentsCell.filePickerDelegate = self
+		//		attachmentsCell.filePresentingVC = self
+		//		attachmentsCell.reloadClosure = {[unowned self] ()->Void in
+		//			self.tableView.beginUpdates()
+		//			self.tableView.endUpdates()
+		//		}
+		//		attachmentsCell.filePickerDelegate = self
 
 	}
-	
+
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
-		
 		enableSendButton()
 	}
 
@@ -254,7 +266,6 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
 		presentViewController(alertController, animated: true, completion: nil)
 
-
 		// Draft disabled for now as per IOS-96
 
 		//        if let draft = draftMessage {
@@ -280,11 +291,43 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	}
 
 	func send() {
+
 		switchUserInteractionState(false)
 
-		let message = createMessageFromUI()
+		let message = richTextContentView.contentHTML
+		let subject = subjectTextField.text ?? ""
 
-		if !message.hasValidSubject() {
+		var recipients = [String]()
+		for token in tokenView.allTokens {
+//			for validtoken in validatedTokens {
+//				if validtoken.isOnHandler && validtoken.name == token.displayText.stringByReplacingOccurrencesOfString("@", withString: ""){
+//					recipients.append(validtoken.name)
+//				}
+//			}
+
+			recipients.append(token.displayText.stringByReplacingOccurrencesOfString("@", withString: ""))  //FIXME, temporary IMPORTANT, DELETE THIS and uncomment above.
+		}
+
+		guard recipients.count > 0 else {
+			var errorPopup = ErrorPopupViewController()
+			errorPopup.displayMessageLabel.text = "You need at least one receiver and a subject / content"
+			errorPopup.show()
+			switchUserInteractionState(true)
+			return
+		}
+
+
+		guard message.characters.count > 0 || subject.characters.count > 0 else {
+			var errorPopup = ErrorPopupViewController()
+			errorPopup.displayMessageLabel.text = "You need at least one receiver and a subject / content"
+			errorPopup.show()
+			switchUserInteractionState(true)
+			return
+		}
+
+
+		if (subject.characters.count == 0) {
+
 			let alertController = UIAlertController(title: "Empty subject", message: "This message has no subject line.\n Do you want to send it anyway?", preferredStyle: .Alert)
 
 			let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action) in
@@ -292,9 +335,19 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 			}
 
 			let sendAnywayAction = UIAlertAction(title: "Send", style: .Default) { (action) in
-				HRActionsManager.enqueueMessage(message, replyTo: self.messageToReplyTo)
-				self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
 
+				if let replyTo = self.messageToReplyTo {
+					MessageOperations.replyToUserNames(recipients, conversationId: replyTo.conversationId, message: message, subject: subject, callback: { (success) in
+						// TODO?
+					})
+				} else {
+
+					MessageOperations.sendNewMessage(message, subject: subject, recipientUserNames: recipients, callback: { (success) in
+						// TODO?
+					})
+				}
+
+				self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
 				self.switchUserInteractionState(true)
 			}
 
@@ -302,19 +355,24 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 			alertController.addAction(sendAnywayAction)
 
 			self.presentViewController(alertController, animated: true, completion: nil)
-		}
-		else {
-			if !message.isValidToSend() {
-				var errorPopup = ErrorPopupViewController()
-				errorPopup.displayMessageLabel.text = "You need at least one receiver and a subject / content"
-				errorPopup.show()
-				switchUserInteractionState(true)
-				return
+
+		} else {
+
+
+			if let replyTo = self.messageToReplyTo {
+				MessageOperations.replyToUserNames(recipients, conversationId: replyTo.conversationId, message: message, subject: subject, callback: { (success) in
+					// TODO?
+				})
+			} else {
+
+				MessageOperations.sendNewMessage(message, subject: subject, recipientUserNames: recipients, callback: { (success) in
+					// TODO?
+				})
 			}
 
-			HRActionsManager.enqueueMessage(message, replyTo: messageToReplyTo)
-			self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+
 		}
+
 	}
 
 	func updateDraftFromUI(draft draft: LegacyMessage) -> LegacyMessage {
@@ -322,12 +380,34 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		return draft
 	}
 
-	func createMessageFromUI() -> LegacyMessage {
-		let message = LegacyMessage(managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
-		configMsg(message)
-
-		return message
-	}
+	//	func createMessageFromUI() -> MessageData {
+	////		let message = LegacyMessage(managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
+	//
+	//		let message = MessageData()
+	//
+	//		var receivers = [User]()
+	//		for token in tokenView.allTokens {
+	//			for valdtoken in validatedTokens {
+	//				if valdtoken.isOnHandler && valdtoken.name == token.displayText.stringByReplacingOccurrencesOfString("@", withString: ""){
+	//					receivers.append(LegacyUser.fromHandle(valdtoken.name))
+	//				}
+	//			}
+	//		}
+	//
+	////		var attachments = [Attachment]()
+	////		for attachment in attachmentsCell.attachments ?? [Attachment]() {
+	////			if let converted = attachment.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) {
+	////				attachments.append(converted)
+	////			}
+	////		}
+	//
+	////		message.attachments = NSSet(array: attachments)
+	//		message.recipients = receivers
+	//		message.message = richTextContentView.contentHTML
+	//		message.subject = subjectTextField.text ?? ""
+	//
+	//		return message
+	//	}
 
 	func configMsg(message: LegacyMessage)->LegacyMessage {
 
@@ -450,7 +530,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	func tokenInputView(view: CLTokenInputView, didAddToken token: CLToken) {
 		view.endEditing()
 		view.beginEditing()
-	
+
 		enableSendButton()
 	}
 
@@ -474,7 +554,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
 			presentViewController(alertController, animated: true, completion: nil)
 		}
-		
+
 		enableSendButton()
 	}
 
@@ -535,7 +615,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 			return super.tableView(tableView, numberOfRowsInSection: section)
 		}
 
-		return orderedThreadMessages.count
+		return conversations.count
 	}
 
 	override func tableView(tableView: UITableView, indentationLevelForRowAtIndexPath indexPath: NSIndexPath) -> Int {
@@ -547,7 +627,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 			return super.tableView(tableView, cellForRowAtIndexPath: indexPath)
 		}
 
-		let cell = tableView.dequeueReusableCellWithIdentifier(ThreadMessageCellID, forIndexPath: indexPath) as! ThreadMessageTableViewCell
+		let cell = tableView.dequeueReusableCellWithIdentifier(ConversationMessageCellID, forIndexPath: indexPath) as! ConversationMessageTableViewCell
 
 		configureThreadMessageCell(cell, indexPath: indexPath)
 
@@ -618,37 +698,37 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		}
 	}
 
-	func saveFileToAttachment(file: NSData, url: NSURL){
-		guard let filetype = url.pathExtension else {
-			print("\(url) had no filtype")
-			return
-		}
-		guard let originalFileName = url.lastPathComponent else {
-			print("\(url) had no filename")
-			return
-		}
-		guard let docsDir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, .UserDomainMask, true).first else {
-			print("caches directory not found")
-			return
-		}
-		var docsDirURL = NSURL(fileURLWithPath: docsDir, isDirectory: true)
-		let filename = NSUUID().UUIDString.stringByAppendingString("."+filetype)
-		docsDirURL = docsDirURL.URLByAppendingPathComponent(filename)
-		MailDatabaseManager.sharedInstance.backgroundContext.performBlock { () -> Void in
-
-			if file.writeToURL(docsDirURL, atomically: true) {
-
-				let attachment = Attachment(localFile: docsDirURL, filename: originalFileName)
-				MailDatabaseManager.sharedInstance.saveContext()
-				Async.main(block: { () -> Void in
-					self.attachmentsCell.attachments?.append(attachment)
-				})
-			}else{
-				print("Failed to write file")
+		func saveFileToAttachment(file: NSData, url: NSURL){
+			guard let filetype = url.pathExtension else {
+				print("\(url) had no filtype")
+				return
 			}
+			guard let originalFileName = url.lastPathComponent else {
+				print("\(url) had no filename")
+				return
+			}
+			guard let docsDir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, .UserDomainMask, true).first else {
+				print("caches directory not found")
+				return
+			}
+			var docsDirURL = NSURL(fileURLWithPath: docsDir, isDirectory: true)
+			let filename = NSUUID().UUIDString.stringByAppendingString("."+filetype)
+			docsDirURL = docsDirURL.URLByAppendingPathComponent(filename)
+			MailDatabaseManager.sharedInstance.backgroundContext.performBlock { () -> Void in
+	
+				if file.writeToURL(docsDirURL, atomically: true) {
+	
+					let attachment = Attachment(localFile: docsDirURL, filename: originalFileName)
+					MailDatabaseManager.sharedInstance.saveContext()
+					Async.main(block: { () -> Void in
+						self.attachmentsCell.attachments?.append(attachment)
+					})
+				}else{
+					print("Failed to write file")
+				}
+			}
+	
 		}
-
-	}
 
 	func documentInteractionControllerViewControllerForPreview(controller: UIDocumentInteractionController) -> UIViewController {
 		return self.navigationController ?? self
@@ -656,8 +736,10 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
 	// Mark: ContactsAutoCompleteViewControllerDelegateDelegate
 
-	func contactsAutoCompleteDidSelectUser(user: LegacyUser) {
-		guard let handle = user.handle else {
+	func contactsAutoCompleteDidSelectUser(user: User) {
+		let handle = user.handle
+
+		guard handle.characters.count > 0 else {
 			return
 		}
 
@@ -695,9 +777,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 				}))
 
 				presentViewController(alertController, animated: true, completion: nil)
-
 			}
-
 			return false
 		}
 
@@ -705,14 +785,15 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
 	}
 
-	func configureThreadMessageCell(cell: ThreadMessageTableViewCell, indexPath: NSIndexPath) {
-		let message = orderedThreadMessages[indexPath.row]
+	func configureThreadMessageCell(cell: ConversationMessageTableViewCell, indexPath: NSIndexPath) {
+		let message = conversations[indexPath.row]
 
-		let lastMessage = indexPath.row + 1 >= orderedThreadMessages.count
-		let primary = message == orderedThreadMessages
-		FormattingPluginProvider.messageContentCellPluginForConversation()?.populateView(data: message, view: cell, lastMessage: lastMessage, primary: primary)
+		let lastMessage = indexPath.row + 1 >= conversations.count
+		//		let primary = message == orderedThreadMessages // What?
+		let primary = false // TODO
+		//		ConversationTableViewCellHelper.configureCell(cell, message: message, lastMessage: lastMessage, primary: primary)
 	}
-	
+
 	// MARK: UITextViewDelegate
 	func textViewDidBeginEditing(textView: UITextView) {
 		if textView.textColor == UIColor(rgba: HexCodes.lightGray) {
@@ -720,16 +801,16 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 			textView.textColor = UIColor(rgba: HexCodes.darkGray)
 		}
 	}
-	
+
 	func enableSendButton() {
-		
+
 		guard let navC = self.navigationController else {
 			return
 		}
 		guard let messageComposerWrapperViewController = navC.topViewController as? MessageComposerWrapperViewController else {
 			return
 		}
-		
+
 		guard let sendButton = messageComposerWrapperViewController.navigationItem.rightBarButtonItem  else {
 			return
 		}
@@ -745,7 +826,7 @@ protocol MessageComposeTableViewControllerDelegate {
 }
 
 extension MessageComposeTableViewController: RichEditorDelegate {
-
+	
 	func richEditor(editor: RichEditorView, shouldInteractWithURL url: NSURL) -> Bool {
 		return false
 	}

@@ -10,8 +10,8 @@ import UIKit
 import SwiftyJSON
 
 class Message: NSObject {
-    
-    /*
+
+	/*
  _id	ObjectID	Required | Unique
  _user	User	Required
  _sender	User	Required
@@ -23,33 +23,33 @@ class Message: NSObject {
  folder	String	Required | Default: ‘draft’ | Enum: ['inbox', 'sent', 'archived', 'deleted', 'draft']
  labels	[String]	# Can be empty. Sample: 'job', 'invoices', ...
  isStar	Boolean	# Can be empty.
-*/
-	
+	*/
+
 	var identifier : String
-	var user : User
+//	var user : User
 	var sender : User
 	var conversationId : String
 
-    var folder : Folder
+	var folder : Folder
 	var read : Bool
-    var starred : Bool?
-    var archived : Bool {
-        get {
-            return folder == .Archived
-        }
-    }
-    
-    var labels : [String]
-    var recipients : [User]
+	var starred : Bool?
+	var archived : Bool {
+		get {
+			return folder == .Archived
+		}
+	}
+
+	var labels : [String]
+	var recipients : [User]
 	var subject : String
 	var message : String
 
 	var createdAt : NSDate
 	var updatedAt : NSDate
 
-    init(json : JSON) {
+	init(json : JSON) {
 		identifier = json["_id"].stringValue
-		user = User(json: json["_user"])
+//		user = User(json: json["_user"])
 		sender = User(json : json["sender"])
 		conversationId = json["conversationId"].stringValue
 
@@ -76,7 +76,6 @@ class Message: NSObject {
 
 		starred = json["isStar"].bool
 
-
 		if let createdAtStr = json["createdAt"].string {
 			let formatter = NSDateFormatter()
 			formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
@@ -92,15 +91,41 @@ class Message: NSObject {
 		} else {
 			updatedAt = NSDate()
 		}
-    }
+	}
+
+
+	// TODO: Make it locale indepent
+	let replyPrefix = "Re:"
+	let forwardPrefix = "Fwd:"
+
+	func hasReplyPrefix() -> Bool {
+		return subject.lowercaseString.hasPrefix(replyPrefix.lowercaseString)
+	}
+
+	func hasForwardPrefix() -> Bool {
+		return subject.lowercaseString.hasPrefix(forwardPrefix.lowercaseString)
+	}
+
+	func recipientsWithoutSelf()-> [User] {
+		var tempRecipients = recipients
+		var index : Int = 0
+		for recipient in recipients {
+			if recipient.handle == AuthUtility.user?.handle {
+				tempRecipients.removeAtIndex(index)
+				return tempRecipients
+			}
+			index = index + 1
+		}
+		return tempRecipients
+	}
 
 }
 
 
 enum Folder : String {
-    case Inbox = "inbox"
-    case Sent = "sent"
-    case Archived = "archived"
-    case Deleted = "deleted"
-    case Draft = "draft"
+	case Inbox = "inbox"
+	case Sent = "sent"
+	case Archived = "archived"
+	case Deleted = "deleted"
+	case Draft = "draft"
 }

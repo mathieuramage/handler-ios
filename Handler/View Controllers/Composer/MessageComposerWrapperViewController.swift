@@ -11,8 +11,8 @@ import UIKit
 
 class MessageComposerWrapperViewController: UIViewController, AutoCompleteDelegate, MessageComposeTableViewControllerDelegate {
 
-	var messageToReplyTo : LegacyMessage?
-	var draftMessage : LegacyMessage?
+	var messageToReplyTo : Message?
+	var draftMessage : Message?
 
 	@IBOutlet weak var autoCompleteContainerView: UIView!
 	@IBOutlet weak var autoCompleteTopConstraint: NSLayoutConstraint!
@@ -87,7 +87,7 @@ class MessageComposerWrapperViewController: UIViewController, AutoCompleteDelega
 	//MARK : MessageComposeTableViewControllerDelegate
 	func autoCompleteUserForPrefix(prefix : String) {
 		autoCompleteContainerView.hidden = prefix == ""
-		autoCompleteViewController?.autoCompleteUserForPrefix(prefix)
+//		autoCompleteViewController?.autoCompleteUserForPrefix(prefix)
 	}
 
 	func setAutoCompleteViewTopInset(topInset : CGFloat) {
@@ -97,7 +97,7 @@ class MessageComposerWrapperViewController: UIViewController, AutoCompleteDelega
 
 
 	//MARK : AutoCompleteDelegate
-	func contactsAutoCompleteDidSelectUser(controller: ContactsAutoCompleteViewController, user: LegacyUser) {
+	func contactsAutoCompleteDidSelectUser(controller: ContactsAutoCompleteViewController, user: User) {
 		messageComposerController?.contactsAutoCompleteDidSelectUser(user)
 	}
 

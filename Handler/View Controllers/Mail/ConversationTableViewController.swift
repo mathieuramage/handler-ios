@@ -1,65 +1,49 @@
 //
-//  ThreadTableViewController.swift
+//  ConversationTableViewController.swift
 //  Handler
 //
-//  Created by Christian Praiss on 24/09/15.
+//  Created by Cagdas Altinkaya on 08/09/16.
 //  Copyright (c) 2013-2016 Mathieu Ramage - All Rights Reserved.
 //
 
 import UIKit
 
-class ThreadTableViewController: UITableViewController {
+class ConversationTableViewController: UITableViewController {
 	
-	let MessageCellID = "MessageCellID"
+	let MessageCellID = "ConversationMessageTableViewCell"
 
-	var thread: Thread? {
-		didSet {
-			if let allMessages = thread?.messages?.allObjects as? [LegacyMessage] {
-//				orderedMessages = allMessages.sort({ (item1, item2) -> Bool in
-//					if let firstDate = item1.sent_at, let secondDate = item2.sent_at {
-//						return firstDate.compare(secondDate) == NSComparisonResult.OrderedDescending
-//					}
-//					else {
-//						return true
-//					}
-//				})
+	var conversation : Conversation?
+
+	var allConversations : [Conversation]?
+
+	var previousConversation : Conversation? {
+		get {
+			guard let conversations = allConversations, let index = allConversations?.indexOf(conversation!) where index > 0 else {
+				return nil
 			}
-			else {
-				orderedMessages = [LegacyMessage]()
-			}
-
-			primaryMessage = orderedMessages.first
-
-			tableView.reloadData()
+			return conversations[index - 1]
 		}
 	}
-	var allThreads: [Thread] = [Thread]()
-	var nextThread: Thread? {
-		if let thread = thread, let indexOfCurrent = allThreads.indexOf(thread) {
-			if allThreads.count > indexOfCurrent + 1 {
-				return allThreads[indexOfCurrent + 1]
+
+	var nextConversation : Conversation? {
+		get {
+			guard let conversations = allConversations, let index = allConversations?.indexOf(conversation!) where index < conversations.count - 1 else {
+				return nil
 			}
+			return conversations[index + 1]
 		}
-		return nil
-	}
-	var plugin: BottomBarActionPlugin!
-	var previousThread: Thread? {
-		if let thread = thread, let indexOfCurrent = allThreads.indexOf(thread) {
-			if indexOfCurrent >= 1 && indexOfCurrent < allThreads.count {
-				return allThreads[indexOfCurrent - 1]
-			}
-		}
-		return nil
 	}
 
-	var primaryMessage: LegacyMessage? {
+	var plugin: BottomBarActionPlugin! //Need to update this, way too complicated.
+
+	var primaryMessage: Message? {
 		didSet(previous) {
 			if primaryMessage != previous {
-				guard let primaryMessage = primaryMessage, newIndex = orderedMessages.indexOf(primaryMessage) else {
+				guard let primaryMessage = primaryMessage, newIndex = conversation?.messages.indexOf(primaryMessage) else {
 					return
 				}
 
-				guard let previous = previous, previousIndex = orderedMessages.indexOf(previous) else {
+				guard let previous = previous, previousIndex = conversation?.messages.indexOf(previous) else {
 					return
 				}
 
@@ -73,13 +57,11 @@ class ThreadTableViewController: UITableViewController {
 		}
 	}
 
-	var orderedMessages = [LegacyMessage]()
-
-	var _sizingCell: ThreadMessageTableViewCell?
-	var sizingCell: ThreadMessageTableViewCell {
+	var _sizingCell: ConversationMessageTableViewCell?
+	var sizingCell: ConversationMessageTableViewCell {
 		get {
 			if _sizingCell == nil {
-				_sizingCell = self.tableView.dequeueReusableCellWithIdentifier(MessageCellID) as? ThreadMessageTableViewCell
+				_sizingCell = self.tableView.dequeueReusableCellWithIdentifier(MessageCellID) as? ConversationMessageTableViewCell
 			}
 
 			return _sizingCell!
@@ -89,7 +71,7 @@ class ThreadTableViewController: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		let messageNib = UINib(nibName: "ThreadMessageTableViewCell", bundle: nil);
+		let messageNib = UINib(nibName: "ConversationMessageTableViewCell", bundle: nil);
 		tableView.registerNib(messageNib, forCellReuseIdentifier: MessageCellID)
 		tableView.backgroundColor = UIColor(rgba: HexCodes.offWhite)
 		tableView.tableFooterView = UIView()
@@ -98,7 +80,7 @@ class ThreadTableViewController: UITableViewController {
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 		self.plugin = BottomBarActionPluginProvider.plugin(self)
-		self.navigationController!.toolbar!.items = plugin.barButtonItemsForThread(thread)
+//		self.navigationController!.toolbar!.items = plugin.barButtonItemsForThread(thread)
 	}
 
 	// MARK: UITableViewDataSource
@@ -108,11 +90,11 @@ class ThreadTableViewController: UITableViewController {
 	}
 
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return orderedMessages.count
+		return conversation?.messages.count > 0 ? conversation!.messages.count : 0
 	}
 
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCellWithIdentifier(MessageCellID, forIndexPath: indexPath) as! ThreadMessageTableViewCell
+		let cell = tableView.dequeueReusableCellWithIdentifier(MessageCellID, forIndexPath: indexPath) as! ConversationMessageTableViewCell
 		configureCell(cell, indexPath: indexPath)
 
 		return cell
@@ -170,42 +152,43 @@ class ThreadTableViewController: UITableViewController {
 	}
 
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		primaryMessage = orderedMessages[indexPath.row]
+		primaryMessage = conversation!.messages[indexPath.row]
 	}
 
 	override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
 
-		let message = orderedMessages[indexPath.row]
-		if message.isUnread {
-			message.markAsRead()
+		let message = conversation!.messages[indexPath.row]
+		if !message.read {
+			MessageOperations.setMessageAsRead(message: message, read: true, callback: nil)
 		}
 	}
 
-	func configureCell(cell: ThreadMessageTableViewCell, indexPath: NSIndexPath) {
-		let message = orderedMessages[indexPath.row]
+	func configureCell(cell: ConversationMessageTableViewCell, indexPath: NSIndexPath) {
+		let message = conversation!.messages[indexPath.row]
 
-		let lastMessage = indexPath.row + 1 >= orderedMessages.count
+		let lastMessage = indexPath.row + 1 >= conversation!.messages.count
 		let primary = message == primaryMessage
 		configureDotColorForCell(cell, indexPath: indexPath)
 //		FormattingPluginProvider.messageContentCellPluginForConversation()?.populateView(data: message, view: cell, lastMessage: lastMessage, primary: primary)
+		ConversationTableViewCellHelper.configureCell(cell, message: message, lastMessage: lastMessage, primary: primary)
 	}
 
-	func configureDotColorForCell(cell: ThreadMessageTableViewCell, indexPath: NSIndexPath) {
-		let message = orderedMessages[indexPath.row]
+	func configureDotColorForCell(cell: ConversationMessageTableViewCell, indexPath: NSIndexPath) {
+		let message = conversation!.messages[indexPath.row]
 
-		if message.isFlagged {
+		if message.starred == true {
 			cell.dotImageView.image = UIImage(named: "Orange_Dot")
-		} else if message.isUnread {
+		} else if !message.read {
 			cell.dotImageView.image = UIImage(named: "Blue_Dot")
 		} else {
 			cell.dotImageView.image = nil
 		}
 	}
 
-	func reloadCellForMessage(message : LegacyMessage) {
-		if let index = orderedMessages.indexOf(message) {
+	func reloadCellForMessage(message : Message) {
+		if let index = conversation!.messages.indexOf(message) {
 			let indexPath = NSIndexPath(forRow: index, inSection: 0)
-			let cell = tableView.cellForRowAtIndexPath(indexPath) as! ThreadMessageTableViewCell
+			let cell = tableView.cellForRowAtIndexPath(indexPath) as! ConversationMessageTableViewCell
 			configureDotColorForCell(cell,indexPath: indexPath)
 			tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
 		}

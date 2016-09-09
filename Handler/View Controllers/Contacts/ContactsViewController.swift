@@ -173,8 +173,8 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		tableView.deselectRowAtIndexPath(indexPath, animated: false)
-		let user : LegacyUser = activeTabContacts[indexPath.row]
-		ContactCardViewController.showWithUser(user)
+//		let user : LegacyUser = activeTabContacts[indexPath.row]
+//		ContactCardViewController.showWithUser(user)
 	}
 
 

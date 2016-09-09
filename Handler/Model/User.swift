@@ -37,13 +37,8 @@ class User: NSObject {
 
 	var identifier : String
 
-	var twitterId : String
-	var twitterUserName : String?
-	var twitterPictureUrl : NSURL?
-	var twitterDescription : String?
-
+	var twitterUser : TwitterUser
 	var name : String
-
 	var devices : [String]? //??
 	var friendsCount : Int?
 	var role : String?
@@ -52,13 +47,23 @@ class User: NSObject {
 	//TODO
 	var emailThreadCount : Int
 
+	var handle : String {
+		get {
+			return twitterUser.username ?? ""
+		}
+	}
+
+	var pictureUrl : NSURL? {
+		get {
+			return twitterUser.pictureURL
+		}
+	}
+
 	init(json : JSON) {
 		identifier = json["_id"].stringValue
-		twitterId = json["twitter"]["id"].stringValue
-		twitterUserName = json["twitter"]["username"].string
-		if let twitterPictureUrlStr = json["twitter"]["pictureUrl"].string {
-			twitterPictureUrl = NSURL(string: twitterPictureUrlStr)
-		}
+
+		twitterUser = TwitterUser(json: json["twitter"])
+		
 		name = json["name"].stringValue
 		friendsCount = json["friendsCount"].int
 		role = json["role"].string

@@ -13,16 +13,16 @@ import CoreData
 
 protocol AutoCompleteDelegate {
     
-    func contactsAutoCompleteDidSelectUser(controller: ContactsAutoCompleteViewController, user: LegacyUser)
+    func contactsAutoCompleteDidSelectUser(controller: ContactsAutoCompleteViewController, user: User)
 }
 
 private struct MatchedUser {
     
-    let user: LegacyUser
+    let user: User
     let handleMatchRange: Range<String.Index>?
     let nameMatchRange: Range<String.Index>?
     
-    init(user: LegacyUser, handleMatchRange: Range<String.Index>?, nameMatchRange: Range<String.Index>?) {
+    init(user: User, handleMatchRange: Range<String.Index>?, nameMatchRange: Range<String.Index>?) {
         self.user = user
         self.handleMatchRange = handleMatchRange
         self.nameMatchRange = nameMatchRange
@@ -38,15 +38,15 @@ private struct AutoCompleteMatcher {
         self.predicate = predicate
     }
     
-    func evaluate(user: LegacyUser, searchedText: String) -> MatchedUser? {
+    func evaluate(user: User, searchedText: String) -> MatchedUser? {
         let match = self.predicate.evaluateWithObject(user)
         
         if match {
             let normalizedSearchedText = searchedText.stringByFoldingWithOptions([.DiacriticInsensitiveSearch, .CaseInsensitiveSearch], locale: nil)
             
-            let handleRange = user.handle?.stringByFoldingWithOptions([.DiacriticInsensitiveSearch, .CaseInsensitiveSearch], locale: nil).rangeOfString(normalizedSearchedText)
+            let handleRange = user.handle.stringByFoldingWithOptions([.DiacriticInsensitiveSearch, .CaseInsensitiveSearch], locale: nil).rangeOfString(normalizedSearchedText)
             
-            let nameRange = user.name?.stringByFoldingWithOptions([.DiacriticInsensitiveSearch, .CaseInsensitiveSearch], locale: nil).rangeOfString(normalizedSearchedText)
+            let nameRange = user.name.stringByFoldingWithOptions([.DiacriticInsensitiveSearch, .CaseInsensitiveSearch], locale: nil).rangeOfString(normalizedSearchedText)
             
             return MatchedUser(user: user, handleMatchRange: handleRange, nameMatchRange: nameRange)
         }
@@ -65,28 +65,28 @@ class ContactsAutoCompleteViewController: UIViewController, UITableViewDelegate,
     
     var delegate: AutoCompleteDelegate? = nil
     
-    lazy var fetchedResultsController: NSFetchedResultsController = {
-        let fetchRequest = NSFetchRequest(entityName: LegacyUser.entityName())
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true), NSSortDescriptor(key: "handle", ascending: true)]
-        
-        let fetchedController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: MailDatabaseManager.sharedInstance.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
-        
-        do {
-            try fetchedController.performFetch()
-        }
-        catch {
-            print(error)
-        }
-        
-        return fetchedController
-    }()
-    
-    var fetchedUsers: [LegacyUser] {
-        get {
-            return fetchedResultsController.fetchedObjects as? [LegacyUser] ?? [LegacyUser]()
-        }
-    }
-    
+//    lazy var fetchedResultsController: NSFetchedResultsController = {
+//        let fetchRequest = NSFetchRequest(entityName: LegacyUser.entityName())
+//        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true), NSSortDescriptor(key: "handle", ascending: true)]
+//        
+//        let fetchedController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: MailDatabaseManager.sharedInstance.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+//        
+//        do {
+//            try fetchedController.performFetch()
+//        }
+//        catch {
+//            print(error)
+//        }
+//        
+//        return fetchedController
+//    }()
+//    
+//    var fetchedUsers: [LegacyUser] {
+//        get {
+//            return fetchedResultsController.fetchedObjects as? [LegacyUser] ?? [LegacyUser]()
+//        }
+//    }
+//    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -124,8 +124,9 @@ class ContactsAutoCompleteViewController: UIViewController, UITableViewDelegate,
         }
         
         let matchedUser = matchedUsers[indexPath.row]
-        
-        if let name = matchedUser.user.name {
+
+		let name = matchedUser.user.name
+        if name.characters.count > 0 {
             if let matchedNameRange = matchedUser.nameMatchRange {
                 let attributedString = NSMutableAttributedString(string: name, attributes: [ NSForegroundColorAttributeName: UIColor(rgba: HexCodes.gray)])
                 attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor(rgba: HexCodes.darkGray), range: name.NSRangeFromRange(matchedNameRange))
@@ -140,8 +141,9 @@ class ContactsAutoCompleteViewController: UIViewController, UITableViewDelegate,
         else {
             cell.contactName.text = nil
         }
-        
-        if let handle = matchedUser.user.handle {
+
+		let handle = matchedUser.user.handle
+        if  handle.characters.count > 0{
             if let matchedNameRange = matchedUser.handleMatchRange {
                 let attributedString = NSMutableAttributedString(string: handle, attributes: [ NSForegroundColorAttributeName: UIColor(rgba: HexCodes.gray)])
                 attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor(rgba: HexCodes.darkGray), range: handle.NSRangeFromRange(matchedNameRange))
@@ -159,8 +161,8 @@ class ContactsAutoCompleteViewController: UIViewController, UITableViewDelegate,
             cell.contactHandle.text = nil
         }
         
-        if let urlString = matchedUser.user.profile_picture_url, let profileURL = NSURL(string: urlString) {
-            cell.contactPhoto.kf_setImageWithURL(profileURL, placeholderImage: UIImage.randomGhostImage(), optionsInfo: nil, completionHandler:nil)
+		if let pictureUrl = matchedUser.user.pictureUrl {
+            cell.contactPhoto.kf_setImageWithURL(pictureUrl, placeholderImage: UIImage.randomGhostImage(), optionsInfo: nil, completionHandler:nil)
         }
         else {
             cell.contactPhoto.image = UIImage.randomGhostImage()
@@ -182,33 +184,33 @@ class ContactsAutoCompleteViewController: UIViewController, UITableViewDelegate,
     // MARK: Public functions
     
     func autoCompleteUserForPrefix(string : String) {
-        let handleBeginsWithPredicate = NSPredicate(format: "handle BEGINSWITH[cd] %@", argumentArray: [string])
-        let nameBeginsWithPredicate = NSPredicate(format: "name BEGINSWITH[cd] %@", argumentArray: [string])
-        let handleContainsWithPredicate = NSPredicate(format: "handle CONTAINS[cd] %@", argumentArray: [string])
-        let nameContainsWithPredicate = NSPredicate(format: "name CONTAINS[cd] %@", argumentArray: [string])
-        
-        let predicatesByPriority = [
-            AutoCompleteMatcher(predicate: handleBeginsWithPredicate),
-            AutoCompleteMatcher(predicate: nameBeginsWithPredicate),
-            AutoCompleteMatcher(predicate: handleContainsWithPredicate),
-            AutoCompleteMatcher(predicate: nameContainsWithPredicate),
-        ]
-        
-        var sortedMatchedUsers = [MatchedUser]()
-        
-        for matcher in predicatesByPriority {
-            for user in fetchedUsers {
-                if let matchedUser = matcher.evaluate(user, searchedText: string) {
-                    if sortedMatchedUsers.contains({ $0.user == matchedUser.user }) {
-                        continue
-                    }
-                    sortedMatchedUsers.append(matchedUser)
-                }
-            }
-        }
-        
-        matchedUsers = Array(sortedMatchedUsers)
-        
+//        let handleBeginsWithPredicate = NSPredicate(format: "handle BEGINSWITH[cd] %@", argumentArray: [string])
+//        let nameBeginsWithPredicate = NSPredicate(format: "name BEGINSWITH[cd] %@", argumentArray: [string])
+//        let handleContainsWithPredicate = NSPredicate(format: "handle CONTAINS[cd] %@", argumentArray: [string])
+//        let nameContainsWithPredicate = NSPredicate(format: "name CONTAINS[cd] %@", argumentArray: [string])
+//        
+//        let predicatesByPriority = [
+//            AutoCompleteMatcher(predicate: handleBeginsWithPredicate),
+//            AutoCompleteMatcher(predicate: nameBeginsWithPredicate),
+//            AutoCompleteMatcher(predicate: handleContainsWithPredicate),
+//            AutoCompleteMatcher(predicate: nameContainsWithPredicate),
+//        ]
+//        
+//        var sortedMatchedUsers = [MatchedUser]()
+//        
+//        for matcher in predicatesByPriority {
+//            for user in fetchedUsers {
+//                if let matchedUser = matcher.evaluate(user, searchedText: string) {
+//                    if sortedMatchedUsers.contains({ $0.user == matchedUser.user }) {
+//                        continue
+//                    }
+//                    sortedMatchedUsers.append(matchedUser)
+//                }
+//            }
+//        }
+//        
+//        matchedUsers = Array(sortedMatchedUsers)
+
         self.tableView.reloadData()
     }
 }

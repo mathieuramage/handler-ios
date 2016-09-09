@@ -9,7 +9,7 @@
 import UIKit
 
 class BottomBarActionPluginProvider: NSObject {
-    class func plugin(vc: ThreadTableViewController)->BottomBarActionPlugin?{
+    class func plugin(vc: ConversationTableViewController)->BottomBarActionPlugin?{
         return ConversationsBottomBarActionsHandler(vc: vc)
     }
 }

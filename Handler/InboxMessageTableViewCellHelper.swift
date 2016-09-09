@@ -17,7 +17,10 @@ class InboxMessageTableViewCellHelper {
 		return formatter
 	}()
 
-	class func configureCell(cell : MessageTableViewCell, message: Message){
+	class func configureCell(cell : MessageTableViewCell, conversation: Conversation){
+
+		let message = conversation.latestMessage
+
 		cell.readFlaggedImageView.image = nil
 		cell.senderProfileImageView.image = nil
 		cell.senderNameLabel.text = nil
@@ -28,47 +31,35 @@ class InboxMessageTableViewCellHelper {
 		cell.leftUtilityButtons = nil
 		cell.rightUtilityButtons = nil
 
-		//todo view.leftUtilityButtons = leftButtonsForMessage(message)
-		//todo view.rightUtilityButtons = rightButtonsForMessage(message)
-		if let pictureUrl = message.sender.twitterPictureUrl {
+		cell.leftUtilityButtons = leftButtonsForMessage(message)
+		cell.rightUtilityButtons = rightButtonsForMessage(message)
+
+
+		if let pictureUrl = message.sender.twitterUser.pictureURL {
 			cell.senderProfileImageView.kf_setImageWithURL(pictureUrl, placeholderImage: UIImage.randomGhostImage(), optionsInfo: nil, completionHandler: { (image, error, cacheType, imageURL) -> () in
 			})
 		}
 
 		cell.senderNameLabel.text = message.sender.name
-		cell.senderHandleLabel.text = "@" + message.sender.twitterUserName!
+		cell.senderHandleLabel.text = "@" + message.sender.handle
 
 		cell.messageSubjectLabel.text = message.subject
 		cell.messageContentPreviewLabel.text = message.message
-		//		view.messageContentPreviewLabel.text = message.content
-		//		if let sent_at = message.sent_at {
-		//
-		//			view.messageTimeLabel.text = timeFormatter.stringFromDate(sent_at)
-		//		}else{
-		//			view.messageTimeLabel.text = "-"
-		//		}
 
 		cell.messageTimeLabel.text = timeFormatter.stringFromDate(message.createdAt)
 
-		//		if let count = message.thread?.messages?.count where count > 1 {
-		//			view.threadCountLabel.hidden = false
-		//			view.threadCountLabel.text = "\(count)"
-		//		}else{
-		//			view.threadCountLabel.hidden = true
-		//			view.threadCountLabel.text = "-"
-		//		}
+		let count = conversation.messages.count
+		if count > 1 {
+			cell.threadCountLabel.hidden = false
+			cell.threadCountLabel.text = "\(count)"
+		} else {
+			cell.threadCountLabel.hidden = true
+			cell.threadCountLabel.text = "-"
+		}
 
-		//		if let count = message.attachments?.count where count > 1 {
-		//			view.attachmentIconView.hidden = false
-		//		}else{
-		//			view.attachmentIconView.hidden = true
-		//		}
-		//
-		//		if message.thread?.mostRecentMessage?.sender?.id == HRUserSessionManager.sharedManager.currentUser?.id {
-		//			view.repliedIconView.hidden = false
-		//		}else{
-		//			view.repliedIconView.hidden = true
-		//		}
+		cell.attachmentIconView.hidden = true
+
+		cell.repliedIconView.hidden = (message.sender.identifier != AuthUtility.user?.identifier)
 
 		setUpReadFlagMessage(message: message, view: cell)
 
@@ -95,7 +86,7 @@ class InboxMessageTableViewCellHelper {
 	}
 
 
-	func leftButtonsForMessage(message message: Message)->[AnyObject]{
+	class func leftButtonsForMessage(message: Message)->[AnyObject]{
 		let array = NSMutableArray()
 		if !message.read {
 			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.lightBlue), icon: UIImage(named: "icon_read"))
@@ -105,7 +96,7 @@ class InboxMessageTableViewCellHelper {
 		return array as [AnyObject]
 	}
 
-	func rightButtonsForData(message message: Message)->[AnyObject]{
+	class func rightButtonsForMessage(message: Message)->[AnyObject]{
 		let array = NSMutableArray()
 		if message.starred == true {
 			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.orange), icon: UIImage(named: "icon_unflag"))

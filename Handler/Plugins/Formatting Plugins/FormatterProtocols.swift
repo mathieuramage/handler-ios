@@ -8,14 +8,14 @@
 
 import UIKit
 
-protocol MessageTableViewCellFormatter {
-    func populateView(data message: LegacyMessage, view: MessageTableViewCell)
-    func refreshFlags(data message: LegacyMessage, view: MessageTableViewCell)
-    func leftButtonsForData(data message: LegacyMessage)->[AnyObject]
-    func rightButtonsForData(data message: LegacyMessage)->[AnyObject]
+protocol MessageTableViewCellFormatter { //TODO delete these protocols
+//    func populateView(data message: LegacyMessage, view: MessageTableViewCell)
+//    func refreshFlags(data message: LegacyMessage, view: MessageTableViewCell)
+//    func leftButtonsForData(data message: LegacyMessage)->[AnyObject]
+//    func rightButtonsForData(data message: LegacyMessage)->[AnyObject]
 }
 
 protocol MessageContentCellFormatter {
-    func populateView(data message: LegacyMessage?, view: ThreadMessageTableViewCell)
-    func populateView(data message: LegacyMessage?, view: ThreadMessageTableViewCell, lastMessage: Bool, primary: Bool)
+//    func populateView(data message: LegacyMessage?, view: ThreadMessageTableViewCell)
+//    func populateView(data message: LegacyMessage?, view: ThreadMessageTableViewCell, lastMessage: Bool, primary: Bool)
 }
