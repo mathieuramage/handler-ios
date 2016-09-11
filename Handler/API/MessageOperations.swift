@@ -16,12 +16,12 @@ struct MessageOperations {
 		var params : [String : AnyObject] = [:]
 
 		if let before = before {
-			params["before"] = Int(before.timeIntervalSince1970 * 1000)
+			params["before"] = NSDate.distantFuture()
 		} else {
 			params["before"] = NSDate()
 		}
 		if let after = after {
-			params["after"] =  Int(after.timeIntervalSince1970 * 1000)
+			params["before"] = 0
 		} else {
 			params["after"] = 0
 		}
