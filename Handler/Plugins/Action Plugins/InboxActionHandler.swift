@@ -12,11 +12,12 @@ class InboxActionHandler: MessageTableViewCellActions {
 
 	// MARK: Actions
 
-	func leftButtonTriggered(index: Int, data message: LegacyMessage, callback: (() -> Void)?) {
+	// OTTODO: Implement?
+	func leftButtonTriggered(index: Int, data message: ManagedMessage, callback: (() -> Void)?) {
 
 		switch index {
 		case 0:
-			message.isUnread ? message.thread?.markAsRead() : message.thread?.markAsUnread(message)
+//			message.isUnread ? message.thread?.markAsRead() : message.thread?.markAsUnread(message)
 			break;
 		default:
 			break
@@ -31,14 +32,15 @@ class InboxActionHandler: MessageTableViewCellActions {
 		// TODO: Implement actions
 	}
 
-	func rightButtonTriggered(index: Int, data message: LegacyMessage, callback: (() -> Void)?) {
+	// OTTODO: Implement
+	func rightButtonTriggered(index: Int, data message: ManagedMessage, callback: (() -> Void)?) {
 
 		switch index {
 		case 0:
 			message.isFlagged ? message.unflag() : message.flag()
 			break
 		case 1:
-			message.isArchived ? message.thread?.unarchive() : message.thread?.archive()
+//			message.isArchived ? message.thread?.unarchive() : message.thread?.archive()
 			break
 		default:
 			break
@@ -54,7 +56,7 @@ class InboxActionHandler: MessageTableViewCellActions {
 
 	// MARK: Data Source
 
-	func leftButtonsForData(data message: LegacyMessage)->[AnyObject]{
+	func leftButtonsForData(data message: ManagedMessage) -> [AnyObject] {
 		let array = NSMutableArray()
 		if message.isUnread {
 			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.lightBlue), icon: UIImage(named: "icon_read"))
@@ -64,7 +66,7 @@ class InboxActionHandler: MessageTableViewCellActions {
 		return array as [AnyObject]
 	}
 
-	func rightButtonsForData(data message: LegacyMessage)->[AnyObject]{
+	func rightButtonsForData(data message: ManagedMessage) -> [AnyObject] {
 		let array = NSMutableArray()
 		if message.isFlagged {
 			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.orange), icon: UIImage(named: "icon_unflag"))

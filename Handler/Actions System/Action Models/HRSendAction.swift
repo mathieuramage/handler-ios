@@ -12,7 +12,7 @@ import CoreData
 
 class HRSendAction: HRAction {
 	
-	required convenience init(message: LegacyMessage, inReplyTo: LegacyMessage? = nil){
+	required convenience init(message: ManagedMessage, inReplyTo: ManagedMessage? = nil){
 		self.init(managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
 		self.message = message
 		self.replyTo = inReplyTo
@@ -22,17 +22,18 @@ class HRSendAction: HRAction {
 	override func execute() {
 		print("starting sending")
 		self.running = NSNumber(bool: true)
-		
-		if self.message?.attachments?.count > 0 {
-			for locattachment in self.message?.attachments?.allObjects as! [Attachment] {
-				let action = HRUploadAction(attachment: locattachment)
-				action.execute()
-				self.dependencies = self.dependencies?.setByAddingObject(action)
-			}
-			MailDatabaseManager.sharedInstance.saveContext()
-		}else{
-			send()
-		}
+
+		// OTTODO: Implement?
+//		if self.message?.attachments?.count > 0 {
+//			for locattachment in self.message?.attachments?.allObjects as! [Attachment] {
+//				let action = HRUploadAction(attachment: locattachment)
+//				action.execute()
+//				self.dependencies = self.dependencies?.setByAddingObject(action)
+//			}
+//			MailDatabaseManager.sharedInstance.saveContext()
+//		}else{
+//			send()
+//		}
 	}
 	
 	override func dependencyDidComplete(dependency: HRAction) {
@@ -65,40 +66,40 @@ class HRSendAction: HRAction {
 	// API Communication
 	
 	private func send(){
-		if let message = message {
-			if let replyTo = replyTo {
-				// reply
-				APICommunicator.sharedInstance.replyToMessageWithID(replyTo.id ?? "", reply: message.toHRType(), callback: { (newmessage, error) -> Void in
-					guard let newmessage = newmessage else {
-						if let error = error {
-							self.hadError = NSNumber(bool: true)
-							error.show()
-						}
-						return
-					}
-					self.message?.updateFromHRType(newmessage)
-					self.completed = NSNumber(bool: true)
-					self.running = NSNumber(bool: false)
-					print("sent")
-				})
-			}else{
-				// send
-				APICommunicator.sharedInstance.sendMessage(message.toHRType()) { (newmessage, error) -> Void in
-					guard let newmessage = newmessage else {
-						if let error = error {
-							self.hadError = NSNumber(bool: true)
-							error.show()
-						}
-						return
-					}
-					print("sent")
-					MailDatabaseManager.sharedInstance.storeMessage(newmessage)
-					self.completed = NSNumber(bool: true)
-					self.running = NSNumber(bool: false)
-				}
-			}
-		}else{
-			hadError = NSNumber(bool: true)
-		}
+//		if let message = message {
+//			if let replyTo = replyTo {
+//				// reply
+//				APICommunicator.sharedInstance.replyToMessageWithID(replyTo.id ?? "", reply: message.toHRType(), callback: { (newmessage, error) -> Void in
+//					guard let newmessage = newmessage else {
+//						if let error = error {
+//							self.hadError = NSNumber(bool: true)
+//							error.show()
+//						}
+//						return
+//					}
+//					self.message?.updateFromHRType(newmessage)
+//					self.completed = NSNumber(bool: true)
+//					self.running = NSNumber(bool: false)
+//					print("sent")
+//				})
+//			}else{
+//				// send
+//				APICommunicator.sharedInstance.sendMessage(message.toHRType()) { (newmessage, error) -> Void in
+//					guard let newmessage = newmessage else {
+//						if let error = error {
+//							self.hadError = NSNumber(bool: true)
+//							error.show()
+//						}
+//						return
+//					}
+//					print("sent")
+//					MailDatabaseManager.sharedInstance.storeMessage(newmessage)
+//					self.completed = NSNumber(bool: true)
+//					self.running = NSNumber(bool: false)
+//				}
+//			}
+//		}else{
+//			hadError = NSNumber(bool: true)
+//		}
 	}
 }

@@ -20,7 +20,7 @@ extension ManagedMessage {
     @NSManaged var shouldBeSent: NSNumber?
     @NSManaged var subject: String?
     @NSManaged var recipients: NSSet?
-    @NSManaged var sender: User?
-    @NSManaged var conversation: Message?
+    @NSManaged var sender: ManagedUser?
+    @NSManaged var conversation: ManagedConversation?
 
 }

@@ -15,7 +15,6 @@
 		2F0136A31BD10EE4008BAD9D /* TwitterAPICommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0136A21BD10EE4008BAD9D /* TwitterAPICommunicator.swift */; };
 		2F0136A51BD11C87008BAD9D /* UserTwitterStatusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0136A41BD11C87008BAD9D /* UserTwitterStatusManager.swift */; };
 		2F041D541BCA7D24009985EB /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F041D531BCA7D24009985EB /* ErrorHandler.swift */; };
-		2F0580571BC02FBC00600B8B /* HandlerDatabaseModel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 2F0580561BC02FBC00600B8B /* HandlerDatabaseModel.xcdatamodel */; };
 		2F09DB1F1BC69CEC00B81FE2 /* AttachmentThumbnailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F09DB1E1BC69CEC00B81FE2 /* AttachmentThumbnailView.xib */; };
 		2F09DB241BC69F3F00B81FE2 /* AttachmentThumbnailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F09DB231BC69F3F00B81FE2 /* AttachmentThumbnailCollectionViewCell.swift */; };
 		2F09DB261BC6A0A300B81FE2 /* MessageAttachmentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F09DB251BC6A0A300B81FE2 /* MessageAttachmentsTableViewCell.swift */; };
@@ -109,8 +108,6 @@
 		2FDB44761BD3EB380040014E /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB44751BD3EB380040014E /* Crashlytics.framework */; };
 		2FDC6FAA1C18B91C008D334A /* ConversationMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDC6FA91C18B91C008D334A /* ConversationMessageTableViewCell.swift */; };
 		2FDC6FAE1C18BD89008D334A /* ConversationContentCellFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDC6FAD1C18BD89008D334A /* ConversationContentCellFormatter.swift */; };
-		2FDDE0ED1BAEA957006C3500 /* Message+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE0E31BAEA957006C3500 /* Message+CoreDataProperties.swift */; };
-		2FDDE0EE1BAEA957006C3500 /* LegacyMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE0E41BAEA957006C3500 /* LegacyMessage.swift */; };
 		2FDDE0EF1BAEA957006C3500 /* Label+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE0E51BAEA957006C3500 /* Label+CoreDataProperties.swift */; };
 		2FDDE0F01BAEA957006C3500 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE0E61BAEA957006C3500 /* Label.swift */; };
 		2FDDE0F11BAEA957006C3500 /* Thread+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE0E71BAEA957006C3500 /* Thread+CoreDataProperties.swift */; };
@@ -281,7 +278,6 @@
 		2F0136A21BD10EE4008BAD9D /* TwitterAPICommunicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterAPICommunicator.swift; sourceTree = "<group>"; };
 		2F0136A41BD11C87008BAD9D /* UserTwitterStatusManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTwitterStatusManager.swift; sourceTree = "<group>"; };
 		2F041D531BCA7D24009985EB /* ErrorHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
-		2F0580561BC02FBC00600B8B /* HandlerDatabaseModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HandlerDatabaseModel.xcdatamodel; sourceTree = "<group>"; };
 		2F09DB1E1BC69CEC00B81FE2 /* AttachmentThumbnailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AttachmentThumbnailView.xib; sourceTree = "<group>"; };
 		2F09DB231BC69F3F00B81FE2 /* AttachmentThumbnailCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttachmentThumbnailCollectionViewCell.swift; sourceTree = "<group>"; };
 		2F09DB251BC6A0A300B81FE2 /* MessageAttachmentsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageAttachmentsTableViewCell.swift; sourceTree = "<group>"; };
@@ -385,8 +381,6 @@
 		2FDB44751BD3EB380040014E /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = SOURCE_ROOT; };
 		2FDC6FA91C18B91C008D334A /* ConversationMessageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationMessageTableViewCell.swift; sourceTree = "<group>"; };
 		2FDC6FAD1C18BD89008D334A /* ConversationContentCellFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationContentCellFormatter.swift; sourceTree = "<group>"; };
-		2FDDE0E31BAEA957006C3500 /* Message+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Message+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		2FDDE0E41BAEA957006C3500 /* LegacyMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = LegacyMessage.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2FDDE0E51BAEA957006C3500 /* Label+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Label+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2FDDE0E61BAEA957006C3500 /* Label.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		2FDDE0E71BAEA957006C3500 /* Thread+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Thread+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -750,7 +744,6 @@
 				2FA271981BB69EB300B22C8B /* CLTokenInputView */,
 				2FF0D1371BB4BC4E009467B5 /* SwipeCell */,
 				BF27F3391CDDED2B003A92D9 /* APAddressBook */,
-				2F0580561BC02FBC00600B8B /* HandlerDatabaseModel.xcdatamodel */,
 				7A44570A1D8F1A18000F862D /* Handler.xcdatamodel */,
 				DF1FD2E41B62360600A58B71 /* Images.xcassets */,
 			);
@@ -803,8 +796,6 @@
 				2FDDE0F81BAEAA27006C3500 /* Attachment.swift */,
 				2FDDE0E51BAEA957006C3500 /* Label+CoreDataProperties.swift */,
 				2FDDE0E61BAEA957006C3500 /* Label.swift */,
-				2FDDE0E31BAEA957006C3500 /* Message+CoreDataProperties.swift */,
-				2FDDE0E41BAEA957006C3500 /* LegacyMessage.swift */,
 				2FDDE0E71BAEA957006C3500 /* Thread+CoreDataProperties.swift */,
 				2FDDE0E81BAEA957006C3500 /* Thread.swift */,
 			);
@@ -1457,11 +1448,9 @@
 				2FA2EA6C1BAC4EA80027EA77 /* MailDatabaseManager.swift in Sources */,
 				2F76D4D01BB48F1600235A95 /* MailboxObserversManager.swift in Sources */,
 				BF862B2F1D16ED9200E4AE34 /* Message.swift in Sources */,
-				2FDDE0EE1BAEA957006C3500 /* LegacyMessage.swift in Sources */,
 				BF27F38F1CDDF01C003A92D9 /* APPhone.m in Sources */,
 				BF27F3851CDDF01C003A92D9 /* APAddressBookBaseRoutine.m in Sources */,
 				BF24C3C21D327FBA00CC1667 /* Config.swift in Sources */,
-				2FDDE0ED1BAEA957006C3500 /* Message+CoreDataProperties.swift in Sources */,
 				2F7B0D011BFDCB230015C43A /* FormattingPluginProvider.swift in Sources */,
 				BF03D66D1C9F13CB002EF4CC /* DraftsMailboxViewController.swift in Sources */,
 				BF03D66F1C9F13D6002EF4CC /* SentMailboxViewController.swift in Sources */,
@@ -1512,7 +1501,6 @@
 				7A4457101D8F1A73000F862D /* DatabaseManager.swift in Sources */,
 				7A75D7631C7A430800E201A3 /* MessageComposerWrapperViewController.swift in Sources */,
 				2FDDE0FE1BAEB26C006C3500 /* NSManagedObject+Convenience.swift in Sources */,
-				2F0580571BC02FBC00600B8B /* HandlerDatabaseModel.xcdatamodel in Sources */,
 				2FB2FA921C1DF6AE00F492EF /* GreetingViewController.swift in Sources */,
 				BFE739C81CCA2FAA002F84CD /* ContactsViewController.swift in Sources */,
 				7A372D7A1C6FA721009E400C /* ContactAutocompleteCell.swift in Sources */,

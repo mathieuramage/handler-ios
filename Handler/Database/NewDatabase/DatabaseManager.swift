@@ -145,18 +145,14 @@ class DatabaseManager: NSObject {
 		fetchRequest.returnsObjectsAsFaults = false
 		fetchRequest.predicate = NSPredicate(format: "NONE labels.id == %@ && NONE labels.id == %@", "INBOX", "SENT")
 		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sent_at", ascending: false)]
-		do
-		{
-			if let messages = try managedContext.executeFetchRequest(fetchRequest) as? [LegacyMessage] {
-				if messages.count > 1000 {
-					for i in 1000...messages.count - 1 {
-						let message = messages[i]
-						managedContext.deleteObject(message)
-					}
+
+		if let messages = managedContext.safeExecuteFetchRequest(fetchRequest) as? [ManagedMessage] {
+			if messages.count > 1000 {
+				for i in 1000...messages.count - 1 {
+					let message = messages[i]
+					managedContext.deleteObject(message)
 				}
 			}
-		} catch let error as NSError {
-			print("Delete Messages: \(error) \(error.userInfo)")
 		}
 	}
 }

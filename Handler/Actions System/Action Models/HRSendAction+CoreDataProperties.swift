@@ -14,7 +14,7 @@ import CoreData
 
 extension HRSendAction {
 
-    @NSManaged var message: LegacyMessage?
-    @NSManaged var replyTo: LegacyMessage?
+    @NSManaged var message: ManagedMessage?
+    @NSManaged var replyTo: ManagedMessage?
 
 }

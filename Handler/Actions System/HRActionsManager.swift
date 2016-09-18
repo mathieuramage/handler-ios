@@ -34,7 +34,7 @@ class HRActionsManager: NSObject, NSFetchedResultsControllerDelegate {
 		}
 	}
 	
-	class func enqueueMessage(message: LegacyMessage, replyTo: LegacyMessage? = nil){
+	class func enqueueMessage(message: ManagedMessage, replyTo: ManagedMessage? = nil){
 		MailDatabaseManager.sharedInstance.backgroundContext.performBlock { () -> Void in
 			_ = HRSendAction(message: message, inReplyTo: replyTo)
 		}

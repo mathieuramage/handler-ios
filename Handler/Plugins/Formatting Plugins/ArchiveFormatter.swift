@@ -19,7 +19,7 @@ struct ArchiveFormatter: MessageTableViewCellFormatter {
         return formatter
     }()
     
-    func populateView(data message: LegacyMessage, view: MessageTableViewCell){
+    func populateView(data message: ManagedMessage, view: MessageTableViewCell){
         view.readFlaggedImageView.image = nil
         view.senderProfileImageView.image = nil
         view.senderNameLabel.text = nil
@@ -50,36 +50,37 @@ struct ArchiveFormatter: MessageTableViewCellFormatter {
         }else{
             view.messageTimeLabel.text = "-"
         }
-        
-        if let count = message.thread?.messages?.count where count > 1 {
-            view.threadCountLabel.hidden = false
-            view.threadCountLabel.text = "\(count)"
-        }else{
-            view.threadCountLabel.hidden = true
-            view.threadCountLabel.text = "-"
-        }
-        
-        if let count = message.attachments?.count where count > 1 {
-            view.attachmentIconView.hidden = false
-        }else{
-            view.attachmentIconView.hidden = true
-        }
-        
-        if message.thread?.mostRecentMessage?.sender?.id == HRUserSessionManager.sharedManager.currentUser?.id {
-            view.repliedIconView.hidden = false
-        }else{
-            view.repliedIconView.hidden = true
-        }
-        
+
+		// OTTODO: Implement?
+//        if let count = message.thread?.messages?.count where count > 1 {
+//            view.threadCountLabel.hidden = false
+//            view.threadCountLabel.text = "\(count)"
+//        }else{
+//            view.threadCountLabel.hidden = true
+//            view.threadCountLabel.text = "-"
+//        }
+
+//        if let count = message.attachments?.count where count > 1 {
+//            view.attachmentIconView.hidden = false
+//        }else{
+//            view.attachmentIconView.hidden = true
+//        }
+//        
+//        if message.thread?.mostRecentMessage?.sender?.id == HRUserSessionManager.sharedManager.currentUser?.id {
+//            view.repliedIconView.hidden = false
+//        }else{
+//            view.repliedIconView.hidden = true
+//        }
+
         setUpReadFlagMessage(data: message, view: view)
         
     }
     
-    func refreshFlags(data message: LegacyMessage, view: MessageTableViewCell){
+    func refreshFlags(data message: ManagedMessage, view: MessageTableViewCell){
         setUpReadFlagMessage(data: message, view: view)
     }
     
-    func setUpReadFlagMessage(data message: LegacyMessage, view: MessageTableViewCell) {
+    func setUpReadFlagMessage(data message: ManagedMessage, view: MessageTableViewCell) {
         if message.isFlagged && message.isUnread {
             view.readFlaggedImageView.image = UIImage(named: "Orange_Dot")
             // TODO: Add blue button encircled by orange
@@ -95,11 +96,11 @@ struct ArchiveFormatter: MessageTableViewCellFormatter {
         }
     }
     
-    func leftButtonsForData(data message: LegacyMessage)->[AnyObject]{
+    func leftButtonsForData(data message: ManagedMessage)->[AnyObject]{
         return ActionPluginProvider.messageCellPluginForInboxType(.Archive)?.leftButtonsForData(data: message) ?? [AnyObject]()
     }
     
-    func rightButtonsForData(data message: LegacyMessage)->[AnyObject]{
+    func rightButtonsForData(data message: ManagedMessage)->[AnyObject]{
         return ActionPluginProvider.messageCellPluginForInboxType(.Archive)?.rightButtonsForData(data: message) ?? [AnyObject]()
     }
 }

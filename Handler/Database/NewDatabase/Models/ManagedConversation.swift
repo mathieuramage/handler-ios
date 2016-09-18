@@ -11,4 +11,11 @@ import CoreData
 
 class ManagedConversation: NSManagedObject {
 
+	func folder() -> Folder? {
+		return nil
+	}
+
+	func labels() -> [String]? {
+		return nil
+	}
 }

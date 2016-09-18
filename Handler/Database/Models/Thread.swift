@@ -36,7 +36,7 @@ class Thread: NSManagedObject {
 	func updateInbox(){
 		var show = false
 		if let messages = self.messages {
-			for message in messages.allObjects as! [LegacyMessage] {
+			for message in messages.allObjects as! [ManagedMessage] {
 				if message.isInbox {
 					show = true
 				}
@@ -46,10 +46,10 @@ class Thread: NSManagedObject {
 		MailDatabaseManager.sharedInstance.saveBackgroundContext()
 	}
 
-	var mostRecentMessage: LegacyMessage? {
+	var mostRecentMessage: ManagedMessage? {
 		if let messages = messages {
 			let msgSet = NSSet(set: messages)
-			let messageList = msgSet.allObjects as? [LegacyMessage]
+			let messageList = msgSet.allObjects as? [ManagedMessage]
 			let sorted =  messageList?.sort({
 				if let firstSent = $0.sent_at, let secondSent = $1.sent_at {
 					return firstSent.compare(secondSent) == NSComparisonResult.OrderedDescending
@@ -61,8 +61,8 @@ class Thread: NSManagedObject {
 		return nil
 	}
 
-	var oldestUnreadMessage : LegacyMessage? {
-		var oldestUnread : LegacyMessage? = nil
+	var oldestUnreadMessage : ManagedMessage? {
+		var oldestUnread : ManagedMessage? = nil
 //		if let messages = messages {
 //			for message in messages {
 //				let m = message as! LegacyMessage
@@ -81,7 +81,7 @@ class Thread: NSManagedObject {
 	func archive() {
 		if let messages = self.messages {
 			for message in messages {
-				if let m = message as? LegacyMessage {
+				if let m = message as? ManagedMessage {
 					m.moveToArchive()
 				}
 			}
@@ -91,7 +91,7 @@ class Thread: NSManagedObject {
 	func unarchive() {
 		if let messages = self.messages {
 			for message in messages {
-				if let m = message as? LegacyMessage {
+				if let m = message as? ManagedMessage {
 					m.moveToInbox()
 				}
 			}
@@ -99,7 +99,7 @@ class Thread: NSManagedObject {
 	}
 
 	func markAsRead() {
-		guard let messages = messages?.allObjects as? [LegacyMessage] else {
+		guard let messages = messages?.allObjects as? [ManagedMessage] else {
 			return
 		}
 
@@ -108,8 +108,8 @@ class Thread: NSManagedObject {
 		}
 	}
 
-	func markAsUnread(message: LegacyMessage) {
-		guard let messages = messages?.allObjects as? [LegacyMessage], let currentMessageDate = message.sent_at else {
+	func markAsUnread(message: ManagedMessage) {
+		guard let messages = messages?.allObjects as? [ManagedMessage], let currentMessageDate = message.sent_at else {
 			return
 		}
 

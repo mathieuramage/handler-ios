@@ -375,7 +375,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
 	}
 
-	func updateDraftFromUI(draft draft: LegacyMessage) -> LegacyMessage {
+	func updateDraftFromUI(draft draft: ManagedMessage) -> ManagedMessage {
 		configMsg(draft)
 		return draft
 	}
@@ -409,7 +409,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	//		return message
 	//	}
 
-	func configMsg(message: LegacyMessage)->LegacyMessage {
+	func configMsg(message: ManagedMessage) -> ManagedMessage {
 
 		var receivers = [ManagedUser]()
 		for token in tokenView.allTokens {
@@ -427,7 +427,6 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 			}
 		}
 
-		message.attachments = NSSet(array: attachments)
 		message.recipients = NSSet(array: receivers)
 		message.content = richTextContentView.contentHTML
 		message.subject = subjectTextField.text ?? ""

@@ -16,13 +16,9 @@ class MailDatabaseManager: NSObject {
 
 	// MARK: - Core Data Object Creation Utilities
 
+	// OTTODO: Implement?
 	func storeMessage(message: HRMessage, save: Bool = true){
-		backgroundContext.performBlock { () -> Void in
-			LegacyMessage.fromHRType(message)
-			if save {
-				self.saveBackgroundContext()
-			}
-		}
+		abort();
 	}
 
 	func storeLabel(label: HRLabel, save: Bool = true){
@@ -205,7 +201,7 @@ class MailDatabaseManager: NSObject {
 		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sent_at", ascending: false)]
 		do
 		{
-			if let messages = try managedContext.executeFetchRequest(fetchRequest) as? [LegacyMessage] {
+			if let messages = try managedContext.executeFetchRequest(fetchRequest) as? [ManagedMessage] {
 				if messages.count > 1000 {
 					for i in 1000...messages.count - 1 {
 						let message = messages[i]
