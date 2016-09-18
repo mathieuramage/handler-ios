@@ -13,10 +13,10 @@ import CoreData
 class HRSendAction: HRAction {
 	
 	required convenience init(message: ManagedMessage, inReplyTo: ManagedMessage? = nil){
-		self.init(managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
+		self.init(managedObjectContext: DatabaseManager.sharedInstance.backgroundContext)
 		self.message = message
 		self.replyTo = inReplyTo
-		MailDatabaseManager.sharedInstance.saveContext()
+		DatabaseManager.sharedInstance.mainManagedContext.saveRecursively()
 	}
 	
 	override func execute() {

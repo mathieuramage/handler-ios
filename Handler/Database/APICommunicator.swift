@@ -98,11 +98,11 @@ class APICommunicator: NSObject {
             Twitter.sharedInstance().sessionStore.logOutUserID(session.userID)
         }
         HRUserSessionManager.logout()
-        MailDatabaseManager.sharedInstance.flushDatastore()
+        DatabaseManager.sharedInstance.flushDatastore()
     }
 	
 	func flushOldArchivedMessages(){
-		 MailDatabaseManager.sharedInstance.flushOldArchiveDatastore()
+		 DatabaseManager.sharedInstance.flushOldArchiveDatastore()
 	}
     
     func signOut(){
@@ -158,7 +158,7 @@ class APICommunicator: NSObject {
                 return
             }
             for label in labels {
-                MailDatabaseManager.sharedInstance.storeLabel(label, save: false)
+				// OTTODO: Support labels
             }
         }
     }
@@ -190,7 +190,8 @@ class APICommunicator: NSObject {
                 return
             }
             for message in messages {
-                MailDatabaseManager.sharedInstance.storeMessage(message, save: false)
+				// OTTODO: Implement correct store message
+//                MailDatabaseManager.sharedInstance.storeMessage(message, save: false)
             }
             completion?(error: nil)
         }

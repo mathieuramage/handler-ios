@@ -25,7 +25,7 @@ class HRActionsManager: NSObject, NSFetchedResultsControllerDelegate {
 		let predicate = NSPredicate(format: "running == NO AND completed == NO AND hadError == NO")
 		fr.predicate = predicate
 		fr.sortDescriptors = [NSSortDescriptor(key: "running", ascending: true)]
-		fetchedResultsController = NSFetchedResultsController(fetchRequest: fr, managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext, sectionNameKeyPath: nil, cacheName: nil)
+		fetchedResultsController = NSFetchedResultsController(fetchRequest: fr, managedObjectContext: DatabaseManager.sharedInstance.backgroundContext, sectionNameKeyPath: nil, cacheName: nil)
 		fetchedResultsController?.delegate = self
 		do {
 			try fetchedResultsController?.performFetch()
@@ -35,7 +35,7 @@ class HRActionsManager: NSObject, NSFetchedResultsControllerDelegate {
 	}
 	
 	class func enqueueMessage(message: ManagedMessage, replyTo: ManagedMessage? = nil){
-		MailDatabaseManager.sharedInstance.backgroundContext.performBlock { () -> Void in
+		DatabaseManager.sharedInstance.backgroundContext.performBlock { () -> Void in
 			_ = HRSendAction(message: message, inReplyTo: replyTo)
 		}
 	}
@@ -53,11 +53,11 @@ class HRActionsManager: NSObject, NSFetchedResultsControllerDelegate {
 		let predicate = NSPredicate(format: "running == YES AND completed == NO AND hadError == NO")
 		fr.predicate = predicate
 		fr.sortDescriptors = [NSSortDescriptor(key: "running", ascending: true)]
-		if let results = try? MailDatabaseManager.sharedInstance.managedObjectContext.executeFetchRequest(fr), let convResults = results as? [HRAction] {
+		if let results = try? DatabaseManager.sharedInstance.mainManagedContext.executeFetchRequest(fr), let convResults = results as? [HRAction] {
 			for result in convResults {
 				result.running = NSNumber(bool: false)
 			}
 		}
-		MailDatabaseManager.sharedInstance.saveContext()
+		DatabaseManager.sharedInstance.mainManagedContext .saveRecursively()
 	}
 }

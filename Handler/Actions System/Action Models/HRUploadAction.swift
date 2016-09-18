@@ -15,7 +15,7 @@ class HRUploadAction: HRAction {
 	var uploadManager: UploadManager?
 	
 	required convenience init(attachment: Attachment){
-		self.init(managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
+		self.init(managedObjectContext: DatabaseManager.sharedInstance.backgroundContext)
 		self.attachment = attachment
 		attachment.actions = self
 	}

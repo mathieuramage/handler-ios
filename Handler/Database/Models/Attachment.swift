@@ -39,7 +39,7 @@ final class Attachment: NSManagedObject, CoreDataConvertible {
 		}
 	
 	convenience init(localFile: NSURL, filename: String){
-        self.init(managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
+        self.init(managedObjectContext: DatabaseManager.sharedInstance.backgroundContext)
 
         self.filename = filename
         self.localFileURL = localFile.path
@@ -116,10 +116,10 @@ final class Attachment: NSManagedObject, CoreDataConvertible {
 			
 			if let data = NSData(contentsOfFile: search){
 				return data
-			} else if self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext)?.involved_download == nil {
+			} else if self.toManageObjectContext(DatabaseManager.sharedInstance.backgroundContext)?.involved_download == nil {
 				// Data not yet loaded, start download
 				print("starting downlaod for \(self.filename) to \(self.localFileURL)")
-				let _ = HRDownloadAction(attachment: self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext)!)
+				let _ = HRDownloadAction(attachment: self.toManageObjectContext(DatabaseManager.sharedInstance.backgroundContext)!)
 			}
 			return NSData(contentsOfFile: search)
 		}else{

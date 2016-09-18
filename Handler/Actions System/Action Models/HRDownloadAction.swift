@@ -14,10 +14,10 @@ class HRDownloadAction: HRAction {
 	var downloadManager: DownloadManager?
 	
 	required convenience init(attachment: Attachment){
-		self.init(managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
+		self.init(managedObjectContext: DatabaseManager.sharedInstance.backgroundContext)
 		self.attachment = attachment
 		
-		MailDatabaseManager.sharedInstance.saveBackgroundContext()
+		DatabaseManager.sharedInstance.backgroundContext.saveRecursively()
 	}
 	
 	override func execute() {

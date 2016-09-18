@@ -57,7 +57,7 @@ class UploadManager: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
 	func URLSession(session: NSURLSession, task: NSURLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) {
 		let progress = Double(totalBytesSent) / Double(totalBytesExpectedToSend)
 		self.uploadAction.progress = NSNumber(double: progress)
-		MailDatabaseManager.sharedInstance.saveBackgroundContext()
+		DatabaseManager.sharedInstance.backgroundContext.saveRecursively()
 		NSNotificationCenter.defaultCenter().postNotificationName(ActionProgressDidChangeNotification, object: nil)
 		currentProgressHandler?(bytesSent: bytesSent, totalBytesSent: totalBytesSent, totalBytesExpectedToSend: totalBytesExpectedToSend)
 		

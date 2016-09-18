@@ -422,7 +422,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
 		var attachments = [Attachment]()
 		for attachment in attachmentsCell.attachments ?? [Attachment]() {
-			if let converted = attachment.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) {
+			if let converted = attachment.toManageObjectContext(DatabaseManager.sharedInstance.backgroundContext) {
 				attachments.append(converted)
 			}
 		}
@@ -713,12 +713,12 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 			var docsDirURL = NSURL(fileURLWithPath: docsDir, isDirectory: true)
 			let filename = NSUUID().UUIDString.stringByAppendingString("."+filetype)
 			docsDirURL = docsDirURL.URLByAppendingPathComponent(filename)
-			MailDatabaseManager.sharedInstance.backgroundContext.performBlock { () -> Void in
+			DatabaseManager.sharedInstance.backgroundContext.performBlock { () -> Void in
 	
 				if file.writeToURL(docsDirURL, atomically: true) {
 	
 					let attachment = Attachment(localFile: docsDirURL, filename: originalFileName)
-					MailDatabaseManager.sharedInstance.saveContext()
+					DatabaseManager.sharedInstance.mainManagedContext.saveRecursively()
 					Async.main(block: { () -> Void in
 						self.attachmentsCell.attachments?.append(attachment)
 					})

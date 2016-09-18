@@ -25,12 +25,12 @@ extension NSManagedObject {
 	
 	public class func entityDescription() -> NSEntityDescription? {
 		let entityName = self.entityName()
-		return NSEntityDescription.entityForName(entityName, inManagedObjectContext: MailDatabaseManager.sharedInstance.managedObjectContext)
+		return NSEntityDescription.entityForName(entityName, inManagedObjectContext: DatabaseManager.sharedInstance.mainManagedContext)
 	}
 	
 	public class func backgroundEntityDescription() -> NSEntityDescription? {
 		let entityName = self.entityName()
-		return NSEntityDescription.entityForName(entityName, inManagedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
+		return NSEntityDescription.entityForName(entityName, inManagedObjectContext: DatabaseManager.sharedInstance.mainManagedContext)
 	}
 	
 	static func fetchRequestForID(id: String) -> NSFetchRequest? {

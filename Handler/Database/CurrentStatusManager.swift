@@ -35,37 +35,7 @@ class CurrentStatusManager: NSObject, MailboxCountObserver {
 	deinit {
 		NSNotificationCenter.defaultCenter().removeObserver(self)
 	}
-	
-	func actionProgressChanged(){
-		let downloadFR = NSFetchRequest(entityName: "HRDownloadAction")
-		let predicate = NSPredicate(format: "running == YES AND completed == NO AND hadError == NO")
-		downloadFR.predicate = predicate
-		downloadFR.sortDescriptors = [NSSortDescriptor(key: "running", ascending: true)]
-		let uploadFR = NSFetchRequest(entityName: "HRUploadAction")
-		uploadFR.predicate = predicate
-		uploadFR.sortDescriptors = [NSSortDescriptor(key: "running", ascending: true)]
-		do {
-			var totalProgress = Float(0.0)
-			if let activeDownloads = try MailDatabaseManager.sharedInstance.backgroundContext.executeFetchRequest(downloadFR) as? [HRDownloadAction], let activeUploads = try MailDatabaseManager.sharedInstance.backgroundContext.executeFetchRequest(uploadFR) as? [HRUploadAction] {
-				
-				for download in activeDownloads {
-					totalProgress += download.progress?.floatValue ?? 0.0
-				}
-				
-				for upload in activeUploads {
-					totalProgress += upload.progress?.floatValue ?? 0.0
-				}
-				
-				currentUploadProgress.next(totalProgress / Float(activeDownloads.count+activeUploads.count))
-				
-			}else{
-				throw NSError(domain: "failed to fetch actions", code: 500, userInfo: nil)
-			}
-		} catch {
-			print(error)
-		}
-	}
-	
+
 	func mailboxCountDidChange(mailboxType: MailboxType, newCount: Int) {
 		if mailboxType == MailboxType.Unread && currentState.value == .Idle {
 			if newCount != 0 {

@@ -22,7 +22,7 @@ class ContactsTableViewController: UITableViewController {
 		let fetchRequest = NSFetchRequest(entityName: "User")
 		fetchRequest.fetchBatchSize = 20
 		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
-		let fetchResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: MailDatabaseManager.sharedInstance.managedObjectContext, sectionNameKeyPath: "name", cacheName: nil)
+		let fetchResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: DatabaseManager.sharedInstance.mainManagedContext, sectionNameKeyPath: "name", cacheName: nil)
 		do{
 			try fetchResultsController.performFetch()
 		} catch {

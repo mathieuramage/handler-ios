@@ -50,7 +50,7 @@ private
 class MailboxMessagesObserver: NSObject, NSFetchedResultsControllerDelegate {
 	
 	lazy var fetchedResultsController: NSFetchedResultsController = {
-		return NSFetchedResultsController(fetchRequest: ManagedMessage.fetchRequestForMessagesWithInboxType(self.type), managedObjectContext: MailDatabaseManager.sharedInstance.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+		return NSFetchedResultsController(fetchRequest: ManagedMessage.fetchRequestForMessagesWithInboxType(self.type), managedObjectContext: DatabaseManager.sharedInstance.mainManagedContext, sectionNameKeyPath: nil, cacheName: nil)
 		}()
 	
 	var observers = [NSFetchedResultsControllerDelegate]()

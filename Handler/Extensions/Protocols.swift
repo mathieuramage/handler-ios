@@ -36,11 +36,13 @@ extension CoreDataConvertible where HRType : HRIDProvider {
 				return nil
 			}
 
-			if let cdObject = MailDatabaseManager.sharedInstance.executeBackgroundFetchRequest(fetchrequest)?.first as? Self {
+			let context = DatabaseManager.sharedInstance.backgroundContext
+
+			if let cdObject = context.safeExecuteFetchRequest(fetchrequest).first as? Self {
 				 cdObject.updateFromHRType(hrType)
 				return cdObject
 			} else {
-				return Self(hrType: hrType, managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
+				return Self(hrType: hrType, managedObjectContext: context)
 			}
 		} else {
 			print("datastore blocked")
@@ -53,8 +55,10 @@ extension CoreDataConvertible where HRType : HRIDProvider {
 			print("Failed to create fetchRequest for object")
 			return nil
 		}
+
+		let context = DatabaseManager.sharedInstance.backgroundContext
 		
-		return MailDatabaseManager.sharedInstance.executeBackgroundFetchRequest(fetchrequest)?.first as? Self
+		return context.safeExecuteFetchRequest(fetchrequest).first as? Self
 	}
 
 	func toManageObjectContext(context: NSManagedObjectContext) -> Self? {

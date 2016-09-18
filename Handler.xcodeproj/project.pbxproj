@@ -77,7 +77,6 @@
 		2FA271A21BB69ED000B22C8B /* CLToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA2719C1BB69ED000B22C8B /* CLToken.m */; };
 		2FA271A31BB69ED000B22C8B /* CLTokenInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA2719E1BB69ED000B22C8B /* CLTokenInputView.m */; };
 		2FA271A41BB69ED000B22C8B /* CLTokenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA271A01BB69ED000B22C8B /* CLTokenView.m */; };
-		2FA2EA6C1BAC4EA80027EA77 /* MailDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA2EA6B1BAC4EA80027EA77 /* MailDatabaseManager.swift */; };
 		2FA2EA811BAD9C570027EA77 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FA2EA781BAD9C570027EA77 /* CoreGraphics.framework */; };
 		2FA2EA821BAD9C570027EA77 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FA2EA791BAD9C570027EA77 /* Foundation.framework */; };
 		2FA2EA831BAD9C570027EA77 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FA2EA7A1BAD9C570027EA77 /* Security.framework */; };
@@ -350,7 +349,6 @@
 		2FA2719E1BB69ED000B22C8B /* CLTokenInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLTokenInputView.m; sourceTree = "<group>"; };
 		2FA2719F1BB69ED000B22C8B /* CLTokenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLTokenView.h; sourceTree = "<group>"; };
 		2FA271A01BB69ED000B22C8B /* CLTokenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLTokenView.m; sourceTree = "<group>"; };
-		2FA2EA6B1BAC4EA80027EA77 /* MailDatabaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MailDatabaseManager.swift; sourceTree = "<group>"; };
 		2FA2EA781BAD9C570027EA77 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		2FA2EA791BAD9C570027EA77 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2FA2EA7A1BAD9C570027EA77 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -714,7 +712,6 @@
 				2FDDE1021BAEBFE9006C3500 /* APICommunicator.swift */,
 				2FF8B8EB1BD4F53E00014C9E /* CurrentStatusManager.swift */,
 				2F88F1CA1BD43C8B00844A90 /* DownloadManager.swift */,
-				2FA2EA6B1BAC4EA80027EA77 /* MailDatabaseManager.swift */,
 				2F76D4CF1BB48F1600235A95 /* MailboxObserversManager.swift */,
 				2F0136A21BD10EE4008BAD9D /* TwitterAPICommunicator.swift */,
 				2F6112801BC12F1E0003071B /* UploadManager.swift */,
@@ -1445,7 +1442,6 @@
 				2F4E41551BB08A3200AA2DEF /* SSASideMenu.swift in Sources */,
 				2F01369F1BD1029A008BAD9D /* ContactsTableViewController.swift in Sources */,
 				BF862B311D16EDA700E4AE34 /* MessageOperations.swift in Sources */,
-				2FA2EA6C1BAC4EA80027EA77 /* MailDatabaseManager.swift in Sources */,
 				2F76D4D01BB48F1600235A95 /* MailboxObserversManager.swift in Sources */,
 				BF862B2F1D16ED9200E4AE34 /* Message.swift in Sources */,
 				BF27F38F1CDDF01C003A92D9 /* APPhone.m in Sources */,

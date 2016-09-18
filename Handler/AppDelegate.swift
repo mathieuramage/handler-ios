@@ -95,7 +95,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 					completionHandler(UIBackgroundFetchResult.Failed)
 					return
 				}
-				MailDatabaseManager.sharedInstance.storeMessage(message)
+				// OTTODO: Implement store message
+//				DatabaseManager.sharedInstance.storeMessage(message)
 				UIApplication.sharedApplication().applicationIconBadgeNumber += 1
 				let not = UILocalNotification()
 				not.alertBody = message.content
@@ -134,7 +135,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func applicationWillTerminate(application: UIApplication) {
 		cancelMessageUpdateTimer()
 		HRActionsManager.stopAll()
-		MailDatabaseManager.sharedInstance.saveContext()
+		DatabaseManager.sharedInstance.mainManagedContext.saveRecursively()
 	}
 
 

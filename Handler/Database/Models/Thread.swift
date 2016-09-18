@@ -13,7 +13,7 @@ class Thread: NSManagedObject {
 
 	class func fromID(id: String, inContext: NSManagedObjectContext?) -> Thread? {
 		var thread: Thread?
-		let context = inContext ?? MailDatabaseManager.sharedInstance.backgroundContext
+		let context = inContext ?? DatabaseManager.sharedInstance.backgroundContext
 		if let request = self.fetchRequestForID(id){
 			do {
 				if let threads = try context.executeFetchRequest(request) as? [Thread], let foundthread = threads.first {
@@ -27,7 +27,7 @@ class Thread: NSManagedObject {
 		if let thread = thread {
 			return thread
 		}else {
-			let createdthread = Thread(managedObjectContext: context ?? MailDatabaseManager.sharedInstance.backgroundContext)
+			let createdthread = Thread(managedObjectContext: context ?? DatabaseManager.sharedInstance.backgroundContext)
 			createdthread.id = id
 			return createdthread
 		}
@@ -43,7 +43,7 @@ class Thread: NSManagedObject {
 			}
 		}
 		self.showInInbox = NSNumber(bool: show)
-		MailDatabaseManager.sharedInstance.saveBackgroundContext()
+		DatabaseManager.sharedInstance.backgroundContext.saveRecursively()
 	}
 
 	var mostRecentMessage: ManagedMessage? {

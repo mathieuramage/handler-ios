@@ -53,7 +53,7 @@ class DownloadManager: NSObject, NSURLSessionDelegate, NSURLSessionDownloadDeleg
 	func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
 		let progress = Double(totalBytesWritten) / Double(totalBytesExpectedToWrite)
 		self.downloadAction.progress = NSNumber(double: progress)
-		MailDatabaseManager.sharedInstance.saveBackgroundContext()
+		DatabaseManager.sharedInstance.backgroundContext.saveRecursively()
 		NSNotificationCenter.defaultCenter().postNotificationName(ActionProgressDidChangeNotification, object: nil)
 		self.currentProgressHandler?(bytesWritten: bytesWritten, totalBytesSent: totalBytesWritten, totalBytesExpectedToSend: totalBytesExpectedToWrite)
 	}
