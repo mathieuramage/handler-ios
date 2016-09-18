@@ -85,7 +85,7 @@ class TwitterAPICommunicator: NSObject {
 	}
 
 
-	class func getTwitterFriends(cursor : Int?, callback : (users : [LegacyUser], nextCursor : Int?) -> ()) {
+	class func getTwitterFriends(cursor : Int?, callback : (users : [ManagedUser], nextCursor : Int?) -> ()) {
 
 		if let session = Twitter.sharedInstance().sessionStore.session() as? TWTRSession {
 
@@ -110,10 +110,10 @@ class TwitterAPICommunicator: NSObject {
 				do {
 					let dict = try NSJSONSerialization.JSONObjectWithData(data, options: [NSJSONReadingOptions.AllowFragments])
 					let json = JSON(dict)
-					var users : [LegacyUser] = []
+					var users : [ManagedUser] = []
 					for userJson in json["users"].arrayValue {
 						let handle = userJson["screen_name"].stringValue
-						let user = LegacyUser.fromHandle(handle)
+						let user = ManagedUser.userWithHandle(handle)
 						user.name = userJson["name"].stringValue
 						let unescapedUrl = userJson["profile_image_url_https"].stringValue as NSString
 						user.profile_picture_url = unescapedUrl.stringByReplacingOccurrencesOfString("\\", withString: "", options: .LiteralSearch, range: NSMakeRange(0, unescapedUrl.length))
@@ -132,7 +132,7 @@ class TwitterAPICommunicator: NSObject {
 	}
 
 
-	class func getTwitterFollowers(cursor : Int?, callback : (users : [LegacyUser], nextCursor : Int?) -> ()) {
+	class func getTwitterFollowers(cursor : Int?, callback : (users : [ManagedUser], nextCursor : Int?) -> ()) {
 
 		if let session = Twitter.sharedInstance().sessionStore.session() as? TWTRSession {
 
@@ -157,10 +157,10 @@ class TwitterAPICommunicator: NSObject {
 				do {
 					let dict = try NSJSONSerialization.JSONObjectWithData(data, options: [NSJSONReadingOptions.AllowFragments])
 					let json = JSON(dict)
-					var users : [LegacyUser] = []
+					var users : [ManagedUser] = []
 					for userJson in json["users"].arrayValue {
 						let handle = userJson["screen_name"].stringValue
-						let user = LegacyUser.fromHandle(handle)
+						let user = ManagedUser.userWithHandle(handle)
 						user.name = userJson["name"].stringValue
 						let unescapedUrl = userJson["profile_image_url_https"].stringValue as NSString
 						user.profile_picture_url = unescapedUrl.stringByReplacingOccurrencesOfString("\\", withString: "", options: .LiteralSearch, range: NSMakeRange(0, unescapedUrl.length))

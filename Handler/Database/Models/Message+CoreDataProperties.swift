@@ -23,7 +23,7 @@ extension LegacyMessage {
     @NSManaged var attachments: NSSet?
     @NSManaged var labels: NSSet?
     @NSManaged var recipients: NSSet?
-    @NSManaged var sender: LegacyUser?
+    @NSManaged var sender: ManagedUser? // COMPLETELY WRONG!!!! JUST TO AVOID COMPILER ERRORS FOR TIME BEING
     @NSManaged var thread: Thread?
     @NSManaged var willBeRepliedToInAction: HRSendAction?
 

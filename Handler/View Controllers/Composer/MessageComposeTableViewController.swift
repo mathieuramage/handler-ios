@@ -235,7 +235,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		}
 	}
 
-	func didSelectUser(user: LegacyUser) {
+	func didSelectUser(user: ManagedUser) {
 		navigationController?.popViewControllerAnimated(true)
 		validatedTokens.append(ValidatedToken(name: user.handle ?? "", isOnHandler: true))
 		if addContactToCC {
@@ -411,11 +411,11 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
 	func configMsg(message: LegacyMessage)->LegacyMessage {
 
-		var receivers = [LegacyUser]()
+		var receivers = [ManagedUser]()
 		for token in tokenView.allTokens {
 			for valdtoken in validatedTokens {
 				if valdtoken.isOnHandler && valdtoken.name == token.displayText.stringByReplacingOccurrencesOfString("@", withString: ""){
-					receivers.append(LegacyUser.fromHandle(valdtoken.name))
+					receivers.append(ManagedUser.userWithHandle(valdtoken.name, inContext: DatabaseManager.sharedInstance.mainManagedContext))
 				}
 			}
 		}

@@ -17,7 +17,7 @@ class ContactLegacyTableViewCell: UITableViewCell {
     @IBOutlet weak var handleLabel: UILabel!
     @IBOutlet weak var followButton: UIButton!
     
-    var user: LegacyUser? {
+    var user: ManagedUser? {
         didSet {
             if let urlString = user?.profile_picture_url, let profileUrl = NSURL(string: urlString) {
                 self.profileImageView.kf_setImageWithURL(profileUrl, placeholderImage: UIImage.randomGhostImage(), optionsInfo: nil, completionHandler: { (image, error, cacheType, imageURL) -> () in

@@ -20,9 +20,9 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 	@IBOutlet weak var deviceButton: UIButton!
 	@IBOutlet weak var borderView: UIView!
 
-	var twitterFollowerList: [LegacyUser] = []
-	var twitterFollowingList : [LegacyUser] = []
-	var deviceContactList : [LegacyUser] = []
+	var twitterFollowerList: [ManagedUser] = []
+	var twitterFollowingList : [ManagedUser] = []
+	var deviceContactList : [ManagedUser] = []
 
 	let addressBook = APAddressBook()
 
@@ -122,7 +122,7 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 					for website in contact.websites! {
 						handle = self.extractTwitterHandle(website)
 						if let handle = handle where handle.characters.count > 0 {
-							let user = LegacyUser.fromHandle(handle)
+							let user = ManagedUser.userWithHandle(handle)
 							user.name = contact.name?.compositeName
 							self.deviceContactList.append(user)
 						}
@@ -153,7 +153,7 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 		let cell = tableView.dequeueReusableCellWithIdentifier("contactTableViewCell", forIndexPath: indexPath) as! ContactTableViewCell
 		cell.profileImageView.image = UIImage.randomGhostImage()
 
-		let user : LegacyUser = activeTabContacts[indexPath.row]
+		let user : ManagedUser = activeTabContacts[indexPath.row]
 
 		cell.handleLabel.text = user.handle
 		cell.nameLabel.text = user.name
@@ -197,7 +197,7 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 		}
 	}
 
-	var activeTabContacts : [LegacyUser] {
+	var activeTabContacts : [ManagedUser] {
 		get {
 			switch selectedTab {
 			case 0:

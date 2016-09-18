@@ -249,7 +249,7 @@ final class LegacyMessage: NSManagedObject, CoreDataConvertible {
 	// MARK: Utility getters
 
 	func recipientsWithoutSelf()->NSSet? {
-		if let recipients = self.recipients?.allObjects as? [LegacyUser] {
+		if let recipients = self.recipients?.allObjects as? [ManagedUser] {
 			for recipient in recipients {
 				if recipient.handle == HRUserSessionManager.sharedManager.currentUser?.handle {
 					let mutableSet = NSMutableSet(set: self.recipients!)
