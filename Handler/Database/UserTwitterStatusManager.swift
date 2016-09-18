@@ -21,7 +21,7 @@ class UserTwitterStatusManager: NSObject {
 			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
 			if let users = DatabaseManager.sharedInstance.backgroundContext.safeExecuteFetchRequest(fetchRequest) as? [ManagedUser]  {
 				for user in users {
-					user.twtterFollowStatus = NSNumber(integer: TwitterAPICommunicator.followStatusForID(user.name!).rawValue)
+					user.twtterFollowStatus = NSNumber(integer: TwitterAPIOperations.followStatusForID(user.name!).rawValue)
 				}
 			}
 

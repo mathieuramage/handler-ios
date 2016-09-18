@@ -50,7 +50,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 				if let url = NSURL(string: user.picture_url) {
 					self.profileImageView.kf_setImageWithURL(url, placeholderImage: UIImage.randomGhostImage())
 				}
-				TwitterAPICommunicator.getAccountInfoForTwitterUser(user.handle, callback: { (json, error) -> Void in
+				TwitterAPIOperations.getAccountInfoForTwitterUser(user.handle, callback: { (json, error) -> Void in
 					guard let json = json else {
 						print(error)
 						return

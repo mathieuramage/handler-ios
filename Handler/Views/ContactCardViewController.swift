@@ -49,7 +49,7 @@ class ContactCardViewController: UIViewController, UIViewControllerShow {
 	}
 	
 	func getDataWithHandle(handle: String){
-		TwitterAPICommunicator.getAccountInfoForTwitterUser(handle, callback: { (json, error) -> Void in
+		TwitterAPIOperations.getAccountInfoForTwitterUser(handle, callback: { (json, error) -> Void in
 			guard let json = json else {
 				print(error)
 				return

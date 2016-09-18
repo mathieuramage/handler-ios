@@ -12,12 +12,12 @@ import SwiftyJSON
 
 struct TwitterAPIOperations {
 
-	static let sharedInstance = TwitterAPICommunicator()
+	static let sharedInstance = TwitterAPIOperations()
 
 	static var friendIDS: [String] = [String]()
 	static var followerIDS: [String] = [String]()
 
-	static func getTwitterData(){
+	static func getTwitterData() {
 
 		if let session = Twitter.sharedInstance().sessionStore.session() as? TWTRSession {
 
@@ -169,13 +169,13 @@ struct TwitterAPIOperations {
 	}
 
 	static func followStatusForID(id: String)->TwitterFriendshipStatus{
-		for friendID in sharedInstance.friendIDS {
+		for friendID in friendIDS {
 			if(friendID == id){
 				return .Following
 			}
 		}
 
-		for followerID in sharedInstance.followerIDS {
+		for followerID in followerIDS {
 			if(followerID == id){
 				return .Follower
 			}

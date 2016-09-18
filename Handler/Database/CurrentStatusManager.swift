@@ -8,7 +8,6 @@
 
 import UIKit
 import Bond
-import CoreData
 
 enum StatusManagerStatus: String {
 	case Idle = "Idle"

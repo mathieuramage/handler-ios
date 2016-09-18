@@ -12,7 +12,6 @@
 		2F01369A1BCFDA98008BAD9D /* RoundedBorderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0136991BCFDA98008BAD9D /* RoundedBorderButton.swift */; };
 		2F01369F1BD1029A008BAD9D /* ContactsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F01369E1BD1029A008BAD9D /* ContactsTableViewController.swift */; };
 		2F0136A11BD10422008BAD9D /* ContactLegacyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0136A01BD10422008BAD9D /* ContactLegacyTableViewCell.swift */; };
-		2F0136A31BD10EE4008BAD9D /* TwitterAPICommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0136A21BD10EE4008BAD9D /* TwitterAPICommunicator.swift */; };
 		2F0136A51BD11C87008BAD9D /* UserTwitterStatusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0136A41BD11C87008BAD9D /* UserTwitterStatusManager.swift */; };
 		2F041D541BCA7D24009985EB /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F041D531BCA7D24009985EB /* ErrorHandler.swift */; };
 		2F09DB1F1BC69CEC00B81FE2 /* AttachmentThumbnailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F09DB1E1BC69CEC00B81FE2 /* AttachmentThumbnailView.xib */; };
@@ -265,7 +264,6 @@
 		2F0136991BCFDA98008BAD9D /* RoundedBorderButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedBorderButton.swift; sourceTree = "<group>"; };
 		2F01369E1BD1029A008BAD9D /* ContactsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsTableViewController.swift; sourceTree = "<group>"; };
 		2F0136A01BD10422008BAD9D /* ContactLegacyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactLegacyTableViewCell.swift; sourceTree = "<group>"; };
-		2F0136A21BD10EE4008BAD9D /* TwitterAPICommunicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterAPICommunicator.swift; sourceTree = "<group>"; };
 		2F0136A41BD11C87008BAD9D /* UserTwitterStatusManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTwitterStatusManager.swift; sourceTree = "<group>"; };
 		2F041D531BCA7D24009985EB /* ErrorHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
 		2F09DB1E1BC69CEC00B81FE2 /* AttachmentThumbnailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AttachmentThumbnailView.xib; sourceTree = "<group>"; };
@@ -671,7 +669,6 @@
 				2FF8B8EB1BD4F53E00014C9E /* CurrentStatusManager.swift */,
 				2F88F1CA1BD43C8B00844A90 /* DownloadManager.swift */,
 				2F76D4CF1BB48F1600235A95 /* MailboxObserversManager.swift */,
-				2F0136A21BD10EE4008BAD9D /* TwitterAPICommunicator.swift */,
 				2F6112801BC12F1E0003071B /* UploadManager.swift */,
 				2F0136A41BD11C87008BAD9D /* UserTwitterStatusManager.swift */,
 			);
@@ -1384,7 +1381,6 @@
 				BF27F38C1CDDF01C003A92D9 /* APEmail.m in Sources */,
 				2F81A6331BC179BF007F2D43 /* Operators.swift in Sources */,
 				2FA271A21BB69ED000B22C8B /* CLToken.m in Sources */,
-				2F0136A31BD10EE4008BAD9D /* TwitterAPICommunicator.swift in Sources */,
 				4168A1DB1CA0E6CB00B4CB11 /* NSDate+Compare.swift in Sources */,
 				7A372D771C6FA4A5009E400C /* ContactsAutoCompleteViewController.swift in Sources */,
 				2FDDE1471BB04FA4006C3500 /* WhiteBorderViews.swift in Sources */,
