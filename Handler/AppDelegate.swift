@@ -41,7 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		Fabric.with([Twitter.sharedInstance(), Crashlytics.self()])
 		APICommunicator.sharedInstance.start()
 		UserTwitterStatusManager.startUpdating()
-		HRActionsManager.setupSharedInstance()
 		UIToolbar.appearance().tintColor = UIColor(rgba: HexCodes.lightBlue)
 		UITextField.appearance().tintColor = UIColor(rgba: HexCodes.lightBlue)
 		UITextView.appearance().tintColor = UIColor(rgba: HexCodes.lightBlue)
@@ -134,7 +133,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func applicationWillTerminate(application: UIApplication) {
 		cancelMessageUpdateTimer()
-		HRActionsManager.stopAll()
 		DatabaseManager.sharedInstance.mainManagedContext.saveRecursively()
 	}
 

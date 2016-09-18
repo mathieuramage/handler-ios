@@ -22,8 +22,6 @@ extension Attachment {
     @NSManaged var upload_complete: NSNumber?
     @NSManaged var upload_url: String?
     @NSManaged var url: String?
-    @NSManaged var actions: HRUploadAction?
     @NSManaged var contained_in: Message?
-    @NSManaged var involved_download: HRDownloadAction?
 
 }

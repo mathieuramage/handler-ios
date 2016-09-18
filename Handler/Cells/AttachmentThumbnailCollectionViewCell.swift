@@ -40,7 +40,6 @@ class AttachmentThumbnailCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "update:", name: AttachmentDownloadDidFinishNotification, object: nil)
         self.layer.borderWidth = 1.0
         self.layer.borderColor = UIColor(rgba: HexCodes.lightGray).CGColor
     }

@@ -66,13 +66,6 @@ extension CoreDataConvertible where HRType : HRIDProvider {
 	}
 }
 
-// MARK: HRAction
-
-protocol HRActionExecutable {
-	func execute()
-	func dependencyDidComplete(dependency: HRAction)
-}
-
 // MARK: UIViewController + show
 
 protocol UIViewControllerShow {

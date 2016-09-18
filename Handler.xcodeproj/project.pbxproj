@@ -54,15 +54,6 @@
 		2F81A6331BC179BF007F2D43 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F81A6321BC179BF007F2D43 /* Operators.swift */; };
 		2F81E78A1C1C67B200642337 /* BottomBarActionPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F81E7891C1C67B200642337 /* BottomBarActionPluginProvider.swift */; };
 		2F88F1CB1BD43C8B00844A90 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F88F1CA1BD43C8B00844A90 /* DownloadManager.swift */; };
-		2F88F1CE1BD43CF700844A90 /* HRDownloadAction+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F88F1CC1BD43CF700844A90 /* HRDownloadAction+CoreDataProperties.swift */; };
-		2F88F1CF1BD43CF700844A90 /* HRDownloadAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F88F1CD1BD43CF700844A90 /* HRDownloadAction.swift */; };
-		2F8D8CDD1BCC12B30020A41C /* HRUploadAction+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8D8CD71BCC12B30020A41C /* HRUploadAction+CoreDataProperties.swift */; };
-		2F8D8CDE1BCC12B30020A41C /* HRUploadAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8D8CD81BCC12B30020A41C /* HRUploadAction.swift */; };
-		2F8D8CDF1BCC12B30020A41C /* HRAction+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8D8CD91BCC12B30020A41C /* HRAction+CoreDataProperties.swift */; };
-		2F8D8CE01BCC12B30020A41C /* HRAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8D8CDA1BCC12B30020A41C /* HRAction.swift */; };
-		2F8D8CE11BCC12B30020A41C /* HRSendAction+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8D8CDB1BCC12B30020A41C /* HRSendAction+CoreDataProperties.swift */; };
-		2F8D8CE21BCC12B30020A41C /* HRSendAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8D8CDC1BCC12B30020A41C /* HRSendAction.swift */; };
-		2F8D8CE51BCC20B40020A41C /* HRActionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8D8CE41BCC20B40020A41C /* HRActionsManager.swift */; };
 		2F92E7581BFB921300E5F6A2 /* ErrorPopupQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F92E7571BFB921300E5F6A2 /* ErrorPopupQueue.swift */; };
 		2F952DAE1C1D9191006A6BCA /* BottomBarProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F952DAD1C1D9191006A6BCA /* BottomBarProtocol.swift */; };
 		2F952DB01C1D91D0006A6BCA /* ConversationsBottomBarActionsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F952DAF1C1D91D0006A6BCA /* ConversationsBottomBarActionsHandler.swift */; };
@@ -315,15 +306,6 @@
 		2F81A6321BC179BF007F2D43 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		2F81E7891C1C67B200642337 /* BottomBarActionPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomBarActionPluginProvider.swift; sourceTree = "<group>"; };
 		2F88F1CA1BD43C8B00844A90 /* DownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
-		2F88F1CC1BD43CF700844A90 /* HRDownloadAction+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HRDownloadAction+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		2F88F1CD1BD43CF700844A90 /* HRDownloadAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HRDownloadAction.swift; sourceTree = "<group>"; };
-		2F8D8CD71BCC12B30020A41C /* HRUploadAction+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HRUploadAction+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		2F8D8CD81BCC12B30020A41C /* HRUploadAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HRUploadAction.swift; sourceTree = "<group>"; };
-		2F8D8CD91BCC12B30020A41C /* HRAction+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HRAction+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		2F8D8CDA1BCC12B30020A41C /* HRAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HRAction.swift; sourceTree = "<group>"; };
-		2F8D8CDB1BCC12B30020A41C /* HRSendAction+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HRSendAction+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		2F8D8CDC1BCC12B30020A41C /* HRSendAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HRSendAction.swift; sourceTree = "<group>"; };
-		2F8D8CE41BCC20B40020A41C /* HRActionsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HRActionsManager.swift; sourceTree = "<group>"; };
 		2F8E37971BB1E91D00C6A82D /* Handler-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Handler-Bridging-Header.h"; sourceTree = "<group>"; };
 		2F92E7571BFB921300E5F6A2 /* ErrorPopupQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorPopupQueue.swift; sourceTree = "<group>"; };
 		2F952DAD1C1D9191006A6BCA /* BottomBarProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomBarProtocol.swift; sourceTree = "<group>"; };
@@ -663,30 +645,6 @@
 				2F952DAF1C1D91D0006A6BCA /* ConversationsBottomBarActionsHandler.swift */,
 			);
 			name = "Bottom Action Plugins";
-			sourceTree = "<group>";
-		};
-		2F8D8CD61BCC118B0020A41C /* Actions System */ = {
-			isa = PBXGroup;
-			children = (
-				2F8D8CE31BCC12B90020A41C /* Action Models */,
-				2F8D8CE41BCC20B40020A41C /* HRActionsManager.swift */,
-			);
-			path = "Actions System";
-			sourceTree = "<group>";
-		};
-		2F8D8CE31BCC12B90020A41C /* Action Models */ = {
-			isa = PBXGroup;
-			children = (
-				2F8D8CD91BCC12B30020A41C /* HRAction+CoreDataProperties.swift */,
-				2F8D8CDA1BCC12B30020A41C /* HRAction.swift */,
-				2F88F1CC1BD43CF700844A90 /* HRDownloadAction+CoreDataProperties.swift */,
-				2F88F1CD1BD43CF700844A90 /* HRDownloadAction.swift */,
-				2F8D8CDB1BCC12B30020A41C /* HRSendAction+CoreDataProperties.swift */,
-				2F8D8CDC1BCC12B30020A41C /* HRSendAction.swift */,
-				2F8D8CD71BCC12B30020A41C /* HRUploadAction+CoreDataProperties.swift */,
-				2F8D8CD81BCC12B30020A41C /* HRUploadAction.swift */,
-			);
-			path = "Action Models";
 			sourceTree = "<group>";
 		};
 		2FA271981BB69EB300B22C8B /* CLTokenInputView */ = {
@@ -1181,7 +1139,6 @@
 				B72C59D01C26BBE500D6651D /* Globals.swift */,
 				BF862B261D16EC7600E4AE34 /* API */,
 				BF862B271D16EC8400E4AE34 /* Model */,
-				2F8D8CD61BCC118B0020A41C /* Actions System */,
 				2F1D2C2E1BBBF80300A504A8 /* Alert Controllers */,
 				2FA2EA941BADA6240027EA77 /* Authentication */,
 				2F4E415C1BB0A11700AA2DEF /* Cells */,
@@ -1398,7 +1355,6 @@
 				2FDDE0F21BAEA957006C3500 /* Thread.swift in Sources */,
 				2FEA14621BF77CC0008E31F1 /* MailBoxMenuOptionTableViewCell.swift in Sources */,
 				2FDDE1441BB01AD3006C3500 /* InboxTableViewController.swift in Sources */,
-				2F8D8CE11BCC12B30020A41C /* HRSendAction+CoreDataProperties.swift in Sources */,
 				2FDC6FAE1C18BD89008D334A /* ConversationContentCellFormatter.swift in Sources */,
 				BF03D66B1C9F13BD002EF4CC /* FlaggedMailboxViewController.swift in Sources */,
 				2F01369A1BCFDA98008BAD9D /* RoundedBorderButton.swift in Sources */,
@@ -1424,7 +1380,6 @@
 				BF24C3C01D327F6400CC1667 /* AuthUtility.swift in Sources */,
 				BF27F38A1CDDF01C003A92D9 /* APContact.m in Sources */,
 				7A4457191D8F2823000F862D /* ManagedConversation.swift in Sources */,
-				2F8D8CDE1BCC12B30020A41C /* HRUploadAction.swift in Sources */,
 				BF27F37E1CDDF01C003A92D9 /* APContactListBuilder.m in Sources */,
 				BF27F38C1CDDF01C003A92D9 /* APEmail.m in Sources */,
 				2F81A6331BC179BF007F2D43 /* Operators.swift in Sources */,
@@ -1436,7 +1391,6 @@
 				DF1FD2DE1B62360600A58B71 /* AppDelegate.swift in Sources */,
 				2F7B0CFF1BFDCAB30015C43A /* FormatterProtocols.swift in Sources */,
 				BF27F38E1CDDF01C003A92D9 /* APName.m in Sources */,
-				2F8D8CDD1BCC12B30020A41C /* HRUploadAction+CoreDataProperties.swift in Sources */,
 				2F7B0D091BFDDA920015C43A /* ActionPluginProvider.swift in Sources */,
 				BF27F3921CDDF01C003A92D9 /* APSocialProfile.m in Sources */,
 				2F4E41551BB08A3200AA2DEF /* SSASideMenu.swift in Sources */,
@@ -1464,7 +1418,6 @@
 				6C9BD0701C0603250053C868 /* FlaggedFormatter.swift in Sources */,
 				2FDDE0F91BAEAA27006C3500 /* Attachment+CoreDataProperties.swift in Sources */,
 				BF862B291D16ECE100E4AE34 /* APIUtility.swift in Sources */,
-				2F88F1CE1BD43CF700844A90 /* HRDownloadAction+CoreDataProperties.swift in Sources */,
 				2F994E501BB2AE3500A63B9B /* SWTableViewCell.m in Sources */,
 				BFF78C971CD56931007380C7 /* UTI.swift in Sources */,
 				2F7B0D0B1BFDDA9E0015C43A /* InboxActionHandler.swift in Sources */,
@@ -1472,12 +1425,10 @@
 				6C9BD0711C0603250053C868 /* SentFormatter.swift in Sources */,
 				BFBBA6D41D68F3D900D6AD08 /* InboxMessageTableViewCellHelper.swift in Sources */,
 				2F1D2C371BBC3DCA00A504A8 /* ContactCardViewController.swift in Sources */,
-				2F8D8CE51BCC20B40020A41C /* HRActionsManager.swift in Sources */,
 				6C9BD06E1C0603250053C868 /* ArchiveFormatter.swift in Sources */,
 				2F7B0CFD1BFDC8910015C43A /* InboxFormatter.swift in Sources */,
 				BF78BB461D81D8DB005A9141 /* ConversationTableViewCellHelper.swift in Sources */,
 				7A44571D1D8F2823000F862D /* ManagedUser.swift in Sources */,
-				2F88F1CF1BD43CF700844A90 /* HRDownloadAction.swift in Sources */,
 				BF78BB4A1D82C10F005A9141 /* TwitterAPIOperations.swift in Sources */,
 				2F7B0D071BFDD9A20015C43A /* ActionProtocols.swift in Sources */,
 				7A44571C1D8F2823000F862D /* ManagedUser+CoreDataProperties.swift in Sources */,
@@ -1487,7 +1438,6 @@
 				BF27F3871CDDF01C003A92D9 /* APAddressBookRefWrapper.m in Sources */,
 				2F4E41631BB0AC7300AA2DEF /* GradientNavigationController.swift in Sources */,
 				2FB5A4471BB20A6E0087D006 /* MailBoxOptionsTableViewController.swift in Sources */,
-				2F8D8CDF1BCC12B30020A41C /* HRAction+CoreDataProperties.swift in Sources */,
 				2FB0E9451BB5718600A0426E /* UIImage+HanderImages.swift in Sources */,
 				2F09DB241BC69F3F00B81FE2 /* AttachmentThumbnailCollectionViewCell.swift in Sources */,
 				2F92E7581BFB921300E5F6A2 /* ErrorPopupQueue.swift in Sources */,
@@ -1522,9 +1472,7 @@
 				2FDDE0F11BAEA957006C3500 /* Thread+CoreDataProperties.swift in Sources */,
 				2F952DAE1C1D9191006A6BCA /* BottomBarProtocol.swift in Sources */,
 				BFF78C951CD56931007380C7 /* CWStatusBarNotification.swift in Sources */,
-				2F8D8CE21BCC12B30020A41C /* HRSendAction.swift in Sources */,
 				2F1D2C3B1BBC477000A504A8 /* SendInvitationViewController.swift in Sources */,
-				2F8D8CE01BCC12B30020A41C /* HRAction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

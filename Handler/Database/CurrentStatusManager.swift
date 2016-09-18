@@ -26,10 +26,9 @@ class CurrentStatusManager: NSObject, MailboxCountObserver {
 	var currentState: Observable<StatusManagerStatus> = Observable(StatusManagerStatus.Idle)
 	var currentUploadProgress: Observable<Float> = Observable(Float(0.0))
 	
-	override init(){
+	override init() {
 		super.init()
 		MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(.Unread, observer: self)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "actionProgressChanged", name: ActionProgressDidChangeNotification, object: nil)
 	}
 	
 	deinit {

@@ -113,14 +113,15 @@ final class Attachment: NSManagedObject, CoreDataConvertible {
 	
 	func getData() -> NSData? {
 		if let search = localFileURL {
-			
-			if let data = NSData(contentsOfFile: search){
-				return data
-			} else if self.toManageObjectContext(DatabaseManager.sharedInstance.backgroundContext)?.involved_download == nil {
-				// Data not yet loaded, start download
-				print("starting downlaod for \(self.filename) to \(self.localFileURL)")
-				let _ = HRDownloadAction(attachment: self.toManageObjectContext(DatabaseManager.sharedInstance.backgroundContext)!)
-			}
+
+			// OTTODO: Reimplement attachments get data
+//			if let data = NSData(contentsOfFile: search){
+//				return data
+//			} else if self.toManageObjectContext(DatabaseManager.sharedInstance.backgroundContext)?.involved_download == nil {
+//				// Data not yet loaded, start download
+//				print("starting downlaod for \(self.filename) to \(self.localFileURL)")
+//				let _ = HRDownloadAction(attachment: self.toManageObjectContext(DatabaseManager.sharedInstance.backgroundContext)!)
+//			}
 			return NSData(contentsOfFile: search)
 		}else{
 			return nil
