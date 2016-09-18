@@ -10,6 +10,8 @@ import UIKit
 import TwitterKit
 import SwiftyJSON
 
+let fetchedTwitterDataNotification = "fetchedTwitterDataNotification"
+
 struct TwitterAPIOperations {
 
 	static let sharedInstance = TwitterAPIOperations()
