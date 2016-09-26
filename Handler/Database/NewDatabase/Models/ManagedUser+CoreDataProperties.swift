@@ -14,9 +14,10 @@ import CoreData
 
 extension ManagedUser {
 
+	@NSManaged var identifier: String?
+	@NSManaged var riskRating : NSNumber?
     @NSManaged var created_at: NSDate?
     @NSManaged var desc: String?
-    @NSManaged var handle: String?
     @NSManaged var id: String?
     @NSManaged var isContact: NSNumber?
     @NSManaged var name: String?

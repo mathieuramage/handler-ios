@@ -21,26 +21,26 @@ class ConversationTableViewCellHelper: NSObject {
 	class func configureCell(cell : ConversationMessageTableViewCell, message: Message){
 
 		cell.richTextContent.editingEnabled = false
-		cell.richTextContent.setHTML(message.message ?? "No content")
+		cell.richTextContent.setHTML(message.content ?? "No content")
 		cell.contentHeightConstraint.constant = CGFloat(cell.richTextContent.editorHeight)
 		cell.richTextContent.webView.dataDetectorTypes = [.All]
 		cell.richTextContent.backgroundColor = UIColor.clearColor()
 		cell.richTextContent.webView.backgroundColor = UIColor.clearColor()
 		cell.richTextContent.webView.scrollView.backgroundColor = UIColor.clearColor()
 		cell.richTextContent.webView.opaque = false
-		cell.senderLabel.text = message.sender.name
-		cell.senderHandleButton.setTitle("@" + (message.sender.handle), forState: .Normal)
+		cell.senderLabel.text = message.sender?.name
+		cell.senderHandleButton.setTitle("@" + (message.sender?.handle ?? ""), forState: .Normal)
 
-		let recipient = message.recipients[0] as User
+		let recipient = message.recipients?.anyObject() as! ManagedUser
 		let displayName = recipient.name
 		if recipient.handle.characters.count > 0 {
-			cell.recipientLabel.text = "To: " + displayName + " @" + recipient.handle
+			cell.recipientLabel.text = "To: " + (displayName ?? "") + " @" + (recipient.handle ?? "")
 		} else {
 			cell.recipientLabel.text = "To: -"
 		}
 		cell.sender = message.sender
-		cell.timeStampeLabel.text = timeFormatter.stringFromDate(message.createdAt)
-		if let pictureURL = message.sender.twitterUser.pictureURL {
+		cell.timeStampeLabel.text = timeFormatter.stringFromDate(message.createdAt!)
+		if let pictureURL = message.sender?.pictureUrl {
 			cell.senderImageView.kf_setImageWithURL(pictureURL, placeholderImage: UIImage.randomGhostImage(), optionsInfo: nil, completionHandler: nil)
 		}
 	}

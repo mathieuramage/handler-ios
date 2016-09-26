@@ -16,12 +16,12 @@ struct MessageOperations {
 		var params : [String : AnyObject] = [:]
 
 		if let before = before {
-			params["before"] = NSDate.distantFuture()
+			params["before"] = NSDate()
 		} else {
 			params["before"] = NSDate()
 		}
 		if let after = after {
-			params["before"] = 0
+			params["after"] = 0 
 		} else {
 			params["after"] = 0
 		}
@@ -36,7 +36,7 @@ struct MessageOperations {
 				if let value = response.result.value {
 					if let json = JSON(value)["messages"].array {
 						for messageJson in json {
-							let message = Message(json: messageJson)
+							let message = Message(json: messageJson, inContext: DatabaseManager.sharedInstance.mainManagedContext)
 							messages.append(message)
 						}
 					}
@@ -56,7 +56,7 @@ struct MessageOperations {
 			case .Success:
 				var message : Message?
 				if let value = response.result.value {
-					message = Message(json: JSON(value))
+					message = Message(json: JSON(value), inContext: DatabaseManager.sharedInstance.mainManagedContext)
 				}
 				callback(success: true, message: message)
 			case .Failure(_):
@@ -73,10 +73,10 @@ struct MessageOperations {
 
 		var recipients : [String] = []
 
-		if message.sender.identifier != AuthUtility.user?.identifier {
-			recipients.append(message.sender.handle)
+		if message.sender?.identifier != AuthUtility.user?.identifier {
+			recipients.append(message.sender!.handle)
 		}
-		for user in message.recipients {
+		for user in message.recipients! {
 			if user.identifier != AuthUtility.user?.identifier {
 				recipients.append(user.handle)
 			}
@@ -96,7 +96,7 @@ struct MessageOperations {
 		postNewMessage(messageData, callback: callback)
 	}
 
-	static func replyMessageToUsers(users : [User], conversationId: String, message: String, subject : String, callback : MessageUpdateCallback?) {
+	static func replyMessageToUsers(users : [ManagedUser], conversationId: String, message: String, subject : String, callback : MessageUpdateCallback?) {
 		var recipientUserNames : [String] = []
 		for user in users {
 			recipientUserNames.append(user.handle)
@@ -113,7 +113,7 @@ struct MessageOperations {
 		postNewMessage(messageData, callback: callback)
 	}
 
-	static func sendNewMessage(message : String, subject : String, recipients: [User], callback : MessageUpdateCallback?) {
+	static func sendNewMessage(message : String, subject : String, recipients: [ManagedUser], callback : MessageUpdateCallback?) {
 		var recipientUserNames : [String] = []
 		for user in recipients {
 			recipientUserNames.append(user.handle)
@@ -173,7 +173,7 @@ struct MessageOperations {
 				if let value = response.result.value {
 					if let json = JSON(value)["messages"].array {
 						for messageJson in json {
-							message = Message(json: messageJson)
+							message = Message(json: messageJson, inContext: DatabaseManager.sharedInstance.mainManagedContext)
 						}
 					}
 				}
@@ -230,7 +230,7 @@ struct MessageOperations {
 				if let value = response.result.value {
 					if let json = JSON(value)["messages"].array {
 						for messageJson in json {
-							message = Message(json: messageJson)
+							message = Message(json: messageJson, inContext: DatabaseManager.sharedInstance.mainManagedContext)
 						}
 					}
 				}

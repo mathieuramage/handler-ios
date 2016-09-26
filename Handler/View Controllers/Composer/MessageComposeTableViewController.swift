@@ -163,8 +163,8 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		//
 		//		}else{
 
-		if let message = messageToReplyTo where message.sender.handle.characters.count > 0 {
-			let sender = message.sender.handle
+		if let message = messageToReplyTo where message.sender!.handle.characters.count > 0 {
+			let sender = message.sender!.handle
 			self.title = "New Reply"
 			validatedTokens.append(ValidatedToken(name: sender, isOnHandler: true))
 
@@ -337,7 +337,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 			let sendAnywayAction = UIAlertAction(title: "Send", style: .Default) { (action) in
 
 				if let replyTo = self.messageToReplyTo {
-					MessageOperations.replyToUserNames(recipients, conversationId: replyTo.conversationId, message: message, subject: subject, callback: { (success) in
+					MessageOperations.replyToUserNames(recipients, conversationId: replyTo.conversationId!, message: message, subject: subject, callback: { (success) in
 						// TODO?
 					})
 				} else {
@@ -360,7 +360,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
 
 			if let replyTo = self.messageToReplyTo {
-				MessageOperations.replyToUserNames(recipients, conversationId: replyTo.conversationId, message: message, subject: subject, callback: { (success) in
+				MessageOperations.replyToUserNames(recipients, conversationId: replyTo.conversationId!, message: message, subject: subject, callback: { (success) in
 					// TODO?
 				})
 			} else {
@@ -735,7 +735,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
 	// Mark: ContactsAutoCompleteViewControllerDelegateDelegate
 
-	func contactsAutoCompleteDidSelectUser(user: User) {
+	func contactsAutoCompleteDidSelectUser(user: ManagedUser) {
 		let handle = user.handle
 
 		guard handle.characters.count > 0 else {

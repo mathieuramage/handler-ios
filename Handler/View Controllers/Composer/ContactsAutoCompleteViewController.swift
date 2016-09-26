@@ -13,16 +13,16 @@ import CoreData
 
 protocol AutoCompleteDelegate {
     
-    func contactsAutoCompleteDidSelectUser(controller: ContactsAutoCompleteViewController, user: User)
+    func contactsAutoCompleteDidSelectUser(controller: ContactsAutoCompleteViewController, user: ManagedUser)
 }
 
 private struct MatchedUser {
     
-    let user: User
+    let user: ManagedUser
     let handleMatchRange: Range<String.Index>?
     let nameMatchRange: Range<String.Index>?
     
-    init(user: User, handleMatchRange: Range<String.Index>?, nameMatchRange: Range<String.Index>?) {
+    init(user: ManagedUser, handleMatchRange: Range<String.Index>?, nameMatchRange: Range<String.Index>?) {
         self.user = user
         self.handleMatchRange = handleMatchRange
         self.nameMatchRange = nameMatchRange
@@ -38,7 +38,7 @@ private struct AutoCompleteMatcher {
         self.predicate = predicate
     }
     
-    func evaluate(user: User, searchedText: String) -> MatchedUser? {
+    func evaluate(user: ManagedUser, searchedText: String) -> MatchedUser? {
         let match = self.predicate.evaluateWithObject(user)
         
         if match {
@@ -46,7 +46,7 @@ private struct AutoCompleteMatcher {
             
             let handleRange = user.handle.stringByFoldingWithOptions([.DiacriticInsensitiveSearch, .CaseInsensitiveSearch], locale: nil).rangeOfString(normalizedSearchedText)
             
-            let nameRange = user.name.stringByFoldingWithOptions([.DiacriticInsensitiveSearch, .CaseInsensitiveSearch], locale: nil).rangeOfString(normalizedSearchedText)
+            let nameRange = user.name?.stringByFoldingWithOptions([.DiacriticInsensitiveSearch, .CaseInsensitiveSearch], locale: nil).rangeOfString(normalizedSearchedText)
             
             return MatchedUser(user: user, handleMatchRange: handleRange, nameMatchRange: nameRange)
         }
@@ -126,10 +126,10 @@ class ContactsAutoCompleteViewController: UIViewController, UITableViewDelegate,
         let matchedUser = matchedUsers[indexPath.row]
 
 		let name = matchedUser.user.name
-        if name.characters.count > 0 {
+        if name?.characters.count > 0 {
             if let matchedNameRange = matchedUser.nameMatchRange {
-                let attributedString = NSMutableAttributedString(string: name, attributes: [ NSForegroundColorAttributeName: UIColor(rgba: HexCodes.gray)])
-                attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor(rgba: HexCodes.darkGray), range: name.NSRangeFromRange(matchedNameRange))
+                let attributedString = NSMutableAttributedString(string: name!, attributes: [ NSForegroundColorAttributeName: UIColor(rgba: HexCodes.gray)])
+                attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor(rgba: HexCodes.darkGray), range: name!.NSRangeFromRange(matchedNameRange))
                 
                 cell.contactName.attributedText = attributedString
             }

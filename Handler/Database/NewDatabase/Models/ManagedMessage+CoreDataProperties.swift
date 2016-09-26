@@ -15,9 +15,15 @@ import CoreData
 extension ManagedMessage {
 
     @NSManaged var content: String?
-    @NSManaged var id: String?
+	@NSManaged var folderType: String?
+	@NSManaged var conversationId: String?
+    @NSManaged var identifier : String?
     @NSManaged var sent_at: NSDate?
+	@NSManaged var createdAt : NSDate?
+	@NSManaged var updatedAt : NSDate?
     @NSManaged var shouldBeSent: NSNumber?
+	@NSManaged var starredValue : NSNumber?
+	@NSManaged var readValue : NSNumber?
     @NSManaged var subject: String?
     @NSManaged var recipients: NSSet?
     @NSManaged var sender: ManagedUser?

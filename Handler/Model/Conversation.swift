@@ -21,7 +21,7 @@ class Conversation: NSObject {
 		get {
 			var latest = messages[0]
 			for message in messages {
-				if message.createdAt.compare(latest.createdAt) == .OrderedDescending {
+				if message.createdAt!.compare(latest.createdAt!) == .OrderedDescending {
 					latest = message
 				}
 			}
@@ -43,7 +43,7 @@ class Conversation: NSObject {
 					continue
 				}
 
-				if message.createdAt.compare(latest!.createdAt) == .OrderedDescending {
+				if message.createdAt!.compare(latest!.createdAt!) == .OrderedDescending {
 					latest = message
 				}
 			}

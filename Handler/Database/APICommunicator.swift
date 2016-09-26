@@ -20,7 +20,7 @@ enum AuthenticationState: Int {
     case LoggingOut
 }
 
-typealias APICommunicatorActionRepeat = ()->Void
+typealias APICommunicatorActionRepeat = () -> Void
 
 class APICommunicator: NSObject {
     static let sharedInstance = APICommunicator()
@@ -59,11 +59,7 @@ class APICommunicator: NSObject {
     }
     
     private var reloginActionQueue = [APICommunicatorActionRepeat]()
-    
-    override init(){
-        super.init()
-    }
-    
+
     func start(){
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidAuth", name: HRUserSessionDidStartNotification, object: nil)
     }
@@ -98,7 +94,9 @@ class APICommunicator: NSObject {
             Twitter.sharedInstance().sessionStore.logOutUserID(session.userID)
         }
         HRUserSessionManager.logout()
-        DatabaseManager.sharedInstance.flushDatastore()
+        DatabaseManager.sharedInstance.flushDatastore { (error) in
+			self.authenticationState = .LoggedOut
+		}
     }
 	
 	func flushOldArchivedMessages(){
@@ -350,14 +348,6 @@ class APICommunicator: NSObject {
                     self.authenticationState = .LoginExpired
                 }
             }
-        }
-    }
-    
-    func finishedFlushingStore(){
-        if authenticationState == .LoggingOut {
-            authenticationState = .LoggedOut
-        }else{
-            print("Why the hell did you flush!?")
         }
     }
 }

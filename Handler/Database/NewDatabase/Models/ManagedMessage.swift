@@ -8,8 +8,124 @@
 
 import Foundation
 import CoreData
+import SwiftyJSON
+
+typealias Message = ManagedMessage
 
 class ManagedMessage: NSManagedObject {
+
+
+
+	/*
+ _id	ObjectID	Required | Unique
+ _user	User	Required
+ _sender	User	Required
+ conversationId	UUID	Required | Unique | Default: uuid.v4
+ subject	String	Required | Default: ""
+ message	String	Required | Default: ""
+ recipients	[User]	# Can be empty if folder is 'draft'
+ isRead	String	Required | Default: false
+ folder	String	Required | Default: ‘draft’ | Enum: ['inbox', 'sent', 'archived', 'deleted', 'draft']
+ labels	[String]	# Can be empty. Sample: 'job', 'invoices', ...
+ isStar	Boolean	# Can be empty.
+	*/
+
+	var starred : Bool? {
+		if let starredValue = starredValue {
+			return starredValue.boolValue
+		}
+		return false
+
+	}
+
+	var read : Bool {
+		if let readValue = readValue {
+			return readValue.boolValue
+		}
+		return false
+		
+	}
+
+//	var user : User
+	var folder : Folder {
+		get {
+			if let folderType = folderType, let folder = Folder(rawValue: folderType) {
+				return folder
+			}
+			else {
+				return .Inbox
+			}
+			
+		}
+	}
+
+	var archived : Bool {
+		get {
+			return folder == .Archived
+		}
+	}
+
+	var labels : [String] = []
+
+	convenience init(managedObjectContext: NSManagedObjectContext) {
+		let entityName = "Message"
+		let entity = NSEntityDescription.entityForName(entityName, inManagedObjectContext: managedObjectContext)!
+
+		self.init(entity: entity, insertIntoManagedObjectContext: managedObjectContext)
+	}
+
+	convenience init(json: JSON, inContext context: NSManagedObjectContext) {
+		self.init(managedObjectContext: context)
+
+		identifier = json["_id"].stringValue
+		//		user = User(json: json["_user"])
+		sender = ManagedUser(json : json["sender"], inContext: DatabaseManager.sharedInstance.mainManagedContext)
+		conversationId = json["conversationId"].stringValue
+
+		subject = json["subject"].stringValue
+		content = json["message"].stringValue
+
+		// OTTODO: Recipients
+//		recipients = []
+//		if let recipientJsons = json["recipients"].array {
+//			for recipientJson in recipientJsons {
+//				let sender = ManagedUser(json : recipientJson, inContext: DatabaseManager.sharedInstance.mainManagedContext)
+//				self.
+//
+//				recipients.append(sender)
+//			}
+//		}
+
+		readValue = json["isRead"].boolValue
+
+		folderType = json["folder"].stringValue
+
+		labels = []
+		if let labelJsons = json["labels"].array {
+			for labelJson in labelJsons {
+				labels.append(labelJson.stringValue)
+			}
+		}
+
+		starredValue = json["isStar"].bool
+
+		if let createdAtStr = json["createdAt"].string {
+			let formatter = NSDateFormatter()
+			formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+			createdAt = formatter.dateFromString(createdAtStr)!
+		} else {
+			createdAt = NSDate()
+		}
+
+		if let updatedAtStr = json["updatedAt"].string {
+			let formatter = NSDateFormatter()
+			formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+			updatedAt = formatter.dateFromString(updatedAtStr)!
+		} else {
+			updatedAt = NSDate()
+		}
+	}
+
 
 	func moveToArchive(){
 		self.removeLabelWithID(SystemLabels.Inbox.rawValue)
@@ -345,3 +461,12 @@ class ManagedMessage: NSManagedObject {
 
 
 }
+
+enum Folder : String {
+	case Inbox = "inbox"
+	case Sent = "sent"
+	case Archived = "archived"
+	case Deleted = "deleted"
+	case Draft = "draft"
+}
+

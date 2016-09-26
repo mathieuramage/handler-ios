@@ -185,8 +185,6 @@
 		BF78BB4A1D82C10F005A9141 /* TwitterAPIOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF78BB491D82C10F005A9141 /* TwitterAPIOperations.swift */; };
 		BF862B291D16ECE100E4AE34 /* APIUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF862B281D16ECE100E4AE34 /* APIUtility.swift */; };
 		BF862B2B1D16ECF700E4AE34 /* UserOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF862B2A1D16ECF700E4AE34 /* UserOperations.swift */; };
-		BF862B2D1D16ED3200E4AE34 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF862B2C1D16ED3200E4AE34 /* User.swift */; };
-		BF862B2F1D16ED9200E4AE34 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF862B2E1D16ED9200E4AE34 /* Message.swift */; };
 		BF862B311D16EDA700E4AE34 /* MessageOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF862B301D16EDA700E4AE34 /* MessageOperations.swift */; };
 		BFA307561CF25EAC00642A8D /* NSDateTimeAgo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFA307551CF25EAC00642A8D /* NSDateTimeAgo.framework */; };
 		BFA307571CF260F200642A8D /* RichEditorView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0D136A1CA8595200E91136 /* RichEditorView.framework */; };
@@ -477,8 +475,6 @@
 		BF78BB491D82C10F005A9141 /* TwitterAPIOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterAPIOperations.swift; sourceTree = "<group>"; };
 		BF862B281D16ECE100E4AE34 /* APIUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIUtility.swift; sourceTree = "<group>"; };
 		BF862B2A1D16ECF700E4AE34 /* UserOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserOperations.swift; sourceTree = "<group>"; };
-		BF862B2C1D16ED3200E4AE34 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		BF862B2E1D16ED9200E4AE34 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		BF862B301D16EDA700E4AE34 /* MessageOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageOperations.swift; sourceTree = "<group>"; };
 		BFA307531CF25D0800642A8D /* HandleriOSSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HandleriOSSDK.framework; path = Carthage/Build/iOS/HandleriOSSDK.framework; sourceTree = SOURCE_ROOT; };
 		BFA307551CF25EAC00642A8D /* NSDateTimeAgo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NSDateTimeAgo.framework; path = Carthage/Build/iOS/NSDateTimeAgo.framework; sourceTree = SOURCE_ROOT; };
@@ -1080,9 +1076,7 @@
 			isa = PBXGroup;
 			children = (
 				BF09A96F1D569C1500D3ADFD /* AccessToken.swift */,
-				BF862B2C1D16ED3200E4AE34 /* User.swift */,
 				BF78BB471D82B25B005A9141 /* TwitterUser.swift */,
-				BF862B2E1D16ED9200E4AE34 /* Message.swift */,
 				BFDE3B9B1D7C472C008819E8 /* Conversation.swift */,
 			);
 			path = Model;
@@ -1393,7 +1387,6 @@
 				2F01369F1BD1029A008BAD9D /* ContactsTableViewController.swift in Sources */,
 				BF862B311D16EDA700E4AE34 /* MessageOperations.swift in Sources */,
 				2F76D4D01BB48F1600235A95 /* MailboxObserversManager.swift in Sources */,
-				BF862B2F1D16ED9200E4AE34 /* Message.swift in Sources */,
 				BF27F38F1CDDF01C003A92D9 /* APPhone.m in Sources */,
 				BF27F3851CDDF01C003A92D9 /* APAddressBookBaseRoutine.m in Sources */,
 				BF24C3C21D327FBA00CC1667 /* Config.swift in Sources */,
@@ -1464,7 +1457,6 @@
 				BF27F3811CDDF01C003A92D9 /* APSocialServiceHelper.m in Sources */,
 				BF09A9701D569C1500D3ADFD /* AccessToken.swift in Sources */,
 				2F994E511BB2AE3500A63B9B /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
-				BF862B2D1D16ED3200E4AE34 /* User.swift in Sources */,
 				2FDDE0F11BAEA957006C3500 /* Thread+CoreDataProperties.swift in Sources */,
 				2F952DAE1C1D9191006A6BCA /* BottomBarProtocol.swift in Sources */,
 				BFF78C951CD56931007380C7 /* CWStatusBarNotification.swift in Sources */,

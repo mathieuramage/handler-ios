@@ -37,11 +37,11 @@ struct ConversationOperations {
 
 		var conversationsDict : [String : [Message]] = [:]
 		for message in messages {
-			if var messageArr = conversationsDict[message.conversationId] {
+			if var messageArr = conversationsDict[message.conversationId!] {
 				messageArr.append(message)
 			} else {
 				let messageArr = [message]
-				conversationsDict[message.conversationId] = messageArr
+				conversationsDict[message.conversationId!] = messageArr
 			}
 		}
 

@@ -15,6 +15,8 @@ class DatabaseManager: NSObject {
 
 	static let sharedInstance = DatabaseManager()
 
+	typealias SimpleCompletionHandler = (error: NSError?) -> Void
+
 	override init(){
 		super.init()
 		let _ = mainManagedContext
@@ -61,7 +63,7 @@ class DatabaseManager: NSObject {
 
 	// MARK: - Core Data Saving
 
-	func save() {
+	func save(completion: SimpleCompletionHandler? = nil) {
 		self.mainManagedContext.saveRecursively { (error) in
 			if let error = error {
 				NSLog("Error saving context \(error), \(error.userInfo)")
@@ -69,7 +71,7 @@ class DatabaseManager: NSObject {
 		}
 	}
 
-	func flushDatastore() {
+	func flushDatastore(completion: SimpleCompletionHandler? = nil) {
 		for entity in managedObjectModel.entities {
 			if let name = entity.name {
 				deleteDataForEntity(name)
@@ -81,7 +83,7 @@ class DatabaseManager: NSObject {
 				NSLog("Error saving backgroundContext \(error), \(error.userInfo)")
 			}
 
-			APICommunicator.sharedInstance.finishedFlushingStore()
+			completion?(error: error)
 		}
 	}
 

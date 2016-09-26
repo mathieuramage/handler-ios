@@ -35,18 +35,18 @@ class InboxMessageTableViewCellHelper {
 		cell.rightUtilityButtons = rightButtonsForMessage(message)
 
 
-		if let pictureUrl = message.sender.twitterUser.pictureURL {
+		if let pictureUrl = message.sender?.pictureUrl {
 			cell.senderProfileImageView.kf_setImageWithURL(pictureUrl, placeholderImage: UIImage.randomGhostImage(), optionsInfo: nil, completionHandler: { (image, error, cacheType, imageURL) -> () in
 			})
 		}
 
-		cell.senderNameLabel.text = message.sender.name
-		cell.senderHandleLabel.text = "@" + message.sender.handle
+		cell.senderNameLabel.text = message.sender?.name
+		cell.senderHandleLabel.text = "@" + (message.sender?.handle ?? "")
 
 		cell.messageSubjectLabel.text = message.subject
-		cell.messageContentPreviewLabel.text = message.message
+		cell.messageContentPreviewLabel.text = message.content
 
-		cell.messageTimeLabel.text = timeFormatter.stringFromDate(message.createdAt)
+		cell.messageTimeLabel.text = timeFormatter.stringFromDate(message.createdAt!)
 
 		let count = conversation.messages.count
 		if count > 1 {
@@ -59,7 +59,7 @@ class InboxMessageTableViewCellHelper {
 
 		cell.attachmentIconView.hidden = true
 
-		cell.repliedIconView.hidden = (message.sender.identifier != AuthUtility.user?.identifier)
+		cell.repliedIconView.hidden = (message.sender?.identifier != AuthUtility.user?.identifier)
 
 		setUpReadFlagMessage(message: message, view: cell)
 
