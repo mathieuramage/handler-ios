@@ -20,7 +20,7 @@ class LoginViewController: UIViewController {
 
 		let layer = CAGradientLayer.gradientLayerForBounds(UIScreen.mainScreen().bounds)
 		self.view.layer.insertSublayer(layer, atIndex: 0)
-        if let twitterIcon = UIImage(named: "TwitterLogo_white copy") {
+        if let twitterIcon = UIImage(named: "TwitterLogo_whi00te") {
             self.loginButton.setImage(twitterIcon, forState: .Normal)
         }
         self.setLoginButtonText()
@@ -35,13 +35,13 @@ class LoginViewController: UIViewController {
         
         let loginAttributedString = NSAttributedString(string: "Log In with ", attributes: regularAttribute )
         let twitterAttributedString = NSAttributedString(string: "Twitter", attributes: boldAttribute)
-        let btnString =  NSMutableAttributedString()
+        let buttonTitle =  NSMutableAttributedString()
         
-        btnString.appendAttributedString(loginAttributedString)
-        btnString.appendAttributedString(twitterAttributedString)
-        btnString.addAttribute(NSForegroundColorAttributeName, value: UIColor.whiteColor(), range: NSMakeRange(0, btnString.length))
+        buttonTitle.appendAttributedString(loginAttributedString)
+        buttonTitle.appendAttributedString(twitterAttributedString)
+        buttonTitle.addAttribute(NSForegroundColorAttributeName, value: UIColor.whiteColor(), range: NSMakeRange(0, buttonTitle.length))
         
-        self.loginButton.setAttributedTitle(btnString, forState: .Normal)
+        self.loginButton.setAttributedTitle(buttonTitle, forState: .Normal)
     }
 
 	@IBAction func registerButtonPressed(button: UIButton){
