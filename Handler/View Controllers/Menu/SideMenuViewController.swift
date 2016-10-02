@@ -143,8 +143,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 		self.profileImageView.image = UIImage.randomGhostImage()
 
 		Async.main {
-			APICommunicator.sharedInstance.signOut()
-
+			AuthUtility.signOut()
 			UIView.transitionWithView(AppDelegate.sharedInstance().window!, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: { () -> Void in
 				AppDelegate.sharedInstance().window?.rootViewController = Storyboards.Intro.instantiateViewControllerWithIdentifier("LoginViewController")
 				}, completion: { (success) in

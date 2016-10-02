@@ -592,19 +592,21 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 				return
 			}
 		}
-		APICommunicator.sharedInstance.checkUserWithCallback(string.stringByReplacingOccurrencesOfString("@", withString: "")) { (user, error) in
-			guard let user = user else {
-				self.validatedTokens.append(ValidatedToken(name: string.stringByReplacingOccurrencesOfString("@", withString: ""), isOnHandler: false))
-				self.tokenView.validatedString(string, withResult: false)
-				self.ccTokenView.validatedString(string, withResult: false)
-				return
-			}
-			self.validatedTokens.append(ValidatedToken(name: string.stringByReplacingOccurrencesOfString("@", withString: ""), isOnHandler: true, user: user))
-			self.tokenView.validatedString(user.handle, withResult: true)
-			self.tokenView.reloadTokenWithTitle(user.handle)
-			self.ccTokenView.validatedString(user.handle, withResult: true)
-			self.ccTokenView.reloadTokenWithTitle(user.handle)
-		}
+
+		// TODO: implement using the new API
+//		APICommunicator.sharedInstance.checkUserWithCallback(string.stringByReplacingOccurrencesOfString("@", withString: "")) { (user, error) in
+//			guard let user = user else {
+//				self.validatedTokens.append(ValidatedToken(name: string.stringByReplacingOccurrencesOfString("@", withString: ""), isOnHandler: false))
+//				self.tokenView.validatedString(string, withResult: false)
+//				self.ccTokenView.validatedString(string, withResult: false)
+//				return
+//			}
+//			self.validatedTokens.append(ValidatedToken(name: string.stringByReplacingOccurrencesOfString("@", withString: ""), isOnHandler: true, user: user))
+//			self.tokenView.validatedString(user.handle, withResult: true)
+//			self.tokenView.reloadTokenWithTitle(user.handle)
+//			self.ccTokenView.validatedString(user.handle, withResult: true)
+//			self.ccTokenView.reloadTokenWithTitle(user.handle)
+//		}
 	}
 
 	// MARK: TableViewDelegate & DataSource

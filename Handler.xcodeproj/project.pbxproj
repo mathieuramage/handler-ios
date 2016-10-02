@@ -105,7 +105,6 @@
 		2FDDE0FA1BAEAA27006C3500 /* Attachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE0F81BAEAA27006C3500 /* Attachment.swift */; };
 		2FDDE0FE1BAEB26C006C3500 /* NSManagedObject+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE0FD1BAEB26C006C3500 /* NSManagedObject+Convenience.swift */; };
 		2FDDE1011BAEB5A6006C3500 /* NSDate+FromString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE1001BAEB5A6006C3500 /* NSDate+FromString.swift */; };
-		2FDDE1031BAEBFE9006C3500 /* APICommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE1021BAEBFE9006C3500 /* APICommunicator.swift */; };
 		2FDDE1421BAF5A17006C3500 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE1411BAF5A17006C3500 /* Protocols.swift */; };
 		2FDDE1441BB01AD3006C3500 /* InboxTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE1431BB01AD3006C3500 /* InboxTableViewController.swift */; };
 		2FDDE1471BB04FA4006C3500 /* WhiteBorderViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDDE1461BB04FA4006C3500 /* WhiteBorderViews.swift */; };
@@ -365,7 +364,6 @@
 		2FDDE0F81BAEAA27006C3500 /* Attachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Attachment.swift; sourceTree = "<group>"; };
 		2FDDE0FD1BAEB26C006C3500 /* NSManagedObject+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = "NSManagedObject+Convenience.swift"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2FDDE1001BAEB5A6006C3500 /* NSDate+FromString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+FromString.swift"; sourceTree = "<group>"; };
-		2FDDE1021BAEBFE9006C3500 /* APICommunicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APICommunicator.swift; sourceTree = "<group>"; };
 		2FDDE1411BAF5A17006C3500 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Protocols.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2FDDE1431BB01AD3006C3500 /* InboxTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxTableViewController.swift; sourceTree = "<group>"; };
 		2FDDE1461BB04FA4006C3500 /* WhiteBorderViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhiteBorderViews.swift; sourceTree = "<group>"; };
@@ -661,7 +659,6 @@
 			children = (
 				7A44570E1D8F1A73000F862D /* NewDatabase */,
 				2FDDE0E21BAEA92E006C3500 /* Models */,
-				2FDDE1021BAEBFE9006C3500 /* APICommunicator.swift */,
 				2FF8B8EB1BD4F53E00014C9E /* CurrentStatusManager.swift */,
 				2F88F1CA1BD43C8B00844A90 /* DownloadManager.swift */,
 				2F76D4CF1BB48F1600235A95 /* MailboxObserversManager.swift */,
@@ -1364,7 +1361,6 @@
 				2FDDE1421BAF5A17006C3500 /* Protocols.swift in Sources */,
 				2F994E4E1BB2AE3500A63B9B /* SWCellScrollView.m in Sources */,
 				2FA271A11BB69ED000B22C8B /* CLBackspaceDetectingTextField.m in Sources */,
-				2FDDE1031BAEBFE9006C3500 /* APICommunicator.swift in Sources */,
 				BF27F38B1CDDF01C003A92D9 /* APContactDate.m in Sources */,
 				BF27F3891CDDF01C003A92D9 /* APAddress.m in Sources */,
 				2FF0D1301BB4A802009467B5 /* ConversationTableViewController.swift in Sources */,

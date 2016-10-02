@@ -57,7 +57,6 @@ class LoginViewController: UIViewController {
 			self.loadingView.alpha = 1.0
 		})
 
-
 		Twitter.sharedInstance().logInWithCompletion { session, error in
 			if (session != nil) {
 				print(session)

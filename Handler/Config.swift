@@ -21,6 +21,7 @@ struct Config {
 
 		//OAuth
 		static let oauth = "oauth/token"
+		static let revoke = "oauth/revoke"
 
 		//Messaging
 		static let messages = Config.APIVersion + "messages"
