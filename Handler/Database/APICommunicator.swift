@@ -65,22 +65,23 @@ class APICommunicator: NSObject {
     }
     
     func attemptRelogin(){
-        authenticationState = .Authenticating
-        if let session = Twitter.sharedInstance().sessionStore.session() as? TWTRSession {
-            let oauthSigning = TWTROAuthSigning(authConfig:Twitter.sharedInstance().authConfig, authSession:session)
-            HRTwitterAuthManager.startAuth(oauthSigning.OAuthEchoHeadersToVerifyCredentials(), callback: { (error, session) -> Void in
-                if let error = error {
-                    self.authenticationState = .LoggedOut
-                    error.show()
-                    AppDelegate.sharedInstance().window?.rootViewController = Storyboards.Intro.instantiateViewControllerWithIdentifier("LoginViewController")
-                }else if let _ = session {
-                    self.authenticationState = .LoggedIn
-                }
-            });
-        }else{
-            self.authenticationState = .LoggedOut
-            AppDelegate.sharedInstance().window?.rootViewController = Storyboards.Intro.instantiateViewControllerWithIdentifier("LoginViewController")
-        }
+		// OTTODO: This is causing the user to be logged out. Review this implementation
+//        authenticationState = .Authenticating
+//        if let session = Twitter.sharedInstance().sessionStore.session() as? TWTRSession {
+//            let oauthSigning = TWTROAuthSigning(authConfig:Twitter.sharedInstance().authConfig, authSession:session)
+//            HRTwitterAuthManager.startAuth(oauthSigning.OAuthEchoHeadersToVerifyCredentials(), callback: { (error, session) -> Void in
+//                if let error = error {
+//                    self.authenticationState = .LoggedOut
+//                    error.show()
+//                    AppDelegate.sharedInstance().window?.rootViewController = Storyboards.Intro.instantiateViewControllerWithIdentifier("LoginViewController")
+//                }else if let _ = session {
+//                    self.authenticationState = .LoggedIn
+//                }
+//            });
+//        }else{
+//            self.authenticationState = .LoggedOut
+//            AppDelegate.sharedInstance().window?.rootViewController = Storyboards.Intro.instantiateViewControllerWithIdentifier("LoginViewController")
+//        }
     }
     
     func clearUserData(){
