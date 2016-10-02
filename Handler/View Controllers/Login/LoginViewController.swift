@@ -20,7 +20,7 @@ class LoginViewController: UIViewController {
 
 		let layer = CAGradientLayer.gradientLayerForBounds(UIScreen.mainScreen().bounds)
 		self.view.layer.insertSublayer(layer, atIndex: 0)
-        if let twitterIcon = UIImage(named: "TwitterLogo_whi00te") {
+        if let twitterIcon = UIImage(named: "twitter_logo_white") {
             self.loginButton.setImage(twitterIcon, forState: .Normal)
         }
         self.setLoginButtonText()
