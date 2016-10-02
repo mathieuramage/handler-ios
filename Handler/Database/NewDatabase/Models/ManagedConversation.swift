@@ -14,18 +14,6 @@ typealias Thread = ManagedConversation
 
 class ManagedConversation: NSManagedObject {
 
-	private convenience init(managedObjectContext: NSManagedObjectContext) {
-		let entityName = "Conversation"
-		let entity = NSEntityDescription.entityForName(entityName, inManagedObjectContext: managedObjectContext)!
-
-		self.init(entity: entity, insertIntoManagedObjectContext: managedObjectContext)
-	}
-
-	private convenience init(identifier : String, inContext context: NSManagedObjectContext) {
-		self.init(managedObjectContext: context)
-		self.identifier = identifier
-	}
-
 	class func conversationWithID(identifier: String, inContext context: NSManagedObjectContext) -> ManagedConversation {
 		let fetchRequest = NSFetchRequest(entityName: "Conversation")
 		fetchRequest.predicate = NSPredicate(format: "identifier == %@", identifier)
@@ -35,7 +23,10 @@ class ManagedConversation: NSManagedObject {
 			return conversation
 		}
 
-		return ManagedConversation(identifier: identifier, inContext: context)
+		let conversation = ManagedConversation(managedObjectContext: context)
+		conversation.identifier = identifier
+
+		return conversation
 	}
 
 	var latestMessage : Message? { //this may be unnecessary

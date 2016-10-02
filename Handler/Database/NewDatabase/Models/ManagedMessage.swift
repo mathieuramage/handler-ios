@@ -65,18 +65,11 @@ class ManagedMessage: NSManagedObject {
 		}
 	}
 
-	convenience init(managedObjectContext: NSManagedObjectContext) {
-		let entityName = "Message"
-		let entity = NSEntityDescription.entityForName(entityName, inManagedObjectContext: managedObjectContext)!
-
-		self.init(entity: entity, insertIntoManagedObjectContext: managedObjectContext)
-	}
-
-	convenience init(json: JSON, inContext context: NSManagedObjectContext) {
+	private convenience init(json: JSON, inContext context: NSManagedObjectContext) {
 		self.init(managedObjectContext: context)
 
-		identifier = json["_id"].stringValue
-		sender = ManagedUser(json : json["sender"], inContext: context)
+		identifier = json["id"].stringValue
+		sender = ManagedUser.userWithJSON(json["sender"], inContext: context)
 		conversationId = json["conversationId"].stringValue
 
 		conversation = ManagedConversation.conversationWithID(conversationId!, inContext: context)
@@ -84,16 +77,13 @@ class ManagedMessage: NSManagedObject {
 		subject = json["subject"].stringValue
 		content = json["message"].stringValue
 
-		// OTTODO: Recipients
-//		recipients = []
-//		if let recipientJsons = json["recipients"].array {
-//			for recipientJson in recipientJsons {
-//				let sender = ManagedUser(json : recipientJson, inContext: DatabaseManager.sharedInstance.mainManagedContext)
-//				self.
-//
-//				recipients.append(sender)
-//			}
-//		}
+		if let recipientJsons = json["recipients"].array {
+			for recipientJson in recipientJsons {
+				let recipient = ManagedUser.userWithJSON(recipientJson, inContext: context)
+
+				addRecipientsObject(recipient)
+			}
+		}
 
 		readValue = json["isRead"].boolValue
 
@@ -106,8 +96,6 @@ class ManagedMessage: NSManagedObject {
 				label.message = self
 			}
 		}
-
-
 
 		starredValue = json["isStar"].bool
 
@@ -128,6 +116,22 @@ class ManagedMessage: NSManagedObject {
 		}
 	}
 
+	class func messageWithJSON(json: JSON, inContext context: NSManagedObjectContext) -> ManagedMessage {
+
+		let identifier = json["id"].stringValue
+
+		let fetchRequest = NSFetchRequest(entityName: self.entityName())
+		fetchRequest.predicate = NSPredicate(format: "identifier == %@", identifier)
+		fetchRequest.fetchBatchSize = 1
+
+		if let message = context.safeExecuteFetchRequest(fetchRequest).first as? ManagedMessage {
+			return message
+		}
+
+		let message = ManagedMessage(json: json, inContext: context)
+
+		return message
+	}
 
 	func moveToArchive(){
 		self.removeLabelWithID(SystemLabels.Inbox.rawValue)
@@ -424,9 +428,9 @@ class ManagedMessage: NSManagedObject {
 			return fetchRequest
 		} else if type == .Unread {
 			// OTTODO: The original predicate had a subquery with the labels, for the time being ignoring and fetching all
-//			let predicate = NSPredicate(format: "SUBQUERY(messages, $t, ANY $t.labels.id == %@).@count != 0", type.rawValue)
+			let predicate = NSPredicate(format: "SUBQUERY(messages, $t, ANY $t.labels.id == %@).@count != 0", type.rawValue)
 			let fetchRequest = NSFetchRequest(entityName: Thread.entityName())
-//			fetchRequest.predicate = predicate
+			fetchRequest.predicate = predicate
 			fetchRequest.fetchBatchSize = 20
 			// OTTODO: It should be sorted by date.
 			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "identifier", ascending: false)]

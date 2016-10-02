@@ -30,4 +30,8 @@ extension ManagedMessage {
     @NSManaged var sender: ManagedUser?
     @NSManaged var conversation: ManagedConversation?
 
+	@NSManaged func addRecipientsObject(value: ManagedUser)
+	@NSManaged func removeRecipientsObject(value: ManagedUser)
+	@NSManaged func addRecipients(value: Set<ManagedUser>)
+	@NSManaged func removeRecipients(value: Set<ManagedUser>)
 }
