@@ -65,8 +65,6 @@ class ManagedMessage: NSManagedObject {
 		}
 	}
 
-	var labels : [String] = []
-
 	convenience init(managedObjectContext: NSManagedObjectContext) {
 		let entityName = "Message"
 		let entity = NSEntityDescription.entityForName(entityName, inManagedObjectContext: managedObjectContext)!
@@ -78,9 +76,10 @@ class ManagedMessage: NSManagedObject {
 		self.init(managedObjectContext: context)
 
 		identifier = json["_id"].stringValue
-		//		user = User(json: json["_user"])
-		sender = ManagedUser(json : json["sender"], inContext: DatabaseManager.sharedInstance.mainManagedContext)
+		sender = ManagedUser(json : json["sender"], inContext: context)
 		conversationId = json["conversationId"].stringValue
+
+		conversation = ManagedConversation.conversationWithID(conversationId!, inContext: context)
 
 		subject = json["subject"].stringValue
 		content = json["message"].stringValue
@@ -100,12 +99,15 @@ class ManagedMessage: NSManagedObject {
 
 		folderType = json["folder"].stringValue
 
-		labels = []
 		if let labelJsons = json["labels"].array {
 			for labelJson in labelJsons {
-				labels.append(labelJson.stringValue)
+				let label = ManagedLabel(id: labelJson.stringValue, inContext: context)
+
+				label.message = self
 			}
 		}
+
+
 
 		starredValue = json["isStar"].bool
 
@@ -415,18 +417,19 @@ class ManagedMessage: NSManagedObject {
 			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sent_at", ascending: false)]
 			return fetchRequest
 		} else if type == .Inbox {
-			let predicate = NSPredicate(format: "showInInbox == YES")
 			let fetchRequest = NSFetchRequest(entityName: Thread.entityName())
-			fetchRequest.predicate = predicate
 			fetchRequest.fetchBatchSize = 20
-			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "last_message_date", ascending: false)]
+			// OTTODO: It should be sorted by date.
+			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "identifier", ascending: false)]
 			return fetchRequest
 		} else if type == .Unread {
-			let predicate = NSPredicate(format: "SUBQUERY(messages, $t, ANY $t.labels.id == %@).@count != 0", type.rawValue)
+			// OTTODO: The original predicate had a subquery with the labels, for the time being ignoring and fetching all
+//			let predicate = NSPredicate(format: "SUBQUERY(messages, $t, ANY $t.labels.id == %@).@count != 0", type.rawValue)
 			let fetchRequest = NSFetchRequest(entityName: Thread.entityName())
-			fetchRequest.predicate = predicate
+//			fetchRequest.predicate = predicate
 			fetchRequest.fetchBatchSize = 20
-			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "last_message_date", ascending: false)]
+			// OTTODO: It should be sorted by date.
+			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "identifier", ascending: false)]
 			return fetchRequest
 		}else if type != .Archive {
 			return fetchRequestForMessagesWithLabelWithId(type.rawValue)

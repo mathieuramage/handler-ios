@@ -12,7 +12,7 @@ import CoreData
 extension NSManagedObject {
 	
 	class func entityName() -> String {
-		let classString = NSStringFromClass(self)
+		let classString = NSStringFromClass(self).stringByReplacingOccurrencesOfString("Managed", withString: "")
 		// The entity is the last component of dot-separated class name:
 		let components = classString.componentsSeparatedByString(".")
 		return components.last ?? classString

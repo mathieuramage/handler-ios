@@ -39,20 +39,22 @@ class ConversationTableViewController: UITableViewController {
 	var primaryMessage: Message? {
 		didSet(previous) {
 			if primaryMessage != previous {
-				guard let primaryMessage = primaryMessage, newIndex = conversation?.messages.indexOf(primaryMessage) else {
-					return
-				}
 
-				guard let previous = previous, previousIndex = conversation?.messages.indexOf(previous) else {
-					return
-				}
-
-				let scrollIndexPath = NSIndexPath(forRow: newIndex, inSection: 0)
-				let previousIndexPath = NSIndexPath(forRow: previousIndex, inSection: 0)
-				let indexesToReload = [scrollIndexPath, previousIndexPath]
-
-				tableView.reloadRowsAtIndexPaths(indexesToReload, withRowAnimation: .Automatic)
-				tableView.scrollToRowAtIndexPath(scrollIndexPath, atScrollPosition: .Top, animated: true)
+				// OTTODO: Suppor primary message
+//				guard let primaryMessage = primaryMessage, newIndex = conversation?.messages.indexOf(primaryMessage) else {
+//					return
+//				}
+//
+//				guard let previous = previous, previousIndex = conversation?.messages.indexOf(previous) else {
+//					return
+//				}
+//
+//				let scrollIndexPath = NSIndexPath(forRow: newIndex, inSection: 0)
+//				let previousIndexPath = NSIndexPath(forRow: previousIndex, inSection: 0)
+//				let indexesToReload = [scrollIndexPath, previousIndexPath]
+//
+//				tableView.reloadRowsAtIndexPaths(indexesToReload, withRowAnimation: .Automatic)
+//				tableView.scrollToRowAtIndexPath(scrollIndexPath, atScrollPosition: .Top, animated: true)
 			}
 		}
 	}
@@ -90,7 +92,7 @@ class ConversationTableViewController: UITableViewController {
 	}
 
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return conversation?.messages.count > 0 ? conversation!.messages.count : 0
+		return conversation?.messages?.count ?? 0
 	}
 
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -152,21 +154,21 @@ class ConversationTableViewController: UITableViewController {
 	}
 
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		primaryMessage = conversation!.messages[indexPath.row]
+		primaryMessage = conversation!.orderedMessages()[indexPath.row]
 	}
 
 	override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
 
-		let message = conversation!.messages[indexPath.row]
+		let message = conversation!.orderedMessages()[indexPath.row]
 		if !message.read {
 			MessageOperations.setMessageAsRead(message: message, read: true, callback: nil)
 		}
 	}
 
 	func configureCell(cell: ConversationMessageTableViewCell, indexPath: NSIndexPath) {
-		let message = conversation!.messages[indexPath.row]
+		let message = conversation!.orderedMessages()[indexPath.row]
 
-		let lastMessage = indexPath.row + 1 >= conversation!.messages.count
+		let lastMessage = indexPath.row + 1 >= conversation!.orderedMessages().count
 		let primary = message == primaryMessage
 		configureDotColorForCell(cell, indexPath: indexPath)
 //		FormattingPluginProvider.messageContentCellPluginForConversation()?.populateView(data: message, view: cell, lastMessage: lastMessage, primary: primary)
@@ -174,7 +176,7 @@ class ConversationTableViewController: UITableViewController {
 	}
 
 	func configureDotColorForCell(cell: ConversationMessageTableViewCell, indexPath: NSIndexPath) {
-		let message = conversation!.messages[indexPath.row]
+		let message = conversation!.orderedMessages()[indexPath.row]
 
 		if message.starred == true {
 			cell.dotImageView.image = UIImage(named: "Orange_Dot")
@@ -186,7 +188,7 @@ class ConversationTableViewController: UITableViewController {
 	}
 
 	func reloadCellForMessage(message : Message) {
-		if let index = conversation!.messages.indexOf(message) {
+		if let index = conversation!.orderedMessages().indexOf(message) {
 			let indexPath = NSIndexPath(forRow: index, inSection: 0)
 			let cell = tableView.cellForRowAtIndexPath(indexPath) as! ConversationMessageTableViewCell
 			configureDotColorForCell(cell,indexPath: indexPath)

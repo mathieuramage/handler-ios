@@ -12,17 +12,7 @@ import Alamofire
 struct APIUtility {
 
 	// Temp memory caches
-	static var allConversations : [Conversation] = []
 	static var cachedTwitterUsers : [TwitterUser] = []
-
-	static var lastUpdated : NSDate? {
-		get {
-			if allConversations.count > 0 {
-				return allConversations[0].latestMessage.createdAt
-			}
-			return nil
-		}
-	}
 
 	static var defaultHeaders : [String: String] = ["Cache-Control" : "no-cache", "Content-Type" : "application/json"]
 

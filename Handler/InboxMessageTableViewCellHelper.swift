@@ -19,7 +19,9 @@ class InboxMessageTableViewCellHelper {
 
 	class func configureCell(cell : MessageTableViewCell, conversation: Conversation){
 
-		let message = conversation.latestMessage
+		guard let message = conversation.latestMessage else {
+			return
+		}
 
 		cell.readFlaggedImageView.image = nil
 		cell.senderProfileImageView.image = nil
@@ -48,8 +50,8 @@ class InboxMessageTableViewCellHelper {
 
 		cell.messageTimeLabel.text = timeFormatter.stringFromDate(message.createdAt!)
 
-		let count = conversation.messages.count
-		if count > 1 {
+		let count = conversation.messages?.count
+		if let count = count where count > 1 {
 			cell.threadCountLabel.hidden = false
 			cell.threadCountLabel.text = "\(count)"
 		} else {
