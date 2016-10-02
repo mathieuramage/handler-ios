@@ -34,8 +34,8 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		tableView.tableFooterView = UIView()
-        self.selectButton(self.followersButton)
 		selectTab(0)
+        self.selectButton(self.followersButton)
 		borderView.layer.cornerRadius = 5
 		borderView.clipsToBounds = true
 		borderView.layer.borderWidth = 1
