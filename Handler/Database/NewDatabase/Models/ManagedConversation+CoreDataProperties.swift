@@ -14,9 +14,9 @@ import CoreData
 
 extension ManagedConversation {
 
-    @NSManaged var conversationId: String?
-    @NSManaged var messsages: Conversation?
 	@NSManaged var starred : NSNumber?
 	@NSManaged var read : NSNumber?
+	@NSManaged var identifier : String?
+	@NSManaged var messages : NSSet?
 	
 }

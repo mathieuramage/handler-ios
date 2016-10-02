@@ -12,47 +12,28 @@ import SwiftyJSON
 
 struct ConversationOperations {
 
-	static func refreshConversations(callback callback : (success : Bool, allConversations : [Conversation]) -> ()) {
-		getAllConversations(before: NSDate(), after: APIUtility.lastUpdated, limit: nil) { (success, conversations) in
-			if let conversations = conversations where success {
-				APIUtility.allConversations.appendContentsOf(conversations)
-			}
-			callback(success : success, allConversations: APIUtility.allConversations)
-		}
-	}
+//	static func refreshConversations(callback callback : (success : Bool, allConversations : [Conversation]) -> ()) {
+//
+//		// OTTODO: Review this
+//		let lastUpdated = NSDate.distantPast()
+//		getAllConversations(before: NSDate(), after: lastUpdated, limit: nil) { (success, conversations) in
+//			if let conversations = conversations where success {
+//				APIUtility.allConversations.appendContentsOf(conversations)
+//			}
+//			callback(success : success, allConversations: APIUtility.allConversations)
+//		}
+//	}
 
 	static func getAllConversations(before before : NSDate? , after : NSDate?, limit : Int?, callback : (success : Bool, conversations : [Conversation]?) -> ()) {
 
 		MessageOperations.getAllMessages(before: before, after: after, limit: limit) { (success, messages) in
 			if let messages = messages {
-				let conversations = groupMessages(messages)
-				callback(success: success, conversations: conversations)
+				callback(success: success, conversations: nil)
 			} else {
 				callback(success: success, conversations: nil)
 			}
 		}
 	}
-
-	private static func groupMessages(messages : [Message]) -> [Conversation] {
-
-		var conversationsDict : [String : [Message]] = [:]
-		for message in messages {
-			if var messageArr = conversationsDict[message.conversationId!] {
-				messageArr.append(message)
-			} else {
-				let messageArr = [message]
-				conversationsDict[message.conversationId!] = messageArr
-			}
-		}
-
-		var conversations : [Conversation] = []
-		for (conversationId, messages) in conversationsDict {
-			conversations.append(Conversation(identifier: conversationId, messages: messages))
-		}
-
-		return conversations
-	}
-
 
 	typealias ConversationUpdateCallback = (success : Bool) -> ()
 

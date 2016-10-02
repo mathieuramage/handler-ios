@@ -26,6 +26,7 @@ extension ManagedMessage {
 	@NSManaged var readValue : NSNumber?
     @NSManaged var subject: String?
     @NSManaged var recipients: NSSet?
+	@NSManaged var labels: NSSet?
     @NSManaged var sender: ManagedUser?
     @NSManaged var conversation: ManagedConversation?
 

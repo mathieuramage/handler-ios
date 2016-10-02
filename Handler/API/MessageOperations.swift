@@ -16,14 +16,14 @@ struct MessageOperations {
 		var params : [String : AnyObject] = [:]
 
 		if let before = before {
-			params["before"] = NSDate()
+			params["before"] = String(before.timeIntervalSince1970 * 1000)
 		} else {
-			params["before"] = NSDate()
+			params["before"] = String(NSDate().timeIntervalSince1970 * 1000)
 		}
 		if let after = after {
-			params["after"] = 0 
+			params["after"] =  String(after.timeIntervalSince1970 * 1000)
 		} else {
-			params["after"] = 0
+			params["after"] = "0"
 		}
 		if let limit = limit {
 			params["limit"] = limit

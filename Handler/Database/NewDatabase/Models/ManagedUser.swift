@@ -67,14 +67,15 @@ class ManagedUser: NSManagedObject {
 	convenience init(json: JSON, inContext context: NSManagedObjectContext) {
 		self.init(managedObjectContext: context)
 
-		identifier = json["id"].stringValue
+		identifier = json["_id"].stringValue
 
+		// OTTODO: Add entity TwitterUser and make it to have relationship with ManagedUser
 		// This is not coming in the JSON
 //		twitterUser = TwitterUser(json: json["twitter"])
 
-		pictureUrlString = json["profile_picture_url"].stringValue
-		handle = json["handle"].stringValue
-		name = json["name"].stringValue
+		pictureUrlString = json["twitter"]["pictureUrl"].stringValue
+		handle = json["twitter"]["username"].stringValue
+		name = json["twitter"]["name"].stringValue
 		friendsCount = json["friendsCount"].int
 		role = json["role"].string
 		riskRating = json["riskRating"].intValue
