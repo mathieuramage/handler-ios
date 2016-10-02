@@ -20,12 +20,36 @@ class LoginViewController: UIViewController {
 
 		let layer = CAGradientLayer.gradientLayerForBounds(UIScreen.mainScreen().bounds)
 		self.view.layer.insertSublayer(layer, atIndex: 0)
+        if let twitterIcon = UIImage(named: "twitter_logo_white") {
+            self.loginButton.setImage(twitterIcon, forState: .Normal)
+        }
+        self.setLoginButtonText()
+        self.loginButton.imageEdgeInsets = UIEdgeInsetsMake(13,-20,13, -10)
+        self.loginButton.titleEdgeInsets = UIEdgeInsetsMake(0,-50,0,20)
 	}
+    
+    private func setLoginButtonText() {
+        
+        let boldAttribute = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Bold", size: 17.0)!]
+        let regularAttribute = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Light", size: 17.0)!]
+        
+        let loginAttributedString = NSAttributedString(string: "Log In with ", attributes: regularAttribute )
+        let twitterAttributedString = NSAttributedString(string: "Twitter", attributes: boldAttribute)
+        let buttonTitle =  NSMutableAttributedString()
+        
+        buttonTitle.appendAttributedString(loginAttributedString)
+        buttonTitle.appendAttributedString(twitterAttributedString)
+        buttonTitle.addAttribute(NSForegroundColorAttributeName, value: UIColor.whiteColor(), range: NSMakeRange(0, buttonTitle.length))
+        
+        self.loginButton.setAttributedTitle(buttonTitle, forState: .Normal)
+    }
 
 	@IBAction func registerButtonPressed(button: UIButton){
 		UIApplication.sharedApplication().openURL(NSURL(string: "https://twitter.com/signup")!)
 	}
 
+    @IBOutlet weak var loginButton: WhiteBorderButton!
+    
 	@IBAction func loginButtonPressed(button: UIButton){
 
 		//Displaying loading view
