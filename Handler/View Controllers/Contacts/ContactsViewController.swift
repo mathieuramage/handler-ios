@@ -9,11 +9,12 @@
 import UIKit
 import CoreData
 
-class ContactsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ContactsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
 
 	@IBOutlet weak var searchTextField: UITextField!
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+	@IBOutlet weak var searchBar: UISearchBar!
 
 	@IBOutlet weak var followersButton: UIButton!
 	@IBOutlet weak var followingButton: UIButton!
@@ -40,6 +41,7 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 		borderView.clipsToBounds = true
 		borderView.layer.borderWidth = 1
 		borderView.layer.borderColor = borderView.tintColor.CGColor
+		searchBar.delegate = self
 	}
 
 	override func viewWillAppear(animated: Bool) {
@@ -66,6 +68,23 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 				self.tableView.reloadData()
 			}
 		}
+	}
+
+	// MARK: Search Bar Functions
+
+	// TODO: Perform search here.
+	func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+
+	}
+
+	func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+		searchBar.setShowsCancelButton(true, animated: true)
+	}
+
+	func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+		searchBar.text = ""
+		searchBar.setShowsCancelButton(false, animated: true)
+		searchBar.resignFirstResponder()
 	}
 
 	func fetchMoreFromTwitter() {
