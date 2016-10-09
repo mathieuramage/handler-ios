@@ -10,25 +10,24 @@ import UIKit
 import CoreData
 
 class UserTwitterStatusManager: NSObject {
-	
+
 	class func startUpdating() {
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserTwitterStatusManager.newDataFetched), name: fetchedTwitterDataNotification, object: nil)
 	}
-	
+
 	class func newDataFetched() {
-		DatabaseManager.sharedInstance.backgroundContext.performBlock { 
+		DatabaseManager.sharedInstance.backgroundContext.performBlock {
 			let fetchRequest = NSFetchRequest(entityName: ManagedUser.entityName())
 			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
-			if let users = DatabaseManager.sharedInstance.backgroundContext.safeExecuteFetchRequest(fetchRequest) as? [ManagedUser]  {
-				for user in users {
-					user.twtterFollowStatus = NSNumber(integer: TwitterAPIOperations.followStatusForID(user.name!).rawValue)
-				}
+			let users: [ManagedUser] = DatabaseManager.sharedInstance.backgroundContext.safeExecuteFetchRequest(fetchRequest)
+			for user in users {
+				user.twtterFollowStatus = NSNumber(integer: TwitterAPIOperations.followStatusForID(user.name!).rawValue)
 			}
 
 			DatabaseManager.sharedInstance.backgroundContext.saveRecursively()
 		}
 	}
-	
+
 	deinit {
 		NSNotificationCenter.defaultCenter().removeObserver(self)
 	}

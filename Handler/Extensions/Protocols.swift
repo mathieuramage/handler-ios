@@ -20,7 +20,7 @@ protocol UIViewControllerShow {
 }
 
 extension UIViewControllerShow where Self: UIViewController {
-	mutating func show(){
+	mutating func show() {
 		window = UIWindow(frame: UIScreen.mainScreen().bounds)
 		window?.windowLevel = UIWindowLevelAlert - 1
 		window?.rootViewController = self

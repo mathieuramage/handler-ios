@@ -150,10 +150,12 @@ class ManagedMessage: NSManagedObject {
 	}
 
 	func markAsRead() {
+		// OTTODO Check this implementation
 		self.removeLabelWithID(SystemLabels.Unread.rawValue)
 	}
 
 	func markAsUnread() {
+		// OTTODO Check this implementation
 		self.addLabelWithID(SystemLabels.Unread.rawValue)
 	}
 
@@ -231,21 +233,6 @@ class ManagedMessage: NSManagedObject {
 		//				}
 		//			}
 		//		}
-	}
-
-	// OTTODO: Implement?
-	func setLabelsFromHRTypes(labels: [AnyObject]) {
-
-	}
-
-	// OTTODO: Implement?
-	func hrTypeLabels() -> [AnyObject] {
-		return []
-	}
-
-	// OTTODO: Implement?
-	func hrTypeRecipients() -> [AnyObject] {
-		return []
 	}
 
 	// MARK: Utility getters

@@ -422,9 +422,9 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
 		var attachments = [Attachment]()
 		for attachment in attachmentsCell.attachments ?? [Attachment]() {
-			if let converted = attachment.toManageObjectContext(DatabaseManager.sharedInstance.backgroundContext) {
-				attachments.append(converted)
-			}
+//			if let converted = attachment.toManageObjectContext(DatabaseManager.sharedInstance.backgroundContext) {
+//				attachments.append(converted)
+//			}
 		}
 
 		message.recipients = NSSet(array: receivers)
