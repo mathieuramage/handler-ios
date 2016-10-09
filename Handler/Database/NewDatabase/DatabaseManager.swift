@@ -100,21 +100,14 @@ class DatabaseManager: NSObject {
 		}
 	}
 
-	// OTTODO: Revise this implementation
-	func deleteDataForEntity(entity: String) {
-		let managedContext = backgroundContext
+	private func deleteDataForEntity(entity: String) {
+		let managedContext = writerManagedContext
 		let fetchRequest = NSFetchRequest(entityName: entity)
 		fetchRequest.returnsObjectsAsFaults = false
 
-		do {
-			let results = try managedContext.executeFetchRequest(fetchRequest)
-			for managedObject in results {
-				let managedObjectData:NSManagedObject = managedObject as! NSManagedObject
-				managedContext.deleteObject(managedObjectData)
-			}
-		}
-		catch let error as NSError {
-			print("Delete all \(entity)s: \(error) \(error.userInfo)")
+		let results = managedContext.safeExecuteFetchRequest(fetchRequest)
+		for managedObject in results {
+			managedContext.deleteObject(managedObject)
 		}
 	}
 
