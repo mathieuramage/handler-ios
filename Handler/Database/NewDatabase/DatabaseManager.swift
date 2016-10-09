@@ -117,7 +117,7 @@ class DatabaseManager: NSObject {
 		fetchRequest.returnsObjectsAsFaults = false
 
 		let limitDate = NSDate().dateByAddingTimeInterval(-60 * 24 * 60 * 60)
-		fetchRequest.predicate = NSPredicate(format: "NONE labels.id == %@ && NONE labels.id == %@ && sent_at < %@", "INBOX", "SENT", limitDate)
+		fetchRequest.predicate = NSPredicate(format: "NONE labels.id == %@ && NONE labels.id == %@ && createdAt < %@", "INBOX", "SENT", limitDate)
 
 		let results = managedContext.safeExecuteFetchRequest(fetchRequest)
 		for managedObject in results {
@@ -131,7 +131,7 @@ class DatabaseManager: NSObject {
 		let fetchRequest = NSFetchRequest(entityName: Message.entityName())
 		fetchRequest.returnsObjectsAsFaults = false
 		fetchRequest.predicate = NSPredicate(format: "NONE labels.id == %@ && NONE labels.id == %@", "INBOX", "SENT")
-		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sent_at", ascending: false)]
+		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)]
 
 		let messages: [Message] = managedContext.safeExecuteFetchRequest(fetchRequest)
 

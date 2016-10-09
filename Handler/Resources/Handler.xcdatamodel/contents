@@ -17,7 +17,6 @@
         <attribute name="folderType" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="readValue" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="sent_at" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="shouldBeSent" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="starredValue" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="subject" optional="YES" attributeType="String" syncable="YES"/>
@@ -45,8 +44,8 @@
     </entity>
     <elements>
         <element name="Conversation" positionX="-135" positionY="315" width="128" height="105"/>
-        <element name="Message" positionX="-297" positionY="180" width="126" height="270"/>
-        <element name="User" positionX="7" positionY="236" width="128" height="255"/>
         <element name="Label" positionX="-135" positionY="324" width="128" height="75"/>
+        <element name="Message" positionX="-297" positionY="180" width="126" height="255"/>
+        <element name="User" positionX="7" positionY="236" width="128" height="255"/>
     </elements>
 </model>

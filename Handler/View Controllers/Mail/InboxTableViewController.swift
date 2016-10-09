@@ -101,14 +101,14 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 
 		self.navigationController?.navigationBar.addSubview(progressBar)
 
-		// OTTODO: Check this before commit
-//		if let cells = self.tableView.visibleCells as? [MessageTableViewCell]{
-//			for cell in cells {
-//				if let path = tableView.indexPathForCell(cell) where path.row < fetchedObjects.count, let data = fetchedObjects[path.row].mostRecentMessage {
-//					FormattingPluginProvider.messageCellPluginForInboxType(.Inbox)?.refreshFlags(data: data, view: cell)
-//				}
-//			}
-//		}
+		if let cells = self.tableView.visibleCells as? [MessageTableViewCell] {
+			for cell in cells {
+				if let path = tableView.indexPathForCell(cell) where path.row < fetchedObjects.count {
+					let conversation = fetchedObjects[path.row]
+					InboxMessageTableViewCellHelper.configureCell(cell, conversation: conversation)
+				}
+			}
+		}
 	}
 
 	func refresh(control: UIRefreshControl) {

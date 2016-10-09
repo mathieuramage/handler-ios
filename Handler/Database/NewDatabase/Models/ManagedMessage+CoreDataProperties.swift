@@ -18,7 +18,6 @@ extension ManagedMessage {
 	@NSManaged var folderType: String?
 	@NSManaged var conversationId: String?
     @NSManaged var identifier : String?
-    @NSManaged var sent_at: NSDate?
 	@NSManaged var createdAt : NSDate?
 	@NSManaged var updatedAt : NSDate?
     @NSManaged var shouldBeSent: NSNumber?

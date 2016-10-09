@@ -110,7 +110,7 @@ class ManagedUser: NSManagedObject {
 	class func userWithHandle(handle: String, inContext context: NSManagedObjectContext? = nil) -> ManagedUser {
 		let internalContext = context ?? DatabaseManager.sharedInstance.mainManagedContext
 
-		if let user = (internalContext.safeExecuteFetchRequest(ManagedUser.fetchRequestForHandle(handle)) as? [ManagedUser])?.first {
+		if let user = (internalContext.safeExecuteFetchRequest(ManagedUser.fetchRequestForHandle(handle)) as [ManagedUser]).first {
 			return user
 		}
 		else {

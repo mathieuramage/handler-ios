@@ -124,7 +124,7 @@ class ManagedMessage: NSManagedObject {
 		fetchRequest.predicate = NSPredicate(format: "identifier == %@", identifier)
 		fetchRequest.fetchBatchSize = 1
 
-		if let message = context.safeExecuteFetchRequest(fetchRequest).first as? ManagedMessage {
+		if let message = (context.safeExecuteFetchRequest(fetchRequest) as [Message]).first {
 			return message
 		}
 
@@ -268,17 +268,7 @@ class ManagedMessage: NSManagedObject {
 
 	var isUnread: Bool {
 		get {
-			var unread = false
-			//			if let backgroundSelf = self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) {
-			//				if let labels = backgroundSelf.labels {
-			//					for label in labels {
-			//						if label.id == "UNREAD" {
-			//							unread = true
-			//						}
-			//					}
-			//				}
-			//			}
-			return unread
+			return !read
 		}
 	}
 
@@ -418,22 +408,19 @@ class ManagedMessage: NSManagedObject {
 		if type == MailboxType.AllChanges {
 			let fetchRequest = NSFetchRequest(entityName: ManagedMessage.entityName())
 			fetchRequest.fetchBatchSize = 20
-			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sent_at", ascending: false)]
+			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "updatedAt", ascending: false)]
 			return fetchRequest
 		} else if type == .Inbox {
 			let fetchRequest = NSFetchRequest(entityName: Thread.entityName())
 			fetchRequest.fetchBatchSize = 20
-			// OTTODO: It should be sorted by date.
-			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "identifier", ascending: false)]
+			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "updatedAt", ascending: false)]
 			return fetchRequest
 		} else if type == .Unread {
-			// OTTODO: The original predicate had a subquery with the labels, for the time being ignoring and fetching all
 			let predicate = NSPredicate(format: "SUBQUERY(messages, $t, ANY $t.labels.id == %@).@count != 0", type.rawValue)
 			let fetchRequest = NSFetchRequest(entityName: Thread.entityName())
 			fetchRequest.predicate = predicate
 			fetchRequest.fetchBatchSize = 20
-			// OTTODO: It should be sorted by date.
-			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "identifier", ascending: false)]
+			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "updatedAt", ascending: false)]
 			return fetchRequest
 		}else if type != .Archive {
 			return fetchRequestForMessagesWithLabelWithId(type.rawValue)
@@ -443,7 +430,7 @@ class ManagedMessage: NSManagedObject {
 			let fetchRequest = NSFetchRequest(entityName: entityName())
 			fetchRequest.fetchBatchSize = 20
 			fetchRequest.predicate = predicate
-			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sent_at", ascending: false)]
+			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)]
 			return fetchRequest
 		}
 	}
@@ -452,7 +439,7 @@ class ManagedMessage: NSManagedObject {
 		let predicate = NSPredicate(format: "ANY labels.id == %@", id)
 		let fetchRequest = NSFetchRequest(entityName: entityName())
 		fetchRequest.predicate = predicate
-		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sent_at", ascending: false)]
+		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)]
 		return fetchRequest
 	}
 
@@ -462,7 +449,7 @@ class ManagedMessage: NSManagedObject {
 
 		let fetchRequest = NSFetchRequest(entityName: entityName())
 		fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, secondPredicate])
-		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sent_at", ascending: false)]
+		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)]
 		return fetchRequest
 	}
 

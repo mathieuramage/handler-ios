@@ -44,34 +44,32 @@ struct SentFormatter: MessageTableViewCellFormatter {
         }
         view.messageSubjectLabel.text = message.subject
         view.messageContentPreviewLabel.text = message.content
-        if let sent_at = message.sent_at {
-            
-            view.messageTimeLabel.text = timeFormatter.stringFromDate(sent_at)
-        }else{
+        if let createdAt = message.createdAt {
+            view.messageTimeLabel.text = timeFormatter.stringFromDate(createdAt)
+        } else {
             view.messageTimeLabel.text = "-"
         }
 
-		// OTTODO: Implement
-        
-//        if let count = message.thread?.messages?.count where count > 1 {
-//            view.threadCountLabel.hidden = false
-//            view.threadCountLabel.text = "\(count)"
-//        }else{
-//            view.threadCountLabel.hidden = true
-//            view.threadCountLabel.text = "-"
-//        }
-//        
-//        if let count = message.attachments?.count where count > 1 {
-//            view.attachmentIconView.hidden = false
-//        }else{
-//            view.attachmentIconView.hidden = true
-//        }
-//        
-//        if message.thread?.mostRecentMessage?.sender?.id == HRUserSessionManager.sharedManager.currentUser?.id {
-//            view.repliedIconView.hidden = false
-//        }else{
-//            view.repliedIconView.hidden = true
-//        }
+		if let count = message.conversation?.messages?.count where count > 1 {
+			view.threadCountLabel.hidden = false
+			view.threadCountLabel.text = "\(count)"
+		} else {
+			view.threadCountLabel.hidden = true
+			view.threadCountLabel.text = "-"
+		}
+
+		// TODO: Support Attachments
+		//        if let count = message.attachments?.count where count > 1 {
+		//            view.attachmentIconView.hidden = false
+		//        } else {
+		view.attachmentIconView.hidden = true
+		//        }
+
+		if message.conversation?.mostRecentMessage?.sender?.id == HRUserSessionManager.sharedManager.currentUser?.id {
+			view.repliedIconView.hidden = false
+		} else {
+			view.repliedIconView.hidden = true
+		}
 
         setUpReadFlagMessage(data: message, view: view)
         
