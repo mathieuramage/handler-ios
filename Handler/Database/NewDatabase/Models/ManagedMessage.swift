@@ -466,7 +466,19 @@ class ManagedMessage: NSManagedObject {
 		return fetchRequest
 	}
 
+	class func latestUpdatedMessageDate(inManagedContext context: NSManagedObjectContext) -> NSDate? {
+		let fetchRequest = NSFetchRequest(entityName: self.entityName())
+		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "updatedAt", ascending: false)]
+		fetchRequest.fetchBatchSize = 1
 
+		let results: [Message] = context.safeExecuteFetchRequest(fetchRequest)
+
+		if let lastMessageDate = results.first?.updatedAt {
+			return lastMessageDate
+		}
+
+		return nil
+	}
 }
 
 enum Folder : String {
