@@ -46,7 +46,6 @@ class APICommunicator: NSObject {
                 case .LoggedIn:
                     uploadToken()
                     fetchNewMessages()
-                    fetchNewLabels()                    
                     for action in reloginActionQueue {
                         action()
                     }
@@ -145,24 +144,8 @@ class APICommunicator: NSObject {
     }
     
     // MARK: API Communication
-    
-    private func fetchNewLabels(){
-        HandlerAPI.getAllLabels { (labels, error) -> Void in
-            guard let labels = labels else {
-                if let errorStatus = error?.status where errorStatus == 401 {
-                    self.authenticationState = .LoginExpired
-                }else if let error = error {
-                    ErrorHandler.performErrorActions(error)
-                }
-                return
-            }
-            for label in labels {
-				// OTTODO: Support labels
-            }
-        }
-    }
-    
-//    private func fetchSend(){
+
+//    private func fetchSend() {
 //        HandlerAPI.getNewMessagesWithCallback("SENT") { (messages, error) -> Void in
 //            guard let messages = messages else {
 //                print(error)
