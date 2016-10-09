@@ -11,7 +11,7 @@ import CoreData
 import HandleriOSSDK
 import MobileCoreServices
 
-final class Attachment: NSManagedObject, CoreDataConvertible {
+final class Attachment: NSManagedObject {
 	
 	// MARK: HRType Conversion
 	
