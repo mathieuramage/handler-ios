@@ -122,7 +122,7 @@ class ContactCardViewController: UIViewController, UIViewControllerShow {
 		dismiss()
 	}
 	
-	@IBAction func dismiss(){
+	@IBAction func dismiss() {
 		UIView.animateWithDuration(0.3, animations: { () -> Void in
 			self.window?.alpha = 0
 			UIApplication.sharedApplication().statusBarStyle = .LightContent

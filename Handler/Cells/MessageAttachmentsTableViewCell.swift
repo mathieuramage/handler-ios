@@ -79,7 +79,7 @@ class MessageAttachmentsTableViewCell: UITableViewCell, UICollectionViewDelegate
             
         }else if indexPath.row < attachments?.count {
             cell.attachment = attachments?[indexPath.row]
-        }else{
+        } else {
             cell.attachment = nil
         }
         return cell

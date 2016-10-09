@@ -17,7 +17,7 @@ class DatabaseManager: NSObject {
 
 	typealias SimpleCompletionHandler = (error: NSError?) -> Void
 
-	override init(){
+	override init() {
 		super.init()
 		let _ = mainManagedContext
 	}
@@ -87,7 +87,7 @@ class DatabaseManager: NSObject {
 		}
 	}
 
-	func flushOldArchiveDatastore(){
+	func flushOldArchiveDatastore() {
 		backgroundContext.performBlock { () -> Void in
 			self.deleteOldArchivedMessages()
 			self.deleteArchivedMessagesAfter1000()

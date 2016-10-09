@@ -72,7 +72,7 @@ class ContactsTableViewController: UITableViewController {
 	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		if (section < fetchedResultsController.sectionIndexTitles.count){
 			return fetchedResultsController.sectionIndexTitles[section]
-		}else{
+		} else {
 			return nil
 		}
 	}

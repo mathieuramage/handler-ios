@@ -42,12 +42,12 @@ class ErrorPopupViewController: UIViewController, UIViewControllerShow {
 	@IBAction func dismissPressed(sender: AnyObject?) {
         if let next = ErrorPopupQueue.sharedInstance.nextError() {
             self.error = next
-        }else{
+        } else {
             dismiss()
         }
 	}
 	
-	func dismiss(){
+	func dismiss() {
         ErrorPopupQueue.sharedInstance.currentError = nil
 		UIView.animateWithDuration(0.3, animations: { () -> Void in
 			self.window?.alpha = 0

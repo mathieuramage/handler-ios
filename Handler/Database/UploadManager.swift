@@ -39,7 +39,7 @@ class UploadManager: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
 //			
 //			currentUploadTask = session.uploadTaskWithStreamedRequest(uploadRequest)
 //			currentUploadTask?.resume()
-//		}else{
+//		} else {
 //			currentCallback(success: false, error: HRError(title: "upload_cancelled", status: 999, detail: "The file upload was cancelled", displayMessage: "The application cannot perform this upload because the file url is either not correct or the file was already uploaded"))
 //		}
 //	}
@@ -66,7 +66,7 @@ class UploadManager: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
 //	func URLSession(session: NSURLSession, didBecomeInvalidWithError error: NSError?) {
 //		if let error = error {
 //			currentCallback(success: false, error: HRError(errorType: error))
-//		}else{
+//		} else {
 //			currentCallback(success: false, error: HRError(title: "invalid_urlsession", status: 999, detail: "URLSession became invalid", displayMessage: "The upload of a file couldn't be completed"))
 //		}
 //	}
@@ -74,7 +74,7 @@ class UploadManager: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
 //	func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
 //		if let error = error {
 //			currentCallback(success: false, error: HRError(errorType: error))
-//		}else{
+//		} else {
 //			if let hrType = self.uploadAction.attachment?.toHRType() {
 //				HandlerAPI.markAttachmentAsCompleted(hrType, callback: { (attachment, error) -> Void in
 //					guard let attachment = attachment else {

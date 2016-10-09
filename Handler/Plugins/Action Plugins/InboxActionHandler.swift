@@ -60,7 +60,7 @@ class InboxActionHandler: MessageTableViewCellActions {
 		let array = NSMutableArray()
 		if message.isUnread {
 			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.lightBlue), icon: UIImage(named: "icon_read"))
-		}else{
+		} else {
 			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.lightBlue), icon: UIImage(named: "icon_unread"))
 		}
 		return array as [AnyObject]
@@ -70,13 +70,13 @@ class InboxActionHandler: MessageTableViewCellActions {
 		let array = NSMutableArray()
 		if message.isFlagged {
 			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.orange), icon: UIImage(named: "icon_unflag"))
-		}else{
+		} else {
 			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.orange), icon: UIImage(named: "icon_flag"))
 		}
 
 		if message.isArchived {
 			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.darkBlue), icon: UIImage(named: "icon_unarchive"))
-		}else{
+		} else {
 			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.darkBlue), icon: UIImage(named: "icon_archive"))
 		}
 		return array as [AnyObject]

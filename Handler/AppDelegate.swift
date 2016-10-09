@@ -49,10 +49,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			if let _ = Twitter.sharedInstance().sessionStore.session() {
 				APICommunicator.sharedInstance.attemptRelogin()
 				window?.rootViewController = sideMenu
-			}else{
+			} else {
 				window?.rootViewController = Storyboards.Intro.instantiateViewControllerWithIdentifier("LoginViewController")
 			}
-		}else{
+		} else {
 			window?.rootViewController = IntroViewController(nibName: "IntroView", bundle: nil)
 		}
 
@@ -105,7 +105,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				UIApplication.sharedApplication().presentLocalNotificationNow(not)
 				completionHandler(UIBackgroundFetchResult.NewData)
 			})
-		}else{
+		} else {
 			completionHandler(UIBackgroundFetchResult.NoData)
 		}
 	}

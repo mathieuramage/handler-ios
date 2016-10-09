@@ -19,7 +19,7 @@ class AttachmentThumbnailCollectionViewCell: UICollectionViewCell {
         }
     }
 	
-	func loadUI(){
+	func loadUI() {
 		Async.main { () -> Void in
 			if let imageTuple = self.attachment?.previewImage() {
 				self.contentImageView.contentMode = imageTuple.1

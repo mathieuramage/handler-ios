@@ -1,6 +1,6 @@
 //
 //  Message.swift
-//  
+//
 //
 //  Created by Otávio on 18/09/16.
 //
@@ -42,11 +42,11 @@ class ManagedMessage: NSManagedObject {
 		if let readValue = readValue {
 			return readValue.boolValue
 		}
+
 		return false
-		
 	}
 
-//	var user : User
+	//	var user : User
 	var folder : Folder {
 		get {
 			if let folderType = folderType, let folder = Folder(rawValue: folderType) {
@@ -55,7 +55,7 @@ class ManagedMessage: NSManagedObject {
 			else {
 				return .Inbox
 			}
-			
+
 		}
 	}
 
@@ -133,33 +133,33 @@ class ManagedMessage: NSManagedObject {
 		return message
 	}
 
-	func moveToArchive(){
+	func moveToArchive() {
 		self.removeLabelWithID(SystemLabels.Inbox.rawValue)
 	}
 
-	func moveToInbox(){
+	func moveToInbox() {
 		self.addLabelWithID(SystemLabels.Inbox.rawValue)
 	}
 
-	func flag(){
+	func flag() {
 		self.addLabelWithID(SystemLabels.Flagged.rawValue)
 	}
 
-	func unflag(){
+	func unflag() {
 		self.removeLabelWithID(SystemLabels.Flagged.rawValue)
 	}
 
-	func markAsRead(){
+	func markAsRead() {
 		self.removeLabelWithID(SystemLabels.Unread.rawValue)
 	}
 
-	func markAsUnread(){
+	func markAsUnread() {
 		self.addLabelWithID(SystemLabels.Unread.rawValue)
 	}
 
 	// MARK: Refresh
 
-	func refreshFromAPI(){
+	func refreshFromAPI() {
 		//		if let id = self.id {
 		//			APICommunicator.sharedInstance.getMessageWithCallback(id) { (message, error) -> Void in
 		//				guard let message = message else {
@@ -400,12 +400,12 @@ class ManagedMessage: NSManagedObject {
 
 	// MARK: Drafts
 
-	func saveAsDraft(){
+	func saveAsDraft() {
 		//		self.addLabelWithID("DRAFT")
 		//		self.sender = User.me()
 	}
 
-	func deleteFromDatabase(){
+	func deleteFromDatabase() {
 		let context = self.managedObjectContext
 
 		context?.deleteObject(self)
@@ -437,7 +437,7 @@ class ManagedMessage: NSManagedObject {
 			return fetchRequest
 		}else if type != .Archive {
 			return fetchRequestForMessagesWithLabelWithId(type.rawValue)
-		}else{
+		} else {
 			// handle archive case
 			let predicate = NSPredicate(format: "NONE labels.id == %@ && NONE labels.id == %@", "INBOX", "SENT")
 			let fetchRequest = NSFetchRequest(entityName: entityName())
@@ -455,11 +455,11 @@ class ManagedMessage: NSManagedObject {
 		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sent_at", ascending: false)]
 		return fetchRequest
 	}
-	
+
 	class func fetchRequestForUploadCompletion() -> NSFetchRequest {
 		let predicate = NSPredicate(format: "NONE attachments.upload_complete == NO")
 		let secondPredicate = NSPredicate(format: "shouldBeSent == YES")
-		
+
 		let fetchRequest = NSFetchRequest(entityName: entityName())
 		fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, secondPredicate])
 		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sent_at", ascending: false)]
@@ -476,4 +476,3 @@ enum Folder : String {
 	case Deleted = "deleted"
 	case Draft = "draft"
 }
-

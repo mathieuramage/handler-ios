@@ -110,7 +110,7 @@ class ManagedConversation: NSManagedObject {
 //		}
 //	}
 
-	func updateInbox(){
+	func updateInbox() {
 //		var show = false
 //		if let messages = self.messages {
 //			for message in messages.allObjects as! [ManagedMessage] {

@@ -64,7 +64,7 @@ class IntroViewController: UIViewController, UIScrollViewDelegate {
         self.modifyingConstraints()
     }
     
-    func modifyingConstraints(){
+    func modifyingConstraints() {
         
         first_top_constraint.constant /= (667/UIScreen.mainScreen().bounds.height)
         first_middle_constraint.constant /= (667/UIScreen.mainScreen().bounds.height)
@@ -127,7 +127,7 @@ class IntroViewController: UIViewController, UIScrollViewDelegate {
         if scrollView.contentOffset.x > 0 {
             pageControl.currentPage = Int((Double(scrollView.contentOffset.x) / totalWidth )*3)
             
-        }else{
+        } else {
             pageControl.currentPage = 0
         }
     }

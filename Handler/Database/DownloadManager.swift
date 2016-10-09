@@ -36,7 +36,7 @@ import HandleriOSSDK
 //			let downloadRequest = NSMutableURLRequest(URL: downloadURL)
 //			currentDownloadTask = session.downloadTaskWithRequest(downloadRequest)
 //			currentDownloadTask?.resume()
-//		}else{
+//		} else {
 //			currentCallback(success: false, error: HRError(title: "upload_cancelled", status: 999, detail: "The file upload was cancelled", displayMessage: "The application cannot perform this upload because the file url is either not correct or the file was already uploaded"))
 //		}
 //	}
@@ -65,10 +65,10 @@ import HandleriOSSDK
 //				data.writeToFile(locURLString, atomically: true)
 //				currentCallback(success: true, error: nil)
 //				NSNotificationCenter.defaultCenter().postNotificationName(AttachmentDownloadDidFinishNotification, object: nil, userInfo: ["id": self.downloadAction.attachment?.id ?? ""])
-//			}else{
+//			} else {
 //				currentCallback(success: false, error: HRError(title: "failed_to_save", status: 999, detail: "couldn't open downloaded data", displayMessage: "The download of a file couldn't be completed"))
 //			}
-//		}else{
+//		} else {
 //			NSNotificationCenter.defaultCenter().postNotificationName(AttachmentDownloadDidErrorNotification, object: nil, userInfo: ["id": self.downloadAction.attachment?.id ?? ""])
 //			currentCallback(success: false, error: HRError(title: "failed_to_save", status: 999, detail: "had no local url", displayMessage: "The download of a file couldn't be completed"))
 //		}
@@ -78,7 +78,7 @@ import HandleriOSSDK
 //	func URLSession(session: NSURLSession, didBecomeInvalidWithError error: NSError?) {
 //		if let error = error {
 //			currentCallback(success: false, error: HRError(errorType: error))
-//		}else{
+//		} else {
 //			currentCallback(success: false, error: HRError(title: "invalid_urlsession", status: 999, detail: "URLSession became invalid", displayMessage: "The upload of a file couldn't be completed"))
 //		}
 //		NSNotificationCenter.defaultCenter().postNotificationName(AttachmentDownloadDidErrorNotification, object: nil, userInfo: ["id": self.downloadAction.attachment?.id ?? ""])

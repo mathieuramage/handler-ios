@@ -29,7 +29,7 @@ class APICommunicator: NSObject {
         get {
             if authenticationState == .LoggedIn {
                 return true
-            }else{
+            } else {
                 return false
             }
         }
@@ -60,11 +60,11 @@ class APICommunicator: NSObject {
     
     private var reloginActionQueue = [APICommunicatorActionRepeat]()
 
-    func start(){
+    func start() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidAuth", name: HRUserSessionDidStartNotification, object: nil)
     }
     
-    func attemptRelogin(){
+    func attemptRelogin() {
 		// OTTODO: This is causing the user to be logged out. Review this implementation
 //        authenticationState = .Authenticating
 //        if let session = Twitter.sharedInstance().sessionStore.session() as? TWTRSession {
@@ -78,13 +78,13 @@ class APICommunicator: NSObject {
 //                    self.authenticationState = .LoggedIn
 //                }
 //            });
-//        }else{
+//        } else {
 //            self.authenticationState = .LoggedOut
 //            AppDelegate.sharedInstance().window?.rootViewController = Storyboards.Intro.instantiateViewControllerWithIdentifier("LoginViewController")
 //        }
     }
     
-    func clearUserData(){
+    func clearUserData() {
         do {
             try Keychain(service: "com.handlerapp.Handler").remove("authToken")
             try Keychain(service: "com.handlerapp.Handler").remove("expirationDate")
@@ -100,11 +100,11 @@ class APICommunicator: NSObject {
 		}
     }
 	
-	func flushOldArchivedMessages(){
+	func flushOldArchivedMessages() {
 		 DatabaseManager.sharedInstance.flushOldArchiveDatastore()
 	}
     
-    func signOut(){
+    func signOut() {
         if authenticationState != .LoggingOut {
             authenticationState = .LoggingOut
         }
@@ -112,7 +112,7 @@ class APICommunicator: NSObject {
     
     // MARK: Auth
     
-    func userDidAuth(){
+    func userDidAuth() {
         guard let currentSession = HRUserSessionManager.sharedManager.currentSession else {
             return
         }
@@ -126,7 +126,7 @@ class APICommunicator: NSObject {
         }
     }
     
-    func uploadToken (){
+    func uploadToken () {
         guard let _ = HRUserSessionManager.sharedManager.currentSession else {
             return
         }
@@ -183,7 +183,7 @@ class APICommunicator: NSObject {
                 print(error)
                 if let errorStatus = error?.status where errorStatus == 401 {
                     self.authenticationState = .LoginExpired
-                }else{
+                } else {
                     completion?(error: error)
                 }
                 return

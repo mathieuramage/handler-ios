@@ -54,7 +54,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
 			//			if new?.managedObjectContext != MailDatabaseManager.sharedInstance.backgroundContext {
 			//				self.internalmessageToReplyTo = new?.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext)
-			//			}else{
+			//			} else {
 			//				self.internalmessageToReplyTo = new
 			//			}
 			//
@@ -89,7 +89,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	//		set(new){
 	//			if new?.managedObjectContext != MailDatabaseManager.sharedInstance.backgroundContext {
 	//				self.internalDraftmessage = new?.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext)
-	//			}else{
+	//			} else {
 	//				self.internalDraftmessage = new
 	//			}
 	//		}
@@ -161,7 +161,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		//			self.richTextContentView.setHTML(draft.message ?? "")
 		////			attachmentsCell.attachments = draft.attachments?.allObjects as? [Attachment]
 		//
-		//		}else{
+		//		} else {
 
 		if let message = messageToReplyTo where message.sender!.handle.characters.count > 0 {
 			let sender = message.sender!.handle
@@ -182,7 +182,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 			originalReplySubject = subjectTextField.text
 		}
 
-		if let receivers = messageToReplyTo?.recipientsWithoutSelf(){
+		if let receivers = messageToReplyTo?.recipientsWithoutSelf() {
 			for receiver in receivers {
 				let senderUsername = receiver.handle
 				if senderUsername.characters.count > 0 {
@@ -240,7 +240,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		validatedTokens.append(ValidatedToken(name: user.handle ?? "", isOnHandler: true))
 		if addContactToCC {
 			self.ccTokenView.addToken(CLToken(displayText: "@" + (user.handle ?? ""), context: nil))
-		}else{
+		} else {
 			self.tokenView.addToken(CLToken(displayText: "@" + (user.handle ?? ""), context: nil))
 		}
 	}
@@ -271,7 +271,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		//        if let draft = draftMessage {
 		//            self.updateDraftFromUI(draft: draft).saveAsDraft()
 		//            self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
-		//        }else{
+		//        } else {
 		//            let alertController = UIAlertController(title: "Save as draft", message: "Do you want to save this message as a draft?", preferredStyle: UIAlertControllerStyle.Alert)
 		//            alertController.addAction(UIAlertAction(title: "Save as Draft", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
 		//                self.createMessageFromUI().saveAsDraft()
@@ -445,7 +445,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		ccTokenView.userInteractionEnabled = enabled
 	}
 
-	func resignAll(){
+	func resignAll() {
 		subjectTextField.resignFirstResponder()
 		richTextContentView.resignFirstResponder()
 		tokenView.resignFirstResponder()
@@ -493,7 +493,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	func tokenInputViewDidBeginEditing(view: CLTokenInputView) {
 		if view == tokenView {
 			addToContactButton.hidden = false
-		}else{
+		} else {
 			addCCContactButton.hidden = false
 		}
 
@@ -509,7 +509,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	func tokenInputViewDidEndEditing(view: CLTokenInputView) {
 		if view == tokenView {
 			addToContactButton.hidden = true
-		}else{
+		} else {
 			addCCContactButton.hidden = true
 		}
 
@@ -655,7 +655,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 			} else if indexPath.row == 4 {
 				if FeaturesManager.attachmentsActivated {
 					return max(attachmentsCell.intrinsicContentSize().height + 20, 50+20)
-				}else{
+				} else {
 					return 0
 				}
 			}
@@ -685,13 +685,13 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 				coordinator.coordinateReadingItemAtURL(url, options: NSFileCoordinatorReadingOptions.ResolvesSymbolicLink, error: nil, byAccessor: { (url) -> Void in
 					if let data = NSData(contentsOfURL: url){
 						self.saveFileToAttachment(data, url: url)
-					}else{
+					} else {
 						print("Unable to read file at url: \(url)")
 					}
 				})
 
 				url.stopAccessingSecurityScopedResource()
-			}else{
+			} else {
 				print("Couldn't enter security scope")
 			}
 		}
@@ -722,7 +722,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 					Async.main(block: { () -> Void in
 						self.attachmentsCell.attachments?.append(attachment)
 					})
-				}else{
+				} else {
 					print("Failed to write file")
 				}
 			}

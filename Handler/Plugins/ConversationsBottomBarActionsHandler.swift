@@ -20,7 +20,7 @@ class ConversationsBottomBarActionsHandler: NSObject, BottomBarActionPlugin {
 		let element = UIBarButtonItem(image: UIImage(named: "Left_toolbar"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(ConversationsBottomBarActionsHandler.action(_:)))
 		if let _ = self.vc.previousConversation {
 			element.tintColor = UIColor(rgba: HexCodes.lightBlue)
-		}else{
+		} else {
 			element.tintColor = UIColor(rgba: HexCodes.lighterGray)
 		}
 		return element
@@ -29,7 +29,7 @@ class ConversationsBottomBarActionsHandler: NSObject, BottomBarActionPlugin {
 		let element = UIBarButtonItem(image: UIImage(named: "Right_toolbar"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(ConversationsBottomBarActionsHandler.action(_:)))
 		if let _ = self.vc.nextConversation {
 			element.tintColor = UIColor(rgba: HexCodes.lightBlue)
-		}else{
+		} else {
 			element.tintColor = UIColor(rgba: HexCodes.lighterGray)
 		}
 		return element
@@ -57,12 +57,12 @@ class ConversationsBottomBarActionsHandler: NSObject, BottomBarActionPlugin {
 //					vc.thread = next
 //					if let _ = vc.previousThread {
 //						left.tintColor = UIColor(rgba: HexCodes.lightBlue)
-//					}else{
+//					} else {
 //						left.tintColor = UIColor(rgba: HexCodes.lighterGray)
 //					}
 //					if let _ = vc.nextThread {
 //						right.tintColor = UIColor(rgba: HexCodes.lightBlue)
-//					}else{
+//					} else {
 //						right.tintColor = UIColor(rgba: HexCodes.lighterGray)
 //					}
 //				}
@@ -72,12 +72,12 @@ class ConversationsBottomBarActionsHandler: NSObject, BottomBarActionPlugin {
 //					vc.thread = next
 //					if let _ = vc.previousThread {
 //						left.tintColor = UIColor(rgba: HexCodes.lightBlue)
-//					}else{
+//					} else {
 //						left.tintColor = UIColor(rgba: HexCodes.lighterGray)
 //					}
 //					if let _ = vc.nextThread {
 //						right.tintColor = UIColor(rgba: HexCodes.lightBlue)
-//					}else{
+//					} else {
 //						right.tintColor = UIColor(rgba: HexCodes.lighterGray)
 //					}
 //				}

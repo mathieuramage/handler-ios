@@ -40,7 +40,7 @@ class CurrentStatusManager: NSObject, MailboxCountObserver {
 				let emailsText = newCount == 1 ? "email" : "emails"
 				currentStatus.next("\(newCount) unread " + emailsText)
 				currentStatusSubtitle.next("Updated just now")
-			}else{
+			} else {
 				currentStatus.next("No new emails")
 				currentStatusSubtitle.next("Updated just now")
 			}
