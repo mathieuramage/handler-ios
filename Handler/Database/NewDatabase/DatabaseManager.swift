@@ -118,42 +118,34 @@ class DatabaseManager: NSObject {
 		}
 	}
 
-	// OTTODO: Revise this implementation
 	func deleteOldArchivedMessages() {
 		let managedContext = backgroundContext
-		let fetchRequest = NSFetchRequest(entityName: "Message")
+		let fetchRequest = NSFetchRequest(entityName: Message.entityName())
 		fetchRequest.returnsObjectsAsFaults = false
 
 		let limitDate = NSDate().dateByAddingTimeInterval(-60 * 24 * 60 * 60)
 		fetchRequest.predicate = NSPredicate(format: "NONE labels.id == %@ && NONE labels.id == %@ && sent_at < %@", "INBOX", "SENT", limitDate)
 
-		do {
-			let results = try managedContext.executeFetchRequest(fetchRequest)
-			for managedObject in results {
-				let managedObjectData:NSManagedObject = managedObject as! NSManagedObject
-				managedContext.deleteObject(managedObjectData)
-			}
-		} catch let error as NSError {
-			print("Delete old Messages: \(error) \(error.userInfo)")
+		let results = managedContext.safeExecuteFetchRequest(fetchRequest)
+		for managedObject in results {
+			managedContext.deleteObject(managedObject)
 		}
 	}
 
-	// OTTODO: Revise this implementation
 	// Keeps only the most recent 1000 messages
-	func deleteArchivedMessagesAfter1000()
-	{
+	func deleteArchivedMessagesAfter1000() {
 		let managedContext = backgroundContext
-		let fetchRequest = NSFetchRequest(entityName: "Message")
+		let fetchRequest = NSFetchRequest(entityName: Message.entityName())
 		fetchRequest.returnsObjectsAsFaults = false
 		fetchRequest.predicate = NSPredicate(format: "NONE labels.id == %@ && NONE labels.id == %@", "INBOX", "SENT")
 		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sent_at", ascending: false)]
 
-		if let messages = managedContext.safeExecuteFetchRequest(fetchRequest) as? [ManagedMessage] {
-			if messages.count > 1000 {
-				for i in 1000...messages.count - 1 {
-					let message = messages[i]
-					managedContext.deleteObject(message)
-				}
+		let messages: [Message] = managedContext.safeExecuteFetchRequest(fetchRequest)
+
+		if messages.count > 1000 {
+			for i in 1000...messages.count - 1 {
+				let message = messages[i]
+				managedContext.deleteObject(message)
 			}
 		}
 	}
@@ -183,9 +175,9 @@ extension NSManagedObjectContext {
 		}
 	}
 
-	func safeExecuteFetchRequest(fetchRequest: NSFetchRequest) -> [AnyObject] {
+	func safeExecuteFetchRequest<T: NSManagedObject>(fetchRequest: NSFetchRequest) -> [T] {
 		do {
-			return try self.executeFetchRequest(fetchRequest)
+			return try self.executeFetchRequest(fetchRequest) as! [T]
 		}
 		catch {
 			return []
