@@ -8,7 +8,6 @@
 
 import Foundation
 import CoreData
-import HandleriOSSDK
 
 // MARK: UIViewController + show
 

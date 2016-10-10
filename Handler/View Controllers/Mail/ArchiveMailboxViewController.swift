@@ -17,7 +17,8 @@ class ArchiveMailboxViewController: AbstractMailboxViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		APICommunicator.sharedInstance.flushOldArchivedMessages()
+		// APICommunicator.sharedInstance.flushOldArchivedMessages()
+		//TODO : Do the above
 	}
 
 	func customViewForEmptyDataSet(scrollView: UIScrollView!) -> UIView! {

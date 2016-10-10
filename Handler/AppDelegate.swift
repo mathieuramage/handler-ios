@@ -39,25 +39,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		Twitter.sharedInstance().startWithConsumerKey(Config.Twitter.consumerKey, consumerSecret: Config.Twitter.consumerSecret)
 		Fabric.with([Twitter.sharedInstance(), Crashlytics.self()])
-		APICommunicator.sharedInstance.start()
-		UserTwitterStatusManager.startUpdating()
+//		UserTwitterStatusManager.startUpdating() TODO : Do this properly with the new API code
 		UIToolbar.appearance().tintColor = UIColor(rgba: HexCodes.lightBlue)
 		UITextField.appearance().tintColor = UIColor(rgba: HexCodes.lightBlue)
 		UITextView.appearance().tintColor = UIColor(rgba: HexCodes.lightBlue)
 		UIImageView.appearance().clipsToBounds = true
-		if (NSUserDefaults.standardUserDefaults().boolForKey("didFinishWalkthrough") && !ENABLE_ONBOARDING_EVERY_RUN) {
-			if let _ = Twitter.sharedInstance().sessionStore.session() {
-				APICommunicator.sharedInstance.attemptRelogin()
-				window?.rootViewController = sideMenu
-			} else {
-				window?.rootViewController = Storyboards.Intro.instantiateViewControllerWithIdentifier("LoginViewController")
-			}
-		} else {
-			window?.rootViewController = IntroViewController(nibName: "IntroView", bundle: nil)
-		}
 
 
-		window?.makeKeyAndVisible()
+		loadInitialViewController()
 
 		let settings = UIUserNotificationSettings(forTypes: [UIUserNotificationType.Badge, UIUserNotificationType.Sound, UIUserNotificationType.Alert], categories: nil)
 		UIApplication.sharedApplication().registerUserNotificationSettings(settings)
@@ -81,7 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
 		NSUserDefaults.standardUserDefaults().setValue(deviceToken.hexadecimalString, forKey: "pushtoken")
-		APICommunicator.sharedInstance.uploadToken()
+		// TODO upcoming push notifcation task
 	}
 
 	func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
@@ -147,14 +136,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	func updateMessages() {
-		APICommunicator.sharedInstance.fetchNewMessagesWithCompletion { (error) -> Void in
-			Async.main(block: { () -> Void in
-				guard let error = error else {
-					return
-				}
-				error.show()
-			})
+//		APICommunicator.sharedInstance.fetchNewMessagesWithCompletion { (error) -> Void in
+//			Async.main(block: { () -> Void in
+//				guard let error = error else {
+//					return
+//				}
+//				error.show()
+//			})
+//		}
+	}
+
+	func loadInitialViewController() {
+		if (NSUserDefaults.standardUserDefaults().boolForKey("didFinishWalkthrough") && !ENABLE_ONBOARDING_EVERY_RUN) {
+			if let _ = AuthUtility.accessToken {
+				window?.rootViewController = sideMenu
+			}else{
+				window?.rootViewController = Storyboards.Intro.instantiateViewControllerWithIdentifier("LoginViewController")
+			}
+		}else{
+			window?.rootViewController = IntroViewController(nibName: "IntroView", bundle: nil)
 		}
+		window?.makeKeyAndVisible()
 	}
 }
 

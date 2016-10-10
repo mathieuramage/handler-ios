@@ -20,7 +20,6 @@ struct AuthUtility {
 				if let data = NSUserDefaults.standardUserDefaults().objectForKey(_accessTokenKey) as? NSData {
 					_accessToken = NSKeyedUnarchiver.unarchiveObjectWithData(data) as? AccessToken
 				}
-
 				return _accessToken
 			}
 		}
@@ -59,7 +58,6 @@ struct AuthUtility {
 			}
 			callback(success: success, accessToken: accessToken)
 		}
-
 	}
 
 
@@ -82,12 +80,27 @@ struct AuthUtility {
 			case .Failure(_):
 				success = false
 			}
-			
+
 			callback(success: success, accessToken: accessToken)
 		}
-		
+
 	}
-	
-	
-	
+
+	static func signOut() {
+		revokeToken(callback: nil)
+		accessToken = nil
+		DatabaseManager.sharedInstance.flushDatastore()
+	}
+
+	static func revokeToken(callback callback: ((success : Bool) -> ())?) {
+		APIUtility.request(.POST, route: Config.APIRoutes.revoke, parameters: nil).responseJSON { (response) in
+			switch response.result {
+			case .Success:
+				callback?(success: true)
+			case .Failure(_):
+				callback?(success: false)
+			}
+		}
+	}
+
 }
