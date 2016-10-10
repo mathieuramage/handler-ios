@@ -89,6 +89,7 @@ struct AuthUtility {
 	static func signOut() {
 		revokeToken(callback: nil)
 		accessToken = nil
+		DatabaseManager.sharedInstance.flushDatastore()
 	}
 
 	static func revokeToken(callback callback: ((success : Bool) -> ())?) {
@@ -101,4 +102,5 @@ struct AuthUtility {
 			}
 		}
 	}
+
 }
