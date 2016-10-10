@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Jhi-ay-Flw">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Jhi-ay-Flw">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
@@ -69,6 +69,10 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FL8-M7-0Hk">
                                 <rect key="frame" x="117" y="597" width="140" height="27"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="140" id="31B-7p-vrW"/>
+                                    <constraint firstAttribute="height" constant="27" id="wDA-xt-fgT"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name=".HelveticaNeueDeskInterface-Regular" family="SFNS Display" pointSize="12"/>
                                 <state key="normal" title="Create a Twitter account">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -93,12 +97,16 @@
                             <constraint firstItem="FL8-M7-0Hk" firstAttribute="top" secondItem="iEB-CW-jSd" secondAttribute="bottom" constant="20" id="7Y6-kR-t2c"/>
                             <constraint firstItem="FL8-M7-0Hk" firstAttribute="centerX" secondItem="iEB-CW-jSd" secondAttribute="centerX" id="A0f-ZA-YKY"/>
                             <constraint firstItem="Upt-6a-9Jr" firstAttribute="centerX" secondItem="lLI-JJ-AP8" secondAttribute="centerX" id="DFQ-me-4F7"/>
+                            <constraint firstItem="FL8-M7-0Hk" firstAttribute="centerX" secondItem="ej0-zd-XGC" secondAttribute="centerX" id="DFm-Cl-1TC"/>
                             <constraint firstItem="FL8-M7-0Hk" firstAttribute="top" secondItem="RLC-sd-uGD" secondAttribute="bottom" constant="577" id="FbL-co-Zvc"/>
                             <constraint firstItem="lLI-JJ-AP8" firstAttribute="centerX" secondItem="iEB-CW-jSd" secondAttribute="centerX" id="Icc-dZ-YVV"/>
+                            <constraint firstItem="s9a-WR-nhw" firstAttribute="top" secondItem="FL8-M7-0Hk" secondAttribute="bottom" constant="43" id="KeA-pK-uHs"/>
                             <constraint firstItem="Upt-6a-9Jr" firstAttribute="top" secondItem="ej0-zd-XGC" secondAttribute="top" id="L5n-zz-RUv"/>
                             <constraint firstItem="Upt-6a-9Jr" firstAttribute="leading" secondItem="ej0-zd-XGC" secondAttribute="leading" id="Lwn-cf-K6f"/>
                             <constraint firstItem="iEB-CW-jSd" firstAttribute="centerX" secondItem="ej0-zd-XGC" secondAttribute="centerX" id="SFU-ax-dI2"/>
+                            <constraint firstItem="FL8-M7-0Hk" firstAttribute="top" secondItem="iEB-CW-jSd" secondAttribute="bottom" constant="55" id="Vqf-8n-RQl"/>
                             <constraint firstItem="lLI-JJ-AP8" firstAttribute="top" secondItem="RLC-sd-uGD" secondAttribute="bottom" constant="155" id="bhW-S0-vpS"/>
+                            <constraint firstItem="FL8-M7-0Hk" firstAttribute="top" secondItem="iEB-CW-jSd" secondAttribute="bottom" constant="55" id="dm4-qK-P6e"/>
                             <constraint firstItem="Upt-6a-9Jr" firstAttribute="bottom" secondItem="s9a-WR-nhw" secondAttribute="top" id="h1x-qu-36l"/>
                             <constraint firstItem="lLI-JJ-AP8" firstAttribute="top" secondItem="RLC-sd-uGD" secondAttribute="bottom" constant="155" id="l9n-iv-a8D"/>
                             <constraint firstAttribute="trailing" secondItem="FL8-M7-0Hk" secondAttribute="trailing" constant="118" id="miX-8X-Pd7"/>
@@ -110,6 +118,11 @@
                                 <exclude reference="l9n-iv-a8D"/>
                                 <exclude reference="7Y6-kR-t2c"/>
                                 <exclude reference="A0f-ZA-YKY"/>
+                                <exclude reference="FbL-co-Zvc"/>
+                                <exclude reference="dm4-qK-P6e"/>
+                                <exclude reference="miX-8X-Pd7"/>
+                                <exclude reference="sdA-64-DcG"/>
+                                <exclude reference="y72-cB-YZ1"/>
                             </mask>
                         </variation>
                     </view>
