@@ -400,14 +400,16 @@ class ManagedMessage: NSManagedObject {
 		} else if type == .Inbox {
 			let fetchRequest = NSFetchRequest(entityName: Thread.entityName())
 			fetchRequest.fetchBatchSize = 20
-			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "updatedAt", ascending: false)]
+			// OTTODO: It should be sorted by date.
+			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "identifier", ascending: false)]
 			return fetchRequest
 		} else if type == .Unread {
 			let predicate = NSPredicate(format: "SUBQUERY(messages, $t, ANY $t.labels.id == %@).@count != 0", type.rawValue)
 			let fetchRequest = NSFetchRequest(entityName: Thread.entityName())
 			fetchRequest.predicate = predicate
 			fetchRequest.fetchBatchSize = 20
-			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "updatedAt", ascending: false)]
+			// OTTODO: It should be sorted by date.
+			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "identifier", ascending: false)]
 			return fetchRequest
 		}else if type != .Archive {
 			return fetchRequestForMessagesWithLabelWithId(type.rawValue)
