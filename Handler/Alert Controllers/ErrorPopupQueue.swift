@@ -22,7 +22,7 @@ class ErrorPopupQueue: NSObject {
         errors.append(error)
         if let _ = currentError {
             
-        }else{
+        } else {
             let errorPopup = ErrorPopupViewController()
             errorPopup.error = error
             currentError = errorPopup
@@ -34,7 +34,7 @@ class ErrorPopupQueue: NSObject {
             if let index = errors.indexOf(currentError.error!) {
                 if errors.count > index + 1 {
                     return errors[index+1]
-                }else{
+                } else {
                     return nil
                 }
             }

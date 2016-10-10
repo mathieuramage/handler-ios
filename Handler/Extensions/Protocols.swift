@@ -8,63 +8,6 @@
 
 import Foundation
 import CoreData
-import HandleriOSSDK
-
-// MARK: Database Type Conversino
-
-protocol CoreDataConvertible {
-	associatedtype HRType
-
-	init(hrType: HRType, managedObjectContext: NSManagedObjectContext)
-	static func fromHRType(hrType: HRType) -> Self?
-	static func fromID(id: String) -> Self?
-	func toHRType() -> HRType
-	static func fetchRequestForID(id: String) -> NSFetchRequest?
-	static func backgroundFetchRequestForID(id: String) -> NSFetchRequest?
-	func updateFromHRType(hrType: HRType)
-	func toManageObjectContext(context: NSManagedObjectContext) -> Self?
-}
-
-
-// Default implementation
-extension CoreDataConvertible where HRType : HRIDProvider {
-
-	static func fromHRType(hrType: HRType) -> Self? {
-//		if APICommunicator.sharedInstance.allowsObjectCreation {
-//			guard let fetchrequest = self.backgroundFetchRequestForID(hrType.id) else {
-//				print("Failed to create fetchRequest for \(Self.self)")
-//				return nil
-//			}
-//
-//			let context = DatabaseManager.sharedInstance.backgroundContext
-//
-//			if let cdObject = context.safeExecuteFetchRequest(fetchrequest).first as? Self {
-//				 cdObject.updateFromHRType(hrType)
-//				return cdObject
-//			} else {
-//				return Self(hrType: hrType, managedObjectContext: context)
-//			}
-//		} else {
-//			print("datastore blocked")
-			return nil
-//		}
-	}
-
-	static func fromID(id: String) -> Self? {
-		guard let fetchrequest = self.fetchRequestForID(id) else {
-			print("Failed to create fetchRequest for object")
-			return nil
-		}
-
-		let context = DatabaseManager.sharedInstance.backgroundContext
-		
-		return context.safeExecuteFetchRequest(fetchrequest).first as? Self
-	}
-
-	func toManageObjectContext(context: NSManagedObjectContext) -> Self? {
-		return context.objectWithID((self as! NSManagedObject).objectID) as? Self
-	}
-}
 
 // MARK: UIViewController + show
 
@@ -76,7 +19,7 @@ protocol UIViewControllerShow {
 }
 
 extension UIViewControllerShow where Self: UIViewController {
-	mutating func show(){
+	mutating func show() {
 		window = UIWindow(frame: UIScreen.mainScreen().bounds)
 		window?.windowLevel = UIWindowLevelAlert - 1
 		window?.rootViewController = self

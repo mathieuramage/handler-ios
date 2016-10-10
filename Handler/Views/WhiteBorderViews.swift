@@ -19,7 +19,7 @@ class WhiteBorderImageView: UIImageView {
 		clipsToBounds = true
 	}
 	
-	func commonInit(){
+	func commonInit() {
 		layer.borderColor = UIColor.whiteColor().CGColor
 		layer.borderWidth = borderWidth
 		clipsToBounds = true
@@ -59,7 +59,7 @@ class WhiteBorderButton: UIButton {
         commonInit()
     }
     
-    func commonInit(){
+    func commonInit() {
         layer.borderColor = borderColor.CGColor
         layer.borderWidth = borderWidth
         layer.cornerRadius = bounds.size.height / 2

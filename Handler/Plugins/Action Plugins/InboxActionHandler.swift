@@ -12,12 +12,11 @@ class InboxActionHandler: MessageTableViewCellActions {
 
 	// MARK: Actions
 
-	// OTTODO: Implement?
 	func leftButtonTriggered(index: Int, data message: ManagedMessage, callback: (() -> Void)?) {
 
 		switch index {
 		case 0:
-//			message.isUnread ? message.thread?.markAsRead() : message.thread?.markAsUnread(message)
+			message.isUnread ? message.conversation?.markAsRead() : message.conversation?.markAsUnread(message)
 			break;
 		default:
 			break
@@ -32,7 +31,6 @@ class InboxActionHandler: MessageTableViewCellActions {
 		// TODO: Implement actions
 	}
 
-	// OTTODO: Implement
 	func rightButtonTriggered(index: Int, data message: ManagedMessage, callback: (() -> Void)?) {
 
 		switch index {
@@ -40,7 +38,7 @@ class InboxActionHandler: MessageTableViewCellActions {
 			message.isFlagged ? message.unflag() : message.flag()
 			break
 		case 1:
-//			message.isArchived ? message.thread?.unarchive() : message.thread?.archive()
+			message.isArchived ? message.conversation?.unarchive() : message.conversation?.archive()
 			break
 		default:
 			break
@@ -60,7 +58,7 @@ class InboxActionHandler: MessageTableViewCellActions {
 		let array = NSMutableArray()
 		if message.isUnread {
 			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.lightBlue), icon: UIImage(named: "icon_read"))
-		}else{
+		} else {
 			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.lightBlue), icon: UIImage(named: "icon_unread"))
 		}
 		return array as [AnyObject]
@@ -70,13 +68,13 @@ class InboxActionHandler: MessageTableViewCellActions {
 		let array = NSMutableArray()
 		if message.isFlagged {
 			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.orange), icon: UIImage(named: "icon_unflag"))
-		}else{
+		} else {
 			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.orange), icon: UIImage(named: "icon_flag"))
 		}
 
 		if message.isArchived {
 			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.darkBlue), icon: UIImage(named: "icon_unarchive"))
-		}else{
+		} else {
 			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.darkBlue), icon: UIImage(named: "icon_archive"))
 		}
 		return array as [AnyObject]

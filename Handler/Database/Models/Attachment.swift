@@ -11,7 +11,7 @@ import CoreData
 import HandleriOSSDK
 import MobileCoreServices
 
-final class Attachment: NSManagedObject, CoreDataConvertible {
+final class Attachment: NSManagedObject {
 	
 	// MARK: HRType Conversion
 	
@@ -22,16 +22,16 @@ final class Attachment: NSManagedObject, CoreDataConvertible {
 		get {
 			if let cont = _interactionController {
 				return cont
-			}else{
+			} else {
 				if let url = self.localFileURL {
 					if NSFileManager.defaultManager().fileExistsAtPath(url){
 						_interactionController = UIDocumentInteractionController(URL: NSURL(fileURLWithPath: url))
 						_interactionController?.name = self.filename ?? ""
 						return _interactionController
-					}else{
+					} else {
 						return nil
 					}
-				}else{
+				} else {
 					return nil
 				}
 			}
@@ -123,7 +123,7 @@ final class Attachment: NSManagedObject, CoreDataConvertible {
 //				let _ = HRDownloadAction(attachment: self.toManageObjectContext(DatabaseManager.sharedInstance.backgroundContext)!)
 //			}
 			return NSData(contentsOfFile: search)
-		}else{
+		} else {
 			return nil
 		}
 	}
@@ -131,7 +131,7 @@ final class Attachment: NSManagedObject, CoreDataConvertible {
 	func fileSize () -> Int64 {
 		if let data = getData() {
 			return Int64(data.length)
-		}else{
+		} else {
 			return 0
 		}
 	}

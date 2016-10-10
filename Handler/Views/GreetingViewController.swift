@@ -48,7 +48,7 @@ class GreetingViewController: UIViewController, UIViewControllerShow {
             Async.main {
                 if !self.welcomeBack {
                     self.handleLabel.text = "Welcome @\(json["screen_name"].stringValue)"
-                }else{
+                } else {
                     self.handleLabel.text = "Welcome back @\(json["screen_name"].stringValue)"
                 }
                 self.continueButton.borderColor = UIColor(rgba: HexCodes.lightBlue)
@@ -88,7 +88,7 @@ class GreetingViewController: UIViewController, UIViewControllerShow {
         contactCard.view.alpha = 0;
     }
     
-    func updateView(){
+    func updateView() {
         if let user = HRUserSessionManager.sharedManager.currentUser {
             getDataWithHandle(user.handle)
         }
@@ -111,7 +111,7 @@ class GreetingViewController: UIViewController, UIViewControllerShow {
         dismiss()
     }
     
-    @IBAction func dismiss(){
+    @IBAction func dismiss() {
         UIView.animateWithDuration(0.3, animations: { () -> Void in
             self.window?.alpha = 0
             UIApplication.sharedApplication().statusBarStyle = .LightContent

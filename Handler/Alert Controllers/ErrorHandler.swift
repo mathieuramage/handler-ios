@@ -14,7 +14,7 @@ class ErrorHandler: NSObject {
         let notification = CWStatusBarNotification()
         if error.displayMessage == "" {
             notification.displayNotificationWithMessage(error.description, forDuration: 3)
-        }else{
+        } else {
             notification.displayNotificationWithMessage(error.displayMessage, forDuration: 3)
         }
     }

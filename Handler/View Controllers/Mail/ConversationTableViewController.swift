@@ -40,21 +40,20 @@ class ConversationTableViewController: UITableViewController {
 		didSet(previous) {
 			if primaryMessage != previous {
 
-				// OTTODO: Suppor primary message
-//				guard let primaryMessage = primaryMessage, newIndex = conversation?.messages.indexOf(primaryMessage) else {
-//					return
-//				}
-//
-//				guard let previous = previous, previousIndex = conversation?.messages.indexOf(previous) else {
-//					return
-//				}
-//
-//				let scrollIndexPath = NSIndexPath(forRow: newIndex, inSection: 0)
-//				let previousIndexPath = NSIndexPath(forRow: previousIndex, inSection: 0)
-//				let indexesToReload = [scrollIndexPath, previousIndexPath]
-//
-//				tableView.reloadRowsAtIndexPaths(indexesToReload, withRowAnimation: .Automatic)
-//				tableView.scrollToRowAtIndexPath(scrollIndexPath, atScrollPosition: .Top, animated: true)
+				guard let primaryMessage = primaryMessage, newIndex = conversation?.orderedMessagesByCreationTime().indexOf(primaryMessage) else {
+					return
+				}
+
+				guard let previous = previous, previousIndex = conversation?.orderedMessagesByCreationTime().indexOf(previous) else {
+					return
+				}
+
+				let scrollIndexPath = NSIndexPath(forRow: newIndex, inSection: 0)
+				let previousIndexPath = NSIndexPath(forRow: previousIndex, inSection: 0)
+				let indexesToReload = [scrollIndexPath, previousIndexPath]
+
+				tableView.reloadRowsAtIndexPaths(indexesToReload, withRowAnimation: .Automatic)
+				tableView.scrollToRowAtIndexPath(scrollIndexPath, atScrollPosition: .Top, animated: true)
 			}
 		}
 	}
@@ -115,7 +114,7 @@ class ConversationTableViewController: UITableViewController {
 		label.frame = CGRectInset(view.bounds, 12, 10)
 		label.clipsToBounds = false
 		view.addSubview(label)
-//		label.text = orderedMessages.last?.subject ?? "No Subject"
+		label.text = conversation?.orderedMessagesByCreationTime().last?.subject ?? "No Subject"
 		let bottomView = UIView()
 		bottomView.frame = CGRectMake(0, view.frame.height-0.5, view.frame.width, 0.5)
 		bottomView.backgroundColor = UIColor(rgba: HexCodes.lightGray)
@@ -154,21 +153,21 @@ class ConversationTableViewController: UITableViewController {
 	}
 
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		primaryMessage = conversation!.orderedMessages()[indexPath.row]
+		primaryMessage = conversation!.orderedMessagesByCreationTime()[indexPath.row]
 	}
 
 	override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
 
-		let message = conversation!.orderedMessages()[indexPath.row]
+		let message = conversation!.orderedMessagesByCreationTime()[indexPath.row]
 		if !message.read {
 			MessageOperations.setMessageAsRead(message: message, read: true, callback: nil)
 		}
 	}
 
 	func configureCell(cell: ConversationMessageTableViewCell, indexPath: NSIndexPath) {
-		let message = conversation!.orderedMessages()[indexPath.row]
+		let message = conversation!.orderedMessagesByCreationTime()[indexPath.row]
 
-		let lastMessage = indexPath.row + 1 >= conversation!.orderedMessages().count
+		let lastMessage = indexPath.row + 1 >= conversation!.orderedMessagesByCreationTime().count
 		let primary = message == primaryMessage
 		configureDotColorForCell(cell, indexPath: indexPath)
 //		FormattingPluginProvider.messageContentCellPluginForConversation()?.populateView(data: message, view: cell, lastMessage: lastMessage, primary: primary)
@@ -176,7 +175,7 @@ class ConversationTableViewController: UITableViewController {
 	}
 
 	func configureDotColorForCell(cell: ConversationMessageTableViewCell, indexPath: NSIndexPath) {
-		let message = conversation!.orderedMessages()[indexPath.row]
+		let message = conversation!.orderedMessagesByCreationTime()[indexPath.row]
 
 		if message.starred == true {
 			cell.dotImageView.image = UIImage(named: "Orange_Dot")
@@ -188,7 +187,7 @@ class ConversationTableViewController: UITableViewController {
 	}
 
 	func reloadCellForMessage(message : Message) {
-		if let index = conversation!.orderedMessages().indexOf(message) {
+		if let index = conversation!.orderedMessagesByCreationTime().indexOf(message) {
 			let indexPath = NSIndexPath(forRow: index, inSection: 0)
 			let cell = tableView.cellForRowAtIndexPath(indexPath) as! ConversationMessageTableViewCell
 			configureDotColorForCell(cell,indexPath: indexPath)

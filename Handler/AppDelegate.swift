@@ -45,6 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		UITextView.appearance().tintColor = UIColor(rgba: HexCodes.lightBlue)
 		UIImageView.appearance().clipsToBounds = true
 
+
 		loadInitialViewController()
 
 		let settings = UIUserNotificationSettings(forTypes: [UIUserNotificationType.Badge, UIUserNotificationType.Sound, UIUserNotificationType.Alert], categories: nil)
@@ -69,6 +70,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
 		NSUserDefaults.standardUserDefaults().setValue(deviceToken.hexadecimalString, forKey: "pushtoken")
+		// TODO upcoming push notifcation task
+	}
+
+	func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+
+		if let id = userInfo["id"] as? String {
+
+			APICommunicator.sharedInstance.getMessageWithCallback(id, callback: { (message, error) -> Void in
+				guard let message = message else {
+					print(error)
+					completionHandler(UIBackgroundFetchResult.Failed)
+					return
+				}
+				// OTTODO: Implement store message
+//				DatabaseManager.sharedInstance.storeMessage(message)
+				UIApplication.sharedApplication().applicationIconBadgeNumber += 1
+				let not = UILocalNotification()
+				not.alertBody = message.content
+				not.alertTitle = "New message from: @\(message.sender?.handle)"
+				not.userInfo = ["messageID":message.id]
+
+				UIApplication.sharedApplication().presentLocalNotificationNow(not)
+				completionHandler(UIBackgroundFetchResult.NewData)
+			})
+		} else {
+			completionHandler(UIBackgroundFetchResult.NoData)
+		}
 	}
 
 	func application(application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: () -> Void) {

@@ -14,28 +14,19 @@ typealias Thread = ManagedConversation
 
 class ManagedConversation: NSManagedObject {
 
-	private convenience init(managedObjectContext: NSManagedObjectContext) {
-		let entityName = "Conversation"
-		let entity = NSEntityDescription.entityForName(entityName, inManagedObjectContext: managedObjectContext)!
-
-		self.init(entity: entity, insertIntoManagedObjectContext: managedObjectContext)
-	}
-
-	private convenience init(identifier : String, inContext context: NSManagedObjectContext) {
-		self.init(managedObjectContext: context)
-		self.identifier = identifier
-	}
-
 	class func conversationWithID(identifier: String, inContext context: NSManagedObjectContext) -> ManagedConversation {
 		let fetchRequest = NSFetchRequest(entityName: "Conversation")
 		fetchRequest.predicate = NSPredicate(format: "identifier == %@", identifier)
 		fetchRequest.fetchBatchSize = 1
 
-		if let conversation = context.safeExecuteFetchRequest(fetchRequest).first as? ManagedConversation {
+		if let conversation = (context.safeExecuteFetchRequest(fetchRequest) as [Conversation]).first {
 			return conversation
 		}
 
-		return ManagedConversation(identifier: identifier, inContext: context)
+		let conversation = ManagedConversation(managedObjectContext: context)
+		conversation.identifier = identifier
+
+		return conversation
 	}
 
 	var latestMessage : Message? { //this may be unnecessary
@@ -88,13 +79,32 @@ class ManagedConversation: NSManagedObject {
 		return nil
 	}
 
-	// OTTODO: Review the need of this function and its implementation
-	func orderedMessages() -> [Message] {
+	func orderedMessagesByCreationTime() -> [Message] {
 		guard let messages = messages?.allObjects as? [Message] else {
 			return []
 		}
 
-		return messages
+		return messages.sort({ (message1, message2) -> Bool in
+			guard let date1 = message1.createdAt, let date2 = message2.createdAt else {
+				return false
+			}
+
+			return date1.isLaterThanDate(date2)
+		})
+	}
+
+	func orderedMessagesByUpdateTime() -> [Message] {
+		guard let messages = messages?.allObjects as? [Message] else {
+			return []
+		}
+
+		return messages.sort({ (message1, message2) -> Bool in
+			guard let date1 = message1.updatedAt, let date2 = message2.updatedAt else {
+				return false
+			}
+
+			return date1.isLaterThanDate(date2)
+		})
 	}
 
 //	class func fromID(id: String, inContext: NSManagedObjectContext?) -> Thread? {
@@ -119,7 +129,7 @@ class ManagedConversation: NSManagedObject {
 //		}
 //	}
 
-	func updateInbox(){
+	func updateInbox() {
 //		var show = false
 //		if let messages = self.messages {
 //			for message in messages.allObjects as! [ManagedMessage] {
@@ -136,31 +146,24 @@ class ManagedConversation: NSManagedObject {
 			let msgSet = NSSet(set: messages)
 			let messageList = msgSet.allObjects as? [ManagedMessage]
 			let sorted =  messageList?.sort({
-				if let firstSent = $0.sent_at, let secondSent = $1.sent_at {
+				if let firstSent = $0.updatedAt, let secondSent = $1.updatedAt {
 					return firstSent.compare(secondSent) == NSComparisonResult.OrderedDescending
 				}
+
 				return true
 			})
 			return sorted?.first
 		}
+
 		return nil
 	}
 
 	var oldestUnreadMessage : ManagedMessage? {
-		var oldestUnread : ManagedMessage? = nil
-		//		if let messages = messages {
-		//			for message in messages {
-		//				let m = message as! LegacyMessage
-		//				if m.isUnread {
-		//					if oldestUnread == nil {
-		//						oldestUnread = m
-		//					} else if oldestUnread!.sent_at!.compare(m.sent_at!) == .OrderedAscending {
-		//						oldestUnread = m
-		//					}
-		//				}
-		//			}
-		//		}
-		return oldestUnread
+		let sortedUnreadMessages = orderedMessagesByCreationTime().filter({ (message) -> Bool in
+			return message.read
+		})
+
+		return sortedUnreadMessages.last
 	}
 
 	func archive() {
@@ -189,23 +192,23 @@ class ManagedConversation: NSManagedObject {
 		}
 
 		for message in messages {
-			//			message.markAsRead()
+			message.markAsRead()
 		}
 	}
 
 	func markAsUnread(message: ManagedMessage) {
-		guard let messages = messages?.allObjects as? [ManagedMessage], let currentMessageDate = message.sent_at else {
+		guard let messages = messages?.allObjects as? [ManagedMessage], let currentMessageDate = message.updatedAt else {
 			return
 		}
 
 		for messageToCompare in messages {
-			//			guard let messageToCompareDate = messageToCompare.sent_at else {
-			//				continue
-			//			}
+			guard let messageToCompareDate = messageToCompare.updatedAt else {
+				continue
+			}
 
-			//			if messageToCompareDate.isLaterThanDate(currentMessageDate) || messageToCompareDate.isEqualToDate(currentMessageDate) {
-			//				messageToCompare.markAsUnread()
-			//			}
+			if messageToCompareDate.isLaterThanDate(currentMessageDate) || messageToCompareDate.isEqualToDate(currentMessageDate) {
+				messageToCompare.markAsUnread()
+			}
 		}
 	}
 }

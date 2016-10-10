@@ -19,7 +19,7 @@ class MailBoxMenuOptionTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
         if(self.selected){
             self.backgroundColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.2)
-        }else{
+        } else {
             self.backgroundColor = UIColor.whiteColor()
         }
         // Configure the view for the selected state

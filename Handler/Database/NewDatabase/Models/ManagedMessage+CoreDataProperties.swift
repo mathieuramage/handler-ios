@@ -18,7 +18,6 @@ extension ManagedMessage {
 	@NSManaged var folderType: String?
 	@NSManaged var conversationId: String?
     @NSManaged var identifier : String?
-    @NSManaged var sent_at: NSDate?
 	@NSManaged var createdAt : NSDate?
 	@NSManaged var updatedAt : NSDate?
     @NSManaged var shouldBeSent: NSNumber?
@@ -30,4 +29,8 @@ extension ManagedMessage {
     @NSManaged var sender: ManagedUser?
     @NSManaged var conversation: ManagedConversation?
 
+	@NSManaged func addRecipientsObject(value: ManagedUser)
+	@NSManaged func removeRecipientsObject(value: ManagedUser)
+	@NSManaged func addRecipients(value: Set<ManagedUser>)
+	@NSManaged func removeRecipients(value: Set<ManagedUser>)
 }

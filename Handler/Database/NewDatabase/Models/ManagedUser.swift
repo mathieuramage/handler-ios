@@ -57,14 +57,7 @@ class ManagedUser: NSManagedObject {
 		}
 	}
 
-	convenience init(managedObjectContext: NSManagedObjectContext) {
-		let entityName = "User"
-		let entity = NSEntityDescription.entityForName(entityName, inManagedObjectContext: managedObjectContext)!
-
-		self.init(entity: entity, insertIntoManagedObjectContext: managedObjectContext)
-	}
-
-	convenience init(json: JSON, inContext context: NSManagedObjectContext) {
+	private convenience init(json: JSON, inContext context: NSManagedObjectContext) {
 		self.init(managedObjectContext: context)
 
 		identifier = json["_id"].stringValue
@@ -86,10 +79,26 @@ class ManagedUser: NSManagedObject {
 		emailThreadCount = json["emailThreads"].intValue
 	}
 
-	convenience init(handle: String, inManagedContext context: NSManagedObjectContext) {
+	private convenience init(handle: String, inManagedContext context: NSManagedObjectContext) {
 		// OTTODO: Implement this
-		
+
 		self.init(managedObjectContext: context)
+	}
+
+	class func userWithJSON(json: JSON, inContext context: NSManagedObjectContext) -> ManagedUser {
+		let identifier = json["_id"].stringValue
+
+		let fetchRequest = NSFetchRequest(entityName: self.entityName())
+		fetchRequest.predicate = NSPredicate(format: "identifier == %@", identifier)
+		fetchRequest.fetchBatchSize = 1
+
+		if let user = context.safeExecuteFetchRequest(fetchRequest).first as? ManagedUser {
+			return user
+		}
+
+		let user = ManagedUser(json: json, inContext: context)
+
+		return user
 	}
 
 	class func me() -> ManagedUser? {
@@ -101,7 +110,7 @@ class ManagedUser: NSManagedObject {
 	class func userWithHandle(handle: String, inContext context: NSManagedObjectContext? = nil) -> ManagedUser {
 		let internalContext = context ?? DatabaseManager.sharedInstance.mainManagedContext
 
-		if let user = (internalContext.safeExecuteFetchRequest(ManagedUser.fetchRequestForHandle(handle)) as? [ManagedUser])?.first {
+		if let user = (internalContext.safeExecuteFetchRequest(ManagedUser.fetchRequestForHandle(handle)) as [ManagedUser]).first {
 			return user
 		}
 		else {

@@ -42,7 +42,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 		super.viewDidAppear(animated)
 	}
 
-	func updateCurrentUser(){
+	func updateCurrentUser() {
 		Async.main { () -> Void in
 			if let user = HRUserSessionManager.sharedManager.currentUser {
 				self.profileHandleLabel.text = user.handle

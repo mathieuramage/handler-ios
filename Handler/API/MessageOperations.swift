@@ -36,7 +36,7 @@ struct MessageOperations {
 				if let value = response.result.value {
 					if let json = JSON(value)["messages"].array {
 						for messageJson in json {
-							let message = Message(json: messageJson, inContext: DatabaseManager.sharedInstance.mainManagedContext)
+							let message = Message.messageWithJSON(messageJson, inContext: DatabaseManager.sharedInstance.mainManagedContext)
 							messages.append(message)
 						}
 					}
@@ -56,7 +56,7 @@ struct MessageOperations {
 			case .Success:
 				var message : Message?
 				if let value = response.result.value {
-					message = Message(json: JSON(value), inContext: DatabaseManager.sharedInstance.mainManagedContext)
+					message = Message.messageWithJSON(JSON(value), inContext: DatabaseManager.sharedInstance.mainManagedContext)
 				}
 				callback(success: true, message: message)
 			case .Failure(_):
@@ -173,7 +173,7 @@ struct MessageOperations {
 				if let value = response.result.value {
 					if let json = JSON(value)["messages"].array {
 						for messageJson in json {
-							message = Message(json: messageJson, inContext: DatabaseManager.sharedInstance.mainManagedContext)
+							message = Message.messageWithJSON(messageJson, inContext: DatabaseManager.sharedInstance.mainManagedContext)
 						}
 					}
 				}
@@ -230,7 +230,7 @@ struct MessageOperations {
 				if let value = response.result.value {
 					if let json = JSON(value)["messages"].array {
 						for messageJson in json {
-							message = Message(json: messageJson, inContext: DatabaseManager.sharedInstance.mainManagedContext)
+							message = Message.messageWithJSON(messageJson, inContext: DatabaseManager.sharedInstance.mainManagedContext)
 						}
 					}
 				}

@@ -20,7 +20,7 @@ extension NSDate {
 		formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
 		if let date = date {
 			return formatter.stringFromDate(date)
-		}else{
+		} else {
 			return nil
 		}
 	}

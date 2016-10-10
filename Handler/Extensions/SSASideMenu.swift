@@ -666,7 +666,7 @@ class SSASideMenu: UIViewController, UIGestureRecognizerDelegate {
             addChildViewController(viewController)
 			if targetView == menuViewContainer {
 				viewController.view.frame = UIEdgeInsetsInsetRect(view.bounds, UIEdgeInsetsMake(0, 0, 0, leftMenuRightInset))
-			}else{
+			} else {
 				viewController.view.frame = view.bounds
 			}
             viewController.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]

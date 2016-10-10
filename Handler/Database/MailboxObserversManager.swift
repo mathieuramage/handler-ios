@@ -15,7 +15,7 @@ class MailboxObserversManager: NSObject {
 	
 	private var mailBoxes = [MailboxMessagesObserver]()
 	
-	override init(){
+	override init() {
 		super.init()
 		
 		

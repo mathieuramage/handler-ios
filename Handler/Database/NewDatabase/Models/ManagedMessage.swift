@@ -1,6 +1,6 @@
 //
 //  Message.swift
-//  
+//
 //
 //  Created by Otávio on 18/09/16.
 //
@@ -42,11 +42,11 @@ class ManagedMessage: NSManagedObject {
 		if let readValue = readValue {
 			return readValue.boolValue
 		}
+
 		return false
-		
 	}
 
-//	var user : User
+	//	var user : User
 	var folder : Folder {
 		get {
 			if let folderType = folderType, let folder = Folder(rawValue: folderType) {
@@ -55,7 +55,7 @@ class ManagedMessage: NSManagedObject {
 			else {
 				return .Inbox
 			}
-			
+
 		}
 	}
 
@@ -65,18 +65,11 @@ class ManagedMessage: NSManagedObject {
 		}
 	}
 
-	convenience init(managedObjectContext: NSManagedObjectContext) {
-		let entityName = "Message"
-		let entity = NSEntityDescription.entityForName(entityName, inManagedObjectContext: managedObjectContext)!
-
-		self.init(entity: entity, insertIntoManagedObjectContext: managedObjectContext)
-	}
-
-	convenience init(json: JSON, inContext context: NSManagedObjectContext) {
+	private convenience init(json: JSON, inContext context: NSManagedObjectContext) {
 		self.init(managedObjectContext: context)
 
-		identifier = json["_id"].stringValue
-		sender = ManagedUser(json : json["sender"], inContext: context)
+		identifier = json["id"].stringValue
+		sender = ManagedUser.userWithJSON(json["sender"], inContext: context)
 		conversationId = json["conversationId"].stringValue
 
 		conversation = ManagedConversation.conversationWithID(conversationId!, inContext: context)
@@ -84,16 +77,13 @@ class ManagedMessage: NSManagedObject {
 		subject = json["subject"].stringValue
 		content = json["message"].stringValue
 
-		// OTTODO: Recipients
-//		recipients = []
-//		if let recipientJsons = json["recipients"].array {
-//			for recipientJson in recipientJsons {
-//				let sender = ManagedUser(json : recipientJson, inContext: DatabaseManager.sharedInstance.mainManagedContext)
-//				self.
-//
-//				recipients.append(sender)
-//			}
-//		}
+		if let recipientJsons = json["recipients"].array {
+			for recipientJson in recipientJsons {
+				let recipient = ManagedUser.userWithJSON(recipientJson, inContext: context)
+
+				addRecipientsObject(recipient)
+			}
+		}
 
 		readValue = json["isRead"].boolValue
 
@@ -106,8 +96,6 @@ class ManagedMessage: NSManagedObject {
 				label.message = self
 			}
 		}
-
-
 
 		starredValue = json["isStar"].bool
 
@@ -128,34 +116,52 @@ class ManagedMessage: NSManagedObject {
 		}
 	}
 
+	class func messageWithJSON(json: JSON, inContext context: NSManagedObjectContext) -> ManagedMessage {
 
-	func moveToArchive(){
+		let identifier = json["id"].stringValue
+
+		let fetchRequest = NSFetchRequest(entityName: self.entityName())
+		fetchRequest.predicate = NSPredicate(format: "identifier == %@", identifier)
+		fetchRequest.fetchBatchSize = 1
+
+		if let message = (context.safeExecuteFetchRequest(fetchRequest) as [Message]).first {
+			return message
+		}
+
+		let message = ManagedMessage(json: json, inContext: context)
+
+		return message
+	}
+
+	func moveToArchive() {
 		self.removeLabelWithID(SystemLabels.Inbox.rawValue)
 	}
 
-	func moveToInbox(){
+	func moveToInbox() {
 		self.addLabelWithID(SystemLabels.Inbox.rawValue)
 	}
 
-	func flag(){
+	func flag() {
 		self.addLabelWithID(SystemLabels.Flagged.rawValue)
 	}
 
-	func unflag(){
+	func unflag() {
 		self.removeLabelWithID(SystemLabels.Flagged.rawValue)
 	}
 
-	func markAsRead(){
+	func markAsRead() {
+		// OTTODO Check this implementation
 		self.removeLabelWithID(SystemLabels.Unread.rawValue)
 	}
 
-	func markAsUnread(){
+	func markAsUnread() {
+		// OTTODO Check this implementation
 		self.addLabelWithID(SystemLabels.Unread.rawValue)
 	}
 
 	// MARK: Refresh
 
-	func refreshFromAPI(){
+	func refreshFromAPI() {
 		//		if let id = self.id {
 		//			APICommunicator.sharedInstance.getMessageWithCallback(id) { (message, error) -> Void in
 		//				guard let message = message else {
@@ -229,21 +235,6 @@ class ManagedMessage: NSManagedObject {
 		//		}
 	}
 
-	// OTTODO: Implement?
-	func setLabelsFromHRTypes(labels: [AnyObject]) {
-
-	}
-
-	// OTTODO: Implement?
-	func hrTypeLabels() -> [AnyObject] {
-		return []
-	}
-
-	// OTTODO: Implement?
-	func hrTypeRecipients() -> [AnyObject] {
-		return []
-	}
-
 	// MARK: Utility getters
 
 	func recipientsWithoutSelf() -> NSSet? {
@@ -264,17 +255,7 @@ class ManagedMessage: NSManagedObject {
 
 	var isUnread: Bool {
 		get {
-			var unread = false
-			//			if let backgroundSelf = self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) {
-			//				if let labels = backgroundSelf.labels {
-			//					for label in labels {
-			//						if label.id == "UNREAD" {
-			//							unread = true
-			//						}
-			//					}
-			//				}
-			//			}
-			return unread
+			return !read
 		}
 	}
 
@@ -396,12 +377,12 @@ class ManagedMessage: NSManagedObject {
 
 	// MARK: Drafts
 
-	func saveAsDraft(){
+	func saveAsDraft() {
 		//		self.addLabelWithID("DRAFT")
 		//		self.sender = User.me()
 	}
 
-	func deleteFromDatabase(){
+	func deleteFromDatabase() {
 		let context = self.managedObjectContext
 
 		context?.deleteObject(self)
@@ -414,7 +395,7 @@ class ManagedMessage: NSManagedObject {
 		if type == MailboxType.AllChanges {
 			let fetchRequest = NSFetchRequest(entityName: ManagedMessage.entityName())
 			fetchRequest.fetchBatchSize = 20
-			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sent_at", ascending: false)]
+			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "updatedAt", ascending: false)]
 			return fetchRequest
 		} else if type == .Inbox {
 			let fetchRequest = NSFetchRequest(entityName: Thread.entityName())
@@ -423,23 +404,22 @@ class ManagedMessage: NSManagedObject {
 			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "identifier", ascending: false)]
 			return fetchRequest
 		} else if type == .Unread {
-			// OTTODO: The original predicate had a subquery with the labels, for the time being ignoring and fetching all
-//			let predicate = NSPredicate(format: "SUBQUERY(messages, $t, ANY $t.labels.id == %@).@count != 0", type.rawValue)
+			let predicate = NSPredicate(format: "SUBQUERY(messages, $t, ANY $t.labels.id == %@).@count != 0", type.rawValue)
 			let fetchRequest = NSFetchRequest(entityName: Thread.entityName())
-//			fetchRequest.predicate = predicate
+			fetchRequest.predicate = predicate
 			fetchRequest.fetchBatchSize = 20
 			// OTTODO: It should be sorted by date.
 			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "identifier", ascending: false)]
 			return fetchRequest
 		}else if type != .Archive {
 			return fetchRequestForMessagesWithLabelWithId(type.rawValue)
-		}else{
+		} else {
 			// handle archive case
 			let predicate = NSPredicate(format: "NONE labels.id == %@ && NONE labels.id == %@", "INBOX", "SENT")
 			let fetchRequest = NSFetchRequest(entityName: entityName())
 			fetchRequest.fetchBatchSize = 20
 			fetchRequest.predicate = predicate
-			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sent_at", ascending: false)]
+			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)]
 			return fetchRequest
 		}
 	}
@@ -448,21 +428,33 @@ class ManagedMessage: NSManagedObject {
 		let predicate = NSPredicate(format: "ANY labels.id == %@", id)
 		let fetchRequest = NSFetchRequest(entityName: entityName())
 		fetchRequest.predicate = predicate
-		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sent_at", ascending: false)]
+		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)]
 		return fetchRequest
 	}
-	
+
 	class func fetchRequestForUploadCompletion() -> NSFetchRequest {
 		let predicate = NSPredicate(format: "NONE attachments.upload_complete == NO")
 		let secondPredicate = NSPredicate(format: "shouldBeSent == YES")
-		
+
 		let fetchRequest = NSFetchRequest(entityName: entityName())
 		fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, secondPredicate])
-		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sent_at", ascending: false)]
+		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)]
 		return fetchRequest
 	}
 
+	class func latestUpdatedMessageDate(inManagedContext context: NSManagedObjectContext) -> NSDate? {
+		let fetchRequest = NSFetchRequest(entityName: self.entityName())
+		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "updatedAt", ascending: false)]
+		fetchRequest.fetchBatchSize = 1
 
+		let results: [Message] = context.safeExecuteFetchRequest(fetchRequest)
+
+		if let lastMessageDate = results.first?.updatedAt {
+			return lastMessageDate
+		}
+
+		return nil
+	}
 }
 
 enum Folder : String {
@@ -472,4 +464,3 @@ enum Folder : String {
 	case Deleted = "deleted"
 	case Draft = "draft"
 }
-

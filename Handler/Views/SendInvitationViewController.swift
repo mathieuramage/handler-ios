@@ -28,12 +28,12 @@ class SendInvitationViewController: UIViewController, UIViewControllerShow, MFMe
 				if MFMessageComposeViewController.canSendText() {
 					bySmsButton.enabled = true
 					bySmsButton.backgroundColor = UIColor(rgba: HexCodes.green)
-				}else{
+				} else {
 					bySmsButton.enabled = false
 					bySmsButton.backgroundColor = UIColor.lightGrayColor()
 				}
 				byTweetButton.enabled  = true
-			}else{
+			} else {
 				bySmsButton.backgroundColor = UIColor.lightGrayColor()
 				byTweetButton.backgroundColor = UIColor.lightGrayColor()
 				bySmsButton.enabled = false
@@ -57,7 +57,7 @@ class SendInvitationViewController: UIViewController, UIViewControllerShow, MFMe
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	@IBAction func dismiss(){
+	@IBAction func dismiss() {
 		UIView.animateWithDuration(0.3, animations: { () -> Void in
 			self.window?.alpha = 0
 			UIApplication.sharedApplication().statusBarStyle = .LightContent
