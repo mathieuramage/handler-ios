@@ -240,7 +240,7 @@ class ManagedMessage: NSManagedObject {
 	func recipientsWithoutSelf() -> NSSet? {
 		if let recipients = self.recipients?.allObjects as? [ManagedUser] {
 			for recipient in recipients {
-				if recipient.handle == ManagedUser.me()?.handle {
+				if recipient.handle == AuthUtility.user?.handle {
 					let mutableSet = NSMutableSet(set: self.recipients!)
 					mutableSet.removeObject(recipient)
 					return NSSet(set: mutableSet)

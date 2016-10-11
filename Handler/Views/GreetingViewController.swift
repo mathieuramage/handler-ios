@@ -8,7 +8,6 @@
 
 import UIKit
 import Async
-import HandleriOSSDK
 import Kingfisher
 
 class GreetingViewController: UIViewController, UIViewControllerShow {
@@ -89,7 +88,7 @@ class GreetingViewController: UIViewController, UIViewControllerShow {
     }
     
     func updateView() {
-        if let user = HRUserSessionManager.sharedManager.currentUser {
+        if let user = AuthUtility.user {
             getDataWithHandle(user.handle)
         }
     }

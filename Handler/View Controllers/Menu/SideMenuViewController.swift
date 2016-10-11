@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import HandleriOSSDK
 import Kingfisher
 import Async
 
@@ -30,7 +29,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SideMenuViewController.updateCurrentUser), name: HRCurrentUserDidSetNotification, object: nil)
+//		TODO ? NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SideMenuViewController.updateCurrentUser), name: HRCurrentUserDidSetNotification, object: nil)
 
 		updateCurrentUser()
 		gradientView.colors = [UIColor.whiteColor(), UIColor.blackColor().colorWithAlphaComponent(0.5)]
@@ -44,12 +43,12 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 
 	func updateCurrentUser() {
 		Async.main { () -> Void in
-			if let user = HRUserSessionManager.sharedManager.currentUser {
+			if let user = AuthUtility.user {
 				self.profileHandleLabel.text = user.handle
 				self.profileNameLabel.text = user.name
-				if let url = NSURL(string: user.picture_url) {
-					self.profileImageView.kf_setImageWithURL(url, placeholderImage: UIImage.randomGhostImage())
-				}
+// FIXME				if let url = NSURL(string: user.picture_url) {
+//					self.profileImageView.kf_setImageWithURL(url, placeholderImage: UIImage.randomGhostImage())
+//				}
 				TwitterAPIOperations.getAccountInfoForTwitterUser(user.handle, callback: { (json, error) -> Void in
 					guard let json = json else {
 						print(error)

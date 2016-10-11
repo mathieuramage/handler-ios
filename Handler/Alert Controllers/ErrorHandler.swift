@@ -7,15 +7,14 @@
 //
 
 import UIKit
-import HandleriOSSDK
 
 class ErrorHandler: NSObject {
-    class func performErrorActions(error: HRError){
-        let notification = CWStatusBarNotification()
-        if error.displayMessage == "" {
-            notification.displayNotificationWithMessage(error.description, forDuration: 3)
-        } else {
-            notification.displayNotificationWithMessage(error.displayMessage, forDuration: 3)
-        }
-    }
+//    class func performErrorActions(error: HRError){
+//        let notification = CWStatusBarNotification()
+//        if error.displayMessage == "" {
+//            notification.displayNotificationWithMessage(error.description, forDuration: 3)
+//        } else {
+//            notification.displayNotificationWithMessage(error.displayMessage, forDuration: 3)
+//        }
+//    }
 }

@@ -44,8 +44,7 @@ class ManagedUser: NSManagedObject {
 	//TODO
 	var emailThreadCount : Int?
 
-	var handle : String = ""
-
+    var handle : String = ""
 	var pictureUrlString: String?
 	var pictureUrl : NSURL? {
 		get {
@@ -101,11 +100,6 @@ class ManagedUser: NSManagedObject {
 		return user
 	}
 
-	class func me() -> ManagedUser? {
-		// OTTODO: Implement this
-
-		return nil
-	}
 
 	class func userWithHandle(handle: String, inContext context: NSManagedObjectContext? = nil) -> ManagedUser {
 		let internalContext = context ?? DatabaseManager.sharedInstance.mainManagedContext

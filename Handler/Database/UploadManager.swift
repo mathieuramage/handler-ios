@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import HandleriOSSDK
 
 // OTTODO: Reimplement this whole class as needed
 class UploadManager: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
