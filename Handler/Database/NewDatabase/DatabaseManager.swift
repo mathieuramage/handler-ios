@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 import Async
-import HandleriOSSDK
 
 class DatabaseManager: NSObject {
 

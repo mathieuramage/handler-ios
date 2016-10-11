@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import HandleriOSSDK
 import Async
 
 struct InboxFormatter: MessageTableViewCellFormatter {
@@ -64,7 +63,7 @@ struct InboxFormatter: MessageTableViewCellFormatter {
 		view.attachmentIconView.hidden = true
 		//        }
 
-		if message.conversation?.mostRecentMessage?.sender?.id == HRUserSessionManager.sharedManager.currentUser?.id {
+		if message.conversation?.mostRecentMessage?.sender?.id == AuthUtility.user?.identifier {
 			view.repliedIconView.hidden = false
 		} else {
 			view.repliedIconView.hidden = true

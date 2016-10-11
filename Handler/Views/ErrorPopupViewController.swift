@@ -7,13 +7,12 @@
 //
 
 import UIKit
-import HandleriOSSDK
 
 class ErrorPopupViewController: UIViewController, UIViewControllerShow {
 	
 	var window: UIWindow?
 	
-	var error: HRError? {
+	var error: HandlerError? {
 		didSet {
 			if let error = error {
 				displayMessageLabel.text = error.displayMessage

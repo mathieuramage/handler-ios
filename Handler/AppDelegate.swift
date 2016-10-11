@@ -9,7 +9,6 @@
 import UIKit
 import Fabric
 import TwitterKit
-import HandleriOSSDK
 import Crashlytics
 import Async
 
@@ -34,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var backgroundSessionCompletionHandler: (() -> Void)?
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-		HandlerAPI.startWithClientId("9c3594fbb153aec6c70477a66229bca7786b7b7b5beb6b2c68c2997ab7ca1e4f", clientSecret : "58614156d6144ed0fd76a0cad80e00cfb5bd2fc33ec1e348fd8d6ffa18d66007")
+//		HandlerAPI.startWithClientId("9c3594fbb153aec6c70477a66229bca7786b7b7b5beb6b2c68c2997ab7ca1e4f", clientSecret : "58614156d6144ed0fd76a0cad80e00cfb5bd2fc33ec1e348fd8d6ffa18d66007")
 
 
 		Twitter.sharedInstance().startWithConsumerKey(Config.Twitter.consumerKey, consumerSecret: Config.Twitter.consumerSecret)
@@ -58,7 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
 		print(url)
-		HROAuthManager.handleIncomingAuthURL(url)
+//		HROAuthManager.handleIncomingAuthURL(url)
 		return true
 	}
 
@@ -75,28 +74,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
 
-		if let id = userInfo["id"] as? String {
-
-			APICommunicator.sharedInstance.getMessageWithCallback(id, callback: { (message, error) -> Void in
-				guard let message = message else {
-					print(error)
-					completionHandler(UIBackgroundFetchResult.Failed)
-					return
-				}
-				// OTTODO: Implement store message
-//				DatabaseManager.sharedInstance.storeMessage(message)
-				UIApplication.sharedApplication().applicationIconBadgeNumber += 1
-				let not = UILocalNotification()
-				not.alertBody = message.content
-				not.alertTitle = "New message from: @\(message.sender?.handle)"
-				not.userInfo = ["messageID":message.id]
-
-				UIApplication.sharedApplication().presentLocalNotificationNow(not)
-				completionHandler(UIBackgroundFetchResult.NewData)
-			})
-		} else {
-			completionHandler(UIBackgroundFetchResult.NoData)
-		}
+//		if let id = userInfo["id"] as? String {
+//
+//			APICommunicator.sharedInstance.getMessageWithCallback(id, callback: { (message, error) -> Void in
+//				guard let message = message else {
+//					print(error)
+//					completionHandler(UIBackgroundFetchResult.Failed)
+//					return
+//				}
+//				// OTTODO: Implement store message
+////				DatabaseManager.sharedInstance.storeMessage(message)
+//				UIApplication.sharedApplication().applicationIconBadgeNumber += 1
+//				let not = UILocalNotification()
+//				not.alertBody = message.content
+//				not.alertTitle = "New message from: @\(message.sender?.handle)"
+//				not.userInfo = ["messageID":message.id]
+//
+//				UIApplication.sharedApplication().presentLocalNotificationNow(not)
+//				completionHandler(UIBackgroundFetchResult.NewData)
+//			})
+//		} else {
+//			completionHandler(UIBackgroundFetchResult.NoData)
+//		}
 	}
 
 	func application(application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: () -> Void) {

@@ -8,7 +8,6 @@
 //
 
 import UIKit
-import HandleriOSSDK
 import Async
 import RichEditorView
 
@@ -19,13 +18,13 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	struct ValidatedToken {
 		var name: String
 		var isOnHandler: Bool
-		var user: HRUser?
+//		var user: HRUser?
 
-		init(name: String, isOnHandler: Bool, user: HRUser? = nil){
-			self.name = name
-			self.isOnHandler = isOnHandler
-			self.user = user
-		}
+//		init(name: String, isOnHandler: Bool, user: HRUser? = nil){
+//			self.name = name
+//			self.isOnHandler = isOnHandler
+//			self.user = user
+//		}
 	}
 
 	var _sizingCell: ConversationMessageTableViewCell?
@@ -251,11 +250,11 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		let alertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
 
 		alertController.addAction(UIAlertAction(title: "Delete Draft", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
-			if let attachments = self.attachmentsCell.attachments {
-				for attachment in attachments {
-					attachment.delete()
-				}
-			}
+//			if let attachments = self.attachmentsCell.attachments {
+//				for attachment in attachments {
+//					attachment.delete()
+//				}
+//			}
 			self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
 		}))
 
@@ -420,12 +419,12 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 			}
 		}
 
-		var attachments = [Attachment]()
-		for attachment in attachmentsCell.attachments ?? [Attachment]() {
+//		var attachments = [Attachment]()
+//		for attachment in attachmentsCell.attachments ?? [Attachment]() {
 //			if let converted = attachment.toManageObjectContext(DatabaseManager.sharedInstance.backgroundContext) {
 //				attachments.append(converted)
 //			}
-		}
+//		}
 
 		message.recipients = NSSet(array: receivers)
 		message.content = richTextContentView.contentHTML
@@ -719,11 +718,11 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	
 				if file.writeToURL(docsDirURL, atomically: true) {
 	
-					let attachment = Attachment(localFile: docsDirURL, filename: originalFileName)
+//					let attachment = Attachment(localFile: docsDirURL, filename: originalFileName)
 					DatabaseManager.sharedInstance.mainManagedContext.saveRecursively()
-					Async.main(block: { () -> Void in
-						self.attachmentsCell.attachments?.append(attachment)
-					})
+//					Async.main(block: { () -> Void in
+//						self.attachmentsCell.attachments?.append(attachment)
+//					})
 				} else {
 					print("Failed to write file")
 				}
