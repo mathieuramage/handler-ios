@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -11,26 +11,28 @@
             <string>.HelveticaNeueDeskInterface-Regular</string>
             <string>.HelveticaNeueDeskInterface-Regular</string>
             <string>.HelveticaNeueDeskInterface-Regular</string>
-        </mutableArray>
-        <mutableArray key="System San Francisco Display Thin.ttf">
-            <string>.HelveticaNeueDeskInterface-Thin</string>
-            <string>.HelveticaNeueDeskInterface-Thin</string>
-            <string>.HelveticaNeueDeskInterface-Thin</string>
-        </mutableArray>
-        <mutableArray key="System San Francisco Display Ultralight.ttf">
-            <string>.HelveticaNeueDeskInterface-UltraLightP2</string>
+            <string>.HelveticaNeueDeskInterface-Regular</string>
+            <string>.HelveticaNeueDeskInterface-Regular</string>
+            <string>.HelveticaNeueDeskInterface-Regular</string>
+            <string>.HelveticaNeueDeskInterface-Regular</string>
+            <string>.HelveticaNeueDeskInterface-Regular</string>
+            <string>.HelveticaNeueDeskInterface-Regular</string>
         </mutableArray>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="IntroViewController" customModule="Handler" customModuleProvider="target">
             <connections>
+                <outlet property="fifthView" destination="BPh-l0-T1Y" id="pTf-XY-mbs"/>
+                <outlet property="fifth_bottom_constraint" destination="HiC-UP-rnA" id="QAg-Dc-3ON"/>
+                <outlet property="fifth_last_constraint" destination="C4p-t0-Ivh" id="Aux-E2-xWe"/>
+                <outlet property="fifth_middle_constraint" destination="Dbo-bI-vJ8" id="vp2-1b-f7S"/>
+                <outlet property="fifth_top_constraint" destination="afV-Ze-gAj" id="Ycg-MJ-cTl"/>
                 <outlet property="firstView" destination="2T5-r7-N6t" id="a3L-Zv-8t3"/>
                 <outlet property="first_bottom_constraint" destination="jvt-1G-JWw" id="45k-7D-cVM"/>
                 <outlet property="first_middle_constraint" destination="GQf-AT-Wae" id="xdk-Ff-NRD"/>
                 <outlet property="first_top_constraint" destination="iDH-24-b0X" id="DKw-Q2-yDD"/>
                 <outlet property="fourthView" destination="mUa-KV-aOg" id="NXb-L0-8aR"/>
                 <outlet property="fourth_bottom_constraint" destination="KcP-OQ-3JO" id="ZCg-C8-50a"/>
-                <outlet property="fourth_last_constraint" destination="pB0-KB-vuI" id="JjK-9v-5C3"/>
                 <outlet property="fourth_middle_constraint" destination="YpB-0j-TPv" id="Qan-se-3ug"/>
                 <outlet property="fourth_top_constraint" destination="d2S-FB-t9F" id="dMb-OL-rfr"/>
                 <outlet property="pageControl" destination="P5M-4u-BLK" id="BMy-Gn-xna"/>
@@ -50,7 +52,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="Onboarding_1" translatesAutoresizingMaskIntoConstraints="NO" id="vqj-mb-hRW">
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="ios_handler_logo" translatesAutoresizingMaskIntoConstraints="NO" id="vqj-mb-hRW">
                     <rect key="frame" x="137" y="175" width="100" height="154"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="vqj-mb-hRW" secondAttribute="height" multiplier="100:154" id="Qy2-Ka-ARY"/>
@@ -71,7 +73,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="62" id="I5o-CV-cde"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name=".HelveticaNeueDeskInterface-UltraLightP2" family="SFNS Display" pointSize="24"/>
+                    <fontDescription key="fontDescription" name=".HelveticaNeueDeskInterface-Regular" family="SFNS Display" pointSize="24"/>
                     <color key="textColor" red="0.53333333329999999" green="0.59999999999999998" blue="0.65098039220000004" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -113,7 +115,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="84" id="zcg-QB-gWT"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name=".HelveticaNeueDeskInterface-Thin" family="SFNS Display" pointSize="19"/>
+                    <fontDescription key="fontDescription" name=".HelveticaNeueDeskInterface-Regular" family="SFNS Display" pointSize="19"/>
                     <color key="textColor" red="0.53333333329999999" green="0.59999999999999998" blue="0.65098039220000004" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -162,7 +164,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="84" id="UBn-Xp-s1x"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name=".HelveticaNeueDeskInterface-Thin" family="SFNS Display" pointSize="19"/>
+                    <fontDescription key="fontDescription" name=".HelveticaNeueDeskInterface-Regular" family="SFNS Display" pointSize="19"/>
                     <color key="textColor" red="0.53333333329999999" green="0.59999999999999998" blue="0.65098039220000004" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -191,7 +193,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="84" id="dtU-RB-YV7"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name=".HelveticaNeueDeskInterface-Thin" family="SFNS Display" pointSize="19"/>
+                    <fontDescription key="fontDescription" name=".HelveticaNeueDeskInterface-Regular" family="SFNS Display" pointSize="19"/>
                     <color key="textColor" red="0.53333333329999999" green="0.59999999999999998" blue="0.65098039220000004" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -201,16 +203,6 @@
                     <color key="textColor" red="0.16078431369999999" green="0.1843137255" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ncz-Cp-S1H">
-                    <rect key="frame" x="20" y="600" width="335" height="39"/>
-                    <fontDescription key="fontDescription" name=".HelveticaNeueDeskInterface-Regular" family="SFNS Display" pointSize="22.5"/>
-                    <state key="normal" title="Get Started">
-                        <color key="titleColor" red="0.31372549020000001" green="0.67450980390000004" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
-                    </state>
-                    <connections>
-                        <action selector="finishWalkthrough:" destination="-1" eventType="touchUpInside" id="MTZ-9A-4pK"/>
-                    </connections>
-                </button>
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="Onboarding_4" translatesAutoresizingMaskIntoConstraints="NO" id="RgO-of-S8n">
                     <rect key="frame" x="0.0" y="123" width="375" height="210"/>
                     <constraints>
@@ -220,9 +212,6 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="Ncz-Cp-S1H" firstAttribute="top" secondItem="mBz-Uy-y8d" secondAttribute="bottom" constant="53" id="0fm-05-adE"/>
-                <constraint firstItem="Ncz-Cp-S1H" firstAttribute="leading" secondItem="mUa-KV-aOg" secondAttribute="leading" constant="20" id="2iI-tI-ifG"/>
-                <constraint firstAttribute="trailing" secondItem="Ncz-Cp-S1H" secondAttribute="trailing" constant="20" id="BqI-wA-nYE"/>
                 <constraint firstItem="Nul-eU-AdX" firstAttribute="leading" secondItem="mUa-KV-aOg" secondAttribute="leading" constant="20" id="Emq-bg-qPu"/>
                 <constraint firstAttribute="trailing" secondItem="RgO-of-S8n" secondAttribute="trailing" id="FKj-n7-sbv"/>
                 <constraint firstItem="mBz-Uy-y8d" firstAttribute="top" secondItem="mUa-KV-aOg" secondAttribute="top" constant="463" id="KcP-OQ-3JO"/>
@@ -232,15 +221,63 @@
                 <constraint firstItem="Nul-eU-AdX" firstAttribute="top" secondItem="mUa-KV-aOg" secondAttribute="top" constant="420" id="YpB-0j-TPv"/>
                 <constraint firstItem="RgO-of-S8n" firstAttribute="top" secondItem="mUa-KV-aOg" secondAttribute="top" constant="123" id="d2S-FB-t9F"/>
                 <constraint firstItem="RgO-of-S8n" firstAttribute="leading" secondItem="mUa-KV-aOg" secondAttribute="leading" id="dZ5-AQ-1fL"/>
-                <constraint firstItem="Ncz-Cp-S1H" firstAttribute="top" secondItem="mUa-KV-aOg" secondAttribute="top" constant="600" id="pB0-KB-vuI"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="0fm-05-adE"/>
-                </mask>
-            </variation>
-            <point key="canvasLocation" x="1285.5" y="471.5"/>
+            <point key="canvasLocation" x="1298.5" y="471.5"/>
+        </view>
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="BPh-l0-T1Y" userLabel="Fifth View">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hey-oh, Handler is in Beta.  You need a personal invitation from someone who knows you well." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="owk-Zu-pey" userLabel="Body Label">
+                    <rect key="frame" x="20" y="463" width="335" height="84"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="84" id="Q3r-gl-f0W"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name=".HelveticaNeueDeskInterface-Regular" family="SFNS Display" pointSize="19"/>
+                    <color key="textColor" red="0.53333333329999999" green="0.59999999999999998" blue="0.65098039220000004" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Currently Invite-Only" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EWD-Vh-jyz" userLabel="Lead label">
+                    <rect key="frame" x="20" y="420" width="335" height="27"/>
+                    <fontDescription key="fontDescription" name=".HelveticaNeueDeskInterface-Regular" family="SFNS Display" pointSize="22.5"/>
+                    <color key="textColor" red="0.16078431369999999" green="0.1843137255" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mt6-Vl-66e">
+                    <rect key="frame" x="20" y="600" width="335" height="39"/>
+                    <fontDescription key="fontDescription" name=".HelveticaNeueDeskInterface-Regular" family="SFNS Display" pointSize="22.5"/>
+                    <state key="normal" title="Get Started">
+                        <color key="titleColor" red="0.31372549020000001" green="0.67450980390000004" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="finishWalkthrough:" destination="-1" eventType="touchUpInside" id="JKC-IY-sti"/>
+                    </connections>
+                </button>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="ios-onboarding-invite-only-icon" translatesAutoresizingMaskIntoConstraints="NO" id="V73-ke-HoJ">
+                    <rect key="frame" x="0.0" y="123" width="375" height="210"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="V73-ke-HoJ" secondAttribute="height" multiplier="262:147" id="jmk-7r-dfp"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="mt6-Vl-66e" secondAttribute="trailing" constant="20" id="1nH-K6-Bdm"/>
+                <constraint firstAttribute="trailing" secondItem="V73-ke-HoJ" secondAttribute="trailing" id="2Id-gH-Mec"/>
+                <constraint firstAttribute="trailing" secondItem="EWD-Vh-jyz" secondAttribute="trailing" constant="20" id="BNV-OY-38S"/>
+                <constraint firstItem="mt6-Vl-66e" firstAttribute="top" secondItem="BPh-l0-T1Y" secondAttribute="top" constant="600" id="C4p-t0-Ivh"/>
+                <constraint firstItem="EWD-Vh-jyz" firstAttribute="top" secondItem="BPh-l0-T1Y" secondAttribute="top" constant="420" id="Dbo-bI-vJ8"/>
+                <constraint firstItem="owk-Zu-pey" firstAttribute="top" secondItem="BPh-l0-T1Y" secondAttribute="top" constant="463" id="HiC-UP-rnA"/>
+                <constraint firstItem="EWD-Vh-jyz" firstAttribute="leading" secondItem="BPh-l0-T1Y" secondAttribute="leading" constant="20" id="OVf-gh-z6x"/>
+                <constraint firstAttribute="trailing" secondItem="owk-Zu-pey" secondAttribute="trailing" constant="20" id="ZwQ-aV-vLs"/>
+                <constraint firstItem="V73-ke-HoJ" firstAttribute="top" secondItem="BPh-l0-T1Y" secondAttribute="top" constant="123" id="afV-Ze-gAj"/>
+                <constraint firstItem="mt6-Vl-66e" firstAttribute="leading" secondItem="BPh-l0-T1Y" secondAttribute="leading" constant="20" id="dyB-3f-6eZ"/>
+                <constraint firstItem="V73-ke-HoJ" firstAttribute="leading" secondItem="BPh-l0-T1Y" secondAttribute="leading" id="fmo-Yq-Xq9"/>
+                <constraint firstItem="owk-Zu-pey" firstAttribute="leading" secondItem="BPh-l0-T1Y" secondAttribute="leading" constant="20" id="q1g-O4-3ig"/>
+            </constraints>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+            <point key="canvasLocation" x="1788.5" y="471.5"/>
         </view>
         <view contentMode="scaleToFill" id="NZV-7o-Rf8">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -253,8 +290,8 @@
                         <outlet property="delegate" destination="-1" id="J1J-dJ-QQ3"/>
                     </connections>
                 </scrollView>
-                <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" hidesForSinglePage="YES" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="P5M-4u-BLK" customClass="HRPageControl">
-                    <rect key="frame" x="168" y="600" width="39" height="37"/>
+                <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" hidesForSinglePage="YES" numberOfPages="4" translatesAutoresizingMaskIntoConstraints="NO" id="P5M-4u-BLK" customClass="HRPageControl">
+                    <rect key="frame" x="160" y="600" width="55" height="37"/>
                     <color key="pageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="currentPageIndicatorTintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                 </pageControl>
@@ -273,9 +310,10 @@
         </view>
     </objects>
     <resources>
-        <image name="Onboarding_1" width="200" height="307"/>
         <image name="Onboarding_2" width="646" height="423"/>
         <image name="Onboarding_3" width="750" height="420"/>
         <image name="Onboarding_4" width="750" height="420"/>
+        <image name="ios-onboarding-invite-only-icon" width="173" height="210"/>
+        <image name="ios_handler_logo" width="66" height="102"/>
     </resources>
 </document>
