@@ -13,6 +13,6 @@ class ManagedLabel: NSManagedObject {
 
 	convenience init(id: String, inContext context: NSManagedObjectContext) {
 		self.init(managedObjectContext: context)
-		self.id = id
+		self.id = id as NSString?
 	}
 }

@@ -39,19 +39,19 @@ class ConversationMessageTableViewCell: UITableViewCell {
 		self.messageDividerView.backgroundColor = UIColor(rgba: HexCodes.lightGray)
 		self.separatorLineView.backgroundColor = UIColor(rgba: HexCodes.lightGray)
 		self.threadLine.backgroundColor = UIColor(rgba: HexCodes.lighterGray)
-		self.recipientDividerHeightConstraint.constant = 1/UIScreen.mainScreen().scale
-		self.messageDividerHeightContraint.constant = 1/UIScreen.mainScreen().scale
-		self.separatorLineHeightConstraint.constant = 1/UIScreen.mainScreen().scale
+		self.recipientDividerHeightConstraint.constant = 1/UIScreen.main.scale
+		self.messageDividerHeightContraint.constant = 1/UIScreen.main.scale
+		self.separatorLineHeightConstraint.constant = 1/UIScreen.main.scale
 		self.richTextContent.delegate = self
 	}
 
-	@IBAction func didPressUsername(sender: UIButton) {
+	@IBAction func didPressUsername(_ sender: UIButton) {
 		if let sender = self.sender {
 			ContactCardViewController.showWithUser(sender)
 		}
 	}
 
-	private var cellReady = false
+	fileprivate var cellReady = false
 	func isCellReady() -> Bool {
 		return cellReady
 	}
@@ -59,15 +59,15 @@ class ConversationMessageTableViewCell: UITableViewCell {
 
 extension ConversationMessageTableViewCell: RichEditorDelegate {
 
-	func richEditor(editor: RichEditorView, shouldInteractWithURL url: NSURL) -> Bool {
+	func richEditor(_ editor: RichEditorView, shouldInteractWithURL url: URL) -> Bool {
 		Async.main {
-			UIApplication.sharedApplication().openURL(url)
+			UIApplication.shared.openURL(url)
 		}
 
 		return false
 	}
 
-	func richEditorDidLoad(editor: RichEditorView) {
+	func richEditorDidLoad(_ editor: RichEditorView) {
 		cellReady = true
 	}
 }

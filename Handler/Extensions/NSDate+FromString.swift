@@ -8,18 +8,18 @@
 
 import Foundation
 
-extension NSDate {
-	class func fromString(string: String) -> NSDate? {
-		let formatter = NSDateFormatter()
+extension Date {
+	static func fromString(_ string: String) -> Date? {
+		let formatter = DateFormatter()
 		formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-		return formatter.dateFromString(string)
+		return formatter.date(from: string)
 	}
 	
-	class func toString(date: NSDate?) -> String? {
-		let formatter = NSDateFormatter()
+	static func toString(_ date: Date?) -> String? {
+		let formatter = DateFormatter()
 		formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
 		if let date = date {
-			return formatter.stringFromDate(date)
+			return formatter.string(from: date)
 		} else {
 			return nil
 		}

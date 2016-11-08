@@ -18,7 +18,7 @@ class ConversationTableViewController: UITableViewController {
 
 	var previousConversation : Conversation? {
 		get {
-			guard let conversations = allConversations, let index = allConversations?.indexOf(conversation!) where index > 0 else {
+			guard let conversations = allConversations, let index = allConversations?.index(of: conversation!), index > 0 else {
 				return nil
 			}
 			return conversations[index - 1]
@@ -27,7 +27,7 @@ class ConversationTableViewController: UITableViewController {
 
 	var nextConversation : Conversation? {
 		get {
-			guard let conversations = allConversations, let index = allConversations?.indexOf(conversation!) where index < conversations.count - 1 else {
+			guard let conversations = allConversations, let index = allConversations?.index(of: conversation!), index < conversations.count - 1 else {
 				return nil
 			}
 			return conversations[index + 1]
@@ -40,20 +40,20 @@ class ConversationTableViewController: UITableViewController {
 		didSet(previous) {
 			if primaryMessage != previous {
 
-				guard let primaryMessage = primaryMessage, newIndex = conversation?.orderedMessagesByCreationTime().indexOf(primaryMessage) else {
+				guard let primaryMessage = primaryMessage, let newIndex = conversation?.orderedMessagesByCreationTime().index(of: primaryMessage) else {
 					return
 				}
 
-				guard let previous = previous, previousIndex = conversation?.orderedMessagesByCreationTime().indexOf(previous) else {
+				guard let previous = previous, let previousIndex = conversation?.orderedMessagesByCreationTime().index(of: previous) else {
 					return
 				}
 
-				let scrollIndexPath = NSIndexPath(forRow: newIndex, inSection: 0)
-				let previousIndexPath = NSIndexPath(forRow: previousIndex, inSection: 0)
+				let scrollIndexPath = IndexPath(row: newIndex, section: 0)
+				let previousIndexPath = IndexPath(row: previousIndex, section: 0)
 				let indexesToReload = [scrollIndexPath, previousIndexPath]
 
-				tableView.reloadRowsAtIndexPaths(indexesToReload, withRowAnimation: .Automatic)
-				tableView.scrollToRowAtIndexPath(scrollIndexPath, atScrollPosition: .Top, animated: true)
+				tableView.reloadRows(at: indexesToReload, with: .automatic)
+				tableView.scrollToRow(at: scrollIndexPath, at: .top, animated: true)
 			}
 		}
 	}
@@ -62,7 +62,7 @@ class ConversationTableViewController: UITableViewController {
 	var sizingCell: ConversationMessageTableViewCell {
 		get {
 			if _sizingCell == nil {
-				_sizingCell = self.tableView.dequeueReusableCellWithIdentifier(MessageCellID) as? ConversationMessageTableViewCell
+				_sizingCell = self.tableView.dequeueReusableCell(withIdentifier: MessageCellID) as? ConversationMessageTableViewCell
 			}
 
 			return _sizingCell!
@@ -73,12 +73,12 @@ class ConversationTableViewController: UITableViewController {
 		super.viewDidLoad()
 
 		let messageNib = UINib(nibName: "ConversationMessageTableViewCell", bundle: nil);
-		tableView.registerNib(messageNib, forCellReuseIdentifier: MessageCellID)
+		tableView.register(messageNib, forCellReuseIdentifier: MessageCellID)
 		tableView.backgroundColor = UIColor(rgba: HexCodes.offWhite)
 		tableView.tableFooterView = UIView()
 	}
 
-	override func viewDidAppear(animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		self.plugin = BottomBarActionPluginProvider.plugin(self)
 //		self.navigationController!.toolbar!.items = plugin.barButtonItemsForThread(thread)
@@ -86,77 +86,77 @@ class ConversationTableViewController: UITableViewController {
 
 	// MARK: UITableViewDataSource
 
-	override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+	override func numberOfSections(in tableView: UITableView) -> Int {
 		return 1
 	}
 
-	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return conversation?.messages?.count ?? 0
 	}
 
-	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCellWithIdentifier(MessageCellID, forIndexPath: indexPath) as! ConversationMessageTableViewCell
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(withIdentifier: MessageCellID, for: indexPath) as! ConversationMessageTableViewCell
 		configureCell(cell, indexPath: indexPath)
 
 		return cell
 	}
 
-	override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		let view = UIView()
-		view.backgroundColor = UIColor.whiteColor()
+		view.backgroundColor = UIColor.white
 		let height = self.tableView(tableView, heightForHeaderInSection: section)
 		let width = tableView.bounds.width
-		view.frame = CGRectMake(0, 0, width, height)
+		view.frame = CGRect(x: 0, y: 0, width: width, height: height)
 		let label = UILabel()
-		label.backgroundColor = UIColor.clearColor()
+		label.backgroundColor = UIColor.clear
 		label.textColor = UIColor(rgba: HexCodes.darkGray)
-		label.font = UIFont.systemFontOfSize(15)
-		label.frame = CGRectInset(view.bounds, 12, 10)
+		label.font = UIFont.systemFont(ofSize: 15)
+		label.frame = view.bounds.insetBy(dx: 12, dy: 10)
 		label.clipsToBounds = false
 		view.addSubview(label)
 		label.text = conversation?.orderedMessagesByCreationTime().last?.subject ?? "No Subject"
 		let bottomView = UIView()
-		bottomView.frame = CGRectMake(0, view.frame.height-0.5, view.frame.width, 0.5)
+		bottomView.frame = CGRect(x: 0, y: view.frame.height-0.5, width: view.frame.width, height: 0.5)
 		bottomView.backgroundColor = UIColor(rgba: HexCodes.lightGray)
-		bottomView.autoresizingMask = [UIViewAutoresizing.FlexibleLeftMargin, UIViewAutoresizing.FlexibleRightMargin, UIViewAutoresizing.FlexibleBottomMargin]
+		bottomView.autoresizingMask = [UIViewAutoresizing.flexibleLeftMargin, UIViewAutoresizing.flexibleRightMargin, UIViewAutoresizing.flexibleBottomMargin]
 		bottomView.translatesAutoresizingMaskIntoConstraints = true
 		view.addSubview(bottomView)
 		return view
 	}
 
-	override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 		return 45
 	}
 
 	// Note: We could use UITableViewAutomaticDimension here however this make the animation really weird on first run
 	// This old school code makes things way smoother.
 	// TODO: Check with a time profiler if this code is slow
-	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		configureCell(sizingCell, indexPath: indexPath)
 
 		// This is needed due the internal implementation of RichTextEditor being loaded into a webview and thus the height might not be available right way.
-		var loopUntil = NSDate(timeIntervalSinceNow: 0.05)
-		let timeOut = NSDate(timeIntervalSinceNow:2)
-		while (!sizingCell.isCellReady() && NSRunLoop.currentRunLoop().runMode(NSDefaultRunLoopMode, beforeDate: loopUntil)) {
-			if NSDate().timeIntervalSinceReferenceDate >= timeOut.timeIntervalSinceReferenceDate {
+		var loopUntil = Date(timeIntervalSinceNow: 0.05)
+		let timeOut = Date(timeIntervalSinceNow:2)
+		while (!sizingCell.isCellReady() && RunLoop.current.run(mode: RunLoopMode.defaultRunLoopMode, before: loopUntil)) {
+			if Date().timeIntervalSinceReferenceDate >= timeOut.timeIntervalSinceReferenceDate {
 				return 200
 			}
 
-			loopUntil = NSDate(timeIntervalSinceNow: 0.05)
+			loopUntil = Date(timeIntervalSinceNow: 0.05)
 		}
 
-		return sizingCell.contentView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize).height
+		return sizingCell.contentView.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height
 	}
 
-	override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-		return self.tableView(tableView, heightForRowAtIndexPath: indexPath)
+	override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+		return self.tableView(tableView, heightForRowAt: indexPath)
 	}
 
-	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		primaryMessage = conversation!.orderedMessagesByCreationTime()[indexPath.row]
 	}
 
-	override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 
 		let message = conversation!.orderedMessagesByCreationTime()[indexPath.row]
 		if !message.read {
@@ -164,7 +164,7 @@ class ConversationTableViewController: UITableViewController {
 		}
 	}
 
-	func configureCell(cell: ConversationMessageTableViewCell, indexPath: NSIndexPath) {
+	func configureCell(_ cell: ConversationMessageTableViewCell, indexPath: IndexPath) {
 		let message = conversation!.orderedMessagesByCreationTime()[indexPath.row]
 
 		let lastMessage = indexPath.row + 1 >= conversation!.orderedMessagesByCreationTime().count
@@ -174,7 +174,7 @@ class ConversationTableViewController: UITableViewController {
 		ConversationTableViewCellHelper.configureCell(cell, message: message, lastMessage: lastMessage, primary: primary)
 	}
 
-	func configureDotColorForCell(cell: ConversationMessageTableViewCell, indexPath: NSIndexPath) {
+	func configureDotColorForCell(_ cell: ConversationMessageTableViewCell, indexPath: IndexPath) {
 		let message = conversation!.orderedMessagesByCreationTime()[indexPath.row]
 
 		if message.starred == true {
@@ -186,12 +186,12 @@ class ConversationTableViewController: UITableViewController {
 		}
 	}
 
-	func reloadCellForMessage(message : Message) {
-		if let index = conversation!.orderedMessagesByCreationTime().indexOf(message) {
-			let indexPath = NSIndexPath(forRow: index, inSection: 0)
-			let cell = tableView.cellForRowAtIndexPath(indexPath) as! ConversationMessageTableViewCell
+	func reloadCellForMessage(_ message : Message) {
+		if let index = conversation!.orderedMessagesByCreationTime().index(of: message) {
+			let indexPath = IndexPath(row: index, section: 0)
+			let cell = tableView.cellForRow(at: indexPath) as! ConversationMessageTableViewCell
 			configureDotColorForCell(cell,indexPath: indexPath)
-			tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
+			tableView.reloadRows(at: [indexPath], with: .none)
 		}
 	}
 }

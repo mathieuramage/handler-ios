@@ -25,21 +25,21 @@ struct Config {
 
 		//Messaging
 		static let messages = Config.APIVersion + "messages"
-		private static let message = Config.APIVersion + "messages/:message_id"
-		static func message(messageId : String) -> String {
-			return message.stringByReplacingOccurrencesOfString(":message_id", withString: messageId)
+		fileprivate static let message = Config.APIVersion + "messages/:message_id"
+		static func message(_ messageId : String) -> String {
+			return message.replacingOccurrences(of: ":message_id", with: messageId)
 		}
 
 		//Conversations
-		private static let conversations = Config.APIVersion + "conversations/:conversation_id"
-		static func conversation(conversationId : String) -> String {
-			return conversations.stringByReplacingOccurrencesOfString(":conversation_id", withString: conversationId)
+		fileprivate static let conversations = Config.APIVersion + "conversations/:conversation_id"
+		static func conversation(_ conversationId : String) -> String {
+			return conversations.replacingOccurrences(of: ":conversation_id", with: conversationId)
 		}
 
 		// User Details
 		static let user = Config.APIVersion + "users/:user_id"
-		static func user(userId : String) -> String {
-			return user.stringByReplacingOccurrencesOfString(":user_id", withString: userId)
+		static func user(_ userId : String) -> String {
+			return user.replacingOccurrences(of: ":user_id", with: userId)
 		}
 
 		static let labels = Config.APIVersion + "labels"

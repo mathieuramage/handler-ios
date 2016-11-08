@@ -9,7 +9,7 @@
 import UIKit
 
 class ActionPluginProvider: NSObject {
-	class func messageCellPluginForInboxType(type: MailboxType)->MessageTableViewCellActions?{
+	class func messageCellPluginForInboxType(_ type: MailboxType)->MessageTableViewCellActions?{
 		switch type {
 		case .Inbox:
 			return InboxActionHandler()

@@ -26,18 +26,18 @@ class SendInvitationViewController: UIViewController, UIViewControllerShow, MFMe
 			if let _ = twitterHandle {
 				byTweetButton.backgroundColor = UIColor(rgba: HexCodes.lightBlue)
 				if MFMessageComposeViewController.canSendText() {
-					bySmsButton.enabled = true
+					bySmsButton.isEnabled = true
 					bySmsButton.backgroundColor = UIColor(rgba: HexCodes.green)
 				} else {
-					bySmsButton.enabled = false
-					bySmsButton.backgroundColor = UIColor.lightGrayColor()
+					bySmsButton.isEnabled = false
+					bySmsButton.backgroundColor = UIColor.lightGray
 				}
-				byTweetButton.enabled  = true
+				byTweetButton.isEnabled  = true
 			} else {
-				bySmsButton.backgroundColor = UIColor.lightGrayColor()
-				byTweetButton.backgroundColor = UIColor.lightGrayColor()
-				bySmsButton.enabled = false
-				byTweetButton.enabled  = false
+				bySmsButton.backgroundColor = UIColor.lightGray
+				byTweetButton.backgroundColor = UIColor.lightGray
+				bySmsButton.isEnabled = false
+				byTweetButton.isEnabled  = false
 			}
 		}
 	}
@@ -48,9 +48,9 @@ class SendInvitationViewController: UIViewController, UIViewControllerShow, MFMe
 		
     }
 	
-	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-		UINib(nibName: "SendInvitationViewController", bundle: NSBundle.mainBundle()).instantiateWithOwner(self, options: nil)
+		UINib(nibName: "SendInvitationViewController", bundle: Bundle.main).instantiate(withOwner: self, options: nil)
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -58,50 +58,50 @@ class SendInvitationViewController: UIViewController, UIViewControllerShow, MFMe
 	}
 
 	@IBAction func dismiss() {
-		UIView.animateWithDuration(0.3, animations: { () -> Void in
+		UIView.animate(withDuration: 0.3, animations: { () -> Void in
 			self.window?.alpha = 0
-			UIApplication.sharedApplication().statusBarStyle = .LightContent
-			}) { (success) -> Void in
+			UIApplication.shared.statusBarStyle = .lightContent
+			}, completion: { (success) -> Void in
 				self.window = nil
-		}
+		}) 
 	}
 	
-	@IBAction func inviteBySMS(sender: UIButton) {
+	@IBAction func inviteBySMS(_ sender: UIButton) {
 		let composer = MFMessageComposeViewController()
 		composer.delegate = self
 		composer.body = "Hey \(twitterHandle)! check out Handler, a new email app for Twitter. http://handlerapp.com/get"
-		presentViewController(composer, animated: true, completion: nil)
+		present(composer, animated: true, completion: nil)
 	}
     
-    func dismissPressed(sender: AnyObject?) {
+    func dismissPressed(_ sender: AnyObject?) {
         dismiss()
     }
 	
-	@IBAction func inviteByTweet(sender: UIButton) {
+	@IBAction func inviteByTweet(_ sender: UIButton) {
 		let composer = TWTRComposer()
 		composer.setImage(nil)
 		composer.setText("Hey @\(twitterHandle)! check out Handler, a new email app for Twitter.")
-		composer.setURL(NSURL(string:"www.handlerapp.com/get")!)
-		composer.showFromViewController(self) { (result) -> Void in
+		composer.setURL(URL(string:"www.handlerapp.com/get")!)
+		composer.show(from: self) { (result) -> Void in
 			switch result {
-			case .Done:
+			case .done:
 				self.dismiss()
 				return
-			case .Cancelled:
+			case .cancelled:
 				return
 			}
 		}
 	}
 	
-	func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
-		if result == MessageComposeResultCancelled {
+	func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+		if result == MessageComposeResult.cancelled {
 			return
-		}else if (result == MessageComposeResultFailed || result == MessageComposeResultSent){
+		}else if (result == MessageComposeResult.failed || result == MessageComposeResult.sent){
 			dismiss()
 		}
 	}
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return .lightContent
     }
 }

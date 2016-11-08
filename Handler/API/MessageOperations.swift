@@ -11,27 +11,27 @@ import SwiftyJSON
 
 struct MessageOperations {
 
-	static func getAllMessages(before before : NSDate? , after : NSDate?, limit : Int?, callback : (success : Bool, messages : [Message]?) -> ()) {
+	static func getAllMessages(before : Date? , after : Date?, limit : Int?, callback : @escaping (_ success : Bool, _ messages : [Message]?) -> ()) {
 
 		var params : [String : AnyObject] = [:]
 
 		if let before = before {
-			params["before"] = String(before.timeIntervalSince1970 * 1000)
+			params["before"] = String(before.timeIntervalSince1970 * 1000) as AnyObject?
 		} else {
-			params["before"] = String(NSDate().timeIntervalSince1970 * 1000)
+			params["before"] = String(Date().timeIntervalSince1970 * 1000) as AnyObject?
 		}
 		if let after = after {
-			params["after"] =  String(after.timeIntervalSince1970 * 1000)
+			params["after"] =  String(after.timeIntervalSince1970 * 1000) as AnyObject?
 		} else {
-			params["after"] = "0"
+			params["after"] = "0" as AnyObject?
 		}
 		if let limit = limit {
-			params["limit"] = limit
+			params["limit"] = limit as AnyObject?
 		}
 
-		APIUtility.request(.GET, route: Config.APIRoutes.messages, parameters: params).responseJSON { (response) in
+        APIUtility.request(method: .get, route: Config.APIRoutes.messages, parameters: params).responseJSON { response in
 			switch response.result {
-			case .Success:
+			case .success:
 				var messages : [Message] = []
 				if let value = response.result.value {
 					if let json = JSON(value)["messages"].array {
@@ -41,31 +41,31 @@ struct MessageOperations {
 						}
 					}
 				}
-				callback(success: true, messages: messages)
-			case .Failure(_):
-				callback(success: false, messages: nil)
+				callback(true,messages)
+			case .failure(_):
+				callback(false,nil)
 			}
 		}
 	}
 
-	static func getMessage(id : String, callback : (success : Bool, message : Message?) -> ()) {
+	static func getMessage(_ id : String, callback : @escaping (_ success : Bool, _ message : Message?) -> ()) {
 
 		let route = Config.APIRoutes.message(id)
-		APIUtility.request(.GET, route: route, parameters: nil).responseJSON { (response) in
+		APIUtility.request(method: .get, route: route, parameters: nil).responseJSON { response in
 			switch response.result {
-			case .Success:
+			case .success:
 				var message : Message?
 				if let value = response.result.value {
 					message = Message.messageWithJSON(JSON(value), inContext: DatabaseManager.sharedInstance.mainManagedContext)
 				}
-				callback(success: true, message: message)
-			case .Failure(_):
-				callback(success: false, message: nil)
+				callback(true,message)
+			case .failure(_):
+				callback(false,nil)
 			}
 		}
 	}
 
-	static func replyMessageToAll(message : Message, replyMessage: String, callback : MessageUpdateCallback) {
+	static func replyMessageToAll(_ message : Message, replyMessage: String, callback : @escaping MessageUpdateCallback) {
 		var messageData = MessageData()
 		messageData.conversationId = message.conversationId
 		messageData.subject = message.subject
@@ -77,17 +77,17 @@ struct MessageOperations {
 			recipients.append(message.sender!.handle)
 		}
 		for user in message.recipients! {
-			if user.identifier != AuthUtility.user?.identifier {
-				recipients.append(user.handle)
+			if (user as AnyObject).identifier != AuthUtility.user?.identifier {
+				recipients.append((user as AnyObject).handle)
 			}
 		}
 		messageData.recipients = recipients
 		postNewMessage(messageData, callback: callback)
 	}
 
-	typealias MessageUpdateCallback = (success : Bool, message: Message?) -> ()
+	typealias MessageUpdateCallback = (_ success : Bool, _ message: Message?) -> ()
 
-	static func replyToUserNames(recipientUserNames : [String], conversationId: String, message : String, subject : String, callback : MessageUpdateCallback?) {
+	static func replyToUserNames(_ recipientUserNames : [String], conversationId: String, message : String, subject : String, callback : MessageUpdateCallback?) {
 		var messageData = MessageData()
 		messageData.subject = message
 		messageData.message = subject
@@ -96,7 +96,7 @@ struct MessageOperations {
 		postNewMessage(messageData, callback: callback)
 	}
 
-	static func replyMessageToUsers(users : [ManagedUser], conversationId: String, message: String, subject : String, callback : MessageUpdateCallback?) {
+	static func replyMessageToUsers(_ users : [ManagedUser], conversationId: String, message: String, subject : String, callback : MessageUpdateCallback?) {
 		var recipientUserNames : [String] = []
 		for user in users {
 			recipientUserNames.append(user.handle)
@@ -104,7 +104,7 @@ struct MessageOperations {
 		replyToUserNames(recipientUserNames, conversationId: conversationId, message: message, subject: subject, callback: callback)
 	}
 
-	static func sendNewMessage(message : String, subject : String, recipientUserNames: [String], callback : MessageUpdateCallback?) {
+	static func sendNewMessage(_ message : String, subject : String, recipientUserNames: [String], callback : MessageUpdateCallback?) {
 		var messageData = MessageData()
 		messageData.subject = subject
 		messageData.message = message
@@ -113,7 +113,7 @@ struct MessageOperations {
 		postNewMessage(messageData, callback: callback)
 	}
 
-	static func sendNewMessage(message : String, subject : String, recipients: [ManagedUser], callback : MessageUpdateCallback?) {
+	static func sendNewMessage(_ message : String, subject : String, recipients: [ManagedUser], callback : MessageUpdateCallback?) {
 		var recipientUserNames : [String] = []
 		for user in recipients {
 			recipientUserNames.append(user.handle)
@@ -121,14 +121,14 @@ struct MessageOperations {
 		sendNewMessage(message, subject: subject, recipientUserNames: recipientUserNames, callback: callback)
 	}
 
-	static func setMessageAsRead(message message : Message, read : Bool, callback : MessageUpdateCallback?) {
+	static func setMessageAsRead(message : Message, read : Bool, callback : MessageUpdateCallback?) {
 		var messageData = MessageData()
 		messageData.messageId = message.identifier
 		messageData.read = true
 		postExistingMessage(messageData, callback: callback)
 	}
 
-	static func setMessageStarred(message message : Message, starred : Bool, callback : MessageUpdateCallback?) {
+	static func setMessageStarred(message : Message, starred : Bool, callback : MessageUpdateCallback?) {
 		var messageData = MessageData()
 		messageData.messageId = message.identifier
 		messageData.starred = true
@@ -136,39 +136,39 @@ struct MessageOperations {
 	}
 
 
-	private static func postNewMessage(messageData : MessageData, callback : MessageUpdateCallback?) {
+	fileprivate static func postNewMessage(_ messageData : MessageData, callback : MessageUpdateCallback?) {
 
 		let route = Config.APIRoutes.messages
 
 		var params = [String : AnyObject]()
 
 		if let conversationId = messageData.conversationId {
-			params["conversation_id"] = conversationId
+			params["conversation_id"] = conversationId as AnyObject?
 		}
 
 		if let subject = messageData.subject {
-			params["subject"] = subject
+			params["subject"] = subject as AnyObject?
 		}
 
 		if let message = messageData.message {
-			params["message"] = message
+			params["message"] = message as AnyObject?
 		}
 
 		if let folder = messageData.folder {
-			params["folder"] = folder.rawValue
+			params["folder"] = folder.rawValue as AnyObject?
 		}
 
 		if let recipients = messageData.recipients {
-			params["recipients"] = recipients
+			params["recipients"] = recipients as AnyObject?
 		}
 
 		if let labels = messageData.labels {
-			params["labels"] = labels
+			params["labels"] = labels as AnyObject?
 		}
 
-		APIUtility.request(.POST, route: route, parameters: params).responseJSON { (response) in
+        APIUtility.request(method: .post, route: route, parameters: params).responseJSON { response in
 			switch response.result {
-			case .Success:
+			case .success:
 				var message : Message?
 				if let value = response.result.value {
 					if let json = JSON(value)["messages"].array {
@@ -177,18 +177,18 @@ struct MessageOperations {
 						}
 					}
 				}
-				callback?(success: true, message: message)
-			case .Failure(_):
-				callback?(success: false, message: nil)
+				callback?(true,message)
+			case .failure(_):
+				callback?(false, nil)
 			}
 		}
 	}
 
 
-	private static func postExistingMessage(messageData : MessageData, callback : MessageUpdateCallback?) {
+	fileprivate static func postExistingMessage(_ messageData : MessageData, callback : MessageUpdateCallback?) {
 
 		guard let messageId = messageData.messageId else {
-			callback?(success : false, message: nil)
+			callback?(false, nil)
 			return
 		}
 		let route = Config.APIRoutes.message(messageId)
@@ -196,36 +196,36 @@ struct MessageOperations {
 		var params = [String : AnyObject]()
 
 		if let subject = messageData.subject {
-			params["subject"] = subject
+			params["subject"] = subject as AnyObject?
 		}
 
 		if let message = messageData.message {
-			params["message"] = message
+			params["message"] = message as AnyObject?
 		}
 
 		if let folder = messageData.folder {
-			params["folder"] = folder.rawValue
+			params["folder"] = folder.rawValue as AnyObject?
 		}
 
 		if let recipients = messageData.recipients {
-			params["recipients"] = recipients
+			params["recipients"] = recipients as AnyObject?
 		}
 
 		if let read = messageData.read {
-			params["isRead"] = read
+			params["isRead"] = read as AnyObject?
 		}
 
 		if let starred = messageData.starred {
-			params["isStar"] = starred
+			params["isStar"] = starred as AnyObject?
 		}
 
 		if let labels = messageData.labels {
-			params["labels"] = labels
+			params["labels"] = labels as AnyObject?
 		}
 
-		APIUtility.request(.POST, route: route, parameters: params).responseJSON { (response) in
+        APIUtility.request(method: .post, route: route, parameters: params).responseJSON { (response) in
 			switch response.result {
-			case .Success:
+			case .success:
 				var message : Message?
 				if let value = response.result.value {
 					if let json = JSON(value)["messages"].array {
@@ -234,10 +234,9 @@ struct MessageOperations {
 						}
 					}
 				}
-				callback?(success: true, message: message)
-
-			case .Failure(_):
-				callback?(success: false, message: nil)
+				callback?(true, message)
+			case .failure(_):
+				callback?(false, nil)
 			}
 		}
 	}

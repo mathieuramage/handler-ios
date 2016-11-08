@@ -14,8 +14,8 @@ typealias Thread = ManagedConversation
 
 class ManagedConversation: NSManagedObject {
 
-	class func conversationWithID(identifier: String, inContext context: NSManagedObjectContext) -> ManagedConversation {
-		let fetchRequest = NSFetchRequest(entityName: "Conversation")
+	class func conversationWithID(_ identifier: String, inContext context: NSManagedObjectContext) -> ManagedConversation {
+		let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Conversation")
 		fetchRequest.predicate = NSPredicate(format: "identifier == %@", identifier)
 		fetchRequest.fetchBatchSize = 1
 
@@ -36,7 +36,7 @@ class ManagedConversation: NSManagedObject {
 			}
 
 			for message in messages {
-				if message.createdAt!.compare(latest.createdAt!) == .OrderedDescending {
+				if message.createdAt!.compare(latest.createdAt! as Date) == .orderedDescending {
 					latest = message
 				}
 			}
@@ -63,7 +63,7 @@ class ManagedConversation: NSManagedObject {
 					continue
 				}
 
-				if message.createdAt!.compare(latest!.createdAt!) == .OrderedDescending {
+				if message.createdAt!.compare(latest!.createdAt! as Date) == .orderedDescending {
 					latest = message
 				}
 			}
@@ -84,12 +84,12 @@ class ManagedConversation: NSManagedObject {
 			return []
 		}
 
-		return messages.sort({ (message1, message2) -> Bool in
+		return messages.sorted(by: { (message1, message2) -> Bool in
 			guard let date1 = message1.createdAt, let date2 = message2.createdAt else {
 				return false
 			}
 
-			return date1.isLaterThanDate(date2)
+			return date1.isLaterThanDate(date2 as Date)
 		})
 	}
 
@@ -98,12 +98,12 @@ class ManagedConversation: NSManagedObject {
 			return []
 		}
 
-		return messages.sort({ (message1, message2) -> Bool in
+		return messages.sorted(by: { (message1, message2) -> Bool in
 			guard let date1 = message1.updatedAt, let date2 = message2.updatedAt else {
 				return false
 			}
 
-			return date1.isLaterThanDate(date2)
+			return date1.isLaterThanDate(date2 as Date)
 		})
 	}
 
@@ -145,9 +145,9 @@ class ManagedConversation: NSManagedObject {
 		if let messages = messages {
 			let msgSet = NSSet(set: messages)
 			let messageList = msgSet.allObjects as? [ManagedMessage]
-			let sorted =  messageList?.sort({
+			let sorted =  messageList?.sorted(by: {
 				if let firstSent = $0.updatedAt, let secondSent = $1.updatedAt {
-					return firstSent.compare(secondSent) == NSComparisonResult.OrderedDescending
+					return firstSent.compare(secondSent as Date) == ComparisonResult.orderedDescending
 				}
 
 				return true
@@ -196,7 +196,7 @@ class ManagedConversation: NSManagedObject {
 		}
 	}
 
-	func markAsUnread(message: ManagedMessage) {
+	func markAsUnread(_ message: ManagedMessage) {
 		guard let messages = messages?.allObjects as? [ManagedMessage], let currentMessageDate = message.updatedAt else {
 			return
 		}
@@ -206,7 +206,7 @@ class ManagedConversation: NSManagedObject {
 				continue
 			}
 
-			if messageToCompareDate.isLaterThanDate(currentMessageDate) || messageToCompareDate.isEqualToDate(currentMessageDate) {
+			if messageToCompareDate.isLaterThanDate(currentMessageDate as Date) || (messageToCompareDate == currentMessageDate) {
 				messageToCompare.markAsUnread()
 			}
 		}

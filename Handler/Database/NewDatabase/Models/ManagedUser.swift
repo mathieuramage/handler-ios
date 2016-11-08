@@ -46,17 +46,17 @@ class ManagedUser: NSManagedObject {
 
     var handle : String = ""
 	var pictureUrlString: String?
-	var pictureUrl : NSURL? {
+	var pictureUrl : URL? {
 		get {
 			if let pictureUrlString = pictureUrlString {
-				return NSURL(string: pictureUrlString)
+				return URL(string: pictureUrlString)
 			}
 
 			return nil
 		}
 	}
 
-	private convenience init(json: JSON, inContext context: NSManagedObjectContext) {
+	fileprivate convenience init(json: JSON, inContext context: NSManagedObjectContext) {
 		self.init(managedObjectContext: context)
 
 		identifier = json["_id"].stringValue
@@ -70,7 +70,7 @@ class ManagedUser: NSManagedObject {
 		name = json["twitter"]["name"].stringValue
 		friendsCount = json["friendsCount"].int
 		role = json["role"].string
-		riskRating = json["riskRating"].intValue
+		riskRating = json["riskRating"].intValue as NSNumber?
 
 		status = UserStatus(rawValue: json["userStatus"].stringValue)
 
@@ -78,30 +78,34 @@ class ManagedUser: NSManagedObject {
 		emailThreadCount = json["emailThreads"].intValue
 	}
 
-	private convenience init(handle: String, inManagedContext context: NSManagedObjectContext) {
+	fileprivate convenience init(handle: String, inManagedContext context: NSManagedObjectContext) {
 		// OTTODO: Implement this
 
 		self.init(managedObjectContext: context)
 	}
 
-	class func userWithJSON(json: JSON, inContext context: NSManagedObjectContext) -> ManagedUser {
-		let identifier = json["_id"].stringValue
-
-		let fetchRequest = NSFetchRequest(entityName: self.entityName())
-		fetchRequest.predicate = NSPredicate(format: "identifier == %@", identifier)
-		fetchRequest.fetchBatchSize = 1
-
-		if let user = context.safeExecuteFetchRequest(fetchRequest).first as? ManagedUser {
-			return user
-		}
-
+	class func userWithJSON(_ json: JSON, inContext context: NSManagedObjectContext) -> ManagedUser {
+        
+        // I'm getting a segmentation fault if I uncomment this       
+        
+        
+//		let identifier = json["_id"].stringValue
+//
+//		let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName())
+//		fetchRequest.predicate = NSPredicate(format: "identifier == %@", identifier)
+//		fetchRequest.fetchBatchSize = 1
+//
+//		if let user = context.safeExecuteFetchRequest(fetchRequest).first as? ManagedUser {
+//			return user
+//		}
+//     
 		let user = ManagedUser(json: json, inContext: context)
 
 		return user
 	}
 
 
-	class func userWithHandle(handle: String, inContext context: NSManagedObjectContext? = nil) -> ManagedUser {
+	class func userWithHandle(_ handle: String, inContext context: NSManagedObjectContext? = nil) -> ManagedUser {
 		let internalContext = context ?? DatabaseManager.sharedInstance.mainManagedContext
 
 		if let user = (internalContext.safeExecuteFetchRequest(ManagedUser.fetchRequestForHandle(handle)) as [ManagedUser]).first {
@@ -112,8 +116,8 @@ class ManagedUser: NSManagedObject {
 		}
 	}
 
-	class func fetchRequestForHandle(handle: String) -> NSFetchRequest {
-		let fetchRequest = NSFetchRequest(entityName: self.entityName())
+	class func fetchRequestForHandle(_ handle: String) -> NSFetchRequest<NSFetchRequestResult> {
+		let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName())
 		fetchRequest.predicate = NSPredicate(format: "%K == %@", "handle", handle)
 		return fetchRequest
 	}

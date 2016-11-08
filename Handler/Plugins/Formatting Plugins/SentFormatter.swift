@@ -11,10 +11,10 @@ import Async
 
 struct SentFormatter: MessageTableViewCellFormatter {
     
-    var timeFormatter: NSDateFormatter = {
-        let formatter = NSDateFormatter()
-        formatter.timeStyle = NSDateFormatterStyle.NoStyle
-        formatter.dateStyle = NSDateFormatterStyle.ShortStyle
+    var timeFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.timeStyle = DateFormatter.Style.none
+        formatter.dateStyle = DateFormatter.Style.short
         return formatter
     }()
     
@@ -31,10 +31,8 @@ struct SentFormatter: MessageTableViewCellFormatter {
         
         view.leftUtilityButtons = leftButtonsForData(data: message)
         view.rightUtilityButtons = rightButtonsForData(data: message)
-        if let urlString = (message.recipients?.allObjects.first as? ManagedUser)?.profile_picture_url, let profileUrl = NSURL(string: urlString) {
-            view.senderProfileImageView.kf_setImageWithURL(profileUrl, placeholderImage: UIImage.randomGhostImage(), optionsInfo: nil, completionHandler: { (image, error, cacheType, imageURL) -> () in
-
-            })
+        if let urlString = (message.recipients?.allObjects.first as? ManagedUser)?.profile_picture_url, let profileUrl = URL(string: urlString) {
+            view.senderProfileImageView.kf.setImage(with: profileUrl, placeholder: UIImage.randomGhostImage(), options: nil, progressBlock: nil, completionHandler: nil)
         }
         
         view.senderNameLabel.text = (message.recipients?.allObjects.first as? ManagedUser)?.name
@@ -44,16 +42,16 @@ struct SentFormatter: MessageTableViewCellFormatter {
         view.messageSubjectLabel.text = message.subject
         view.messageContentPreviewLabel.text = message.content
         if let createdAt = message.createdAt {
-            view.messageTimeLabel.text = timeFormatter.stringFromDate(createdAt)
+            view.messageTimeLabel.text = timeFormatter.string(from: createdAt as Date)
         } else {
             view.messageTimeLabel.text = "-"
         }
 
-		if let count = message.conversation?.messages?.count where count > 1 {
-			view.threadCountLabel.hidden = false
+		if let count = message.conversation?.messages?.count, count > 1 {
+			view.threadCountLabel.isHidden = false
 			view.threadCountLabel.text = "\(count)"
 		} else {
-			view.threadCountLabel.hidden = true
+			view.threadCountLabel.isHidden = true
 			view.threadCountLabel.text = "-"
 		}
 
@@ -61,13 +59,13 @@ struct SentFormatter: MessageTableViewCellFormatter {
 		//        if let count = message.attachments?.count where count > 1 {
 		//            view.attachmentIconView.hidden = false
 		//        } else {
-		view.attachmentIconView.hidden = true
+		view.attachmentIconView.isHidden = true
 		//        }
 
 		if message.conversation?.mostRecentMessage?.sender?.id == AuthUtility.user?.identifier {
-			view.repliedIconView.hidden = false
+			view.repliedIconView.isHidden = false
 		} else {
-			view.repliedIconView.hidden = true
+			view.repliedIconView.isHidden = true
 		}
 
         setUpReadFlagMessage(data: message, view: view)

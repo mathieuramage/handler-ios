@@ -16,27 +16,27 @@ import Async
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-	var messageUpdateTimer : NSTimer?
+	var messageUpdateTimer : Timer?
 
 	var window: UIWindow?
 	lazy var sideMenu: SSASideMenu = {
-		let menuViewController = Storyboards.Main.instantiateViewControllerWithIdentifier("SideMenuViewController") as! SideMenuViewController
-		let mainController = Storyboards.Main.instantiateViewControllerWithIdentifier("MainNavigationController")
+		let menuViewController = Storyboards.Main.instantiateViewController(withIdentifier: "SideMenuViewController") as! SideMenuViewController
+		let mainController = Storyboards.Main.instantiateViewController(withIdentifier: "MainNavigationController")
 		let sideMenu = SSASideMenu(contentViewController: mainController, leftMenuViewController: menuViewController)
-		sideMenu.type = SSASideMenu.SSASideMenuType.Slip
+		sideMenu.type = SSASideMenu.SSASideMenuType.slip
 		sideMenu.contentViewInPortraitOffsetCenterX = 30
 		sideMenu.leftMenuRightInset = 30
-		sideMenu.statusBarStyle = SSASideMenu.SSAStatusBarStyle.Hidden
+		sideMenu.statusBarStyle = SSASideMenu.SSAStatusBarStyle.hidden
 		return sideMenu
 	}()
 
 	var backgroundSessionCompletionHandler: (() -> Void)?
 
-	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 //		HandlerAPI.startWithClientId("9c3594fbb153aec6c70477a66229bca7786b7b7b5beb6b2c68c2997ab7ca1e4f", clientSecret : "58614156d6144ed0fd76a0cad80e00cfb5bd2fc33ec1e348fd8d6ffa18d66007")
 
 
-		Twitter.sharedInstance().startWithConsumerKey(Config.Twitter.consumerKey, consumerSecret: Config.Twitter.consumerSecret)
+		Twitter.sharedInstance().start(withConsumerKey: Config.Twitter.consumerKey, consumerSecret: Config.Twitter.consumerSecret)
 		Fabric.with([Twitter.sharedInstance(), Crashlytics.self()])
 //		UserTwitterStatusManager.startUpdating() TODO : Do this properly with the new API code
 		UIToolbar.appearance().tintColor = UIColor(rgba: HexCodes.lightBlue)
@@ -47,15 +47,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		loadInitialViewController()
 
-		let settings = UIUserNotificationSettings(forTypes: [UIUserNotificationType.Badge, UIUserNotificationType.Sound, UIUserNotificationType.Alert], categories: nil)
-		UIApplication.sharedApplication().registerUserNotificationSettings(settings)
-		UIApplication.sharedApplication().registerForRemoteNotifications()
-		UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+		let settings = UIUserNotificationSettings(types: [UIUserNotificationType.badge, UIUserNotificationType.sound, UIUserNotificationType.alert], categories: nil)
+		UIApplication.shared.registerUserNotificationSettings(settings)
+		UIApplication.shared.registerForRemoteNotifications()
+		UIApplication.shared.applicationIconBadgeNumber = 0
 		startMessageUpdateTimer()
 		return true
 	}
 
-	func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
+	func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
 		print(url)
 //		HROAuthManager.handleIncomingAuthURL(url)
 		return true
@@ -63,16 +63,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	// MARK: Push
 
-	func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+	func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
 		print(error)
 	}
 
-	func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-		NSUserDefaults.standardUserDefaults().setValue(deviceToken.hexadecimalString, forKey: "pushtoken")
+	func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+		UserDefaults.standard.setValue(deviceToken.hexadecimalString, forKey: "pushtoken")
 		// TODO upcoming push notifcation task
 	}
 
-	func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+	func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
 
 //		if let id = userInfo["id"] as? String {
 //
@@ -98,35 +98,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //		}
 	}
 
-	func application(application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: () -> Void) {
+	func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> Void) {
 		backgroundSessionCompletionHandler = completionHandler
 	}
 
-	func applicationWillResignActive(application: UIApplication) {
+	func applicationWillResignActive(_ application: UIApplication) {
 		cancelMessageUpdateTimer()
 		// Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
 		// Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 	}
 
-	func applicationDidEnterBackground(application: UIApplication) {
+	func applicationDidEnterBackground(_ application: UIApplication) {
 		cancelMessageUpdateTimer()
 		// Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
 		// If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 	}
 
-	func applicationDidBecomeActive(application: UIApplication) {
+	func applicationDidBecomeActive(_ application: UIApplication) {
 		startMessageUpdateTimer()
 		// Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 	}
 
-	func applicationWillTerminate(application: UIApplication) {
+	func applicationWillTerminate(_ application: UIApplication) {
 		cancelMessageUpdateTimer()
 		DatabaseManager.sharedInstance.mainManagedContext.saveRecursively()
 	}
 
 
 	func startMessageUpdateTimer() {
-		messageUpdateTimer = NSTimer(timeInterval: NSTimeInterval(MAILBOX_REFRESH_INTERVAL), target: self, selector: #selector(AppDelegate.updateMessages), userInfo: nil, repeats: true)
+		messageUpdateTimer = Timer(timeInterval: TimeInterval(MAILBOX_REFRESH_INTERVAL), target: self, selector: #selector(AppDelegate.updateMessages), userInfo: nil, repeats: true)
 	}
 
 	func cancelMessageUpdateTimer() {
@@ -146,11 +146,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	func loadInitialViewController() {
-		if (NSUserDefaults.standardUserDefaults().boolForKey("didFinishWalkthrough") && !ENABLE_ONBOARDING_EVERY_RUN) {
+		if (UserDefaults.standard.bool(forKey: "didFinishWalkthrough") && !ENABLE_ONBOARDING_EVERY_RUN) {
 			if let _ = AuthUtility.accessToken {
 				window?.rootViewController = sideMenu
 			}else{
-				window?.rootViewController = Storyboards.Intro.instantiateViewControllerWithIdentifier("LoginViewController")
+				window?.rootViewController = Storyboards.Intro.instantiateViewController(withIdentifier: "LoginViewController")
 			}
 		}else{
 			window?.rootViewController = IntroViewController(nibName: "IntroView", bundle: nil)
@@ -163,7 +163,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate {
 	static func sharedInstance()->AppDelegate{
-		return UIApplication.sharedApplication().delegate as! AppDelegate
+		return UIApplication.shared.delegate as! AppDelegate
 	}
 }
 

@@ -11,24 +11,23 @@ import SwiftyJSON
 
 struct UserOperations {
 
-	static func getMe(callback: (success : Bool, user : ManagedUser?) -> ()) {
+	static func getMe(_ callback: @escaping (_ success : Bool, _ user : ManagedUser?) -> ()) {
 		getUser("me", callback: callback)
 	}
 
-	static func getUser(screenName : String, callback : (success : Bool, user : ManagedUser?) -> ()) {
+	static func getUser(_ screenName : String, callback : @escaping (_ success : Bool, _ user : ManagedUser?) -> ()) {
 		let route = Config.APIRoutes.user(screenName)
 
-		APIUtility.request(.GET, route: route, parameters: nil).responseJSON { (response) in
+		APIUtility.request(method: .get, route: route, parameters: nil).responseJSON { (response) in
 			switch response.result {
-			case .Success:
+			case .success:
 				var user : ManagedUser?
 				if let value = response.result.value {
 					user = ManagedUser.userWithJSON(JSON(value)["data"], inContext:DatabaseManager.sharedInstance.mainManagedContext)
 				}
-				callback(success: user != nil, user: user)
-
-			case .Failure(_):
-				callback(success: false, user: nil)
+				callback(user != nil, user)
+			case .failure(_):
+				callback(false, nil)
 			}
 		}
 	}

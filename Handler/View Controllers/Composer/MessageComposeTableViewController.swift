@@ -31,7 +31,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	var sizingCell: ConversationMessageTableViewCell {
 		get {
 			if _sizingCell == nil {
-				_sizingCell = self.tableView.dequeueReusableCellWithIdentifier(ConversationMessageCellID) as? ConversationMessageTableViewCell
+				_sizingCell = self.tableView.dequeueReusableCell(withIdentifier: ConversationMessageCellID) as? ConversationMessageTableViewCell
 			}
 
 			return _sizingCell!
@@ -44,7 +44,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	var conversations = [Conversation]()
 
 
-	private var internalmessageToReplyTo: Message?
+	fileprivate var internalmessageToReplyTo: Message?
 	var messageToReplyTo: Message? {
 
 		set(new){
@@ -81,7 +81,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		}
 	}
 	var messageToForward: Message?
-	private var internalDraftmessage: Message?
+	fileprivate var internalDraftmessage: Message?
 	var draftMessage: Message?
 	// TODO
 	//		{
@@ -98,11 +98,11 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	//		}
 	//	}
 
-	private var originalRecipients = [String]()
-	private var originalRecipientsChanged = false
+	fileprivate var originalRecipients = [String]()
+	fileprivate var originalRecipientsChanged = false
 
-	private var originalReplySubject : String?
-	private var replySubjectChanged : Bool = false
+	fileprivate var originalReplySubject : String?
+	fileprivate var replySubjectChanged : Bool = false
 
 	@IBOutlet weak var tokenView: CLTokenInputView!
 	@IBOutlet weak var ccTokenView: CLTokenInputView!
@@ -123,28 +123,28 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	var delegate : MessageComposeTableViewControllerDelegate?
 
 	deinit {
-		NSNotificationCenter.defaultCenter().removeObserver(self)
+		NotificationCenter.default.removeObserver(self)
 	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
 		let messageNib = UINib(nibName: "ConversationMessageTableViewCell", bundle: nil);
-		tableView.registerNib(messageNib, forCellReuseIdentifier: ConversationMessageCellID)
+		tableView.register(messageNib, forCellReuseIdentifier: ConversationMessageCellID)
 		tableView.tableFooterView = UIView()
 
 		subjectTextField.delegate = self
 
 
 		// UI Configuration
-		self.richTextContentView.setPlaceholderText("Share something")
-		self.richTextContentView.setTextColor(UIColor(rgba: HexCodes.lightGray))
+        self.richTextContentView.setPlaceholder(text: "Share something")
+        self.richTextContentView.setText(color: UIColor(rgba: HexCodes.lightGray))
 		self.richTextContentView.delegate = self
-		self.richTextContentView.webView.dataDetectorTypes = [.All]
-		self.richTextContentView.webView.backgroundColor = UIColor.clearColor()
-		self.richTextContentView.webView.scrollView.backgroundColor = UIColor.clearColor()
-		self.richTextContentView.backgroundColor = UIColor.clearColor()
-		self.richTextContentView.webView.opaque = false
+		self.richTextContentView.webView.dataDetectorTypes = [.all]
+		self.richTextContentView.webView.backgroundColor = UIColor.clear
+		self.richTextContentView.webView.scrollView.backgroundColor = UIColor.clear
+		self.richTextContentView.backgroundColor = UIColor.clear
+		self.richTextContentView.webView.isOpaque = false
 		//		if let draft = draftMessage {
 		//
 		//
@@ -162,14 +162,14 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		//
 		//		} else {
 
-		if let message = messageToReplyTo where message.sender!.handle.characters.count > 0 {
+		if let message = messageToReplyTo, message.sender!.handle.characters.count > 0 {
 			let sender = message.sender!.handle
 			self.title = "New Reply"
 			validatedTokens.append(ValidatedToken(name: sender, isOnHandler: true))
 
-			tokenView.addToken(CLToken(displayText: "@\(sender)", context: nil))
+			tokenView.add(CLToken(displayText: "@\(sender)", context: nil))
 			tokenView.validatedString(sender, withResult: true)
-			tokenView.reloadTokenWithTitle(sender)
+			tokenView.reloadToken(withTitle: sender)
 
 			if message.hasReplyPrefix() {
 				subjectTextField.text = message.subject
@@ -183,12 +183,12 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
 		if let receivers = messageToReplyTo?.recipientsWithoutSelf() {
 			for receiver in receivers {
-				let senderUsername = receiver.handle
-				if senderUsername.characters.count > 0 {
-					validatedTokens.append(ValidatedToken(name: senderUsername, isOnHandler: true))
-					ccTokenView.addToken(CLToken(displayText: "@\(senderUsername)", context: nil))
-					ccTokenView.validatedString(senderUsername, withResult: true)
-					ccTokenView.reloadTokenWithTitle(senderUsername)
+				let senderUsername = (receiver as AnyObject).handle
+				if (senderUsername?.characters.count)! > 0 {
+					validatedTokens.append(ValidatedToken(name: senderUsername!, isOnHandler: true))
+					ccTokenView.add(CLToken(displayText: "@\(senderUsername)", context: nil))
+					ccTokenView.validatedString(senderUsername!, withResult: true)
+					ccTokenView.reloadToken(withTitle: senderUsername!)
 				}
 			}
 			//			}
@@ -208,14 +208,14 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
 	}
 
-	override func viewWillAppear(animated: Bool) {
+	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		enableSendButton()
 	}
 
 	// MARK: Contacts Add Buttons
 
-	@IBAction func contactButtonPressed(button: UIButton){
+	@IBAction func contactButtonPressed(_ button: UIButton){
 		if button == self.addToContactButton {
 			// Add recipient
 			addContactToCC = false
@@ -224,46 +224,46 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 			addContactToCC = true
 		}
 
-		performSegueWithIdentifier("showContacts", sender: self)
+		performSegue(withIdentifier: "showContacts", sender: self)
 	}
 
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if segue.identifier == "showContacts" {
-			let destinationVC = segue.destinationViewController as! ContactsTableViewController
+			let destinationVC = segue.destination as! ContactsTableViewController
 			destinationVC.userSelectionDelegate = self
 		}
 	}
 
-	func didSelectUser(user: ManagedUser) {
-		navigationController?.popViewControllerAnimated(true)
+	func didSelectUser(_ user: ManagedUser) {
+		navigationController?.popViewController(animated: true)
 		validatedTokens.append(ValidatedToken(name: user.handle ?? "", isOnHandler: true))
 		if addContactToCC {
-			self.ccTokenView.addToken(CLToken(displayText: "@" + (user.handle ?? ""), context: nil))
+			self.ccTokenView.add(CLToken(displayText: "@" + (user.handle ?? ""), context: nil))
 		} else {
-			self.tokenView.addToken(CLToken(displayText: "@" + (user.handle ?? ""), context: nil))
+			self.tokenView.add(CLToken(displayText: "@" + (user.handle ?? ""), context: nil))
 		}
 	}
 	// MARK: Sending / Cancelling
 
 	func dismiss() {
 
-		let alertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+		let alertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
 
-		alertController.addAction(UIAlertAction(title: "Delete Draft", style: UIAlertActionStyle.Destructive, handler: { (action) -> Void in
+		alertController.addAction(UIAlertAction(title: "Delete Draft", style: UIAlertActionStyle.destructive, handler: { (action) -> Void in
 //			if let attachments = self.attachmentsCell.attachments {
 //				for attachment in attachments {
 //					attachment.delete()
 //				}
 //			}
-			self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+			self.navigationController?.dismiss(animated: true, completion: nil)
 		}))
 
 
-		alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+		alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: { (action) -> Void in
 
 		}))
 
-		presentViewController(alertController, animated: true, completion: nil)
+		present(alertController, animated: true, completion: nil)
 
 		// Draft disabled for now as per IOS-96
 
@@ -304,7 +304,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 //				}
 //			}
 
-			recipients.append(token.displayText.stringByReplacingOccurrencesOfString("@", withString: ""))  //FIXME, temporary IMPORTANT, DELETE THIS and uncomment above.
+			recipients.append(token.displayText.replacingOccurrences(of: "@", with: ""))  //FIXME, temporary IMPORTANT, DELETE THIS and uncomment above.
 		}
 
 		guard recipients.count > 0 else {
@@ -327,13 +327,13 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
 		if (subject.characters.count == 0) {
 
-			let alertController = UIAlertController(title: "Empty subject", message: "This message has no subject line.\n Do you want to send it anyway?", preferredStyle: .Alert)
+			let alertController = UIAlertController(title: "Empty subject", message: "This message has no subject line.\n Do you want to send it anyway?", preferredStyle: .alert)
 
-			let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action) in
+			let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
 				self.switchUserInteractionState(true)
 			}
 
-			let sendAnywayAction = UIAlertAction(title: "Send", style: .Default) { (action) in
+			let sendAnywayAction = UIAlertAction(title: "Send", style: .default) { (action) in
 
 				if let replyTo = self.messageToReplyTo {
 					MessageOperations.replyToUserNames(recipients, conversationId: replyTo.conversationId!, message: message, subject: subject, callback: { (success) in
@@ -346,14 +346,14 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 					})
 				}
 
-				self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+				self.navigationController?.dismiss(animated: true, completion: nil)
 				self.switchUserInteractionState(true)
 			}
 
 			alertController.addAction(cancelAction)
 			alertController.addAction(sendAnywayAction)
 
-			self.presentViewController(alertController, animated: true, completion: nil)
+			self.present(alertController, animated: true, completion: nil)
 
 		} else {
 
@@ -374,7 +374,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
 	}
 
-	func updateDraftFromUI(draft draft: ManagedMessage) -> ManagedMessage {
+	func updateDraftFromUI(draft: ManagedMessage) -> ManagedMessage {
 		configMsg(draft)
 		return draft
 	}
@@ -408,12 +408,12 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	//		return message
 	//	}
 
-	func configMsg(message: ManagedMessage) -> ManagedMessage {
+	func configMsg(_ message: ManagedMessage) -> ManagedMessage {
 
 		var receivers = [ManagedUser]()
 		for token in tokenView.allTokens {
 			for valdtoken in validatedTokens {
-				if valdtoken.isOnHandler && valdtoken.name == token.displayText.stringByReplacingOccurrencesOfString("@", withString: ""){
+				if valdtoken.isOnHandler && valdtoken.name == token.displayText.replacingOccurrences(of: "@", with: ""){
 					receivers.append(ManagedUser.userWithHandle(valdtoken.name, inContext: DatabaseManager.sharedInstance.mainManagedContext))
 				}
 			}
@@ -434,14 +434,14 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
 	// MARK: UI Utils
 
-	func switchUserInteractionState(enabled: Bool){
+	func switchUserInteractionState(_ enabled: Bool){
 		if !enabled {
 			resignAll()
 		}
-		subjectTextField.enabled = enabled
-		richTextContentView.userInteractionEnabled = enabled
-		tokenView.userInteractionEnabled = enabled
-		ccTokenView.userInteractionEnabled = enabled
+		subjectTextField.isEnabled = enabled
+		richTextContentView.isUserInteractionEnabled = enabled
+		tokenView.isUserInteractionEnabled = enabled
+		ccTokenView.isUserInteractionEnabled = enabled
 	}
 
 	func resignAll() {
@@ -451,81 +451,81 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		ccTokenView.resignFirstResponder()
 	}
 
-	func textViewDidChange(textView: UITextView) {
+	func textViewDidChange(_ textView: UITextView) {
 		tableView.beginUpdates()
 		tableView.endUpdates()
 	}
 
 	// MARK: TokenViewDelegate
 
-	func tokenInputView(view: CLTokenInputView, didChangeText text: String?) {
+	func tokenInputView(_ view: CLTokenInputView, didChangeText text: String?) {
 		guard let text = text else {
 			return
 		}
 
-		let escapedString = text.stringByReplacingOccurrencesOfString("@", withString: "")
+		let escapedString = text.replacingOccurrences(of: "@", with: "")
 
 		delegate?.autoCompleteUserForPrefix(escapedString)
 	}
 
-	func textColorForTokenViewWithToken(token: CLToken) -> UIColor {
-		guard token.displayText.lowercaseString.stringByReplacingOccurrencesOfString("@", withString: "") != "" else {
+	func textColorForTokenView(with token: CLToken) -> UIColor {
+		guard token.displayText.lowercased().replacingOccurrences(of: "@", with: "") != "" else {
 			return UIColor(rgba: HexCodes.darkGray)
 		}
 		for validatedToken in validatedTokens {
-			if validatedToken.name != "" && validatedToken.name.lowercaseString == token.displayText.lowercaseString.stringByReplacingOccurrencesOfString("@", withString: "") && validatedToken.isOnHandler {
+			if validatedToken.name != "" && validatedToken.name.lowercased() == token.displayText.lowercased().replacingOccurrences(of: "@", with: "") && validatedToken.isOnHandler {
 				return UIColor(rgba: HexCodes.lightBlue)
 			}
 		}
 		return UIColor(rgba: HexCodes.darkGray)
 	}
 
-	func tokenInputView(view: CLTokenInputView, didChangeHeightTo height: CGFloat) {
+	func tokenInputView(_ view: CLTokenInputView, didChangeHeightTo height: CGFloat) {
 		tableView.beginUpdates()
 		tableView.endUpdates()
 	}
 
-	func tokenInputView(view: CLTokenInputView, tokenForText text: String) -> CLToken? {
+	func tokenInputView(_ view: CLTokenInputView, tokenForText text: String) -> CLToken? {
 		return CLToken(displayText: text, context: nil)
 	}
 
-	func tokenInputViewDidBeginEditing(view: CLTokenInputView) {
+	func tokenInputViewDidBeginEditing(_ view: CLTokenInputView) {
 		if view == tokenView {
-			addToContactButton.hidden = false
+			addToContactButton.isHidden = false
 		} else {
-			addCCContactButton.hidden = false
+			addCCContactButton.isHidden = false
 		}
 
 		activeTokenField = view
 
-		if let frame = activeTokenField!.superview?.convertRect(activeTokenField!.frame, toView: nil) {
-			let tableY = self.tableView.superview!.convertRect(self.tableView.frame, toView: nil).origin.y
+		if let frame = activeTokenField!.superview?.convert(activeTokenField!.frame, to: nil) {
+			let tableY = self.tableView.superview!.convert(self.tableView.frame, to: nil).origin.y
 			let insetTop = frame.origin.y + frame.size.height - tableY + 15 // 15 to accomodate for bottom spacing in cells
 			self.delegate?.setAutoCompleteViewTopInset(insetTop)
 		}
 	}
 
-	func tokenInputViewDidEndEditing(view: CLTokenInputView) {
+	func tokenInputViewDidEndEditing(_ view: CLTokenInputView) {
 		if view == tokenView {
-			addToContactButton.hidden = true
+			addToContactButton.isHidden = true
 		} else {
-			addCCContactButton.hidden = true
+			addCCContactButton.isHidden = true
 		}
 
 		activeTokenField = nil
 	}
 
-	func tokenView(view: CLTokenView, didSelectToken token: CLToken) {
+	func tokenView(_ view: CLTokenView, didSelect token: CLToken) {
 		view.resignFirstResponder()
-		ContactCardViewController.showWithHandle(token.displayText.lowercaseString.stringByReplacingOccurrencesOfString("@", withString: ""))
+		ContactCardViewController.showWithHandle(token.displayText.lowercased().replacingOccurrences(of: "@", with: ""))
 	}
 
-	func tokenView(view: CLTokenView, didUnselectToken token: CLToken) {
+	func tokenView(_ view: CLTokenView, didUnselectToken token: CLToken) {
 
 	}
 
 	// Fix a bug where more than one token where being deleted with backspace
-	func tokenInputView(view: CLTokenInputView, didAddToken token: CLToken) {
+	func tokenInputView(_ view: CLTokenInputView, didAdd token: CLToken) {
 		view.endEditing()
 		view.beginEditing()
 
@@ -533,35 +533,35 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	}
 
 
-	func tokenInputView(view: CLTokenInputView, didRemoveToken token: CLToken) {
+	func tokenInputView(_ view: CLTokenInputView, didRemove token: CLToken) {
 		// Fix a bug where more than one token where being deleted with backspace
 		view.endEditing()
 		view.beginEditing()
 
 		if shouldShowAlertForOriginalRecipientChange(token) {
-			let alertController = UIAlertController(title: "New thread", message: "Removing someone from a thread will create a new, seperate thread.", preferredStyle: UIAlertControllerStyle.Alert)
+			let alertController = UIAlertController(title: "New thread", message: "Removing someone from a thread will create a new, seperate thread.", preferredStyle: UIAlertControllerStyle.alert)
 
-			alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
-				view.addToken(token)
+			alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: { (action) -> Void in
+				view.add(token)
 			}))
 
-			alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+			alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (action) -> Void in
 				self.originalRecipientsChanged = true
 				self.messageToReplyTo = nil
 			}))
 
-			presentViewController(alertController, animated: true, completion: nil)
+			present(alertController, animated: true, completion: nil)
 		}
 
 		enableSendButton()
 	}
 
-	func shouldShowAlertForOriginalRecipientChange(token: CLToken) -> Bool {
+	func shouldShowAlertForOriginalRecipientChange(_ token: CLToken) -> Bool {
 		if originalRecipientsChanged || messageToReplyTo == nil {
 			return false
 		}
 
-		let escapedToken = token.displayText.stringByReplacingOccurrencesOfString("@", withString: "")
+		let escapedToken = token.displayText.replacingOccurrences(of: "@", with: "")
 
 		if escapedToken == "" {
 			return false
@@ -581,13 +581,13 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		return true
 	}
 
-	func startValidationWithString(string: String) {
-		guard string.stringByReplacingOccurrencesOfString("@", withString: "") != "" else {
+	func startValidation(with string: String) {
+		guard string.replacingOccurrences(of: "@", with: "") != "" else {
 			return
 		}
 
 		for validatedToken in validatedTokens {
-			if validatedToken.name.lowercaseString == string.stringByReplacingOccurrencesOfString("@", withString: "") {
+			if validatedToken.name.lowercased() == string.replacingOccurrences(of: "@", with: "") {
 				return
 			}
 		}
@@ -610,7 +610,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
 	// MARK: TableViewDelegate & DataSource
 
-	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		if section == 0 {
 			return super.tableView(tableView, numberOfRowsInSection: section)
 		}
@@ -618,27 +618,27 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		return conversations.count
 	}
 
-	override func tableView(tableView: UITableView, indentationLevelForRowAtIndexPath indexPath: NSIndexPath) -> Int {
+	override func tableView(_ tableView: UITableView, indentationLevelForRowAt indexPath: IndexPath) -> Int {
 		return 0
 	}
 
-	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		if indexPath.section == 0 {
-			return super.tableView(tableView, cellForRowAtIndexPath: indexPath)
+			return super.tableView(tableView, cellForRowAt: indexPath)
 		}
 
-		let cell = tableView.dequeueReusableCellWithIdentifier(ConversationMessageCellID, forIndexPath: indexPath) as! ConversationMessageTableViewCell
+		let cell = tableView.dequeueReusableCell(withIdentifier: ConversationMessageCellID, for: indexPath) as! ConversationMessageTableViewCell
 
 		configureThreadMessageCell(cell, indexPath: indexPath)
 
 		return cell
 	}
 
-	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		return nil
 	}
 
-	override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+	override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
 		if indexPath.section == 0 {
 			return UITableViewAutomaticDimension
 		}
@@ -646,16 +646,16 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		// Using UITableViewAutomaticDimension was producing lots of autolayout warnings due the auto added constraint for the Height
 		configureThreadMessageCell(sizingCell, indexPath: indexPath)
 
-		return sizingCell.contentView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize).height
+		return sizingCell.contentView.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height
 	}
 
-	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		if indexPath.section == 0 {
 			if indexPath.row == 2 {
 				return max(CGFloat(richTextContentView.editorHeight + 40), CGFloat(300))
 			} else if indexPath.row == 4 {
 				if FeaturesManager.attachmentsActivated {
-					return max(attachmentsCell.intrinsicContentSize().height + 20, 50+20)
+					return max(attachmentsCell.intrinsicContentSize.height + 20, 50+20)
 				} else {
 					return 0
 				}
@@ -666,26 +666,26 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
 		configureThreadMessageCell(sizingCell, indexPath: indexPath)
 
-		return sizingCell.contentView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize).height
+		return sizingCell.contentView.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height
 	}
 
 	// MARK: FilePickerDelegate
 
 	func presentFilePicker() {
-		let docPicker = UIDocumentPickerViewController(documentTypes: ["public.data","public.content"], inMode: UIDocumentPickerMode.Open)
+		let docPicker = UIDocumentPickerViewController(documentTypes: ["public.data","public.content"], in: UIDocumentPickerMode.open)
 		docPicker.delegate = self
 		Async.main(after: 0.1) { () -> Void in
-			self.presentViewController(docPicker, animated: true, completion: nil)
+			self.present(docPicker, animated: true, completion: nil)
 		}
 	}
 
-	func documentPicker(controller: UIDocumentPickerViewController, didPickDocumentAtURL url: NSURL) {
+	func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
 		Async.background { () -> Void in
 			if url.startAccessingSecurityScopedResource() {
 				let coordinator = NSFileCoordinator()
-				coordinator.coordinateReadingItemAtURL(url, options: NSFileCoordinatorReadingOptions.ResolvesSymbolicLink, error: nil, byAccessor: { (url) -> Void in
-					if let data = NSData(contentsOfURL: url){
-						self.saveFileToAttachment(data, url: url)
+				coordinator.coordinate(readingItemAt: url, options: NSFileCoordinator.ReadingOptions.resolvesSymbolicLink, error: nil, byAccessor: { (url) -> Void in
+					if let data = NSData(contentsOf: url){
+						self.saveFileToAttachment(data as Data, url: url)
 					} else {
 						print("Unable to read file at url: \(url)")
 					}
@@ -698,45 +698,45 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		}
 	}
 
-		func saveFileToAttachment(file: NSData, url: NSURL){
-			guard let filetype = url.pathExtension else {
-				print("\(url) had no filtype")
-				return
-			}
-			guard let originalFileName = url.lastPathComponent else {
-				print("\(url) had no filename")
-				return
-			}
-			guard let docsDir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, .UserDomainMask, true).first else {
-				print("caches directory not found")
-				return
-			}
-			var docsDirURL = NSURL(fileURLWithPath: docsDir, isDirectory: true)
-			let filename = NSUUID().UUIDString.stringByAppendingString("."+filetype)
-			docsDirURL = docsDirURL.URLByAppendingPathComponent(filename)
-			DatabaseManager.sharedInstance.backgroundContext.performBlock { () -> Void in
-	
-				if file.writeToURL(docsDirURL, atomically: true) {
-	
-//					let attachment = Attachment(localFile: docsDirURL, filename: originalFileName)
-					DatabaseManager.sharedInstance.mainManagedContext.saveRecursively()
-//					Async.main(block: { () -> Void in
-//						self.attachmentsCell.attachments?.append(attachment)
-//					})
-				} else {
-					print("Failed to write file")
-				}
-			}
+		func saveFileToAttachment(_ file: Data, url: URL){
+//			guard let filetype = url.pathExtension else {
+//				print("\(url) had no filtype")
+//				return
+//			}
+//			guard let originalFileName = url.lastPathComponent else {
+//				print("\(url) had no filename")
+//				return
+//			}
+//			guard let docsDir = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, .userDomainMask, true).first else {
+//				print("caches directory not found")
+//				return
+//			}
+//			var docsDirURL = URL(fileURLWithPath: docsDir, isDirectory: true)
+//			let filename = UUID().uuidString + ("."+filetype)
+//			docsDirURL = docsDirURL.appendingPathComponent(filename)
+//			DatabaseManager.sharedInstance.backgroundContext.perform { () -> Void in
+//	
+//				if (try? file.write(to: docsDirURL, options: [.atomic])) != nil {
+//	
+////					let attachment = Attachment(localFile: docsDirURL, filename: originalFileName)
+//					DatabaseManager.sharedInstance.mainManagedContext.saveRecursively()
+////					Async.main(block: { () -> Void in
+////						self.attachmentsCell.attachments?.append(attachment)
+////					})
+//				} else {
+//					print("Failed to write file")
+//				}
+//			}
 	
 		}
 
-	func documentInteractionControllerViewControllerForPreview(controller: UIDocumentInteractionController) -> UIViewController {
+	func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
 		return self.navigationController ?? self
 	}
 
 	// Mark: ContactsAutoCompleteViewControllerDelegateDelegate
 
-	func contactsAutoCompleteDidSelectUser(user: ManagedUser) {
+	func contactsAutoCompleteDidSelectUser(_ user: ManagedUser) {
 		let handle = user.handle
 
 		guard handle.characters.count > 0 else {
@@ -746,17 +746,17 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		validatedTokens.append(ValidatedToken(name: handle, isOnHandler: true))
 
 		let token = CLToken(displayText: "@\(handle)", context: nil)
-		if self.tokenView.editing {
-			self.tokenView.addToken(token)
+		if self.tokenView.isEditing {
+			self.tokenView.add(token)
 
 		}
-		else if self.ccTokenView.editing {
-			self.ccTokenView.addToken(token)
+		else if self.ccTokenView.isEditing {
+			self.ccTokenView.add(token)
 		}
 	}
 
 
-	func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+	func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 
 		if (textField == subjectTextField && internalmessageToReplyTo != nil) {
 
@@ -766,17 +766,17 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
 			if (string != originalReplySubject) {
 
-				let alertController = UIAlertController(title: "New Thread", message: "Changing the subject line of a thread will create a new, separate thread.", preferredStyle: UIAlertControllerStyle.Alert)
+				let alertController = UIAlertController(title: "New Thread", message: "Changing the subject line of a thread will create a new, separate thread.", preferredStyle: UIAlertControllerStyle.alert)
 
-				alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+				alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: { (action) -> Void in
 				}))
 
-				alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+				alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (action) -> Void in
 					self.replySubjectChanged = true
 					self.messageToReplyTo = nil
 				}))
 
-				presentViewController(alertController, animated: true, completion: nil)
+				present(alertController, animated: true, completion: nil)
 			}
 			return false
 		}
@@ -785,7 +785,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
 	}
 
-	func configureThreadMessageCell(cell: ConversationMessageTableViewCell, indexPath: NSIndexPath) {
+	func configureThreadMessageCell(_ cell: ConversationMessageTableViewCell, indexPath: IndexPath) {
 		let message = conversations[indexPath.row]
 
 		let lastMessage = indexPath.row + 1 >= conversations.count
@@ -795,7 +795,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	}
 
 	// MARK: UITextViewDelegate
-	func textViewDidBeginEditing(textView: UITextView) {
+	func textViewDidBeginEditing(_ textView: UITextView) {
 		if textView.textColor == UIColor(rgba: HexCodes.lightGray) {
 			textView.text = nil
 			textView.textColor = UIColor(rgba: HexCodes.darkGray)
@@ -815,19 +815,19 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 			return
 		}
 		
-		sendButton.enabled = !self.tokenView.allTokens.isEmpty
+		sendButton.isEnabled = !self.tokenView.allTokens.isEmpty
 	}
 }
 
 
 protocol MessageComposeTableViewControllerDelegate {
-	func autoCompleteUserForPrefix(prefix : String)
-	func setAutoCompleteViewTopInset(topInset: CGFloat)
+	func autoCompleteUserForPrefix(_ prefix : String)
+	func setAutoCompleteViewTopInset(_ topInset: CGFloat)
 }
 
 extension MessageComposeTableViewController: RichEditorDelegate {
 	
-	func richEditor(editor: RichEditorView, shouldInteractWithURL url: NSURL) -> Bool {
+	func richEditor(_ editor: RichEditorView, shouldInteractWithURL url: URL) -> Bool {
 		return false
 	}
 }

@@ -10,10 +10,10 @@ import UIKit
 
 struct ConversationContentFormatter: MessageContentCellFormatter { // TODO Delete this class.
 	
-	var timeFormatter: NSDateFormatter = {
-		let formatter = NSDateFormatter()
-		formatter.dateStyle = NSDateFormatterStyle.LongStyle
-		formatter.timeStyle = NSDateFormatterStyle.ShortStyle
+	var timeFormatter: DateFormatter = {
+		let formatter = DateFormatter()
+		formatter.dateStyle = DateFormatter.Style.long
+		formatter.timeStyle = DateFormatter.Style.short
 		return formatter
 	}()
 

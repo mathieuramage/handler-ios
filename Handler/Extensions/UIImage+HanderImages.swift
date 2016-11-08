@@ -16,13 +16,13 @@ extension UIImage {
 		return UIImage(named: ghostImageNames.randomItem())!
 	}
 	
-	class func imageForTwitterStatus(status: TwitterFriendshipStatus)->UIImage?{
+	class func imageForTwitterStatus(_ status: TwitterFriendshipStatus)->UIImage?{
 		switch status {
-		case .Follower:
+		case .follower:
 			return UIImage(named: "Follow_Icon")
-		case .Following:
+		case .following:
 			return UIImage(named: "Followed_Icon")
-		case .Unknown:
+		case .unknown:
 			return UIImage(named: "Follow Unknown Icon")
 		}
 	}

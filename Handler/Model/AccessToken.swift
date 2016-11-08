@@ -13,33 +13,33 @@ class AccessToken: NSObject {
 
 	var token : String
 	var type : String
-	var expiresIn : NSTimeInterval
-	var createdAt: NSDate
+	var expiresIn : TimeInterval
+	var createdAt: Date
 
 	init(json : JSON) {
 		token = json["access_token"].stringValue
 		type = json["token_type"].stringValue
 		expiresIn = json["expires_in"].doubleValue
-		createdAt = NSDate()
+		createdAt = Date()
 		if let dateStr = json["created_at"].string {
-			let formatter = NSDateFormatter()
+			let formatter = DateFormatter()
 			formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-			createdAt = formatter.dateFromString(dateStr)!
+			createdAt = formatter.date(from: dateStr)!
 		}
 	}
 
 	init(coder aDecoder: NSCoder) {
-		token = aDecoder.decodeObjectForKey("token") as! String
-		type = aDecoder.decodeObjectForKey("type") as! String
-		expiresIn = aDecoder.decodeDoubleForKey("expiresIn")
-		createdAt = aDecoder.decodeObjectForKey("createdAt") as! NSDate
+		token = aDecoder.decodeObject(forKey: "token") as! String
+		type = aDecoder.decodeObject(forKey: "type") as! String
+		expiresIn = aDecoder.decodeDouble(forKey: "expiresIn")
+		createdAt = aDecoder.decodeObject(forKey: "createdAt") as! Date
 
 	}
 
-	func encodeWithCoder(aCoder: NSCoder) {
-		aCoder.encodeObject(token, forKey: "token")
-		aCoder.encodeObject(type, forKey: "type")
-		aCoder.encodeDouble(expiresIn, forKey: "expiresIn")
-		aCoder.encodeObject(createdAt, forKey: "createdAt")
+	func encodeWithCoder(_ aCoder: NSCoder) {
+		aCoder.encode(token, forKey: "token")
+		aCoder.encode(type, forKey: "type")
+		aCoder.encode(expiresIn, forKey: "expiresIn")
+		aCoder.encode(createdAt, forKey: "createdAt")
 	}
 }

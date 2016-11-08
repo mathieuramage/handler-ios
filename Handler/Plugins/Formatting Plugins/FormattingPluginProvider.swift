@@ -13,7 +13,7 @@ class FormattingPluginProvider: NSObject {
         return ConversationContentFormatter()
     }
 
-    class func messageCellPluginForInboxType(type: MailboxType)->MessageTableViewCellFormatter?{
+    class func messageCellPluginForInboxType(_ type: MailboxType)->MessageTableViewCellFormatter?{
         switch type {
         case .Inbox:
             return InboxFormatter()

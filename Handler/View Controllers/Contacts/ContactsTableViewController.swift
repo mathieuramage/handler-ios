@@ -10,27 +10,27 @@ import UIKit
 import CoreData
 
 @objc protocol ContactSelectionDelegate {
-	func didSelectUser(user: ManagedUser)
-	optional func didCancel()
+	func didSelectUser(_ user: ManagedUser)
+	@objc optional func didCancel()
 }
 
 class ContactsTableViewController: UITableViewController {
 	
 	var userSelectionDelegate: ContactSelectionDelegate?
-	
-	lazy var fetchedResultsController: NSFetchedResultsController = {
-		let fetchRequest = NSFetchRequest(entityName: "User")
-		fetchRequest.fetchBatchSize = 20
-		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
-		let fetchResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: DatabaseManager.sharedInstance.mainManagedContext, sectionNameKeyPath: "name", cacheName: nil)
-		do{
-			try fetchResultsController.performFetch()
-		} catch {
-			print(error)
-		}
-		
-		return fetchResultsController
-	}()
+    
+//	lazy var fetchedResultsController: NSFetchedResultsController = { () -> <<error type>> in
+//		let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
+//		fetchRequest.fetchBatchSize = 20
+//		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+//		let fetchResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: DatabaseManager.sharedInstance.mainManagedContext, sectionNameKeyPath: "name", cacheName: nil)
+//		do{
+//			try fetchResultsController.performFetch()
+//		} catch {
+//			print(error)
+//		}
+//		
+//		return fetchResultsController
+//	}()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,40 +44,43 @@ class ContactsTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return fetchedResultsController.sections?.count ?? 0
+    override func numberOfSections(in tableView: UITableView) -> Int {
+//        return fetchedResultsController.sections?.count ?? 0
+        return 0
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return fetchedResultsController.sections?[section].numberOfObjects ?? 0
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return fetchedResultsController.sections?[section].numberOfObjects ?? 0
+        return 0
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("contactCell", forIndexPath: indexPath) as! ContactLegacyTableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "contactCell", for: indexPath) as! ContactLegacyTableViewCell
 
-        cell.user = fetchedResultsController.objectAtIndexPath(indexPath) as? ManagedUser
+//        cell.user = fetchedResultsController.object(at: indexPath) as? ManagedUser
 
         return cell
     }
 	
-	override func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
-		return UILocalizedIndexedCollation.currentCollation().sectionIndexTitles
+	override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+		return UILocalizedIndexedCollation.current().sectionIndexTitles
 	}
 	
-	override func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
-		return UILocalizedIndexedCollation.currentCollation().sectionForSectionIndexTitleAtIndex(index)
+	override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+		return UILocalizedIndexedCollation.current().section(forSectionIndexTitle: index)
 	}
 	
 	
-	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		if (section < fetchedResultsController.sectionIndexTitles.count){
-			return fetchedResultsController.sectionIndexTitles[section]
-		} else {
-			return nil
-		}
+	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//		if (section < fetchedResultsController.sectionIndexTitles.count){
+//			return fetchedResultsController.sectionIndexTitles[section]
+//		} else {
+//			return nil
+//		}
+        return nil
 	}
 	
-	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //		if let user = fetchedResultsController.objectAtIndexPath(indexPath) as? LegacyUser {
 //			if let delegate = self.userSelectionDelegate {
 //				delegate.didSelectUser(user)

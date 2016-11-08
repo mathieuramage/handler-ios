@@ -12,16 +12,16 @@ import CoreData
 class UserTwitterStatusManager: NSObject {
 
 	class func startUpdating() {
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserTwitterStatusManager.newDataFetched), name: fetchedTwitterDataNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(UserTwitterStatusManager.newDataFetched), name: NSNotification.Name(rawValue: fetchedTwitterDataNotification), object: nil)
 	}
 
 	class func newDataFetched() {
-		DatabaseManager.sharedInstance.backgroundContext.performBlock {
-			let fetchRequest = NSFetchRequest(entityName: ManagedUser.entityName())
+		DatabaseManager.sharedInstance.backgroundContext.perform {
+			let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: ManagedUser.entityName())
 			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
 			let users: [ManagedUser] = DatabaseManager.sharedInstance.backgroundContext.safeExecuteFetchRequest(fetchRequest)
 			for user in users {
-				user.twtterFollowStatus = NSNumber(integer: TwitterAPIOperations.followStatusForID(user.name!).rawValue)
+				user.twtterFollowStatus = NSNumber(value: TwitterAPIOperations.followStatusForID(user.name!).rawValue as Int)
 			}
 
 			DatabaseManager.sharedInstance.backgroundContext.saveRecursively()
@@ -29,6 +29,6 @@ class UserTwitterStatusManager: NSObject {
 	}
 
 	deinit {
-		NSNotificationCenter.defaultCenter().removeObserver(self)
+		NotificationCenter.default.removeObserver(self)
 	}
 }

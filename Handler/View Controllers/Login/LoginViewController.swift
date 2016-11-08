@@ -16,17 +16,17 @@ class LoginViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		let layer = CAGradientLayer.gradientLayerForBounds(UIScreen.mainScreen().bounds)
-		self.view.layer.insertSublayer(layer, atIndex: 0)
+		let layer = CAGradientLayer.gradientLayerForBounds(UIScreen.main.bounds)
+		self.view.layer.insertSublayer(layer, at: 0)
         if let twitterIcon = UIImage(named: "twitter_logo_white") {
-            self.loginButton.setImage(twitterIcon, forState: .Normal)
+            self.loginButton.setImage(twitterIcon, for: UIControlState())
         }
         self.setLoginButtonText()
         self.loginButton.imageEdgeInsets = UIEdgeInsetsMake(13,-20,13, -10)
         self.loginButton.titleEdgeInsets = UIEdgeInsetsMake(0,-50,0,20)
 	}
     
-    private func setLoginButtonText() {
+    fileprivate func setLoginButtonText() {
         
         let boldAttribute = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Bold", size: 17.0)!]
         let regularAttribute = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Light", size: 17.0)!]
@@ -35,27 +35,27 @@ class LoginViewController: UIViewController {
         let twitterAttributedString = NSAttributedString(string: "Twitter", attributes: boldAttribute)
         let buttonTitle =  NSMutableAttributedString()
         
-        buttonTitle.appendAttributedString(loginAttributedString)
-        buttonTitle.appendAttributedString(twitterAttributedString)
-        buttonTitle.addAttribute(NSForegroundColorAttributeName, value: UIColor.whiteColor(), range: NSMakeRange(0, buttonTitle.length))
+        buttonTitle.append(loginAttributedString)
+        buttonTitle.append(twitterAttributedString)
+        buttonTitle.addAttribute(NSForegroundColorAttributeName, value: UIColor.white, range: NSMakeRange(0, buttonTitle.length))
         
-        self.loginButton.setAttributedTitle(buttonTitle, forState: .Normal)
+        self.loginButton.setAttributedTitle(buttonTitle, for: UIControlState())
     }
 
-	@IBAction func registerButtonPressed(button: UIButton){
-		UIApplication.sharedApplication().openURL(NSURL(string: "https://twitter.com/signup")!)
+	@IBAction func registerButtonPressed(_ button: UIButton){
+		UIApplication.shared.openURL(URL(string: "https://twitter.com/signup")!)
 	}
 
     @IBOutlet weak var loginButton: WhiteBorderButton!
     
-	@IBAction func loginButtonPressed(button: UIButton){
+	@IBAction func loginButtonPressed(_ button: UIButton){
 
 		//Displaying loading view
-		UIView.animateWithDuration(1, animations: {
+		UIView.animate(withDuration: 1, animations: {
 			self.loadingView.alpha = 1.0
 		})
 
-		Twitter.sharedInstance().logInWithCompletion { session, error in
+		Twitter.sharedInstance().logIn { session, error in
 			if (session != nil) {
 				print(session)
 				print("signed in as \(session?.userName)");
@@ -68,12 +68,12 @@ class LoginViewController: UIViewController {
 				let twitter = Twitter.sharedInstance()
 				let oauthSigning = TWTROAuthSigning(authConfig:twitter.authConfig, authSession:session)
 
-				print(oauthSigning.OAuthEchoHeadersToVerifyCredentials())
+				print(oauthSigning.oAuthEchoHeadersToVerifyCredentials())
 
 				var headers : [String : String] = [:]
 
-				for (key, val) in oauthSigning.OAuthEchoHeadersToVerifyCredentials() {
-					headers[String(key)] = String(val)
+				for (key, val) in oauthSigning.oAuthEchoHeadersToVerifyCredentials() {
+					headers[String(describing: key)] = String(describing: val)
 				}
 
 //				let headers = oauthSigning.OAuthEchoHeadersToVerifyCredentials()
@@ -86,7 +86,7 @@ class LoginViewController: UIViewController {
 
 					AuthUtility.getTokenAssertion(headers: headers, callback: { (success, accessToken) in
 
-						guard let accessToken = accessToken where success else {
+						guard let accessToken = accessToken, success else {
 							return
 						}
 
@@ -95,7 +95,7 @@ class LoginViewController: UIViewController {
 						UserOperations.getMe({ (success, user) in
 							AuthUtility.user = user
 
-							UIView.transitionWithView(AppDelegate.sharedInstance().window!, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: { () -> Void in
+							UIView.transition(with: AppDelegate.sharedInstance().window!, duration: 0.5, options: UIViewAnimationOptions.transitionCrossDissolve, animations: { () -> Void in
 								AppDelegate.sharedInstance().window?.rootViewController = AppDelegate.sharedInstance().sideMenu
 								GreetingViewController.showWithHandle(user?.handle ?? "", back: false)
 								}, completion: nil)
@@ -109,8 +109,8 @@ class LoginViewController: UIViewController {
 		}
 	}
 
-	override func preferredStatusBarStyle() -> UIStatusBarStyle {
-		return .LightContent
+	override var preferredStatusBarStyle : UIStatusBarStyle {
+		return .lightContent
 	}
 
 }

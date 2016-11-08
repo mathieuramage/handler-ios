@@ -24,7 +24,7 @@ class MailBoxOptionsTableViewController: UITableViewController, MailboxCountObse
 //		}
 	}
 	
-	func mailboxCountDidChange(mailboxType: MailboxType, newCount: Int) {
+	func mailboxCountDidChange(_ mailboxType: MailboxType, newCount: Int) {
 		switch mailboxType {
 		case .Inbox:
 			inboxCountLabel.text = "\(newCount)"

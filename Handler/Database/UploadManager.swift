@@ -9,7 +9,7 @@
 import UIKit
 
 // OTTODO: Reimplement this whole class as needed
-class UploadManager: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
+class UploadManager: NSObject, URLSessionDelegate, URLSessionDataDelegate {
 	
 //	var currentUploadTask: NSURLSessionUploadTask?
 //	var currentCallback: ((success: Bool, error: HRError?)->Void)

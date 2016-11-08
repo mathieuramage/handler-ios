@@ -60,6 +60,6 @@ class AddAttachmentCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         
         self.layer.borderWidth = 1.0
-        self.layer.borderColor = UIColor(rgba: HexCodes.lightGray).CGColor
+        self.layer.borderColor = UIColor(rgba: HexCodes.lightGray).cgColor
     }
 }

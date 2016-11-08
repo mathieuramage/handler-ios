@@ -21,11 +21,11 @@ class ArchiveMailboxViewController: AbstractMailboxViewController {
 		//TODO : Do the above
 	}
 
-	func customViewForEmptyDataSet(scrollView: UIScrollView!) -> UIView! {
-		let view = NSBundle.mainBundle().loadNibNamed("EmptyInboxView", owner: self, options: nil).first as! EmptyInboxView
+	func customViewForEmptyDataSet(_ scrollView: UIScrollView!) -> UIView! {
+		let view = Bundle.main.loadNibNamed("EmptyInboxView", owner: self, options: nil)?.first as! EmptyInboxView
 		view.imageView.image = UIImage(named: "mailbox_archive_empty")
 		view.descriptionLabel.text = "Your archived emails will be here."
-		view.actionButton.addTarget(self, action: #selector(ArchiveMailboxViewController.composeNewMessage), forControlEvents: .TouchUpInside)
+		view.actionButton.addTarget(self, action: #selector(ArchiveMailboxViewController.composeNewMessage), for: .touchUpInside)
 		return view
 	}
 }

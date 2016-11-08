@@ -8,10 +8,10 @@
 
 import Foundation
 
-prefix operator --> {}
+prefix operator -->
 
-prefix func --> (block:()->()){
-    dispatch_async(dispatch_get_main_queue()) { () -> Void in
+prefix func --> (block:@escaping ()->()){
+    DispatchQueue.main.async { () -> Void in
         block()
     }
 }

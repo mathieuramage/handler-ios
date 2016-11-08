@@ -47,11 +47,11 @@ class TwitterUser: NSObject {
 	var identifier : String
 	var username : String?
 	var name : String?
-	var pictureURL : NSURL?
+	var pictureURL : URL?
 	var desc : String?
 	var location : String?
-	var bannerURL : NSURL?
-	var url : NSURL?
+	var bannerURL : URL?
+	var url : URL?
 	var followerCount : Int?
 	var friendCount : Int?
 	var following : Bool?
@@ -60,7 +60,7 @@ class TwitterUser: NSObject {
 		identifier = json["id"].stringValue
 		username = json["username"].string
 		if let twitterPictureUrlStr = json["pictureUrl"].string {
-			pictureURL = NSURL(string: twitterPictureUrlStr)
+			pictureURL = URL(string: twitterPictureUrlStr)
 		}
 		followerCount = json["followersCount"].int
 		desc = json["desc"].string
@@ -71,7 +71,7 @@ class TwitterUser: NSObject {
 		username = twitterAPIJson["screen_name"].stringValue
 		name = twitterAPIJson["name"].stringValue
 		let unescapedUrl = twitterAPIJson["profile_image_url_https"].stringValue as NSString
-		pictureURL = NSURL(string :unescapedUrl.stringByReplacingOccurrencesOfString("\\", withString: "", options: .LiteralSearch, range: NSMakeRange(0, unescapedUrl.length)))
+		pictureURL = URL(string :unescapedUrl.replacingOccurrences(of: "\\", with: "", options: .literal, range: NSMakeRange(0, unescapedUrl.length)))
 		following = twitterAPIJson["following"].boolValue
 	}
 }

@@ -10,14 +10,14 @@ import UIKit
 
 class InboxMessageTableViewCellHelper {
 
-	static var timeFormatter: NSDateFormatter = {
-		let formatter = NSDateFormatter()
-		formatter.timeStyle = NSDateFormatterStyle.NoStyle
-		formatter.dateStyle = NSDateFormatterStyle.ShortStyle
+	static var timeFormatter: DateFormatter = {
+		let formatter = DateFormatter()
+		formatter.timeStyle = DateFormatter.Style.none
+		formatter.dateStyle = DateFormatter.Style.short
 		return formatter
 	}()
 
-	class func configureCell(cell : MessageTableViewCell, conversation: Conversation){
+	class func configureCell(_ cell : MessageTableViewCell, conversation: Conversation){
 
 		guard let message = conversation.latestMessage else {
 			return
@@ -38,8 +38,7 @@ class InboxMessageTableViewCellHelper {
 
 
 		if let pictureUrl = message.sender?.pictureUrl {
-			cell.senderProfileImageView.kf_setImageWithURL(pictureUrl, placeholderImage: UIImage.randomGhostImage(), optionsInfo: nil, completionHandler: { (image, error, cacheType, imageURL) -> () in
-			})
+            cell.senderProfileImageView.kf.setImage(with: pictureUrl, placeholder: UIImage.randomGhostImage(), options: nil, progressBlock: nil, completionHandler: nil)
 		}
 
 		cell.senderNameLabel.text = message.sender?.name
@@ -48,30 +47,30 @@ class InboxMessageTableViewCellHelper {
 		cell.messageSubjectLabel.text = message.subject
 		cell.messageContentPreviewLabel.text = message.content
 
-		cell.messageTimeLabel.text = timeFormatter.stringFromDate(message.createdAt!)
+		cell.messageTimeLabel.text = timeFormatter.string(from: message.createdAt! as Date)
 
 		let count = conversation.messages?.count
-		if let count = count where count > 1 {
-			cell.threadCountLabel.hidden = false
+		if let count = count, count > 1 {
+			cell.threadCountLabel.isHidden = false
 			cell.threadCountLabel.text = "\(count)"
 		} else {
-			cell.threadCountLabel.hidden = true
+			cell.threadCountLabel.isHidden = true
 			cell.threadCountLabel.text = "-"
 		}
 
-		cell.attachmentIconView.hidden = true
+		cell.attachmentIconView.isHidden = true
 
-		cell.repliedIconView.hidden = (message.sender?.identifier != AuthUtility.user?.identifier)
+		cell.repliedIconView.isHidden = (message.sender?.identifier != AuthUtility.user?.identifier)
 
 		setUpReadFlagMessage(message: message, view: cell)
 
 	}
 
-	class func refreshFlags(message message: Message, view: MessageTableViewCell){
+	class func refreshFlags(message: Message, view: MessageTableViewCell){
 		setUpReadFlagMessage(message: message, view: view)
 	}
 
-	class func setUpReadFlagMessage(message message: Message, view: MessageTableViewCell) {
+	class func setUpReadFlagMessage(message: Message, view: MessageTableViewCell) {
 		if message.starred == true && !message.read {
 			view.readFlaggedImageView.image = UIImage(named: "Orange_Dot")
 			// TODO: Add blue button encircled by orange
@@ -88,28 +87,28 @@ class InboxMessageTableViewCellHelper {
 	}
 
 
-	class func leftButtonsForMessage(message: Message)->[AnyObject]{
+	class func leftButtonsForMessage(_ message: Message)->[AnyObject]{
 		let array = NSMutableArray()
 		if !message.read {
-			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.lightBlue), icon: UIImage(named: "icon_read"))
+			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.lightBlue), icon: UIImage(named: "icon_read"))
 		} else {
-			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.lightBlue), icon: UIImage(named: "icon_unread"))
+			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.lightBlue), icon: UIImage(named: "icon_unread"))
 		}
 		return array as [AnyObject]
 	}
 
-	class func rightButtonsForMessage(message: Message)->[AnyObject]{
+	class func rightButtonsForMessage(_ message: Message)->[AnyObject]{
 		let array = NSMutableArray()
 		if message.starred == true {
-			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.orange), icon: UIImage(named: "icon_unflag"))
+			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.orange), icon: UIImage(named: "icon_unflag"))
 		} else {
-			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.orange), icon: UIImage(named: "icon_flag"))
+			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.orange), icon: UIImage(named: "icon_flag"))
 		}
 
 		if message.archived  {
-			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.darkBlue), icon: UIImage(named: "icon_unarchive"))
+			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.darkBlue), icon: UIImage(named: "icon_unarchive"))
 		} else {
-			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.darkBlue), icon: UIImage(named: "icon_archive"))
+			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.darkBlue), icon: UIImage(named: "icon_archive"))
 		}
 		return array as [AnyObject]
 	}

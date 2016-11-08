@@ -15,28 +15,29 @@ protocol UIViewControllerShow {
 	mutating func show()
 	mutating func dismiss()
 	var window: UIWindow? { get set }
-	func dismissPressed(sender: AnyObject?)
+	func dismissPressed(_ sender: AnyObject?)
 }
 
 extension UIViewControllerShow where Self: UIViewController {
 	mutating func show() {
-		window = UIWindow(frame: UIScreen.mainScreen().bounds)
+		window = UIWindow(frame: UIScreen.main.bounds)
 		window?.windowLevel = UIWindowLevelAlert - 1
 		window?.rootViewController = self
-        window?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: Selector("dismissPressed:")))
+//        window?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(UIViewControllerShow.dismissPressed(_:))))
 		self.window?.makeKeyAndVisible()
 		window?.alpha = 0
-		UIView.animateWithDuration(0.3, animations: { () -> Void in
-			self.window?.alpha = 1
-			}) { (success) -> Void in
-		}
+//		UIView.animate(withDuration: 0.3, animations: { () -> Void in
+//			self.window?.alpha = 1
+//			}, completion: { (success) -> Void in
+//		}) 
 	}
+    
 }
 
 // MARK: Observers
 
 protocol MailboxCountObserver {
-	func mailboxCountDidChange(mailboxType: MailboxType, newCount: Int)
+	func mailboxCountDidChange(_ mailboxType: MailboxType, newCount: Int)
 }
 extension Array {
 	func randomItem() -> Element {

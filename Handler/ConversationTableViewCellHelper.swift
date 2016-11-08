@@ -7,52 +7,53 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ConversationTableViewCellHelper: NSObject {
 
 
-	static var timeFormatter: NSDateFormatter = {
-		let formatter = NSDateFormatter()
-		formatter.dateStyle = NSDateFormatterStyle.LongStyle
-		formatter.timeStyle = NSDateFormatterStyle.ShortStyle
+	static var timeFormatter: DateFormatter = {
+		let formatter = DateFormatter()
+		formatter.dateStyle = DateFormatter.Style.long
+		formatter.timeStyle = DateFormatter.Style.short
 		return formatter
 	}()
 
-	class func configureCell(cell : ConversationMessageTableViewCell, message: Message){
+	class func configureCell(_ cell : ConversationMessageTableViewCell, message: Message){
 
 		cell.richTextContent.editingEnabled = false
-		cell.richTextContent.setHTML(message.content ?? "No content")
+        cell.richTextContent.set(html: message.content ?? "No content")
 		cell.contentHeightConstraint.constant = CGFloat(cell.richTextContent.editorHeight)
-		cell.richTextContent.webView.dataDetectorTypes = [.All]
-		cell.richTextContent.backgroundColor = UIColor.clearColor()
-		cell.richTextContent.webView.backgroundColor = UIColor.clearColor()
-		cell.richTextContent.webView.scrollView.backgroundColor = UIColor.clearColor()
-		cell.richTextContent.webView.opaque = false
+		cell.richTextContent.webView.dataDetectorTypes = [.all]
+		cell.richTextContent.backgroundColor = UIColor.clear
+		cell.richTextContent.webView.backgroundColor = UIColor.clear
+		cell.richTextContent.webView.scrollView.backgroundColor = UIColor.clear
+		cell.richTextContent.webView.isOpaque = false
 		cell.senderLabel.text = message.sender?.name
-		cell.senderHandleButton.setTitle("@" + (message.sender?.handle ?? ""), forState: .Normal)
+		cell.senderHandleButton.setTitle("@" + (message.sender?.handle ?? ""), for: UIControlState())
 
 		let recipient = message.recipients?.anyObject() as! ManagedUser
 		let displayName = recipient.name
 		if recipient.handle.characters.count > 0 {
-			cell.recipientLabel.text = "To: " + (displayName ?? "") + " @" + (recipient.handle ?? "")
+			cell.recipientLabel.text = "To: " + (displayName!) + " @" + (recipient.handle)
 		} else {
 			cell.recipientLabel.text = "To: -"
 		}
 		cell.sender = message.sender
-		cell.timeStampeLabel.text = timeFormatter.stringFromDate(message.createdAt!)
+		cell.timeStampeLabel.text = timeFormatter.string(from: message.createdAt! as Date)
 		if let pictureURL = message.sender?.pictureUrl {
-			cell.senderImageView.kf_setImageWithURL(pictureURL, placeholderImage: UIImage.randomGhostImage(), optionsInfo: nil, completionHandler: nil)
+            cell.senderImageView.kf.setImage(with: pictureURL, placeholder: UIImage.randomGhostImage(), options: nil, progressBlock: nil, completionHandler: nil)           
 		}
 	}
 
-	class func configureCell(cell : ConversationMessageTableViewCell, message: Message, lastMessage: Bool, primary: Bool) {
+	class func configureCell(_ cell : ConversationMessageTableViewCell, message: Message, lastMessage: Bool, primary: Bool) {
 
 		configureCell(cell, message: message)
 
 		var bgColor: UIColor?
 
 		if (primary) {
-			bgColor = UIColor.whiteColor()
+			bgColor = UIColor.white
 		}
 		else {
 			bgColor = UIColor(rgba: HexCodes.offWhite)

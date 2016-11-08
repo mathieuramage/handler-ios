@@ -9,15 +9,15 @@
 import UIKit
 import SwiftyJSON
 
-public class HandlerError: NSObject, ErrorType {
-	public var detail: String = ""
-	public var status: Int = 0
-	public var title: String = ""
-	public var errorType: ErrorType?
-	public var userInfo: [String: AnyObject]?
-	public var displayMessage: String = "An unknown error occurred"
+open class HandlerError: NSObject, Error {
+	open var detail: String = ""
+	open var status: Int = 0
+	open var title: String = ""
+	open var errorType: Error?
+	open var userInfo: [String: Any]?
+	open var displayMessage: String = "An unknown error occurred"
 
-	override public var description: String {
+	override open var description: String {
 		get {
 			return "Domain: \(title), Status: \(status), Detail: \(detail), Message: \(displayMessage)"
 		}
@@ -35,7 +35,7 @@ public class HandlerError: NSObject, ErrorType {
 		}
 	}
 
-	public convenience init(errorType: ErrorType, requestURL: String? = nil){
+	public convenience init(errorType: Error, requestURL: String? = nil){
 		self.init()
 		self.title = errorType._domain
 		self.status = errorType._code

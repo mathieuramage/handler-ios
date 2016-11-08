@@ -11,10 +11,10 @@ import UIKit
 class FeaturesManager: NSObject {
     static var attachmentsActivated: Bool {
         get {
-            return NSUserDefaults.standardUserDefaults().boolForKey("attachmentsActivated")
+            return UserDefaults.standard.bool(forKey: "attachmentsActivated")
         }
         set (new){
-            NSUserDefaults.standardUserDefaults().setBool(new, forKey: "attachmentsActivated")
+            UserDefaults.standard.set(new, forKey: "attachmentsActivated")
         }
     }
 }

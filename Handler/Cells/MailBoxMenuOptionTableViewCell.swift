@@ -15,12 +15,12 @@ class MailBoxMenuOptionTableViewCell: UITableViewCell {
         // Initialization code
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        if(self.selected){
-            self.backgroundColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.2)
+        if(self.isSelected){
+            self.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
         } else {
-            self.backgroundColor = UIColor.whiteColor()
+            self.backgroundColor = UIColor.white
         }
         // Configure the view for the selected state
     }

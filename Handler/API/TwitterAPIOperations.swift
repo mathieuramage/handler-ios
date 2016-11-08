@@ -27,14 +27,14 @@ struct TwitterAPIOperations {
 			let friendsEndpoint = "https://api.twitter.com/1.1/friends/ids.json"
 			let params = ["stringify_ids": "true"]
 
-			let request = client.URLRequestWithMethod("GET", URL: friendsEndpoint, parameters: params, error: nil)
+			let request = client.urlRequest(withMethod: "GET", url: friendsEndpoint, parameters: params, error: nil)
 
 			client.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
 				guard let error = connectionError else {
 					if let data = data {
 						let json = JSON(data).arrayValue.map{$0.stringValue}
 						self.friendIDS = json
-						NSNotificationCenter.defaultCenter().postNotificationName(fetchedTwitterDataNotification, object: nil)
+						NotificationCenter.default.post(name: Notification.Name(rawValue: fetchedTwitterDataNotification), object: nil)
 					}
 					return
 				}
@@ -43,14 +43,14 @@ struct TwitterAPIOperations {
 
 			let followersEndpoint = "https://api.twitter.com/1.1/followers/ids.json"
 
-			let secondrequest = client.URLRequestWithMethod("GET", URL: followersEndpoint, parameters: params, error: nil)
+			let secondrequest = client.urlRequest(withMethod: "GET", url: followersEndpoint, parameters: params, error: nil)
 
 			client.sendTwitterRequest(secondrequest) { (response, data, connectionError) -> Void in
 				guard let error = connectionError else {
 					if let data = data {
 						let json = JSON(data).arrayValue.map{$0.stringValue}
 						self.followerIDS = json
-						NSNotificationCenter.defaultCenter().postNotificationName(fetchedTwitterDataNotification, object: nil)
+						NotificationCenter.default.post(name: Notification.Name(rawValue: fetchedTwitterDataNotification), object: nil)
 					}
 					return
 				}
@@ -59,35 +59,35 @@ struct TwitterAPIOperations {
 		}
 	}
 
-	static func getAccountInfoForTwitterUser(handle: String, callback: (user: JSON?, erorr: NSError?)->Void){
+	static func getAccountInfoForTwitterUser(_ handle: String, callback: @escaping (_ user: JSON?, _ error: Error?)->Void){
 		if let session = Twitter.sharedInstance().sessionStore.session() as? TWTRSession {
 			let client = TWTRAPIClient(userID: session.userID)
 			let endPoint = "https://api.twitter.com/1.1/users/show.json"
 			let params = ["screen_name": handle]
 
-			let request = client.URLRequestWithMethod("GET", URL: endPoint, parameters: params, error: nil)
+			let request = client.urlRequest(withMethod: "GET", url: endPoint, parameters: params, error: nil)
 
 			client.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
 				guard let error = connectionError else {
 					if let data = data {
 						do {
-							let dict = try NSJSONSerialization.JSONObjectWithData(data, options: [NSJSONReadingOptions.AllowFragments])
+							let dict = try JSONSerialization.jsonObject(with: data, options: [JSONSerialization.ReadingOptions.allowFragments])
 							let json = JSON(dict)
-							callback(user:json, erorr: nil)
+							callback(json,nil)
 						}catch {
 							return
 						}
 					}
 					return
 				}
-				callback(user: nil, erorr: error)
+				callback(nil, error)
 				print(error)
 			}
 		}
 	}
 
 
-	static func getTwitterFriends(cursor : Int?, callback : (users : [TwitterUser], nextCursor : Int?) -> ()) {
+	static func getTwitterFriends(_ cursor : Int?, callback : @escaping (_ users : [TwitterUser], _ nextCursor : Int?) -> ()) {
 
 		if let session = Twitter.sharedInstance().sessionStore.session() as? TWTRSession {
 
@@ -96,21 +96,21 @@ struct TwitterAPIOperations {
 
 			let params : [String : AnyObject]
 			if let cursor = cursor {
-				params = ["cursor" : "\(cursor)"]
+				params = ["cursor" : "\(cursor)" as AnyObject]
 			} else {
 				params = [:]
 			}
 
-			let request = client.URLRequestWithMethod("GET", URL: friendsEndpoint, parameters: params, error: nil)
+			let request = client.urlRequest(withMethod: "GET", url: friendsEndpoint, parameters: params, error: nil)
 
 			client.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
 
 				guard connectionError == nil, let data = data else {
-					callback(users: [], nextCursor: nil)
+					callback([], nil)
 					return
 				}
 				do {
-					let dict = try NSJSONSerialization.JSONObjectWithData(data, options: [NSJSONReadingOptions.AllowFragments])
+					let dict = try JSONSerialization.jsonObject(with: data, options: [JSONSerialization.ReadingOptions.allowFragments])
 					let json = JSON(dict)
 					var users : [TwitterUser] = []
 					for userJson in json["users"].arrayValue {
@@ -118,9 +118,9 @@ struct TwitterAPIOperations {
 						users.append(user)
 					}
 					let nextCursor = json["next_cursor"].int
-					callback(users:users, nextCursor: nextCursor)
+					callback(users, nextCursor)
 				}catch {
-					callback(users: [], nextCursor: nil)
+					callback([], nil)
 					return
 				}
 			}
@@ -129,7 +129,7 @@ struct TwitterAPIOperations {
 	}
 
 
-	static func getTwitterFollowers(cursor : Int?, callback : (users : [TwitterUser], nextCursor : Int?) -> ()) {
+	static func getTwitterFollowers(_ cursor : Int?, callback : @escaping (_ users : [TwitterUser], _ nextCursor : Int?) -> ()) {
 
 		if let session = Twitter.sharedInstance().sessionStore.session() as? TWTRSession {
 
@@ -138,21 +138,21 @@ struct TwitterAPIOperations {
 
 			let params : [String : AnyObject]
 			if let cursor = cursor {
-				params = ["cursor" : "\(cursor)"]
+				params = ["cursor" : "\(cursor)" as AnyObject]
 			} else {
 				params = [:]
 			}
 
-			let request = client.URLRequestWithMethod("GET", URL: friendsEndpoint, parameters: params, error: nil)
+			let request = client.urlRequest(withMethod: "GET", url: friendsEndpoint, parameters: params, error: nil)
 
 			client.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
 
 				guard connectionError == nil, let data = data else {
-					callback(users: [], nextCursor: nil)
+					callback([], nil)
 					return
 				}
 				do {
-					let dict = try NSJSONSerialization.JSONObjectWithData(data, options: [NSJSONReadingOptions.AllowFragments])
+					let dict = try JSONSerialization.jsonObject(with: data, options: [JSONSerialization.ReadingOptions.allowFragments])
 					let json = JSON(dict)
 					var users : [TwitterUser] = []
 					for userJson in json["users"].arrayValue {
@@ -160,9 +160,9 @@ struct TwitterAPIOperations {
 						users.append(user)
 					}
 					let nextCursor = json["next_cursor"].int
-					callback(users:users, nextCursor: nextCursor)
+					callback(users, nextCursor)
 				}catch {
-					callback(users: [], nextCursor: nil)
+					callback([], nil)
 					return
 				}
 			}
@@ -170,19 +170,19 @@ struct TwitterAPIOperations {
 		}
 	}
 
-	static func followStatusForID(id: String)->TwitterFriendshipStatus{
+	static func followStatusForID(_ id: String)->TwitterFriendshipStatus{
 		for friendID in friendIDS {
 			if(friendID == id){
-				return .Following
+				return .following
 			}
 		}
 
 		for followerID in followerIDS {
 			if(followerID == id){
-				return .Follower
+				return .follower
 			}
 		}
-		return .Unknown
+		return .unknown
 	}
 
 }

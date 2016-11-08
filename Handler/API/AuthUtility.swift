@@ -10,15 +10,15 @@ import UIKit
 import SwiftyJSON
 
 struct AuthUtility {
-	private static let _accessTokenKey = "HR_ACCESS_TOKEN_KEY"
-	private static var _accessToken : AccessToken?
+	fileprivate static let _accessTokenKey = "HR_ACCESS_TOKEN_KEY"
+	fileprivate static var _accessToken : AccessToken?
 	static var accessToken : AccessToken? {
 		get {
 			if let token = _accessToken {
 				return token
 			} else {
-				if let data = NSUserDefaults.standardUserDefaults().objectForKey(_accessTokenKey) as? NSData {
-					_accessToken = NSKeyedUnarchiver.unarchiveObjectWithData(data) as? AccessToken
+				if let data = UserDefaults.standard.object(forKey: _accessTokenKey) as? Data {
+					_accessToken = NSKeyedUnarchiver.unarchiveObject(with: data) as? AccessToken
 				}
 				return _accessToken
 			}
@@ -26,62 +26,62 @@ struct AuthUtility {
 		set {
 			if let token = newValue {
 				_accessToken = token
-				let data = NSKeyedArchiver.archivedDataWithRootObject(token)
-				NSUserDefaults.standardUserDefaults().setObject(data, forKey: _accessTokenKey)
+				let data = NSKeyedArchiver.archivedData(withRootObject: token)
+				UserDefaults.standard.set(data, forKey: _accessTokenKey)
 			} else {
-				NSUserDefaults.standardUserDefaults().removeObjectForKey(_accessTokenKey)
+				UserDefaults.standard.removeObject(forKey: _accessTokenKey)
 			}
 		}
 	}
 
 	static var user: ManagedUser?
 
-	static func getClientCredentials(headers oauthHeaders : [String : String], callback : (success: Bool, accessToken : AccessToken?) -> () ) {
+	static func getClientCredentials(headers oauthHeaders : [String : String], callback : @escaping (_ success: Bool, _ accessToken : AccessToken?) -> () ) {
 
 		let params = [ "client_id":Config.ClientId,
 		               "grant_type":"client_credentials",
 		               "client_secret": Config.ClientSecret]
 
-		APIUtility.request(.POST, route: Config.APIRoutes.oauth, parameters: params, headers: oauthHeaders).responseJSON { (response) in
+		APIUtility.request(method: .post, route: Config.APIRoutes.oauth, parameters: params, headers: oauthHeaders).responseJSON { (response) in
 
 			var success : Bool = false
 			var accessToken : AccessToken?
 
 			switch response.result {
-			case .Success:
+			case .success:
 				if let value = response.result.value {
 					accessToken = AccessToken(json: JSON(value))
 					success = true
 				}
-			case .Failure(_):
+			case .failure(_):
 				success = false
 			}
-			callback(success: success, accessToken: accessToken)
+			callback(success, accessToken)
 		}
 	}
 
 
-	static func getTokenAssertion(headers oauthHeaders: [String : String], callback : (success : Bool, accessToken : AccessToken?) -> ()) {
+	static func getTokenAssertion(headers oauthHeaders: [String : String], callback : @escaping (_ success : Bool, _ accessToken : AccessToken?) -> ()) {
 
-		let params = [ "client_id":Config.ClientId,
+        let params : [String : Any] = [ "client_id": Config.ClientId,
 		               "grant_type":"assertion"]
 
-		APIUtility.request(.POST, route: Config.APIRoutes.oauth, parameters: params, headers: oauthHeaders).responseJSON { (response) in
+        APIUtility.request(method: .post, route: Config.APIRoutes.oauth, parameters: params, headers: oauthHeaders).responseJSON { (response) in
 
 			var accessToken : AccessToken?
 			var success : Bool = false
 
 			switch response.result {
-			case .Success:
+			case .success:
 				if let value = response.result.value {
 					accessToken = AccessToken(json: JSON(value))
 				}
 				success = accessToken != nil
-			case .Failure(_):
+			case .failure(_):
 				success = false
 			}
 
-			callback(success: success, accessToken: accessToken)
+			callback(success, accessToken)
 		}
 
 	}
@@ -92,13 +92,13 @@ struct AuthUtility {
 		DatabaseManager.sharedInstance.flushDatastore()
 	}
 
-	static func revokeToken(callback callback: ((success : Bool) -> ())?) {
-		APIUtility.request(.POST, route: Config.APIRoutes.revoke, parameters: nil).responseJSON { (response) in
+	static func revokeToken(callback: ((_ success : Bool) -> ())?) {
+        APIUtility.request(method: .post, route: Config.APIRoutes.revoke, parameters: nil).responseJSON { (response) in
 			switch response.result {
-			case .Success:
-				callback?(success: true)
-			case .Failure(_):
-				callback?(success: false)
+			case .success:
+				callback?(true)
+			case .failure(_):
+				callback?(false)
 			}
 		}
 	}

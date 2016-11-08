@@ -14,7 +14,7 @@ class DatabaseManager: NSObject {
 
 	static let sharedInstance = DatabaseManager()
 
-	typealias SimpleCompletionHandler = (error: NSError?) -> Void
+	typealias SimpleCompletionHandler = (_ error: NSError?) -> Void
 
 	override init() {
 		super.init()
@@ -24,17 +24,17 @@ class DatabaseManager: NSObject {
 	// MARK: - Core Data stack
 
 	lazy var managedObjectModel: NSManagedObjectModel = {
-		let modelURL = NSBundle.mainBundle().URLForResource("Handler", withExtension: "mom")!
-		return NSManagedObjectModel(contentsOfURL: modelURL)!
+		let modelURL = Bundle.main.url(forResource: "Handler", withExtension: "mom")!
+		return NSManagedObjectModel(contentsOf: modelURL)!
 	}()
 
 	lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
-		let containerPath = NSFileManager.handlerSharedSecureContainer()
+		let containerPath = FileManager.handlerSharedSecureContainer()
 
 		let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-		let url = containerPath?.URLByAppendingPathComponent("database.sqlite")
+		let url = containerPath?.appendingPathComponent("database.sqlite")
 		do {
-			try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
+			try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: nil)
 		} catch {
 			// MARK: TODO - Remove for shipping
 			abort()
@@ -42,27 +42,27 @@ class DatabaseManager: NSObject {
 		return coordinator
 	}()
 
-	private lazy var writerManagedContext: NSManagedObjectContext = {
-		let context = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
+	fileprivate lazy var writerManagedContext: NSManagedObjectContext = {
+		let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
 		context.persistentStoreCoordinator = self.persistentStoreCoordinator
 		return context
 	}()
 
 	lazy var mainManagedContext: NSManagedObjectContext = {
-		let context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
-		context.parentContext = self.writerManagedContext
+		let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+		context.parent = self.writerManagedContext
 		return context
 	}()
 
 	lazy var backgroundContext: NSManagedObjectContext = {
-		let context = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType)
-		context.parentContext = self.mainManagedContext
+		let context = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.privateQueueConcurrencyType)
+		context.parent = self.mainManagedContext
 		return context
 	}()
 
 	// MARK: - Core Data Saving
 
-	func save(completion: SimpleCompletionHandler? = nil) {
+	func save(_ completion: SimpleCompletionHandler? = nil) {
 		self.mainManagedContext.saveRecursively { (error) in
 			if let error = error {
 				NSLog("Error saving context \(error), \(error.userInfo)")
@@ -70,7 +70,7 @@ class DatabaseManager: NSObject {
 		}
 	}
 
-	func flushDatastore(completion: SimpleCompletionHandler? = nil) {
+	func flushDatastore(_ completion: SimpleCompletionHandler? = nil) {
 		for entity in managedObjectModel.entities {
 			if let name = entity.name {
 				deleteDataForEntity(name)
@@ -82,12 +82,12 @@ class DatabaseManager: NSObject {
 				NSLog("Error saving backgroundContext \(error), \(error.userInfo)")
 			}
 
-			completion?(error: error)
+			completion?(error)
 		}
 	}
 
 	func flushOldArchiveDatastore() {
-		backgroundContext.performBlock { () -> Void in
+		backgroundContext.perform { () -> Void in
 			self.deleteOldArchivedMessages()
 			self.deleteArchivedMessagesAfter1000()
 
@@ -99,35 +99,35 @@ class DatabaseManager: NSObject {
 		}
 	}
 
-	private func deleteDataForEntity(entity: String) {
+	fileprivate func deleteDataForEntity(_ entity: String) {
 		let managedContext = writerManagedContext
-		let fetchRequest = NSFetchRequest(entityName: entity)
+		let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
 		fetchRequest.returnsObjectsAsFaults = false
 
 		let results = managedContext.safeExecuteFetchRequest(fetchRequest)
 		for managedObject in results {
-			managedContext.deleteObject(managedObject)
+			managedContext.delete(managedObject)
 		}
 	}
 
 	func deleteOldArchivedMessages() {
 		let managedContext = backgroundContext
-		let fetchRequest = NSFetchRequest(entityName: Message.entityName())
+		let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Message.entityName())
 		fetchRequest.returnsObjectsAsFaults = false
 
-		let limitDate = NSDate().dateByAddingTimeInterval(-60 * 24 * 60 * 60)
-		fetchRequest.predicate = NSPredicate(format: "NONE labels.id == %@ && NONE labels.id == %@ && createdAt < %@", "INBOX", "SENT", limitDate)
+		let limitDate = Date().addingTimeInterval(-60 * 24 * 60 * 60)
+		fetchRequest.predicate = NSPredicate(format: "NONE labels.id == %@ && NONE labels.id == %@ && createdAt < %@", "INBOX", "SENT", limitDate as CVarArg)
 
 		let results = managedContext.safeExecuteFetchRequest(fetchRequest)
 		for managedObject in results {
-			managedContext.deleteObject(managedObject)
+			managedContext.delete(managedObject)
 		}
 	}
 
 	// Keeps only the most recent 1000 messages
 	func deleteArchivedMessagesAfter1000() {
 		let managedContext = backgroundContext
-		let fetchRequest = NSFetchRequest(entityName: Message.entityName())
+		let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Message.entityName())
 		fetchRequest.returnsObjectsAsFaults = false
 		fetchRequest.predicate = NSPredicate(format: "NONE labels.id == %@ && NONE labels.id == %@", "INBOX", "SENT")
 		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)]
@@ -137,7 +137,7 @@ class DatabaseManager: NSObject {
 		if messages.count > 1000 {
 			for i in 1000...messages.count - 1 {
 				let message = messages[i]
-				managedContext.deleteObject(message)
+				managedContext.delete(message)
 			}
 		}
 	}
@@ -145,31 +145,31 @@ class DatabaseManager: NSObject {
 
 extension NSManagedObjectContext {
 
-	typealias SaveResurivelyCompletion = (error: NSError?) -> Void
+	typealias SaveResurivelyCompletion = (_ error: NSError?) -> Void
 
-	func saveRecursively(completion: SaveResurivelyCompletion? = nil) {
-		self.performBlock { 
+	func saveRecursively(_ completion: SaveResurivelyCompletion? = nil) {
+		self.perform { 
 			do {
 				try self.save()
 			}
 			catch let error as NSError {
-				completion?(error: error)
+				completion?(error)
 
 				return
 			}
 
-			if let parentContext = self.parentContext {
+			if let parentContext = self.parent {
 				parentContext.saveRecursively()
 			}
 			else {
-				completion?(error: nil)
+				completion?(nil)
 			}
 		}
 	}
 
-	func safeExecuteFetchRequest<T: NSManagedObject>(fetchRequest: NSFetchRequest) -> [T] {
+	func safeExecuteFetchRequest<T: NSManagedObject>(_ fetchRequest: NSFetchRequest<NSFetchRequestResult>) -> [T] {
 		do {
-			return try self.executeFetchRequest(fetchRequest) as! [T]
+			return try self.fetch(fetchRequest) as! [T]
 		}
 		catch {
 			return []
@@ -177,9 +177,9 @@ extension NSManagedObjectContext {
 	}
 }
 
-extension NSFileManager {
+extension FileManager {
 
-	class func handlerSharedSecureContainer() -> NSURL? {
-		return NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier("group.handler.handlerapp")
+	class func handlerSharedSecureContainer() -> URL? {
+		return FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.handler.handlerapp")
 	}
 }

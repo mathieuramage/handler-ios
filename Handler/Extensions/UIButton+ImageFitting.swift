@@ -10,9 +10,9 @@ import UIKit
 
 @IBDesignable
 extension UIButton {
-	public override func awakeFromNib() {
+	open override func awakeFromNib() {
 		super.awakeFromNib()
-		self.imageView?.contentMode = .ScaleAspectFit
+		self.imageView?.contentMode = .scaleAspectFit
 	}
 }
 

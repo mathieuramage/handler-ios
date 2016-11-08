@@ -12,7 +12,7 @@ class InboxActionHandler: MessageTableViewCellActions {
 
 	// MARK: Actions
 
-	func leftButtonTriggered(index: Int, data message: ManagedMessage, callback: (() -> Void)?) {
+	func leftButtonTriggered(_ index: Int, data message: ManagedMessage, callback: (() -> Void)?) {
 
 		switch index {
 		case 0:
@@ -31,7 +31,7 @@ class InboxActionHandler: MessageTableViewCellActions {
 		// TODO: Implement actions
 	}
 
-	func rightButtonTriggered(index: Int, data message: ManagedMessage, callback: (() -> Void)?) {
+	func rightButtonTriggered(_ index: Int, data message: ManagedMessage, callback: (() -> Void)?) {
 
 		switch index {
 		case 0:
@@ -57,9 +57,9 @@ class InboxActionHandler: MessageTableViewCellActions {
 	func leftButtonsForData(data message: ManagedMessage) -> [AnyObject] {
 		let array = NSMutableArray()
 		if message.isUnread {
-			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.lightBlue), icon: UIImage(named: "icon_read"))
+			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.lightBlue), icon: UIImage(named: "icon_read"))
 		} else {
-			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.lightBlue), icon: UIImage(named: "icon_unread"))
+			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.lightBlue), icon: UIImage(named: "icon_unread"))
 		}
 		return array as [AnyObject]
 	}
@@ -67,15 +67,15 @@ class InboxActionHandler: MessageTableViewCellActions {
 	func rightButtonsForData(data message: ManagedMessage) -> [AnyObject] {
 		let array = NSMutableArray()
 		if message.isFlagged {
-			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.orange), icon: UIImage(named: "icon_unflag"))
+			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.orange), icon: UIImage(named: "icon_unflag"))
 		} else {
-			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.orange), icon: UIImage(named: "icon_flag"))
+			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.orange), icon: UIImage(named: "icon_flag"))
 		}
 
 		if message.isArchived {
-			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.darkBlue), icon: UIImage(named: "icon_unarchive"))
+			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.darkBlue), icon: UIImage(named: "icon_unarchive"))
 		} else {
-			array.sw_addUtilityButtonWithColor(UIColor(rgba: HexCodes.darkBlue), icon: UIImage(named: "icon_archive"))
+			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.darkBlue), icon: UIImage(named: "icon_archive"))
 		}
 		return array as [AnyObject]
 	}

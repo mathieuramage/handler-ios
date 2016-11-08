@@ -30,7 +30,7 @@ class ContactCardViewController: UIViewController, UIViewControllerShow {
 
 	var window: UIWindow?
 	
-	var openURL: NSURL?
+	var openURL: URL?
 	
 	var handle: String? {
 		didSet {
@@ -48,10 +48,10 @@ class ContactCardViewController: UIViewController, UIViewControllerShow {
 		}
 	}
 	
-	func getDataWithHandle(handle: String){
+	func getDataWithHandle(_ handle: String){
 		TwitterAPIOperations.getAccountInfoForTwitterUser(handle, callback: { (json, error) -> Void in
 			guard let json = json else {
-				print(error)
+				print(error as Any)
 				return
 			}
 			Async.main {
@@ -62,55 +62,55 @@ class ContactCardViewController: UIViewController, UIViewControllerShow {
 				
 				self.followersCountLabel.text = json["followers_count"].stringValue
 				self.followingCountLabel.text = json["friends_count"].stringValue
-				self.openURL = NSURL(string: json["entities"]["url"]["urls"][0]["expanded_url"].stringValue)
-				self.websiteLinkButton.setTitle(json["entities"]["url"]["urls"][0]["display_url"].stringValue, forState: UIControlState.Normal)
+				self.openURL = URL(string: json["entities"]["url"]["urls"][0]["expanded_url"].stringValue)
+				self.websiteLinkButton.setTitle(json["entities"]["url"]["urls"][0]["display_url"].stringValue, for: UIControlState.normal)
 				
-				if let urlString = json["profile_banner_url"].string, let url = NSURL(string: urlString + DEFAULT_BANNER_RESOLUTION){
-					self.bannerImageView.kf_setImageWithURL(url, placeholderImage: UIImage(named: "twitter_default"), optionsInfo: [.Transition(ImageTransition.Fade(0.3))])
+				if let urlString = json["profile_banner_url"].string, let url = URL(string: urlString + DEFAULT_BANNER_RESOLUTION){
+                    self.bannerImageView.kf.setImage(with: url, placeholder: UIImage(named : "twitter_default"), options: [.transition(ImageTransition.fade(0.3))], progressBlock: nil, completionHandler: nil)
 				}
-				if let urlString = json["profile_image_url"].string, let url = NSURL(string: urlString){
-					self.profileImageView.kf_setImageWithURL(url, placeholderImage: UIImage(named: "twitter_default"), optionsInfo: [.Transition(ImageTransition.Fade(0.3))])
+				if let urlString = json["profile_image_url"].string, let url = URL(string: urlString){
+                    self.profileImageView.kf.setImage(with: url, placeholder: UIImage(named : "twitter_default"), options:  [.transition(ImageTransition.fade(0.3))], progressBlock: nil, completionHandler: nil)
 				}
-				
-				UIView.animateWithDuration(0.3, animations: { () -> Void in
-					self.view.layoutSubviews()
-				})
+                
+                UIView.animate(withDuration: 0.3, animations: { 
+                    self.view.layoutSubviews()
+                })
 				
 			}
 		})
 	}
 	
-	class func showWithUser(user: ManagedUser){
+	class func showWithUser(_ user: ManagedUser){
 		var contactCard = ContactCardViewController(nibName: "ContactCardViewController", bundle: nil)
 		contactCard.user = user
 		contactCard.show()
 	}
 	
-	class func showWithHandle(handle: String){
+	class func showWithHandle(_ handle: String){
 		var contactCard = ContactCardViewController(nibName: "ContactCardViewController", bundle: nil)
 		contactCard.handle = handle
 		contactCard.show()
 	}
 	
-	@IBAction func urlButtonPressed(sender: UIButton) {
-		if let url = openURL where UIApplication.sharedApplication().canOpenURL(url){
-			UIApplication.sharedApplication().openURL(url)
+	@IBAction func urlButtonPressed(_ sender: UIButton) {
+		if let url = openURL, UIApplication.shared.canOpenURL(url){
+			UIApplication.shared.openURL(url)
 		}
 	}
 	
-	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 	}
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		let height = max(UIScreen.mainScreen().bounds.size.height, UIScreen.mainScreen().bounds.size.width)
+		let height = max(UIScreen.main.bounds.size.height, UIScreen.main.bounds.size.width)
 		let is4InchScreen = height >= 568 && height < 667
 
 		if is4InchScreen {
 			topCardContrainst.constant = 64
-			bottomCloseButtonConstraint.active = false
+			bottomCloseButtonConstraint.isActive = false
 		}
 	}
 	
@@ -118,20 +118,20 @@ class ContactCardViewController: UIViewController, UIViewControllerShow {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
-	func dismissPressed(sender: AnyObject?) {
+	func dismissPressed(_ sender: AnyObject?) {
 		dismiss()
 	}
 	
 	@IBAction func dismiss() {
-		UIView.animateWithDuration(0.3, animations: { () -> Void in
+		UIView.animate(withDuration: 0.3, animations: { () -> Void in
 			self.window?.alpha = 0
-			UIApplication.sharedApplication().statusBarStyle = .LightContent
-			}) { (success) -> Void in
+			UIApplication.shared.statusBarStyle = .lightContent
+			}, completion: { (success) -> Void in
 				self.window = nil
-		}
+		}) 
 	}
 	
-	override func preferredStatusBarStyle() -> UIStatusBarStyle {
-		return .LightContent
+	override var preferredStatusBarStyle : UIStatusBarStyle {
+		return .lightContent
 	}
 }

@@ -40,11 +40,11 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 		borderView.layer.cornerRadius = 5
 		borderView.clipsToBounds = true
 		borderView.layer.borderWidth = 1
-		borderView.layer.borderColor = borderView.tintColor.CGColor
+		borderView.layer.borderColor = borderView.tintColor.cgColor
 		searchBar.delegate = self
 	}
 
-	override func viewWillAppear(animated: Bool) {
+	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
 		activityIndicator.startAnimating()
@@ -73,15 +73,15 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 	// MARK: Search Bar Functions
 
 	// TODO: Perform search here.
-	func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 
 	}
 
-	func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+	func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
 		searchBar.setShowsCancelButton(true, animated: true)
 	}
 
-	func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+	func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
 		searchBar.text = ""
 		searchBar.setShowsCancelButton(false, animated: true)
 		searchBar.resignFirstResponder()
@@ -91,7 +91,7 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 		if selectedTab == 0 {
 			if let cursor = followerNextCursor {
 				TwitterAPIOperations.getTwitterFollowers(cursor) { (users, nextCursor) in
-					self.twitterFollowerList.appendContentsOf(users)
+					self.twitterFollowerList.append(contentsOf: users)
 					self.followerNextCursor = nextCursor
 					self.tableView.reloadData()
 				}
@@ -101,7 +101,7 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 
 			if let cursor = followingNextCursor {
 				TwitterAPIOperations.getTwitterFriends(cursor) { (users, nextCursor) in
-					self.twitterFollowingList.appendContentsOf(users)
+					self.twitterFollowingList.append(contentsOf: users)
 					self.followingNextCursor = nextCursor
 					self.tableView.reloadData()
 				}
@@ -111,21 +111,21 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 	}
 
 	func setupDeviceContacts() {
-		self.addressBook.fieldsMask = [APContactField.Default, APContactField.Thumbnail, APContactField.Websites]
+		self.addressBook.fieldsMask = [APContactField.default, APContactField.thumbnail, APContactField.websites]
 		self.addressBook.sortDescriptors = [NSSortDescriptor(key: "name.firstName", ascending: true),
 		                                    NSSortDescriptor(key: "name.lastName", ascending: true)]
 		self.addressBook.filterBlock = {
 			(contact: APContact) -> Bool in
 			if let websites = contact.websites {
 				for website in websites {
-					if let handle = self.extractTwitterHandle(website) where handle.characters.count > 0 {
+					if let handle = self.extractTwitterHandle(website), handle.characters.count > 0 {
 						return true
 					}
 				}
 			}
 			return false
 		}
-		self.addressBook.startObserveChangesWithCallback({
+		self.addressBook.startObserveChanges(callback: {
 			[unowned self] in
 			self.fetchDeviceContactList()
 			})
@@ -141,7 +141,7 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 					var handle : String?
 					for website in contact.websites! {
 						handle = self.extractTwitterHandle(website)
-						if let handle = handle where handle.characters.count > 0 {
+						if let handle = handle, handle.characters.count > 0 {
 							let user = ManagedUser.userWithHandle(handle)
 							user.name = contact.name?.compositeName
 							self.deviceContactList.append(user)
@@ -151,11 +151,11 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 
 			}
 			self.tableView.reloadData()
-		})
+		} as! APLoadContactsBlock)
 	}
 
 	// MARK: - UITableViewDataSource
-	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
 		switch selectedTab {
 		case 0:
@@ -169,8 +169,8 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 		}
 	}
 
-	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCellWithIdentifier("contactTableViewCell", forIndexPath: indexPath) as! ContactTableViewCell
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(withIdentifier: "contactTableViewCell", for: indexPath) as! ContactTableViewCell
 		cell.profileImageView.image = UIImage.randomGhostImage()
 
 		// OTTODO: Reimplement this
@@ -192,8 +192,8 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 		return cell
 	}
 
-	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		tableView.deselectRowAtIndexPath(indexPath, animated: false)
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: false)
 //		let user : LegacyUser = activeTabContacts[indexPath.row]
 //		ContactCardViewController.showWithUser(user)
 	}
@@ -202,15 +202,15 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 
 	// MARK - Segmented Button Actions and Helpers
 
-	@IBAction func followersButtonTapped(sender: AnyObject) {
+	@IBAction func followersButtonTapped(_ sender: AnyObject) {
 		selectTab(0)
 	}
 
-	@IBAction func followingButtonTapped(sender: AnyObject) {
+	@IBAction func followingButtonTapped(_ sender: AnyObject) {
 		selectTab(1)
 	}
 
-	@IBAction func deviceButtonTapped(sender: AnyObject) {
+	@IBAction func deviceButtonTapped(_ sender: AnyObject) {
 		selectTab(2)
 		if self.deviceContactList.isEmpty {
 			setupDeviceContacts()
@@ -234,7 +234,7 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 //		}
 //	}
 
-	func selectTab(index : Int) {
+	func selectTab(_ index : Int) {
 
 		if selectedTab == index {
 			return
@@ -255,7 +255,7 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 		default:
 			break
 		}
-		tableView.setContentOffset(CGPointZero, animated:false)
+		tableView.setContentOffset(CGPoint.zero, animated:false)
 
 		// OTTODO: Reimplement this
 //		if (activeTabContacts.count > 0) {
@@ -264,17 +264,17 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 		tableView.reloadData()
 	}
 
-	private func selectButton(button : UIButton) {
-		button.selected = true
-		UIView.animateWithDuration(0.1, animations: {
+	fileprivate func selectButton(_ button : UIButton) {
+		button.isSelected = true
+		UIView.animate(withDuration: 0.1, animations: {
 			button.backgroundColor = UIColor(rgba: "#55AEEB")
 		})
 	}
 
 	func resetButtons() {
-		followersButton.selected = false
-		followingButton.selected = false
-		deviceButton.selected = false
+		followersButton.isSelected = false
+		followingButton.isSelected = false
+		deviceButton.isSelected = false
 		followersButton.backgroundColor = view.backgroundColor
 		followingButton.backgroundColor = view.backgroundColor
 		deviceButton.backgroundColor = view.backgroundColor
@@ -282,12 +282,12 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 
 	// MARK - Contact Twitter
 
-	func extractTwitterHandle(url : String) -> String? {
+	func extractTwitterHandle(_ url : String) -> String? {
 
-		let regex = try! NSRegularExpression(pattern: "^http(s)?://(www.)?twitter.com/", options: [.CaseInsensitive])
+		let regex = try! NSRegularExpression(pattern: "^http(s)?://(www.)?twitter.com/", options: [.caseInsensitive])
 		let range = NSMakeRange(0, url.characters.count)
-		if let _ = regex.firstMatchInString(url, options: [], range: range ) {
-			return regex.stringByReplacingMatchesInString(url, options: [], range: range, withTemplate: "")
+		if let _ = regex.firstMatch(in: url, options: [], range: range ) {
+			return regex.stringByReplacingMatches(in: url, options: [], range: range, withTemplate: "")
 		}
 		return nil
 	}

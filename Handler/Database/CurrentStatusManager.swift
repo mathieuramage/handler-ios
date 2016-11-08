@@ -27,14 +27,14 @@ class CurrentStatusManager: NSObject, MailboxCountObserver {
 	
 	override init() {
 		super.init()
-		MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(.Unread, observer: self)
+//		MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(.Unread, observer: self)
 	}
 	
 	deinit {
-		NSNotificationCenter.defaultCenter().removeObserver(self)
+		NotificationCenter.default.removeObserver(self)
 	}
 
-	func mailboxCountDidChange(mailboxType: MailboxType, newCount: Int) {
+	func mailboxCountDidChange(_ mailboxType: MailboxType, newCount: Int) {
 		if mailboxType == MailboxType.Unread && currentState.value == .Idle {
 			if newCount != 0 {
 				let emailsText = newCount == 1 ? "email" : "emails"

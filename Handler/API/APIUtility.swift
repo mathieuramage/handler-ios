@@ -14,16 +14,16 @@ struct APIUtility {
 	// Temp memory caches
 	static var cachedTwitterUsers : [TwitterUser] = []
 
-	static var defaultHeaders : [String: String] = ["Cache-Control" : "no-cache", "Content-Type" : "application/json"]
+	static var defaultHeaders : HTTPHeaders = ["Cache-Control" : "no-cache", "Content-Type" : "application/json"]
 
 
-	static func request(method : Alamofire.Method, route : String, parameters : [String : AnyObject]?) -> Request {
-		return request(method, route: route, parameters: parameters, headers: nil)
+	static func request(method : HTTPMethod, route : String, parameters : [String : Any]?) -> DataRequest {
+        return request(method: method, route: route, parameters: parameters, headers: nil)
 	}
 
-	static func request(method : Alamofire.Method, route : String, parameters : [String : AnyObject]?, headers : [String : String]?) -> Request {
+	static func request(method : HTTPMethod, route : String, parameters : [String : Any]?, headers : [String : String]?) -> DataRequest {
 
-		let URLString = Config.APIURL + route
+		let urlString = Config.APIURL + route
 
 		var allHeaders = defaultHeaders
 
@@ -38,13 +38,12 @@ struct APIUtility {
 		}
 
 		var parameterEncoding : ParameterEncoding
-		if (method == .GET || method == .DELETE) {
-			parameterEncoding = .URL
+		if (method == .get || method == .delete) {
+			parameterEncoding = URLEncoding(destination: .queryString)
 		} else {
-			parameterEncoding = .JSON
+			parameterEncoding = JSONEncoding.default
 		}
-
-		return Alamofire.request(method, URLString, parameters: parameters, encoding: parameterEncoding, headers: allHeaders)
+        return Alamofire.request(urlString, method: method , parameters: parameters, encoding: parameterEncoding, headers: allHeaders)
 	}
 }
 
@@ -53,3 +52,5 @@ struct APIError {
 	var title : String
 	var detail : String
 }
+
+
