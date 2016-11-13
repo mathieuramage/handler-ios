@@ -81,7 +81,7 @@ class ManagedMessage: NSManagedObject {
 			for recipientJson in recipientJsons {
 				let recipient = ManagedUser.userWithJSON(recipientJson, inContext: context)
 
-				addRecipientsObject(value: recipient)
+				addRecipientsObject(recipient)
 			}
 		}
 
