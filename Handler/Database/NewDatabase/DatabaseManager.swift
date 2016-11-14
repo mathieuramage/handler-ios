@@ -77,11 +77,10 @@ class DatabaseManager: NSObject {
 			}
 		}
 
-		self.backgroundContext.saveRecursively { (error) in
+		mainManagedContext.saveRecursively { (error) in
 			if let error = error {
 				NSLog("Error saving backgroundContext \(error), \(error.userInfo)")
 			}
-
 			completion?(error)
 		}
 	}
@@ -100,7 +99,7 @@ class DatabaseManager: NSObject {
 	}
 
 	fileprivate func deleteDataForEntity(_ entity: String) {
-		let managedContext = writerManagedContext
+		let managedContext = mainManagedContext
 		let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
 		fetchRequest.returnsObjectsAsFaults = false
 
