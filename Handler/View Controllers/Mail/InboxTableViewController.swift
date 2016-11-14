@@ -14,7 +14,7 @@ import DZNEmptyDataSet
 
 class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, NSFetchedResultsControllerDelegate, DZNEmptyDataSetSource {
 
-	var threadForSegue: Thread?
+	var conversationForSegue: Conversation?
 
 	var activeConversation : Conversation?
 
@@ -24,9 +24,9 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		}
 	}
 
-	var fetchedObjects: [Thread] {
+	var fetchedObjects: [Conversation] {
 		get {
-			return fetchedResultsController.fetchedObjects as? [Thread] ?? [Thread]()
+			return fetchedResultsController.fetchedObjects as? [Conversation] ?? [Conversation]()
 		}
 	}
 
@@ -134,8 +134,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 	}
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//		return fetchedObjects.count ?? 0
-        return 0
+		return fetchedObjects.count ?? 0
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

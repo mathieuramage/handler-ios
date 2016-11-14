@@ -614,7 +614,6 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 		if section == 0 {
 			return super.tableView(tableView, numberOfRowsInSection: section)
 		}
-
 		return conversations.count
 	}
 

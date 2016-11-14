@@ -206,7 +206,7 @@ class ManagedMessage: NSManagedObject {
 		//				if updateOnApi {
 		//					backgroundSelf.updateLabelsOnHRAPI()
 		//				}
-		//				backgroundSelf.thread?.updateInbox()
+		//				backgroundSelf.Conversation?.updateInbox()
 		//				MailDatabaseManager.sharedInstance.saveBackgroundContext()
 		//			}
 		//		}
@@ -226,7 +226,7 @@ class ManagedMessage: NSManagedObject {
 		//						if updateOnApi {
 		//							backgroundSelf.updateLabelsOnHRAPI()
 		//						}
-		//						backgroundSelf.thread?.updateInbox()
+		//						backgroundSelf.Conversation?.updateInbox()
 		//						MailDatabaseManager.sharedInstance.saveBackgroundContext()
 		//						return
 		//					}
@@ -398,14 +398,14 @@ class ManagedMessage: NSManagedObject {
 			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "updatedAt", ascending: false)]
 			return fetchRequest
 		} else if type == .Inbox {
-			let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Thread.entityName())
+			let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Conversation.entityName())
 			fetchRequest.fetchBatchSize = 20
 			// OTTODO: It should be sorted by date.
 			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "identifier", ascending: false)]
 			return fetchRequest
 		} else if type == .Unread {
 			let predicate = NSPredicate(format: "SUBQUERY(messages, $t, ANY $t.labels.id == %@).@count != 0", type.rawValue)
-			let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Thread.entityName())
+			let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Conversation.entityName())
 			fetchRequest.predicate = predicate
 			fetchRequest.fetchBatchSize = 20
 			// OTTODO: It should be sorted by date.

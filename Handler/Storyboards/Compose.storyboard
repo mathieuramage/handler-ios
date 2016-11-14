@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--ComposeTableView-->
@@ -10,9 +14,9 @@
             <objects>
                 <tableViewController storyboardIdentifier="MessageComposeTableViewController" id="oCJ-mb-xVW" userLabel="ComposeTableView" customClass="MessageComposeTableViewController" customModule="Handler" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="jrZ-RV-vV6">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <sections>
                             <tableViewSection headerTitle="Section-1" id="aPq-YM-V5O" userLabel="Static Section">
                                 <cells>
@@ -26,16 +30,16 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uXD-DF-38b">
                                                     <rect key="frame" x="15" y="11" width="24" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.39187690619999999" green="0.4703056216" blue="0.52657049889999996" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.39187690619999999" green="0.4703056216" blue="0.52657049889999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="aaQ-Ch-K6N" customClass="CLTokenInputView">
                                                     <rect key="frame" x="47" y="12" width="288" height="20"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <color key="tintColor" red="0.27450980390000002" green="0.60784313729999995" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="tintColor" red="0.27450980390000002" green="0.60784313729999995" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="color" keyPath="fieldColor">
-                                                            <color key="value" red="0.39187690619999999" green="0.4703056216" blue="0.52657049889999996" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="value" red="0.39187690619999999" green="0.4703056216" blue="0.52657049889999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="drawBottomBorder" value="NO"/>
                                                     </userDefinedRuntimeAttributes>
@@ -72,7 +76,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Subject:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dy9-VX-pax">
                                                     <rect key="frame" x="15" y="12" width="63" height="19"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.39187690619999999" green="0.4703056216" blue="0.52657049889999996" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.39187690619999999" green="0.4703056216" blue="0.52657049889999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WVd-FZ-uJg">
@@ -122,16 +126,16 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cc/Bcc:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0YO-nc-Scs">
                                                     <rect key="frame" x="15" y="11" width="61" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.39187690619999999" green="0.4703056216" blue="0.52657049889999996" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.39187690619999999" green="0.4703056216" blue="0.52657049889999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="jvb-FO-Qp4" customClass="CLTokenInputView">
                                                     <rect key="frame" x="84" y="12" width="251" height="20"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <color key="tintColor" red="0.27450980390000002" green="0.60784313729999995" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="tintColor" red="0.27450980390000002" green="0.60784313729999995" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="color" keyPath="fieldColor">
-                                                            <color key="value" red="0.39187690619999999" green="0.4703056216" blue="0.52657049889999996" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="value" red="0.39187690619999999" green="0.4703056216" blue="0.52657049889999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="drawBottomBorder" value="NO"/>
                                                     </userDefinedRuntimeAttributes>
@@ -167,7 +171,7 @@
                                             <subviews>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="0sd-OL-ZPg">
                                                     <rect key="frame" x="10" y="10" width="355" height="79"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Igx-bw-xBD">
                                                         <size key="itemSize" width="174" height="50"/>
                                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -175,10 +179,6 @@
                                                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     </collectionViewFlowLayout>
                                                     <cells/>
-                                                    <connections>
-                                                        <outlet property="dataSource" destination="Iqf-qu-pZS" id="2qM-1U-Cj0"/>
-                                                        <outlet property="delegate" destination="Iqf-qu-pZS" id="boT-65-ZP3"/>
-                                                    </connections>
                                                 </collectionView>
                                             </subviews>
                                             <constraints>
@@ -204,7 +204,6 @@
                             <outlet property="delegate" destination="oCJ-mb-xVW" id="ACi-c9-Kgj"/>
                         </connections>
                     </tableView>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="addCCContactButton" destination="4iK-eb-sJO" id="eA2-Ov-ByI"/>
                         <outlet property="addToContactButton" destination="F4d-bU-veA" id="gas-Nx-Vx2"/>
@@ -217,7 +216,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m7v-h7-uPC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3735.5" y="872.5"/>
+            <point key="canvasLocation" x="3156" y="1155"/>
         </scene>
         <!--Contacts Auto Complete View Controller-->
         <scene sceneID="yxN-3x-NxZ">
@@ -228,12 +227,12 @@
                         <viewControllerLayoutGuide type="bottom" id="kGk-31-t9h"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Vjn-bg-BMv">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="z2g-fI-BWv">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
-                                <color key="backgroundColor" red="0.96078431369999995" green="0.97254901959999995" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="583"/>
+                                <color key="backgroundColor" red="0.96078431369999995" green="0.97254901959999995" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </tableView>
                         </subviews>
                         <constraints>
@@ -243,14 +242,13 @@
                             <constraint firstItem="z2g-fI-BWv" firstAttribute="leading" secondItem="Vjn-bg-BMv" secondAttribute="leading" id="pbL-ea-7GG"/>
                         </constraints>
                     </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="tableView" destination="z2g-fI-BWv" id="9XV-Rh-nEA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IfD-uF-TOt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3735.5" y="117.5"/>
+            <point key="canvasLocation" x="4041" y="374"/>
         </scene>
         <!--New Message-->
         <scene sceneID="rlt-Q7-xtY">
@@ -277,7 +275,7 @@
                                 </connections>
                             </containerView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="ads-jx-f3r" firstAttribute="leading" secondItem="XhH-KY-GIY" secondAttribute="leading" id="4UY-wd-OWN"/>
                             <constraint firstItem="XhH-KY-GIY" firstAttribute="top" secondItem="tgy-bx-AuJ" secondAttribute="bottom" id="4dj-sr-3OI"/>
@@ -291,19 +289,18 @@
                     </view>
                     <navigationItem key="navigationItem" title="New Message" id="rlG-19-D0P">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="ykg-YF-kyd">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="dismiss:" destination="nZV-hZ-iw9" id="lfa-bQ-ZOP"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Send" style="done" id="ced-oe-DBa">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="send:" destination="nZV-hZ-iw9" id="qEj-09-hfR"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="autoCompleteContainerView" destination="ads-jx-f3r" id="a30-fk-Fsg"/>
                         <outlet property="autoCompleteTopConstraint" destination="bqm-Wd-eWW" id="5cB-4C-tie"/>
@@ -318,13 +315,12 @@
             <objects>
                 <navigationController storyboardIdentifier="MessageComposeNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="W57-yb-n3i" customClass="GradientNavigationController" customModule="Handler" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="qNg-V1-R9W">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="qNg-V1-R9W">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -334,7 +330,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6J4-Zp-IcO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2675.5" y="374.5"/>
+            <point key="canvasLocation" x="2252" y="374"/>
         </scene>
     </scenes>
 </document>

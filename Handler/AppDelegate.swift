@@ -33,9 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var backgroundSessionCompletionHandler: (() -> Void)?
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-//		HandlerAPI.startWithClientId("9c3594fbb153aec6c70477a66229bca7786b7b7b5beb6b2c68c2997ab7ca1e4f", clientSecret : "58614156d6144ed0fd76a0cad80e00cfb5bd2fc33ec1e348fd8d6ffa18d66007")
-
-
 		Twitter.sharedInstance().start(withConsumerKey: Config.Twitter.consumerKey, consumerSecret: Config.Twitter.consumerSecret)
 		Fabric.with([Twitter.sharedInstance(), Crashlytics.self()])
 //		UserTwitterStatusManager.startUpdating() TODO : Do this properly with the new API code

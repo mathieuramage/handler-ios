@@ -10,7 +10,6 @@ import Foundation
 import CoreData
 
 typealias Conversation = ManagedConversation
-typealias Thread = ManagedConversation
 
 class ManagedConversation: NSManagedObject {
 

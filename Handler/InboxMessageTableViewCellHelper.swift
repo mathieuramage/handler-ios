@@ -36,7 +36,6 @@ class InboxMessageTableViewCellHelper {
 		cell.leftUtilityButtons = leftButtonsForMessage(message)
 		cell.rightUtilityButtons = rightButtonsForMessage(message)
 
-
 		if let pictureUrl = message.sender?.pictureUrl {
             cell.senderProfileImageView.kf.setImage(with: pictureUrl, placeholder: UIImage.randomGhostImage(), options: nil, progressBlock: nil, completionHandler: nil)
 		}
@@ -63,7 +62,6 @@ class InboxMessageTableViewCellHelper {
 		cell.repliedIconView.isHidden = (message.sender?.identifier != AuthUtility.user?.identifier)
 
 		setUpReadFlagMessage(message: message, view: cell)
-
 	}
 
 	class func refreshFlags(message: Message, view: MessageTableViewCell){
