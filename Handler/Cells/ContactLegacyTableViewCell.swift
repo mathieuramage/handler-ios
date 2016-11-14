@@ -9,6 +9,19 @@
 import UIKit
 import Async
 import Kingfisher
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
 
 class ContactLegacyTableViewCell: UITableViewCell {
     
@@ -17,14 +30,14 @@ class ContactLegacyTableViewCell: UITableViewCell {
     @IBOutlet weak var handleLabel: UILabel!
     @IBOutlet weak var followButton: UIButton!
     
-    var user: User? {
+    var user: ManagedUser? {
         didSet {
-            if let urlString = user?.profile_picture_url, let profileUrl = NSURL(string: urlString) {
-                self.profileImageView.kf_setImageWithURL(profileUrl, placeholderImage: UIImage.randomGhostImage(), optionsInfo: nil, completionHandler: { (image, error, cacheType, imageURL) -> () in
-                })
+            if let urlString = user?.profile_picture_url, let profileUrl = URL(string: urlString) {
+                self.profileImageView.kf.setImage(with: profileUrl, placeholder: UIImage.randomGhostImage(), options: nil, progressBlock: nil, completionHandler: nil)
             }
-            self.followButton.setImage(UIImage.imageForTwitterStatus(TwitterFriendshipStatus(rawValue: user?.twtterFollowStatus?.integerValue ?? 2)!), forState: UIControlState.Normal)
-            self.followButton.enabled = user?.twtterFollowStatus?.integerValue < 2
+            
+            self.followButton.setImage(UIImage.imageForTwitterStatus(TwitterFriendshipStatus(rawValue: user?.twtterFollowStatus?.intValue ?? 2)!), for: UIControlState())
+            self.followButton.isEnabled = user?.twtterFollowStatus?.intValue < 2
             self.nameLabel.text = user?.name
             self.handleLabel.text = user?.handle
             
@@ -36,13 +49,12 @@ class ContactLegacyTableViewCell: UITableViewCell {
         // Initialization code
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(false, animated: animated)
-        
         // Configure the view for the selected state
     }
     
-    @IBAction func followButtonPressed(sender: UIButton) {
+    @IBAction func followButtonPressed(_ sender: UIButton) {
         
     }
 }

@@ -8,7 +8,6 @@
 
 import UIKit
 import Async
-import HandleriOSSDK
 import Kingfisher
 
 class GreetingViewController: UIViewController, UIViewControllerShow {
@@ -31,41 +30,45 @@ class GreetingViewController: UIViewController, UIViewControllerShow {
         }
     }
     
-    var user: User? {
+    var user: ManagedUser? {
         didSet {
-            if let user = user, let handle = user.handle {
-                getDataWithHandle(handle)
+            if let user = user {
+                getDataWithHandle(user.handle)
             }
         }
     }
     
-    func getDataWithHandle(handle: String){
-        TwitterAPICommunicator.getAccountInfoForTwitterUser(handle, callback: { (json, error) -> Void in
+    func getDataWithHandle(_ handle: String){
+        TwitterAPIOperations.getAccountInfoForTwitterUser(handle, callback: { (json, error) -> Void in
             guard let json = json else {
-                print(error)
+                if let error = error {
+                    print(error)
+                }
                 return
             }
             Async.main {
                 if !self.welcomeBack {
                     self.handleLabel.text = "Welcome @\(json["screen_name"].stringValue)"
-                }else{
+                } else {
                     self.handleLabel.text = "Welcome back @\(json["screen_name"].stringValue)"
                 }
                 self.continueButton.borderColor = UIColor(rgba: HexCodes.lightBlue)
-                self.continueButton.setTitleColor(UIColor(rgba: HexCodes.lightBlue), forState: .Normal)
+                self.continueButton.setTitleColor(UIColor(rgba: HexCodes.lightBlue), for: .normal)
                 
-                if let urlString = json["profile_banner_url"].string, let url = NSURL(string: urlString + DEFAULT_BANNER_RESOLUTION){
-                    self.bannerImageView.kf_setImageWithURL(url, placeholderImage: UIImage(named: "twitter_default"), optionsInfo: [.Transition(ImageTransition.Fade(0.3))])
+                if let urlString = json["profile_banner_url"].string, let url = URL(string: urlString + DEFAULT_BANNER_RESOLUTION){
+                    
+                    self.bannerImageView.kf.setImage(with: url, placeholder: UIImage.randomGhostImage(), options: [.transition(ImageTransition.fade(0.3))], progressBlock: nil, completionHandler: nil)
                 }
                 if PRINT_TWITTER_USERDATA_RESPONSE{
                     print(json)
                 }
                 
-                if let urlString = json["profile_image_url"].string, let url = NSURL(string: urlString.stringByReplacingOccurrencesOfString("_normal", withString: "")){
-                    self.profileImageView.kf_setImageWithURL(url, placeholderImage: UIImage(named: "twitter_default"), optionsInfo: [.Transition(ImageTransition.Fade(0.3))])
+                if let urlString = json["profile_image_url"].string, let url = URL(string:urlString.replacingOccurrences(of: "_normal", with: "")){
+                    self.profileImageView.kf.setImage(with: url, placeholder: UIImage(named:"twitter_default"), options: [.transition(ImageTransition.fade(0.3))], progressBlock: nil, completionHandler: nil)
                 }
-                self.continueButton.userInteractionEnabled = true
-                UIView.animateWithDuration(0.3, animations: { () -> Void in
+                self.continueButton.isUserInteractionEnabled = true
+                
+                UIView.animate(withDuration: 0.3, animations: {
                     GreetingViewController.contactCard.view.alpha = 1
                     self.view.layoutSubviews()
                 })
@@ -74,27 +77,27 @@ class GreetingViewController: UIViewController, UIViewControllerShow {
         })
     }
     
-    class func show(back: Bool = false) {
+    class func show(_ back: Bool = false) {
         contactCard.welcomeBack = back
-        NSNotificationCenter.defaultCenter().addObserver(contactCard, selector: "updateView", name: HRCurrentUserDidSetNotification, object: nil)
+        NotificationCenter.default.addObserver(contactCard, selector: #selector(GreetingViewController.updateView), name: NSNotification.Name(rawValue: HRCurrentUserDidSetNotification), object: nil)
         contactCard.show()
         contactCard.view.alpha = 0;
     }
     
-    class func showWithHandle(handle: String, back: Bool = false){
+    class func showWithHandle(_ handle: String, back: Bool = false){
         contactCard.welcomeBack = back
         contactCard.handle = handle
         contactCard.show()
         contactCard.view.alpha = 0;
     }
     
-    func updateView(){
-        if let user = HRUserSessionManager.sharedManager.currentUser {
+    func updateView() {
+        if let user = AuthUtility.user {
             getDataWithHandle(user.handle)
         }
     }
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
@@ -107,21 +110,21 @@ class GreetingViewController: UIViewController, UIViewControllerShow {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func dismissPressed(sender: AnyObject?) {
+    func dismissPressed(_ sender: AnyObject?) {
         dismiss()
     }
     
-    @IBAction func dismiss(){
-        UIView.animateWithDuration(0.3, animations: { () -> Void in
+    @IBAction func dismiss() {
+        UIView.animate(withDuration: 0.3, animations: { () -> Void in
             self.window?.alpha = 0
-            UIApplication.sharedApplication().statusBarStyle = .LightContent
-            }) { (success) -> Void in
-                self.window = nil
-        }
+            UIApplication.shared.statusBarStyle = .lightContent
+        }, completion: { (success) -> Void in
+            self.window = nil
+        })
     }
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return .lightContent
     }
 }
 

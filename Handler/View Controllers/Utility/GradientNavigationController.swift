@@ -13,11 +13,11 @@ class GradientNavigationController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-		self.navigationBar.tintColor = UIColor.whiteColor()
-		let fontDictionary = [ NSForegroundColorAttributeName:UIColor.whiteColor() ]
+		self.navigationBar.tintColor = UIColor.white
+		let fontDictionary = [ NSForegroundColorAttributeName:UIColor.white ]
 		self.navigationBar.titleTextAttributes = fontDictionary
-		self.navigationBar.setBackgroundImage(imageLayerForGradientBackground(), forBarMetrics: UIBarMetrics.Default)
-		self.navigationBar.translucent = false
+		self.navigationBar.setBackgroundImage(imageLayerForGradientBackground(), for: UIBarMetrics.default)
+		self.navigationBar.isTranslucent = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -25,22 +25,22 @@ class GradientNavigationController: UINavigationController {
         // Dispose of any resources that can be recreated.
     }
 	
-	private func imageLayerForGradientBackground() -> UIImage {
+	fileprivate func imageLayerForGradientBackground() -> UIImage {
 		
 		var updatedFrame = self.navigationBar.bounds
 		// take into account the status bar
 		updatedFrame.size.height += 20
 		let layer = CAGradientLayer.gradientLayerForBounds(updatedFrame)
 		UIGraphicsBeginImageContext(layer.bounds.size)
-		layer.renderInContext(UIGraphicsGetCurrentContext()!)
+		layer.render(in: UIGraphicsGetCurrentContext()!)
 		let image = UIGraphicsGetImageFromCurrentImageContext()
 		UIGraphicsEndImageContext() 
-		return image
+		return image!
 	}
 	
 
-	override func preferredStatusBarStyle() -> UIStatusBarStyle {
-		return .LightContent
+	override var preferredStatusBarStyle : UIStatusBarStyle {
+		return .lightContent
 	}
     /*
     // MARK: - Navigation

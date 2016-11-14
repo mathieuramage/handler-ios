@@ -32,7 +32,7 @@ enum SystemLabels: String {
 }
 
 enum TwitterFriendshipStatus: Int {
-	case Follower = 0
-	case Following
-	case Unknown
+	case follower = 0
+	case following
+	case unknown
 }

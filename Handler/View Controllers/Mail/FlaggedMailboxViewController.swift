@@ -15,33 +15,37 @@ class FlaggedMailboxViewController: AbstractMailboxViewController {
 		mailboxType = .Flagged
 	}
 
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
-		if segue.identifier == "showThreadTableViewController" {
-			let dc = segue.destinationViewController as! ThreadTableViewController
-			dc.thread = self.messageForSegue?.thread
+		if segue.identifier == "showConversationTableViewController" {
+//			let dc = segue.destinationViewController as! ThreadTableViewController
+//			dc.thread = self.messageForSegue?.thread
+//
+//			var threads = [Thread]()
+//			for message in self.fetchedObjects {
+//				if let thread = message.thread {
+//					threads.append(thread)
+//				}
+//			}
+//			dc.allThreads = threads
+////			dc.primaryMessage = self.messageForSegue
 
-			var threads = [Thread]()
-			for message in self.fetchedObjects {
-				if let thread = message.thread {
-					threads.append(thread)
-				}
+			if let destination = segue.destination as? ConversationTableViewController {
+				destination.conversation = activeConversation
 			}
-			dc.allThreads = threads
-			dc.primaryMessage = self.messageForSegue
 
 		} else if segue.identifier == "showMessageComposeNavigationController" { //TODO : This part will work when we have a bottom bar.
-			let dc = (segue.destinationViewController as! UINavigationController).viewControllers.first as! MessageComposeTableViewController
-			dc.draftMessage = self.messageForSegue
+			let dc = (segue.destination as! UINavigationController).viewControllers.first as! MessageComposeTableViewController
+//			dc.draftMessage = self.messageForSegue
 		}
 	}
 
-	func customViewForEmptyDataSet(scrollView: UIScrollView!) -> UIView! {
-		let view = NSBundle.mainBundle().loadNibNamed("EmptyInboxView", owner: self, options: nil).first as! EmptyInboxView
+	func customViewForEmptyDataSet(_ scrollView: UIScrollView!) -> UIView! {
+		let view = Bundle.main.loadNibNamed("EmptyInboxView", owner: self, options: nil)?.first as! EmptyInboxView
 		view.imageView.image = UIImage(named: "mailbox_flagged_empty")
 		view.descriptionLabel.text = "Your flagged emails will be here."
-		view.actionButton.setTitle("Compose your first email", forState: .Normal)
-		view.actionButton.addTarget(self, action: #selector(FlaggedMailboxViewController.composeNewMessage), forControlEvents: .TouchUpInside)
+		view.actionButton.setTitle("Compose your first email", for: UIControlState())
+		view.actionButton.addTarget(self, action: #selector(FlaggedMailboxViewController.composeNewMessage), for: .touchUpInside)
 		return view
 	}
 }

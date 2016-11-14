@@ -13,20 +13,20 @@ class MessageActionsAlertController: UIAlertController {
 	convenience init(message: Message, vc: UIViewController){
 		self.init()
 
-		addAction(UIAlertAction(title: "Reply", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-			let replyNC = Storyboards.Compose.instantiateViewControllerWithIdentifier("MessageComposeNavigationController") as! GradientNavigationController
+		addAction(UIAlertAction(title: "Reply", style: UIAlertActionStyle.default, handler: { (action) -> Void in
+			let replyNC = Storyboards.Compose.instantiateViewController(withIdentifier: "MessageComposeNavigationController") as! GradientNavigationController
 			let replyVC = replyNC.viewControllers.first as! MessageComposeTableViewController
 			replyVC.messageToReplyTo = message
-			vc.presentViewController(replyNC, animated: true, completion: nil)
+			vc.present(replyNC, animated: true, completion: nil)
 		}))
 
-		addAction(UIAlertAction(title: "Forward", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-			let replyNC = Storyboards.Compose.instantiateViewControllerWithIdentifier("MessageComposeNavigationController") as! GradientNavigationController
+		addAction(UIAlertAction(title: "Forward", style: UIAlertActionStyle.default, handler: { (action) -> Void in
+			let replyNC = Storyboards.Compose.instantiateViewController(withIdentifier: "MessageComposeNavigationController") as! GradientNavigationController
 			let replyVC = replyNC.viewControllers.first as! MessageComposeTableViewController
 			replyVC.messageToForward = message
-			vc.presentViewController(replyNC, animated: true, completion: nil)
+			vc.present(replyNC, animated: true, completion: nil)
 		}))
-		addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+		addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
 	}
 	
 }

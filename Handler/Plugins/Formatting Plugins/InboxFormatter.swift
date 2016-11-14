@@ -7,19 +7,18 @@
 //
 
 import UIKit
-import HandleriOSSDK
 import Async
 
 struct InboxFormatter: MessageTableViewCellFormatter {
     
-    var timeFormatter: NSDateFormatter = {
-        let formatter = NSDateFormatter()
-        formatter.timeStyle = NSDateFormatterStyle.NoStyle
-        formatter.dateStyle = NSDateFormatterStyle.ShortStyle
+    var timeFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.timeStyle = DateFormatter.Style.none
+        formatter.dateStyle = DateFormatter.Style.short
         return formatter
     }()
     
-    func populateView(data message: Message, view: MessageTableViewCell){
+    func populateView(data message: ManagedMessage, view: MessageTableViewCell){
         view.readFlaggedImageView.image = nil
         view.senderProfileImageView.image = nil
         view.senderNameLabel.text = nil
@@ -32,9 +31,8 @@ struct InboxFormatter: MessageTableViewCellFormatter {
         
         view.leftUtilityButtons = leftButtonsForData(data: message)
         view.rightUtilityButtons = rightButtonsForData(data: message)
-        if let urlString = message.sender?.profile_picture_url, let profileUrl = NSURL(string: urlString) {
-            view.senderProfileImageView.kf_setImageWithURL(profileUrl, placeholderImage: UIImage.randomGhostImage(), optionsInfo: nil, completionHandler: { (image, error, cacheType, imageURL) -> () in
-            })
+        if let urlString = message.sender?.profile_picture_url, let profileUrl = URL(string: urlString) {
+            view.senderProfileImageView.kf.setImage(with: profileUrl, placeholder: UIImage.randomGhostImage(), options: nil, progressBlock: nil, completionHandler: nil)
         }
         
         view.senderNameLabel.text = message.sender?.name
@@ -43,42 +41,42 @@ struct InboxFormatter: MessageTableViewCellFormatter {
         }
         view.messageSubjectLabel.text = message.subject
         view.messageContentPreviewLabel.text = message.content
-        if let sent_at = message.sent_at {
-            
-            view.messageTimeLabel.text = timeFormatter.stringFromDate(sent_at)
-        }else{
-            view.messageTimeLabel.text = "-"
-        }
-        
-        if let count = message.thread?.messages?.count where count > 1 {
-            view.threadCountLabel.hidden = false
-            view.threadCountLabel.text = "\(count)"
-        }else{
-            view.threadCountLabel.hidden = true
-            view.threadCountLabel.text = "-"
-        }
-        
-        if let count = message.attachments?.count where count > 1 {
-            view.attachmentIconView.hidden = false
-        }else{
-            view.attachmentIconView.hidden = true
-        }
-        
-        if message.thread?.mostRecentMessage?.sender?.id == HRUserSessionManager.sharedManager.currentUser?.id {
-            view.repliedIconView.hidden = false
-        }else{
-            view.repliedIconView.hidden = true
-        }
-        
+		if let updatedAt = message.updatedAt {
+			view.messageTimeLabel.text = timeFormatter.string(from: updatedAt as Date)
+		} else {
+			view.messageTimeLabel.text = "-"
+		}
+
+		if let count = message.conversation?.messages?.count, count > 1 {
+			view.threadCountLabel.isHidden = false
+			view.threadCountLabel.text = "\(count)"
+		} else {
+			view.threadCountLabel.isHidden = true
+			view.threadCountLabel.text = "-"
+		}
+
+		// TODO: Support Attachments
+		//        if let count = message.attachments?.count where count > 1 {
+		//            view.attachmentIconView.hidden = false
+		//        } else {
+		view.attachmentIconView.isHidden = true
+		//        }
+
+		if message.conversation?.mostRecentMessage?.sender?.id == AuthUtility.user?.identifier {
+			view.repliedIconView.isHidden = false
+		} else {
+			view.repliedIconView.isHidden = true
+		}
+
         setUpReadFlagMessage(data: message, view: view)
         
     }
         
-    func refreshFlags(data message: Message, view: MessageTableViewCell){
+    func refreshFlags(data message: ManagedMessage, view: MessageTableViewCell){
         setUpReadFlagMessage(data: message, view: view)
     }
     
-    func setUpReadFlagMessage(data message: Message, view: MessageTableViewCell) {
+    func setUpReadFlagMessage(data message: ManagedMessage, view: MessageTableViewCell) {
         if message.isFlagged && message.isUnread {
             view.readFlaggedImageView.image = UIImage(named: "Orange_Dot")
             // TODO: Add blue button encircled by orange
@@ -94,11 +92,11 @@ struct InboxFormatter: MessageTableViewCellFormatter {
         }
     }
     
-    func leftButtonsForData(data message: Message)->[AnyObject]{
+    func leftButtonsForData(data message: ManagedMessage)->[AnyObject]{
         return ActionPluginProvider.messageCellPluginForInboxType(.Inbox)?.leftButtonsForData(data: message) ?? [AnyObject]()
     }
     
-    func rightButtonsForData(data message: Message)->[AnyObject]{
+    func rightButtonsForData(data message: ManagedMessage)->[AnyObject]{
         return ActionPluginProvider.messageCellPluginForInboxType(.Inbox)?.rightButtonsForData(data: message) ?? [AnyObject]()
     }
 }

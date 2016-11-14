@@ -22,14 +22,14 @@ class MessageComposerWrapperViewController: UIViewController, AutoCompleteDelega
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		autoCompleteContainerView.hidden = true
+		autoCompleteContainerView.isHidden = true
 
-		NSNotificationCenter.defaultCenter().addObserverForName(
-			UIKeyboardWillShowNotification,
+		NotificationCenter.default.addObserver(
+			forName: NSNotification.Name.UIKeyboardWillShow,
 			object: nil, queue: nil,
-			usingBlock: { notification in
+			using: { notification in
 
-				if let kbSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.CGRectValue().size {
+				if let kbSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size {
 
 					let contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0)
 
@@ -42,33 +42,33 @@ class MessageComposerWrapperViewController: UIViewController, AutoCompleteDelega
 
 		})
 
-		NSNotificationCenter.defaultCenter().addObserverForName(
-			UIKeyboardWillHideNotification,
+		NotificationCenter.default.addObserver(
+			forName: NSNotification.Name.UIKeyboardWillHide,
 			object: nil, queue: nil,
-			usingBlock: { notification in
+			using: { notification in
 
-				self.messageComposerController?.tableView.contentInset = UIEdgeInsetsZero
-				self.messageComposerController?.tableView.scrollIndicatorInsets = UIEdgeInsetsZero
+				self.messageComposerController?.tableView.contentInset = UIEdgeInsets.zero
+				self.messageComposerController?.tableView.scrollIndicatorInsets = UIEdgeInsets.zero
 
-				self.autoCompleteViewController?.tableView.contentInset = UIEdgeInsetsZero
-				self.autoCompleteViewController?.tableView.scrollIndicatorInsets = UIEdgeInsetsZero
+				self.autoCompleteViewController?.tableView.contentInset = UIEdgeInsets.zero
+				self.autoCompleteViewController?.tableView.scrollIndicatorInsets = UIEdgeInsets.zero
 		})
 	}
 
 
-	@IBAction func dismiss(sender: UIBarButtonItem) {
+	@IBAction func dismiss(_ sender: UIBarButtonItem) {
 		self.messageComposerController?.dismiss()
 	}
 
-	@IBAction func send(sender: UIBarButtonItem) {
+	@IBAction func send(_ sender: UIBarButtonItem) {
 		self.messageComposerController?.send()
 	}
 
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
 		if segue.identifier == "embedComposer" {
 
-			if let composerTableViewController = segue.destinationViewController as? MessageComposeTableViewController {
+			if let composerTableViewController = segue.destination as? MessageComposeTableViewController {
 				self.messageComposerController = composerTableViewController
 				composerTableViewController.delegate = self
 				composerTableViewController.draftMessage = draftMessage
@@ -76,28 +76,28 @@ class MessageComposerWrapperViewController: UIViewController, AutoCompleteDelega
 			}
 		} else if segue.identifier == "embedAutoComplete" {
 
-			if let autoCompleteViewController = segue.destinationViewController as? ContactsAutoCompleteViewController {
+			if let autoCompleteViewController = segue.destination as? ContactsAutoCompleteViewController {
 				self.autoCompleteViewController = autoCompleteViewController
 				autoCompleteViewController.delegate = self
-				autoCompleteViewController.view.hidden = true
+				autoCompleteViewController.view.isHidden = true
 			}
 		}
 	}
 
 	//MARK : MessageComposeTableViewControllerDelegate
-	func autoCompleteUserForPrefix(prefix : String) {
-		autoCompleteContainerView.hidden = prefix == ""
-		autoCompleteViewController?.autoCompleteUserForPrefix(prefix)
+	func autoCompleteUserForPrefix(_ prefix : String) {
+		autoCompleteContainerView.isHidden = prefix == ""
+//		autoCompleteViewController?.autoCompleteUserForPrefix(prefix)
 	}
 
-	func setAutoCompleteViewTopInset(topInset : CGFloat) {
+	func setAutoCompleteViewTopInset(_ topInset : CGFloat) {
 		autoCompleteTopConstraint.constant = topInset
 		self.view.layoutIfNeeded()
 	}
 
 
 	//MARK : AutoCompleteDelegate
-	func contactsAutoCompleteDidSelectUser(controller: ContactsAutoCompleteViewController, user: User) {
+	func contactsAutoCompleteDidSelectUser(_ controller: ContactsAutoCompleteViewController, user: ManagedUser) {
 		messageComposerController?.contactsAutoCompleteDidSelectUser(user)
 	}
 

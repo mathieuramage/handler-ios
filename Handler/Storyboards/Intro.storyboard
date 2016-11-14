@@ -1,12 +1,16 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Jhi-ay-Flw">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Jhi-ay-Flw">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="System San Francisco Display Regular.ttf">
+        <array key="System San Francisco Display Regular.ttf">
             <string>.HelveticaNeueDeskInterface-Regular</string>
-        </mutableArray>
+        </array>
     </customFonts>
     <scenes>
         <!--Login View Controller-->
@@ -31,21 +35,21 @@
                                     <attributedString key="attributedTitle">
                                         <fragment content="Log In with">
                                             <attributes>
-                                                <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <font key="NSFont" size="18" name=".HelveticaNeueDeskInterface-Thin"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                             </attributes>
                                         </fragment>
                                         <fragment content=" ">
                                             <attributes>
-                                                <color key="NSColor" red="0.24584815234611862" green="0.50050832455433869" blue="0.69144715314136129" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="NSColor" red="0.24584815234611862" green="0.50050832455433869" blue="0.69144715314136129" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <font key="NSFont" size="18" name=".HelveticaNeueDeskInterface-Regular"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                             </attributes>
                                         </fragment>
                                         <fragment content="Twitter">
                                             <attributes>
-                                                <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <font key="NSFont" size="18" name=".HelveticaNeueDeskInterface-Regular"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                             </attributes>
@@ -60,7 +64,7 @@
                                         <real key="value" value="22.5"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -69,9 +73,13 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FL8-M7-0Hk">
                                 <rect key="frame" x="117" y="597" width="140" height="27"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="140" id="31B-7p-vrW"/>
+                                    <constraint firstAttribute="height" constant="27" id="wDA-xt-fgT"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name=".HelveticaNeueDeskInterface-Regular" family="SFNS Display" pointSize="12"/>
                                 <state key="normal" title="Create a Twitter account">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="registerButtonPressed:" destination="Jhi-ay-Flw" eventType="touchUpInside" id="5om-UO-yK8"/>
@@ -88,17 +96,21 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.3320851293" green="0.66610991379999995" blue="0.92362607760000004" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.3320851293" green="0.66610991379999995" blue="0.92362607760000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="FL8-M7-0Hk" firstAttribute="top" secondItem="iEB-CW-jSd" secondAttribute="bottom" constant="20" id="7Y6-kR-t2c"/>
                             <constraint firstItem="FL8-M7-0Hk" firstAttribute="centerX" secondItem="iEB-CW-jSd" secondAttribute="centerX" id="A0f-ZA-YKY"/>
                             <constraint firstItem="Upt-6a-9Jr" firstAttribute="centerX" secondItem="lLI-JJ-AP8" secondAttribute="centerX" id="DFQ-me-4F7"/>
+                            <constraint firstItem="FL8-M7-0Hk" firstAttribute="centerX" secondItem="ej0-zd-XGC" secondAttribute="centerX" id="DFm-Cl-1TC"/>
                             <constraint firstItem="FL8-M7-0Hk" firstAttribute="top" secondItem="RLC-sd-uGD" secondAttribute="bottom" constant="577" id="FbL-co-Zvc"/>
                             <constraint firstItem="lLI-JJ-AP8" firstAttribute="centerX" secondItem="iEB-CW-jSd" secondAttribute="centerX" id="Icc-dZ-YVV"/>
+                            <constraint firstItem="s9a-WR-nhw" firstAttribute="top" secondItem="FL8-M7-0Hk" secondAttribute="bottom" constant="43" id="KeA-pK-uHs"/>
                             <constraint firstItem="Upt-6a-9Jr" firstAttribute="top" secondItem="ej0-zd-XGC" secondAttribute="top" id="L5n-zz-RUv"/>
                             <constraint firstItem="Upt-6a-9Jr" firstAttribute="leading" secondItem="ej0-zd-XGC" secondAttribute="leading" id="Lwn-cf-K6f"/>
                             <constraint firstItem="iEB-CW-jSd" firstAttribute="centerX" secondItem="ej0-zd-XGC" secondAttribute="centerX" id="SFU-ax-dI2"/>
+                            <constraint firstItem="FL8-M7-0Hk" firstAttribute="top" secondItem="iEB-CW-jSd" secondAttribute="bottom" constant="55" id="Vqf-8n-RQl"/>
                             <constraint firstItem="lLI-JJ-AP8" firstAttribute="top" secondItem="RLC-sd-uGD" secondAttribute="bottom" constant="155" id="bhW-S0-vpS"/>
+                            <constraint firstItem="FL8-M7-0Hk" firstAttribute="top" secondItem="iEB-CW-jSd" secondAttribute="bottom" constant="55" id="dm4-qK-P6e"/>
                             <constraint firstItem="Upt-6a-9Jr" firstAttribute="bottom" secondItem="s9a-WR-nhw" secondAttribute="top" id="h1x-qu-36l"/>
                             <constraint firstItem="lLI-JJ-AP8" firstAttribute="top" secondItem="RLC-sd-uGD" secondAttribute="bottom" constant="155" id="l9n-iv-a8D"/>
                             <constraint firstAttribute="trailing" secondItem="FL8-M7-0Hk" secondAttribute="trailing" constant="118" id="miX-8X-Pd7"/>
@@ -108,14 +120,19 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="l9n-iv-a8D"/>
-                                <exclude reference="A0f-ZA-YKY"/>
                                 <exclude reference="7Y6-kR-t2c"/>
+                                <exclude reference="A0f-ZA-YKY"/>
+                                <exclude reference="FbL-co-Zvc"/>
+                                <exclude reference="dm4-qK-P6e"/>
+                                <exclude reference="miX-8X-Pd7"/>
+                                <exclude reference="sdA-64-DcG"/>
+                                <exclude reference="y72-cB-YZ1"/>
                             </mask>
                         </variation>
                     </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="loadingView" destination="Upt-6a-9Jr" id="az9-SA-AHk"/>
+                        <outlet property="loginButton" destination="iEB-CW-jSd" id="fbj-Kw-n0j"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qfh-jc-4Vo" userLabel="First Responder" sceneMemberID="firstResponder"/>

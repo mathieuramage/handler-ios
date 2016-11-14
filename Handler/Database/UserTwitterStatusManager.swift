@@ -10,25 +10,25 @@ import UIKit
 import CoreData
 
 class UserTwitterStatusManager: NSObject {
-	
-	class func startUpdating(){
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserTwitterStatusManager.newDataFetched), name: fetchedTwitterDataNotification, object: nil)
+
+	class func startUpdating() {
+		NotificationCenter.default.addObserver(self, selector: #selector(UserTwitterStatusManager.newDataFetched), name: NSNotification.Name(rawValue: fetchedTwitterDataNotification), object: nil)
 	}
-	
-	class func newDataFetched(){
-		MailDatabaseManager.sharedInstance.backgroundContext.performBlock { () -> Void in
-			let fetchRequest = NSFetchRequest(entityName: "User")
+
+	class func newDataFetched() {
+		DatabaseManager.sharedInstance.backgroundContext.perform {
+			let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: ManagedUser.entityName())
 			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
-			if let users = MailDatabaseManager.sharedInstance.executeBackgroundFetchRequest(fetchRequest) as? [User] {
-				for user in users {
-                    user.twtterFollowStatus = NSNumber(integer: TwitterAPICommunicator.followStatusForID(user.name!).rawValue)
-				}
+			let users: [ManagedUser] = DatabaseManager.sharedInstance.backgroundContext.safeExecuteFetchRequest(fetchRequest)
+			for user in users {
+				user.twtterFollowStatus = NSNumber(value: TwitterAPIOperations.followStatusForID(user.name!).rawValue as Int)
 			}
-			MailDatabaseManager.sharedInstance.saveBackgroundContext()
+
+			DatabaseManager.sharedInstance.backgroundContext.saveRecursively()
 		}
 	}
-	
-	deinit{
-		NSNotificationCenter.defaultCenter().removeObserver(self)
+
+	deinit {
+		NotificationCenter.default.removeObserver(self)
 	}
 }

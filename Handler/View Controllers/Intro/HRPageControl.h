@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HRPageControl : UIPageControl
-{
+@interface HRPageControl : UIPageControl {
     UIImage* activeImage;
     UIImage* inactiveImage;
 }
+
+
 @property(nonatomic, retain) UIImage* activeImage;
 @property(nonatomic, retain) UIImage* inactiveImage;
 

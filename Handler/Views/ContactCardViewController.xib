@@ -1,7 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ContactCardViewController" customModule="Handler" customModuleProvider="target">
@@ -32,7 +36,7 @@
                         <constraint firstAttribute="width" constant="50" id="Qhu-K0-dKe"/>
                     </constraints>
                     <state key="normal" image="cancel">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <connections>
                         <action selector="dismiss" destination="-1" eventType="touchUpInside" id="9ZR-qI-uGW"/>
@@ -65,13 +69,13 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="mSF-wc-rkl">
                             <rect key="frame" x="15" y="135" width="291" height="21"/>
                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="48F-se-IWq">
                             <rect key="frame" x="15" y="155" width="291" height="17"/>
                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
-                            <color key="textColor" red="0.39187690619999999" green="0.4703056216" blue="0.52657049889999996" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="0.39187690619999999" green="0.4703056216" blue="0.52657049889999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="250" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="emu-OZ-2kb" userLabel="Status Label">
@@ -80,19 +84,19 @@
                                 <constraint firstAttribute="height" constant="97" id="Qbn-ki-hcQ"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kXs-vM-z67">
                             <rect key="frame" x="15" y="285" width="291" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" red="0.39187690619999999" green="0.4703056216" blue="0.52657049889999996" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="0.39187690619999999" green="0.4703056216" blue="0.52657049889999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2f7-Ys-7Hy">
                             <rect key="frame" x="15" y="305" width="291" height="30"/>
                             <state key="normal" title="-">
-                                <color key="titleColor" red="0.10196078431372549" green="0.35686274509803922" blue="0.60784313725490191" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleColor" red="0.10196078431372549" green="0.35686274509803922" blue="0.60784313725490191" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <connections>
                                 <action selector="urlButtonPressed:" destination="-1" eventType="touchUpInside" id="IlN-F7-APp"/>
@@ -101,13 +105,13 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CuX-Mz-Nbh">
                             <rect key="frame" x="15" y="333" width="8" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="FOLLOWING" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eva-wi-yyq">
                             <rect key="frame" x="28" y="335" width="82" height="17"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <color key="textColor" red="0.39187690619999999" green="0.4703056216" blue="0.52657049889999996" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="0.39187690619999999" green="0.4703056216" blue="0.52657049889999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Chd-Rj-mMV">
@@ -116,17 +120,17 @@
                                 <constraint firstAttribute="width" constant="50" id="S4O-vG-aHz"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="FOLLOWERS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h0A-4B-wQL">
                             <rect key="frame" x="215" y="335" width="91" height="17"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <color key="textColor" red="0.39187690619999999" green="0.4703056216" blue="0.52657049889999996" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="0.39187690619999999" green="0.4703056216" blue="0.52657049889999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="kXs-vM-z67" firstAttribute="top" secondItem="eNr-Xa-RX7" secondAttribute="top" constant="285" id="025-sq-2kH"/>
                         <constraint firstItem="Chd-Rj-mMV" firstAttribute="leading" secondItem="eva-wi-yyq" secondAttribute="trailing" constant="8" id="1aW-tg-FkY"/>
@@ -209,7 +213,7 @@
                     </variation>
                 </view>
             </subviews>
-            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.75" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.75" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="eNr-Xa-RX7" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="155" id="6Cq-7t-I5v"/>
                 <constraint firstItem="3qR-Fm-mjY" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="572" id="8oQ-EU-CZs"/>
@@ -219,7 +223,6 @@
                 <constraint firstItem="3qR-Fm-mjY" firstAttribute="top" relation="lessThanOrEqual" secondItem="eNr-Xa-RX7" secondAttribute="bottom" constant="47" id="eNd-v1-lRV"/>
                 <constraint firstAttribute="trailing" secondItem="eNr-Xa-RX7" secondAttribute="trailing" constant="27" id="l1l-HL-uJv"/>
             </constraints>
-            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
             <variation key="default">
                 <mask key="constraints">
                     <exclude reference="8oQ-EU-CZs"/>

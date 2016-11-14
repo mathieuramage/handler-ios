@@ -7,10 +7,9 @@
 //
 
 import Foundation
-import HandleriOSSDK
 
-extension HRError {
-    func show(){
-        ErrorPopupQueue.sharedInstance.enqueueError(self)
-    }
-}
+//extension HRError {
+//    func show() {
+//        ErrorPopupQueue.sharedInstance.enqueueError(self)
+//    }
+//}

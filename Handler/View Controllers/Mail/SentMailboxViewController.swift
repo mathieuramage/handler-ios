@@ -15,37 +15,38 @@ class SentMailboxViewController: AbstractMailboxViewController {
 		mailboxType = .Sent
 	}
 
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		super.prepareForSegue(segue, sender: sender)
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		super.prepare(for: segue, sender: sender)
 
-		if segue.identifier == "showThreadTableViewController" {
-			let dc = segue.destinationViewController as! ThreadTableViewController
-			dc.thread = self.messageForSegue?.thread
-			var threads = [Thread]()
-			for message in self.fetchedObjects {
-				if let thread = message.thread {
-					threads.append(thread)
-				}
-			}
-			dc.allThreads = threads
+		if segue.identifier == "showConversationTableViewController" {
+//			let dc = segue.destinationViewController as! ThreadTableViewController
+//			dc.thread = self.messageForSegue?.thread
+//			var threads = [Thread]()
+//			for message in self.fetchedObjects {
+//				if let thread = message.thread {
+//					threads.append(thread)
+//				}
+//			}
+//			dc.allThreads = threads
 
-			if let destination = segue.destinationViewController as? ThreadTableViewController {
+			if let destination = segue.destination as? ConversationTableViewController {
+				destination.conversation = self.activeConversation
 				destination.primaryMessage = self.messageForSegue!
 			}
 
 		} else if segue.identifier == "showMessageComposeNavigationController" {
 
-			if let dc = (segue.destinationViewController as? UINavigationController)?.viewControllers.first as? MessageComposerWrapperViewController {
-				dc.draftMessage = self.messageForSegue
-			}
+//			if let dc = (segue.destinationViewController as? UINavigationController)?.viewControllers.first as? MessageComposerWrapperViewController {
+//				dc.draftMessage = self.messageForSegue
+//			}
 		}
 	}
 
-	func customViewForEmptyDataSet(scrollView: UIScrollView!) -> UIView! {
-		let view = NSBundle.mainBundle().loadNibNamed("EmptyInboxView", owner: self, options: nil).first as! EmptyInboxView
+	func customViewForEmptyDataSet(_ scrollView: UIScrollView!) -> UIView! {
+		let view = Bundle.main.loadNibNamed("EmptyInboxView", owner: self, options: nil)?.first as! EmptyInboxView
 		view.imageView.image = UIImage(named: "mailbox_sent_empty")
 		view.descriptionLabel.text = "Your sent emails will be here."
-		view.actionButton.addTarget(self, action: #selector(SentMailboxViewController.composeNewMessage), forControlEvents: .TouchUpInside)
+		view.actionButton.addTarget(self, action: #selector(SentMailboxViewController.composeNewMessage), for: .touchUpInside)
 		return view
 	}
 }

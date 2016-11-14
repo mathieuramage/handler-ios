@@ -13,8 +13,7 @@
 @synthesize activeImage;
 @synthesize inactiveImage;
 
--(id)initWithCoder:(NSCoder *)aDecoder
-{
+-(id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if(self)
     {
@@ -24,8 +23,7 @@
     return self;
 }
 
--(void) updateDots
-{
+-(void) updateDots {
     for (int i = 0; i < [self.subviews count]; i++)
     {
         UIImageView * dot = [self imageViewForSubview:  [self.subviews objectAtIndex: i]];
@@ -34,8 +32,7 @@
     }
 }
 
-- (UIImageView *) imageViewForSubview: (UIView *) view
-{
+- (UIImageView *) imageViewForSubview: (UIView *) view {
     UIImageView * dot = nil;
     if ([view isKindOfClass: [UIView class]])
     {
@@ -61,16 +58,15 @@
     return dot;
 }
 
--(void)setCurrentPage:(NSInteger)page
-{
+-(void)setCurrentPage:(NSInteger)page {
     [super setCurrentPage:page];
     [self updateDots];
 }
 
-- (void)awakeFromNib
-{
+- (void)awakeFromNib {
     self.pageIndicatorTintColor = [UIColor clearColor];
     self.currentPageIndicatorTintColor = [UIColor clearColor];
+    [super awakeFromNib];
 }
 
 @end

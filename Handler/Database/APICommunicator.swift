@@ -20,7 +20,7 @@ enum AuthenticationState: Int {
     case LoggingOut
 }
 
-typealias APICommunicatorActionRepeat = ()->Void
+typealias APICommunicatorActionRepeat = () -> Void
 
 class APICommunicator: NSObject {
     static let sharedInstance = APICommunicator()
@@ -29,7 +29,7 @@ class APICommunicator: NSObject {
         get {
             if authenticationState == .LoggedIn {
                 return true
-            }else{
+            } else {
                 return false
             }
         }
@@ -46,7 +46,6 @@ class APICommunicator: NSObject {
                 case .LoggedIn:
                     uploadToken()
                     fetchNewMessages()
-                    fetchNewLabels()                    
                     for action in reloginActionQueue {
                         action()
                     }
@@ -59,35 +58,32 @@ class APICommunicator: NSObject {
     }
     
     private var reloginActionQueue = [APICommunicatorActionRepeat]()
-    
-    override init(){
-        super.init()
-    }
-    
-    func start(){
+
+    func start() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidAuth", name: HRUserSessionDidStartNotification, object: nil)
     }
     
-    func attemptRelogin(){
-        authenticationState = .Authenticating
-        if let session = Twitter.sharedInstance().sessionStore.session() as? TWTRSession {
-            let oauthSigning = TWTROAuthSigning(authConfig:Twitter.sharedInstance().authConfig, authSession:session)
-            HRTwitterAuthManager.startAuth(oauthSigning.OAuthEchoHeadersToVerifyCredentials(), callback: { (error, session) -> Void in
-                if let error = error {
-                    self.authenticationState = .LoggedOut
-                    error.show()
-                    AppDelegate.sharedInstance().window?.rootViewController = Storyboards.Intro.instantiateViewControllerWithIdentifier("LoginViewController")
-                }else if let _ = session {
-                    self.authenticationState = .LoggedIn
-                }
-            });
-        }else{
-            self.authenticationState = .LoggedOut
-            AppDelegate.sharedInstance().window?.rootViewController = Storyboards.Intro.instantiateViewControllerWithIdentifier("LoginViewController")
-        }
+    func attemptRelogin() {
+		// OTTODO: This is causing the user to be logged out. Review this implementation
+//        authenticationState = .Authenticating
+//        if let session = Twitter.sharedInstance().sessionStore.session() as? TWTRSession {
+//            let oauthSigning = TWTROAuthSigning(authConfig:Twitter.sharedInstance().authConfig, authSession:session)
+//            HRTwitterAuthManager.startAuth(oauthSigning.OAuthEchoHeadersToVerifyCredentials(), callback: { (error, session) -> Void in
+//                if let error = error {
+//                    self.authenticationState = .LoggedOut
+//                    error.show()
+//                    AppDelegate.sharedInstance().window?.rootViewController = Storyboards.Intro.instantiateViewControllerWithIdentifier("LoginViewController")
+//                }else if let _ = session {
+//                    self.authenticationState = .LoggedIn
+//                }
+//            });
+//        } else {
+//            self.authenticationState = .LoggedOut
+//            AppDelegate.sharedInstance().window?.rootViewController = Storyboards.Intro.instantiateViewControllerWithIdentifier("LoginViewController")
+//        }
     }
     
-    func clearUserData(){
+    func clearUserData() {
         do {
             try Keychain(service: "com.handlerapp.Handler").remove("authToken")
             try Keychain(service: "com.handlerapp.Handler").remove("expirationDate")
@@ -98,14 +94,16 @@ class APICommunicator: NSObject {
             Twitter.sharedInstance().sessionStore.logOutUserID(session.userID)
         }
         HRUserSessionManager.logout()
-        MailDatabaseManager.sharedInstance.flushDatastore()
+        DatabaseManager.sharedInstance.flushDatastore { (error) in
+			self.authenticationState = .LoggedOut
+		}
     }
 	
-	func flushOldArchivedMessages(){
-		 MailDatabaseManager.sharedInstance.flushOldArchiveDatastore()
+	func flushOldArchivedMessages() {
+		 DatabaseManager.sharedInstance.flushOldArchiveDatastore()
 	}
     
-    func signOut(){
+    func signOut() {
         if authenticationState != .LoggingOut {
             authenticationState = .LoggingOut
         }
@@ -113,12 +111,12 @@ class APICommunicator: NSObject {
     
     // MARK: Auth
     
-    func userDidAuth(){
+    func userDidAuth() {
         guard let currentSession = HRUserSessionManager.sharedManager.currentSession else {
             return
         }
         authenticationState = .LoggedIn
-        TwitterAPICommunicator.sharedInstance.getTwitterData()
+        TwitterAPIOperations.getTwitterData()
         do {
             try Keychain(service: "com.handlerapp.Handler").set(currentSession.authToken, key: "authToken")
             try Keychain(service: "com.handlerapp.Handler").set(NSKeyedArchiver.archivedDataWithRootObject(currentSession.expirationDate), key: "expirationDate")
@@ -127,7 +125,7 @@ class APICommunicator: NSObject {
         }
     }
     
-    func uploadToken (){
+    func uploadToken () {
         guard let _ = HRUserSessionManager.sharedManager.currentSession else {
             return
         }
@@ -146,24 +144,8 @@ class APICommunicator: NSObject {
     }
     
     // MARK: API Communication
-    
-    private func fetchNewLabels(){
-        HandlerAPI.getAllLabels { (labels, error) -> Void in
-            guard let labels = labels else {
-                if let errorStatus = error?.status where errorStatus == 401 {
-                    self.authenticationState = .LoginExpired
-                }else if let error = error {
-                    ErrorHandler.performErrorActions(error)
-                }
-                return
-            }
-            for label in labels {
-                MailDatabaseManager.sharedInstance.storeLabel(label, save: false)
-            }
-        }
-    }
-    
-//    private func fetchSend(){
+
+//    private func fetchSend() {
 //        HandlerAPI.getNewMessagesWithCallback("SENT") { (messages, error) -> Void in
 //            guard let messages = messages else {
 //                print(error)
@@ -184,13 +166,14 @@ class APICommunicator: NSObject {
                 print(error)
                 if let errorStatus = error?.status where errorStatus == 401 {
                     self.authenticationState = .LoginExpired
-                }else{
+                } else {
                     completion?(error: error)
                 }
                 return
             }
             for message in messages {
-                MailDatabaseManager.sharedInstance.storeMessage(message, save: false)
+				// OTTODO: Implement correct store message
+//                MailDatabaseManager.sharedInstance.storeMessage(message, save: false)
             }
             completion?(error: nil)
         }
@@ -349,14 +332,6 @@ class APICommunicator: NSObject {
                     self.authenticationState = .LoginExpired
                 }
             }
-        }
-    }
-    
-    func finishedFlushingStore(){
-        if authenticationState == .LoggingOut {
-            authenticationState = .LoggedOut
-        }else{
-            print("Why the hell did you flush!?")
         }
     }
 }

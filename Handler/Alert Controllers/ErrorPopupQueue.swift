@@ -7,10 +7,9 @@
 //
 
 import UIKit
-import HandleriOSSDK
 
 class ErrorPopupQueue: NSObject {
-    private var errors: [HRError] = [HRError]()
+    fileprivate var errors: [HandlerError] = [HandlerError]()
     var currentError: ErrorPopupViewController? {
         didSet {
             currentError?.show()
@@ -18,23 +17,23 @@ class ErrorPopupQueue: NSObject {
     }
     static let sharedInstance = ErrorPopupQueue()
     
-    func enqueueError(error: HRError){
+    func enqueueError(_ error: HandlerError){
         errors.append(error)
         if let _ = currentError {
             
-        }else{
+        } else {
             let errorPopup = ErrorPopupViewController()
             errorPopup.error = error
             currentError = errorPopup
         }
     }
     
-    func nextError()->HRError?{
+    func nextError()->HandlerError?{
         if let currentError = currentError {
-            if let index = errors.indexOf(currentError.error!) {
+            if let index = errors.index(of: currentError.error!) {
                 if errors.count > index + 1 {
                     return errors[index+1]
-                }else{
+                } else {
                     return nil
                 }
             }

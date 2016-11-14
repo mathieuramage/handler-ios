@@ -14,17 +14,19 @@ import DZNEmptyDataSet
 
 class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, NSFetchedResultsControllerDelegate, DZNEmptyDataSetSource {
 
-	var threadForSegue: Thread?
+	var conversationForSegue: Conversation?
 
-	var fetchedResultsController: NSFetchedResultsController {
+	var activeConversation : Conversation?
+
+	var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult> {
 		get {
 			return MailboxObserversManager.sharedInstance.fetchedResultsControllerForType(.Inbox)
 		}
 	}
 
-	var fetchedObjects: [Thread] {
+	var fetchedObjects: [Conversation] {
 		get {
-			return fetchedResultsController.fetchedObjects as? [Thread] ?? [Thread]()
+			return fetchedResultsController.fetchedObjects as? [Conversation] ?? [Conversation]()
 		}
 	}
 
@@ -34,204 +36,242 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		tableView.registerNib(UINib(nibName: "MessageTableViewCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "mailCell")
+		tableView.register(UINib(nibName: "MessageTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "MessageTableViewCell")
 		tableView.tableFooterView = UIView()
 		tableView.emptyDataSetSource = self
 		self.refreshControl = UIRefreshControl()
-		self.refreshControl!.addTarget(self, action: #selector(InboxTableViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
+		self.refreshControl!.addTarget(self, action: #selector(InboxTableViewController.refresh(_:)), for: UIControlEvents.valueChanged)
 		self.tableView.addSubview(refreshControl!)
 		MailboxObserversManager.sharedInstance.addObserverForMailboxType(.Inbox, observer: self)
 	}
 
-	func refresh(control: UIRefreshControl){
-		APICommunicator.sharedInstance.fetchNewMessagesWithCompletion { (error) -> Void in
-			Async.main(block: { () -> Void in
-				control.endRefreshing()
-				guard let error = error else {
-					return
-				}
-				error.show()
-			})
-		}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		refresh()
 	}
 
-	override func viewDidAppear(animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 
-		let space = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+		let space = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
 
-		navigationItem.rightBarButtonItem?.enabled = true
+		navigationItem.rightBarButtonItem?.isEnabled = true
 
-		lastupdatedLabel = UILabel(frame: CGRectMake(0, 8, 140, 14))
-		CurrentStatusManager.sharedInstance.currentStatusSubtitle.observe { text in
-			Async.main(block: { () -> Void in
+		lastupdatedLabel = UILabel(frame: CGRect(x: 0, y: 8, width: 140, height: 14))
+		CurrentStatusManager.sharedInstance.currentStatusSubtitle.observeNext { text in
+            Async.main{
 				self.lastupdatedLabel?.text = text
-			})
+			}
 		}
-		lastupdatedLabel?.textAlignment = .Center
-		lastupdatedLabel?.font = UIFont.systemFontOfSize(14)
-		newEmailsLabel = UILabel(frame: CGRectMake(0, 26, 140, 10))
-		CurrentStatusManager.sharedInstance.currentStatus.observe { text in
-			Async.main(block: { () -> Void in
+		lastupdatedLabel?.textAlignment = .center
+		lastupdatedLabel?.font = UIFont.systemFont(ofSize: 14)
+		newEmailsLabel = UILabel(frame: CGRect(x: 0, y: 26, width: 140, height: 10))
+		CurrentStatusManager.sharedInstance.currentStatus.observeNext { text in
+            Async.main{
 				self.newEmailsLabel?.text = text
-			})
+			}
 		}
-		newEmailsLabel?.textAlignment = .Center
-		newEmailsLabel?.font = UIFont.systemFontOfSize(10)
-		newEmailsLabel?.textColor = UIColor.darkGrayColor()
+		newEmailsLabel?.textAlignment = .center
+		newEmailsLabel?.font = UIFont.systemFont(ofSize: 10)
+		newEmailsLabel?.textColor = UIColor.darkGray
 
-		let containerView = UIView(frame: CGRectMake(0, 0, 140, 44))
+		let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 140, height: 44))
 		containerView.addSubview(lastupdatedLabel!)
 		containerView.addSubview(newEmailsLabel!)
 		let item = UIBarButtonItem(customView: containerView)
 
-		let composeItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Compose, target: self, action: #selector(InboxTableViewController.composeNewMessage))
+		let composeItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.compose, target: self, action: #selector(InboxTableViewController.composeNewMessage))
 
 		self.navigationController!.toolbar.items = [space, item, space, composeItem]
 
 		let navigationbarFrame = self.navigationController!.navigationBar.bounds
 		navigationController?.navigationBar.clipsToBounds = false
-		progressBar = UIProgressView(frame: CGRectMake(0, navigationbarFrame.height - 2.5, navigationbarFrame.width, 2.5))
-		progressBar.progressViewStyle = .Bar
-		progressBar.progressTintColor = UIColor.whiteColor()
-		progressBar.hidden = true
+		progressBar = UIProgressView(frame: CGRect(x: 0, y: navigationbarFrame.height - 2.5, width: navigationbarFrame.width, height: 2.5))
+		progressBar.progressViewStyle = .bar
+		progressBar.progressTintColor = UIColor.white
+		progressBar.isHidden = true
 
-		CurrentStatusManager.sharedInstance.currentUploadProgress.observe { progress in
-			Async.main(block: { () -> Void in
-				self.progressBar.progress = progress
-				self.progressBar.hidden = progress == 0 || progress == 1
-			})
+		CurrentStatusManager.sharedInstance.currentUploadProgress.observeNext { progress in
+            Async.main {
+                self.progressBar.progress = progress
+                self.progressBar.isHidden = progress == 0 || progress == 1
+            }
 		}
-
+    
 		self.navigationController?.navigationBar.addSubview(progressBar)
-		if let cells = self.tableView.visibleCells as? [MessageTableViewCell]{
+
+		if let cells = self.tableView.visibleCells as? [MessageTableViewCell] {
 			for cell in cells {
-				if let path = tableView.indexPathForCell(cell) where path.row < fetchedObjects.count, let data = fetchedObjects[path.row].mostRecentMessage {
-					FormattingPluginProvider.messageCellPluginForInboxType(.Inbox)?.refreshFlags(data: data, view: cell)
+				if let path = tableView.indexPath(for: cell), path.row < fetchedObjects.count {
+					let conversation = fetchedObjects[path.row]
+					InboxMessageTableViewCellHelper.configureCell(cell, conversation: conversation)
 				}
 			}
 		}
 	}
-	func composeNewMessage(){
-		performSegueWithIdentifier("showMessageComposeNavigationController", sender: self)
+
+	func refresh(_ control: UIRefreshControl) {
+		refresh()
 	}
 
-	@IBAction func showSideMenu(sender: UIBarButtonItem) {
+	func refresh() {
+		ConversationOperations.getAllConversations(before: Date(), after: nil, limit: 0) { (success, conversations) in
+			self.refreshControl?.endRefreshing()
+		}
+	}
+
+	func composeNewMessage() {
+		performSegue(withIdentifier: "showMessageComposeNavigationController", sender: self)
+	}
+
+	@IBAction func showSideMenu(_ sender: UIBarButtonItem) {
 		presentLeftMenuViewController()
 	}
 
-	override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+	override func numberOfSections(in tableView: UITableView) -> Int {
 		return 1
 	}
 
-	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return fetchedObjects.count ?? 0
 	}
 
-	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCellWithIdentifier("mailCell", forIndexPath: indexPath) as! MessageTableViewCell
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(withIdentifier: "MessageTableViewCell", for: indexPath) as! MessageTableViewCell
+
 		if indexPath.row < fetchedObjects.count {
-			if let data = fetchedObjects[indexPath.row].mostRecentMessage {
-				FormattingPluginProvider.messageCellPluginForInboxType(.Inbox)?.populateView(data: data, view: cell)
-			}
+			let conversation = fetchedObjects[indexPath.row]
+				InboxMessageTableViewCellHelper.configureCell(cell, conversation: conversation)
 		}
+
 		cell.delegate = self
 		return cell
 	}
 
 
-	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		for cell in tableView.visibleCells {
 			if let cell = cell as? SWTableViewCell {
-				cell.hideUtilityButtonsAnimated(true)
+				cell.hideUtilityButtons(animated: true)
 			}
 		}
 		if indexPath.row < fetchedObjects.count {
-			navigationItem.rightBarButtonItem?.enabled = false
-
-			let thread = fetchedObjects[indexPath.row]
-			threadForSegue = thread
-			performSegueWithIdentifier("showThreadTableViewController", sender: self)
-		}else{
-
+			navigationItem.rightBarButtonItem?.isEnabled = false
+			activeConversation = fetchedObjects[indexPath.row]
+			performSegue(withIdentifier: "showConversationTableViewController", sender: self)
 		}
 	}
 
-	override func preferredStatusBarStyle() -> UIStatusBarStyle {
-		return .LightContent
+	override var preferredStatusBarStyle : UIStatusBarStyle {
+		return .lightContent
 	}
 
 	// MARK: NSFetchedResultsController Delegate
 
-	func controllerWillChangeContent(controller: NSFetchedResultsController) {
+	func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
 		self.tableView.beginUpdates()
 	}
 
-	func controllerDidChangeContent(controller: NSFetchedResultsController) {
+	func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
 		self.tableView.endUpdates()
 	}
 
-	func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
+	func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
 		switch type {
-		case NSFetchedResultsChangeType.Insert:
-			self.tableView.insertSections(NSIndexSet(index: sectionIndex), withRowAnimation: UITableViewRowAnimation.Fade)
-		case NSFetchedResultsChangeType.Delete:
-			self.tableView.deleteSections(NSIndexSet(index: sectionIndex), withRowAnimation: UITableViewRowAnimation.Fade)
+		case NSFetchedResultsChangeType.insert:
+			self.tableView.insertSections(IndexSet(integer: sectionIndex), with: UITableViewRowAnimation.fade)
+		case NSFetchedResultsChangeType.delete:
+			self.tableView.deleteSections(IndexSet(integer: sectionIndex), with: UITableViewRowAnimation.fade)
 		default:
 			break;
 		}
 	}
 
-	func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+	func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
 		switch type {
-		case NSFetchedResultsChangeType.Insert:
-			self.tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
-		case NSFetchedResultsChangeType.Delete:
-			self.tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
-		case NSFetchedResultsChangeType.Update:
-			self.tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
-		case NSFetchedResultsChangeType.Move:
-			self.tableView.moveRowAtIndexPath(indexPath!, toIndexPath: newIndexPath!)
+		case NSFetchedResultsChangeType.insert:
+			self.tableView.insertRows(at: [newIndexPath!], with: UITableViewRowAnimation.fade)
+		case NSFetchedResultsChangeType.delete:
+			self.tableView.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.fade)
+		case NSFetchedResultsChangeType.update:
+			self.tableView.reloadRows(at: [indexPath!], with: UITableViewRowAnimation.fade)
+		case NSFetchedResultsChangeType.move:
+			self.tableView.moveRow(at: indexPath!, to: newIndexPath!)
 		}
 	}
 
 	// MARK: Swipe Cell
 
-	func swipeableTableViewCell(cell: SWTableViewCell!, canSwipeToState state: SWCellState) -> Bool {
+	func swipeableTableViewCell(_ cell: SWTableViewCell!, canSwipeTo state: SWCellState) -> Bool {
 		return true
 	}
 
-	func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerLeftUtilityButtonWithIndex index: Int) {
-		if let path = tableView.indexPathForCell(cell) where path.row < fetchedObjects.count, let data = fetchedObjects[path.row].mostRecentMessage {
-			ActionPluginProvider.messageCellPluginForInboxType(.Inbox)?.leftButtonTriggered(index, data: data, callback: nil)
+	func swipeableTableViewCell(_ cell: SWTableViewCell!, didTriggerLeftUtilityButtonWith index: Int) {
+
+		if let index = tableView.indexPath(for: cell)?.row {
+			let conversation = fetchedObjects[index]
+
+			guard let identifier = conversation.identifier, let read = conversation.latestMessage?.read else {
+				return
+			}
+
+			ConversationOperations.markConversationAsRead(conversationId: identifier, read: !read, callback: { (success) in
+				self.refresh()
+			})
+		}
+
+	}
+
+	func swipeableTableViewCell(_ cell: SWTableViewCell!, didTriggerRightUtilityButtonWith index: Int) {
+		guard let row = tableView.indexPath(for: cell)?.row else {
+			return
+		}
+
+		let conversation = fetchedObjects[row]
+
+		guard let identifier = conversation.identifier else {
+			return
+		}
+
+		if index == 0 {
+
+			guard let starred = conversation.latestMessage?.starred else {
+				return
+			}
+
+			ConversationOperations.markConversationStarred(conversationId: identifier, starred: starred, callback: { (success) in
+				self.refresh()
+			})
+
+		} else if index == 1 {
+
+			ConversationOperations.archiveConversation(conversationId: identifier, callback: { (success) in
+				self.refresh()
+			})
+
 		}
 	}
 
-	func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerRightUtilityButtonWithIndex index: Int) {
-		if let path = tableView.indexPathForCell(cell) where path.row < fetchedObjects.count, let data = fetchedObjects[path.row].mostRecentMessage {
-			ActionPluginProvider.messageCellPluginForInboxType(.Inbox)?.rightButtonTriggered(index, data: data, callback: nil)
-		}
-	}
-
-	func swipeableTableViewCellShouldHideUtilityButtonsOnSwipe(cell: SWTableViewCell!) -> Bool {
+	func swipeableTableViewCellShouldHideUtilityButtons(onSwipe cell: SWTableViewCell!) -> Bool {
 		return true
 	}
 
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		super.prepareForSegue(segue, sender: sender)
-		if segue.identifier == "showThreadTableViewController" {
-			let dc = segue.destinationViewController as! ThreadTableViewController
-			dc.thread = self.threadForSegue
-			dc.allThreads = self.fetchedObjects
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		super.prepare(for: segue, sender: sender)
+		if segue.identifier == "showConversationTableViewController" {
+			if let destination = segue.destination as? ConversationTableViewController {
+				destination.conversation = activeConversation
+				// OTTODO: Pass identifier instead of the fetchedSet?
+				destination.allConversations = self.fetchedObjects
+			}
 		}
 	}
 
 	// MARK: Empty Dataset DataSource
-
-	func customViewForEmptyDataSet(scrollView: UIScrollView!) -> UIView! {
-
-		let view = NSBundle.mainBundle().loadNibNamed("EmptyInboxView", owner: self, options: nil).first as! EmptyInboxView
-		view.actionButton.addTarget(self, action: #selector(InboxTableViewController.composeNewMessage), forControlEvents: .TouchUpInside)
+	func customView(forEmptyDataSet scrollView: UIScrollView!) -> UIView! {
+		let view = Bundle.main.loadNibNamed("EmptyInboxView", owner: self, options: nil)?.first as! EmptyInboxView
+		view.actionButton.addTarget(self, action: #selector(InboxTableViewController.composeNewMessage), for: .touchUpInside)
 		return view
 	}
 }

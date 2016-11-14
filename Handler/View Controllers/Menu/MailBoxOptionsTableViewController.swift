@@ -19,12 +19,12 @@ class MailBoxOptionsTableViewController: UITableViewController, MailboxCountObse
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		for type in MailboxType.allValues {
-			MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(type, observer: self)
-		}
+//		for type in MailboxType.allValues {
+//			MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(type, observer: self)
+//		}
 	}
 	
-	func mailboxCountDidChange(mailboxType: MailboxType, newCount: Int) {
+	func mailboxCountDidChange(_ mailboxType: MailboxType, newCount: Int) {
 		switch mailboxType {
 		case .Inbox:
 			inboxCountLabel.text = "\(newCount)"

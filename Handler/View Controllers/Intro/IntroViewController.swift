@@ -15,129 +15,139 @@ class IntroViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet var secondView: UIView!
     @IBOutlet var thirdView: UIView!
     @IBOutlet var fourthView: UIView!
+	@IBOutlet var fifthView: UIView!
+
     var contentView: UIView = UIView()
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet var scrollView: UIScrollView!
     var totalWidth = 0.0
-    
+
     @IBOutlet weak var first_top_constraint: NSLayoutConstraint!
     @IBOutlet weak var first_middle_constraint: NSLayoutConstraint!
     @IBOutlet weak var first_bottom_constraint: NSLayoutConstraint!
-    
+
     @IBOutlet weak var second_top_constraint: NSLayoutConstraint!
     @IBOutlet weak var second_middle_constraint: NSLayoutConstraint!
     @IBOutlet weak var second_bottom_constraint: NSLayoutConstraint!
-    
-    
+
     @IBOutlet weak var third_top_constraint: NSLayoutConstraint!
     @IBOutlet weak var third_middle_constraint: NSLayoutConstraint!
     @IBOutlet weak var third_bottom_constraint: NSLayoutConstraint!
-    
+
     @IBOutlet weak var fourth_top_constraint: NSLayoutConstraint!    
     @IBOutlet weak var fourth_middle_constraint: NSLayoutConstraint!
-    
     @IBOutlet weak var fourth_bottom_constraint: NSLayoutConstraint!
-    
-    @IBOutlet weak var fourth_last_constraint: NSLayoutConstraint!
+
+	@IBOutlet weak var fifth_last_constraint: NSLayoutConstraint!
+	@IBOutlet weak var fifth_top_constraint: NSLayoutConstraint!
+	@IBOutlet weak var fifth_middle_constraint: NSLayoutConstraint!
+	@IBOutlet weak var fifth_bottom_constraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        totalWidth = Double(UIScreen.mainScreen().bounds.width * 4)
-        contentView = UIView(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width * 4, UIScreen.mainScreen().bounds.height))
-        firstView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height)
-        secondView.frame = CGRectMake(firstView.bounds.width, 0, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height)
-        thirdView.frame = CGRectMake(firstView.bounds.width * 2, 0, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height)
-        fourthView.frame = CGRectMake(firstView.bounds.width * 3, 0, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height)
-        
-        contentView.addSubview(fourthView)
-        contentView.addSubview(thirdView)
-        contentView.addSubview(secondView)
-        contentView.addSubview(firstView)
+        totalWidth = Double(UIScreen.main.bounds.width * 4)
+        contentView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width * 4, height: UIScreen.main.bounds.height))
+        firstView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        secondView.frame = CGRect(x: firstView.bounds.width, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        thirdView.frame = CGRect(x: firstView.bounds.width * 2, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        fourthView.frame = CGRect(x: firstView.bounds.width * 3, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+		fifthView.frame = CGRect(x: firstView.bounds.width * 4, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+
+		contentView.addSubview(fifthView)
+		contentView.addSubview(fourthView)
+		contentView.addSubview(thirdView)
+		contentView.addSubview(secondView)
+		contentView.addSubview(firstView)
         
         scrollView.addSubview(contentView)
         
-        scrollView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.width * 4, UIScreen.mainScreen().bounds.height)
-        scrollView.scrollEnabled = false;
+        scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width * 4, height: UIScreen.main.bounds.height)
+        scrollView.isScrollEnabled = false;
         pageControl.alpha = 0;
         
         self.modifyingConstraints()
     }
     
-    func modifyingConstraints(){
+    func modifyingConstraints() {
         
-        first_top_constraint.constant /= (667/UIScreen.mainScreen().bounds.height)
-        first_middle_constraint.constant /= (667/UIScreen.mainScreen().bounds.height)
-        first_bottom_constraint.constant /= (667/UIScreen.mainScreen().bounds.height)
+        first_top_constraint.constant /= (667/UIScreen.main.bounds.height)
+        first_middle_constraint.constant /= (667/UIScreen.main.bounds.height)
+        first_bottom_constraint.constant /= (667/UIScreen.main.bounds.height)
         
-        second_top_constraint.constant /= (667/UIScreen.mainScreen().bounds.height)
-        second_middle_constraint.constant /= (667/UIScreen.mainScreen().bounds.height)
-        second_bottom_constraint.constant /= (667/UIScreen.mainScreen().bounds.height)
+        second_top_constraint.constant /= (667/UIScreen.main.bounds.height)
+        second_middle_constraint.constant /= (667/UIScreen.main.bounds.height)
+        second_bottom_constraint.constant /= (667/UIScreen.main.bounds.height)
         
-        third_top_constraint.constant /= (667/UIScreen.mainScreen().bounds.height)
-        third_middle_constraint.constant /= (667/UIScreen.mainScreen().bounds.height)
-        third_bottom_constraint.constant /= (667/UIScreen.mainScreen().bounds.height)
+        third_top_constraint.constant /= (667/UIScreen.main.bounds.height)
+        third_middle_constraint.constant /= (667/UIScreen.main.bounds.height)
+        third_bottom_constraint.constant /= (667/UIScreen.main.bounds.height)
         
-        fourth_top_constraint.constant /= (667/UIScreen.mainScreen().bounds.height)
-        fourth_middle_constraint.constant /= (667/UIScreen.mainScreen().bounds.height)
-        fourth_bottom_constraint.constant /= (667/UIScreen.mainScreen().bounds.height)
-        fourth_last_constraint.constant /= (667/UIScreen.mainScreen().bounds.height)
+        fourth_top_constraint.constant /= (667/UIScreen.main.bounds.height)
+        fourth_middle_constraint.constant /= (667/UIScreen.main.bounds.height)
+        fourth_bottom_constraint.constant /= (667/UIScreen.main.bounds.height)
+		
+		fifth_top_constraint.constant /= (667/UIScreen.main.bounds.height)
+		fifth_middle_constraint.constant /= (667/UIScreen.main.bounds.height)
+		fifth_bottom_constraint.constant /= (667/UIScreen.main.bounds.height)
+        fifth_last_constraint.constant /= (667/UIScreen.main.bounds.height)
     }
     
 //MARK: IBAction methods
-    @IBAction func beginButtonPressed(sender: RoundedBorderButton) {
-        scrollView.scrollEnabled = true
-        UIView.animateWithDuration(1, animations: {
+    @IBAction func beginButtonPressed(_ sender: RoundedBorderButton) {
+        scrollView.isScrollEnabled = true
+        UIView.animate(withDuration: 1, animations: {
             self.pageControl.alpha = 1
         })
-        scrollView.setContentOffset(CGPointMake(firstView.bounds.width, 0), animated: true)
+        scrollView.setContentOffset(CGPoint(x: firstView.bounds.width, y: 0), animated: true)
 //        pageControl.currentPage = 0
         
         //Removing the first page from the scrollview and reload
         Async.main(after: 0.5) {
             self.firstView.removeFromSuperview();
-            self.totalWidth = Double(UIScreen.mainScreen().bounds.width * 3)
-            self.contentView = UIView(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width * 3, UIScreen.mainScreen().bounds.height))
-            self.secondView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height)
-            self.thirdView.frame = CGRectMake(self.firstView.bounds.width * 1, 0, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height)
-            self.fourthView.frame = CGRectMake(self.firstView.bounds.width * 2, 0, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height)
-            self.scrollView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.width * 3, UIScreen.mainScreen().bounds.height)
-            self.scrollView.setContentOffset(CGPointMake(0, 0), animated: false)
+            self.totalWidth = Double(UIScreen.main.bounds.width * 4)
+            self.contentView = UIView(frame:CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width * 4, height: UIScreen.main.bounds.height))
+            self.secondView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width,height: UIScreen.main.bounds.height)
+            self.thirdView.frame = CGRect(x: self.firstView.bounds.width * 1,y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+            self.fourthView.frame = CGRect(x: self.firstView.bounds.width * 2, y: 0, width: UIScreen.main.bounds.width, height:  UIScreen.main.bounds.height)
+            self.fifthView.frame = CGRect(x: self.firstView.bounds.width * 3, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+            self.scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width * 4, height: UIScreen.main.bounds.height)
+            self.scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
         }
 
     }
     
-    @IBAction func finishWalkthrough(sender: AnyObject) {
-        NSUserDefaults.standardUserDefaults().setBool(true, forKey: "didFinishWalkthrough")
-        NSUserDefaults.standardUserDefaults().synchronize()
-        UIView.transitionWithView(AppDelegate.sharedInstance().window!, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: { () -> Void in
-            AppDelegate.sharedInstance().window?.rootViewController = Storyboards.Intro.instantiateViewControllerWithIdentifier("LoginViewController")
+    @IBAction func finishWalkthrough(_ sender: AnyObject) {
+        UserDefaults.standard.set(true, forKey: "didFinishWalkthrough")
+        UserDefaults.standard.synchronize()
+        UIView.transition(with: AppDelegate.sharedInstance().window!, duration: 0.5, options: UIViewAnimationOptions.transitionCrossDissolve, animations: { () -> Void in
+            AppDelegate.sharedInstance().window?.rootViewController = Storyboards.Intro.instantiateViewController(withIdentifier: "LoginViewController")
             }, completion: nil)
     }
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return .lightContent
     }
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.x > 0 {
-            pageControl.currentPage = Int((Double(scrollView.contentOffset.x) / totalWidth )*3)
+            pageControl.currentPage = Int((Double(scrollView.contentOffset.x) / totalWidth )*4)
             
-        }else{
+        } else {
             pageControl.currentPage = 0
         }
     }
     
-    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-        pageControl.currentPage = Int((Double(scrollView.contentOffset.x) / totalWidth )*3)
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        pageControl.currentPage = Int((Double(scrollView.contentOffset.x) / totalWidth )*4)
         
-        let translation = scrollView.panGestureRecognizer.translationInView(self.view)
+        let translation = scrollView.panGestureRecognizer.translation(in: self.view)
         
-        if (translation.x < 0 && pageControl.currentPage == 1)
+        if (translation.x < 0 && pageControl.currentPage == 2)
         {
             pageControl.alpha = 0;
         }

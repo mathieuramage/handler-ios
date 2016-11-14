@@ -37,13 +37,13 @@ public struct UTI: CustomStringConvertible, CustomDebugStringConvertible, Equata
     }
 
     public init(filenameExtension: String, conformingToUTI: UTI? = nil) {
-        let conformingToUTIString: CFString? = conformingToUTI?.UTIString
-        self.UTIString = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, filenameExtension, conformingToUTIString)!.takeRetainedValue() as String
+        let conformingToUTIString: CFString? = conformingToUTI?.UTIString as CFString?
+        self.UTIString = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, filenameExtension as CFString, conformingToUTIString)!.takeRetainedValue() as String
     }
 
     public init(MIMEType: String, conformingToUTI: UTI? = nil) {
-        let conformingToUTIString: CFString? = conformingToUTI?.UTIString
-        self.UTIString = UTTypeCreatePreferredIdentifierForTag(kUTTagClassMIMEType, MIMEType, conformingToUTIString)!.takeRetainedValue() as String
+        let conformingToUTIString: CFString? = conformingToUTI?.UTIString as CFString?
+        self.UTIString = UTTypeCreatePreferredIdentifierForTag(kUTTagClassMIMEType, MIMEType as CFString, conformingToUTIString)!.takeRetainedValue() as String
     }
 
     #if os(OSX)
@@ -60,16 +60,16 @@ public struct UTI: CustomStringConvertible, CustomDebugStringConvertible, Equata
 
     // MARK: -
 
-    private static func UTIsForTagClass(tagClass: String, tag: String, conformingToUTI: UTI?) -> [UTI] {
-        let conformingToUTIString: CFString? = conformingToUTI?.UTIString
-        return (UTTypeCreateAllIdentifiersForTag(tagClass, tag, conformingToUTIString)!.takeRetainedValue() as! [String]).map { UTI($0) }
+    fileprivate static func UTIsForTagClass(_ tagClass: String, tag: String, conformingToUTI: UTI?) -> [UTI] {
+        let conformingToUTIString: CFString? = conformingToUTI?.UTIString as CFString?
+        return (UTTypeCreateAllIdentifiersForTag(tagClass as CFString, tag as CFString, conformingToUTIString)!.takeRetainedValue() as! [String]).map { UTI($0) }
     }
 
-    public static func UTIsFromFilenameExtension(filenameExtension: String, conformingToUTI: UTI? = nil) -> [UTI] {
+    public static func UTIsFromFilenameExtension(_ filenameExtension: String, conformingToUTI: UTI? = nil) -> [UTI] {
         return UTIsForTagClass(kUTTagClassFilenameExtension as String, tag: filenameExtension, conformingToUTI: conformingToUTI)
     }
 
-    public static func UTIsFromMIMEType(MIMEType: String, conformingToUTI: UTI? = nil) -> [UTI] {
+    public static func UTIsFromMIMEType(_ MIMEType: String, conformingToUTI: UTI? = nil) -> [UTI] {
         return UTIsForTagClass(kUTTagClassMIMEType as String, tag: MIMEType, conformingToUTI: conformingToUTI)
     }
 
@@ -85,22 +85,22 @@ public struct UTI: CustomStringConvertible, CustomDebugStringConvertible, Equata
 
     // MARK: - Tags
 
-    private func tagWithClass(tagClass: String) -> String? {
-        return UTTypeCopyPreferredTagWithClass(UTIString, tagClass)?.takeRetainedValue() as String?
+    fileprivate func tagWithClass(_ tagClass: String) -> String? {
+        return UTTypeCopyPreferredTagWithClass(UTIString as CFString, tagClass as CFString)?.takeRetainedValue() as String?
     }
 
-    @available(OSX, introduced=10.10)
-    @available(iOS, introduced=8.0)
-    private func tagsWithClass(tagClass: String) -> [String] {
-        return UTTypeCopyAllTagsWithClass(UTIString, tagClass)?.takeRetainedValue() as? [String] ?? []
+    @available(OSX, introduced: 10.10)
+    @available(iOS, introduced: 8.0)
+    fileprivate func tagsWithClass(_ tagClass: String) -> [String] {
+        return UTTypeCopyAllTagsWithClass(UTIString as CFString, tagClass as CFString)?.takeRetainedValue() as? [String] ?? []
     }
 
     public var filenameExtension: String? {
         return tagWithClass(kUTTagClassFilenameExtension as String)
     }
 
-    @available(OSX, introduced=10.10)
-    @available(iOS, introduced=8.0)
+    @available(OSX, introduced: 10.10)
+    @available(iOS, introduced: 8.0)
     public var filenameExtensions: [String] {
         return tagsWithClass(kUTTagClassFilenameExtension as String)
     }
@@ -109,8 +109,8 @@ public struct UTI: CustomStringConvertible, CustomDebugStringConvertible, Equata
         return tagWithClass(kUTTagClassMIMEType as String)
     }
 
-    @available(OSX, introduced=10.10)
-    @available(iOS, introduced=8.0)
+    @available(OSX, introduced: 10.10)
+    @available(iOS, introduced: 8.0)
     public var MIMETypes: [String] {
         return tagsWithClass(kUTTagClassMIMEType as String)
     }
@@ -120,7 +120,7 @@ public struct UTI: CustomStringConvertible, CustomDebugStringConvertible, Equata
         return tagWithClass(kUTTagClassNSPboardType as String)
     }
 
-    @available(OSX, introduced=10.10)
+    @available(OSX, introduced: 10.10)
     public var pasteBoardTypes: [String] {
         return tagsWithClass(kUTTagClassNSPboardType as String)
     }
@@ -129,7 +129,7 @@ public struct UTI: CustomStringConvertible, CustomDebugStringConvertible, Equata
         return tagWithClass(kUTTagClassOSType as String)
     }
 
-    @available(OSX, introduced=10.10)
+    @available(OSX, introduced: 10.10)
     public var OSTypes: [String] {
         return tagsWithClass(kUTTagClassOSType as String)
     }
@@ -137,41 +137,41 @@ public struct UTI: CustomStringConvertible, CustomDebugStringConvertible, Equata
 
     // MARK: - Status
 
-    @available(OSX, introduced=10.10)
-    @available(iOS, introduced=8.0)
+    @available(OSX, introduced: 10.10)
+    @available(iOS, introduced: 8.0)
     public var isDeclared: Bool {
-        return UTTypeIsDeclared(UTIString)
+        return UTTypeIsDeclared(UTIString as CFString)
     }
 
-    @available(OSX, introduced=10.10)
-    @available(iOS, introduced=8.0)
+    @available(OSX, introduced: 10.10)
+    @available(iOS, introduced: 8.0)
     public var isDynamic: Bool {
-        return UTTypeIsDynamic(UTIString)
+        return UTTypeIsDynamic(UTIString as CFString)
     }
 
     // MARK: - Declaration
 
     public struct Declaration: CustomStringConvertible, CustomDebugStringConvertible {
-        private let raw: [ NSObject: AnyObject ]
+        fileprivate let raw: [AnyHashable: Any]
 
         public var exportedTypeDeclarations: [Declaration] {
-            return (raw[kUTExportedTypeDeclarationsKey] as? [[ NSObject : AnyObject ]] ?? []).map { Declaration(declaration: $0) }
+            return (raw[kUTExportedTypeDeclarationsKey as AnyHashable] as? [[AnyHashable: Any]] ?? []).map { Declaration(declaration: $0) }
         }
 
         public var importedTypeDeclarations: [Declaration] {
-            return (raw[kUTImportedTypeDeclarationsKey] as? [[ NSObject : AnyObject ]] ?? []).map { Declaration(declaration: $0) }
+            return (raw[kUTImportedTypeDeclarationsKey as AnyHashable] as? [[AnyHashable: Any]] ?? []).map { Declaration(declaration: $0) }
         }
 
         public var identifier: String? {
-            return raw[kUTTypeIdentifierKey] as? String
+            return raw[kUTTypeIdentifierKey as AnyHashable] as? String
         }
 
-        public var tagSpecification: [ NSObject : AnyObject ] {
-            return raw[kUTTypeTagSpecificationKey] as? [ NSObject : AnyObject ] ?? [:]
+        public var tagSpecification: [AnyHashable: Any] {
+            return raw[kUTTypeTagSpecificationKey as AnyHashable] as? [AnyHashable: Any] ?? [:]
         }
 
         public var conformsTo: [UTI] {
-            switch raw[kUTTypeConformsToKey] {
+            switch raw[kUTTypeConformsToKey as AnyHashable] {
             case let array as [String]:
                 return array.map { UTI($0) }
             case let string as String:
@@ -182,26 +182,26 @@ public struct UTI: CustomStringConvertible, CustomDebugStringConvertible, Equata
         }
 
         public var iconFile: String? {
-            return raw[kUTTypeIconFileKey] as? String
+            return raw[kUTTypeIconFileKey as AnyHashable] as? String
         }
 
-        public var referenceURL: NSURL? {
-            if let reference = raw[kUTTypeReferenceURLKey] as? String {
-                return NSURL(string: reference)
+        public var referenceURL: URL? {
+            if let reference = raw[kUTTypeReferenceURLKey as AnyHashable] as? String {
+                return URL(string: reference)
             }
             return nil
         }
 
         public var version: String? {
-            return raw[kUTTypeIconFileKey] as? String
+            return raw[kUTTypeIconFileKey as AnyHashable] as? String
         }
 
-        init(declaration: [ NSObject : AnyObject ]) {
+        init(declaration: [AnyHashable: Any]) {
             self.raw = declaration
         }
 
         public var description: String {
-            return String(raw)
+            return String(describing: raw)
         }
 
         public var debugDescription: String {
@@ -211,20 +211,20 @@ public struct UTI: CustomStringConvertible, CustomDebugStringConvertible, Equata
     }
 
     public var declaration: Declaration {
-        return Declaration(declaration: UTTypeCopyDeclaration(self.UTIString)?.takeRetainedValue() as? [NSObject: AnyObject] ?? [:])
+        return Declaration(declaration: UTTypeCopyDeclaration(self.UTIString as CFString)?.takeRetainedValue() as? [AnyHashable: Any] ?? [:])
     }
 
-    public var declaringBundle: NSBundle? {
-        if let URL = UTTypeCopyDeclaringBundleURL(UTIString)?.takeRetainedValue() {
-            return NSBundle(URL: URL)
+    public var declaringBundle: Bundle? {
+        if let URL = UTTypeCopyDeclaringBundleURL(UTIString as CFString)?.takeRetainedValue() {
+            return Bundle(url: URL as URL)
         }
         return nil
     }
 
-    public var iconFileURL: NSURL? {
+    public var iconFileURL: URL? {
         if let iconFile = declaration.iconFile {
-            return self.declaringBundle?.URLForResource(iconFile, withExtension: nil) ??
-                   self.declaringBundle?.URLForResource(iconFile, withExtension: "icns")
+            return self.declaringBundle?.url(forResource: iconFile, withExtension: nil) ??
+                   self.declaringBundle?.url(forResource: iconFile, withExtension: "icns")
         }
         return nil
     }
@@ -232,7 +232,7 @@ public struct UTI: CustomStringConvertible, CustomDebugStringConvertible, Equata
     // MARK: - Printable, DebugPrintable
 
     public var description: String {
-        return UTTypeCopyDescription(UTIString)?.takeRetainedValue() as? String ?? UTIString
+        return UTTypeCopyDescription(UTIString as CFString)?.takeRetainedValue() as? String ?? UTIString
     }
 
     public var debugDescription: String {
@@ -242,9 +242,9 @@ public struct UTI: CustomStringConvertible, CustomDebugStringConvertible, Equata
 }
 
 public func ==(lhs: UTI, rhs: UTI) -> Bool {
-    return UTTypeEqual(lhs.UTIString, rhs.UTIString)
+    return UTTypeEqual(lhs.UTIString as CFString, rhs.UTIString as CFString)
 }
 
 public func ~=(pattern: UTI, value: UTI) -> Bool {
-    return UTTypeConformsTo(value.UTIString, pattern.UTIString)
+    return UTTypeConformsTo(value.UTIString as CFString, pattern.UTIString as CFString)
 }

@@ -10,17 +10,17 @@ import Foundation
 
 extension String {
 	var firstCapitalized: String {
-		var string = self.lowercaseString
-		string.replaceRange(string.startIndex...string.startIndex, with: String(string[string.startIndex]).capitalizedString)
+		var string = self.lowercased()
+		string.replaceSubrange(string.startIndex...string.startIndex, with: String(string[string.startIndex]).capitalized)
 		return string
 	}
 }
 
-extension NSData {
+extension Data {
 	
 	public var hexadecimalString: NSString {
-		var bytes = [UInt8](count: length, repeatedValue: 0)
-		getBytes(&bytes, length: length)
+		var bytes = [UInt8](repeating: 0, count: count)
+		copyBytes(to: &bytes, count: count)
 		
 		let hexString = NSMutableString()
 		for byte in bytes {
