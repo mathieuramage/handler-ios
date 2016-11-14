@@ -11,9 +11,6 @@ import Alamofire
 
 struct APIUtility {
 
-	// Temp memory caches
-	static var cachedTwitterUsers : [TwitterUser] = []
-
 	static var defaultHeaders : HTTPHeaders = ["Cache-Control" : "no-cache", "Content-Type" : "application/json"]
 
 

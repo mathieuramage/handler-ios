@@ -1,6 +1,6 @@
 //
-//  User+CoreDataProperties.swift
-//  
+//  UserCoreDataProperties.swift
+//
 //
 //  Created by Otávio on 18/09/16.
 //
@@ -13,9 +13,22 @@ import Foundation
 import CoreData
 
 extension ManagedUser {
-
-	@NSManaged var identifier: String?
-	@NSManaged var riskRating : NSNumber?
+    
+    @NSManaged var identifier: String?
+    var handle : String {
+        get {
+            willAccessValue(forKey: "handle")
+            defer { didAccessValue(forKey: "handle") }
+            return primitiveHandle ?? ""
+        }
+        set {
+            willChangeValue(forKey:"handle")
+            defer { didChangeValue(forKey: "handle") }
+            primitiveHandle = newValue
+        }
+    }
+    @NSManaged var primitiveHandle : String?
+    @NSManaged var riskRating : NSNumber?
     @NSManaged var created_at: NSDate?
     @NSManaged var desc: String?
     @NSManaged var id: String?
@@ -28,5 +41,5 @@ extension ManagedUser {
     @NSManaged var contacts: NSSet?
     @NSManaged var received_messages: NSSet?
     @NSManaged var sent_messages: NSSet?
-
+    
 }

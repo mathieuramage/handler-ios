@@ -29,6 +29,7 @@
     <entity name="User" representedClassName=".ManagedUser" syncable="YES">
         <attribute name="created_at" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="handle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isContact" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO" syncable="YES"/>
@@ -46,6 +47,6 @@
         <element name="Conversation" positionX="-488" positionY="183" width="128" height="105"/>
         <element name="Label" positionX="-488" positionY="459" width="128" height="75"/>
         <element name="Message" positionX="-297" positionY="180" width="126" height="255"/>
-        <element name="User" positionX="45" positionY="366" width="128" height="255"/>
+        <element name="User" positionX="45" positionY="366" width="128" height="268"/>
     </elements>
 </model>

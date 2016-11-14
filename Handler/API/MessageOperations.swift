@@ -173,11 +173,7 @@ struct MessageOperations {
             case .success:
                 var message : Message?
                 if let value = response.result.value {
-                    if let json = JSON(value)["messages"].array {
-                        for messageJson in json {
-                            message = Message.messageWithJSON(messageJson, inContext: DatabaseManager.sharedInstance.mainManagedContext)
-                        }
-                    }
+                   message = Message.messageWithJSON(JSON(value), inContext: DatabaseManager.sharedInstance.mainManagedContext)
                 }
                 callback?(true,message)
             case .failure(_):
@@ -230,11 +226,7 @@ struct MessageOperations {
             case .success:
                 var message : Message?
                 if let value = response.result.value {
-                    if let json = JSON(value)["messages"].array {
-                        for messageJson in json {
-                            message = Message.messageWithJSON(messageJson, inContext: DatabaseManager.sharedInstance.mainManagedContext)
-                        }
-                    }
+                    message = Message.messageWithJSON(JSON(value), inContext: DatabaseManager.sharedInstance.mainManagedContext)
                 }
                 callback?(true, message)
             case .failure(_):
