@@ -129,6 +129,15 @@
 		7A44571D1D8F2823000F862D /* ManagedUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4457171D8F2823000F862D /* ManagedUser.swift */; };
 		7A75D7631C7A430800E201A3 /* MessageComposerWrapperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A75D7621C7A430800E201A3 /* MessageComposerWrapperViewController.swift */; };
 		7ACDBD5D1C8CAD7F004F5E25 /* ConversationMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ACDBD5C1C8CAD7F004F5E25 /* ConversationMessageTableViewCell.xib */; };
+		9D3495081DDBAF100017A9AD /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D3495071DDBAF100017A9AD /* AVFoundation.framework */; };
+		9D34950A1DDBAF2F0017A9AD /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D3495091DDBAF2F0017A9AD /* CoreMotion.framework */; };
+		9D34950C1DDBAF3B0017A9AD /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D34950B1DDBAF3B0017A9AD /* CoreTelephony.framework */; };
+		9D34950E1DDBAF480017A9AD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D34950D1DDBAF480017A9AD /* SystemConfiguration.framework */; };
+		9D3495101DDBAF570017A9AD /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D34950F1DDBAF570017A9AD /* CoreMedia.framework */; };
+		9D3495121DDBAF660017A9AD /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D3495111DDBAF660017A9AD /* CoreVideo.framework */; };
+		9D3495291DDBC0D60017A9AD /* Instabug.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9D3495271DDBC0D60017A9AD /* Instabug.bundle */; };
+		9D3495341DDBC4430017A9AD /* Instabug.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9D3495321DDBC4430017A9AD /* Instabug.bundle */; };
+		9D3495351DDBC4430017A9AD /* Instabug.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D3495331DDBC4430017A9AD /* Instabug.framework */; };
 		B72C59D11C26BBE500D6651D /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72C59D01C26BBE500D6651D /* Globals.swift */; };
 		B72C59D41C26C63200D6651D /* System San Francisco Display Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B72C59D31C26C63200D6651D /* System San Francisco Display Regular.ttf */; };
 		BF03D6671C9F135A002EF4CC /* AbstractMailboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF03D6661C9F135A002EF4CC /* AbstractMailboxViewController.swift */; };
@@ -202,16 +211,6 @@
 				BFF78C891CD50D03007380C7 /* RichEditorView.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2F0BE2C61BD6B12F0086C384 /* Embed App Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-			);
-			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		2F43E0B21BDA4A6100C68E1D /* Carthage Dsyms */ = {
@@ -380,6 +379,15 @@
 		7A4457171D8F2823000F862D /* ManagedUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedUser.swift; sourceTree = "<group>"; };
 		7A75D7621C7A430800E201A3 /* MessageComposerWrapperViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageComposerWrapperViewController.swift; sourceTree = "<group>"; };
 		7ACDBD5C1C8CAD7F004F5E25 /* ConversationMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConversationMessageTableViewCell.xib; sourceTree = "<group>"; };
+		9D3495071DDBAF100017A9AD /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		9D3495091DDBAF2F0017A9AD /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		9D34950B1DDBAF3B0017A9AD /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		9D34950D1DDBAF480017A9AD /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		9D34950F1DDBAF570017A9AD /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		9D3495111DDBAF660017A9AD /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		9D3495271DDBC0D60017A9AD /* Instabug.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Instabug.bundle; path = "/Users/MarcoAntonio/Downloads/Instabug (1)/Instabug.bundle"; sourceTree = "<absolute>"; };
+		9D3495321DDBC4430017A9AD /* Instabug.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Instabug.bundle; sourceTree = "<group>"; };
+		9D3495331DDBC4430017A9AD /* Instabug.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Instabug.framework; sourceTree = "<group>"; };
 		B72C59D01C26BBE500D6651D /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		B72C59D31C26C63200D6651D /* System San Francisco Display Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "System San Francisco Display Regular.ttf"; sourceTree = "<group>"; };
 		B72C59D51C26C72C00D6651D /* System San Francisco Display Ultralight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "System San Francisco Display Ultralight.ttf"; sourceTree = "<group>"; };
@@ -476,10 +484,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D3495121DDBAF660017A9AD /* CoreVideo.framework in Frameworks */,
+				9D3495101DDBAF570017A9AD /* CoreMedia.framework in Frameworks */,
+				9D34950E1DDBAF480017A9AD /* SystemConfiguration.framework in Frameworks */,
+				9D34950C1DDBAF3B0017A9AD /* CoreTelephony.framework in Frameworks */,
+				9D34950A1DDBAF2F0017A9AD /* CoreMotion.framework in Frameworks */,
+				2FA2EA811BAD9C570027EA77 /* CoreGraphics.framework in Frameworks */,
+				9D3495081DDBAF100017A9AD /* AVFoundation.framework in Frameworks */,
 				2FDB44601BD3E86F0040014E /* Async.framework in Frameworks */,
 				2FDB44611BD3E86F0040014E /* Bond.framework in Frameworks */,
 				2FDB44621BD3E86F0040014E /* DZNEmptyDataSet.framework in Frameworks */,
 				2FDB44631BD3E86F0040014E /* Kingfisher.framework in Frameworks */,
+				9D3495351DDBC4430017A9AD /* Instabug.framework in Frameworks */,
 				BF047DFF1DD2206D00CF7001 /* ReactiveKit.framework in Frameworks */,
 				2FDB44641BD3E86F0040014E /* Result.framework in Frameworks */,
 				BFA307571CF260F200642A8D /* RichEditorView.framework in Frameworks */,
@@ -496,7 +512,6 @@
 				2FA2EA821BAD9C570027EA77 /* Foundation.framework in Frameworks */,
 				2FDB44711BD3EB110040014E /* Fabric.framework in Frameworks */,
 				2FA2EA831BAD9C570027EA77 /* Security.framework in Frameworks */,
-				2FA2EA811BAD9C570027EA77 /* CoreGraphics.framework in Frameworks */,
 				BF75307B1DD21A5200A00765 /* ReactiveKit.framework in Frameworks */,
 				2FA2EA851BAD9C570027EA77 /* QuartzCore.framework in Frameworks */,
 				BF7530771DD20ED800A00765 /* GradientView.framework in Frameworks */,
@@ -681,6 +696,12 @@
 		2FDB52021BA8BC12003C074F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9D3495111DDBAF660017A9AD /* CoreVideo.framework */,
+				9D34950F1DDBAF570017A9AD /* CoreMedia.framework */,
+				9D34950D1DDBAF480017A9AD /* SystemConfiguration.framework */,
+				9D34950B1DDBAF3B0017A9AD /* CoreTelephony.framework */,
+				9D3495091DDBAF2F0017A9AD /* CoreMotion.framework */,
+				9D3495071DDBAF100017A9AD /* AVFoundation.framework */,
 				BF75307A1DD21A5200A00765 /* ReactiveKit.framework */,
 				BF7530781DD21A4200A00765 /* Alamofire.framework */,
 				BF7530761DD20ED800A00765 /* GradientView.framework */,
@@ -1068,6 +1089,8 @@
 				2FDB52021BA8BC12003C074F /* Frameworks */,
 				DF1FD2DA1B62360600A58B71 /* Handler */,
 				DF1FD2D91B62360600A58B71 /* Products */,
+				9D3495321DDBC4430017A9AD /* Instabug.bundle */,
+				9D3495331DDBC4430017A9AD /* Instabug.framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1130,7 +1153,6 @@
 				2FDB44571BD3E6EF0040014E /* Carthage Integrate */,
 				2F43E0B21BDA4A6100C68E1D /* Carthage Dsyms */,
 				2FDB446C1BD3EAF90040014E /* Fabric */,
-				2F0BE2C61BD6B12F0086C384 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
@@ -1154,8 +1176,9 @@
 				TargetAttributes = {
 					DF1FD2D71B62360600A58B71 = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = 2338J96222;
+						DevelopmentTeam = 6SYH9U8FY6;
 						LastSwiftMigration = 0810;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -1198,12 +1221,14 @@
 			files = (
 				2FED1D4B1C1E0E1700490798 /* EmptyInboxView.xib in Resources */,
 				2F43E0B11BDA4A5A00C68E1D /* LaunchScreen.xib in Resources */,
+				9D3495341DDBC4430017A9AD /* Instabug.bundle in Resources */,
 				2F1DACF21BC7EFC500FB6173 /* AddAttachmentView.xib in Resources */,
 				2F1D2C401BBC48E600A504A8 /* ErrorPopupViewController.xib in Resources */,
 				2F7B0D031BFDCEDE0015C43A /* MessageTableViewCell.xib in Resources */,
 				2F1D2C381BBC3DCA00A504A8 /* ContactCardViewController.xib in Resources */,
 				2FDB44731BD3EB110040014E /* TwitterKitResources.bundle in Resources */,
 				2F09DB1F1BC69CEC00B81FE2 /* AttachmentThumbnailView.xib in Resources */,
+				9D3495291DDBC0D60017A9AD /* Instabug.bundle in Resources */,
 				DF1FD2E51B62360600A58B71 /* Images.xcassets in Resources */,
 				B72C59D41C26C63200D6651D /* System San Francisco Display Regular.ttf in Resources */,
 				2F1D2C3C1BBC477000A504A8 /* SendInvitationViewController.xib in Resources */,
@@ -1521,6 +1546,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 11;
+				DEVELOPMENT_TEAM = 6SYH9U8FY6;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
@@ -1538,7 +1564,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Handler/Supporting Files/Handler-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 3.0.1;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1552,6 +1578,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 11;
+				DEVELOPMENT_TEAM = 6SYH9U8FY6;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
@@ -1568,7 +1595,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Handler/Supporting Files/Handler-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 3.0.1;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
