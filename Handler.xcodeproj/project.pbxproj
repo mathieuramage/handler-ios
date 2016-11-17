@@ -136,8 +136,7 @@
 		9D3495101DDBAF570017A9AD /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D34950F1DDBAF570017A9AD /* CoreMedia.framework */; };
 		9D3495121DDBAF660017A9AD /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D3495111DDBAF660017A9AD /* CoreVideo.framework */; };
 		9D3495291DDBC0D60017A9AD /* Instabug.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9D3495271DDBC0D60017A9AD /* Instabug.bundle */; };
-		9D3495341DDBC4430017A9AD /* Instabug.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9D3495321DDBC4430017A9AD /* Instabug.bundle */; };
-		9D3495351DDBC4430017A9AD /* Instabug.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D3495331DDBC4430017A9AD /* Instabug.framework */; };
+		9DEFBEC21DDD3A88000DBE74 /* Instabug.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DEFBEC11DDD3A88000DBE74 /* Instabug.framework */; };
 		B72C59D11C26BBE500D6651D /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72C59D01C26BBE500D6651D /* Globals.swift */; };
 		B72C59D41C26C63200D6651D /* System San Francisco Display Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B72C59D31C26C63200D6651D /* System San Francisco Display Regular.ttf */; };
 		BF03D6671C9F135A002EF4CC /* AbstractMailboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF03D6661C9F135A002EF4CC /* AbstractMailboxViewController.swift */; };
@@ -386,8 +385,7 @@
 		9D34950F1DDBAF570017A9AD /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		9D3495111DDBAF660017A9AD /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		9D3495271DDBC0D60017A9AD /* Instabug.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Instabug.bundle; path = "/Users/MarcoAntonio/Downloads/Instabug (1)/Instabug.bundle"; sourceTree = "<absolute>"; };
-		9D3495321DDBC4430017A9AD /* Instabug.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Instabug.bundle; sourceTree = "<group>"; };
-		9D3495331DDBC4430017A9AD /* Instabug.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Instabug.framework; sourceTree = "<group>"; };
+		9DEFBEC11DDD3A88000DBE74 /* Instabug.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Instabug.framework; path = "Carthage/Checkouts/Instabug-iOS/Instabug.framework"; sourceTree = SOURCE_ROOT; };
 		B72C59D01C26BBE500D6651D /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		B72C59D31C26C63200D6651D /* System San Francisco Display Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "System San Francisco Display Regular.ttf"; sourceTree = "<group>"; };
 		B72C59D51C26C72C00D6651D /* System San Francisco Display Ultralight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "System San Francisco Display Ultralight.ttf"; sourceTree = "<group>"; };
@@ -495,7 +493,6 @@
 				2FDB44611BD3E86F0040014E /* Bond.framework in Frameworks */,
 				2FDB44621BD3E86F0040014E /* DZNEmptyDataSet.framework in Frameworks */,
 				2FDB44631BD3E86F0040014E /* Kingfisher.framework in Frameworks */,
-				9D3495351DDBC4430017A9AD /* Instabug.framework in Frameworks */,
 				BF047DFF1DD2206D00CF7001 /* ReactiveKit.framework in Frameworks */,
 				2FDB44641BD3E86F0040014E /* Result.framework in Frameworks */,
 				BFA307571CF260F200642A8D /* RichEditorView.framework in Frameworks */,
@@ -506,6 +503,7 @@
 				2FDB44741BD3EB110040014E /* TwitterCore.framework in Frameworks */,
 				BF7530791DD21A4200A00765 /* Alamofire.framework in Frameworks */,
 				2FA2EA891BAD9C570027EA77 /* Accounts.framework in Frameworks */,
+				9DEFBEC21DDD3A88000DBE74 /* Instabug.framework in Frameworks */,
 				2FA2EA841BAD9C570027EA77 /* CoreData.framework in Frameworks */,
 				2FA2EA881BAD9C570027EA77 /* Social.framework in Frameworks */,
 				2FA2EA861BAD9C570027EA77 /* CoreText.framework in Frameworks */,
@@ -696,6 +694,7 @@
 		2FDB52021BA8BC12003C074F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9DEFBEC11DDD3A88000DBE74 /* Instabug.framework */,
 				9D3495111DDBAF660017A9AD /* CoreVideo.framework */,
 				9D34950F1DDBAF570017A9AD /* CoreMedia.framework */,
 				9D34950D1DDBAF480017A9AD /* SystemConfiguration.framework */,
@@ -1089,8 +1088,6 @@
 				2FDB52021BA8BC12003C074F /* Frameworks */,
 				DF1FD2DA1B62360600A58B71 /* Handler */,
 				DF1FD2D91B62360600A58B71 /* Products */,
-				9D3495321DDBC4430017A9AD /* Instabug.bundle */,
-				9D3495331DDBC4430017A9AD /* Instabug.framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1221,7 +1218,6 @@
 			files = (
 				2FED1D4B1C1E0E1700490798 /* EmptyInboxView.xib in Resources */,
 				2F43E0B11BDA4A5A00C68E1D /* LaunchScreen.xib in Resources */,
-				9D3495341DDBC4430017A9AD /* Instabug.bundle in Resources */,
 				2F1DACF21BC7EFC500FB6173 /* AddAttachmentView.xib in Resources */,
 				2F1D2C401BBC48E600A504A8 /* ErrorPopupViewController.xib in Resources */,
 				2F7B0D031BFDCEDE0015C43A /* MessageTableViewCell.xib in Resources */,
@@ -1554,6 +1550,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)/Carthage/Checkouts/handler-ios-sdk/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/Carthage/Checkouts/Instabug-iOS",
 				);
 				INFOPLIST_FILE = "Handler/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1586,6 +1583,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)/Carthage/Checkouts/handler-ios-sdk/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/Carthage/Checkouts/Instabug-iOS",
 				);
 				INFOPLIST_FILE = "Handler/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
