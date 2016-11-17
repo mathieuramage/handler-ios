@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 		Twitter.sharedInstance().start(withConsumerKey: Config.Twitter.consumerKey, consumerSecret: Config.Twitter.consumerSecret)
 		Fabric.with([Twitter.sharedInstance(), Crashlytics.self()])
-        Instabug.start(withToken: Config.Instabug.appToken, invocationEvent: .shake)
+		Instabug.start(withToken: Config.Instabug.appToken, invocationEvent: .shake)
 //		UserTwitterStatusManager.startUpdating() TODO : Do this properly with the new API code
 		UIToolbar.appearance().tintColor = UIColor(rgba: HexCodes.lightBlue)
 		UITextField.appearance().tintColor = UIColor(rgba: HexCodes.lightBlue)

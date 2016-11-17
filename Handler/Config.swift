@@ -45,9 +45,9 @@ struct Config {
 		static let labels = Config.APIVersion + "labels"
 	}
     
-    struct Instabug {
-        static let appToken = "bf4b5a418115ba8ffcd30c664085bb23"
-    }
+	struct Instabug {
+		static let appToken = "bf4b5a418115ba8ffcd30c664085bb23"
+	}
 
 	struct Twitter {
 		static let consumerKey = "bH6FU5R4bVQ5QJhYvNyFZywFm"
