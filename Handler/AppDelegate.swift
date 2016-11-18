@@ -11,6 +11,7 @@ import Fabric
 import TwitterKit
 import Crashlytics
 import Async
+import Intercom
 
 
 @UIApplicationMain
@@ -36,6 +37,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		Twitter.sharedInstance().start(withConsumerKey: Config.Twitter.consumerKey, consumerSecret: Config.Twitter.consumerSecret)
 		Fabric.with([Twitter.sharedInstance(), Crashlytics.self()])
 //		UserTwitterStatusManager.startUpdating() TODO : Do this properly with the new API code
+		// Initialize Intercom
+		Intercom.setApiKey(Config.Intercom.apiKey, forAppId: Config.Intercom.appId)
 		UIToolbar.appearance().tintColor = UIColor(rgba: HexCodes.lightBlue)
 		UITextField.appearance().tintColor = UIColor(rgba: HexCodes.lightBlue)
 		UITextView.appearance().tintColor = UIColor(rgba: HexCodes.lightBlue)
@@ -144,8 +147,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func loadInitialViewController() {
 		if (UserDefaults.standard.bool(forKey: "didFinishWalkthrough") && !ENABLE_ONBOARDING_EVERY_RUN) {
-			if let _ = AuthUtility.accessToken {
+			if let accessToken = AuthUtility.accessToken {
 				window?.rootViewController = sideMenu
+				if !accessToken.token.isEmpty {
+					Intercom.registerUser(withUserId: accessToken.token)
+				}
 			}else{
 				window?.rootViewController = Storyboards.Intro.instantiateViewController(withIdentifier: "LoginViewController")
 			}

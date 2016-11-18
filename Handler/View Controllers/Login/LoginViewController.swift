@@ -8,6 +8,7 @@
 
 import UIKit
 import TwitterKit
+import Intercom
 
 class LoginViewController: UIViewController {
 
@@ -91,10 +92,14 @@ class LoginViewController: UIViewController {
 						}
 
 						AuthUtility.accessToken = accessToken
+						
+						// For best results, use a unique user_id if you have one.
+						//Use Token or Id?
+						Intercom.registerUser(withUserId: accessToken.token)
 
 						UserOperations.getMe({ (success, user) in
 							AuthUtility.user = user
-
+	
 							UIView.transition(with: AppDelegate.sharedInstance().window!, duration: 0.5, options: UIViewAnimationOptions.transitionCrossDissolve, animations: { () -> Void in
 								AppDelegate.sharedInstance().window?.rootViewController = AppDelegate.sharedInstance().sideMenu
 								GreetingViewController.showWithHandle(user?.handle ?? "", back: false)
