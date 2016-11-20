@@ -18,25 +18,23 @@ class FlaggedMailboxViewController: AbstractMailboxViewController {
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
 		if segue.identifier == "showConversationTableViewController" {
-//			let dc = segue.destinationViewController as! ThreadTableViewController
-//			dc.thread = self.messageForSegue?.thread
-//
-//			var threads = [Thread]()
-//			for message in self.fetchedObjects {
-//				if let thread = message.thread {
-//					threads.append(thread)
-//				}
-//			}
-//			dc.allThreads = threads
-////			dc.primaryMessage = self.messageForSegue
+			let dc = segue.destination as! ConversationTableViewController
+			dc.conversation = self.messageForSegue?.conversation
+			var threads = [Conversation]()
+			for message in self.fetchedObjects {
+				if let thread = message.conversation {
+					threads.append(thread)
+				}
+			}
+			dc.allConversations = threads
 
 			if let destination = segue.destination as? ConversationTableViewController {
-				destination.conversation = activeConversation
+				destination.conversation = messageForSegue?.conversation
 			}
 
-		} else if segue.identifier == "showMessageComposeNavigationController" { //TODO : This part will work when we have a bottom bar.
+		} else if segue.identifier == "showMessageComposeNavigationController" {
 			let dc = (segue.destination as! UINavigationController).viewControllers.first as! MessageComposeTableViewController
-//			dc.draftMessage = self.messageForSegue
+			dc.draftMessage = self.messageForSegue
 		}
 	}
 

@@ -21,8 +21,36 @@ extension ManagedMessage {
 	@NSManaged var createdAt : NSDate?
 	@NSManaged var updatedAt : NSDate?
     @NSManaged var shouldBeSent: NSNumber?
-	@NSManaged var starredValue : NSNumber?
-	@NSManaged var readValue : NSNumber?
+
+	var starred : Bool {
+		get {
+			willAccessValue(forKey: "starred")
+			defer { didAccessValue(forKey: "starred") }
+			return primitiveStarred?.boolValue ?? false
+		}
+		set {
+			willChangeValue(forKey:"starred")
+			defer { didChangeValue(forKey: "starred") }
+			primitiveStarred = NSNumber(value: newValue)
+		}
+	}
+	@NSManaged var primitiveStarred : NSNumber?
+
+	var read : Bool {
+		get {
+			willAccessValue(forKey: "read")
+			defer { didAccessValue(forKey: "read") }
+			return primitiveRead?.boolValue ?? false
+		}
+		set {
+			willChangeValue(forKey:"read")
+			defer { didChangeValue(forKey: "read") }
+			primitiveRead = NSNumber(value: newValue)
+		}
+	}
+	@NSManaged var primitiveRead : NSNumber?
+
+
     @NSManaged var subject: String?
     @NSManaged var recipients: NSSet?
 	@NSManaged var labels: NSSet?

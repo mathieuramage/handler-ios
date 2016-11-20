@@ -86,13 +86,13 @@ class ConversationsBottomBarActionsHandler: NSObject, BottomBarActionPlugin {
 				let cont = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
 
 				let title : String
-				if let starred = message.starred, starred {
+				if message.starred {
 					title = "Unstar"
 				} else {
 					title = "Star"
 				}
 				cont.addAction(UIAlertAction(title: title, style: UIAlertActionStyle.default, handler: { (action) -> Void in
-					MessageOperations.setMessageStarred(message: message, starred: !message.starred!, callback: nil)
+					MessageOperations.setMessageStarred(message: message, starred: !message.starred, callback: nil)
 //					self.vc.reloadCellForMessage(message)
 					// TODO: Add success message
 				}))
