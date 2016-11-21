@@ -129,6 +129,8 @@
 		7A44571D1D8F2823000F862D /* ManagedUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4457171D8F2823000F862D /* ManagedUser.swift */; };
 		7A75D7631C7A430800E201A3 /* MessageComposerWrapperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A75D7621C7A430800E201A3 /* MessageComposerWrapperViewController.swift */; };
 		7ACDBD5D1C8CAD7F004F5E25 /* ConversationMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ACDBD5C1C8CAD7F004F5E25 /* ConversationMessageTableViewCell.xib */; };
+		9D1012041DE3764900B11C1D /* Intercom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D1012031DE3764900B11C1D /* Intercom.framework */; };
+		9D1012051DE3764900B11C1D /* Intercom.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9D1012031DE3764900B11C1D /* Intercom.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B72C59D11C26BBE500D6651D /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72C59D01C26BBE500D6651D /* Globals.swift */; };
 		B72C59D41C26C63200D6651D /* System San Francisco Display Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B72C59D31C26C63200D6651D /* System San Francisco Display Regular.ttf */; };
 		BF03D6671C9F135A002EF4CC /* AbstractMailboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF03D6661C9F135A002EF4CC /* AbstractMailboxViewController.swift */; };
@@ -200,6 +202,7 @@
 			files = (
 				BF047E001DD2206D00CF7001 /* ReactiveKit.framework in Embed Frameworks */,
 				BFF78C891CD50D03007380C7 /* RichEditorView.framework in Embed Frameworks */,
+				9D1012051DE3764900B11C1D /* Intercom.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -380,6 +383,8 @@
 		7A4457171D8F2823000F862D /* ManagedUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedUser.swift; sourceTree = "<group>"; };
 		7A75D7621C7A430800E201A3 /* MessageComposerWrapperViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageComposerWrapperViewController.swift; sourceTree = "<group>"; };
 		7ACDBD5C1C8CAD7F004F5E25 /* ConversationMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConversationMessageTableViewCell.xib; sourceTree = "<group>"; };
+		9D1012031DE3764900B11C1D /* Intercom.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Intercom.framework; sourceTree = "<group>"; };
+		9D4F04111DE36B4B00E4D9D5 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		B72C59D01C26BBE500D6651D /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		B72C59D31C26C63200D6651D /* System San Francisco Display Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "System San Francisco Display Regular.ttf"; sourceTree = "<group>"; };
 		B72C59D51C26C72C00D6651D /* System San Francisco Display Ultralight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "System San Francisco Display Ultralight.ttf"; sourceTree = "<group>"; };
@@ -498,6 +503,7 @@
 				2FA2EA831BAD9C570027EA77 /* Security.framework in Frameworks */,
 				2FA2EA811BAD9C570027EA77 /* CoreGraphics.framework in Frameworks */,
 				BF75307B1DD21A5200A00765 /* ReactiveKit.framework in Frameworks */,
+				9D1012041DE3764900B11C1D /* Intercom.framework in Frameworks */,
 				2FA2EA851BAD9C570027EA77 /* QuartzCore.framework in Frameworks */,
 				BF7530771DD20ED800A00765 /* GradientView.framework in Frameworks */,
 			);
@@ -681,6 +687,7 @@
 		2FDB52021BA8BC12003C074F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9D4F04111DE36B4B00E4D9D5 /* CoreFoundation.framework */,
 				BF75307A1DD21A5200A00765 /* ReactiveKit.framework */,
 				BF7530781DD21A4200A00765 /* Alamofire.framework */,
 				BF7530761DD20ED800A00765 /* GradientView.framework */,
@@ -843,6 +850,14 @@
 				7A4457161D8F2823000F862D /* ManagedUser+CoreDataProperties.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		9D1012061DE3768000B11C1D /* Manual Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9D1012031DE3764900B11C1D /* Intercom.framework */,
+			);
+			name = "Manual Frameworks";
 			sourceTree = "<group>";
 		};
 		B72C59D21C26C63200D6651D /* Fonts */ = {
@@ -1064,6 +1079,7 @@
 		DF1FD2CF1B62360600A58B71 = {
 			isa = PBXGroup;
 			children = (
+				9D1012061DE3768000B11C1D /* Manual Frameworks */,
 				2F43E0C31BDA4A9300C68E1D /* Dsyms */,
 				2FDB52021BA8BC12003C074F /* Frameworks */,
 				DF1FD2DA1B62360600A58B71 /* Handler */,
@@ -1154,7 +1170,7 @@
 				TargetAttributes = {
 					DF1FD2D71B62360600A58B71 = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = 2338J96222;
+						DevelopmentTeam = 6SYH9U8FY6;
 						LastSwiftMigration = 0810;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -1521,6 +1537,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 11;
+				DEVELOPMENT_TEAM = 6SYH9U8FY6;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
@@ -1528,6 +1545,8 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)/Carthage/Checkouts/handler-ios-sdk/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/Carthage/Checkouts/intercom-ios",
+					"$(PROJECT_DIR)/TwitterKit.framework/Versions/A/Resources/TwitterKitResources.bundle",
 				);
 				INFOPLIST_FILE = "Handler/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1552,6 +1571,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 11;
+				DEVELOPMENT_TEAM = 6SYH9U8FY6;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
@@ -1559,6 +1579,8 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)/Carthage/Checkouts/handler-ios-sdk/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/Carthage/Checkouts/intercom-ios",
+					"$(PROJECT_DIR)/TwitterKit.framework/Versions/A/Resources/TwitterKitResources.bundle",
 				);
 				INFOPLIST_FILE = "Handler/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;

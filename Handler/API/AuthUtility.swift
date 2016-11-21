@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import Intercom
 
 struct AuthUtility {
 	fileprivate static let _accessTokenKey = "HR_ACCESS_TOKEN_KEY"
@@ -89,6 +90,9 @@ struct AuthUtility {
 	static func signOut() {
 		revokeToken(callback: nil)
 		accessToken = nil
+		// This resets the Intercom for iOS cache of your users’ identities
+		// and wipes the slate clean.
+		Intercom.reset()
 		DatabaseManager.sharedInstance.flushDatastore()
 	}
 
