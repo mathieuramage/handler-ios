@@ -82,6 +82,10 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Microphone used by Instabug.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Send photos to help resolve app issues.</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
