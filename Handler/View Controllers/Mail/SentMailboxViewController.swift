@@ -19,26 +19,25 @@ class SentMailboxViewController: AbstractMailboxViewController {
 		super.prepare(for: segue, sender: sender)
 
 		if segue.identifier == "showConversationTableViewController" {
-//			let dc = segue.destinationViewController as! ThreadTableViewController
-//			dc.thread = self.messageForSegue?.thread
-//			var threads = [Thread]()
-//			for message in self.fetchedObjects {
-//				if let thread = message.thread {
-//					threads.append(thread)
-//				}
-//			}
-//			dc.allThreads = threads
+			let dc = segue.destination as! ConversationTableViewController
+			dc.conversation = self.messageForSegue?.conversation
+			var threads = [Conversation]()
+			for message in self.fetchedObjects {
+				if let thread = message.conversation {
+					threads.append(thread)
+				}
+			}
+			dc.allConversations = threads
 
 			if let destination = segue.destination as? ConversationTableViewController {
-				destination.conversation = self.activeConversation
-				destination.primaryMessage = self.messageForSegue!
+				destination.conversation = messageForSegue?.conversation
+				destination.primaryMessage = self.messageForSegue
 			}
 
 		} else if segue.identifier == "showMessageComposeNavigationController" {
-
-//			if let dc = (segue.destinationViewController as? UINavigationController)?.viewControllers.first as? MessageComposerWrapperViewController {
-//				dc.draftMessage = self.messageForSegue
-//			}
+			if let dc = (segue.destination as? UINavigationController)?.viewControllers.first as? MessageComposerWrapperViewController {
+				dc.draftMessage = self.messageForSegue
+			}
 		}
 	}
 

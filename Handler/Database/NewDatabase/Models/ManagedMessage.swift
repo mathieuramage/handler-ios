@@ -30,21 +30,6 @@ class ManagedMessage: NSManagedObject {
  isStar	Boolean	# Can be empty.
 	*/
 
-	var starred : Bool? {
-		if let starredValue = starredValue {
-			return starredValue.boolValue
-		}
-		return false
-
-	}
-
-	var read : Bool {
-		if let readValue = readValue {
-			return readValue.boolValue
-		}
-
-		return false
-	}
 
 	//	var user : User
 	var folder : Folder {
@@ -85,8 +70,8 @@ class ManagedMessage: NSManagedObject {
 			}
 		}
 
-		readValue = json["isRead"].boolValue as NSNumber
-        
+		read = json["isRead"].boolValue
+		
 		folderType = json["folder"].stringValue
 
 		if let labelJsons = json["labels"].array {
@@ -97,7 +82,7 @@ class ManagedMessage: NSManagedObject {
 			}
 		}
 
-		starredValue = json["isStar"].bool as NSNumber?
+		starred = json["isStar"].boolValue
 
 		if let createdAtStr = json["createdAt"].string {
 			let formatter = DateFormatter()
@@ -404,18 +389,30 @@ class ManagedMessage: NSManagedObject {
 			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "identifier", ascending: false)]
 			return fetchRequest
 		} else if type == .Unread {
-			let predicate = NSPredicate(format: "SUBQUERY(messages, $t, ANY $t.labels.id == %@).@count != 0", type.rawValue)
+			let predicate = NSPredicate(format: "SUBQUERY(messages, $t, $t.read != nil && $t.read == NO).@count != 0")
 			let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Conversation.entityName())
 			fetchRequest.predicate = predicate
 			fetchRequest.fetchBatchSize = 20
 			// OTTODO: It should be sorted by date.
 			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "identifier", ascending: false)]
 			return fetchRequest
-		}else if type != .Archive {
+		} else if type == .Sent {
+			let predicate = NSPredicate(format: "folderType == %@", Folder.Sent.rawValue)
+			let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName())
+			fetchRequest.predicate = predicate
+			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)]
+			return fetchRequest
+		} else if type == .Flagged {
+			let predicate = NSPredicate(format: "starred != nil && starred == YES")
+			let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName())
+			fetchRequest.predicate = predicate
+			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)]
+			return fetchRequest
+		} else if type != .Archive {
 			return fetchRequestForMessagesWithLabelWithId(type.rawValue)
 		} else {
 			// handle archive case
-			let predicate = NSPredicate(format: "NONE labels.id == %@ && NONE labels.id == %@", "INBOX", "SENT")
+			let predicate = NSPredicate(format: "folderType == %@", Folder.Archived.rawValue)
 			let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName())
 			fetchRequest.fetchBatchSize = 20
 			fetchRequest.predicate = predicate
