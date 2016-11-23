@@ -83,9 +83,9 @@
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Microphone used by Instabug.</string>
+	<string>Allow access to the microphone to attach voice notes when reporting bugs.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Send photos to help resolve app issues.</string>
+	<string>Allow access to your photo library for you to attach images when reporting bugs.</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
