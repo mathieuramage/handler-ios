@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct ConversationContentFormatter: MessageContentCellFormatter { // TODO Delete this class.
+struct ConversationContentFormatter { // TODO Delete this class.
 	
 	var timeFormatter: DateFormatter = {
 		let formatter = DateFormatter()

@@ -123,6 +123,34 @@ struct MessageOperations {
         sendNewMessage(message, subject: subject, recipientUserNames: recipientUserNames, callback: callback)
     }
     
+    static func saveMessageAsDraft(_ message : String?, subject : String?, recipientUserNames : [String], callback : MessageUpdateCallback?) {
+        var messageData = MessageData()
+        messageData.subject = subject
+        messageData.message = message
+        messageData.folder = .Draft
+        messageData.recipients = recipientUserNames
+        postNewMessage(messageData, callback: callback)
+    }
+    
+    static func updateDraft(_ identifier: String, message : String?, subject : String?, recipientUserNames : [String], callback : MessageUpdateCallback?) {
+        var messageData = MessageData()
+        messageData.messageId = identifier
+        messageData.subject = subject
+        messageData.message = message
+        messageData.recipients = recipientUserNames
+        postExistingMessage(messageData, callback: callback)
+    }
+    
+    static func sendDraft(_ identifier: String, message : String?, subject : String?, recipientUserNames : [String], callback : MessageUpdateCallback?) {
+        var messageData = MessageData()
+        messageData.messageId = identifier
+        messageData.subject = subject
+        messageData.message = message
+        messageData.recipients = recipientUserNames
+        messageData.folder = .Sent
+        postExistingMessage(messageData, callback: callback)
+    }
+    
     static func setMessageAsRead(message : Message, read : Bool, callback : MessageUpdateCallback?) {
         var messageData = MessageData()
         messageData.messageId = message.identifier
@@ -137,6 +165,9 @@ struct MessageOperations {
         postExistingMessage(messageData, callback: callback)
     }
     
+    static func deleteMessage(identifier : String, callback : MessageUpdateCallback?) {
+        
+    }
     
     fileprivate static func postNewMessage(_ messageData : MessageData, callback : MessageUpdateCallback?) {
         

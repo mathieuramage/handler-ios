@@ -185,6 +185,7 @@
 		BFE739C61CCA1DED002F84CD /* Contacts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFE739C51CCA1DED002F84CD /* Contacts.storyboard */; };
 		BFE739C81CCA2FAA002F84CD /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE739C71CCA2FAA002F84CD /* ContactsViewController.swift */; };
 		BFE739CA1CCA36E7002F84CD /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE739C91CCA36E7002F84CD /* ContactTableViewCell.swift */; };
+		BFF26F861DE34CFE00FDBA90 /* DraftsMessageTableViewCellHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF26F851DE34CFE00FDBA90 /* DraftsMessageTableViewCellHelper.swift */; };
 		BFF78C891CD50D03007380C7 /* RichEditorView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0D136A1CA8595200E91136 /* RichEditorView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BFF78C971CD56931007380C7 /* UTI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF78C941CD56931007380C7 /* UTI.swift */; };
 		DF1FD2DE1B62360600A58B71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1FD2DD1B62360600A58B71 /* AppDelegate.swift */; };
@@ -463,6 +464,7 @@
 		BFE739C51CCA1DED002F84CD /* Contacts.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Contacts.storyboard; sourceTree = "<group>"; };
 		BFE739C71CCA2FAA002F84CD /* ContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 		BFE739C91CCA36E7002F84CD /* ContactTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
+		BFF26F851DE34CFE00FDBA90 /* DraftsMessageTableViewCellHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraftsMessageTableViewCellHelper.swift; sourceTree = "<group>"; };
 		BFF78C941CD56931007380C7 /* UTI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UTI.swift; sourceTree = "<group>"; };
 		DF1FD2D81B62360600A58B71 /* Handler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Handler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF1FD2DC1B62360600A58B71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1043,10 +1045,11 @@
 		BFBBA6D21D68D74900D6AD08 /* View Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				BFF26F851DE34CFE00FDBA90 /* DraftsMessageTableViewCellHelper.swift */,
 				BFBBA6D31D68F3D900D6AD08 /* InboxMessageTableViewCellHelper.swift */,
 				BF78BB451D81D8DB005A9141 /* ConversationTableViewCellHelper.swift */,
 			);
-			name = "View Helpers";
+			path = "View Helpers";
 			sourceTree = "<group>";
 		};
 		BFE739C41CCA1D9D002F84CD /* Storyboards */ = {
@@ -1332,6 +1335,7 @@
 				7A372D771C6FA4A5009E400C /* ContactsAutoCompleteViewController.swift in Sources */,
 				2FDDE1471BB04FA4006C3500 /* WhiteBorderViews.swift in Sources */,
 				DF1FD2DE1B62360600A58B71 /* AppDelegate.swift in Sources */,
+				BFF26F861DE34CFE00FDBA90 /* DraftsMessageTableViewCellHelper.swift in Sources */,
 				2F7B0CFF1BFDCAB30015C43A /* FormatterProtocols.swift in Sources */,
 				BF27F38E1CDDF01C003A92D9 /* APName.m in Sources */,
 				2F7B0D091BFDDA920015C43A /* ActionPluginProvider.swift in Sources */,
