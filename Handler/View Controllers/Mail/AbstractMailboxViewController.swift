@@ -56,12 +56,23 @@ class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UI
 		MailboxObserversManager.sharedInstance.addObserverForMailboxType(mailboxType , observer: self)
 		MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(mailboxType , observer: self)
 	}
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        refresh()
+    }
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Hamburger_Icon"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(AbstractMailboxViewController.showSideMenu(_:)))
 
 	}
+    
+    func refresh() {
+        ConversationOperations.getAllConversations(before: Date(), after: nil, limit: 0) { (success, conversations) in
+//            self.refreshControl?.endRefreshing()
+        }
+    }
 
 	func showSideMenu(_ sender: UIBarButtonItem) {
 		presentLeftMenuViewController()

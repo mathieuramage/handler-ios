@@ -165,8 +165,11 @@ struct MessageOperations {
         postExistingMessage(messageData, callback: callback)
     }
     
-    static func deleteMessage(identifier : String, callback : MessageUpdateCallback?) {
-        
+    static func deleteMessage(messageId: String, callback : MessageUpdateCallback?) {
+        var messageData = MessageData()
+        messageData.messageId = messageId
+        messageData.folder = .Deleted
+        postExistingMessage(messageData, callback: callback)
     }
     
     fileprivate static func postNewMessage(_ messageData : MessageData, callback : MessageUpdateCallback?) {
@@ -205,6 +208,9 @@ struct MessageOperations {
                 var message : Message?
                 if let value = response.result.value {
                    message = Message.messageWithJSON(JSON(value), inContext: DatabaseManager.sharedInstance.mainManagedContext)
+                    DatabaseManager.sharedInstance.mainManagedContext.saveRecursively{ error in
+                        callback?(true,message)
+                    }
                 }
                 callback?(true,message)
             case .failure(_):
@@ -258,8 +264,11 @@ struct MessageOperations {
                 var message : Message?
                 if let value = response.result.value {
                     message = Message.messageWithJSON(JSON(value), inContext: DatabaseManager.sharedInstance.mainManagedContext)
+                    DatabaseManager.sharedInstance.mainManagedContext.saveRecursively{ error in
+                        callback?(true,message)
+                    }
                 }
-                callback?(true, message)
+        
             case .failure(_):
                 callback?(false, nil)
             }

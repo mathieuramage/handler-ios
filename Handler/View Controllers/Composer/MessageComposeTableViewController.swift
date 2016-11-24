@@ -243,8 +243,16 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
         
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
         
-        alertController.addAction(UIAlertAction(title: "Save as Draft", style: .default, handler: { (action) -> Void in
-            self.saveAsDraft()
+        let saveDraftText = (draftMessage == nil) ? "Save as Draft" : "Save Draft"
+        
+        alertController.addAction(UIAlertAction(title: saveDraftText, style: .default, handler: { (action) -> Void in
+            
+            if self.draftMessage == nil { //new draft
+                self.saveAsDraft()
+            } else {
+                self.updateDraft()
+            }
+            
             self.navigationController?.dismiss(animated: true, completion: nil)
         }))
         
@@ -253,13 +261,16 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
             //				for attachment in attachments {
             //					attachment.delete()
             //				}
-            //			}
+            //			}            
+            if self.draftMessage != nil {
+                self.deleteDraft()
+            }
             self.navigationController?.dismiss(animated: true, completion: nil)
+            
         }))
         
         
         alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: { (action) -> Void in
-            
         }))
         
         present(alertController, animated: true, completion: nil)
@@ -335,6 +346,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
             let sendAnywayAction = UIAlertAction(title: "Send", style: .default) { (action) in
                 
                 if let draft = self.draftMessage, let identifier = draft.identifier {
+                    
                     MessageOperations.sendDraft(identifier, message: message, subject: subject, recipientUserNames: recipients, callback: { success in
                         // TODO?
                     })
@@ -359,8 +371,13 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
             self.present(alertController, animated: true, completion: nil)
             
         } else {
-            
-            if let replyTo = self.messageToReplyTo {
+
+            if let draft = self.draftMessage, let identifier = draft.identifier {
+                
+                MessageOperations.sendDraft(identifier, message: message, subject: subject, recipientUserNames: recipients, callback: { success in
+                    // TODO?
+                })
+            } else if let replyTo = self.messageToReplyTo {
                 MessageOperations.replyToUserNames(recipients, conversationId: replyTo.conversationId!, message: message, subject: subject, callback: { (success) in
                     self.dismiss(animated: true, completion: nil)
                 })
@@ -369,6 +386,8 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
                     self.dismiss(animated: true, completion: nil)
                 })
             }
+            
+            self.navigationController?.dismiss(animated: true, completion: nil)
         }
         
     }
@@ -397,17 +416,31 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
             return
         }
         
+        let message = richTextContentView.contentHTML
+        let subject = subjectTextField.text ?? ""
         
+        var recipients = [String]()
+        for token in tokenView.allTokens {
+            //			for validtoken in validatedTokens {
+            //				if validtoken.isOnHandler && validtoken.name == token.displayText.stringByReplacingOccurrencesOfString("@", withString: ""){
+            //					recipients.append(validtoken.name)
+            //				}
+            //			}
+            recipients.append(token.displayText.replacingOccurrences(of: "@", with: ""))  //FIXME, temporary IMPORTANT, DELETE THIS and uncomment above.
+        }
+        
+        MessageOperations.updateDraft(draft.identifier!, message: message, subject: subject, recipientUserNames: recipients, callback: {success in
+        })
         
     }
     
     func deleteDraft() {
+        guard let draft = draftMessage, let messageId = draft.identifier else {
+            return
+        }
         
-    }
-    
-    func updateDraftFromUI(draft: ManagedMessage) -> ManagedMessage {
-        configMsg(draft)
-        return draft
+        MessageOperations.deleteMessage(messageId: messageId, callback: { success in
+        })
     }
     
     //	func createMessageFromUI() -> MessageData {
