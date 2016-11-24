@@ -18,7 +18,6 @@ class MailboxObserversManager: NSObject {
     override init() {
         super.init()
         
-        
         for mailboxType in MailboxType.allValues {
             mailBoxes.append(MailboxMessagesObserver(type: mailboxType))
         }

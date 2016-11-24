@@ -80,7 +80,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tum-1x-kCf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2129.5" y="-1173.5"/>
+            <point key="canvasLocation" x="2332" y="-1174"/>
         </scene>
         <!--Flagged Mailbox View Controller-->
         <scene sceneID="Ww3-74-ZmD">
@@ -115,7 +115,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="utM-kG-y7F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2548.5" y="-1173.5"/>
+            <point key="canvasLocation" x="3033" y="-1174"/>
         </scene>
         <!--Drafts Mailbox View Controller-->
         <scene sceneID="02c-CG-P0y">
@@ -150,7 +150,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QaN-pa-xbF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2976.5" y="-1173.5"/>
+            <point key="canvasLocation" x="3689" y="-1174"/>
         </scene>
         <!--Sent Mailbox View Controller-->
         <scene sceneID="06D-si-XXJ">
@@ -185,7 +185,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hG8-s7-BB8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3388.5" y="-1173.5"/>
+            <point key="canvasLocation" x="5023" y="-1167"/>
         </scene>
         <!--Archive Mailbox View Controller-->
         <scene sceneID="D5p-r5-5ID">
@@ -220,7 +220,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zle-wa-gxC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3805.5" y="-1173.5"/>
+            <point key="canvasLocation" x="4346" y="-1167"/>
         </scene>
         <!--Thread-->
         <scene sceneID="n8g-XI-hXq">
@@ -241,7 +241,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qQI-RY-uT9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1765.5" y="224.5"/>
+            <point key="canvasLocation" x="1630" y="-252"/>
         </scene>
         <!--ContactsViewController-->
         <scene sceneID="IsC-dE-kFN">
@@ -249,7 +249,7 @@
                 <viewControllerPlaceholder storyboardName="Contacts" referencedIdentifier="ContactsViewController" id="A8C-NE-NAc" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IKS-wY-Fmu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2013.5" y="-1727"/>
+            <point key="canvasLocation" x="2214" y="-1741"/>
         </scene>
         <!--Mail Box Options Table View Controller-->
         <scene sceneID="i2f-Tf-RVn">
@@ -708,8 +708,8 @@
         <image name="menu_help_icon" width="16" height="14"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ayj-ph-QJ8"/>
-        <segue reference="I0l-5p-pz3"/>
+        <segue reference="ztf-hg-YcD"/>
+        <segue reference="lYq-E7-3Gf"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

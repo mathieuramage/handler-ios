@@ -116,6 +116,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 	}
 
 	func refresh() {
+        
 		ConversationOperations.getAllConversations(before: Date(), after: nil, limit: 0) { (success, conversations) in
 			self.refreshControl?.endRefreshing()
 		}
