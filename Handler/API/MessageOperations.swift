@@ -208,7 +208,6 @@ struct MessageOperations {
 				var message : Message?
 				if let value = response.result.value {
 					message = Message.messageWithJSON(JSON(value), inContext: DatabaseManager.sharedInstance.mainManagedContext)
-					callback?(true,message)
 				}
 				callback?(true,message)
 			case .failure(_):

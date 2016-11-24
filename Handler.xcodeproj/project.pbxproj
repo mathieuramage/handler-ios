@@ -129,6 +129,14 @@
 		7A44571D1D8F2823000F862D /* ManagedUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4457171D8F2823000F862D /* ManagedUser.swift */; };
 		7A75D7631C7A430800E201A3 /* MessageComposerWrapperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A75D7621C7A430800E201A3 /* MessageComposerWrapperViewController.swift */; };
 		7ACDBD5D1C8CAD7F004F5E25 /* ConversationMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ACDBD5C1C8CAD7F004F5E25 /* ConversationMessageTableViewCell.xib */; };
+		9D16ADE81DE35A5E00C8172A /* Instabug.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9D16ADE61DE35A5E00C8172A /* Instabug.bundle */; };
+		9D16ADE91DE35A5E00C8172A /* Instabug.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D16ADE71DE35A5E00C8172A /* Instabug.framework */; };
+		9D16ADEC1DE35A9500C8172A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D16ADEB1DE35A9500C8172A /* AVFoundation.framework */; };
+		9D16ADEE1DE35AA400C8172A /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D16ADED1DE35AA400C8172A /* CoreMotion.framework */; };
+		9D16ADF11DE35AB700C8172A /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D16ADEF1DE35AB700C8172A /* CoreTelephony.framework */; };
+		9D16ADF21DE35AB700C8172A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D16ADF01DE35AB700C8172A /* SystemConfiguration.framework */; };
+		9D16ADF41DE35AC500C8172A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D16ADF31DE35AC400C8172A /* CoreMedia.framework */; };
+		9D16ADF61DE35ACA00C8172A /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D16ADF51DE35ACA00C8172A /* CoreVideo.framework */; };
 		B72C59D11C26BBE500D6651D /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72C59D01C26BBE500D6651D /* Globals.swift */; };
 		B72C59D41C26C63200D6651D /* System San Francisco Display Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B72C59D31C26C63200D6651D /* System San Francisco Display Regular.ttf */; };
 		BF03D6671C9F135A002EF4CC /* AbstractMailboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF03D6661C9F135A002EF4CC /* AbstractMailboxViewController.swift */; };
@@ -381,6 +389,14 @@
 		7A4457171D8F2823000F862D /* ManagedUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedUser.swift; sourceTree = "<group>"; };
 		7A75D7621C7A430800E201A3 /* MessageComposerWrapperViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageComposerWrapperViewController.swift; sourceTree = "<group>"; };
 		7ACDBD5C1C8CAD7F004F5E25 /* ConversationMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConversationMessageTableViewCell.xib; sourceTree = "<group>"; };
+		9D16ADE61DE35A5E00C8172A /* Instabug.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Instabug.bundle; sourceTree = "<group>"; };
+		9D16ADE71DE35A5E00C8172A /* Instabug.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Instabug.framework; sourceTree = "<group>"; };
+		9D16ADEB1DE35A9500C8172A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		9D16ADED1DE35AA400C8172A /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		9D16ADEF1DE35AB700C8172A /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		9D16ADF01DE35AB700C8172A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		9D16ADF31DE35AC400C8172A /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		9D16ADF51DE35ACA00C8172A /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		B72C59D01C26BBE500D6651D /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		B72C59D31C26C63200D6651D /* System San Francisco Display Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "System San Francisco Display Regular.ttf"; sourceTree = "<group>"; };
 		B72C59D51C26C72C00D6651D /* System San Francisco Display Ultralight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "System San Francisco Display Ultralight.ttf"; sourceTree = "<group>"; };
@@ -478,6 +494,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FA2EA871BAD9C570027EA77 /* UIKit.framework in Frameworks */,
+				9D16ADF61DE35ACA00C8172A /* CoreVideo.framework in Frameworks */,
+				9D16ADF41DE35AC500C8172A /* CoreMedia.framework in Frameworks */,
+				9D16ADF11DE35AB700C8172A /* CoreTelephony.framework in Frameworks */,
+				9D16ADF21DE35AB700C8172A /* SystemConfiguration.framework in Frameworks */,
+				9D16ADEE1DE35AA400C8172A /* CoreMotion.framework in Frameworks */,
+				2FA2EA811BAD9C570027EA77 /* CoreGraphics.framework in Frameworks */,
+				9D16ADEC1DE35A9500C8172A /* AVFoundation.framework in Frameworks */,
 				2FDB44601BD3E86F0040014E /* Async.framework in Frameworks */,
 				2FDB44611BD3E86F0040014E /* Bond.framework in Frameworks */,
 				2FDB44621BD3E86F0040014E /* DZNEmptyDataSet.framework in Frameworks */,
@@ -487,7 +511,6 @@
 				BFA307571CF260F200642A8D /* RichEditorView.framework in Frameworks */,
 				2FDB44651BD3E86F0040014E /* SwiftyJSON.framework in Frameworks */,
 				2FDB44721BD3EB110040014E /* TwitterKit.framework in Frameworks */,
-				2FA2EA871BAD9C570027EA77 /* UIKit.framework in Frameworks */,
 				2FDB44761BD3EB380040014E /* Crashlytics.framework in Frameworks */,
 				2FDB44741BD3EB110040014E /* TwitterCore.framework in Frameworks */,
 				BF7530791DD21A4200A00765 /* Alamofire.framework in Frameworks */,
@@ -498,9 +521,9 @@
 				2FA2EA821BAD9C570027EA77 /* Foundation.framework in Frameworks */,
 				2FDB44711BD3EB110040014E /* Fabric.framework in Frameworks */,
 				2FA2EA831BAD9C570027EA77 /* Security.framework in Frameworks */,
-				2FA2EA811BAD9C570027EA77 /* CoreGraphics.framework in Frameworks */,
 				BF75307B1DD21A5200A00765 /* ReactiveKit.framework in Frameworks */,
 				2FA2EA851BAD9C570027EA77 /* QuartzCore.framework in Frameworks */,
+				9D16ADE91DE35A5E00C8172A /* Instabug.framework in Frameworks */,
 				BF7530771DD20ED800A00765 /* GradientView.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -683,6 +706,12 @@
 		2FDB52021BA8BC12003C074F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9D16ADF51DE35ACA00C8172A /* CoreVideo.framework */,
+				9D16ADF31DE35AC400C8172A /* CoreMedia.framework */,
+				9D16ADEF1DE35AB700C8172A /* CoreTelephony.framework */,
+				9D16ADF01DE35AB700C8172A /* SystemConfiguration.framework */,
+				9D16ADED1DE35AA400C8172A /* CoreMotion.framework */,
+				9D16ADEB1DE35A9500C8172A /* AVFoundation.framework */,
 				BF75307A1DD21A5200A00765 /* ReactiveKit.framework */,
 				BF7530781DD21A4200A00765 /* Alamofire.framework */,
 				BF7530761DD20ED800A00765 /* GradientView.framework */,
@@ -845,6 +874,15 @@
 				7A4457161D8F2823000F862D /* ManagedUser+CoreDataProperties.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		9D16ADEA1DE35A6400C8172A /* Manual Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9D16ADE61DE35A5E00C8172A /* Instabug.bundle */,
+				9D16ADE71DE35A5E00C8172A /* Instabug.framework */,
+			);
+			name = "Manual Frameworks";
 			sourceTree = "<group>";
 		};
 		B72C59D21C26C63200D6651D /* Fonts */ = {
@@ -1067,6 +1105,7 @@
 		DF1FD2CF1B62360600A58B71 = {
 			isa = PBXGroup;
 			children = (
+				9D16ADEA1DE35A6400C8172A /* Manual Frameworks */,
 				2F43E0C31BDA4A9300C68E1D /* Dsyms */,
 				2FDB52021BA8BC12003C074F /* Frameworks */,
 				DF1FD2DA1B62360600A58B71 /* Handler */,
@@ -1157,7 +1196,7 @@
 				TargetAttributes = {
 					DF1FD2D71B62360600A58B71 = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = 2338J96222;
+						DevelopmentTeam = 6SYH9U8FY6;
 						LastSwiftMigration = 0810;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -1207,6 +1246,7 @@
 				2F1D2C381BBC3DCA00A504A8 /* ContactCardViewController.xib in Resources */,
 				2FDB44731BD3EB110040014E /* TwitterKitResources.bundle in Resources */,
 				2F09DB1F1BC69CEC00B81FE2 /* AttachmentThumbnailView.xib in Resources */,
+				9D16ADE81DE35A5E00C8172A /* Instabug.bundle in Resources */,
 				DF1FD2E51B62360600A58B71 /* Images.xcassets in Resources */,
 				B72C59D41C26C63200D6651D /* System San Francisco Display Regular.ttf in Resources */,
 				2F1D2C3C1BBC477000A504A8 /* SendInvitationViewController.xib in Resources */,
@@ -1525,7 +1565,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 11;
-				DEVELOPMENT_TEAM = 2338J96222;
+				DEVELOPMENT_TEAM = 6SYH9U8FY6;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
@@ -1557,7 +1597,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 11;
-				DEVELOPMENT_TEAM = 2338J96222;
+				DEVELOPMENT_TEAM = 6SYH9U8FY6;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
