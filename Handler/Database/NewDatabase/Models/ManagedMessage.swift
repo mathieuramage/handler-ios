@@ -13,9 +13,6 @@ import SwiftyJSON
 typealias Message = ManagedMessage
 
 class ManagedMessage: NSManagedObject {
-	
-	
-	
 	/*
 	_id	ObjectID	Required | Unique
 	_user	User	Required
@@ -52,53 +49,8 @@ class ManagedMessage: NSManagedObject {
 	
 	fileprivate convenience init(json: JSON, inContext context: NSManagedObjectContext) {
 		self.init(managedObjectContext: context)
-		
 		identifier = json["id"].stringValue
-		sender = ManagedUser.userWithJSON(json["sender"], inContext: context)
-		conversationId = json["conversationId"].stringValue
-		
-		conversation = ManagedConversation.conversationWithID(conversationId!, inContext: context)
-		
-		subject = json["subject"].stringValue
-		content = json["message"].stringValue
-		
-		if let recipientJsons = json["recipients"].array {
-			for recipientJson in recipientJsons {
-				let recipient = ManagedUser.userWithJSON(recipientJson, inContext: context)
-				
-				addRecipientsObject(recipient)
-			}
-		}
-		
-		read = json["isRead"].boolValue
-		
-		folderType = json["folder"].stringValue
-		
-		if let labelJsons = json["labels"].array {
-			for labelJson in labelJsons {
-				let label = ManagedLabel(id: labelJson.stringValue, inContext: context)
-				
-				label.message = self
-			}
-		}
-		
-		starred = json["isStar"].boolValue
-		
-		if let createdAtStr = json["createdAt"].string {
-			let formatter = DateFormatter()
-			formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-			createdAt = formatter.date(from: createdAtStr) as! NSDate
-		} else {
-			createdAt = Date() as NSDate?
-		}
-		
-		if let updatedAtStr = json["updatedAt"].string {
-			let formatter = DateFormatter()
-			formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-			updatedAt = formatter.date(from: updatedAtStr) as! NSDate
-		} else {
-			updatedAt = NSDate()
-		}
+		ManagedMessage.setMessageDataWithJSON(message: self, json: json, context: context)
 	}
 	
 	class func messageWithJSON(_ json: JSON, inContext context: NSManagedObjectContext) -> ManagedMessage {
@@ -110,6 +62,7 @@ class ManagedMessage: NSManagedObject {
 		fetchRequest.fetchBatchSize = 1
 		
 		if let message = (context.safeExecuteFetchRequest(fetchRequest) as [Message]).first {
+			ManagedMessage.setMessageDataWithJSON(message: message, json: json, context: context)
 			return message
 		}
 		
@@ -117,6 +70,54 @@ class ManagedMessage: NSManagedObject {
 		
 		return message
 	}
+	
+	fileprivate class func setMessageDataWithJSON(message: Message, json : JSON, context: NSManagedObjectContext) {
+		
+		message.sender = ManagedUser.userWithJSON(json["sender"], inContext: context)
+		message.conversationId = json["conversationId"].stringValue
+		
+		message.conversation = ManagedConversation.conversationWithID(message.conversationId!, inContext: context)
+		
+		message.subject = json["subject"].stringValue
+		message.content = json["message"].stringValue
+		
+		if let recipientJsons = json["recipients"].array {
+			for recipientJson in recipientJsons {
+				let recipient = ManagedUser.userWithJSON(recipientJson, inContext: context)
+				message.addRecipientsObject(recipient)
+			}
+		}
+		
+		message.read = json["isRead"].boolValue
+		
+		message.folderType = json["folder"].stringValue
+		
+		if let labelJsons = json["labels"].array {
+			for labelJson in labelJsons {
+				let label = ManagedLabel(id: labelJson.stringValue, inContext: context)
+				label.message = message
+			}
+		}
+		
+		message.starred = json["isStar"].boolValue
+		
+		if let createdAtStr = json["createdAt"].string {
+			let formatter = DateFormatter()
+			formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+			message.createdAt = formatter.date(from: createdAtStr) as! NSDate
+		} else {
+			message.createdAt = Date() as NSDate?
+		}
+		
+		if let updatedAtStr = json["updatedAt"].string {
+			let formatter = DateFormatter()
+			formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+			message.updatedAt = formatter.date(from: updatedAtStr) as! NSDate
+		} else {
+			message.updatedAt = NSDate()
+		}		
+	}
+	
 	
 	func moveToArchive() {
 		self.removeLabelWithID(SystemLabels.Inbox.rawValue)
