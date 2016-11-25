@@ -177,7 +177,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
         
         if let receivers = messageToReplyTo?.recipientsWithoutSelf() {
             for receiver in receivers {
-                let senderUsername = (receiver as AnyObject).handle
+                let senderUsername = (receiver as? ManagedUser)?.handle
                 if (senderUsername?.characters.count)! > 0 {
                     validatedTokens.append(ValidatedToken(name: senderUsername!, isOnHandler: true))
                     ccTokenView.add(CLToken(displayText: "@\(senderUsername)", context: nil))

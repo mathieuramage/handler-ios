@@ -1,5 +1,5 @@
 github "Alamofire/Alamofire" "4.2.0"
-github "duemunk/Async" "2.0.0"
+github "calt/Async" "7c2532f99f5751c55e076d8858d464a9bef3110a"
 github "dzenbot/DZNEmptyDataSet" "v1.8.1"
 github "soffes/GradientView" "v2.2.0"
 github "onevcat/Kingfisher" "3.2.1"

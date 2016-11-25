@@ -32,7 +32,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>25</string>
+	<string>28</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -63,6 +63,10 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Allow access to the microphone to attach voice notes when reporting bugs.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Allow access to your photo library for you to attach images when reporting bugs.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
@@ -82,10 +86,6 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Allow access to the microphone to attach voice notes when reporting bugs.</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allow access to your photo library for you to attach images when reporting bugs.</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
