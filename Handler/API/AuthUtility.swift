@@ -90,6 +90,7 @@ struct AuthUtility {
 	static func signOut() {
 		revokeToken(callback: nil)
 		accessToken = nil
+		UserDefaults.standard.set(nil, forKey: Config.UserDefaults.uidKey)
 		// This resets the Intercom for iOS cache of your users’ identities
 		// and wipes the slate clean.
 		Intercom.reset()

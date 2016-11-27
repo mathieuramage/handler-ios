@@ -93,13 +93,14 @@ class LoginViewController: UIViewController {
 
 						AuthUtility.accessToken = accessToken
 						
-						// For best results, use a unique user_id if you have one.
-						//Use Token or Id?
-						Intercom.registerUser(withUserId: accessToken.token)
-
 						UserOperations.getMe({ (success, user) in
 							AuthUtility.user = user
-	
+
+							if let uid = user?.identifier {
+								UserDefaults.standard.set(uid, forKey: Config.UserDefaults.uidKey)
+								Intercom.registerUser(withUserId: uid)
+							}
+
 							UIView.transition(with: AppDelegate.sharedInstance().window!, duration: 0.5, options: UIViewAnimationOptions.transitionCrossDissolve, animations: { () -> Void in
 								AppDelegate.sharedInstance().window?.rootViewController = AppDelegate.sharedInstance().sideMenu
 								GreetingViewController.showWithHandle(user?.handle ?? "", back: false)

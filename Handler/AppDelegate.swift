@@ -147,10 +147,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func loadInitialViewController() {
 		if (UserDefaults.standard.bool(forKey: "didFinishWalkthrough") && !ENABLE_ONBOARDING_EVERY_RUN) {
-			if let accessToken = AuthUtility.accessToken {
+			if AuthUtility.accessToken != nil {
 				window?.rootViewController = sideMenu
-				if !accessToken.token.isEmpty {
-					Intercom.registerUser(withUserId: accessToken.token)
+				if let uid = UserDefaults.standard.string(forKey: Config.UserDefaults.uidKey) {
+					Intercom.registerUser(withUserId: uid)
 				}
 			}else{
 				window?.rootViewController = Storyboards.Intro.instantiateViewController(withIdentifier: "LoginViewController")
