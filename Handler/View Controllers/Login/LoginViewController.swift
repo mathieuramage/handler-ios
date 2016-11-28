@@ -16,14 +16,12 @@ class LoginViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		let layer = CAGradientLayer.gradientLayerForBounds(UIScreen.main.bounds)
-		self.view.layer.insertSublayer(layer, at: 0)
-        if let twitterIcon = UIImage(named: "twitter_logo_white") {
+        if let twitterIcon = UIImage(named: "twitter_icon_blue") {
             self.loginButton.setImage(twitterIcon, for: UIControlState())
         }
         self.setLoginButtonText()
-        self.loginButton.imageEdgeInsets = UIEdgeInsetsMake(13,-20,13, -10)
-        self.loginButton.titleEdgeInsets = UIEdgeInsetsMake(0,-50,0,20)
+        self.loginButton.imageEdgeInsets = UIEdgeInsetsMake(13,-20,13, 32)
+        self.loginButton.titleEdgeInsets = UIEdgeInsetsMake(0,-50,0,23)
 	}
     
     fileprivate func setLoginButtonText() {
@@ -37,8 +35,8 @@ class LoginViewController: UIViewController {
         
         buttonTitle.append(loginAttributedString)
         buttonTitle.append(twitterAttributedString)
-        buttonTitle.addAttribute(NSForegroundColorAttributeName, value: UIColor.white, range: NSMakeRange(0, buttonTitle.length))
-        
+        buttonTitle.addAttribute(NSForegroundColorAttributeName, value: UIColor(colorLiteralRed: 85/255, green: 170/255, blue: 236/255, alpha: 1.0), range: NSMakeRange(0, buttonTitle.length))
+		
         self.loginButton.setAttributedTitle(buttonTitle, for: UIControlState())
     }
 
