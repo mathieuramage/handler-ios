@@ -44,6 +44,19 @@ struct Config {
 
 		static let labels = Config.APIVersion + "labels"
 	}
+	
+	struct UserDefaults {
+		static let uidKey = "uid"
+	}
+	
+	struct Intercom {
+		static let appId = "ibzqbu7k"
+		static let apiKey = "ios_sdk-0e8806a76cf019432996c9dd14aa7d27997905ce"
+	}
+	
+	struct Instabug {
+		static let apiToken = "bf4b5a418115ba8ffcd30c664085bb23"
+	}
 
 	struct Twitter {
 		static let consumerKey = "bH6FU5R4bVQ5QJhYvNyFZywFm"
