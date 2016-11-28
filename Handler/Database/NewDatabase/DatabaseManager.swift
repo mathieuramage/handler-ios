@@ -158,7 +158,7 @@ extension NSManagedObjectContext {
 			}
 
 			if let parentContext = self.parent {
-				parentContext.saveRecursively()
+				parentContext.saveRecursively(completion)
 			}
 			else {
 				completion?(nil)
