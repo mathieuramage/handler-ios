@@ -9,6 +9,11 @@
 import UIKit
 import SwiftyJSON
 
+enum MessageLoadingStatusNotification: String {
+	case Loading = "MessageLoadingStatusNotificationLoading"
+	case Finished = "MessageLoadingStatusNotificationFinished"
+}
+
 struct MessageOperations {
 	
 	static func getAllMessages(before : Date? , after : Date?, limit : Int?, callback : @escaping (_ success : Bool, _ messages : [Message]?) -> ()) {
@@ -28,8 +33,12 @@ struct MessageOperations {
 		if let limit = limit {
 			params["limit"] = limit
 		}
-		
+
+		NotificationCenter.default.post(name: Notification.Name(MessageLoadingStatusNotification.Loading.rawValue), object: nil)
 		APIUtility.request(method: .get, route: Config.APIRoutes.messages, parameters: params).responseJSON { response in
+
+			NotificationCenter.default.post(name: Notification.Name(MessageLoadingStatusNotification.Finished.rawValue), object: nil)
+
 			switch response.result {
 			case .success:
 				var messages : [Message] = []
