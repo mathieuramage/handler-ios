@@ -1204,7 +1204,7 @@
 				TargetAttributes = {
 					DF1FD2D71B62360600A58B71 = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = 6SYH9U8FY6;
+						DevelopmentTeam = 2338J96222;
 						LastSwiftMigration = 0810;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -1573,7 +1573,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 11;
-				DEVELOPMENT_TEAM = 6SYH9U8FY6;
+				DEVELOPMENT_TEAM = 2338J96222;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
@@ -1605,7 +1605,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 11;
-				DEVELOPMENT_TEAM = 6SYH9U8FY6;
+				DEVELOPMENT_TEAM = 2338J96222;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
