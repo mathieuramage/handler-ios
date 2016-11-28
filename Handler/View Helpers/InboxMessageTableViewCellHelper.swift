@@ -42,9 +42,14 @@ class InboxMessageTableViewCellHelper {
 
 		cell.senderNameLabel.text = message.sender?.name
 		cell.senderHandleLabel.text = "@" + (message.sender?.handle ?? "")
-
 		cell.messageSubjectLabel.text = message.subject
-		cell.messageContentPreviewLabel.text = message.content
+		
+		do {
+			let parsedMessage = try NSAttributedString(data: (message.content?.data(using: String.Encoding.unicode, allowLossyConversion: true)!)!, options: [NSDocumentTypeDocumentAttribute : NSHTMLTextDocumentType], documentAttributes: nil)
+			cell.messageContentPreviewLabel.text = parsedMessage.string
+		} catch {
+			cell.messageContentPreviewLabel.text = message.content
+		}
 
 		cell.messageTimeLabel.text = timeFormatter.string(from: message.createdAt! as Date)
 
