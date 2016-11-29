@@ -137,6 +137,9 @@
 		9D16ADF21DE35AB700C8172A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D16ADF01DE35AB700C8172A /* SystemConfiguration.framework */; };
 		9D16ADF41DE35AC500C8172A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D16ADF31DE35AC400C8172A /* CoreMedia.framework */; };
 		9D16ADF61DE35ACA00C8172A /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D16ADF51DE35ACA00C8172A /* CoreVideo.framework */; };
+		9DDED1E71DEBB5900042314A /* Intercom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DDED1E61DEBB5900042314A /* Intercom.framework */; };
+		9DDED1E81DEBB59C0042314A /* Intercom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DDED1E61DEBB5900042314A /* Intercom.framework */; };
+		9DDED1E91DEBB59C0042314A /* Intercom.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9DDED1E61DEBB5900042314A /* Intercom.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B72C59D11C26BBE500D6651D /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72C59D01C26BBE500D6651D /* Globals.swift */; };
 		B72C59D41C26C63200D6651D /* System San Francisco Display Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B72C59D31C26C63200D6651D /* System San Francisco Display Regular.ttf */; };
 		BF03D6671C9F135A002EF4CC /* AbstractMailboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF03D6661C9F135A002EF4CC /* AbstractMailboxViewController.swift */; };
@@ -209,6 +212,7 @@
 			files = (
 				BF047E001DD2206D00CF7001 /* ReactiveKit.framework in Embed Frameworks */,
 				BFF78C891CD50D03007380C7 /* RichEditorView.framework in Embed Frameworks */,
+				9DDED1E91DEBB59C0042314A /* Intercom.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -397,6 +401,7 @@
 		9D16ADF01DE35AB700C8172A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9D16ADF31DE35AC400C8172A /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		9D16ADF51DE35ACA00C8172A /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		9DDED1E61DEBB5900042314A /* Intercom.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Intercom.framework; sourceTree = "<group>"; };
 		B72C59D01C26BBE500D6651D /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		B72C59D31C26C63200D6651D /* System San Francisco Display Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "System San Francisco Display Regular.ttf"; sourceTree = "<group>"; };
 		B72C59D51C26C72C00D6651D /* System San Francisco Display Ultralight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "System San Francisco Display Ultralight.ttf"; sourceTree = "<group>"; };
@@ -505,10 +510,12 @@
 				2FDB44601BD3E86F0040014E /* Async.framework in Frameworks */,
 				2FDB44611BD3E86F0040014E /* Bond.framework in Frameworks */,
 				2FDB44621BD3E86F0040014E /* DZNEmptyDataSet.framework in Frameworks */,
+				9DDED1E81DEBB59C0042314A /* Intercom.framework in Frameworks */,
 				2FDB44631BD3E86F0040014E /* Kingfisher.framework in Frameworks */,
 				BF047DFF1DD2206D00CF7001 /* ReactiveKit.framework in Frameworks */,
 				2FDB44641BD3E86F0040014E /* Result.framework in Frameworks */,
 				BFA307571CF260F200642A8D /* RichEditorView.framework in Frameworks */,
+				9DDED1E71DEBB5900042314A /* Intercom.framework in Frameworks */,
 				2FDB44651BD3E86F0040014E /* SwiftyJSON.framework in Frameworks */,
 				2FDB44721BD3EB110040014E /* TwitterKit.framework in Frameworks */,
 				2FDB44761BD3EB380040014E /* Crashlytics.framework in Frameworks */,
@@ -879,6 +886,7 @@
 		9D16ADEA1DE35A6400C8172A /* Manual Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9DDED1E61DEBB5900042314A /* Intercom.framework */,
 				9D16ADE61DE35A5E00C8172A /* Instabug.bundle */,
 				9D16ADE71DE35A5E00C8172A /* Instabug.framework */,
 			);

@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import Intercom
 
 struct AuthUtility {
 	fileprivate static let _accessTokenKey = "HR_ACCESS_TOKEN_KEY"
@@ -89,6 +90,8 @@ struct AuthUtility {
 	static func signOut() {
 		revokeToken(callback: nil)
 		accessToken = nil
+		UserDefaults.standard.set(nil, forKey: Config.UserDefaults.uidKey)
+		Intercom.reset()
 		DatabaseManager.sharedInstance.flushDatastore()
 	}
 
