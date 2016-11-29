@@ -11,8 +11,6 @@ import TwitterKit
 
 class LoginViewController: UIViewController {
 
-	@IBOutlet weak var loadingView: UIImageView!
-
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
@@ -47,11 +45,6 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton: WhiteBorderButton!
     
 	@IBAction func loginButtonPressed(_ button: UIButton){
-
-		//Displaying loading view
-		UIView.animate(withDuration: 1, animations: {
-			self.loadingView.alpha = 1.0
-		})
 
 		Twitter.sharedInstance().logIn { session, error in
 			if (session != nil) {

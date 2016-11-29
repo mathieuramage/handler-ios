@@ -102,7 +102,7 @@ class IntroViewController: UIViewController, UIScrollViewDelegate {
         })
         scrollView.setContentOffset(CGPoint(x: firstView.bounds.width, y: 0), animated: true)
 //        pageControl.currentPage = 0
-        
+
         //Removing the first page from the scrollview and reload
         Async.main(after: 0.5) {
             self.firstView.removeFromSuperview();

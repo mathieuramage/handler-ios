@@ -85,26 +85,19 @@
                                     <constraint firstAttribute="height" constant="154" id="ON3-88-fR2"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login-loading" translatesAutoresizingMaskIntoConstraints="NO" id="Upt-6a-9Jr" userLabel="Loading View">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="FL8-M7-0Hk" firstAttribute="top" secondItem="iEB-CW-jSd" secondAttribute="bottom" constant="20" id="7Y6-kR-t2c"/>
                             <constraint firstItem="FL8-M7-0Hk" firstAttribute="centerX" secondItem="iEB-CW-jSd" secondAttribute="centerX" id="A0f-ZA-YKY"/>
-                            <constraint firstItem="Upt-6a-9Jr" firstAttribute="centerX" secondItem="lLI-JJ-AP8" secondAttribute="centerX" id="DFQ-me-4F7"/>
                             <constraint firstItem="FL8-M7-0Hk" firstAttribute="centerX" secondItem="ej0-zd-XGC" secondAttribute="centerX" id="DFm-Cl-1TC"/>
                             <constraint firstItem="FL8-M7-0Hk" firstAttribute="top" secondItem="RLC-sd-uGD" secondAttribute="bottom" constant="577" id="FbL-co-Zvc"/>
                             <constraint firstItem="lLI-JJ-AP8" firstAttribute="centerX" secondItem="iEB-CW-jSd" secondAttribute="centerX" id="Icc-dZ-YVV"/>
                             <constraint firstItem="s9a-WR-nhw" firstAttribute="top" secondItem="FL8-M7-0Hk" secondAttribute="bottom" constant="60" id="KeA-pK-uHs"/>
-                            <constraint firstItem="Upt-6a-9Jr" firstAttribute="top" secondItem="ej0-zd-XGC" secondAttribute="top" id="L5n-zz-RUv"/>
-                            <constraint firstItem="Upt-6a-9Jr" firstAttribute="leading" secondItem="ej0-zd-XGC" secondAttribute="leading" id="Lwn-cf-K6f"/>
                             <constraint firstItem="iEB-CW-jSd" firstAttribute="centerX" secondItem="ej0-zd-XGC" secondAttribute="centerX" id="SFU-ax-dI2"/>
                             <constraint firstItem="FL8-M7-0Hk" firstAttribute="top" secondItem="iEB-CW-jSd" secondAttribute="bottom" constant="35" id="Vqf-8n-RQl"/>
                             <constraint firstItem="lLI-JJ-AP8" firstAttribute="top" secondItem="RLC-sd-uGD" secondAttribute="bottom" constant="155" id="bhW-S0-vpS"/>
                             <constraint firstItem="FL8-M7-0Hk" firstAttribute="top" secondItem="iEB-CW-jSd" secondAttribute="bottom" constant="55" id="dm4-qK-P6e"/>
-                            <constraint firstItem="Upt-6a-9Jr" firstAttribute="bottom" secondItem="s9a-WR-nhw" secondAttribute="top" id="h1x-qu-36l"/>
                             <constraint firstItem="lLI-JJ-AP8" firstAttribute="top" secondItem="RLC-sd-uGD" secondAttribute="bottom" constant="155" id="l9n-iv-a8D"/>
                             <constraint firstAttribute="trailing" secondItem="FL8-M7-0Hk" secondAttribute="trailing" constant="118" id="miX-8X-Pd7"/>
                             <constraint firstItem="FL8-M7-0Hk" firstAttribute="leading" secondItem="ej0-zd-XGC" secondAttribute="leading" constant="117" id="sdA-64-DcG"/>
@@ -124,7 +117,6 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="loadingView" destination="Upt-6a-9Jr" id="az9-SA-AHk"/>
                         <outlet property="loginButton" destination="iEB-CW-jSd" id="fbj-Kw-n0j"/>
                     </connections>
                 </viewController>
@@ -135,6 +127,5 @@
     </scenes>
     <resources>
         <image name="ios_handler_logo" width="100" height="153"/>
-        <image name="login-loading" width="750" height="1334"/>
     </resources>
 </document>
