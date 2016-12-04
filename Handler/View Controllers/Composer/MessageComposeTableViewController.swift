@@ -731,7 +731,13 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
         
         return sizingCell.contentView.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height
     }
-    
+	
+	override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+		if !scrollView.isDragging && !scrollView.isDecelerating {
+			scrollView.setContentOffset(CGPoint.zero, animated: false)
+		}
+	}
+	
     // MARK: FilePickerDelegate
     
     func presentFilePicker() {
