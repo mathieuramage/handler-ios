@@ -2,6 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "ios_handler_logo.png",
       "scale" : "1x"
     },
     {

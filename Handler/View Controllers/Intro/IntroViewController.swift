@@ -46,25 +46,26 @@ class IntroViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        totalWidth = Double(UIScreen.main.bounds.width * 4)
+        totalWidth = Double(UIScreen.main.bounds.width * 2)
         contentView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width * 4, height: UIScreen.main.bounds.height))
         firstView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         secondView.frame = CGRect(x: firstView.bounds.width, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         thirdView.frame = CGRect(x: firstView.bounds.width * 2, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-        fourthView.frame = CGRect(x: firstView.bounds.width * 3, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-		fifthView.frame = CGRect(x: firstView.bounds.width * 4, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+//		fourthView.frame = CGRect(x: firstView.bounds.width * 3, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+//		fifthView.frame = CGRect(x: firstView.bounds.width * 4, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
 
-		contentView.addSubview(fifthView)
-		contentView.addSubview(fourthView)
+//		contentView.addSubview(fifthView)
+//		contentView.addSubview(fourthView)
 		contentView.addSubview(thirdView)
 		contentView.addSubview(secondView)
 		contentView.addSubview(firstView)
         
         scrollView.addSubview(contentView)
         
-        scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width * 4, height: UIScreen.main.bounds.height)
+        scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width * 2, height: UIScreen.main.bounds.height)
         scrollView.isScrollEnabled = false;
         pageControl.alpha = 0;
+		pageControl.currentPage = 0
         
         self.modifyingConstraints()
     }
@@ -83,14 +84,14 @@ class IntroViewController: UIViewController, UIScrollViewDelegate {
         third_middle_constraint.constant /= (667/UIScreen.main.bounds.height)
         third_bottom_constraint.constant /= (667/UIScreen.main.bounds.height)
         
-        fourth_top_constraint.constant /= (667/UIScreen.main.bounds.height)
-        fourth_middle_constraint.constant /= (667/UIScreen.main.bounds.height)
-        fourth_bottom_constraint.constant /= (667/UIScreen.main.bounds.height)
-		
-		fifth_top_constraint.constant /= (667/UIScreen.main.bounds.height)
-		fifth_middle_constraint.constant /= (667/UIScreen.main.bounds.height)
-		fifth_bottom_constraint.constant /= (667/UIScreen.main.bounds.height)
-        fifth_last_constraint.constant /= (667/UIScreen.main.bounds.height)
+//		fourth_top_constraint.constant /= (667/UIScreen.main.bounds.height)
+//		fourth_middle_constraint.constant /= (667/UIScreen.main.bounds.height)
+//		fourth_bottom_constraint.constant /= (667/UIScreen.main.bounds.height)
+//		
+//		fifth_top_constraint.constant /= (667/UIScreen.main.bounds.height)
+//		fifth_middle_constraint.constant /= (667/UIScreen.main.bounds.height)
+//		fifth_bottom_constraint.constant /= (667/UIScreen.main.bounds.height)
+//		fifth_last_constraint.constant /= (667/UIScreen.main.bounds.height)
     }
     
 //MARK: IBAction methods
@@ -101,17 +102,17 @@ class IntroViewController: UIViewController, UIScrollViewDelegate {
         })
         scrollView.setContentOffset(CGPoint(x: firstView.bounds.width, y: 0), animated: true)
 //        pageControl.currentPage = 0
-        
+
         //Removing the first page from the scrollview and reload
         Async.main(after: 0.5) {
             self.firstView.removeFromSuperview();
-            self.totalWidth = Double(UIScreen.main.bounds.width * 4)
-            self.contentView = UIView(frame:CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width * 4, height: UIScreen.main.bounds.height))
+            self.totalWidth = Double(UIScreen.main.bounds.width * 2)
+            self.contentView = UIView(frame:CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width * 2, height: UIScreen.main.bounds.height))
             self.secondView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width,height: UIScreen.main.bounds.height)
             self.thirdView.frame = CGRect(x: self.firstView.bounds.width * 1,y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-            self.fourthView.frame = CGRect(x: self.firstView.bounds.width * 2, y: 0, width: UIScreen.main.bounds.width, height:  UIScreen.main.bounds.height)
-            self.fifthView.frame = CGRect(x: self.firstView.bounds.width * 3, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-            self.scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width * 4, height: UIScreen.main.bounds.height)
+//            self.fourthView.frame = CGRect(x: self.firstView.bounds.width * 2, y: 0, width: UIScreen.main.bounds.width, height:  UIScreen.main.bounds.height)
+//            self.fifthView.frame = CGRect(x: self.firstView.bounds.width * 3, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+            self.scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width * 2, height: UIScreen.main.bounds.height)
             self.scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
         }
 
@@ -135,7 +136,7 @@ class IntroViewController: UIViewController, UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.x > 0 {
-            pageControl.currentPage = Int((Double(scrollView.contentOffset.x) / totalWidth )*4)
+            pageControl.currentPage = Int((Double(scrollView.contentOffset.x) / totalWidth )*2)
             
         } else {
             pageControl.currentPage = 0
@@ -143,11 +144,11 @@ class IntroViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        pageControl.currentPage = Int((Double(scrollView.contentOffset.x) / totalWidth )*4)
+        pageControl.currentPage = Int((Double(scrollView.contentOffset.x) / totalWidth )*2)
         
         let translation = scrollView.panGestureRecognizer.translation(in: self.view)
         
-        if (translation.x < 0 && pageControl.currentPage == 2)
+        if (translation.x < 0 && pageControl.currentPage == 0)
         {
             pageControl.alpha = 0;
         }
