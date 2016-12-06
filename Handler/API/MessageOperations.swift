@@ -10,8 +10,8 @@ import UIKit
 import SwiftyJSON
 
 enum MessageLoadingStatusNotification: String {
-	case Loading = "MessageLoadingStatusNotificationLoading"
-	case Finished = "MessageLoadingStatusNotificationFinished"
+	case loading = "MessageLoadingStatusNotificationLoading"
+	case finished = "MessageLoadingStatusNotificationFinished"
 }
 
 struct MessageOperations {
@@ -34,10 +34,10 @@ struct MessageOperations {
 			params["limit"] = limit
 		}
 
-		NotificationCenter.default.post(name: Notification.Name(MessageLoadingStatusNotification.Loading.rawValue), object: nil)
+		NotificationCenter.default.post(name: Notification.Name(MessageLoadingStatusNotification.loading.rawValue), object: nil)
 		APIUtility.request(method: .get, route: Config.APIRoutes.messages, parameters: params).responseJSON { response in
 
-			NotificationCenter.default.post(name: Notification.Name(MessageLoadingStatusNotification.Finished.rawValue), object: nil)
+			NotificationCenter.default.post(name: Notification.Name(MessageLoadingStatusNotification.finished.rawValue), object: nil)
 
 			switch response.result {
 			case .success:
