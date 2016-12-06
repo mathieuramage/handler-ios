@@ -32,7 +32,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 
 	var progressBar: UIProgressView!
 	var lastupdatedLabel: UILabel?
-	var newEmailsLabel: UILabel?
+	var unreadEmailsCountLabel: UILabel?
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -59,26 +59,28 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		navigationItem.rightBarButtonItem?.isEnabled = true
 
 		lastupdatedLabel = UILabel(frame: CGRect(x: 0, y: 8, width: 140, height: 14))
-		CurrentStatusManager.sharedInstance.currentStatusSubtitle.observeNext { text in
-            Async.main{
+		lastupdatedLabel?.textAlignment = .center
+		lastupdatedLabel?.font = UIFont.systemFont(ofSize: 11)
+		lastupdatedLabel?.textColor = UIColor(rgba: HexCodes.darkGray)
+		_ = CurrentStatusManager.sharedInstance.currentStatus.observeNext { text in
+			Async.main {
 				self.lastupdatedLabel?.text = text
 			}
 		}
-		lastupdatedLabel?.textAlignment = .center
-		lastupdatedLabel?.font = UIFont.systemFont(ofSize: 14)
-		newEmailsLabel = UILabel(frame: CGRect(x: 0, y: 26, width: 140, height: 10))
-		CurrentStatusManager.sharedInstance.currentStatus.observeNext { text in
-            Async.main{
-				self.newEmailsLabel?.text = text
+
+		unreadEmailsCountLabel = UILabel(frame: CGRect(x: 0, y: 26, width: 140, height: 10))
+		unreadEmailsCountLabel?.textAlignment = .center
+		unreadEmailsCountLabel?.font = UIFont.systemFont(ofSize: 11)
+		unreadEmailsCountLabel?.textColor = UIColor(rgba: HexCodes.blueGray)
+		_ = CurrentStatusManager.sharedInstance.currentStatusSubtitle.observeNext { text in
+            Async.main {
+				self.unreadEmailsCountLabel?.text = text
 			}
 		}
-		newEmailsLabel?.textAlignment = .center
-		newEmailsLabel?.font = UIFont.systemFont(ofSize: 10)
-		newEmailsLabel?.textColor = UIColor.darkGray
 
 		let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 140, height: 44))
 		containerView.addSubview(lastupdatedLabel!)
-		containerView.addSubview(newEmailsLabel!)
+		containerView.addSubview(unreadEmailsCountLabel!)
 		let item = UIBarButtonItem(customView: containerView)
 
 		let composeItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.compose, target: self, action: #selector(InboxTableViewController.composeNewMessage))
@@ -92,7 +94,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		progressBar.progressTintColor = UIColor.white
 		progressBar.isHidden = true
 
-		CurrentStatusManager.sharedInstance.currentUploadProgress.observeNext { progress in
+		_ = CurrentStatusManager.sharedInstance.currentUploadProgress.observeNext { progress in
             Async.main {
                 self.progressBar.progress = progress
                 self.progressBar.isHidden = progress == 0 || progress == 1
@@ -135,7 +137,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 	}
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return fetchedObjects.count ?? 0
+		return fetchedObjects.count
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

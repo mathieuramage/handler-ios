@@ -24,10 +24,14 @@ class CurrentStatusManager: NSObject, MailboxCountObserver {
 	var currentStatusSubtitle = Observable("")
 	var currentState: Observable<StatusManagerStatus> = Observable(StatusManagerStatus.Idle)
 	var currentUploadProgress: Observable<Float> = Observable(Float(0.0))
+
+	private var unreadCount = 0
 	
 	override init() {
 		super.init()
-//		MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(.Unread, observer: self)
+		MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(.Unread, observer: self)
+		NotificationCenter.default.addObserver(self, selector: #selector(CurrentStatusManager.handleDidStartLoadingMessages), name:Notification.Name(MessageLoadingStatusNotification.loading.rawValue), object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(CurrentStatusManager.handleDidFinishLoadingMessages), name:Notification.Name(MessageLoadingStatusNotification.finished.rawValue), object: nil)
 	}
 	
 	deinit {
@@ -35,17 +39,29 @@ class CurrentStatusManager: NSObject, MailboxCountObserver {
 	}
 
 	func mailboxCountDidChange(_ mailboxType: MailboxType, newCount: Int) {
-		if mailboxType == MailboxType.Unread && currentState.value == .Idle {
-			if newCount != 0 {
-				let emailsText = newCount == 1 ? "email" : "emails"
-				currentStatus.next("\(newCount) unread " + emailsText)
-				currentStatusSubtitle.next("Updated just now")
-			} else {
-				currentStatus.next("No new emails")
-				currentStatusSubtitle.next("Updated just now")
-			}
+		if mailboxType == .Unread && currentState.value == .Idle {
+			unreadCount = newCount
+
+			changeStatus("Updated Just Now", unreadCount: unreadCount)
 		}
 	}
-	
-	
+
+	func handleDidStartLoadingMessages(_ notitication: NSNotification) {
+		changeStatus("Checking for Mail...", unreadCount: nil)
+	}
+
+	func handleDidFinishLoadingMessages(_ notitication: NSNotification) {
+		changeStatus("Updated Just Now", unreadCount: unreadCount)
+	}
+
+	func changeStatus(_ status: String, unreadCount: Int?) {
+		if let unreadCount = unreadCount {
+			let subtitle = unreadCount > 0 ? "\(unreadCount) Unread" : "No new emails. Your move"
+			currentStatusSubtitle.next(subtitle)
+		} else {
+			currentStatusSubtitle.next("")
+		}
+
+		currentStatus.next(status)
+	}
 }
