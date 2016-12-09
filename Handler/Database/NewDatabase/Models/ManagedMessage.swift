@@ -387,8 +387,10 @@ class ManagedMessage: NSManagedObject {
 			return fetchRequest
 			
 		case .Inbox :
+            let predicate = NSPredicate(format: "SUBQUERY(messages, $t, $t.folderType == %@).@count != 0", Folder.Inbox.rawValue)
 			let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Conversation.entityName())
 			fetchRequest.fetchBatchSize = 20
+            fetchRequest.predicate = predicate
 			// OTTODO: It should be sorted by date.
 			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "identifier", ascending: false)]
 			return fetchRequest
