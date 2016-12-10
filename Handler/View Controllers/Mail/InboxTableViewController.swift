@@ -26,7 +26,9 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 
 	var fetchedObjects: [Conversation] {
 		get {
-			return fetchedResultsController.fetchedObjects as? [Conversation] ?? [Conversation]()
+			var sortedConversations = fetchedResultsController.fetchedObjects as? [Conversation] ?? [Conversation]()
+			sortedConversations = sortConversationsByDate(conversations: sortedConversations)
+			return sortedConversations
 		}
 	}
 
@@ -121,6 +123,12 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
         
 		ConversationOperations.getAllConversations(before: Date(), after: nil, limit: 0) { (success, conversations) in
 			self.refreshControl?.endRefreshing()
+		}
+	}
+	
+	func sortConversationsByDate(conversations: [Conversation]) -> [Conversation]{
+		return conversations.sorted {
+			$0.latestMessage?.createdAt?.compare(($1.latestMessage?.createdAt)! as Date) == ComparisonResult.orderedDescending
 		}
 	}
 
