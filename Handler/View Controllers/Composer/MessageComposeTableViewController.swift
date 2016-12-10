@@ -243,6 +243,19 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
         
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
         
+        alertController.addAction(UIAlertAction(title: "Delete Draft", style: .destructive, handler: { (action) -> Void in
+            //			if let attachments = self.attachmentsCell.attachments {
+            //				for attachment in attachments {
+            //					attachment.delete()
+            //				}
+            //			}
+            if self.draftMessage != nil {
+                self.deleteDraft()
+            }
+            self.navigationController?.dismiss(animated: true, completion: nil)
+            
+        }))
+        
         let saveDraftText = (draftMessage == nil) ? "Save as Draft" : "Save Draft"
         
         alertController.addAction(UIAlertAction(title: saveDraftText, style: .default, handler: { (action) -> Void in
@@ -255,20 +268,6 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
             
             self.navigationController?.dismiss(animated: true, completion: nil)
         }))
-        
-        alertController.addAction(UIAlertAction(title: "Delete Draft", style: .destructive, handler: { (action) -> Void in
-            //			if let attachments = self.attachmentsCell.attachments {
-            //				for attachment in attachments {
-            //					attachment.delete()
-            //				}
-            //			}            
-            if self.draftMessage != nil {
-                self.deleteDraft()
-            }
-            self.navigationController?.dismiss(animated: true, completion: nil)
-            
-        }))
-        
         
         alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: { (action) -> Void in
         }))
