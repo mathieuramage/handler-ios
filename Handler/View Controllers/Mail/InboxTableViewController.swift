@@ -114,6 +114,12 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 				}
 			}
 		}
+        
+        
+        let settings = UIUserNotificationSettings(types: [UIUserNotificationType.badge, UIUserNotificationType.sound, UIUserNotificationType.alert], categories: nil)
+        UIApplication.shared.registerUserNotificationSettings(settings)
+        UIApplication.shared.registerForRemoteNotifications()
+        UIApplication.shared.applicationIconBadgeNumber = 0
 	}
 
 	func refresh(_ control: UIRefreshControl) {

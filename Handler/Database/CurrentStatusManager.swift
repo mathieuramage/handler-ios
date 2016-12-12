@@ -56,7 +56,7 @@ class CurrentStatusManager: NSObject, MailboxCountObserver {
 
 	func changeStatus(_ status: String, unreadCount: Int?) {
 		if let unreadCount = unreadCount {
-			let subtitle = unreadCount > 0 ? "\(unreadCount) Unread" : "No new emails. Your move"
+			let subtitle = unreadCount > 0 ? "\(unreadCount) Unread" : "No new emails. Your move."
 			currentStatusSubtitle.next(subtitle)
 		} else {
 			currentStatusSubtitle.next("")

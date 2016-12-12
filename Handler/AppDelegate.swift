@@ -45,13 +45,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		UITextView.appearance().tintColor = UIColor(rgba: HexCodes.lightBlue)
 		UIImageView.appearance().clipsToBounds = true
 
-
 		loadInitialViewController()
 
-		let settings = UIUserNotificationSettings(types: [UIUserNotificationType.badge, UIUserNotificationType.sound, UIUserNotificationType.alert], categories: nil)
-		UIApplication.shared.registerUserNotificationSettings(settings)
-		UIApplication.shared.registerForRemoteNotifications()
-		UIApplication.shared.applicationIconBadgeNumber = 0
 		startMessageUpdateTimer()
 		return true
 	}
