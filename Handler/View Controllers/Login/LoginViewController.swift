@@ -47,11 +47,13 @@ class LoginViewController: UIViewController {
     
 	@IBAction func loginButtonPressed(_ button: UIButton){
 
+        button.isUserInteractionEnabled = false
+        
 		Twitter.sharedInstance().logIn { session, error in
 			if (session != nil) {
-				print(session)
 				print("signed in as \(session?.userName)");
 			} else {
+                button.isUserInteractionEnabled = true
 				print("error: \(error?.localizedDescription)");
 			}
 
@@ -79,6 +81,7 @@ class LoginViewController: UIViewController {
 					AuthUtility.getTokenAssertion(headers: headers, callback: { (success, accessToken) in
 
 						guard let accessToken = accessToken, success else {
+                            button.isUserInteractionEnabled = true
 							return
 						}
 
