@@ -13,22 +13,7 @@ import SwiftyJSON
 typealias Message = ManagedMessage
 
 class ManagedMessage: NSManagedObject {
-	/*
-	_id	ObjectID	Required | Unique
-	_user	User	Required
-	_sender	User	Required
-	conversationId	UUID	Required | Unique | Default: uuid.v4
-	subject	String	Required | Default: ""
-	message	String	Required | Default: ""
-	recipients	[User]	# Can be empty if folder is 'draft'
-	isRead	String	Required | Default: false
-	folder	String	Required | Default: ‘draft’ | Enum: ['inbox', 'sent', 'archived', 'deleted', 'draft']
-	labels	[String]	# Can be empty. Sample: 'job', 'invoices', ...
-	isStar	Boolean	# Can be empty.
-	*/
-	
-	
-	//	var user : User
+
 	var folder : Folder {
 		get {
 			if let folderType = folderType, let folder = Folder(rawValue: folderType) {
@@ -295,17 +280,7 @@ class ManagedMessage: NSManagedObject {
 	
 	var isDraft: Bool {
 		get {
-			//			if let backgroundSelf = self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) {
-			//
-			//				if let labels = backgroundSelf.labels {
-			//					for label in labels {
-			//						if label.id == "DRAFT" {
-			//							return true
-			//						}
-			//					}
-			//				}
-			//			}
-			return false
+			return folderType == SystemLabels.Drafts.rawValue
 		}
 	}
 	
@@ -408,21 +383,21 @@ class ManagedMessage: NSManagedObject {
 			let predicate = NSPredicate(format: "folderType == %@", Folder.Sent.rawValue)
 			let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName())
 			fetchRequest.predicate = predicate
-			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)]
+			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "updatedAt", ascending: false)]
 			return fetchRequest
 			
 		case .Flagged:
 			let predicate = NSPredicate(format: "starred != nil && starred == YES")
 			let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName())
 			fetchRequest.predicate = predicate
-			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)]
+			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "updatedAt", ascending: false)]
 			return fetchRequest
 			
 		case .Drafts:
 			let predicate = NSPredicate(format: "folderType == %@", Folder.Draft.rawValue)
 			let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName())
 			fetchRequest.predicate = predicate
-			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)]
+			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "updatedAt", ascending: false)]
 			return fetchRequest
 			
 		default :

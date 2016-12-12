@@ -26,7 +26,10 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 
 	var fetchedObjects: [Conversation] {
 		get {
-			return fetchedResultsController.fetchedObjects as? [Conversation] ?? [Conversation]()
+            if let objects = fetchedResultsController.fetchedObjects as? [Conversation] {
+                return objects.sortedByDate
+            }
+            return [Conversation]()
 		}
 	}
 

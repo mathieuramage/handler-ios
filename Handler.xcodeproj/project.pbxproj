@@ -177,6 +177,7 @@
 		BF27F3911CDDF01C003A92D9 /* APRelatedPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = BF27F3751CDDF01C003A92D9 /* APRelatedPerson.m */; };
 		BF27F3921CDDF01C003A92D9 /* APSocialProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = BF27F3771CDDF01C003A92D9 /* APSocialProfile.m */; };
 		BF27F3931CDDF01C003A92D9 /* APSource.m in Sources */ = {isa = PBXBuildFile; fileRef = BF27F3791CDDF01C003A92D9 /* APSource.m */; };
+		BF2CCF001DFEBDD4006D0D5A /* Array+Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2CCEFF1DFEBDD4006D0D5A /* Array+Conversation.swift */; };
 		BF6468B61DACE83C00725D04 /* HandlerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6468B51DACE83C00725D04 /* HandlerError.swift */; };
 		BF6653011CDE329A00D9AA1E /* Intro.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF6653001CDE329A00D9AA1E /* Intro.storyboard */; };
 		BF6653031CDE32F200D9AA1E /* Storyboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6653021CDE32F200D9AA1E /* Storyboards.swift */; };
@@ -467,6 +468,7 @@
 		BF27F3791CDDF01C003A92D9 /* APSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSource.m; sourceTree = "<group>"; };
 		BF27F37A1CDDF01C003A92D9 /* APTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APTypes.h; sourceTree = "<group>"; };
 		BF27F37C1CDDF01C003A92D9 /* APAddressBook-Bridging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "APAddressBook-Bridging.h"; sourceTree = "<group>"; };
+		BF2CCEFF1DFEBDD4006D0D5A /* Array+Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Conversation.swift"; sourceTree = "<group>"; };
 		BF6468B51DACE83C00725D04 /* HandlerError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandlerError.swift; sourceTree = "<group>"; };
 		BF6653001CDE329A00D9AA1E /* Intro.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Intro.storyboard; sourceTree = "<group>"; };
 		BF6653021CDE32F200D9AA1E /* Storyboards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storyboards.swift; sourceTree = "<group>"; };
@@ -763,6 +765,7 @@
 				2F4E41561BB0977C00AA2DEF /* UIButton+ImageFitting.swift */,
 				2F994E531BB2AE8100A63B9B /* UIColor+HandlerColors.swift */,
 				2FB0E9441BB5718600A0426E /* UIImage+HanderImages.swift */,
+				BF2CCEFF1DFEBDD4006D0D5A /* Array+Conversation.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1460,6 +1463,7 @@
 				BF27F3811CDDF01C003A92D9 /* APSocialServiceHelper.m in Sources */,
 				BF09A9701D569C1500D3ADFD /* AccessToken.swift in Sources */,
 				2F994E511BB2AE3500A63B9B /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
+				BF2CCF001DFEBDD4006D0D5A /* Array+Conversation.swift in Sources */,
 				2F952DAE1C1D9191006A6BCA /* BottomBarProtocol.swift in Sources */,
 				2F1D2C3B1BBC477000A504A8 /* SendInvitationViewController.swift in Sources */,
 			);
