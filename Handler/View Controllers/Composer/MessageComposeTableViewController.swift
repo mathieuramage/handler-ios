@@ -241,6 +241,17 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
     
     func dismiss() {
         
+        let messageText = richTextContentView.contentHTML
+        let messageSubject = subjectTextField.text
+
+        if (messageText.characters.count == 0) // cancel immediately if message + subject + recipients are empty
+            && (messageSubject == nil || messageSubject?.characters.count == 0)
+            && tokenView.allTokens.count == 0 {
+            self.dismiss(animated: true, completion: nil)
+            return
+        }
+        
+        
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
         
         alertController.addAction(UIAlertAction(title: "Delete Draft", style: .destructive, handler: { (action) -> Void in
@@ -252,7 +263,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
             if self.draftMessage != nil {
                 self.deleteDraft()
             }
-            self.navigationController?.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
             
         }))
         
@@ -266,7 +277,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
                 self.updateDraft()
             }
             
-            self.navigationController?.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
         }))
         
         alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: { (action) -> Void in
@@ -370,7 +381,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
             self.present(alertController, animated: true, completion: nil)
             
         } else {
-
+            
             if let draft = self.draftMessage, let identifier = draft.identifier {
                 
                 MessageOperations.sendDraft(identifier, message: message, subject: subject, recipientUserNames: recipients, callback: { success in
@@ -730,13 +741,13 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
         
         return sizingCell.contentView.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height
     }
-	
-	override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-		if !scrollView.isDragging && !scrollView.isDecelerating {
-			scrollView.setContentOffset(CGPoint.zero, animated: false)
-		}
-	}
-	
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if !scrollView.isDragging && !scrollView.isDecelerating {
+            scrollView.setContentOffset(CGPoint.zero, animated: false)
+        }
+    }
+    
     // MARK: FilePickerDelegate
     
     func presentFilePicker() {
