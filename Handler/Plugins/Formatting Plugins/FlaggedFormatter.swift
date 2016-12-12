@@ -42,7 +42,15 @@ struct FlaggedFormatter: MessageTableViewCellFormatter {
             view.senderHandleLabel.text = "@" + handle
         }
         view.messageSubjectLabel.text = message.subject
-        view.messageContentPreviewLabel.text = message.content
+
+        do {
+            let parsedMessage = try NSAttributedString(data: (message.content?.data(using: String.Encoding.unicode, allowLossyConversion: true)!)!, options: [NSDocumentTypeDocumentAttribute : NSHTMLTextDocumentType], documentAttributes: nil)
+            view.messageContentPreviewLabel.text = parsedMessage.string
+        } catch {
+            view.messageContentPreviewLabel.text = message.content
+        }
+        
+        
 		if let updatedAt = message.updatedAt {
 			view.messageTimeLabel.text = timeFormatter.string(from: updatedAt as Date)
 		} else {
