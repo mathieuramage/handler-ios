@@ -137,7 +137,6 @@
 		9D16ADF21DE35AB700C8172A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D16ADF01DE35AB700C8172A /* SystemConfiguration.framework */; };
 		9D16ADF41DE35AC500C8172A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D16ADF31DE35AC400C8172A /* CoreMedia.framework */; };
 		9D16ADF61DE35ACA00C8172A /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D16ADF51DE35ACA00C8172A /* CoreVideo.framework */; };
-		9DDED1E71DEBB5900042314A /* Intercom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DDED1E61DEBB5900042314A /* Intercom.framework */; };
 		9DDED1E81DEBB59C0042314A /* Intercom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DDED1E61DEBB5900042314A /* Intercom.framework */; };
 		9DDED1E91DEBB59C0042314A /* Intercom.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9DDED1E61DEBB5900042314A /* Intercom.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B72C59D11C26BBE500D6651D /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72C59D01C26BBE500D6651D /* Globals.swift */; };
@@ -184,7 +183,6 @@
 		BF6653051CDE353F00D9AA1E /* Compose.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF6653041CDE353F00D9AA1E /* Compose.storyboard */; };
 		BF7530771DD20ED800A00765 /* GradientView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF7530761DD20ED800A00765 /* GradientView.framework */; };
 		BF7530791DD21A4200A00765 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF7530781DD21A4200A00765 /* Alamofire.framework */; };
-		BF75307B1DD21A5200A00765 /* ReactiveKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF75307A1DD21A5200A00765 /* ReactiveKit.framework */; };
 		BF78BB461D81D8DB005A9141 /* ConversationTableViewCellHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF78BB451D81D8DB005A9141 /* ConversationTableViewCellHelper.swift */; };
 		BF78BB481D82B25B005A9141 /* TwitterUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF78BB471D82B25B005A9141 /* TwitterUser.swift */; };
 		BF78BB4A1D82C10F005A9141 /* TwitterAPIOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF78BB491D82C10F005A9141 /* TwitterAPIOperations.swift */; };
@@ -517,7 +515,6 @@
 				BF047DFF1DD2206D00CF7001 /* ReactiveKit.framework in Frameworks */,
 				2FDB44641BD3E86F0040014E /* Result.framework in Frameworks */,
 				BFA307571CF260F200642A8D /* RichEditorView.framework in Frameworks */,
-				9DDED1E71DEBB5900042314A /* Intercom.framework in Frameworks */,
 				2FDB44651BD3E86F0040014E /* SwiftyJSON.framework in Frameworks */,
 				2FDB44721BD3EB110040014E /* TwitterKit.framework in Frameworks */,
 				2FDB44761BD3EB380040014E /* Crashlytics.framework in Frameworks */,
@@ -530,7 +527,6 @@
 				2FA2EA821BAD9C570027EA77 /* Foundation.framework in Frameworks */,
 				2FDB44711BD3EB110040014E /* Fabric.framework in Frameworks */,
 				2FA2EA831BAD9C570027EA77 /* Security.framework in Frameworks */,
-				BF75307B1DD21A5200A00765 /* ReactiveKit.framework in Frameworks */,
 				2FA2EA851BAD9C570027EA77 /* QuartzCore.framework in Frameworks */,
 				9D16ADE91DE35A5E00C8172A /* Instabug.framework in Frameworks */,
 				BF7530771DD20ED800A00765 /* GradientView.framework in Frameworks */,
@@ -1116,9 +1112,9 @@
 		DF1FD2CF1B62360600A58B71 = {
 			isa = PBXGroup;
 			children = (
-				9D16ADEA1DE35A6400C8172A /* Manual Frameworks */,
 				2F43E0C31BDA4A9300C68E1D /* Dsyms */,
 				2FDB52021BA8BC12003C074F /* Frameworks */,
+				9D16ADEA1DE35A6400C8172A /* Manual Frameworks */,
 				DF1FD2DA1B62360600A58B71 /* Handler */,
 				DF1FD2D91B62360600A58B71 /* Products */,
 			);
@@ -1202,7 +1198,7 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Handler, Inc";
 				TargetAttributes = {
 					DF1FD2D71B62360600A58B71 = {
