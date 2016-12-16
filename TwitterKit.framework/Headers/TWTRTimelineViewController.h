@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 @protocol TWTRTimelineDataSource;
 @protocol TWTRTweetViewDelegate;
+@protocol TWTRTimelineDelegate;
 @class TWTRMoPubAdConfiguration;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -56,6 +57,11 @@ NS_ASSUME_NONNULL_BEGIN
  * If set, this value will be passed to all TWTRTweetView instances in the timeline.
  */
 @property (nonatomic, weak) id<TWTRTweetViewDelegate> tweetViewDelegate;
+
+/**
+ *  The object that acts as the delegate for the timeline.
+ */
+@property (nonatomic, weak) id<TWTRTimelineDelegate> timelineDelegate;
 
 /**
  Initializes a timeline view controller. Does not start loading tweets until
