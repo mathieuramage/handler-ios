@@ -153,6 +153,7 @@
 		BF0D39EF1CB9248100048834 /* EmptyInboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0D39EE1CB9248100048834 /* EmptyInboxView.swift */; };
 		BF24C3C01D327F6400CC1667 /* AuthUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF24C3BF1D327F6400CC1667 /* AuthUtility.swift */; };
 		BF24C3C21D327FBA00CC1667 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF24C3C11D327FBA00CC1667 /* Config.swift */; };
+		BF2587761E03EB4E00AFA0C7 /* NVActivityIndicatorView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF2587751E03EB4E00AFA0C7 /* NVActivityIndicatorView.framework */; };
 		BF27F37D1CDDF01C003A92D9 /* APContactBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = BF27F3421CDDF01C003A92D9 /* APContactBuilder.m */; };
 		BF27F37E1CDDF01C003A92D9 /* APContactListBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = BF27F3441CDDF01C003A92D9 /* APContactListBuilder.m */; };
 		BF27F37F1CDDF01C003A92D9 /* APContactDataExtractor.m in Sources */ = {isa = PBXBuildFile; fileRef = BF27F3491CDDF01C003A92D9 /* APContactDataExtractor.m */; };
@@ -416,6 +417,7 @@
 		BF0D39EE1CB9248100048834 /* EmptyInboxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyInboxView.swift; sourceTree = "<group>"; };
 		BF24C3BF1D327F6400CC1667 /* AuthUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthUtility.swift; sourceTree = "<group>"; };
 		BF24C3C11D327FBA00CC1667 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		BF2587751E03EB4E00AFA0C7 /* NVActivityIndicatorView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NVActivityIndicatorView.framework; path = Carthage/Build/iOS/NVActivityIndicatorView.framework; sourceTree = SOURCE_ROOT; };
 		BF27F3411CDDF01C003A92D9 /* APContactBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APContactBuilder.h; sourceTree = "<group>"; };
 		BF27F3421CDDF01C003A92D9 /* APContactBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APContactBuilder.m; sourceTree = "<group>"; };
 		BF27F3431CDDF01C003A92D9 /* APContactListBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APContactListBuilder.h; sourceTree = "<group>"; };
@@ -517,6 +519,7 @@
 				BFA307571CF260F200642A8D /* RichEditorView.framework in Frameworks */,
 				2FDB44651BD3E86F0040014E /* SwiftyJSON.framework in Frameworks */,
 				2FDB44721BD3EB110040014E /* TwitterKit.framework in Frameworks */,
+				BF2587761E03EB4E00AFA0C7 /* NVActivityIndicatorView.framework in Frameworks */,
 				2FDB44761BD3EB380040014E /* Crashlytics.framework in Frameworks */,
 				2FDB44741BD3EB110040014E /* TwitterCore.framework in Frameworks */,
 				BF7530791DD21A4200A00765 /* Alamofire.framework in Frameworks */,
@@ -711,6 +714,7 @@
 		2FDB52021BA8BC12003C074F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BF2587751E03EB4E00AFA0C7 /* NVActivityIndicatorView.framework */,
 				9D16ADF51DE35ACA00C8172A /* CoreVideo.framework */,
 				9D16ADF31DE35AC400C8172A /* CoreMedia.framework */,
 				9D16ADEF1DE35AB700C8172A /* CoreTelephony.framework */,
@@ -1301,6 +1305,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/GradientView.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/NVActivityIndicatorView.framework",
 			);
 			name = "Carthage Integrate";
 			outputPaths = (

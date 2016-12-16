@@ -13,7 +13,7 @@ import Crashlytics
 import Async
 import Instabug
 import Intercom
-
+import NVActivityIndicatorView
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -44,6 +44,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		UITextField.appearance().tintColor = UIColor(rgba: HexCodes.lightBlue)
 		UITextView.appearance().tintColor = UIColor(rgba: HexCodes.lightBlue)
 		UIImageView.appearance().clipsToBounds = true
+        
+        NVActivityIndicatorView.DEFAULT_TYPE = .lineScale
+        NVActivityIndicatorView.DEFAULT_COLOR = UIColor.white
+        NVActivityIndicatorView.DEFAULT_BLOCKER_SIZE = CGSize(width: 60, height: 35)
 
 		loadInitialViewController()
 
