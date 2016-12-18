@@ -488,7 +488,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
         for token in tokenView.allTokens {
             for valdtoken in validatedTokens {
                 if valdtoken.isOnHandler && valdtoken.name == token.displayText.replacingOccurrences(of: "@", with: ""){
-                    receivers.append(ManagedUser.userWithHandle(valdtoken.name, inContext: DatabaseManager.sharedInstance.mainManagedContext))
+                    receivers.append(ManagedUser.userWithHandle(valdtoken.name, inContext: PersistenceManager.mainManagedContext))
                 }
             }
         }

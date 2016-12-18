@@ -10,28 +10,21 @@ import Foundation
 import CoreData
 import Async
 
-class DatabaseManager: NSObject {
-
-	static let sharedInstance = DatabaseManager()
+struct PersistenceManager {
 
 	typealias SimpleCompletionHandler = (_ error: NSError?) -> Void
 
-	override init() {
-		super.init()
-		let _ = mainManagedContext
-	}
-
 	// MARK: - Core Data stack
 
-	lazy var managedObjectModel: NSManagedObjectModel = {
+	static var managedObjectModel: NSManagedObjectModel = {
 		let modelURL = Bundle.main.url(forResource: "Handler", withExtension: "mom")!
 		return NSManagedObjectModel(contentsOf: modelURL)!
 	}()
 
-	lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
+	static var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
 		let containerPath = FileManager.handlerSharedSecureContainer()
 
-		let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
+		let coordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
 		let url = containerPath?.appendingPathComponent("database.sqlite")
 		do {
 			try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: nil)
@@ -42,35 +35,35 @@ class DatabaseManager: NSObject {
 		return coordinator
 	}()
 
-	fileprivate lazy var writerManagedContext: NSManagedObjectContext = {
+	static fileprivate var writerManagedContext: NSManagedObjectContext = {
 		let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-		context.persistentStoreCoordinator = self.persistentStoreCoordinator
+		context.persistentStoreCoordinator = persistentStoreCoordinator
 		return context
 	}()
 
-	lazy var mainManagedContext: NSManagedObjectContext = {
+	static var mainManagedContext: NSManagedObjectContext = {
 		let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-		context.parent = self.writerManagedContext
+		context.parent = writerManagedContext
 		return context
 	}()
 
-	lazy var backgroundContext: NSManagedObjectContext = {
+	static var backgroundContext: NSManagedObjectContext = {
 		let context = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.privateQueueConcurrencyType)
-		context.parent = self.mainManagedContext
+		context.parent = mainManagedContext
 		return context
 	}()
 
 	// MARK: - Core Data Saving
 
-	func save(_ completion: SimpleCompletionHandler? = nil) {
-		self.mainManagedContext.saveRecursively { (error) in
+	static func save(_ completion: SimpleCompletionHandler? = nil) {
+		mainManagedContext.saveRecursively { (error) in
 			if let error = error {
 				NSLog("Error saving context \(error), \(error.userInfo)")
 			}
 		}
 	}
 
-	func flushDatastore(_ completion: SimpleCompletionHandler? = nil) {
+	static func flushDatastore(_ completion: SimpleCompletionHandler? = nil) {
 		for entity in managedObjectModel.entities {
 			if let name = entity.name {
 				deleteDataForEntity(name)
@@ -85,7 +78,7 @@ class DatabaseManager: NSObject {
 		}
 	}
 
-	func flushOldArchiveDatastore() {
+	static func flushOldArchiveDatastore() {
 		backgroundContext.perform { () -> Void in
 			self.deleteOldArchivedMessages()
 			self.deleteArchivedMessagesAfter1000()
@@ -98,7 +91,7 @@ class DatabaseManager: NSObject {
 		}
 	}
 
-	fileprivate func deleteDataForEntity(_ entity: String) {
+	static fileprivate func deleteDataForEntity(_ entity: String) {
 		let managedContext = mainManagedContext
 		let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
 		fetchRequest.returnsObjectsAsFaults = false
@@ -109,7 +102,7 @@ class DatabaseManager: NSObject {
 		}
 	}
 
-	func deleteOldArchivedMessages() {
+	static func deleteOldArchivedMessages() {
 		let managedContext = backgroundContext
 		let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Message.entityName())
 		fetchRequest.returnsObjectsAsFaults = false
@@ -124,7 +117,7 @@ class DatabaseManager: NSObject {
 	}
 
 	// Keeps only the most recent 1000 messages
-	func deleteArchivedMessagesAfter1000() {
+	static func deleteArchivedMessagesAfter1000() {
 		let managedContext = backgroundContext
 		let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Message.entityName())
 		fetchRequest.returnsObjectsAsFaults = false

@@ -45,12 +45,12 @@ struct MessageOperations {
 				if let value = response.result.value {
 					if let json = JSON(value)["messages"].array {
 						for messageJson in json {
-							let message = Message.messageWithJSON(messageJson, inContext: DatabaseManager.sharedInstance.mainManagedContext)
+							let message = Message.messageWithJSON(messageJson, inContext: PersistenceManager.mainManagedContext)
 							messages.append(message)
 						}
 					}
 				}
-				DatabaseManager.sharedInstance.mainManagedContext.saveRecursively{ error in
+				PersistenceManager.mainManagedContext.saveRecursively{ error in
 					callback(true,messages)
 				}
 			case .failure(_):
@@ -67,7 +67,7 @@ struct MessageOperations {
 			case .success:
 				var message : Message?
 				if let value = response.result.value {
-					message = Message.messageWithJSON(JSON(value), inContext: DatabaseManager.sharedInstance.mainManagedContext)
+					message = Message.messageWithJSON(JSON(value), inContext: PersistenceManager.mainManagedContext)
 				}
 				callback(true,message)
 			case .failure(_):
@@ -216,7 +216,7 @@ struct MessageOperations {
 			case .success:
 				var message : Message?
 				if let value = response.result.value {
-					message = Message.messageWithJSON(JSON(value), inContext: DatabaseManager.sharedInstance.mainManagedContext)
+					message = Message.messageWithJSON(JSON(value), inContext: PersistenceManager.mainManagedContext)
 				}
 				callback?(true,message)
 			case .failure(_):
@@ -269,8 +269,8 @@ struct MessageOperations {
 			case .success:
 				var message : Message?
 				if let value = response.result.value {
-					message = Message.messageWithJSON(JSON(value), inContext: DatabaseManager.sharedInstance.mainManagedContext)
-					DatabaseManager.sharedInstance.mainManagedContext.saveRecursively{ error in
+					message = Message.messageWithJSON(JSON(value), inContext: PersistenceManager.mainManagedContext)
+					PersistenceManager.mainManagedContext.saveRecursively{ error in
 						callback?(true,message)
 					}
 				}

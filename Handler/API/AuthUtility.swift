@@ -92,7 +92,7 @@ struct AuthUtility {
 		accessToken = nil
 		UserDefaults.standard.set(nil, forKey: Config.UserDefaults.uidKey)
 		Intercom.reset()
-		DatabaseManager.sharedInstance.flushDatastore()
+		PersistenceManager.flushDatastore()
 	}
 
 	static func revokeToken(callback: ((_ success : Bool) -> ())?) {

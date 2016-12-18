@@ -42,7 +42,7 @@ public int friendsCount;
 "followersCount": 123
 */
 
-class TwitterUser: NSObject {
+class XTwitterUser: NSObject {
 
 	var identifier : String
 	var username : String?

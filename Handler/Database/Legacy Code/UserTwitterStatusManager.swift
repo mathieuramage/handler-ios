@@ -16,15 +16,14 @@ class UserTwitterStatusManager: NSObject {
 	}
 
 	class func newDataFetched() {
-		DatabaseManager.sharedInstance.backgroundContext.perform {
+		PersistenceManager.backgroundContext.perform {
 			let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: ManagedUser.entityName())
 			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
-			let users: [ManagedUser] = DatabaseManager.sharedInstance.backgroundContext.safeExecuteFetchRequest(fetchRequest)
+			let users: [ManagedUser] = PersistenceManager.backgroundContext.safeExecuteFetchRequest(fetchRequest)
 			for user in users {
 				user.twtterFollowStatus = NSNumber(value: TwitterAPIOperations.followStatusForID(user.name!).rawValue as Int)
 			}
-
-			DatabaseManager.sharedInstance.backgroundContext.saveRecursively()
+			PersistenceManager.backgroundContext.saveRecursively()
 		}
 	}
 

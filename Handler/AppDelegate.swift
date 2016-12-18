@@ -121,7 +121,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func applicationWillTerminate(_ application: UIApplication) {
 		cancelMessageUpdateTimer()
-		DatabaseManager.sharedInstance.mainManagedContext.saveRecursively()
+		PersistenceManager.mainManagedContext.saveRecursively()
 	}
 
 

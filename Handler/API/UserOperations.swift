@@ -23,7 +23,7 @@ struct UserOperations {
 			case .success:
 				var user : ManagedUser?
 				if let value = response.result.value {
-					user = ManagedUser.userWithJSON(JSON(value)["data"], inContext:DatabaseManager.sharedInstance.mainManagedContext)
+					user = ManagedUser.userWithJSON(JSON(value)["data"], inContext:PersistenceManager.mainManagedContext)
 				}
 				callback(user != nil, user)
 			case .failure(_):

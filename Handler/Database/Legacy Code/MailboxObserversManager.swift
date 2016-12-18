@@ -55,7 +55,7 @@ class MailboxMessagesObserver: NSObject, NSFetchedResultsControllerDelegate {
     private var _fetchedResultsController : NSFetchedResultsController<NSFetchRequestResult>?
     var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult> {
         if _fetchedResultsController == nil {
-            _fetchedResultsController = NSFetchedResultsController(fetchRequest: ManagedMessage.fetchRequestForMessagesWithInboxType(mailboxType), managedObjectContext: DatabaseManager.sharedInstance.mainManagedContext, sectionNameKeyPath: nil, cacheName: nil)
+            _fetchedResultsController = NSFetchedResultsController(fetchRequest: ManagedMessage.fetchRequestForMessagesWithInboxType(mailboxType), managedObjectContext: PersistenceManager.mainManagedContext, sectionNameKeyPath: nil, cacheName: nil)
         }
         return _fetchedResultsController!
     }

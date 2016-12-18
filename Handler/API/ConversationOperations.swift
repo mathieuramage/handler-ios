@@ -14,7 +14,7 @@ struct ConversationOperations {
     
     static func refreshConversations(callback : @escaping (_ success : Bool, _ allConversations : [Conversation]) -> ()) {
         
-        let lastUpdated = Message.latestUpdatedMessageDate(inManagedContext: DatabaseManager.sharedInstance.mainManagedContext)
+        let lastUpdated = Message.latestUpdatedMessageDate(inManagedContext: PersistenceManager.mainManagedContext)
         getAllConversations(before: Date(), after: lastUpdated as Date?, limit: nil) { (success, conversations) in
             callback(success, conversations ?? [])
         }
