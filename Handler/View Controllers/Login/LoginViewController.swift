@@ -108,16 +108,24 @@ class LoginViewController: UIViewController,NVActivityIndicatorViewable {
                     
                     AuthUtility.accessToken = accessToken
                     
-                    UserOperations.getMe({ (success, user) in
-                        AuthUtility.user = user
-                        if let uid = user?.identifier {
+                    UserOperations.getMe({ (success, userData) in
+                        
+                        guard let data = userData else {
+                            return
+                        }
+                        
+                        let appUser = UserDao.updateOrCreateUser(userData: data)
+                        
+                        AuthUtility.user = appUser
+                        
+                        if let uid = appUser.identifier {
                             UserDefaults.standard.set(uid, forKey: Config.UserDefaults.uidKey)
                             Intercom.registerUser(withUserId: uid)
                         }
                         
                         UIView.transition(with: AppDelegate.sharedInstance().window!, duration: 0.5, options: UIViewAnimationOptions.transitionCrossDissolve, animations: { () -> Void in
                             AppDelegate.sharedInstance().window?.rootViewController = AppDelegate.sharedInstance().sideMenu
-                            GreetingViewController.showWithHandle(user?.handle ?? "", back: false)
+                            GreetingViewController.showWithHandle(appUser.handle, back: false)
                         }, completion: nil)
                     })
                     

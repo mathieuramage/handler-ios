@@ -148,7 +148,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
         if let draft = draftMessage {
             if let recipients = draft.recipients {
                 for recipient in recipients {
-                    let handle = (recipient as! ManagedUser).handle
+                    let handle = (recipient as! User).handle
                     tokenView.add(CLToken(displayText: "@\(handle)", context: nil))
                     //// startValidationWithString("@\(handle)")
                 }
@@ -177,7 +177,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
         
         if let receivers = messageToReplyTo?.recipientsWithoutSelf() {
             for receiver in receivers {
-                let senderUsername = (receiver as? ManagedUser)?.handle
+                let senderUsername = (receiver as? User)?.handle
                 if (senderUsername?.characters.count)! > 0 {
                     validatedTokens.append(ValidatedToken(name: senderUsername!, isOnHandler: true))
                     ccTokenView.add(CLToken(displayText: "@\(senderUsername)", context: nil))
@@ -228,7 +228,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
         }
     }
     
-    func didSelectUser(_ user: ManagedUser) {
+    func didSelectUser(_ user: User) {
         navigationController?.popViewController(animated: true)
         validatedTokens.append(ValidatedToken(name: user.handle ?? "", isOnHandler: true))
         if addContactToCC {
@@ -482,29 +482,29 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
     //		return message
     //	}
     
-    func configMsg(_ message: ManagedMessage) -> ManagedMessage {
-        
-        var receivers = [ManagedUser]()
-        for token in tokenView.allTokens {
-            for valdtoken in validatedTokens {
-                if valdtoken.isOnHandler && valdtoken.name == token.displayText.replacingOccurrences(of: "@", with: ""){
-                    receivers.append(ManagedUser.userWithHandle(valdtoken.name, inContext: PersistenceManager.mainManagedContext))
-                }
-            }
-        }
-        
-        //		var attachments = [Attachment]()
-        //		for attachment in attachmentsCell.attachments ?? [Attachment]() {
-        //			if let converted = attachment.toManageObjectContext(DatabaseManager.sharedInstance.backgroundContext) {
-        //				attachments.append(converted)
-        //			}
-        //		}
-        
-        message.recipients = NSSet(array: receivers)
-        message.content = richTextContentView.contentHTML
-        message.subject = subjectTextField.text ?? ""
-        return message
-    }
+//    func configMsg(_ message: Message) -> Message {
+//        
+//        var receivers = [User]()
+//        for token in tokenView.allTokens {
+//            for valdtoken in validatedTokens {
+//                if valdtoken.isOnHandler && valdtoken.name == token.displayText.replacingOccurrences(of: "@", with: ""){
+//                    receivers.append(User.userWithHandle(valdtoken.name, inContext: PersistenceManager.mainManagedContext))
+//                }
+//            }
+//        }
+//        
+//        //		var attachments = [Attachment]()
+//        //		for attachment in attachmentsCell.attachments ?? [Attachment]() {
+//        //			if let converted = attachment.toManageObjectContext(DatabaseManager.sharedInstance.backgroundContext) {
+//        //				attachments.append(converted)
+//        //			}
+//        //		}
+//        
+//        message.recipients = NSSet(array: receivers)
+//        message.content = richTextContentView.contentHTML
+//        message.subject = subjectTextField.text ?? ""
+//        return message
+//    }
     
     // MARK: UI Utils
     
@@ -815,7 +815,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
     
     // Mark: ContactsAutoCompleteViewControllerDelegateDelegate
     
-    func contactsAutoCompleteDidSelectUser(_ user: ManagedUser) {
+    func contactsAutoCompleteDidSelectUser(_ user: User) {
         let handle = user.handle
         
         guard handle.characters.count > 0 else {

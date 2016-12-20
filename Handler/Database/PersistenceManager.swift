@@ -1,8 +1,8 @@
 //
-//  MailDatabaseManager.swift
+//  PersistenceManager
 //  Handler
 //
-//  Created by Christian Praiss on 18/09/15.
+//  Created by Cagdas Altinkaya on 16/12/16.
 //  Copyright (c) 2013-2016 Mathieu Ramage - All Rights Reserved.
 //
 
@@ -80,8 +80,8 @@ struct PersistenceManager {
 
 	static func flushOldArchiveDatastore() {
 		backgroundContext.perform { () -> Void in
-			self.deleteOldArchivedMessages()
-			self.deleteArchivedMessagesAfter1000()
+			MessageDao.deleteOldArchivedMessages()
+			MessageDao.deleteArchivedMessagesAfter1000()
 
 			self.backgroundContext.saveRecursively { (error) in
 				if let error = error {
@@ -102,37 +102,6 @@ struct PersistenceManager {
 		}
 	}
 
-	static func deleteOldArchivedMessages() {
-		let managedContext = backgroundContext
-		let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Message.entityName())
-		fetchRequest.returnsObjectsAsFaults = false
-
-		let limitDate = Date().addingTimeInterval(-60 * 24 * 60 * 60)
-		fetchRequest.predicate = NSPredicate(format: "NONE labels.id == %@ && NONE labels.id == %@ && createdAt < %@", "INBOX", "SENT", limitDate as CVarArg)
-
-		let results = managedContext.safeExecuteFetchRequest(fetchRequest)
-		for managedObject in results {
-			managedContext.delete(managedObject)
-		}
-	}
-
-	// Keeps only the most recent 1000 messages
-	static func deleteArchivedMessagesAfter1000() {
-		let managedContext = backgroundContext
-		let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Message.entityName())
-		fetchRequest.returnsObjectsAsFaults = false
-		fetchRequest.predicate = NSPredicate(format: "NONE labels.id == %@ && NONE labels.id == %@", "INBOX", "SENT")
-		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)]
-
-		let messages: [Message] = managedContext.safeExecuteFetchRequest(fetchRequest)
-
-		if messages.count > 1000 {
-			for i in 1000...messages.count - 1 {
-				let message = messages[i]
-				managedContext.delete(message)
-			}
-		}
-	}
 }
 
 extension NSManagedObjectContext {

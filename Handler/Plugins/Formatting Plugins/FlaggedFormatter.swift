@@ -18,7 +18,7 @@ struct FlaggedFormatter: MessageTableViewCellFormatter {
         return formatter
     }()
     
-    func populateView(data message: ManagedMessage, view: MessageTableViewCell){
+    func populateView(data message: Message, view: MessageTableViewCell){
         view.readFlaggedImageView.image = nil
         view.senderProfileImageView.image = nil
         view.senderNameLabel.text = nil
@@ -73,7 +73,7 @@ struct FlaggedFormatter: MessageTableViewCellFormatter {
 		//        }
 
 		// TODO
-		if message.conversation?.mostRecentMessage?.sender?.id == AuthUtility.user?.identifier {
+		if message.conversation?.mostRecentMessage?.sender?.identifier == AuthUtility.user?.identifier {
 			view.repliedIconView.isHidden = false
 		} else {
 			view.repliedIconView.isHidden = true
@@ -82,19 +82,19 @@ struct FlaggedFormatter: MessageTableViewCellFormatter {
         setUpReadFlagMessage(data: message, view: view)
     }
 
-    func refreshFlags(data message: ManagedMessage, view: MessageTableViewCell){
+    func refreshFlags(data message: Message, view: MessageTableViewCell){
         setUpReadFlagMessage(data: message, view: view)
     }
     
-    func setUpReadFlagMessage(data message: ManagedMessage, view: MessageTableViewCell) {
-        if message.isFlagged && message.isUnread {
+    func setUpReadFlagMessage(data message: Message, view: MessageTableViewCell) {
+        if message.isFlagged && !message.read {
             view.readFlaggedImageView.image = UIImage(named: "Orange_Dot")
             // TODO: Add blue button encircled by orange
         }
         else if message.isFlagged {
             view.readFlaggedImageView.image = UIImage(named: "Orange_Dot")
         }
-        else if message.isUnread {
+        else if !message.read {
             view.readFlaggedImageView.image = UIImage(named: "Blue_Dot")
         }
         else {
@@ -102,11 +102,11 @@ struct FlaggedFormatter: MessageTableViewCellFormatter {
         }
     }
     
-    func leftButtonsForData(data message: ManagedMessage) -> [AnyObject]{
+    func leftButtonsForData(data message: Message) -> [AnyObject]{
         return ActionPluginProvider.messageCellPluginForInboxType(.Flagged)?.leftButtonsForData(data: message) ?? [AnyObject]()
     }
     
-    func rightButtonsForData(data message: ManagedMessage) -> [AnyObject]{
+    func rightButtonsForData(data message: Message) -> [AnyObject]{
         return ActionPluginProvider.messageCellPluginForInboxType(.Flagged)?.rightButtonsForData(data: message) ?? [AnyObject]()
     }
 }

@@ -12,7 +12,5 @@ import SwiftyJSON
 
 struct ConversationDao {
     
-    
-
 
 }

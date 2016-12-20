@@ -18,35 +18,28 @@ struct UserDao {
         return fetchRequest
     }
     
-    static func findOrCreateUserWithJSON(_ json: JSON) -> User {
-        let identifier = json["twitter"]["id"].stringValue
+    static func updateOrCreateUser(userData : UserData) -> User {
+        
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: User.entityName())
-        fetchRequest.predicate = NSPredicate(format: "identifier == %@", identifier)
+        fetchRequest.predicate = NSPredicate(format: "identifier == %@", userData.identifier!)
         fetchRequest.fetchBatchSize = 1
         
         if let user = (PersistenceManager.mainManagedContext.safeExecuteFetchRequest(fetchRequest) as [User]).first as User? {
-            
-            
-            
+            user.setUserData(userData)
             return user
         }
-        let user = User(json: json, inContext: PersistenceManager.mainManagedContext)
+        
+        let user = User(data: userData, context: PersistenceManager.mainManagedContext)
         return user
     }
-    
-    
     
     static func findUserWithHandle(_ handle: String, inContext context: NSManagedObjectContext? = nil) -> User? {
         let internalContext = context ?? PersistenceManager.mainManagedContext
         
-        if let user = (internalContext.safeExecuteFetchRequest(User.fetchRequestForHandle(handle)) as [User]).first {
+        if let user = (internalContext.safeExecuteFetchRequest(fetchRequestForHandle(handle)) as [User]).first {
             return user
         }
-        
         return nil
-//        else {
-//            return User(handle: handle, inManagedContext: internalContext)
-//        }
     }
     
 }

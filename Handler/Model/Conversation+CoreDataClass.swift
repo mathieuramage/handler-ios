@@ -1,8 +1,8 @@
 //
-//  Conversation.swift
+//  Conversation+CoreDataClass.swift
 //  Handler
 //
-//  Created by Çağdaş Altınkaya on 16/12/2016.
+//  Created by Çağdaş Altınkaya on 18/12/2016.
 //  Copyright © 2016 Handler, Inc. All rights reserved.
 //
 
@@ -11,7 +11,6 @@ import CoreData
 
 
 public class Conversation: NSManagedObject {
-
     
     class func conversationWithID(_ identifier: String, inContext context: NSManagedObjectContext) -> Conversation {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Conversation")
@@ -200,5 +199,7 @@ public class Conversation: NSManagedObject {
         }
     }
 
-    
 }
+
+
+

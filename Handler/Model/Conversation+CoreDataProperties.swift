@@ -2,7 +2,7 @@
 //  Conversation+CoreDataProperties.swift
 //  Handler
 //
-//  Created by Çağdaş Altınkaya on 16/12/2016.
+//  Created by Çağdaş Altınkaya on 19/12/2016.
 //  Copyright © 2016 Handler, Inc. All rights reserved.
 //
 
@@ -17,8 +17,8 @@ extension Conversation {
     }
 
     @NSManaged public var identifier: String?
-    @NSManaged public var read: NSNumber?
-    @NSManaged public var starred: NSNumber?
+    @NSManaged public var read: Bool
+    @NSManaged public var starred: Bool
     @NSManaged public var messages: NSSet?
 
 }

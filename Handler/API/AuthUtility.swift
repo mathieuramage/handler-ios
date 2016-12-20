@@ -35,7 +35,7 @@ struct AuthUtility {
 		}
 	}
 
-	static var user: ManagedUser?
+	static var user: User?
 
 	static func getClientCredentials(headers oauthHeaders : [String : String], callback : @escaping (_ success: Bool, _ accessToken : AccessToken?) -> () ) {
 

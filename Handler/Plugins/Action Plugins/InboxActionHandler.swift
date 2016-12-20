@@ -12,11 +12,11 @@ class InboxActionHandler: MessageTableViewCellActions {
 
 	// MARK: Actions
 
-	func leftButtonTriggered(_ index: Int, data message: ManagedMessage, callback: (() -> Void)?) {
+	func leftButtonTriggered(_ index: Int, data message: Message, callback: (() -> Void)?) {
 
 		switch index {
 		case 0:
-			message.isUnread ? message.conversation?.markAsRead() : message.conversation?.markAsUnread(message)
+			!message.read ? message.conversation?.markAsRead() : message.conversation?.markAsUnread(message)
 			break;
 		default:
 			break
@@ -31,7 +31,7 @@ class InboxActionHandler: MessageTableViewCellActions {
 		// TODO: Implement actions
 	}
 
-	func rightButtonTriggered(_ index: Int, data message: ManagedMessage, callback: (() -> Void)?) {
+	func rightButtonTriggered(_ index: Int, data message: Message, callback: (() -> Void)?) {
 
 		switch index {
 		case 0:
@@ -54,9 +54,9 @@ class InboxActionHandler: MessageTableViewCellActions {
 
 	// MARK: Data Source
 
-	func leftButtonsForData(data message: ManagedMessage) -> [AnyObject] {
+	func leftButtonsForData(data message: Message) -> [AnyObject] {
 		let array = NSMutableArray()
-		if message.isUnread {
+		if !message.read {
 			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.lightBlue), icon: UIImage(named: "icon_read"))
 		} else {
 			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.lightBlue), icon: UIImage(named: "icon_unread"))
@@ -64,7 +64,7 @@ class InboxActionHandler: MessageTableViewCellActions {
 		return array as [AnyObject]
 	}
 
-	func rightButtonsForData(data message: ManagedMessage) -> [AnyObject] {
+	func rightButtonsForData(data message: Message) -> [AnyObject] {
 		let array = NSMutableArray()
 		if message.isFlagged {
 			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.orange), icon: UIImage(named: "icon_unflag"))

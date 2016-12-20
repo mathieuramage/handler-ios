@@ -87,7 +87,7 @@ struct TwitterAPIOperations {
 	}
 
 
-	static func getTwitterFriends(_ cursor : Int?, callback : @escaping (_ users : [TwitterUser], _ nextCursor : Int?) -> ()) {
+	static func getTwitterFriends(_ cursor : Int?, callback : @escaping (_ users : [TwitterUserData], _ nextCursor : Int?) -> ()) {
 
 		if let session = Twitter.sharedInstance().sessionStore.session() as? TWTRSession {
 
@@ -112,9 +112,9 @@ struct TwitterAPIOperations {
 				do {
 					let dict = try JSONSerialization.jsonObject(with: data, options: [JSONSerialization.ReadingOptions.allowFragments])
 					let json = JSON(dict)
-					var users : [TwitterUser] = []
+					var users : [TwitterUserData] = []
 					for userJson in json["users"].arrayValue {
-						let user = TwitterUser(twitterAPIJson: userJson)
+						let user = TwitterUserData(twitterAPIJson: userJson)
 						users.append(user)
 					}
 					let nextCursor = json["next_cursor"].int
@@ -129,7 +129,7 @@ struct TwitterAPIOperations {
 	}
 
 
-	static func getTwitterFollowers(_ cursor : Int?, callback : @escaping (_ users : [TwitterUser], _ nextCursor : Int?) -> ()) {
+	static func getTwitterFollowers(_ cursor : Int?, callback : @escaping (_ users : [TwitterUserData], _ nextCursor : Int?) -> ()) {
 
 		if let session = Twitter.sharedInstance().sessionStore.session() as? TWTRSession {
 
@@ -154,9 +154,9 @@ struct TwitterAPIOperations {
 				do {
 					let dict = try JSONSerialization.jsonObject(with: data, options: [JSONSerialization.ReadingOptions.allowFragments])
 					let json = JSON(dict)
-					var users : [TwitterUser] = []
+					var users : [TwitterUserData] = []
 					for userJson in json["users"].arrayValue {
-						let user = TwitterUser(twitterAPIJson: userJson)
+						let user = TwitterUserData(twitterAPIJson: userJson)
 						users.append(user)
 					}
 					let nextCursor = json["next_cursor"].int
