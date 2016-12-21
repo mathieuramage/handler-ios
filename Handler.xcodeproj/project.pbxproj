@@ -137,6 +137,24 @@
 		9D16ADF21DE35AB700C8172A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D16ADF01DE35AB700C8172A /* SystemConfiguration.framework */; };
 		9D16ADF41DE35AC500C8172A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D16ADF31DE35AC400C8172A /* CoreMedia.framework */; };
 		9D16ADF61DE35ACA00C8172A /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D16ADF51DE35ACA00C8172A /* CoreVideo.framework */; };
+		9D6B90021E09D47A00F6F4C3 /* FirebaseAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6B8FFC1E09D47900F6F4C3 /* FirebaseAnalytics.framework */; };
+		9D6B90031E09D47A00F6F4C3 /* FirebaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6B8FFD1E09D47900F6F4C3 /* FirebaseCore.framework */; };
+		9D6B90041E09D47A00F6F4C3 /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6B8FFE1E09D47900F6F4C3 /* FirebaseInstanceID.framework */; };
+		9D6B90051E09D47A00F6F4C3 /* GoogleInterchangeUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6B8FFF1E09D47900F6F4C3 /* GoogleInterchangeUtilities.framework */; };
+		9D6B90061E09D47A00F6F4C3 /* GoogleSymbolUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6B90001E09D47900F6F4C3 /* GoogleSymbolUtilities.framework */; };
+		9D6B90071E09D47A00F6F4C3 /* GoogleToolboxForMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6B90011E09D47900F6F4C3 /* GoogleToolboxForMac.framework */; };
+		9D6B900A1E09D49000F6F4C3 /* FirebaseRemoteConfig.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6B90091E09D49000F6F4C3 /* FirebaseRemoteConfig.framework */; };
+		9D6B900E1E09D71800F6F4C3 /* FirebaseDatabase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6B900D1E09D71800F6F4C3 /* FirebaseDatabase.framework */; };
+		9D6B90101E09D7DA00F6F4C3 /* FirebaseDynamicLinks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6B900F1E09D7DA00F6F4C3 /* FirebaseDynamicLinks.framework */; };
+		9D6B90121E09D84900F6F4C3 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6B90111E09D84900F6F4C3 /* libicucore.tbd */; };
+		9D6B90141E09D85500F6F4C3 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6B90131E09D85500F6F4C3 /* CFNetwork.framework */; };
+		9D6B90161E09D87900F6F4C3 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6B90151E09D87900F6F4C3 /* libc++.tbd */; };
+		9D6B90181E09D88400F6F4C3 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6B90171E09D88400F6F4C3 /* libsqlite3.tbd */; };
+		9D6B901A1E09E26D00F6F4C3 /* FirebaseAppIndexing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6B90191E09E26D00F6F4C3 /* FirebaseAppIndexing.framework */; };
+		9D6B901E1E09E2BC00F6F4C3 /* GINInviteResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9D6B901B1E09E2BB00F6F4C3 /* GINInviteResources.bundle */; };
+		9D6B901F1E09E2BC00F6F4C3 /* GoogleSignIn.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9D6B901C1E09E2BB00F6F4C3 /* GoogleSignIn.bundle */; };
+		9D6B90201E09E2BC00F6F4C3 /* GPPACLPickerResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9D6B901D1E09E2BB00F6F4C3 /* GPPACLPickerResources.bundle */; };
+		9DAA2C0C1E0AB02200553046 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9DAA2C0B1E0AB02200553046 /* GoogleService-Info.plist */; };
 		9DDED1E71DEBB5900042314A /* Intercom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DDED1E61DEBB5900042314A /* Intercom.framework */; };
 		9DDED1E81DEBB59C0042314A /* Intercom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DDED1E61DEBB5900042314A /* Intercom.framework */; };
 		9DDED1E91DEBB59C0042314A /* Intercom.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9DDED1E61DEBB5900042314A /* Intercom.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -401,6 +419,26 @@
 		9D16ADF01DE35AB700C8172A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9D16ADF31DE35AC400C8172A /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		9D16ADF51DE35ACA00C8172A /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		9D6B8FFC1E09D47900F6F4C3 /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseAnalytics.framework; sourceTree = "<group>"; };
+		9D6B8FFD1E09D47900F6F4C3 /* FirebaseCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseCore.framework; sourceTree = "<group>"; };
+		9D6B8FFE1E09D47900F6F4C3 /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseInstanceID.framework; sourceTree = "<group>"; };
+		9D6B8FFF1E09D47900F6F4C3 /* GoogleInterchangeUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleInterchangeUtilities.framework; sourceTree = "<group>"; };
+		9D6B90001E09D47900F6F4C3 /* GoogleSymbolUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleSymbolUtilities.framework; sourceTree = "<group>"; };
+		9D6B90011E09D47900F6F4C3 /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleToolboxForMac.framework; sourceTree = "<group>"; };
+		9D6B90091E09D49000F6F4C3 /* FirebaseRemoteConfig.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseRemoteConfig.framework; sourceTree = "<group>"; };
+		9D6B900B1E09D51A00F6F4C3 /* Firebase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Firebase.h; sourceTree = "<group>"; };
+		9D6B900C1E09D5C000F6F4C3 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		9D6B900D1E09D71800F6F4C3 /* FirebaseDatabase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseDatabase.framework; sourceTree = "<group>"; };
+		9D6B900F1E09D7DA00F6F4C3 /* FirebaseDynamicLinks.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseDynamicLinks.framework; sourceTree = "<group>"; };
+		9D6B90111E09D84900F6F4C3 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
+		9D6B90131E09D85500F6F4C3 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		9D6B90151E09D87900F6F4C3 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		9D6B90171E09D88400F6F4C3 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		9D6B90191E09E26D00F6F4C3 /* FirebaseAppIndexing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseAppIndexing.framework; sourceTree = "<group>"; };
+		9D6B901B1E09E2BB00F6F4C3 /* GINInviteResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GINInviteResources.bundle; sourceTree = "<group>"; };
+		9D6B901C1E09E2BB00F6F4C3 /* GoogleSignIn.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GoogleSignIn.bundle; sourceTree = "<group>"; };
+		9D6B901D1E09E2BB00F6F4C3 /* GPPACLPickerResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GPPACLPickerResources.bundle; sourceTree = "<group>"; };
+		9DAA2C0B1E0AB02200553046 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9DDED1E61DEBB5900042314A /* Intercom.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Intercom.framework; sourceTree = "<group>"; };
 		B72C59D01C26BBE500D6651D /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		B72C59D31C26C63200D6651D /* System San Francisco Display Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "System San Francisco Display Regular.ttf"; sourceTree = "<group>"; };
@@ -499,10 +537,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D6B90181E09D88400F6F4C3 /* libsqlite3.tbd in Frameworks */,
+				9D6B90161E09D87900F6F4C3 /* libc++.tbd in Frameworks */,
+				9D6B90141E09D85500F6F4C3 /* CFNetwork.framework in Frameworks */,
+				9D6B90121E09D84900F6F4C3 /* libicucore.tbd in Frameworks */,
+				9D6B90071E09D47A00F6F4C3 /* GoogleToolboxForMac.framework in Frameworks */,
 				2FA2EA871BAD9C570027EA77 /* UIKit.framework in Frameworks */,
 				9D16ADF61DE35ACA00C8172A /* CoreVideo.framework in Frameworks */,
 				9D16ADF41DE35AC500C8172A /* CoreMedia.framework in Frameworks */,
 				9D16ADF11DE35AB700C8172A /* CoreTelephony.framework in Frameworks */,
+				9D6B90061E09D47A00F6F4C3 /* GoogleSymbolUtilities.framework in Frameworks */,
 				9D16ADF21DE35AB700C8172A /* SystemConfiguration.framework in Frameworks */,
 				9D16ADEE1DE35AA400C8172A /* CoreMotion.framework in Frameworks */,
 				2FA2EA811BAD9C570027EA77 /* CoreGraphics.framework in Frameworks */,
@@ -510,6 +554,7 @@
 				2FDB44601BD3E86F0040014E /* Async.framework in Frameworks */,
 				2FDB44611BD3E86F0040014E /* Bond.framework in Frameworks */,
 				2FDB44621BD3E86F0040014E /* DZNEmptyDataSet.framework in Frameworks */,
+				9D6B90031E09D47A00F6F4C3 /* FirebaseCore.framework in Frameworks */,
 				9DDED1E81DEBB59C0042314A /* Intercom.framework in Frameworks */,
 				2FDB44631BD3E86F0040014E /* Kingfisher.framework in Frameworks */,
 				BF047DFF1DD2206D00CF7001 /* ReactiveKit.framework in Frameworks */,
@@ -517,20 +562,27 @@
 				BFA307571CF260F200642A8D /* RichEditorView.framework in Frameworks */,
 				9DDED1E71DEBB5900042314A /* Intercom.framework in Frameworks */,
 				2FDB44651BD3E86F0040014E /* SwiftyJSON.framework in Frameworks */,
+				9D6B900A1E09D49000F6F4C3 /* FirebaseRemoteConfig.framework in Frameworks */,
 				2FDB44721BD3EB110040014E /* TwitterKit.framework in Frameworks */,
 				2FDB44761BD3EB380040014E /* Crashlytics.framework in Frameworks */,
 				2FDB44741BD3EB110040014E /* TwitterCore.framework in Frameworks */,
 				BF7530791DD21A4200A00765 /* Alamofire.framework in Frameworks */,
 				2FA2EA891BAD9C570027EA77 /* Accounts.framework in Frameworks */,
 				2FA2EA841BAD9C570027EA77 /* CoreData.framework in Frameworks */,
+				9D6B901A1E09E26D00F6F4C3 /* FirebaseAppIndexing.framework in Frameworks */,
+				9D6B90021E09D47A00F6F4C3 /* FirebaseAnalytics.framework in Frameworks */,
 				2FA2EA881BAD9C570027EA77 /* Social.framework in Frameworks */,
+				9D6B90051E09D47A00F6F4C3 /* GoogleInterchangeUtilities.framework in Frameworks */,
 				2FA2EA861BAD9C570027EA77 /* CoreText.framework in Frameworks */,
 				2FA2EA821BAD9C570027EA77 /* Foundation.framework in Frameworks */,
 				2FDB44711BD3EB110040014E /* Fabric.framework in Frameworks */,
 				2FA2EA831BAD9C570027EA77 /* Security.framework in Frameworks */,
+				9D6B90041E09D47A00F6F4C3 /* FirebaseInstanceID.framework in Frameworks */,
 				BF75307B1DD21A5200A00765 /* ReactiveKit.framework in Frameworks */,
+				9D6B90101E09D7DA00F6F4C3 /* FirebaseDynamicLinks.framework in Frameworks */,
 				2FA2EA851BAD9C570027EA77 /* QuartzCore.framework in Frameworks */,
 				9D16ADE91DE35A5E00C8172A /* Instabug.framework in Frameworks */,
+				9D6B900E1E09D71800F6F4C3 /* FirebaseDatabase.framework in Frameworks */,
 				BF7530771DD20ED800A00765 /* GradientView.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -713,6 +765,10 @@
 		2FDB52021BA8BC12003C074F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9D6B90171E09D88400F6F4C3 /* libsqlite3.tbd */,
+				9D6B90151E09D87900F6F4C3 /* libc++.tbd */,
+				9D6B90131E09D85500F6F4C3 /* CFNetwork.framework */,
+				9D6B90111E09D84900F6F4C3 /* libicucore.tbd */,
 				9D16ADF51DE35ACA00C8172A /* CoreVideo.framework */,
 				9D16ADF31DE35AC400C8172A /* CoreMedia.framework */,
 				9D16ADEF1DE35AB700C8172A /* CoreTelephony.framework */,
@@ -886,11 +942,34 @@
 		9D16ADEA1DE35A6400C8172A /* Manual Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9D6B90081E09D48000F6F4C3 /* Firebase */,
 				9DDED1E61DEBB5900042314A /* Intercom.framework */,
 				9D16ADE61DE35A5E00C8172A /* Instabug.bundle */,
 				9D16ADE71DE35A5E00C8172A /* Instabug.framework */,
 			);
 			name = "Manual Frameworks";
+			sourceTree = "<group>";
+		};
+		9D6B90081E09D48000F6F4C3 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				9D6B900B1E09D51A00F6F4C3 /* Firebase.h */,
+				9D6B900C1E09D5C000F6F4C3 /* module.modulemap */,
+				9D6B901B1E09E2BB00F6F4C3 /* GINInviteResources.bundle */,
+				9D6B901C1E09E2BB00F6F4C3 /* GoogleSignIn.bundle */,
+				9D6B901D1E09E2BB00F6F4C3 /* GPPACLPickerResources.bundle */,
+				9D6B90191E09E26D00F6F4C3 /* FirebaseAppIndexing.framework */,
+				9D6B900F1E09D7DA00F6F4C3 /* FirebaseDynamicLinks.framework */,
+				9D6B900D1E09D71800F6F4C3 /* FirebaseDatabase.framework */,
+				9D6B90091E09D49000F6F4C3 /* FirebaseRemoteConfig.framework */,
+				9D6B8FFC1E09D47900F6F4C3 /* FirebaseAnalytics.framework */,
+				9D6B8FFD1E09D47900F6F4C3 /* FirebaseCore.framework */,
+				9D6B8FFE1E09D47900F6F4C3 /* FirebaseInstanceID.framework */,
+				9D6B8FFF1E09D47900F6F4C3 /* GoogleInterchangeUtilities.framework */,
+				9D6B90001E09D47900F6F4C3 /* GoogleSymbolUtilities.framework */,
+				9D6B90011E09D47900F6F4C3 /* GoogleToolboxForMac.framework */,
+			);
+			name = Firebase;
 			sourceTree = "<group>";
 		};
 		B72C59D21C26C63200D6651D /* Fonts */ = {
@@ -1157,6 +1236,7 @@
 		DF1FD2DB1B62360600A58B71 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9DAA2C0B1E0AB02200553046 /* GoogleService-Info.plist */,
 				2F8E37971BB1E91D00C6A82D /* Handler-Bridging-Header.h */,
 				DF1FD2DC1B62360600A58B71 /* Info.plist */,
 				DF1FD2E61B62360600A58B71 /* LaunchScreen.xib */,
@@ -1248,18 +1328,22 @@
 			files = (
 				2FED1D4B1C1E0E1700490798 /* EmptyInboxView.xib in Resources */,
 				2F43E0B11BDA4A5A00C68E1D /* LaunchScreen.xib in Resources */,
+				9D6B901F1E09E2BC00F6F4C3 /* GoogleSignIn.bundle in Resources */,
 				2F1DACF21BC7EFC500FB6173 /* AddAttachmentView.xib in Resources */,
 				2F1D2C401BBC48E600A504A8 /* ErrorPopupViewController.xib in Resources */,
 				2F7B0D031BFDCEDE0015C43A /* MessageTableViewCell.xib in Resources */,
 				2F1D2C381BBC3DCA00A504A8 /* ContactCardViewController.xib in Resources */,
 				2FDB44731BD3EB110040014E /* TwitterKitResources.bundle in Resources */,
 				2F09DB1F1BC69CEC00B81FE2 /* AttachmentThumbnailView.xib in Resources */,
+				9D6B90201E09E2BC00F6F4C3 /* GPPACLPickerResources.bundle in Resources */,
+				9D6B901E1E09E2BC00F6F4C3 /* GINInviteResources.bundle in Resources */,
 				9D16ADE81DE35A5E00C8172A /* Instabug.bundle in Resources */,
 				DF1FD2E51B62360600A58B71 /* Images.xcassets in Resources */,
 				B72C59D41C26C63200D6651D /* System San Francisco Display Regular.ttf in Resources */,
 				2F1D2C3C1BBC477000A504A8 /* SendInvitationViewController.xib in Resources */,
 				BF6653011CDE329A00D9AA1E /* Intro.storyboard in Resources */,
 				2FA2EA8E1BAD9CBA0027EA77 /* Main.storyboard in Resources */,
+				9DAA2C0C1E0AB02200553046 /* GoogleService-Info.plist in Resources */,
 				2F0136981BCFD82E008BAD9D /* IntroView.xib in Resources */,
 				7A372D7B1C6FA721009E400C /* ContactAutocompleteCell.xib in Resources */,
 				7ACDBD5D1C8CAD7F004F5E25 /* ConversationMessageTableViewCell.xib in Resources */,

@@ -20,6 +20,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
     @IBOutlet weak var logoutButton: UIButton!
     @IBOutlet weak var helpButton: UIButton!
     @IBOutlet weak var gradientView: GradientView!
+	@IBOutlet weak var separatorView: UIView!
     
     var optionsTableViewController: MailBoxOptionsTableViewController? {
         didSet {
@@ -36,6 +37,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 //        gradientView.colors = [UIColor.white, UIColor.black.withAlphaComponent(0.5)]
         view.sendSubview(toBack: gradientView)
         view.sendSubview(toBack: profileBannerImageView) //Workaround
+		remoteConfigDisplayHelpButton()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -158,6 +160,12 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
             })
         }
     }
+	
+	private func remoteConfigDisplayHelpButton() {
+			let hideFeedbackButton = !Config.Firebase.RemoteConfig.instance.configValue(forKey: Config.Firebase.ParamKeys.showSupportMenu).boolValue
+			helpButton.isHidden = hideFeedbackButton
+			separatorView.isHidden = hideFeedbackButton
+	}
     
     // MARK: - Navigation
     
