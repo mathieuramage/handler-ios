@@ -38,6 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		Twitter.sharedInstance().start(withConsumerKey: Config.Twitter.consumerKey, consumerSecret: Config.Twitter.consumerSecret)
 		Fabric.with([Twitter.sharedInstance(), Crashlytics.self()])
 		Instabug.start(withToken: Config.Instabug.apiToken, invocationEvent: .shake)
+		Instabug.setShakingThresholdForiPhone(1.2, foriPad: 0.5)
 		Intercom.setApiKey(Config.Intercom.apiKey, forAppId: Config.Intercom.appId)
 //		UserTwitterStatusManager.startUpdating() TODO : Do this properly with the new API code
 		UIToolbar.appearance().tintColor = UIColor(rgba: HexCodes.lightBlue)
