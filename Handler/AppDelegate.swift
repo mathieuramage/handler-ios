@@ -13,6 +13,9 @@ import Crashlytics
 import Async
 import Instabug
 import Intercom
+import FirebaseRemoteConfig
+import FirebaseAnalytics
+
 
 
 @UIApplicationMain
@@ -46,7 +49,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		UITextView.appearance().tintColor = UIColor(rgba: HexCodes.lightBlue)
 		UIImageView.appearance().clipsToBounds = true
 
-
+		//Firebase
+		FIRApp.configure()
+		let remoteConfigSettings = FIRRemoteConfigSettings(developerModeEnabled: true)
+		let remoteConfig = Config.Firebase.RemoteConfig.instance
+		remoteConfig.configSettings = remoteConfigSettings!
+		remoteConfig.setDefaults(Config.Firebase.RemoteConfig.defaultParams)
+		remoteConfig.fetch(withExpirationDuration: TimeInterval(0)) { (status, error) -> Void in
+			if status == .success {
+				print("Remote config parameters successfully fetched!")
+				remoteConfig.activateFetched()
+			} else {
+				print("Remote Config not fetched")
+				print("Error \(error!.localizedDescription)")
+			}
+		}
+		
 		loadInitialViewController()
 
 		let settings = UIUserNotificationSettings(types: [UIUserNotificationType.badge, UIUserNotificationType.sound, UIUserNotificationType.alert], categories: nil)

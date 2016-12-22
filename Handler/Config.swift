@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseAnalytics
+import FirebaseRemoteConfig
 
 struct Config {
 
@@ -65,4 +67,20 @@ struct Config {
 //		static let consumerKey = "H39589t6PVVSCD9nLvPQnYoT6"
 //		static let consumerSecret = "GPS9xgLaZ2NQ2ZCunX1AfnyzdP122vARdEGD6m4iJM08Cte9H0"
 	}
+	struct Firebase {
+		struct ParamKeys {
+			static let showSupportMenu = "ios_show_support_menu"
+			static let attachmentMaxSize = "ios_attachment_max_size"
+			static let enableAttachments = "ios_enable_attachments"
+		}
+		struct RemoteConfig {
+			static let instance = FIRRemoteConfig.remoteConfig()
+			static let defaultParams: [String : NSObject] = [
+				ParamKeys.showSupportMenu : true as NSObject,
+				ParamKeys.attachmentMaxSize : 9223372036854775807 as NSObject,
+				ParamKeys.enableAttachments : true as NSObject
+			]
+		}
+	}
 }
+
