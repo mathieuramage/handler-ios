@@ -67,7 +67,10 @@ struct Config {
 //		static let consumerKey = "H39589t6PVVSCD9nLvPQnYoT6"
 //		static let consumerSecret = "GPS9xgLaZ2NQ2ZCunX1AfnyzdP122vARdEGD6m4iJM08Cte9H0"
 	}
+	
 	struct Firebase {
+		static let apiKey = "AIzaSyA90RwcxzCJEyyAteiwHd_Na8AKagFAguQ"
+		static let projectId = "handler-67279"
 		struct ParamKeys {
 			static let showSupportMenu = "ios_show_support_menu"
 			static let attachmentMaxSize = "ios_attachment_max_size"
@@ -77,9 +80,16 @@ struct Config {
 			static let instance = FIRRemoteConfig.remoteConfig()
 			static let defaultParams: [String : NSObject] = [
 				ParamKeys.showSupportMenu : true as NSObject,
-				ParamKeys.attachmentMaxSize : 9223372036854775807 as NSObject,
+				ParamKeys.attachmentMaxSize : "9223372036854775807" as NSObject,
 				ParamKeys.enableAttachments : true as NSObject
 			]
+		}
+		struct DynamicLinks {
+			struct Actions {
+				static let compose = "compose"
+				static let contacts = "contacts"
+				static let draft = "draft"
+			}
 		}
 	}
 }

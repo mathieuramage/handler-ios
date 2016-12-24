@@ -15,11 +15,14 @@ import Instabug
 import Intercom
 import FirebaseRemoteConfig
 import FirebaseAnalytics
+import FirebaseDynamicLinks
 
 
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+	
+	let customURLScheme = "dlscheme"
 
 	var messageUpdateTimer : Timer?
 
@@ -51,6 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		//Firebase
 		FIRApp.configure()
+		FIROptions.default().deepLinkURLScheme = self.customURLScheme
 		let remoteConfigSettings = FIRRemoteConfigSettings(developerModeEnabled: true)
 		let remoteConfig = Config.Firebase.RemoteConfig.instance
 		remoteConfig.configSettings = remoteConfigSettings!
@@ -74,12 +78,45 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		startMessageUpdateTimer()
 		return true
 	}
+	func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+		print(url)
+		//		HROAuthManager.handleIncomingAuthURL(url)
+		
+		//Deep Links
+		// Handle the deep link. For example, show the deep-linked content or
+		// apply a promotional offer to the user's account.
+		// ...
+		let dynamicLink = FIRDynamicLinks.dynamicLinks()?.dynamicLink(fromCustomSchemeURL: url)
+		if let link = dynamicLink {
+			if let action = link.url?.queryItems?["action"] {
+				switch action {
+					case Config.Firebase.DynamicLinks.Actions.compose:
+					break
+					default:
+					break
+				}
+			}
+			return true
+		}
+		
+		return false
+	}
 
 	func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
-		print(url)
-//		HROAuthManager.handleIncomingAuthURL(url)
-		return true
+		return application(app, open: url, sourceApplication: nil, annotation: [:])
 	}
+	
+	func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
+		guard let dynamicLinks = FIRDynamicLinks.dynamicLinks() else {
+			return false
+		}
+		let handled = dynamicLinks.handleUniversalLink(userActivity.webpageURL!) { (dynamiclink, error) in
+			// ...
+		}
+		
+		return handled
+	}
+
 
 	// MARK: Push
 
