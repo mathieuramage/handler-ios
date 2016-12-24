@@ -1286,6 +1286,7 @@
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = 2338J96222;
 						LastSwiftMigration = 0810;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -1672,7 +1673,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.handler.handlerapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "a07fd220-3871-4ce4-9b92-bfea8d3cda47";
+				PROVISIONING_PROFILE_SPECIFIER = "iOS Handler DEV";
 				SWIFT_OBJC_BRIDGING_HEADER = "Handler/Supporting Files/Handler-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -1704,7 +1706,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.handler.handlerapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "a07fd220-3871-4ce4-9b92-bfea8d3cda47";
+				PROVISIONING_PROFILE_SPECIFIER = "iOS Handler DEV";
 				SWIFT_OBJC_BRIDGING_HEADER = "Handler/Supporting Files/Handler-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
