@@ -86,7 +86,7 @@ class LoginViewController: UIViewController {
 
 						UserOperations.getMe({ (success, user) in
 							AuthUtility.user = user
-							if let uid = user?.identifier {
+							if let uid = user?.handle {
 								UserDefaults.standard.set(uid, forKey: Config.UserDefaults.uidKey)
 								Intercom.registerUser(withUserId: uid)
 							}
