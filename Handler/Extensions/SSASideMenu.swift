@@ -31,7 +31,6 @@ extension UIViewController {
     @IBAction func presentLeftMenuViewController() {
         
         sideMenuViewController?._presentLeftMenuViewController()
-        
     }
     
     @IBAction func presentRightMenuViewController() {
@@ -234,6 +233,7 @@ class SSASideMenu: UIViewController, UIGestureRecognizerDelegate {
     @IBInspectable var panMinimumOpenThreshold: UInt = 60
     @IBInspectable var menuViewControllerTransformation: CGAffineTransform = CGAffineTransform(scaleX: 1.5, y: 1.5)
     @IBInspectable var backgroundTransformation: CGAffineTransform = CGAffineTransform(scaleX: 1.7, y: 1.7)
+	@IBInspectable var shadowOverlay: Bool = true
     
     // MARK : Internal Private Properties
     
@@ -250,6 +250,7 @@ class SSASideMenu: UIViewController, UIGestureRecognizerDelegate {
     fileprivate let menuViewContainer: UIView = UIView()
     fileprivate let contentViewContainer: UIView = UIView()
     fileprivate let contentButton: UIButton = UIButton()
+	fileprivate let overlayView: UIView = UIView()
     
     fileprivate let backgroundImageView: UIImageView = UIImageView()
     
@@ -377,14 +378,24 @@ class SSASideMenu: UIViewController, UIGestureRecognizerDelegate {
     fileprivate func showLeftMenuViewController() {
         
         if let viewController = leftMenuViewController {
-            
+			
             showMenuViewController(.left, menuViewController: viewController)
-            
+			
+			if shadowOverlay {
+				self.contentViewContainer.addSubview(self.overlayView)
+				UIView.animate(withDuration: TimeInterval(animationDuration), animations: {
+					self.overlayView.layer.opacity = 1.0
+				})
+			}
+			
             UIView.animate(withDuration: TimeInterval(animationDuration), animations: {[unowned self] () -> Void in
-                
+				
                 self.animateMenuViewController(.left)
                 
                 self.menuViewContainer.alpha = 1
+				
+				
+
                 self.contentViewContainer.alpha = CGFloat(self.contentViewFadeOutAlpha)
                 
                 }, completion: {[unowned self] (Bool) -> Void in
@@ -418,6 +429,7 @@ class SSASideMenu: UIViewController, UIGestureRecognizerDelegate {
         setupContentButton()
         setupContentViewShadow()
         resetContentViewScale()
+		setupOverlayView()
         
         UIApplication.shared.beginIgnoringInteractionEvents()
     }
@@ -533,7 +545,15 @@ class SSASideMenu: UIViewController, UIGestureRecognizerDelegate {
         leftMenuVisible = false
         rightMenuVisible = false
         contentButton.removeFromSuperview()
-        
+		if shadowOverlay {
+			UIView.animate(withDuration: TimeInterval(animationDuration), animations: {
+				self.overlayView.layer.opacity = 0.0
+			}) { _ in
+				self.overlayView.removeFromSuperview()
+				self.overlayView.layer.opacity = 1.0
+			}
+		}
+		
         let animationsClosure: () -> () =  {[unowned self] () -> () in
             
             self.contentViewContainer.transform = CGAffineTransform.identity
@@ -589,6 +609,8 @@ class SSASideMenu: UIViewController, UIGestureRecognizerDelegate {
             animationsClosure()
             completionClosure()
         }
+		
+		
         
         statusBarNeedsAppearanceUpdate()
         
@@ -675,7 +697,7 @@ class SSASideMenu: UIViewController, UIGestureRecognizerDelegate {
             
         }
     }
-    
+	
     fileprivate func hideViewController(_ targetViewController: UIViewController) {
         targetViewController.willMove(toParentViewController: nil)
         targetViewController.view.removeFromSuperview()
@@ -708,6 +730,12 @@ class SSASideMenu: UIViewController, UIGestureRecognizerDelegate {
             })
         }
     }
+	
+	fileprivate func setupOverlayView() {
+		overlayView.frame = CGRect(x: 0, y: 0, width: menuViewContainer.bounds.width, height: menuViewContainer.bounds.height)
+		overlayView.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.5)
+		overlayView.layer.opacity = 0.0
+	}
     
     fileprivate func setupContentViewShadow() {
         
@@ -1015,7 +1043,7 @@ class SSASideMenu: UIViewController, UIGestureRecognizerDelegate {
             
             menuViewContainer.alpha = fadeMenuView ? delta : 0
             contentViewContainer.alpha = 1 - (1 - CGFloat(contentViewFadeOutAlpha)) * delta
-            
+			
             if scaleBackgroundImageView {
                 backgroundImageView.transform = CGAffineTransform(scaleX: backgroundViewScale, y: backgroundViewScale)
             }

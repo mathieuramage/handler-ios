@@ -10,6 +10,7 @@ import UIKit
 import Kingfisher
 import Async
 import GradientView
+import Intercom
 
 class SideMenuViewController: UIViewController, UITableViewDelegate {
     
@@ -39,6 +40,11 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
         view.sendSubview(toBack: profileBannerImageView) //Workaround
 		remoteConfigDisplayHelpButton()
     }
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(true)
+		toggleIntercomIcon()
+	}
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -69,6 +75,14 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
             }
         }
     }
+	
+	func toggleIntercomIcon() {
+		if Intercom.unreadConversationCount() > 0 {
+			helpButton.setImage(UIImage(named: "intercom_icon_on"), for: .normal)
+		} else {
+			helpButton.setImage(UIImage(named: "intercom_icon_off"), for: .normal)
+		}
+	}
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         AppDelegate.sharedInstance().sideMenu.hideMenuViewController()
@@ -128,18 +142,20 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
     }
     
     @IBAction func helpPressed(_ sender: UIButton) {
-        let messageNC = Storyboards.Compose.instantiateViewController(withIdentifier: "MessageComposeNavigationController") as! GradientNavigationController
-        let messageWrapper = messageNC.viewControllers.first as! MessageComposerWrapperViewController
-        messageWrapper.title = "New Message"
-        
-        
-        //		let message = Message(managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
-        //		message.recipients = NSSet(array: [User.fromHandle("handlerHQ")])
-        //		message.subject = "Help & feedback"
-        //
-        //		messageWrapper.draftMessage = message
-        //
-        //		self.presentViewController(messageNC, animated: true, completion: nil)
+		
+		Intercom.presentMessenger()
+		
+//		let messageNC = Storyboards.Compose.instantiateViewController(withIdentifier: "MessageComposeNavigationController") as! GradientNavigationController
+//		let messageWrapper = messageNC.viewControllers.first as! MessageComposerWrapperViewController
+//		messageWrapper.title = "New Message"
+//
+//		let message = Message(managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
+//		message.recipients = NSSet(array: [User.fromHandle("handlerHQ")])
+//		message.subject = "Help & feedback"
+//
+//		messageWrapper.draftMessage = message
+//
+//		self.presentViewController(messageNC, animated: true, completion: nil)
     }
     
     func signOut() {

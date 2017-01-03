@@ -29,8 +29,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		let mainController = Storyboards.Main.instantiateViewController(withIdentifier: "MainNavigationController")
 		let sideMenu = SSASideMenu(contentViewController: mainController, leftMenuViewController: menuViewController)
 		sideMenu.type = SSASideMenu.SSASideMenuType.slip
-		sideMenu.contentViewInPortraitOffsetCenterX = 30
+		sideMenu.contentViewInPortraitOffsetCenterX = 50
+		sideMenu.contentViewShadowEnabled = false
 		sideMenu.leftMenuRightInset = 30
+		sideMenu.fadeMenuView = true
 		sideMenu.statusBarStyle = SSASideMenu.SSAStatusBarStyle.hidden
 		return sideMenu
 	}()

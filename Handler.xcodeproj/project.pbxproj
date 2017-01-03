@@ -82,7 +82,6 @@
 		2FB5A4471BB20A6E0087D006 /* MailBoxOptionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB5A4461BB20A6E0087D006 /* MailBoxOptionsTableViewController.swift */; };
 		2FDAFF791BF76AEC004CE17D /* FeaturesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDAFF781BF76AEC004CE17D /* FeaturesManager.swift */; };
 		2FDB44601BD3E86F0040014E /* Async.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB44591BD3E86F0040014E /* Async.framework */; };
-		2FDB44611BD3E86F0040014E /* Bond.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB445A1BD3E86F0040014E /* Bond.framework */; };
 		2FDB44621BD3E86F0040014E /* DZNEmptyDataSet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB445B1BD3E86F0040014E /* DZNEmptyDataSet.framework */; };
 		2FDB44631BD3E86F0040014E /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB445C1BD3E86F0040014E /* Kingfisher.framework */; };
 		2FDB44641BD3E86F0040014E /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB445D1BD3E86F0040014E /* Result.framework */; };
@@ -552,7 +551,6 @@
 				2FA2EA811BAD9C570027EA77 /* CoreGraphics.framework in Frameworks */,
 				9D16ADEC1DE35A9500C8172A /* AVFoundation.framework in Frameworks */,
 				2FDB44601BD3E86F0040014E /* Async.framework in Frameworks */,
-				2FDB44611BD3E86F0040014E /* Bond.framework in Frameworks */,
 				2FDB44621BD3E86F0040014E /* DZNEmptyDataSet.framework in Frameworks */,
 				9D6B90031E09D47A00F6F4C3 /* FirebaseCore.framework in Frameworks */,
 				9DDED1E81DEBB59C0042314A /* Intercom.framework in Frameworks */,
@@ -1656,7 +1654,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Handler/Handler.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = 2338J96222;
 				ENABLE_BITCODE = NO;
@@ -1673,8 +1671,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.handler.handlerapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "47261aa1-9896-4fc8-95c5-d96c097189bc";
-				PROVISIONING_PROFILE_SPECIFIER = "Handler DEV";
+				PROVISIONING_PROFILE = "c7c91595-ce91-4463-af50-84f293735afa";
+				PROVISIONING_PROFILE_SPECIFIER = "Handler Dist";
 				SWIFT_OBJC_BRIDGING_HEADER = "Handler/Supporting Files/Handler-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -1689,7 +1687,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Handler/Handler.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = 2338J96222;
 				ENABLE_BITCODE = NO;
@@ -1706,8 +1704,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.handler.handlerapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "47261aa1-9896-4fc8-95c5-d96c097189bc";
-				PROVISIONING_PROFILE_SPECIFIER = "Handler DEV";
+				PROVISIONING_PROFILE = "c7c91595-ce91-4463-af50-84f293735afa";
+				PROVISIONING_PROFILE_SPECIFIER = "Handler Dist";
 				SWIFT_OBJC_BRIDGING_HEADER = "Handler/Supporting Files/Handler-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
