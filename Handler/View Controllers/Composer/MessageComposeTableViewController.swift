@@ -10,10 +10,12 @@
 import UIKit
 import Async
 import RichEditorView
+import Crashlytics
 
 class MessageComposeTableViewController: UITableViewController, CLTokenInputViewDelegate, UITextViewDelegate, UITextFieldDelegate, FilePickerDelegate, UIDocumentPickerDelegate, UIDocumentInteractionControllerDelegate, ContactSelectionDelegate {
     
     let ConversationMessageCellID = "ConversationMessageTableViewCell"
+	let ComposeEvents = Config.AppEvents.Compose.self
     
     struct ValidatedToken {
         var name: String
@@ -190,6 +192,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
             originalRecipients = validatedTokens.map( { $0.name } )
             //			if let msg = messageToForward {
             //				attachmentsCell.attachments = msg.attachments?.allObjects as? [Attachment]
+			//						Answers.logContentView(withName: ComposeEvents.contentName, contentType: ComposeEvents.contentType, contentId: ComposeEvents.forwarded, customAttributes: nil)
             //			}
         }
         
@@ -206,6 +209,11 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
         super.viewWillAppear(animated)
         enableSendButton()
     }
+	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		Answers.logContentView(withName: ComposeEvents.contentName, contentType: ComposeEvents.contentType, contentId: ComposeEvents.composed, customAttributes: nil)
+	}
     
     // MARK: Contacts Add Buttons
     
@@ -348,15 +356,23 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
                     
                     MessageOperations.sendDraft(identifier, message: message, subject: subject, recipientUserNames: recipients, callback: { success in
                         // TODO?
+						Answers.logContentView(withName: self.ComposeEvents.contentName, contentType: self.ComposeEvents.contentType, contentId: self.ComposeEvents.sent, customAttributes: nil)
                     })
                 } else if let replyTo = self.messageToReplyTo {
                     MessageOperations.replyToUserNames(recipients, conversationId: replyTo.conversationId!, message: message, subject: subject, callback: { (success) in
                         // TODO?
+						if recipients.count > 1 {
+							Answers.logContentView(withName: self.ComposeEvents.contentName, contentType: self.ComposeEvents.contentType, contentId: self.ComposeEvents.repliedAll, customAttributes: nil)
+						} else {
+							Answers.logContentView(withName: self.ComposeEvents.contentName, contentType: self.ComposeEvents.contentType, contentId: self.ComposeEvents.replied, customAttributes: nil)
+						}
+						
                     })
                 } else {
                     
                     MessageOperations.sendNewMessage(message, subject: subject, recipientUserNames: recipients, callback: { (success) in
                         // TODO?
+						Answers.logContentView(withName: self.ComposeEvents.contentName, contentType: self.ComposeEvents.contentType, contentId: self.ComposeEvents.sent, customAttributes: nil)
                     })
                 }
                 
@@ -406,6 +422,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
         }
         
         MessageOperations.saveMessageAsDraft(message, subject: subject, recipientUserNames: recipients, callback: { success in
+			Answers.logContentView(withName: self.ComposeEvents.contentName, contentType: self.ComposeEvents.contentType, contentId: self.ComposeEvents.savedDraft, customAttributes: nil)
         })
     }
     
@@ -439,6 +456,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
         }
         
         MessageOperations.deleteMessage(messageId: messageId, callback: { success in
+			Answers.logContentView(withName: self.ComposeEvents.contentName, contentType: self.ComposeEvents.contentType, contentId: self.ComposeEvents.notSent, customAttributes: nil)
         })
     }
     

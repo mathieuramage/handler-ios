@@ -11,8 +11,12 @@ import CoreData
 import Async
 import Bond
 import DZNEmptyDataSet
+import Crashlytics
 
 class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, NSFetchedResultsControllerDelegate, DZNEmptyDataSetSource {
+	
+	let MailboxActionEvents = Config.AppEvents.EmailActions.self
+	let MailboxEvents = Config.AppEvents.Mailbox.self
 
 	var conversationForSegue: Conversation?
 
@@ -111,6 +115,8 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 				}
 			}
 		}
+		
+		Answers.logContentView(withName: MailboxEvents.contentName, contentType: MailboxEvents.contentType, contentId: MailboxEvents.inbox, customAttributes: nil)
 	}
 
 	func refresh(_ control: UIRefreshControl) {
@@ -221,6 +227,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 
 			ConversationOperations.markConversationAsRead(conversationId: identifier, read: !read, callback: { (success) in
 				self.refresh()
+				Answers.logContentView(withName: self.MailboxActionEvents.contentName, contentType: self.MailboxActionEvents.contentType, contentId: self.MailboxActionEvents.markRead, customAttributes: nil)
 			})
 		}
 
@@ -245,12 +252,14 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 
 			ConversationOperations.markConversationStarred(conversationId: identifier, starred: starred, callback: { (success) in
 				self.refresh()
+				Answers.logContentView(withName: self.MailboxActionEvents.contentName, contentType: self.MailboxActionEvents.contentType, contentId: self.MailboxActionEvents.flagged, customAttributes: nil)
 			})
 
 		} else if index == 1 {
 
 			ConversationOperations.archiveConversation(conversationId: identifier, callback: { (success) in
 				self.refresh()
+				Answers.logContentView(withName: self.MailboxActionEvents.contentName, contentType: self.MailboxActionEvents.contentType, contentId: self.MailboxActionEvents.archived, customAttributes: nil)
 			})
 
 		}

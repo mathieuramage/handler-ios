@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import Crashlytics
 
 class ConversationTableViewController: UITableViewController {
 	
 	let MessageCellID = "ConversationMessageTableViewCell"
+	
+	let EmailActionsEvents = Config.AppEvents.EmailActions.self
 
 	var conversation : Conversation?
 
@@ -81,6 +84,7 @@ class ConversationTableViewController: UITableViewController {
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		self.plugin = BottomBarActionPluginProvider.plugin(self)
+		Answers.logContentView(withName: EmailActionsEvents.contentName, contentType: EmailActionsEvents.contentType, contentId: EmailActionsEvents.read, customAttributes: nil)
 //		self.navigationController!.toolbar!.items = plugin.barButtonItemsForThread(thread)
 	}
 

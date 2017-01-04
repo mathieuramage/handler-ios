@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import Crashlytics
 
 class InboxActionHandler: MessageTableViewCellActions {
+	
+	let EmailActionEvents = Config.AppEvents.EmailActions.self
 
 	// MARK: Actions
 
@@ -16,7 +19,13 @@ class InboxActionHandler: MessageTableViewCellActions {
 
 		switch index {
 		case 0:
-			message.isUnread ? message.conversation?.markAsRead() : message.conversation?.markAsUnread(message)
+			if message.isUnread {
+				message.conversation?.markAsRead()
+				Answers.logContentView(withName: EmailActionEvents.contentName, contentType: EmailActionEvents.contentType, contentId: EmailActionEvents.markRead, customAttributes: nil)
+			} else {
+				message.conversation?.markAsUnread(message)
+				Answers.logContentView(withName: EmailActionEvents.contentName, contentType: EmailActionEvents.contentType, contentId: EmailActionEvents.markUnread, customAttributes: nil)
+			}
 			break;
 		default:
 			break
@@ -35,10 +44,22 @@ class InboxActionHandler: MessageTableViewCellActions {
 
 		switch index {
 		case 0:
-			message.isFlagged ? message.unflag() : message.flag()
+			if message.isFlagged {
+				message.unflag()
+				Answers.logContentView(withName: EmailActionEvents.contentName, contentType: EmailActionEvents.contentType, contentId: EmailActionEvents.unflagged, customAttributes: nil)
+			} else {
+				message.flag()
+				Answers.logContentView(withName: EmailActionEvents.contentName, contentType: EmailActionEvents.contentType, contentId: EmailActionEvents.flagged, customAttributes: nil)
+			}
 			break
 		case 1:
-			message.isArchived ? message.conversation?.unarchive() : message.conversation?.archive()
+			if message.isArchived {
+				message.conversation?.unarchive()
+				Answers.logContentView(withName: EmailActionEvents.contentName, contentType: EmailActionEvents.contentType, contentId: EmailActionEvents.unarchived, customAttributes: nil)
+			} else {
+				message.conversation?.archive()
+				Answers.logContentView(withName: EmailActionEvents.contentName, contentType: EmailActionEvents.contentType, contentId: EmailActionEvents.archived, customAttributes: nil)
+			}
 			break
 		default:
 			break

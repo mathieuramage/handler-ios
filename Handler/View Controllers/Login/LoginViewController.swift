@@ -9,6 +9,7 @@
 import UIKit
 import TwitterKit
 import Intercom
+import Crashlytics
 
 class LoginViewController: UIViewController {
 
@@ -83,6 +84,10 @@ class LoginViewController: UIViewController {
 						}
 
 						AuthUtility.accessToken = accessToken
+						
+						Answers.logLogin(withMethod: "Digits",
+						                           success: true,
+						                           customAttributes: nil)
 
 						UserOperations.getMe({ (success, user) in
 							AuthUtility.user = user

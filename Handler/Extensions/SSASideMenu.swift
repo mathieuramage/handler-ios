@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Crashlytics
 
 extension UIViewController {
     
@@ -31,7 +32,8 @@ extension UIViewController {
     @IBAction func presentLeftMenuViewController() {
         
         sideMenuViewController?._presentLeftMenuViewController()
-        
+		let menuEvents = Config.AppEvents.SideMenu.self
+		Answers.logContentView(withName: menuEvents.contentName, contentType: menuEvents.contentType, contentId: menuEvents.viewMenu, customAttributes: nil)
     }
     
     @IBAction func presentRightMenuViewController() {

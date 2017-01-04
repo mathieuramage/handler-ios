@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import DZNEmptyDataSet
+import Crashlytics
 
 class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, SWTableViewCellDelegate, MailboxCountObserver, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
 
@@ -65,9 +66,36 @@ class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UI
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Hamburger_Icon"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(AbstractMailboxViewController.showSideMenu(_:)))
-
+		fireAnalyticsEvents()
 	}
-    
+	
+	func fireAnalyticsEvents() {
+		let MailboxEvents = Config.AppEvents.Mailbox.self
+		
+		switch mailboxType {
+		case .Inbox:
+			Answers.logContentView(withName: MailboxEvents.contentName, contentType: MailboxEvents.contentType, contentId: MailboxEvents.inbox, customAttributes: nil)
+			break
+		case .Unread:
+			Answers.logContentView(withName: MailboxEvents.contentName, contentType: MailboxEvents.contentType, contentId: MailboxEvents.unread, customAttributes: nil)
+			break
+		case .Flagged:
+			Answers.logContentView(withName: MailboxEvents.contentName, contentType: MailboxEvents.contentType, contentId: MailboxEvents.flagged, customAttributes: nil)
+			break
+		case .Drafts:
+			Answers.logContentView(withName: MailboxEvents.contentName, contentType: MailboxEvents.contentType, contentId: MailboxEvents.drafts, customAttributes: nil)
+			break
+		case .Sent:
+			Answers.logContentView(withName: MailboxEvents.contentName, contentType: MailboxEvents.contentType, contentId: MailboxEvents.sent, customAttributes: nil)
+			break
+		case .Archive:
+			Answers.logContentView(withName: MailboxEvents.contentName, contentType: MailboxEvents.contentType, contentId: MailboxEvents.archive, customAttributes: nil)
+			break
+		case .AllChanges:
+			break
+		}
+	}
+	
     func refresh() {
         ConversationOperations.getAllConversations(before: Date(), after: nil, limit: 0) { (success, conversations) in
 //            self.refreshControl?.endRefreshing()
