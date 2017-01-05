@@ -84,6 +84,8 @@ struct Config {
 	}
 	struct AppEvents {
 		
+		static let login = "Login"
+		
 		struct Mailbox {
 			static let contentName = "The different user’s mailboxes"
 			static let contentType = "Mailboxes"

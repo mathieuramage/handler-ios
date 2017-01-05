@@ -8,6 +8,7 @@
 
 import UIKit
 import Crashlytics
+import Intercom
 
 class ConversationTableViewController: UITableViewController {
 	
@@ -84,6 +85,8 @@ class ConversationTableViewController: UITableViewController {
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		self.plugin = BottomBarActionPluginProvider.plugin(self)
+		
+		Intercom.logEvent(withName: EmailActionsEvents.read)
 		Answers.logContentView(withName: EmailActionsEvents.contentName, contentType: EmailActionsEvents.contentType, contentId: EmailActionsEvents.read, customAttributes: nil)
 //		self.navigationController!.toolbar!.items = plugin.barButtonItemsForThread(thread)
 	}

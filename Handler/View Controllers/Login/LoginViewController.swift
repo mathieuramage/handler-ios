@@ -85,6 +85,7 @@ class LoginViewController: UIViewController {
 
 						AuthUtility.accessToken = accessToken
 						
+						Intercom.logEvent(withName: Config.AppEvents.login)
 						Answers.logLogin(withMethod: "Digits",
 						                           success: true,
 						                           customAttributes: nil)

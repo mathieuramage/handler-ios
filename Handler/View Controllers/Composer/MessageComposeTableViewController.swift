@@ -11,6 +11,7 @@ import UIKit
 import Async
 import RichEditorView
 import Crashlytics
+import Intercom
 
 class MessageComposeTableViewController: UITableViewController, CLTokenInputViewDelegate, UITextViewDelegate, UITextFieldDelegate, FilePickerDelegate, UIDocumentPickerDelegate, UIDocumentInteractionControllerDelegate, ContactSelectionDelegate {
     
@@ -192,7 +193,8 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
             originalRecipients = validatedTokens.map( { $0.name } )
             //			if let msg = messageToForward {
             //				attachmentsCell.attachments = msg.attachments?.allObjects as? [Attachment]
-			//						Answers.logContentView(withName: ComposeEvents.contentName, contentType: ComposeEvents.contentType, contentId: ComposeEvents.forwarded, customAttributes: nil)
+			//					Intercom.logEvent(withName: ComposeEvents.forwarded)
+			//					Answers.logContentView(withName: ComposeEvents.contentName, contentType: ComposeEvents.contentType, contentId: ComposeEvents.forwarded, customAttributes: nil)
             //			}
         }
         
@@ -212,6 +214,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
+		Intercom.logEvent(withName: ComposeEvents.composed)
 		Answers.logContentView(withName: ComposeEvents.contentName, contentType: ComposeEvents.contentType, contentId: ComposeEvents.composed, customAttributes: nil)
 	}
     
@@ -356,14 +359,17 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
                     
                     MessageOperations.sendDraft(identifier, message: message, subject: subject, recipientUserNames: recipients, callback: { success in
                         // TODO?
+						Intercom.logEvent(withName: self.ComposeEvents.sent)
 						Answers.logContentView(withName: self.ComposeEvents.contentName, contentType: self.ComposeEvents.contentType, contentId: self.ComposeEvents.sent, customAttributes: nil)
                     })
                 } else if let replyTo = self.messageToReplyTo {
                     MessageOperations.replyToUserNames(recipients, conversationId: replyTo.conversationId!, message: message, subject: subject, callback: { (success) in
                         // TODO?
 						if recipients.count > 1 {
+							Intercom.logEvent(withName: self.ComposeEvents.repliedAll)
 							Answers.logContentView(withName: self.ComposeEvents.contentName, contentType: self.ComposeEvents.contentType, contentId: self.ComposeEvents.repliedAll, customAttributes: nil)
 						} else {
+							Intercom.logEvent(withName: self.ComposeEvents.replied)
 							Answers.logContentView(withName: self.ComposeEvents.contentName, contentType: self.ComposeEvents.contentType, contentId: self.ComposeEvents.replied, customAttributes: nil)
 						}
 						
@@ -372,6 +378,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
                     
                     MessageOperations.sendNewMessage(message, subject: subject, recipientUserNames: recipients, callback: { (success) in
                         // TODO?
+						Intercom.logEvent(withName: self.ComposeEvents.sent)
 						Answers.logContentView(withName: self.ComposeEvents.contentName, contentType: self.ComposeEvents.contentType, contentId: self.ComposeEvents.sent, customAttributes: nil)
                     })
                 }
@@ -422,6 +429,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
         }
         
         MessageOperations.saveMessageAsDraft(message, subject: subject, recipientUserNames: recipients, callback: { success in
+			Intercom.logEvent(withName: self.ComposeEvents.savedDraft)
 			Answers.logContentView(withName: self.ComposeEvents.contentName, contentType: self.ComposeEvents.contentType, contentId: self.ComposeEvents.savedDraft, customAttributes: nil)
         })
     }
@@ -456,6 +464,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
         }
         
         MessageOperations.deleteMessage(messageId: messageId, callback: { success in
+			Intercom.logEvent(withName: self.ComposeEvents.notSent)
 			Answers.logContentView(withName: self.ComposeEvents.contentName, contentType: self.ComposeEvents.contentType, contentId: self.ComposeEvents.notSent, customAttributes: nil)
         })
     }

@@ -145,6 +145,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
         //
         //		self.presentViewController(messageNC, animated: true, completion: nil)
 
+		Intercom.logEvent(withName: MenuEvents.feedback)
 		Answers.logContentView(withName: MenuEvents.contentName, contentType: MenuEvents.contentType, contentId: MenuEvents.feedback, customAttributes: nil)
     }
     
@@ -164,6 +165,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
                     nc.setViewControllers([inboxViewController], animated: true)
                 }
 				
+				Intercom.logEvent(withName: self.MenuEvents.logout)
 				Answers.logContentView(withName: self.MenuEvents.contentName, contentType: self.MenuEvents.contentType, contentId: self.MenuEvents.logout, customAttributes: nil)
             })
         }

@@ -12,6 +12,7 @@ import Async
 import Bond
 import DZNEmptyDataSet
 import Crashlytics
+import Intercom
 
 class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, NSFetchedResultsControllerDelegate, DZNEmptyDataSetSource {
 	
@@ -115,7 +116,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 				}
 			}
 		}
-		
+		Intercom.logEvent(withName: MailboxEvents.inbox)
 		Answers.logContentView(withName: MailboxEvents.contentName, contentType: MailboxEvents.contentType, contentId: MailboxEvents.inbox, customAttributes: nil)
 	}
 
@@ -227,6 +228,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 
 			ConversationOperations.markConversationAsRead(conversationId: identifier, read: !read, callback: { (success) in
 				self.refresh()
+				Intercom.logEvent(withName: self.MailboxActionEvents.markRead)
 				Answers.logContentView(withName: self.MailboxActionEvents.contentName, contentType: self.MailboxActionEvents.contentType, contentId: self.MailboxActionEvents.markRead, customAttributes: nil)
 			})
 		}
@@ -252,6 +254,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 
 			ConversationOperations.markConversationStarred(conversationId: identifier, starred: starred, callback: { (success) in
 				self.refresh()
+				Intercom.logEvent(withName: self.MailboxActionEvents.flagged)
 				Answers.logContentView(withName: self.MailboxActionEvents.contentName, contentType: self.MailboxActionEvents.contentType, contentId: self.MailboxActionEvents.flagged, customAttributes: nil)
 			})
 
@@ -259,6 +262,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 
 			ConversationOperations.archiveConversation(conversationId: identifier, callback: { (success) in
 				self.refresh()
+				Intercom.logEvent(withName: self.MailboxActionEvents.archived)
 				Answers.logContentView(withName: self.MailboxActionEvents.contentName, contentType: self.MailboxActionEvents.contentType, contentId: self.MailboxActionEvents.archived, customAttributes: nil)
 			})
 

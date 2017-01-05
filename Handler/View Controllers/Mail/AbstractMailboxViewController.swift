@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 import DZNEmptyDataSet
 import Crashlytics
+import Intercom
 
 class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, SWTableViewCellDelegate, MailboxCountObserver, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
 
@@ -74,21 +75,27 @@ class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UI
 		
 		switch mailboxType {
 		case .Inbox:
+			Intercom.logEvent(withName: MailboxEvents.inbox)
 			Answers.logContentView(withName: MailboxEvents.contentName, contentType: MailboxEvents.contentType, contentId: MailboxEvents.inbox, customAttributes: nil)
 			break
 		case .Unread:
+			Intercom.logEvent(withName: MailboxEvents.unread)
 			Answers.logContentView(withName: MailboxEvents.contentName, contentType: MailboxEvents.contentType, contentId: MailboxEvents.unread, customAttributes: nil)
 			break
 		case .Flagged:
+			Intercom.logEvent(withName: MailboxEvents.flagged)
 			Answers.logContentView(withName: MailboxEvents.contentName, contentType: MailboxEvents.contentType, contentId: MailboxEvents.flagged, customAttributes: nil)
 			break
 		case .Drafts:
+			Intercom.logEvent(withName: MailboxEvents.drafts)
 			Answers.logContentView(withName: MailboxEvents.contentName, contentType: MailboxEvents.contentType, contentId: MailboxEvents.drafts, customAttributes: nil)
 			break
 		case .Sent:
+			Intercom.logEvent(withName: MailboxEvents.sent)
 			Answers.logContentView(withName: MailboxEvents.contentName, contentType: MailboxEvents.contentType, contentId: MailboxEvents.sent, customAttributes: nil)
 			break
 		case .Archive:
+			Intercom.logEvent(withName: MailboxEvents.archive)
 			Answers.logContentView(withName: MailboxEvents.contentName, contentType: MailboxEvents.contentType, contentId: MailboxEvents.archive, customAttributes: nil)
 			break
 		case .AllChanges:

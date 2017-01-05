@@ -177,6 +177,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				if let uid = UserDefaults.standard.string(forKey: Config.UserDefaults.uidKey) {
 					Intercom.registerUser(withUserId: uid)
 				}
+				Intercom.logEvent(withName: Config.AppEvents.login)
 				Answers.logLogin(withMethod: "Digits",
 				                 success: true,
 				                 customAttributes: nil)
