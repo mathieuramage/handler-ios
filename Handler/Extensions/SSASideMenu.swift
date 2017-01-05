@@ -8,8 +8,6 @@
 
 import Foundation
 import UIKit
-import Crashlytics
-import Intercom
 
 extension UIViewController {
     
@@ -34,9 +32,8 @@ extension UIViewController {
         
         sideMenuViewController?._presentLeftMenuViewController()
 		
-		let MenuEvents = Config.AppEvents.SideMenu.self
-		Intercom.logEvent(withName: MenuEvents.viewMenu)
-		Answers.logContentView(withName: MenuEvents.contentName, contentType: MenuEvents.contentType, contentId: MenuEvents.viewMenu, customAttributes: nil)
+		let MenuEvents = AppEvents.SideMenu.self
+		AppAnalytics.fireContentViewEvent(contentId: MenuEvents.viewMenu, event: MenuEvents)
     }
     
     @IBAction func presentRightMenuViewController() {

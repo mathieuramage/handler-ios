@@ -9,10 +9,10 @@
 import UIKit
 import CoreData
 import DZNEmptyDataSet
-import Crashlytics
-import Intercom
 
 class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, SWTableViewCellDelegate, MailboxCountObserver, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
+	
+	let MailboxEvents = AppEvents.Mailbox.self
 
 	var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult> {
 		get {
@@ -71,32 +71,24 @@ class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UI
 	}
 	
 	func fireAnalyticsEvents() {
-		let MailboxEvents = Config.AppEvents.Mailbox.self
-		
 		switch mailboxType {
 		case .Inbox:
-			Intercom.logEvent(withName: MailboxEvents.inbox)
-			Answers.logContentView(withName: MailboxEvents.contentName, contentType: MailboxEvents.contentType, contentId: MailboxEvents.inbox, customAttributes: nil)
+			AppAnalytics.fireContentViewEvent(contentId: MailboxEvents.inbox, event: MailboxEvents)
 			break
 		case .Unread:
-			Intercom.logEvent(withName: MailboxEvents.unread)
-			Answers.logContentView(withName: MailboxEvents.contentName, contentType: MailboxEvents.contentType, contentId: MailboxEvents.unread, customAttributes: nil)
+			AppAnalytics.fireContentViewEvent(contentId: MailboxEvents.unread, event: MailboxEvents)
 			break
 		case .Flagged:
-			Intercom.logEvent(withName: MailboxEvents.flagged)
-			Answers.logContentView(withName: MailboxEvents.contentName, contentType: MailboxEvents.contentType, contentId: MailboxEvents.flagged, customAttributes: nil)
+			AppAnalytics.fireContentViewEvent(contentId: MailboxEvents.flagged, event: MailboxEvents)
 			break
 		case .Drafts:
-			Intercom.logEvent(withName: MailboxEvents.drafts)
-			Answers.logContentView(withName: MailboxEvents.contentName, contentType: MailboxEvents.contentType, contentId: MailboxEvents.drafts, customAttributes: nil)
+			AppAnalytics.fireContentViewEvent(contentId: MailboxEvents.drafts, event: MailboxEvents)
 			break
 		case .Sent:
-			Intercom.logEvent(withName: MailboxEvents.sent)
-			Answers.logContentView(withName: MailboxEvents.contentName, contentType: MailboxEvents.contentType, contentId: MailboxEvents.sent, customAttributes: nil)
+			AppAnalytics.fireContentViewEvent(contentId: MailboxEvents.sent, event: MailboxEvents)
 			break
 		case .Archive:
-			Intercom.logEvent(withName: MailboxEvents.archive)
-			Answers.logContentView(withName: MailboxEvents.contentName, contentType: MailboxEvents.contentType, contentId: MailboxEvents.archive, customAttributes: nil)
+			AppAnalytics.fireContentViewEvent(contentId: MailboxEvents.archive, event: MailboxEvents)
 			break
 		case .AllChanges:
 			break

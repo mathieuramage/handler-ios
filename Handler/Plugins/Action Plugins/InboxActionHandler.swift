@@ -7,12 +7,10 @@
 //
 
 import UIKit
-import Crashlytics
-import Intercom
 
 class InboxActionHandler: MessageTableViewCellActions {
 	
-	let EmailActionEvents = Config.AppEvents.EmailActions.self
+	let EmailActionEvents = AppEvents.EmailActions.self
 
 	// MARK: Actions
 
@@ -22,12 +20,10 @@ class InboxActionHandler: MessageTableViewCellActions {
 		case 0:
 			if message.isUnread {
 				message.conversation?.markAsRead()
-				Intercom.logEvent(withName: EmailActionEvents.markRead)
-				Answers.logContentView(withName: EmailActionEvents.contentName, contentType: EmailActionEvents.contentType, contentId: EmailActionEvents.markRead, customAttributes: nil)
+				AppAnalytics.fireContentViewEvent(contentId: EmailActionEvents.markRead, event: EmailActionEvents)
 			} else {
 				message.conversation?.markAsUnread(message)
-				Intercom.logEvent(withName: EmailActionEvents.markUnread)
-				Answers.logContentView(withName: EmailActionEvents.contentName, contentType: EmailActionEvents.contentType, contentId: EmailActionEvents.markUnread, customAttributes: nil)
+				AppAnalytics.fireContentViewEvent(contentId: EmailActionEvents.markUnread, event: EmailActionEvents)
 			}
 			break;
 		default:
@@ -49,23 +45,19 @@ class InboxActionHandler: MessageTableViewCellActions {
 		case 0:
 			if message.isFlagged {
 				message.unflag()
-				Intercom.logEvent(withName: EmailActionEvents.unflagged)
-				Answers.logContentView(withName: EmailActionEvents.contentName, contentType: EmailActionEvents.contentType, contentId: EmailActionEvents.unflagged, customAttributes: nil)
+				AppAnalytics.fireContentViewEvent(contentId: EmailActionEvents.unflagged, event: EmailActionEvents)
 			} else {
 				message.flag()
-				Intercom.logEvent(withName: EmailActionEvents.flagged)
-				Answers.logContentView(withName: EmailActionEvents.contentName, contentType: EmailActionEvents.contentType, contentId: EmailActionEvents.flagged, customAttributes: nil)
+				AppAnalytics.fireContentViewEvent(contentId: EmailActionEvents.flagged, event: EmailActionEvents)
 			}
 			break
 		case 1:
 			if message.isArchived {
 				message.conversation?.unarchive()
-				Intercom.logEvent(withName: EmailActionEvents.unarchived)
-				Answers.logContentView(withName: EmailActionEvents.contentName, contentType: EmailActionEvents.contentType, contentId: EmailActionEvents.unarchived, customAttributes: nil)
+				AppAnalytics.fireContentViewEvent(contentId: EmailActionEvents.unarchived, event: EmailActionEvents)
 			} else {
 				message.conversation?.archive()
-				Intercom.logEvent(withName: EmailActionEvents.archived)
-				Answers.logContentView(withName: EmailActionEvents.contentName, contentType: EmailActionEvents.contentType, contentId: EmailActionEvents.archived, customAttributes: nil)
+				AppAnalytics.fireContentViewEvent(contentId: EmailActionEvents.archived, event: EmailActionEvents)
 			}
 			break
 		default:

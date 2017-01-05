@@ -7,14 +7,12 @@
 //
 
 import UIKit
-import Crashlytics
-import Intercom
 
 class ConversationTableViewController: UITableViewController {
 	
 	let MessageCellID = "ConversationMessageTableViewCell"
 	
-	let EmailActionsEvents = Config.AppEvents.EmailActions.self
+	let EmailActionsEvents = AppEvents.EmailActions.self
 
 	var conversation : Conversation?
 
@@ -86,8 +84,7 @@ class ConversationTableViewController: UITableViewController {
 		super.viewDidAppear(animated)
 		self.plugin = BottomBarActionPluginProvider.plugin(self)
 		
-		Intercom.logEvent(withName: EmailActionsEvents.read)
-		Answers.logContentView(withName: EmailActionsEvents.contentName, contentType: EmailActionsEvents.contentType, contentId: EmailActionsEvents.read, customAttributes: nil)
+		AppAnalytics.fireContentViewEvent(contentId: EmailActionsEvents.read, event: EmailActionsEvents)
 //		self.navigationController!.toolbar!.items = plugin.barButtonItemsForThread(thread)
 	}
 

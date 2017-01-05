@@ -11,13 +11,11 @@ import CoreData
 import Async
 import Bond
 import DZNEmptyDataSet
-import Crashlytics
-import Intercom
 
 class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, NSFetchedResultsControllerDelegate, DZNEmptyDataSetSource {
 	
-	let MailboxActionEvents = Config.AppEvents.EmailActions.self
-	let MailboxEvents = Config.AppEvents.Mailbox.self
+	let MailboxActionEvents = AppEvents.EmailActions.self
+	let MailboxEvents = AppEvents.Mailbox.self
 
 	var conversationForSegue: Conversation?
 
@@ -116,8 +114,8 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 				}
 			}
 		}
-		Intercom.logEvent(withName: MailboxEvents.inbox)
-		Answers.logContentView(withName: MailboxEvents.contentName, contentType: MailboxEvents.contentType, contentId: MailboxEvents.inbox, customAttributes: nil)
+		
+		AppAnalytics.fireContentViewEvent(contentId: MailboxEvents.inbox, event: MailboxEvents)
 	}
 
 	func refresh(_ control: UIRefreshControl) {
@@ -228,8 +226,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 
 			ConversationOperations.markConversationAsRead(conversationId: identifier, read: !read, callback: { (success) in
 				self.refresh()
-				Intercom.logEvent(withName: self.MailboxActionEvents.markRead)
-				Answers.logContentView(withName: self.MailboxActionEvents.contentName, contentType: self.MailboxActionEvents.contentType, contentId: self.MailboxActionEvents.markRead, customAttributes: nil)
+				AppAnalytics.fireContentViewEvent(contentId: self.MailboxActionEvents.markRead, event: self.MailboxActionEvents)
 			})
 		}
 
@@ -254,16 +251,14 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 
 			ConversationOperations.markConversationStarred(conversationId: identifier, starred: starred, callback: { (success) in
 				self.refresh()
-				Intercom.logEvent(withName: self.MailboxActionEvents.flagged)
-				Answers.logContentView(withName: self.MailboxActionEvents.contentName, contentType: self.MailboxActionEvents.contentType, contentId: self.MailboxActionEvents.flagged, customAttributes: nil)
+				AppAnalytics.fireContentViewEvent(contentId: self.MailboxActionEvents.flagged, event: self.MailboxActionEvents)
 			})
 
 		} else if index == 1 {
 
 			ConversationOperations.archiveConversation(conversationId: identifier, callback: { (success) in
 				self.refresh()
-				Intercom.logEvent(withName: self.MailboxActionEvents.archived)
-				Answers.logContentView(withName: self.MailboxActionEvents.contentName, contentType: self.MailboxActionEvents.contentType, contentId: self.MailboxActionEvents.archived, customAttributes: nil)
+				AppAnalytics.fireContentViewEvent(contentId: self.MailboxActionEvents.archived, event: self.MailboxActionEvents)
 			})
 
 		}

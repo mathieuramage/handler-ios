@@ -10,8 +10,6 @@ import UIKit
 import Kingfisher
 import Async
 import GradientView
-import Intercom
-import Crashlytics
 
 class SideMenuViewController: UIViewController, UITableViewDelegate {
     
@@ -24,7 +22,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
     @IBOutlet weak var gradientView: GradientView!
 	@IBOutlet weak var separatorView: UIView!
 	
-	let MenuEvents = Config.AppEvents.SideMenu.self
+	let MenuEvents = AppEvents.SideMenu.self
     
     var optionsTableViewController: MailBoxOptionsTableViewController? {
         didSet {
@@ -145,8 +143,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
         //
         //		self.presentViewController(messageNC, animated: true, completion: nil)
 
-		Intercom.logEvent(withName: MenuEvents.feedback)
-		Answers.logContentView(withName: MenuEvents.contentName, contentType: MenuEvents.contentType, contentId: MenuEvents.feedback, customAttributes: nil)
+		AppAnalytics.fireContentViewEvent(contentId: MenuEvents.feedback, event: MenuEvents)
     }
     
     func signOut() {
@@ -165,8 +162,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
                     nc.setViewControllers([inboxViewController], animated: true)
                 }
 				
-				Intercom.logEvent(withName: self.MenuEvents.logout)
-				Answers.logContentView(withName: self.MenuEvents.contentName, contentType: self.MenuEvents.contentType, contentId: self.MenuEvents.logout, customAttributes: nil)
+				AppAnalytics.fireContentViewEvent(contentId: self.MenuEvents.logout, event: self.MenuEvents)
             })
         }
     }

@@ -10,13 +10,11 @@
 import UIKit
 import Async
 import RichEditorView
-import Crashlytics
-import Intercom
 
 class MessageComposeTableViewController: UITableViewController, CLTokenInputViewDelegate, UITextViewDelegate, UITextFieldDelegate, FilePickerDelegate, UIDocumentPickerDelegate, UIDocumentInteractionControllerDelegate, ContactSelectionDelegate {
     
     let ConversationMessageCellID = "ConversationMessageTableViewCell"
-	let ComposeEvents = Config.AppEvents.Compose.self
+	let ComposeEvents = AppEvents.Compose.self
     
     struct ValidatedToken {
         var name: String
@@ -193,8 +191,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
             originalRecipients = validatedTokens.map( { $0.name } )
             //			if let msg = messageToForward {
             //				attachmentsCell.attachments = msg.attachments?.allObjects as? [Attachment]
-			//					Intercom.logEvent(withName: ComposeEvents.forwarded)
-			//					Answers.logContentView(withName: ComposeEvents.contentName, contentType: ComposeEvents.contentType, contentId: ComposeEvents.forwarded, customAttributes: nil)
+			//			AppAnalytics.fireContentViewEvent(contentId: ComposeEvents.forwarded, event: ComposeEvents)
             //			}
         }
         
@@ -214,8 +211,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-		Intercom.logEvent(withName: ComposeEvents.composed)
-		Answers.logContentView(withName: ComposeEvents.contentName, contentType: ComposeEvents.contentType, contentId: ComposeEvents.composed, customAttributes: nil)
+		AppAnalytics.fireContentViewEvent(contentId: ComposeEvents.composed, event: ComposeEvents)
 	}
     
     // MARK: Contacts Add Buttons
@@ -359,18 +355,15 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
                     
                     MessageOperations.sendDraft(identifier, message: message, subject: subject, recipientUserNames: recipients, callback: { success in
                         // TODO?
-						Intercom.logEvent(withName: self.ComposeEvents.sent)
-						Answers.logContentView(withName: self.ComposeEvents.contentName, contentType: self.ComposeEvents.contentType, contentId: self.ComposeEvents.sent, customAttributes: nil)
+						AppAnalytics.fireContentViewEvent(contentId: self.ComposeEvents.sent, event: self.ComposeEvents)
                     })
                 } else if let replyTo = self.messageToReplyTo {
                     MessageOperations.replyToUserNames(recipients, conversationId: replyTo.conversationId!, message: message, subject: subject, callback: { (success) in
                         // TODO?
 						if recipients.count > 1 {
-							Intercom.logEvent(withName: self.ComposeEvents.repliedAll)
-							Answers.logContentView(withName: self.ComposeEvents.contentName, contentType: self.ComposeEvents.contentType, contentId: self.ComposeEvents.repliedAll, customAttributes: nil)
+							AppAnalytics.fireContentViewEvent(contentId: self.ComposeEvents.repliedAll, event: self.ComposeEvents)
 						} else {
-							Intercom.logEvent(withName: self.ComposeEvents.replied)
-							Answers.logContentView(withName: self.ComposeEvents.contentName, contentType: self.ComposeEvents.contentType, contentId: self.ComposeEvents.replied, customAttributes: nil)
+							AppAnalytics.fireContentViewEvent(contentId: self.ComposeEvents.replied, event: self.ComposeEvents)
 						}
 						
                     })
@@ -378,8 +371,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
                     
                     MessageOperations.sendNewMessage(message, subject: subject, recipientUserNames: recipients, callback: { (success) in
                         // TODO?
-						Intercom.logEvent(withName: self.ComposeEvents.sent)
-						Answers.logContentView(withName: self.ComposeEvents.contentName, contentType: self.ComposeEvents.contentType, contentId: self.ComposeEvents.sent, customAttributes: nil)
+						AppAnalytics.fireContentViewEvent(contentId: self.ComposeEvents.sent, event: self.ComposeEvents)
                     })
                 }
                 
@@ -429,8 +421,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
         }
         
         MessageOperations.saveMessageAsDraft(message, subject: subject, recipientUserNames: recipients, callback: { success in
-			Intercom.logEvent(withName: self.ComposeEvents.savedDraft)
-			Answers.logContentView(withName: self.ComposeEvents.contentName, contentType: self.ComposeEvents.contentType, contentId: self.ComposeEvents.savedDraft, customAttributes: nil)
+			AppAnalytics.fireContentViewEvent(contentId: self.ComposeEvents.savedDraft, event: self.ComposeEvents)
         })
     }
     
@@ -464,8 +455,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
         }
         
         MessageOperations.deleteMessage(messageId: messageId, callback: { success in
-			Intercom.logEvent(withName: self.ComposeEvents.notSent)
-			Answers.logContentView(withName: self.ComposeEvents.contentName, contentType: self.ComposeEvents.contentType, contentId: self.ComposeEvents.notSent, customAttributes: nil)
+			AppAnalytics.fireContentViewEvent(contentId: self.ComposeEvents.notSent, event: self.ComposeEvents)
         })
     }
     
