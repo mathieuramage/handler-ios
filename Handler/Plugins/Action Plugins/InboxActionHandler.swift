@@ -11,11 +11,11 @@ import UIKit
 class InboxActionHandler: MessageTableViewCellActions {
 	
 	let EmailActionEvents = AppEvents.EmailActions.self
-
+	
 	// MARK: Actions
-
+	
 	func leftButtonTriggered(_ index: Int, data message: ManagedMessage, callback: (() -> Void)?) {
-
+		
 		switch index {
 		case 0:
 			if message.isUnread {
@@ -29,18 +29,18 @@ class InboxActionHandler: MessageTableViewCellActions {
 		default:
 			break
 		}
-
+		
 		defer{
 			if let cb = callback {
 				cb()
 			}
 		}
-
+		
 		// TODO: Implement actions
 	}
-
+	
 	func rightButtonTriggered(_ index: Int, data message: ManagedMessage, callback: (() -> Void)?) {
-
+		
 		switch index {
 		case 0:
 			if message.isFlagged {
@@ -63,7 +63,7 @@ class InboxActionHandler: MessageTableViewCellActions {
 		default:
 			break
 		}
-
+		
 		defer{
 			if let cb = callback {
 				cb()
@@ -71,9 +71,9 @@ class InboxActionHandler: MessageTableViewCellActions {
 		}
 		// TODO: Implement actions
 	}
-
+	
 	// MARK: Data Source
-
+	
 	func leftButtonsForData(data message: ManagedMessage) -> [AnyObject] {
 		let array = NSMutableArray()
 		if message.isUnread {
@@ -83,7 +83,7 @@ class InboxActionHandler: MessageTableViewCellActions {
 		}
 		return array as [AnyObject]
 	}
-
+	
 	func rightButtonsForData(data message: ManagedMessage) -> [AnyObject] {
 		let array = NSMutableArray()
 		if message.isFlagged {
@@ -91,7 +91,7 @@ class InboxActionHandler: MessageTableViewCellActions {
 		} else {
 			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.orange), icon: UIImage(named: "icon_flag"))
 		}
-
+		
 		if message.isArchived {
 			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.darkBlue), icon: UIImage(named: "icon_unarchive"))
 		} else {

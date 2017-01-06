@@ -59,7 +59,7 @@ class AppAnalytics {
 }
 
 struct AppEvents {
-
+	
 	struct Login: EventsProtocol {
 		static let contentName = "Login"
 		static let contentType = "Login"
