@@ -83,6 +83,8 @@ class LoginViewController: UIViewController {
 						}
 
 						AuthUtility.accessToken = accessToken
+						
+						AppAnalytics.fireLoginEvent()
 
 						UserOperations.getMe({ (success, user) in
 							AuthUtility.user = user

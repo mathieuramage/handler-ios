@@ -177,6 +177,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				if let uid = UserDefaults.standard.string(forKey: Config.UserDefaults.uidKey) {
 					Intercom.registerUser(withUserId: uid)
 				}
+				AppAnalytics.fireLoginEvent()
 			}else{
 				window?.rootViewController = Storyboards.Intro.instantiateViewController(withIdentifier: "LoginViewController")
 			}
