@@ -136,6 +136,7 @@
 		9D16ADF21DE35AB700C8172A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D16ADF01DE35AB700C8172A /* SystemConfiguration.framework */; };
 		9D16ADF41DE35AC500C8172A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D16ADF31DE35AC400C8172A /* CoreMedia.framework */; };
 		9D16ADF61DE35ACA00C8172A /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D16ADF51DE35ACA00C8172A /* CoreVideo.framework */; };
+		9D5B9B261E1FC7BE002BBB6E /* AppAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5B9B251E1FC7BE002BBB6E /* AppAnalytics.swift */; };
 		9D6B90021E09D47A00F6F4C3 /* FirebaseAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6B8FFC1E09D47900F6F4C3 /* FirebaseAnalytics.framework */; };
 		9D6B90031E09D47A00F6F4C3 /* FirebaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6B8FFD1E09D47900F6F4C3 /* FirebaseCore.framework */; };
 		9D6B90041E09D47A00F6F4C3 /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6B8FFE1E09D47900F6F4C3 /* FirebaseInstanceID.framework */; };
@@ -418,6 +419,7 @@
 		9D16ADF01DE35AB700C8172A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9D16ADF31DE35AC400C8172A /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		9D16ADF51DE35ACA00C8172A /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		9D5B9B251E1FC7BE002BBB6E /* AppAnalytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAnalytics.swift; sourceTree = "<group>"; };
 		9D6B8FFC1E09D47900F6F4C3 /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseAnalytics.framework; sourceTree = "<group>"; };
 		9D6B8FFD1E09D47900F6F4C3 /* FirebaseCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseCore.framework; sourceTree = "<group>"; };
 		9D6B8FFE1E09D47900F6F4C3 /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseInstanceID.framework; sourceTree = "<group>"; };
@@ -1209,6 +1211,7 @@
 		DF1FD2DA1B62360600A58B71 /* Handler */ = {
 			isa = PBXGroup;
 			children = (
+				9D5B9B251E1FC7BE002BBB6E /* AppAnalytics.swift */,
 				DF1FD2DD1B62360600A58B71 /* AppDelegate.swift */,
 				2FF788261BB5B05000B297D3 /* Handler.entitlements */,
 				BF24C3C11D327FBA00CC1667 /* Config.swift */,
@@ -1472,6 +1475,7 @@
 				2F7B0D091BFDDA920015C43A /* ActionPluginProvider.swift in Sources */,
 				BF27F3921CDDF01C003A92D9 /* APSocialProfile.m in Sources */,
 				2F4E41551BB08A3200AA2DEF /* SSASideMenu.swift in Sources */,
+				9D5B9B261E1FC7BE002BBB6E /* AppAnalytics.swift in Sources */,
 				2F01369F1BD1029A008BAD9D /* ContactsTableViewController.swift in Sources */,
 				BF862B311D16EDA700E4AE34 /* MessageOperations.swift in Sources */,
 				2F76D4D01BB48F1600235A95 /* MailboxObserversManager.swift in Sources */,
