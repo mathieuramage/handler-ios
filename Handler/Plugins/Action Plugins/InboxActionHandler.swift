@@ -16,7 +16,7 @@ class InboxActionHandler: MessageTableViewCellActions {
 
 		switch index {
 		case 0:
-			!message.read ? message.conversation?.markAsRead() : message.conversation?.markAsUnread(message)
+//			!message.read ? message.conversation?.markAsRead() : message.conversation?.markAsUnread(message)
 			break;
 		default:
 			break
@@ -35,10 +35,10 @@ class InboxActionHandler: MessageTableViewCellActions {
 
 		switch index {
 		case 0:
-			message.isFlagged ? message.unflag() : message.flag()
+//			message.isFlagged ? message.unflag() : message.flag()
 			break
 		case 1:
-			message.isArchived ? message.conversation?.unarchive() : message.conversation?.archive()
+//			message.isArchived ? message.conversation?.unarchive() : message.conversation?.archive()
 			break
 		default:
 			break

@@ -10,25 +10,10 @@ import UIKit
 import CoreData
 import DZNEmptyDataSet
 
-class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, SWTableViewCellDelegate, MailboxCountObserver, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
-
-	var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult> {
-		get {
-			return MailboxObserversManager.sharedInstance.fetchedResultsControllerForType(mailboxType)
-		}
-	}
-
-	var fetchedObjects: [Message] {
-		get {
-			return fetchedResultsController.fetchedObjects as? [Message] ?? [Message]()
-		}
-	}
-
-	var fetchedObjectsThread: [Conversation] {
-		get {
-			return fetchedResultsController.fetchedObjects as? [Conversation] ?? [Conversation]()
-		}
-	}
+class AbstractMessageMailboxViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, SWTableViewCellDelegate, MailboxCountObserver, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
+	
+	var fetchedResultsController: NSFetchedResultsController<Message>!
+	var fetchedObjects: [Message] {return fetchedResultsController.fetchedObjects ?? [Message]()}
 
 	var mailboxType: MailboxType = .Inbox {
 		didSet{
@@ -52,28 +37,23 @@ class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UI
 		tableView.delegate = self
 		tableView.emptyDataSetDelegate = self
 		tableView.emptyDataSetSource = self
+		fetchedResultsController.delegate = self
 
-		MailboxObserversManager.sharedInstance.addObserverForMailboxType(mailboxType , observer: self)
-		MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(mailboxType , observer: self)
+//		MailboxObserversManager.sharedInstance.addObserverForMailboxType(mailboxType , observer: self)
+//		MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(mailboxType , observer: self)
 	}
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        refresh()
+		try? fetchedResultsController.performFetch()
     }
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-		self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Hamburger_Icon"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(AbstractMailboxViewController.showSideMenu(_:)))
+		self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Hamburger_Icon"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(AbstractMessageMailboxViewController.showSideMenu(_:)))
 
 	}
     
-    func refresh() {
-        ConversationOperations.getAllConversations(before: Date(), after: nil, limit: 0) { (success, conversations) in
-//            self.refreshControl?.endRefreshing()
-        }
-    }
-
 	func showSideMenu(_ sender: UIBarButtonItem) {
 		presentLeftMenuViewController()
 	}
@@ -90,10 +70,6 @@ class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UI
 		}
 	}
 
-	func numberOfSections(in tableView: UITableView) -> Int {
-		return 1
-	}
-
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return fetchedResultsController.fetchedObjects?.count ?? 0
 	}
@@ -101,10 +77,10 @@ class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UI
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "MessageTableViewCell", for: indexPath) as! MessageTableViewCell
 		if mailboxType == .Unread {
-			if indexPath.row < fetchedObjectsThread.count {
-				let conversation = fetchedObjectsThread[indexPath.row]
-				InboxMessageTableViewCellHelper.configureCell(cell, conversation: conversation)
-			}
+//			if indexPath.row < fetchedObjectsThread.count {
+//				let conversation = fetchedObjectsThread[indexPath.row]
+//				InboxMessageTableViewCellHelper.configureCell(cell, conversation: conversation)
+//			}
 		} else {
 			FormattingPluginProvider.messageCellPluginForInboxType(mailboxType)?.populateView(data: fetchedObjects[indexPath.row], view: cell)
 		}
@@ -120,13 +96,11 @@ class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UI
 			}
 		}
 
-		let isUnreadBox = mailboxType == .Unread
-		let count = isUnreadBox ? fetchedObjectsThread.count : fetchedObjects.count
-
+		let count = fetchedObjects.count
 
 		if indexPath.row < count {
 
-			let message = isUnreadBox ? fetchedObjectsThread[indexPath.row].messages?.anyObject() as! Message: fetchedObjects[indexPath.row]
+			let message = fetchedObjects[indexPath.row]
 			messageForSegue = message
 
 			if mailboxType == .Drafts {
@@ -186,9 +160,9 @@ class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UI
 	func swipeableTableViewCell(_ cell: SWTableViewCell!, didTriggerLeftUtilityButtonWith index: Int) {
 
 		if mailboxType == .Unread {
-			if let path = tableView.indexPath(for: cell), path.row < fetchedObjectsThread.count, let data = fetchedObjectsThread[path.row].mostRecentMessage {
-				ActionPluginProvider.messageCellPluginForInboxType(.Inbox)?.leftButtonTriggered(index, data: data, callback: nil)
-			}
+//			if let path = tableView.indexPath(for: cell), path.row < fetchedObjectsThread.count, let data = fetchedObjectsThread[path.row].mostRecentMessage {
+//				ActionPluginProvider.messageCellPluginForInboxType(.Inbox)?.leftButtonTriggered(index, data: data, callback: nil)
+//			}
 		} else {
 
 			if let path = tableView.indexPath(for: cell), path.row < fetchedObjects.count {
@@ -236,7 +210,6 @@ class AbstractMailboxViewController: UIViewController, UITableViewDataSource, UI
 	}
 
 	// MARK: Empty Dataset DataSource
-
 	func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
 		return UIImage(named: "Inbox_Zero_Graphic_1")
 	}

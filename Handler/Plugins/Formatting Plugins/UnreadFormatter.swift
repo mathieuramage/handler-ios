@@ -31,7 +31,7 @@ struct UnreadFormatter: MessageTableViewCellFormatter {
         
         view.leftUtilityButtons = leftButtonsForData(data: message)
         view.rightUtilityButtons = rightButtonsForData(data: message)
-        if let url = message.user?.pictureUrl {
+        if let url = message.sender?.pictureUrl {
             view.senderProfileImageView.kf.setImage(with: url, placeholder: UIImage.randomGhostImage(), options: nil, progressBlock: nil, completionHandler: nil)
         }
         

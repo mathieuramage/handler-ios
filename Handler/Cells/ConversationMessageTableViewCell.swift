@@ -61,7 +61,7 @@ extension ConversationMessageTableViewCell: RichEditorDelegate {
 
 	func richEditor(_ editor: RichEditorView, shouldInteractWithURL url: URL) -> Bool {
 		Async.main {
-			UIApplication.shared.openURL(url)
+			UIApplication.shared.open(url, options: [:], completionHandler: nil)
 		}
 
 		return false

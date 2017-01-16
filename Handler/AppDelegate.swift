@@ -121,7 +121,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func applicationWillTerminate(_ application: UIApplication) {
 		cancelMessageUpdateTimer()
-		PersistenceManager.mainManagedContext.saveRecursively()
+		CoreDataStack.shared.viewContext.trySave()
+		CoreDataStack.shared.backgroundContext.trySave()		
 	}
 
 
@@ -135,14 +136,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	func updateMessages() {
-//		APICommunicator.sharedInstance.fetchNewMessagesWithCompletion { (error) -> Void in
-//			Async.main(block: { () -> Void in
-//				guard let error = error else {
-//					return
-//				}
-//				error.show()
-//			})
-//		}
+		ConversationManager.updateConversations()
 	}
 
 	func loadInitialViewController() {

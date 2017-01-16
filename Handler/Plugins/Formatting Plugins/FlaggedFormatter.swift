@@ -31,8 +31,8 @@ struct FlaggedFormatter: MessageTableViewCellFormatter {
         
         view.leftUtilityButtons = leftButtonsForData(data: message)
         view.rightUtilityButtons = rightButtonsForData(data: message)
-        if let urlString = message.sender?.profile_picture_url, let profileUrl = URL(string: urlString) {
-            view.senderProfileImageView.kf.setImage(with: profileUrl, placeholder: UIImage.randomGhostImage(), options: nil, progressBlock: nil, completionHandler: { (image, error, _, _) in
+        if let url = message.sender?.pictureUrl {
+            view.senderProfileImageView.kf.setImage(with: url, placeholder: UIImage.randomGhostImage(), options: nil, progressBlock: nil, completionHandler: { (image, error, _, _) in
                 
             })
         }

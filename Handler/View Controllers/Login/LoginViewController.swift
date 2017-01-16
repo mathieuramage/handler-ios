@@ -114,18 +114,18 @@ class LoginViewController: UIViewController,NVActivityIndicatorViewable {
                             return
                         }
                         
-                        let appUser = UserDao.updateOrCreateUser(userData: data)
-                        
-                        AuthUtility.user = appUser
-                        
-                        if let uid = appUser.identifier {
-                            UserDefaults.standard.set(uid, forKey: Config.UserDefaults.uidKey)
-                            Intercom.registerUser(withUserId: uid)
-                        }
+//                        let appUser = UserDao.updateOrCreateUser(userData: data)
+//                        
+//                        AuthUtility.user = appUser
+//                        
+//                        if let uid = appUser.identifier {
+//                            UserDefaults.standard.set(uid, forKey: Config.UserDefaults.uidKey)
+//                            Intercom.registerUser(withUserId: uid)
+//                        }
                         
                         UIView.transition(with: AppDelegate.sharedInstance().window!, duration: 0.5, options: UIViewAnimationOptions.transitionCrossDissolve, animations: { () -> Void in
                             AppDelegate.sharedInstance().window?.rootViewController = AppDelegate.sharedInstance().sideMenu
-                            GreetingViewController.showWithHandle(appUser.handle, back: false)
+//                            GreetingViewController.showWithHandle(appUser.handle, back: false)
                         }, completion: nil)
                     })
                     

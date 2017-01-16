@@ -10,23 +10,30 @@ import Foundation
 import CoreData
 
 
-public class Conversation: NSManagedObject {
+extension Conversation {
     
-    class func conversationWithID(_ identifier: String, inContext context: NSManagedObjectContext) -> Conversation {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Conversation")
-        fetchRequest.predicate = NSPredicate(format: "identifier == %@", identifier)
-        fetchRequest.fetchBatchSize = 1
-        
-        if let conversation = (context.safeExecuteFetchRequest(fetchRequest) as [Conversation]).first {
-            return conversation
-        }
-        
-        let conversation = Conversation(managedObjectContext: context)
-        conversation.identifier = identifier
-        
-        return conversation
+    convenience init(data : ConversationData, context : NSManagedObjectContext) {
+        self.init(context: context)
+		self.setConversationData(data)
     }
     
+    func setConversationData(_ data : ConversationData) {
+		
+		self.identifier = data.identifier
+		
+		var latest = Date(timeIntervalSince1970: 0)
+		if let messagesData = data.messages {
+			for messageData in messagesData {
+				let message = MessageDao.updateOrCreateMessage(messageData: messageData, context: self.managedObjectContext!)
+				self.addToMessages(message)
+				if message.createdAt?.isLaterThanDate(latest) == true {
+					latest = message.createdAt as! Date
+				}
+			}
+		}
+		self.latestMessageDate = latest as NSDate
+    }
+	
     var latestMessage : Message? { //this may be unnecessary
         get {
             guard let messages = messages?.allObjects as? [Message], var latest = messages.first else {
@@ -153,51 +160,51 @@ public class Conversation: NSManagedObject {
         return sortedUnreadMessages.last
     }
     
-    func archive() {
-        if let messages = self.messages {
-            for message in messages {
-                if let m = message as? Message {
-                    m.moveToArchive()
-                }
-            }
-        }
-    }
-    
-    func unarchive() {
-        if let messages = self.messages {
-            for message in messages {
-                if let m = message as? Message {
-                    m.moveToInbox()
-                }
-            }
-        }
-    }
-    
-    func markAsRead() {
-        guard let messages = messages?.allObjects as? [Message] else {
-            return
-        }
-        
-        for message in messages {
-            message.markAsRead()
-        }
-    }
-    
-    func markAsUnread(_ message: Message) {
-        guard let messages = messages?.allObjects as? [Message], let currentMessageDate = message.updatedAt else {
-            return
-        }
-        
-        for messageToCompare in messages {
-            guard let messageToCompareDate = messageToCompare.updatedAt else {
-                continue
-            }
-            
-            if messageToCompareDate.isLaterThanDate(currentMessageDate as Date) || (messageToCompareDate == currentMessageDate) {
-                messageToCompare.markAsUnread()
-            }
-        }
-    }
+//    func archive() {
+//        if let messages = self.messages {
+//            for message in messages {
+//                if let m = message as? Message {
+//                    m.moveToArchive()
+//                }
+//            }
+//        }
+//    }
+//    
+//    func unarchive() {
+//        if let messages = self.messages {
+//            for message in messages {
+//                if let m = message as? Message {
+//                    m.moveToInbox()
+//                }
+//            }
+//        }
+//    }
+//    
+//    func markAsRead() {
+//        guard let messages = messages?.allObjects as? [Message] else {
+//            return
+//        }
+//        
+//        for message in messages {
+//            message.markAsRead()
+//        }
+//    }
+//    
+//    func markAsUnread(_ message: Message) {
+//        guard let messages = messages?.allObjects as? [Message], let currentMessageDate = message.updatedAt else {
+//            return
+//        }
+//        
+//        for messageToCompare in messages {
+//            guard let messageToCompareDate = messageToCompare.updatedAt else {
+//                continue
+//            }
+//            
+//            if messageToCompareDate.isLaterThanDate(currentMessageDate as Date) || (messageToCompareDate == currentMessageDate) {
+//                messageToCompare.markAsUnread()
+//            }
+//        }
+//    }
 
 }
 

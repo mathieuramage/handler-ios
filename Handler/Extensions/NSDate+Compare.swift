@@ -8,24 +8,3 @@
 
 import Foundation
 
-extension Date {
-
-	func isLaterThanDate(_ date: Date) -> Bool {
-		return timeIntervalSinceReferenceDate > date.timeIntervalSinceReferenceDate
-	}
-
-	func isEarlierThan(_ date: Date) -> Bool {
-		return timeIntervalSinceReferenceDate < date.timeIntervalSinceReferenceDate
-	}
-}
-
-extension NSDate {
-    
-    func isLaterThanDate(_ date: Date) -> Bool {
-        return timeIntervalSinceReferenceDate > date.timeIntervalSinceReferenceDate
-    }
-    
-    func isEarlierThan(_ date: Date) -> Bool {
-        return timeIntervalSinceReferenceDate < date.timeIntervalSinceReferenceDate
-    }
-}

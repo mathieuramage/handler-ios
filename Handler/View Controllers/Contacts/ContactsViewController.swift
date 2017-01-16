@@ -91,7 +91,7 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 		if selectedTab == 0 {
 			if let cursor = followerNextCursor {
 				TwitterAPIOperations.getTwitterFollowers(cursor) { (users, nextCursor) in
-					self.twitterFollowerList.append(users)
+                    self.twitterFollowerList.append(contentsOf: users)
 					self.followerNextCursor = nextCursor
 					self.tableView.reloadData()
 				}
@@ -101,7 +101,7 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 
 			if let cursor = followingNextCursor {
 				TwitterAPIOperations.getTwitterFriends(cursor) { (users, nextCursor) in
-					self.twitterFollowingList.append(users)
+                    self.twitterFollowingList.append(contentsOf: users)
 					self.followingNextCursor = nextCursor
 					self.tableView.reloadData()
 				}

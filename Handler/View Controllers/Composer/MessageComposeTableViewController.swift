@@ -81,7 +81,6 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
         }
     }
     var messageToForward: Message?
-    fileprivate var internalDraftmessage: Message?
     var draftMessage: Message?
     // TODO
     //		{
@@ -169,7 +168,10 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
                 subjectTextField.text = message.subject
             }
             else {
-                subjectTextField.text = "\(message.replyPrefix) \(message.subject ?? "")"
+                
+                //FIXME
+//                subjectTextField.text = "\(message.replyPrefix) \(message.subject ?? "")"
+                subjectTextField.text = "Re: \(message.subject ?? "")"
             }
             
             originalReplySubject = subjectTextField.text
@@ -230,17 +232,17 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
     
     func didSelectUser(_ user: User) {
         navigationController?.popViewController(animated: true)
-        validatedTokens.append(ValidatedToken(name: user.handle ?? "", isOnHandler: true))
+        validatedTokens.append(ValidatedToken(name: user.handle , isOnHandler: true))
         if addContactToCC {
-            self.ccTokenView.add(CLToken(displayText: "@" + (user.handle ?? ""), context: nil))
+            self.ccTokenView.add(CLToken(displayText: "@" + (user.handle), context: nil))
         } else {
-            self.tokenView.add(CLToken(displayText: "@" + (user.handle ?? ""), context: nil))
+            self.tokenView.add(CLToken(displayText: "@" + (user.handle), context: nil))
         }
     }
     // MARK: Sending / Cancelling
     
     func dismiss() {
-        
+		
         let messageText = richTextContentView.contentHTML
         let messageSubject = subjectTextField.text
 
@@ -343,10 +345,29 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
             switchUserInteractionState(true)
             return
         }
-        
-        
+		
+		func checkSendDismiss() {
+			if let draft = self.draftMessage, let identifier = draft.identifier {
+				MessageManager.sendDraft(messageId: identifier, content: message, subject: subject, recipients: recipients, callback: { message in
+					self.navigationController?.dismiss(animated: true, completion: nil)
+				})
+			} else if let replyTo = self.messageToReplyTo {
+				MessageManager.replyToConversation(conversationId: replyTo.conversationId!, content: message, subject: subject, recipients: recipients, callback: { message in
+					self.navigationController?.dismiss(animated: true, completion: nil)
+				})
+
+			} else {
+				MessageManager.sendNewMessage(content: message, subject: subject, recipients: recipients, callback: { message in
+					self.navigationController?.dismiss(animated: true, completion: nil)
+				})
+
+			}
+		}
+		
+		
+		
         if (subject.characters.count == 0) {
-            
+			
             let alertController = UIAlertController(title: "Empty subject", message: "This message has no subject line.\n Do you want to send it anyway?", preferredStyle: .alert)
             
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
@@ -354,53 +375,20 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
             }
             
             let sendAnywayAction = UIAlertAction(title: "Send", style: .default) { (action) in
-                
-                if let draft = self.draftMessage, let identifier = draft.identifier {
-                    
-                    MessageOperations.sendDraft(identifier, message: message, subject: subject, recipientUserNames: recipients, callback: { success in
-                        // TODO?
-                    })
-                } else if let replyTo = self.messageToReplyTo {
-                    MessageOperations.replyToUserNames(recipients, conversationId: replyTo.conversationId!, message: message, subject: subject, callback: { (success) in
-                        // TODO?
-                    })
-                } else {
-                    
-                    MessageOperations.sendNewMessage(message, subject: subject, recipientUserNames: recipients, callback: { (success) in
-                        // TODO?
-                    })
-                }
-                
-                self.navigationController?.dismiss(animated: true, completion: nil)
                 self.switchUserInteractionState(true)
+				checkSendDismiss()
             }
-            
             alertController.addAction(cancelAction)
             alertController.addAction(sendAnywayAction)
-            
             self.present(alertController, animated: true, completion: nil)
             
         } else {
-            
-            if let draft = self.draftMessage, let identifier = draft.identifier {
-                
-                MessageOperations.sendDraft(identifier, message: message, subject: subject, recipientUserNames: recipients, callback: { success in
-                    // TODO?
-                })
-            } else if let replyTo = self.messageToReplyTo {
-                MessageOperations.replyToUserNames(recipients, conversationId: replyTo.conversationId!, message: message, subject: subject, callback: { (success) in
-                    self.dismiss(animated: true, completion: nil)
-                })
-            } else {
-                MessageOperations.sendNewMessage(message, subject: subject, recipientUserNames: recipients, callback: { (success) in
-                    self.dismiss(animated: true, completion: nil)
-                })
-            }
-            
-            self.navigationController?.dismiss(animated: true, completion: nil)
+			switchUserInteractionState(true)
+			checkSendDismiss()
         }
-        
+		
     }
+	
     
     func saveAsDraft() {
         let message = richTextContentView.contentHTML
@@ -452,59 +440,6 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
         MessageOperations.deleteMessage(messageId: messageId, callback: { success in
         })
     }
-    
-    //	func createMessageFromUI() -> MessageData {
-    ////		let message = LegacyMessage(managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
-    //
-    //		let message = MessageData()
-    //
-    //		var receivers = [User]()
-    //		for token in tokenView.allTokens {
-    //			for valdtoken in validatedTokens {
-    //				if valdtoken.isOnHandler && valdtoken.name == token.displayText.stringByReplacingOccurrencesOfString("@", withString: ""){
-    //					receivers.append(LegacyUser.fromHandle(valdtoken.name))
-    //				}
-    //			}
-    //		}
-    //
-    ////		var attachments = [Attachment]()
-    ////		for attachment in attachmentsCell.attachments ?? [Attachment]() {
-    ////			if let converted = attachment.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) {
-    ////				attachments.append(converted)
-    ////			}
-    ////		}
-    //
-    ////		message.attachments = NSSet(array: attachments)
-    //		message.recipients = receivers
-    //		message.message = richTextContentView.contentHTML
-    //		message.subject = subjectTextField.text ?? ""
-    //
-    //		return message
-    //	}
-    
-//    func configMsg(_ message: Message) -> Message {
-//        
-//        var receivers = [User]()
-//        for token in tokenView.allTokens {
-//            for valdtoken in validatedTokens {
-//                if valdtoken.isOnHandler && valdtoken.name == token.displayText.replacingOccurrences(of: "@", with: ""){
-//                    receivers.append(User.userWithHandle(valdtoken.name, inContext: PersistenceManager.mainManagedContext))
-//                }
-//            }
-//        }
-//        
-//        //		var attachments = [Attachment]()
-//        //		for attachment in attachmentsCell.attachments ?? [Attachment]() {
-//        //			if let converted = attachment.toManageObjectContext(DatabaseManager.sharedInstance.backgroundContext) {
-//        //				attachments.append(converted)
-//        //			}
-//        //		}
-//        
-//        message.recipients = NSSet(array: receivers)
-//        message.content = richTextContentView.contentHTML
-//        message.subject = subjectTextField.text ?? ""
-//        return message
-//    }
     
     // MARK: UI Utils
     

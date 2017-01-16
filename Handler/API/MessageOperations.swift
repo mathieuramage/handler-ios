@@ -75,30 +75,9 @@ struct MessageOperations {
 		}
 	}
 	
-//	static func replyMessageToAll(_ message : Message, replyMessage: String, callback : @escaping MessageUpdateCallback) {
-//		var messageData = MessageData()
-//		messageData.conversationId = message.conversationId
-//		messageData.subject = message.subject
-//		messageData.message = replyMessage
-//		
-//		var recipients : [String] = []
-//		
-//		if message.sender?.identifier != AuthUtility.user?.identifier {
-//			recipients.append(message.sender!.handle)
-//		}
-//        
-//		for user in message.recipients! {
-//			if (user as AnyObject).identifier != AuthUtility.user?.identifier {
-//				recipients.append((user as AnyObject).handle)
-//			}
-//		}
-//		messageData.recipients = recipients
-//		postNewMessage(messageData, callback: callback)
-//	}
-	
 	typealias MessageUpdateCallback = (_ success : Bool, _ message: MessageData?) -> ()
 	
-	static func replyToUserNames(_ recipientUserNames : [String], conversationId: String, message : String, subject : String, callback : MessageUpdateCallback?) {
+	static func replyToConversation(conversationId: String, message : String, subject : String, recipientUserNames : [String], callback : MessageUpdateCallback?) {
 		var messageData = MessageUpdateData()
 		messageData.subject = message
 		messageData.message = subject
@@ -277,8 +256,6 @@ private struct MessageUpdateData {
 	var labels : [String]?
 }
 
-
-
 struct MessageData {
     var content: String?
     var conversationId: String?
@@ -295,10 +272,9 @@ struct MessageData {
     var labels: [String]?
     
     init(json: JSON) {
-        
+		identifier = json["id"].stringValue
         sender = UserData(json: json["sender"])
         conversationId = json["conversationId"].stringValue
-        
         subject = json["subject"].stringValue
         content = json["message"].stringValue
         
@@ -309,18 +285,15 @@ struct MessageData {
                 recipients?.append(recipient)
             }
         }
-        
         read = json["isRead"].boolValue
-        
         folderString = json["folder"].stringValue
-        
+
         labels = []
         if let labelJsons = json["labels"].array {
             for labelJson in labelJsons {
                 labels?.append(labelJson.stringValue)
             }
         }
-        
         starred = json["isStar"].boolValue
         
         if let createdAtStr = json["createdAt"].string {
@@ -338,7 +311,6 @@ struct MessageData {
         } else {
             updatedAt = Date()
         }
-        
         shouldBeSent = json["shouldBeSent"].bool ?? false
     }
 }

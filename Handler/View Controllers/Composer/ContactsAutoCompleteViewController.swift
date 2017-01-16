@@ -150,10 +150,10 @@ class ContactsAutoCompleteViewController: UIViewController, UITableViewDelegate,
         let matchedUser = matchedUsers[indexPath.row]
 
 		let name = matchedUser.user.name
-        if name?.characters.count > 0 {
+        if name.characters.count > 0 {
             if let matchedNameRange = matchedUser.nameMatchRange {
-                let attributedString = NSMutableAttributedString(string: name!, attributes: [ NSForegroundColorAttributeName: UIColor(rgba: HexCodes.gray)])
-                attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor(rgba: HexCodes.darkGray), range: name!.NSRangeFromRange(matchedNameRange))
+                let attributedString = NSMutableAttributedString(string: name, attributes: [ NSForegroundColorAttributeName: UIColor(rgba: HexCodes.gray)])
+                attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor(rgba: HexCodes.darkGray), range: name.NSRangeFromRange(matchedNameRange))
                 
                 cell.contactName.attributedText = attributedString
             }

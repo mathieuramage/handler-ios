@@ -18,20 +18,9 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 
 	var activeConversation : Conversation?
 
-	var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult> {
-		get {
-			return MailboxObserversManager.sharedInstance.fetchedResultsControllerForType(.Inbox)
-		}
-	}
-
-	var fetchedObjects: [Conversation] {
-		get {
-            if let objects = fetchedResultsController.fetchedObjects as? [Conversation] {
-                return objects.sortedByDate
-            }
-            return [Conversation]()
-		}
-	}
+	lazy var fetchedResultsController = NSFetchedResultsController<Conversation>(fetchRequest: ConversationDao.inboxFetchRequest, managedObjectContext: CoreDataStack.shared.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+		
+	var fetchedObjects: [Conversation] { return fetchedResultsController.fetchedObjects ?? [Conversation]() }
 
 	var progressBar: UIProgressView!
 	var lastupdatedLabel: UILabel?
@@ -45,13 +34,19 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		self.refreshControl = UIRefreshControl()
 		self.refreshControl!.addTarget(self, action: #selector(InboxTableViewController.refresh(_:)), for: UIControlEvents.valueChanged)
 		self.tableView.addSubview(refreshControl!)
-		MailboxObserversManager.sharedInstance.addObserverForMailboxType(.Inbox, observer: self)
+//		MailboxObserversManager.sharedInstance.addObserverForMailboxType(.Inbox, observer: self)
 	}
 
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		refresh()
+		NotificationCenter.default.addObserver(self, selector: #selector(conversationsUpdated), name: ConversationManager.conversationUpdateFinishedNotification, object: nil)
+		try? fetchedResultsController.performFetch()
+	}
+	
+	func conversationsUpdated() {
+		try! fetchedResultsController.performFetch()
+		tableView.reloadData()
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
@@ -114,12 +109,13 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 				}
 			}
 		}
-        
-        
-        let settings = UIUserNotificationSettings(types: [UIUserNotificationType.badge, UIUserNotificationType.sound, UIUserNotificationType.alert], categories: nil)
-        UIApplication.shared.registerUserNotificationSettings(settings)
-        UIApplication.shared.registerForRemoteNotifications()
-        UIApplication.shared.applicationIconBadgeNumber = 0
+		
+		requestPushNotificationPermissions()
+	}
+	
+	override func viewDidDisappear(_ animated: Bool) {
+		super.viewDidDisappear(animated)
+		NotificationCenter.default.removeObserver(self)
 	}
 
 	func refresh(_ control: UIRefreshControl) {
@@ -127,10 +123,14 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 	}
 
 	func refresh() {
-        
-		ConversationOperations.getAllConversations(before: Date(), after: nil, limit: 0) { (success, conversations) in
-			self.refreshControl?.endRefreshing()
-		}
+		ConversationManager.updateConversations()
+	}
+	
+	func requestPushNotificationPermissions() {
+		let settings = UIUserNotificationSettings(types: [UIUserNotificationType.badge, UIUserNotificationType.sound,UIUserNotificationType.alert], categories: nil)
+		UIApplication.shared.registerUserNotificationSettings(settings)
+		UIApplication.shared.registerForRemoteNotifications()
+		UIApplication.shared.applicationIconBadgeNumber = 0
 	}
 
 	func composeNewMessage() {
@@ -180,7 +180,6 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 	}
 
 	// MARK: NSFetchedResultsController Delegate
-
 	func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
 		self.tableView.beginUpdates()
 	}
@@ -221,16 +220,14 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 
 	func swipeableTableViewCell(_ cell: SWTableViewCell!, didTriggerLeftUtilityButtonWith index: Int) {
 
-		if let index = tableView.indexPath(for: cell)?.row {
-			let conversation = fetchedObjects[index]
-
-			guard let identifier = conversation.identifier, let read = conversation.latestMessage?.read else {
-				return
+		if let indexPath = tableView.indexPath(for: cell) {
+			let conversation = fetchedObjects[indexPath.row]
+			if conversation.read {
+				ConversationManager.markConversationAsUnread(conversation)
+			} else {
+				ConversationManager.markConversationAsRead(conversation)
 			}
-
-			ConversationOperations.markConversationAsRead(conversationId: identifier, read: !read, callback: { (success) in
-				self.refresh()
-			})
+			tableView.reloadRows(at: [indexPath], with: .none)
 		}
 
 	}

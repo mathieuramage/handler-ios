@@ -29,7 +29,7 @@ class CurrentStatusManager: NSObject, MailboxCountObserver {
 	
 	override init() {
 		super.init()
-		MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(.Unread, observer: self)
+//		MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(.Unread, observer: self)
 		NotificationCenter.default.addObserver(self, selector: #selector(CurrentStatusManager.handleDidStartLoadingMessages), name:Notification.Name(MessageLoadingStatusNotification.loading.rawValue), object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(CurrentStatusManager.handleDidFinishLoadingMessages), name:Notification.Name(MessageLoadingStatusNotification.finished.rawValue), object: nil)
 	}

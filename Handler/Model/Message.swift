@@ -11,112 +11,26 @@ import CoreData
 import SwiftyJSON
 
 
-public class Message: NSManagedObject {
+extension Message {
     
     var archived : Bool {
         return folderString == Folder.Archived.rawValue
     }
-    
-//    convenience init(json: JSON, inContext context: NSManagedObjectContext) {
-//        self.init(managedObjectContext: context)
-//        identifier = json["id"].stringValue
-//        ManagedMessage.setMessageDataWithJSON(message: self, json: json, context: context)
-//    }
-    
-//    class func messageWithJSON(_ json: JSON, inContext context: NSManagedObjectContext) -> Message {
-//        
-//        let identifier = json["id"].stringValue
-//        
-//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName())
-//        fetchRequest.predicate = NSPredicate(format: "identifier == %@", identifier)
-//        fetchRequest.fetchBatchSize = 1
-//        
-//        if let message = (context.safeExecuteFetchRequest(fetchRequest) as [Message]).first {
-//            ManagedMessage.setMessageDataWithJSON(message: message, json: json, context: context)
-//            return message
-//        }
-//        
-//        let message = ManagedMessage(json: json, inContext: context)
-//        
-//        return message
-//    }
-    
-    class func setMessageDataWithJSON(message: Message, json : JSON, context: NSManagedObjectContext) {
-        
-//        message.sender = User.userWithJSON(json["sender"], inContext: context)
-//        message.conversationId = json["conversationId"].stringValue
-//        
-//        message.conversation = Conversation.conversationWithID(message.conversationId!, inContext: context)
-//        
-//        message.subject = json["subject"].stringValue
-//        message.content = json["message"].stringValue
-//        
-//        if let recipientJsons = json["recipients"].array {
-//            for recipientJson in recipientJsons {
-//                let recipient = User.userWithJSON(recipientJson, inContext: context)
-//                message.addRecipientsObject(recipient)
-//            }
-//        }
-//        
-//        message.read = json["isRead"].boolValue
-//        
-//        message.folderType = json["folder"].stringValue
-//        
-//        if let labelJsons = json["labels"].array {
-//            for labelJson in labelJsons {
-//                let label = Label(id: labelJson.stringValue, inContext: context)
-//                label.message = message
-//            }
-//        }
-//        
-//        message.starred = json["isStar"].boolValue
-//        
-//        if let createdAtStr = json["createdAt"].string {
-//            let formatter = DateFormatter()
-//            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-//            message.createdAt = formatter.date(from: createdAtStr) as! NSDate
-//        } else {
-//            message.createdAt = Date() as NSDate?
-//        }
-//        
-//        if let updatedAtStr = json["updatedAt"].string {
-//            let formatter = DateFormatter()
-//            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-//            message.updatedAt = formatter.date(from: updatedAtStr) as! NSDate
-//        } else {
-//            message.updatedAt = NSDate()
-//        }
+	
+    convenience init(data : MessageData, context : NSManagedObjectContext) {
+        self.init(context: context)
+			setMessageData(data)
     }
-    
-    
-    func moveToArchive() {
-        self.removeLabelWithID(SystemLabels.Inbox.rawValue)
+	
+    func setMessageData(_ data : MessageData) {
+		identifier = data.identifier
+		subject = data.subject
+		content = data.content
+		createdAt = data.createdAt?.NSDateValue
+		updatedAt = data.updatedAt?.NSDateValue
+		read = data.read
+		folderString = data.folderString
     }
-    
-    func moveToInbox() {
-        self.addLabelWithID(SystemLabels.Inbox.rawValue)
-    }
-    
-    func flag() {
-        self.addLabelWithID(SystemLabels.Flagged.rawValue)
-    }
-    
-    func unflag() {
-        self.removeLabelWithID(SystemLabels.Flagged.rawValue)
-    }
-    
-    func markAsRead() {
-        // OTTODO Check this implementation
-        self.removeLabelWithID(SystemLabels.Unread.rawValue)
-    }
-    
-    func markAsUnread() {
-        // OTTODO Check this implementation
-        self.addLabelWithID(SystemLabels.Unread.rawValue)
-    }
-    
-    // MARK: Refresh
-    
     
     // MARK: Labels
     
@@ -180,19 +94,19 @@ public class Message: NSManagedObject {
     
     // MARK: Utility getters
     
-//    func recipientsWithoutSelf() -> NSSet? {
-//        if let recipients = self.recipients?.allObjects as? [User] {
-//            for recipient in recipients {
-//                if recipient.handle == AuthUtility.user?.handle {
-//                    let mutableSet = NSMutableSet(set: self.recipients!)
-//                    mutableSet.remove(recipient)
-//                    return NSSet(set: mutableSet)
-//                }
-//            }
-//        }
-//        
-//        return self.recipients
-//    }
+    func recipientsWithoutSelf() -> NSSet? {
+        if let recipients = self.recipients?.allObjects as? [User] {
+            for recipient in recipients {
+                if recipient.handle == AuthUtility.user?.handle {
+                    let mutableSet = NSMutableSet(set: self.recipients!)
+                    mutableSet.remove(recipient)
+                    return NSSet(set: mutableSet)
+                }
+            }
+        }
+        
+        return self.recipients
+    }
     
     // MARK: State getter utilities
     
@@ -250,8 +164,8 @@ public class Message: NSManagedObject {
     }
     
     // TODO: Make it locale indepent
-    let replyPrefix = "Re:"
-    let forwardPrefix = "Fwd:"
+//    let replyPrefix = "Re:"
+//    let forwardPrefix = "Fwd:"
     
     func hasReplyPrefix() -> Bool {
         //		guard let subject = self.subject else {
@@ -299,19 +213,6 @@ public class Message: NSManagedObject {
         //		return (recipients?.count > 0 && hasValidSubject() && hasValidSubject())
         
         return false
-    }
-    
-    // MARK: Drafts
-    
-    func saveAsDraft() {
-        //		self.addLabelWithID("DRAFT")
-        //		self.sender = User.me()
-    }
-    
-    func deleteFromDatabase() {
-        let context = self.managedObjectContext
-        
-        context?.delete(self)
     }
     
     

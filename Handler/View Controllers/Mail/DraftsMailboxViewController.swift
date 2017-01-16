@@ -12,11 +12,12 @@ import Async
 import Bond
 import DZNEmptyDataSet
 
-class DraftsMailboxViewController: AbstractMailboxViewController {
-   
+class DraftsMailboxViewController: AbstractMessageMailboxViewController {
+	
 	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 		mailboxType = .Drafts
+		fetchedResultsController = NSFetchedResultsController<Message>(fetchRequest: MessageDao.draftsFetchRequest, managedObjectContext: CoreDataStack.shared.viewContext, sectionNameKeyPath: nil, cacheName: nil)
 	}
     
     func customViewForEmptyDataSet(_ scrollView: UIScrollView!) -> UIView! {

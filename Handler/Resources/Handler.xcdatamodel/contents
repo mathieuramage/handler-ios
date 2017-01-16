@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11759" systemVersion="16B2555" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Conversation" representedClassName=".Conversation" syncable="YES">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11759" systemVersion="16C67" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Conversation" representedClassName="Conversation" syncable="YES" codeGenerationType="class">
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="latestMessageDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="read" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="starred" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="conversation" inverseEntity="Message" syncable="YES"/>
     </entity>
     <entity name="Label" representedClassName="Label" syncable="YES" codeGenerationType="class">
         <attribute name="label" attributeType="String" syncable="YES"/>
-        <relationship name="message" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="labels" inverseEntity="Message" syncable="YES"/>
+        <relationship name="messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="labels" inverseEntity="Message" syncable="YES"/>
     </entity>
-    <entity name="Message" representedClassName=".Message" syncable="YES">
+    <entity name="Message" representedClassName="Message" syncable="YES" codeGenerationType="class">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="conversationId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -22,34 +23,29 @@
         <attribute name="subject" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="conversation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Conversation" inverseName="messages" inverseEntity="Conversation" syncable="YES"/>
-        <relationship name="labels" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Label" inverseName="message" inverseEntity="Label" syncable="YES"/>
+        <relationship name="labels" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Label" inverseName="messages" inverseEntity="Label" syncable="YES"/>
         <relationship name="recipients" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="received_messages" inverseEntity="User" syncable="YES"/>
         <relationship name="sender" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="sent_messages" inverseEntity="User" syncable="YES"/>
     </entity>
-    <entity name="TwitterUser" representedClassName=".TwitterUser" syncable="YES">
+    <entity name="TwitterUser" representedClassName="TwitterUser" syncable="YES" codeGenerationType="class">
         <attribute name="bannerURLString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="followerCount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="following" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="followStatus" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="2" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="followStatus" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="2" defaultValueString="2" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="friendCount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pictureURLString" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="twitterId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="urlString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="username" attributeType="String" indexed="YES" syncable="YES"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="twitterUser" inverseEntity="User" syncable="YES"/>
     </entity>
-    <entity name="User" representedClassName=".User" syncable="YES">
+    <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isContact" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="provider" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="riskRating" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="twitterFollowStatus" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="2" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="contacts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="contacts" inverseEntity="User" syncable="YES"/>
         <relationship name="received_messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="recipients" inverseEntity="Message" syncable="YES"/>
@@ -57,10 +53,10 @@
         <relationship name="twitterUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TwitterUser" inverseName="user" inverseEntity="TwitterUser" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Conversation" positionX="-533" positionY="201" width="128" height="105"/>
+        <element name="Conversation" positionX="-533" positionY="201" width="128" height="120"/>
+        <element name="Label" positionX="-522" positionY="411" width="128" height="75"/>
         <element name="Message" positionX="-297" positionY="180" width="126" height="255"/>
-        <element name="TwitterUser" positionX="315" positionY="225" width="128" height="253"/>
-        <element name="User" positionX="18" positionY="164" width="126" height="223"/>
-        <element name="Label" positionX="-324" positionY="306" width="128" height="75"/>
+        <element name="TwitterUser" positionX="216" positionY="161" width="128" height="225"/>
+        <element name="User" positionX="-63" positionY="191" width="126" height="180"/>
     </elements>
 </model>
