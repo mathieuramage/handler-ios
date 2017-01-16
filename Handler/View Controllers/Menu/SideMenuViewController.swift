@@ -10,6 +10,7 @@ import UIKit
 import Kingfisher
 import Async
 import GradientView
+import Intercom
 
 class SideMenuViewController: UIViewController, UITableViewDelegate {
 	
@@ -130,19 +131,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 	}
 	
 	@IBAction func helpPressed(_ sender: UIButton) {
-		let messageNC = Storyboards.Compose.instantiateViewController(withIdentifier: "MessageComposeNavigationController") as! GradientNavigationController
-		let messageWrapper = messageNC.viewControllers.first as! MessageComposerWrapperViewController
-		messageWrapper.title = "New Message"
-		
-		
-		//		let message = Message(managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
-		//		message.recipients = NSSet(array: [User.fromHandle("handlerHQ")])
-		//		message.subject = "Help & feedback"
-		//
-		//		messageWrapper.draftMessage = message
-		//
-		//		self.presentViewController(messageNC, animated: true, completion: nil)
-		
+		Intercom.presentMessenger()
 		AppAnalytics.fireContentViewEvent(contentId: MenuEvents.feedback, event: MenuEvents)
 	}
 	
