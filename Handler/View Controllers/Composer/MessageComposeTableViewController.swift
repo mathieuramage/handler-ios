@@ -12,8 +12,10 @@ import Async
 import RichEditorView
 
 class MessageComposeTableViewController: UITableViewController, CLTokenInputViewDelegate, UITextViewDelegate, UITextFieldDelegate, FilePickerDelegate, UIDocumentPickerDelegate, UIDocumentInteractionControllerDelegate, ContactSelectionDelegate {
-    
+	
     let ConversationMessageCellID = "ConversationMessageTableViewCell"
+	let ComposeEvents = AppEvents.Compose.self
+	
     
     struct ValidatedToken {
         var name: String
@@ -208,7 +210,12 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
         super.viewWillAppear(animated)
         enableSendButton()
     }
-    
+	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		AppAnalytics.fireContentViewEvent(contentId: ComposeEvents.composed, event: ComposeEvents)
+	}
+	
     // MARK: Contacts Add Buttons
     
     @IBAction func contactButtonPressed(_ button: UIButton){
@@ -835,13 +842,13 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 
 
 protocol MessageComposeTableViewControllerDelegate {
-    func autoCompleteUserForPrefix(_ prefix : String)
-    func setAutoCompleteViewTopInset(_ topInset: CGFloat)
+	func autoCompleteUserForPrefix(_ prefix : String)
+	func setAutoCompleteViewTopInset(_ topInset: CGFloat)
 }
 
 extension MessageComposeTableViewController: RichEditorDelegate {
-    
-    func richEditor(_ editor: RichEditorView, shouldInteractWithURL url: URL) -> Bool {
-        return false
-    }
+	
+	func richEditor(_ editor: RichEditorView, shouldInteractWithURL url: URL) -> Bool {
+		return false
+	}
 }

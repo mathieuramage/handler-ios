@@ -61,84 +61,71 @@ class LoginViewController: UIViewController,NVActivityIndicatorViewable {
     }
     
     @IBOutlet weak var loginButton: WhiteBorderButton!
-    
-    @IBAction func loginButtonPressed(_ button: UIButton){
-        
-        activityData = ActivityData()
-        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData!)
-        
-        Twitter.sharedInstance().logIn { session, error in
-            if (session != nil) {
-                print("signed in as \(session?.userName)");
-            } else {
-                button.isUserInteractionEnabled = true
-                print("error: \(error?.localizedDescription)");
-                NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-                self.activityData = nil
-            }
-            
-            if let session = session {
-                
-                let twitter = Twitter.sharedInstance()
-                let oauthSigning = TWTROAuthSigning(authConfig:twitter.authConfig, authSession:session)
-                
-                print(oauthSigning.oAuthEchoHeadersToVerifyCredentials())
-                
-                var headers : [String : String] = [:]
-                
-                for (key, val) in oauthSigning.oAuthEchoHeadersToVerifyCredentials() {
-                    headers[String(describing: key)] = String(describing: val)
-                }
-                
-                //				let headers = oauthSigning.OAuthEchoHeadersToVerifyCredentials()
-                
-                //				AuthUtility.getClientCredentials(headers: headers, callback: { (success, tempToken) in
-                //
-                //					guard let token = tempToken where success else {
-                //						return
-                //					}
-                
-                AuthUtility.getTokenAssertion(headers: headers, callback: { (success, accessToken) in
-                    
-                    guard let accessToken = accessToken, success else {
-                        NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-                        self.activityData = nil
-                        return
-                    }
-                    
-                    AuthUtility.accessToken = accessToken
-                    
-                    UserOperations.getMe({ (success, userData) in
-                        
-                        guard let data = userData else {
-                            return
-                        }
-                        
-//                        let appUser = UserDao.updateOrCreateUser(userData: data)
-//                        
-//                        AuthUtility.user = appUser
-//                        
-//                        if let uid = appUser.identifier {
-//                            UserDefaults.standard.set(uid, forKey: Config.UserDefaults.uidKey)
-//                            Intercom.registerUser(withUserId: uid)
-//                        }
-                        
-                        UIView.transition(with: AppDelegate.sharedInstance().window!, duration: 0.5, options: UIViewAnimationOptions.transitionCrossDissolve, animations: { () -> Void in
-                            AppDelegate.sharedInstance().window?.rootViewController = AppDelegate.sharedInstance().sideMenu
-//                            GreetingViewController.showWithHandle(appUser.handle, back: false)
-                        }, completion: nil)
-                    })
-                    
-                })
-                
-                //				})
-                
-            }
-        }
-    }
-    
-    override var preferredStatusBarStyle : UIStatusBarStyle {
-        return .lightContent
-    }
-    
+	
+	@IBAction func loginButtonPressed(_ button: UIButton){
+
+		Twitter.sharedInstance().logIn { session, error in
+			if (session != nil) {
+				print(session)
+				print("signed in as \(session?.userName)");
+			} else {
+				print("error: \(error?.localizedDescription)");
+			}
+
+			if let session = session {
+
+				let twitter = Twitter.sharedInstance()
+				let oauthSigning = TWTROAuthSigning(authConfig:twitter.authConfig, authSession:session)
+
+				print(oauthSigning.oAuthEchoHeadersToVerifyCredentials())
+
+				var headers : [String : String] = [:]
+
+				for (key, val) in oauthSigning.oAuthEchoHeadersToVerifyCredentials() {
+					headers[String(describing: key)] = String(describing: val)
+				}
+
+//				let headers = oauthSigning.OAuthEchoHeadersToVerifyCredentials()
+
+//				AuthUtility.getClientCredentials(headers: headers, callback: { (success, tempToken) in
+//
+//					guard let token = tempToken where success else {
+//						return
+//					}
+
+					AuthUtility.getTokenAssertion(headers: headers, callback: { (success, accessToken) in
+
+						guard let accessToken = accessToken, success else {
+							return
+						}
+
+						AuthUtility.accessToken = accessToken
+						
+						AppAnalytics.fireLoginEvent()
+
+						UserOperations.getMe({ (success, userData) in
+							AuthUtility.user = UserDao.updateOrCreateUser(userData: userData!)
+							let user = AuthUtility.user
+							if let uid = user?.handle {
+								UserDefaults.standard.set(uid, forKey: Config.UserDefaults.uidKey)
+								Intercom.registerUser(withUserId: uid)
+							}
+
+							UIView.transition(with: AppDelegate.sharedInstance().window!, duration: 0.5, options: UIViewAnimationOptions.transitionCrossDissolve, animations: { () -> Void in
+								AppDelegate.sharedInstance().window?.rootViewController = AppDelegate.sharedInstance().sideMenu
+								GreetingViewController.showWithHandle(user?.handle ?? "", back: false)
+								}, completion: nil)
+						})
+
+					})
+
+//				})
+
+			}
+		}
+	}
+
+	override var preferredStatusBarStyle : UIStatusBarStyle {
+		return .lightContent
+	}
 }

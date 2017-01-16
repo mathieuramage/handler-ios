@@ -26,7 +26,6 @@
 		2F1DACF21BC7EFC500FB6173 /* AddAttachmentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F1DACF11BC7EFC500FB6173 /* AddAttachmentView.xib */; };
 		2F43E0B11BDA4A5A00C68E1D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF1FD2E61B62360600A58B71 /* LaunchScreen.xib */; };
 		2F43E0BC1BDA4A8C00C68E1D /* Async.framework.dSYM in Carthage Dsyms */ = {isa = PBXBuildFile; fileRef = 2F43E0B41BDA4A8C00C68E1D /* Async.framework.dSYM */; };
-		2F43E0BD1BDA4A8C00C68E1D /* Bond.framework.dSYM in Carthage Dsyms */ = {isa = PBXBuildFile; fileRef = 2F43E0B51BDA4A8C00C68E1D /* Bond.framework.dSYM */; };
 		2F43E0BE1BDA4A8C00C68E1D /* DZNEmptyDataSet.framework.dSYM in Carthage Dsyms */ = {isa = PBXBuildFile; fileRef = 2F43E0B61BDA4A8C00C68E1D /* DZNEmptyDataSet.framework.dSYM */; };
 		2F43E0C01BDA4A8C00C68E1D /* Kingfisher.framework.dSYM in Carthage Dsyms */ = {isa = PBXBuildFile; fileRef = 2F43E0B81BDA4A8C00C68E1D /* Kingfisher.framework.dSYM */; };
 		2F43E0C11BDA4A8C00C68E1D /* Result.framework.dSYM in Carthage Dsyms */ = {isa = PBXBuildFile; fileRef = 2F43E0B91BDA4A8C00C68E1D /* Result.framework.dSYM */; };
@@ -78,7 +77,6 @@
 		2FB5A4471BB20A6E0087D006 /* MailBoxOptionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB5A4461BB20A6E0087D006 /* MailBoxOptionsTableViewController.swift */; };
 		2FDAFF791BF76AEC004CE17D /* FeaturesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDAFF781BF76AEC004CE17D /* FeaturesManager.swift */; };
 		2FDB44601BD3E86F0040014E /* Async.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB44591BD3E86F0040014E /* Async.framework */; };
-		2FDB44611BD3E86F0040014E /* Bond.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB445A1BD3E86F0040014E /* Bond.framework */; };
 		2FDB44621BD3E86F0040014E /* DZNEmptyDataSet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB445B1BD3E86F0040014E /* DZNEmptyDataSet.framework */; };
 		2FDB44631BD3E86F0040014E /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB445C1BD3E86F0040014E /* Kingfisher.framework */; };
 		2FDB44641BD3E86F0040014E /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDB445D1BD3E86F0040014E /* Result.framework */; };
@@ -123,6 +121,25 @@
 		9D16ADF21DE35AB700C8172A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D16ADF01DE35AB700C8172A /* SystemConfiguration.framework */; };
 		9D16ADF41DE35AC500C8172A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D16ADF31DE35AC400C8172A /* CoreMedia.framework */; };
 		9D16ADF61DE35ACA00C8172A /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D16ADF51DE35ACA00C8172A /* CoreVideo.framework */; };
+		9D5B9B261E1FC7BE002BBB6E /* AppAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5B9B251E1FC7BE002BBB6E /* AppAnalytics.swift */; };
+		9D6B90021E09D47A00F6F4C3 /* FirebaseAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6B8FFC1E09D47900F6F4C3 /* FirebaseAnalytics.framework */; };
+		9D6B90031E09D47A00F6F4C3 /* FirebaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6B8FFD1E09D47900F6F4C3 /* FirebaseCore.framework */; };
+		9D6B90041E09D47A00F6F4C3 /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6B8FFE1E09D47900F6F4C3 /* FirebaseInstanceID.framework */; };
+		9D6B90051E09D47A00F6F4C3 /* GoogleInterchangeUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6B8FFF1E09D47900F6F4C3 /* GoogleInterchangeUtilities.framework */; };
+		9D6B90061E09D47A00F6F4C3 /* GoogleSymbolUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6B90001E09D47900F6F4C3 /* GoogleSymbolUtilities.framework */; };
+		9D6B90071E09D47A00F6F4C3 /* GoogleToolboxForMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6B90011E09D47900F6F4C3 /* GoogleToolboxForMac.framework */; };
+		9D6B900A1E09D49000F6F4C3 /* FirebaseRemoteConfig.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6B90091E09D49000F6F4C3 /* FirebaseRemoteConfig.framework */; };
+		9D6B900E1E09D71800F6F4C3 /* FirebaseDatabase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6B900D1E09D71800F6F4C3 /* FirebaseDatabase.framework */; };
+		9D6B90101E09D7DA00F6F4C3 /* FirebaseDynamicLinks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6B900F1E09D7DA00F6F4C3 /* FirebaseDynamicLinks.framework */; };
+		9D6B90121E09D84900F6F4C3 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6B90111E09D84900F6F4C3 /* libicucore.tbd */; };
+		9D6B90141E09D85500F6F4C3 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6B90131E09D85500F6F4C3 /* CFNetwork.framework */; };
+		9D6B90161E09D87900F6F4C3 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6B90151E09D87900F6F4C3 /* libc++.tbd */; };
+		9D6B90181E09D88400F6F4C3 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6B90171E09D88400F6F4C3 /* libsqlite3.tbd */; };
+		9D6B901A1E09E26D00F6F4C3 /* FirebaseAppIndexing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6B90191E09E26D00F6F4C3 /* FirebaseAppIndexing.framework */; };
+		9D6B901E1E09E2BC00F6F4C3 /* GINInviteResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9D6B901B1E09E2BB00F6F4C3 /* GINInviteResources.bundle */; };
+		9D6B901F1E09E2BC00F6F4C3 /* GoogleSignIn.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9D6B901C1E09E2BB00F6F4C3 /* GoogleSignIn.bundle */; };
+		9D6B90201E09E2BC00F6F4C3 /* GPPACLPickerResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9D6B901D1E09E2BB00F6F4C3 /* GPPACLPickerResources.bundle */; };
+		9DAA2C0C1E0AB02200553046 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9DAA2C0B1E0AB02200553046 /* GoogleService-Info.plist */; };
 		9DDED1E81DEBB59C0042314A /* Intercom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DDED1E61DEBB5900042314A /* Intercom.framework */; };
 		9DDED1E91DEBB59C0042314A /* Intercom.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9DDED1E61DEBB5900042314A /* Intercom.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B72C59D11C26BBE500D6651D /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72C59D01C26BBE500D6651D /* Globals.swift */; };
@@ -237,7 +254,6 @@
 			files = (
 				7A0D13691CA8525F00E91136 /* RichEditorView.framework.dSYM in Carthage Dsyms */,
 				2F43E0BC1BDA4A8C00C68E1D /* Async.framework.dSYM in Carthage Dsyms */,
-				2F43E0BD1BDA4A8C00C68E1D /* Bond.framework.dSYM in Carthage Dsyms */,
 				2F43E0BE1BDA4A8C00C68E1D /* DZNEmptyDataSet.framework.dSYM in Carthage Dsyms */,
 				2F43E0C01BDA4A8C00C68E1D /* Kingfisher.framework.dSYM in Carthage Dsyms */,
 				2F43E0C11BDA4A8C00C68E1D /* Result.framework.dSYM in Carthage Dsyms */,
@@ -341,7 +357,6 @@
 		2FB5A4461BB20A6E0087D006 /* MailBoxOptionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MailBoxOptionsTableViewController.swift; sourceTree = "<group>"; };
 		2FDAFF781BF76AEC004CE17D /* FeaturesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeaturesManager.swift; sourceTree = "<group>"; };
 		2FDB44591BD3E86F0040014E /* Async.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Async.framework; path = Carthage/Build/iOS/Async.framework; sourceTree = SOURCE_ROOT; };
-		2FDB445A1BD3E86F0040014E /* Bond.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bond.framework; path = Carthage/Build/iOS/Bond.framework; sourceTree = SOURCE_ROOT; };
 		2FDB445B1BD3E86F0040014E /* DZNEmptyDataSet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DZNEmptyDataSet.framework; path = Carthage/Build/iOS/DZNEmptyDataSet.framework; sourceTree = SOURCE_ROOT; };
 		2FDB445C1BD3E86F0040014E /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = Carthage/Build/iOS/Kingfisher.framework; sourceTree = SOURCE_ROOT; };
 		2FDB445D1BD3E86F0040014E /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = SOURCE_ROOT; };
@@ -389,6 +404,27 @@
 		9D16ADF01DE35AB700C8172A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9D16ADF31DE35AC400C8172A /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		9D16ADF51DE35ACA00C8172A /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		9D5B9B251E1FC7BE002BBB6E /* AppAnalytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAnalytics.swift; sourceTree = "<group>"; };
+		9D6B8FFC1E09D47900F6F4C3 /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseAnalytics.framework; sourceTree = "<group>"; };
+		9D6B8FFD1E09D47900F6F4C3 /* FirebaseCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseCore.framework; sourceTree = "<group>"; };
+		9D6B8FFE1E09D47900F6F4C3 /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseInstanceID.framework; sourceTree = "<group>"; };
+		9D6B8FFF1E09D47900F6F4C3 /* GoogleInterchangeUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleInterchangeUtilities.framework; sourceTree = "<group>"; };
+		9D6B90001E09D47900F6F4C3 /* GoogleSymbolUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleSymbolUtilities.framework; sourceTree = "<group>"; };
+		9D6B90011E09D47900F6F4C3 /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleToolboxForMac.framework; sourceTree = "<group>"; };
+		9D6B90091E09D49000F6F4C3 /* FirebaseRemoteConfig.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseRemoteConfig.framework; sourceTree = "<group>"; };
+		9D6B900B1E09D51A00F6F4C3 /* Firebase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Firebase.h; sourceTree = "<group>"; };
+		9D6B900C1E09D5C000F6F4C3 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		9D6B900D1E09D71800F6F4C3 /* FirebaseDatabase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseDatabase.framework; sourceTree = "<group>"; };
+		9D6B900F1E09D7DA00F6F4C3 /* FirebaseDynamicLinks.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseDynamicLinks.framework; sourceTree = "<group>"; };
+		9D6B90111E09D84900F6F4C3 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
+		9D6B90131E09D85500F6F4C3 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		9D6B90151E09D87900F6F4C3 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		9D6B90171E09D88400F6F4C3 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		9D6B90191E09E26D00F6F4C3 /* FirebaseAppIndexing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseAppIndexing.framework; sourceTree = "<group>"; };
+		9D6B901B1E09E2BB00F6F4C3 /* GINInviteResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GINInviteResources.bundle; sourceTree = "<group>"; };
+		9D6B901C1E09E2BB00F6F4C3 /* GoogleSignIn.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GoogleSignIn.bundle; sourceTree = "<group>"; };
+		9D6B901D1E09E2BB00F6F4C3 /* GPPACLPickerResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GPPACLPickerResources.bundle; sourceTree = "<group>"; };
+		9DAA2C0B1E0AB02200553046 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9DDED1E61DEBB5900042314A /* Intercom.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Intercom.framework; sourceTree = "<group>"; };
 		B72C59D01C26BBE500D6651D /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		B72C59D31C26C63200D6651D /* System San Francisco Display Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "System San Francisco Display Regular.ttf"; sourceTree = "<group>"; };
@@ -505,23 +541,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D6B90181E09D88400F6F4C3 /* libsqlite3.tbd in Frameworks */,
+				9D6B90161E09D87900F6F4C3 /* libc++.tbd in Frameworks */,
+				9D6B90141E09D85500F6F4C3 /* CFNetwork.framework in Frameworks */,
+				9D6B90121E09D84900F6F4C3 /* libicucore.tbd in Frameworks */,
+				9D6B90071E09D47A00F6F4C3 /* GoogleToolboxForMac.framework in Frameworks */,
 				2FA2EA871BAD9C570027EA77 /* UIKit.framework in Frameworks */,
 				9D16ADF61DE35ACA00C8172A /* CoreVideo.framework in Frameworks */,
 				9D16ADF41DE35AC500C8172A /* CoreMedia.framework in Frameworks */,
 				9D16ADF11DE35AB700C8172A /* CoreTelephony.framework in Frameworks */,
+				9D6B90061E09D47A00F6F4C3 /* GoogleSymbolUtilities.framework in Frameworks */,
 				9D16ADF21DE35AB700C8172A /* SystemConfiguration.framework in Frameworks */,
 				9D16ADEE1DE35AA400C8172A /* CoreMotion.framework in Frameworks */,
 				2FA2EA811BAD9C570027EA77 /* CoreGraphics.framework in Frameworks */,
 				9D16ADEC1DE35A9500C8172A /* AVFoundation.framework in Frameworks */,
 				2FDB44601BD3E86F0040014E /* Async.framework in Frameworks */,
-				2FDB44611BD3E86F0040014E /* Bond.framework in Frameworks */,
 				2FDB44621BD3E86F0040014E /* DZNEmptyDataSet.framework in Frameworks */,
+				9D6B90031E09D47A00F6F4C3 /* FirebaseCore.framework in Frameworks */,
 				9DDED1E81DEBB59C0042314A /* Intercom.framework in Frameworks */,
 				2FDB44631BD3E86F0040014E /* Kingfisher.framework in Frameworks */,
 				BF047DFF1DD2206D00CF7001 /* ReactiveKit.framework in Frameworks */,
 				2FDB44641BD3E86F0040014E /* Result.framework in Frameworks */,
 				BFA307571CF260F200642A8D /* RichEditorView.framework in Frameworks */,
 				2FDB44651BD3E86F0040014E /* SwiftyJSON.framework in Frameworks */,
+				9D6B900A1E09D49000F6F4C3 /* FirebaseRemoteConfig.framework in Frameworks */,
 				2FDB44721BD3EB110040014E /* TwitterKit.framework in Frameworks */,
 				BF2587761E03EB4E00AFA0C7 /* NVActivityIndicatorView.framework in Frameworks */,
 				2FDB44761BD3EB380040014E /* Crashlytics.framework in Frameworks */,
@@ -529,13 +572,19 @@
 				BF7530791DD21A4200A00765 /* Alamofire.framework in Frameworks */,
 				2FA2EA891BAD9C570027EA77 /* Accounts.framework in Frameworks */,
 				2FA2EA841BAD9C570027EA77 /* CoreData.framework in Frameworks */,
+				9D6B901A1E09E26D00F6F4C3 /* FirebaseAppIndexing.framework in Frameworks */,
+				9D6B90021E09D47A00F6F4C3 /* FirebaseAnalytics.framework in Frameworks */,
 				2FA2EA881BAD9C570027EA77 /* Social.framework in Frameworks */,
+				9D6B90051E09D47A00F6F4C3 /* GoogleInterchangeUtilities.framework in Frameworks */,
 				2FA2EA861BAD9C570027EA77 /* CoreText.framework in Frameworks */,
 				2FA2EA821BAD9C570027EA77 /* Foundation.framework in Frameworks */,
 				2FDB44711BD3EB110040014E /* Fabric.framework in Frameworks */,
 				2FA2EA831BAD9C570027EA77 /* Security.framework in Frameworks */,
+				9D6B90041E09D47A00F6F4C3 /* FirebaseInstanceID.framework in Frameworks */,
+				9D6B90101E09D7DA00F6F4C3 /* FirebaseDynamicLinks.framework in Frameworks */,
 				2FA2EA851BAD9C570027EA77 /* QuartzCore.framework in Frameworks */,
 				9D16ADE91DE35A5E00C8172A /* Instabug.framework in Frameworks */,
+				9D6B900E1E09D71800F6F4C3 /* FirebaseDatabase.framework in Frameworks */,
 				BF7530771DD20ED800A00765 /* GradientView.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -712,6 +761,10 @@
 			isa = PBXGroup;
 			children = (
 				BF2587751E03EB4E00AFA0C7 /* NVActivityIndicatorView.framework */,
+				9D6B90171E09D88400F6F4C3 /* libsqlite3.tbd */,
+				9D6B90151E09D87900F6F4C3 /* libc++.tbd */,
+				9D6B90131E09D85500F6F4C3 /* CFNetwork.framework */,
+				9D6B90111E09D84900F6F4C3 /* libicucore.tbd */,
 				9D16ADF51DE35ACA00C8172A /* CoreVideo.framework */,
 				9D16ADF31DE35AC400C8172A /* CoreMedia.framework */,
 				9D16ADEF1DE35AB700C8172A /* CoreTelephony.framework */,
@@ -728,7 +781,6 @@
 				2FDB446F1BD3EB110040014E /* TwitterKitResources.bundle */,
 				2FDB44701BD3EB110040014E /* TwitterCore.framework */,
 				2FDB44591BD3E86F0040014E /* Async.framework */,
-				2FDB445A1BD3E86F0040014E /* Bond.framework */,
 				2FDB445B1BD3E86F0040014E /* DZNEmptyDataSet.framework */,
 				2FDB445C1BD3E86F0040014E /* Kingfisher.framework */,
 				2FDB445D1BD3E86F0040014E /* Result.framework */,
@@ -861,11 +913,34 @@
 		9D16ADEA1DE35A6400C8172A /* Manual Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9D6B90081E09D48000F6F4C3 /* Firebase */,
 				9DDED1E61DEBB5900042314A /* Intercom.framework */,
 				9D16ADE61DE35A5E00C8172A /* Instabug.bundle */,
 				9D16ADE71DE35A5E00C8172A /* Instabug.framework */,
 			);
 			name = "Manual Frameworks";
+			sourceTree = "<group>";
+		};
+		9D6B90081E09D48000F6F4C3 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				9D6B900B1E09D51A00F6F4C3 /* Firebase.h */,
+				9D6B900C1E09D5C000F6F4C3 /* module.modulemap */,
+				9D6B901B1E09E2BB00F6F4C3 /* GINInviteResources.bundle */,
+				9D6B901C1E09E2BB00F6F4C3 /* GoogleSignIn.bundle */,
+				9D6B901D1E09E2BB00F6F4C3 /* GPPACLPickerResources.bundle */,
+				9D6B90191E09E26D00F6F4C3 /* FirebaseAppIndexing.framework */,
+				9D6B900F1E09D7DA00F6F4C3 /* FirebaseDynamicLinks.framework */,
+				9D6B900D1E09D71800F6F4C3 /* FirebaseDatabase.framework */,
+				9D6B90091E09D49000F6F4C3 /* FirebaseRemoteConfig.framework */,
+				9D6B8FFC1E09D47900F6F4C3 /* FirebaseAnalytics.framework */,
+				9D6B8FFD1E09D47900F6F4C3 /* FirebaseCore.framework */,
+				9D6B8FFE1E09D47900F6F4C3 /* FirebaseInstanceID.framework */,
+				9D6B8FFF1E09D47900F6F4C3 /* GoogleInterchangeUtilities.framework */,
+				9D6B90001E09D47900F6F4C3 /* GoogleSymbolUtilities.framework */,
+				9D6B90011E09D47900F6F4C3 /* GoogleToolboxForMac.framework */,
+			);
+			name = Firebase;
 			sourceTree = "<group>";
 		};
 		B72C59D21C26C63200D6651D /* Fonts */ = {
@@ -1134,6 +1209,7 @@
 		DF1FD2DA1B62360600A58B71 /* Handler */ = {
 			isa = PBXGroup;
 			children = (
+				9D5B9B251E1FC7BE002BBB6E /* AppAnalytics.swift */,
 				2FF788261BB5B05000B297D3 /* Handler.entitlements */,
 				DF1FD2DD1B62360600A58B71 /* AppDelegate.swift */,
 				BF24C3C11D327FBA00CC1667 /* Config.swift */,
@@ -1159,6 +1235,7 @@
 		DF1FD2DB1B62360600A58B71 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9DAA2C0B1E0AB02200553046 /* GoogleService-Info.plist */,
 				2F8E37971BB1E91D00C6A82D /* Handler-Bridging-Header.h */,
 				DF1FD2DC1B62360600A58B71 /* Info.plist */,
 				DF1FD2E61B62360600A58B71 /* LaunchScreen.xib */,
@@ -1208,6 +1285,7 @@
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = 2338J96222;
 						LastSwiftMigration = 0810;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -1250,18 +1328,22 @@
 			files = (
 				2FED1D4B1C1E0E1700490798 /* EmptyInboxView.xib in Resources */,
 				2F43E0B11BDA4A5A00C68E1D /* LaunchScreen.xib in Resources */,
+				9D6B901F1E09E2BC00F6F4C3 /* GoogleSignIn.bundle in Resources */,
 				2F1DACF21BC7EFC500FB6173 /* AddAttachmentView.xib in Resources */,
 				2F1D2C401BBC48E600A504A8 /* ErrorPopupViewController.xib in Resources */,
 				2F7B0D031BFDCEDE0015C43A /* MessageTableViewCell.xib in Resources */,
 				2F1D2C381BBC3DCA00A504A8 /* ContactCardViewController.xib in Resources */,
 				2FDB44731BD3EB110040014E /* TwitterKitResources.bundle in Resources */,
 				2F09DB1F1BC69CEC00B81FE2 /* AttachmentThumbnailView.xib in Resources */,
+				9D6B90201E09E2BC00F6F4C3 /* GPPACLPickerResources.bundle in Resources */,
+				9D6B901E1E09E2BC00F6F4C3 /* GINInviteResources.bundle in Resources */,
 				9D16ADE81DE35A5E00C8172A /* Instabug.bundle in Resources */,
 				DF1FD2E51B62360600A58B71 /* Images.xcassets in Resources */,
 				B72C59D41C26C63200D6651D /* System San Francisco Display Regular.ttf in Resources */,
 				2F1D2C3C1BBC477000A504A8 /* SendInvitationViewController.xib in Resources */,
 				BF6653011CDE329A00D9AA1E /* Intro.storyboard in Resources */,
 				2FA2EA8E1BAD9CBA0027EA77 /* Main.storyboard in Resources */,
+				9DAA2C0C1E0AB02200553046 /* GoogleService-Info.plist in Resources */,
 				2F0136981BCFD82E008BAD9D /* IntroView.xib in Resources */,
 				7A372D7B1C6FA721009E400C /* ContactAutocompleteCell.xib in Resources */,
 				7ACDBD5D1C8CAD7F004F5E25 /* ConversationMessageTableViewCell.xib in Resources */,
@@ -1295,7 +1377,6 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Async.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Bond.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Result.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/DZNEmptyDataSet.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Kingfisher.framework",
@@ -1394,6 +1475,7 @@
 				2F7B0D091BFDDA920015C43A /* ActionPluginProvider.swift in Sources */,
 				BF27F3921CDDF01C003A92D9 /* APSocialProfile.m in Sources */,
 				2F4E41551BB08A3200AA2DEF /* SSASideMenu.swift in Sources */,
+				9D5B9B261E1FC7BE002BBB6E /* AppAnalytics.swift in Sources */,
 				2F01369F1BD1029A008BAD9D /* ContactsTableViewController.swift in Sources */,
 				BF862B311D16EDA700E4AE34 /* MessageOperations.swift in Sources */,
 				BF27F38F1CDDF01C003A92D9 /* APPhone.m in Sources */,
@@ -1594,7 +1676,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.handler.handlerapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "47261aa1-9896-4fc8-95c5-d96c097189bc";
+				PROVISIONING_PROFILE_SPECIFIER = "Handler DEV";
 				SWIFT_OBJC_BRIDGING_HEADER = "Handler/Supporting Files/Handler-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -1626,7 +1709,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.handler.handlerapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "47261aa1-9896-4fc8-95c5-d96c097189bc";
+				PROVISIONING_PROFILE_SPECIFIER = "Handler DEV";
 				SWIFT_OBJC_BRIDGING_HEADER = "Handler/Supporting Files/Handler-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;

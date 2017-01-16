@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Bond
 
 enum StatusManagerStatus: String {
 	case Idle = "Idle"
@@ -20,10 +19,10 @@ enum StatusManagerStatus: String {
 class CurrentStatusManager: NSObject, MailboxCountObserver {
 	static let sharedInstance = CurrentStatusManager()
 	
-	var currentStatus = Observable("")
-	var currentStatusSubtitle = Observable("")
-	var currentState: Observable<StatusManagerStatus> = Observable(StatusManagerStatus.Idle)
-	var currentUploadProgress: Observable<Float> = Observable(Float(0.0))
+//	var currentStatus = Observable("")
+//	var currentStatusSubtitle = Observable("")
+//	var currentState: Observable<StatusManagerStatus> = Observable(StatusManagerStatus.Idle)
+//	var currentUploadProgress: Observable<Float> = Observable(Float(0.0))
 
 	private var unreadCount = 0
 	
@@ -39,11 +38,11 @@ class CurrentStatusManager: NSObject, MailboxCountObserver {
 	}
 
 	func mailboxCountDidChange(_ mailboxType: MailboxType, newCount: Int) {
-		if mailboxType == .Unread && currentState.value == .Idle {
-			unreadCount = newCount
-
-			changeStatus("Updated Just Now", unreadCount: unreadCount)
-		}
+//		if mailboxType == .Unread && currentState.value == .Idle {
+//			unreadCount = newCount
+//
+//			changeStatus("Updated Just Now", unreadCount: unreadCount)
+//		}
 	}
 
 	func handleDidStartLoadingMessages(_ notitication: NSNotification) {
@@ -55,13 +54,13 @@ class CurrentStatusManager: NSObject, MailboxCountObserver {
 	}
 
 	func changeStatus(_ status: String, unreadCount: Int?) {
-		if let unreadCount = unreadCount {
-			let subtitle = unreadCount > 0 ? "\(unreadCount) Unread" : "No new emails. Your move."
-			currentStatusSubtitle.next(subtitle)
-		} else {
-			currentStatusSubtitle.next("")
-		}
-
-		currentStatus.next(status)
+//		if let unreadCount = unreadCount {
+//			let subtitle = unreadCount > 0 ? "\(unreadCount) Unread" : "No new emails. Your move."
+//			currentStatusSubtitle.next(subtitle)
+//		} else {
+//			currentStatusSubtitle.next("")
+//		}
+//
+//		currentStatus.next(status)
 	}
 }

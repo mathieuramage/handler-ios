@@ -14,6 +14,8 @@ import Async
 import Instabug
 import Intercom
 import NVActivityIndicatorView
+import FirebaseRemoteConfig
+import FirebaseAnalytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -38,17 +40,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		Twitter.sharedInstance().start(withConsumerKey: Config.Twitter.consumerKey, consumerSecret: Config.Twitter.consumerSecret)
 		Fabric.with([Twitter.sharedInstance(), Crashlytics.self()])
 		Instabug.start(withToken: Config.Instabug.apiToken, invocationEvent: .shake)
+		Instabug.setShakingThresholdForiPhone(1.2, foriPad: 0.5)
 		Intercom.setApiKey(Config.Intercom.apiKey, forAppId: Config.Intercom.appId)
 //		UserTwitterStatusManager.startUpdating() TODO : Do this properly with the new API code
 		UIToolbar.appearance().tintColor = UIColor(rgba: HexCodes.lightBlue)
 		UITextField.appearance().tintColor = UIColor(rgba: HexCodes.lightBlue)
 		UITextView.appearance().tintColor = UIColor(rgba: HexCodes.lightBlue)
 		UIImageView.appearance().clipsToBounds = true
-        
+		
         NVActivityIndicatorView.DEFAULT_TYPE = .lineScale
         NVActivityIndicatorView.DEFAULT_COLOR = UIColor.white
         NVActivityIndicatorView.DEFAULT_BLOCKER_SIZE = CGSize(width: 60, height: 35)
 
+
+		//Firebase
+		FIRApp.configure()
+		let remoteConfigSettings = FIRRemoteConfigSettings(developerModeEnabled: true)
+		let remoteConfig = Config.Firebase.RemoteConfig.instance
+		remoteConfig.configSettings = remoteConfigSettings!
+		remoteConfig.setDefaults(Config.Firebase.RemoteConfig.defaultParams)
+		remoteConfig.fetch(withExpirationDuration: TimeInterval(0)) { (status, error) -> Void in
+			if status == .success {
+				print("Remote config parameters successfully fetched!")
+				remoteConfig.activateFetched()
+			} else {
+				print("Remote Config not fetched")
+				print("Error \(error!.localizedDescription)")
+			}
+		}
+		
 		loadInitialViewController()
 
 		startMessageUpdateTimer()
@@ -69,6 +89,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
 		UserDefaults.standard.setValue(deviceToken.hexadecimalString, forKey: "pushtoken")
+		Intercom.setDeviceToken(deviceToken)
 		// TODO upcoming push notifcation task
 	}
 
@@ -116,6 +137,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func applicationDidBecomeActive(_ application: UIApplication) {
 		startMessageUpdateTimer()
+		let settings = UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: nil)
+		application.registerUserNotificationSettings(settings)
+		application.registerForRemoteNotifications()
 		// Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 	}
 
@@ -147,6 +171,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				if let uid = UserDefaults.standard.string(forKey: Config.UserDefaults.uidKey) {
 					Intercom.registerUser(withUserId: uid)
 				}
+				AppAnalytics.fireLoginEvent()
 			}else{
 				window?.rootViewController = Storyboards.Intro.instantiateViewController(withIdentifier: "LoginViewController")
 			}

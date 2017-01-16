@@ -9,7 +9,6 @@
 import UIKit
 import CoreData
 import Async
-import Bond
 import DZNEmptyDataSet
 
 class UnreadMailboxViewController: UITableViewController, SWTableViewCellDelegate, NSFetchedResultsControllerDelegate, DZNEmptyDataSetSource {
@@ -60,22 +59,22 @@ class UnreadMailboxViewController: UITableViewController, SWTableViewCellDelegat
 		lastupdatedLabel?.textAlignment = .center
 		lastupdatedLabel?.font = UIFont.systemFont(ofSize: 11)
 		lastupdatedLabel?.textColor = UIColor(rgba: HexCodes.darkGray)
-		_ = CurrentStatusManager.sharedInstance.currentStatus.observeNext { text in
-			Async.main {
-				self.lastupdatedLabel?.text = text
-			}
-		}
+//		_ = CurrentStatusManager.sharedInstance.currentStatus.observeNext { text in
+//			Async.main {
+//				self.lastupdatedLabel?.text = text
+//			}
+//		}
 		
 		unreadEmailsCountLabel = UILabel(frame: CGRect(x: 0, y: 26, width: 140, height: 10))
 		unreadEmailsCountLabel?.textAlignment = .center
 		unreadEmailsCountLabel?.font = UIFont.systemFont(ofSize: 11)
 		unreadEmailsCountLabel?.textColor = UIColor(rgba: HexCodes.blueGray)
-		_ = CurrentStatusManager.sharedInstance.currentStatusSubtitle.observeNext { text in
-			Async.main {
-				self.unreadEmailsCountLabel?.text = text
-			}
-		}
-		
+//		_ = CurrentStatusManager.sharedInstance.currentStatusSubtitle.observeNext { text in
+//			Async.main {
+//				self.unreadEmailsCountLabel?.text = text
+//			}
+//		}
+//		
 		let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 140, height: 44))
 		containerView.addSubview(lastupdatedLabel!)
 		containerView.addSubview(unreadEmailsCountLabel!)
@@ -92,12 +91,12 @@ class UnreadMailboxViewController: UITableViewController, SWTableViewCellDelegat
 		progressBar.progressTintColor = UIColor.white
 		progressBar.isHidden = true
 		
-		_ = CurrentStatusManager.sharedInstance.currentUploadProgress.observeNext { progress in
-			Async.main {
-				self.progressBar.progress = progress
-				self.progressBar.isHidden = progress == 0 || progress == 1
-			}
-		}
+//		_ = CurrentStatusManager.sharedInstance.currentUploadProgress.observeNext { progress in
+//			Async.main {
+//				self.progressBar.progress = progress
+//				self.progressBar.isHidden = progress == 0 || progress == 1
+//			}
+//		}
 		
 		self.navigationController?.navigationBar.addSubview(progressBar)
 		
@@ -280,7 +279,7 @@ class UnreadMailboxViewController: UITableViewController, SWTableViewCellDelegat
 		view.imageView.image = UIImage(named: "mailbox_unread_empty")
 		view.descriptionLabel.text = "Your unread emails will be here."
 		view.actionButton.setTitle("Compose your first email", for: UIControlState())
-		view.actionButton.addTarget(self, action: #selector(FlaggedMailboxViewController.composeNewMessage), for: .touchUpInside)
+		view.actionButton.addTarget(self, action: #selector(UnreadMailboxViewController.composeNewMessage), for: .touchUpInside)
 		return view
 	}
 }

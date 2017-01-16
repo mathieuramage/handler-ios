@@ -9,7 +9,6 @@
 import UIKit
 import CoreData
 import Async
-import Bond
 import DZNEmptyDataSet
 
 class DraftsMailboxViewController: AbstractMessageMailboxViewController {
