@@ -30,7 +30,7 @@ class GreetingViewController: UIViewController, UIViewControllerShow {
         }
     }
     
-    var user: ManagedUser? {
+    var user: User? {
         didSet {
             if let user = user {
                 getDataWithHandle(user.handle)

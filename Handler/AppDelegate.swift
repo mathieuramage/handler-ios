@@ -13,10 +13,9 @@ import Crashlytics
 import Async
 import Instabug
 import Intercom
+import NVActivityIndicatorView
 import FirebaseRemoteConfig
 import FirebaseAnalytics
-
-
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -48,6 +47,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		UITextField.appearance().tintColor = UIColor(rgba: HexCodes.lightBlue)
 		UITextView.appearance().tintColor = UIColor(rgba: HexCodes.lightBlue)
 		UIImageView.appearance().clipsToBounds = true
+		
+        NVActivityIndicatorView.DEFAULT_TYPE = .lineScale
+        NVActivityIndicatorView.DEFAULT_COLOR = UIColor.white
+        NVActivityIndicatorView.DEFAULT_BLOCKER_SIZE = CGSize(width: 60, height: 35)
+
 
 		//Firebase
 		FIRApp.configure()
@@ -67,10 +71,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		loadInitialViewController()
 
-		let settings = UIUserNotificationSettings(types: [UIUserNotificationType.badge, UIUserNotificationType.sound, UIUserNotificationType.alert], categories: nil)
-		UIApplication.shared.registerUserNotificationSettings(settings)
-		UIApplication.shared.registerForRemoteNotifications()
-		UIApplication.shared.applicationIconBadgeNumber = 0
 		startMessageUpdateTimer()
 		return true
 	}
@@ -145,7 +145,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func applicationWillTerminate(_ application: UIApplication) {
 		cancelMessageUpdateTimer()
-		DatabaseManager.sharedInstance.mainManagedContext.saveRecursively()
+		CoreDataStack.shared.viewContext.trySave()
+		CoreDataStack.shared.backgroundContext.trySave()		
 	}
 
 
@@ -159,14 +160,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	func updateMessages() {
-//		APICommunicator.sharedInstance.fetchNewMessagesWithCompletion { (error) -> Void in
-//			Async.main(block: { () -> Void in
-//				guard let error = error else {
-//					return
-//				}
-//				error.show()
-//			})
-//		}
+		ConversationManager.updateConversations()
 	}
 
 	func loadInitialViewController() {

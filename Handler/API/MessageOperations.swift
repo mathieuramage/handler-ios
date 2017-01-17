@@ -16,7 +16,7 @@ enum MessageLoadingStatusNotification: String {
 
 struct MessageOperations {
 	
-	static func getAllMessages(before : Date? , after : Date?, limit : Int?, callback : @escaping (_ success : Bool, _ messages : [Message]?) -> ()) {
+	static func getAllMessages(before : Date? , after : Date?, limit : Int?, callback : @escaping (_ success : Bool, _ messages : [MessageData]?) -> ()) {
 		
 		var params : [String : Any] = [:]
 		
@@ -41,33 +41,32 @@ struct MessageOperations {
 
 			switch response.result {
 			case .success:
-				var messages : [Message] = []
+				var messages : [MessageData] = []
 				if let value = response.result.value {
 					if let json = JSON(value)["messages"].array {
 						for messageJson in json {
-							let message = Message.messageWithJSON(messageJson, inContext: DatabaseManager.sharedInstance.mainManagedContext)
+                            let message = MessageData(json: messageJson)
 							messages.append(message)
 						}
 					}
 				}
-				DatabaseManager.sharedInstance.mainManagedContext.saveRecursively{ error in
 					callback(true,messages)
-				}
+
 			case .failure(_):
 				callback(false,nil)
 			}
 		}
 	}
 	
-	static func getMessage(_ id : String, callback : @escaping (_ success : Bool, _ message : Message?) -> ()) {
+	static func getMessage(_ id : String, callback : @escaping (_ success : Bool, _ message : MessageData?) -> ()) {
 		
 		let route = Config.APIRoutes.message(id)
 		APIUtility.request(method: .get, route: route, parameters: nil).responseJSON { response in
 			switch response.result {
 			case .success:
-				var message : Message?
+				var message : MessageData?
 				if let value = response.result.value {
-					message = Message.messageWithJSON(JSON(value), inContext: DatabaseManager.sharedInstance.mainManagedContext)
+                    message = MessageData(json : JSON(value))
 				}
 				callback(true,message)
 			case .failure(_):
@@ -76,30 +75,10 @@ struct MessageOperations {
 		}
 	}
 	
-	static func replyMessageToAll(_ message : Message, replyMessage: String, callback : @escaping MessageUpdateCallback) {
-		var messageData = MessageData()
-		messageData.conversationId = message.conversationId
-		messageData.subject = message.subject
-		messageData.message = replyMessage
-		
-		var recipients : [String] = []
-		
-		if message.sender?.identifier != AuthUtility.user?.identifier {
-			recipients.append(message.sender!.handle)
-		}
-		for user in message.recipients! {
-			if (user as AnyObject).identifier != AuthUtility.user?.identifier {
-				recipients.append((user as AnyObject).handle)
-			}
-		}
-		messageData.recipients = recipients
-		postNewMessage(messageData, callback: callback)
-	}
+	typealias MessageUpdateCallback = (_ success : Bool, _ message: MessageData?) -> ()
 	
-	typealias MessageUpdateCallback = (_ success : Bool, _ message: Message?) -> ()
-	
-	static func replyToUserNames(_ recipientUserNames : [String], conversationId: String, message : String, subject : String, callback : MessageUpdateCallback?) {
-		var messageData = MessageData()
+	static func replyToConversation(conversationId: String, message : String, subject : String, recipientUserNames : [String], callback : MessageUpdateCallback?) {
+		var messageData = MessageUpdateData()
 		messageData.subject = message
 		messageData.message = subject
 		messageData.folder = .Sent
@@ -107,16 +86,8 @@ struct MessageOperations {
 		postNewMessage(messageData, callback: callback)
 	}
 	
-	static func replyMessageToUsers(_ users : [ManagedUser], conversationId: String, message: String, subject : String, callback : MessageUpdateCallback?) {
-		var recipientUserNames : [String] = []
-		for user in users {
-			recipientUserNames.append(user.handle)
-		}
-		replyToUserNames(recipientUserNames, conversationId: conversationId, message: message, subject: subject, callback: callback)
-	}
-	
 	static func sendNewMessage(_ message : String, subject : String, recipientUserNames: [String], callback : MessageUpdateCallback?) {
-		var messageData = MessageData()
+		var messageData = MessageUpdateData()
 		messageData.subject = subject
 		messageData.message = message
 		messageData.folder = .Sent
@@ -124,16 +95,8 @@ struct MessageOperations {
 		postNewMessage(messageData, callback: callback)
 	}
 	
-	static func sendNewMessage(_ message : String, subject : String, recipients: [ManagedUser], callback : MessageUpdateCallback?) {
-		var recipientUserNames : [String] = []
-		for user in recipients {
-			recipientUserNames.append(user.handle)
-		}
-		sendNewMessage(message, subject: subject, recipientUserNames: recipientUserNames, callback: callback)
-	}
-	
 	static func saveMessageAsDraft(_ message : String?, subject : String?, recipientUserNames : [String], callback : MessageUpdateCallback?) {
-		var messageData = MessageData()
+		var messageData = MessageUpdateData()
 		messageData.subject = subject
 		messageData.message = message
 		messageData.folder = .Draft
@@ -142,7 +105,7 @@ struct MessageOperations {
 	}
 	
 	static func updateDraft(_ identifier: String, message : String?, subject : String?, recipientUserNames : [String], callback : MessageUpdateCallback?) {
-		var messageData = MessageData()
+		var messageData = MessageUpdateData()
 		messageData.messageId = identifier
 		messageData.subject = subject
 		messageData.message = message
@@ -151,7 +114,7 @@ struct MessageOperations {
 	}
 	
 	static func sendDraft(_ identifier: String, message : String?, subject : String?, recipientUserNames : [String], callback : MessageUpdateCallback?) {
-		var messageData = MessageData()
+		var messageData = MessageUpdateData()
 		messageData.messageId = identifier
 		messageData.subject = subject
 		messageData.message = message
@@ -161,27 +124,27 @@ struct MessageOperations {
 	}
 	
 	static func setMessageAsRead(message : Message, read : Bool, callback : MessageUpdateCallback?) {
-		var messageData = MessageData()
+		var messageData = MessageUpdateData()
 		messageData.messageId = message.identifier
 		messageData.read = true
 		postExistingMessage(messageData, callback: callback)
 	}
 	
 	static func setMessageStarred(message : Message, starred : Bool, callback : MessageUpdateCallback?) {
-		var messageData = MessageData()
+		var messageData = MessageUpdateData()
 		messageData.messageId = message.identifier
 		messageData.starred = true
 		postExistingMessage(messageData, callback: callback)
 	}
 	
 	static func deleteMessage(messageId: String, callback : MessageUpdateCallback?) {
-		var messageData = MessageData()
+		var messageData = MessageUpdateData()
 		messageData.messageId = messageId
 		messageData.folder = .Deleted
 		postExistingMessage(messageData, callback: callback)
 	}
 	
-	fileprivate static func postNewMessage(_ messageData : MessageData, callback : MessageUpdateCallback?) {
+	fileprivate static func postNewMessage(_ messageData : MessageUpdateData, callback : MessageUpdateCallback?) {
 		
 		let route = Config.APIRoutes.messages
 		
@@ -214,9 +177,9 @@ struct MessageOperations {
 		APIUtility.request(method: .post, route: route, parameters: params).responseJSON { response in
 			switch response.result {
 			case .success:
-				var message : Message?
+				var message : MessageData?
 				if let value = response.result.value {
-					message = Message.messageWithJSON(JSON(value), inContext: DatabaseManager.sharedInstance.mainManagedContext)
+					message = MessageData(json: JSON(value))
 				}
 				callback?(true,message)
 			case .failure(_):
@@ -226,7 +189,7 @@ struct MessageOperations {
 	}
 	
 	
-	fileprivate static func postExistingMessage(_ messageData : MessageData, callback : MessageUpdateCallback?) {
+	fileprivate static func postExistingMessage(_ messageData : MessageUpdateData, callback : MessageUpdateCallback?) {
 		
 		guard let messageId = messageData.messageId else {
 			callback?(false, nil)
@@ -267,12 +230,10 @@ struct MessageOperations {
 		APIUtility.request(method: .post, route: route, parameters: params).responseJSON { (response) in
 			switch response.result {
 			case .success:
-				var message : Message?
+				var message : MessageData?
 				if let value = response.result.value {
-					message = Message.messageWithJSON(JSON(value), inContext: DatabaseManager.sharedInstance.mainManagedContext)
-					DatabaseManager.sharedInstance.mainManagedContext.saveRecursively{ error in
-						callback?(true,message)
-					}
+                    message = MessageData(json :JSON(value))
+                    callback?(true,message)
 				}
 				
 			case .failure(_):
@@ -283,7 +244,7 @@ struct MessageOperations {
 }
 
 
-private struct MessageData {
+private struct MessageUpdateData {
 	var conversationId : String?
 	var messageId : String?
 	var recipients : [String]?
@@ -293,4 +254,63 @@ private struct MessageData {
 	var starred : Bool?
 	var folder : Folder?
 	var labels : [String]?
+}
+
+struct MessageData {
+    var content: String?
+    var conversationId: String?
+    var createdAt: Date?
+    var folderString: String?
+    var identifier: String?
+    var read: Bool
+    var shouldBeSent: Bool
+    var starred: Bool
+    var subject: String?
+    var updatedAt: Date?
+    var recipients: [UserData]?
+    var sender: UserData?
+    var labels: [String]?
+    
+    init(json: JSON) {
+		identifier = json["id"].stringValue
+        sender = UserData(json: json["sender"])
+        conversationId = json["conversationId"].stringValue
+        subject = json["subject"].stringValue
+        content = json["message"].stringValue
+        
+        recipients = []
+        if let recipientJsons = json["recipients"].array {
+            for recipientJson in recipientJsons {
+                let recipient = UserData(json: recipientJson)
+                recipients?.append(recipient)
+            }
+        }
+        read = json["isRead"].boolValue
+        folderString = json["folder"].stringValue
+
+        labels = []
+        if let labelJsons = json["labels"].array {
+            for labelJson in labelJsons {
+                labels?.append(labelJson.stringValue)
+            }
+        }
+        starred = json["isStar"].boolValue
+        
+        if let createdAtStr = json["createdAt"].string {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+            createdAt = formatter.date(from: createdAtStr)
+        } else {
+            createdAt = Date()
+        }
+        
+        if let updatedAtStr = json["updatedAt"].string {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+            updatedAt = formatter.date(from: updatedAtStr)
+        } else {
+            updatedAt = Date()
+        }
+        shouldBeSent = json["shouldBeSent"].bool ?? false
+    }
 }

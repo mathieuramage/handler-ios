@@ -13,16 +13,15 @@ class InboxActionHandler: MessageTableViewCellActions {
 	let EmailActionEvents = AppEvents.EmailActions.self
 	
 	// MARK: Actions
+	func leftButtonTriggered(_ index: Int, data message: Message, callback: (() -> Void)?) {
 	
-	func leftButtonTriggered(_ index: Int, data message: ManagedMessage, callback: (() -> Void)?) {
-		
 		switch index {
 		case 0:
-			if message.isUnread {
-				message.conversation?.markAsRead()
+			if !message.read {
+				MessageManager.markMessageRead(message: message)
 				AppAnalytics.fireContentViewEvent(contentId: EmailActionEvents.markRead, event: EmailActionEvents)
 			} else {
-				message.conversation?.markAsUnread(message)
+				MessageManager.markMessageUnread(message: message)
 				AppAnalytics.fireContentViewEvent(contentId: EmailActionEvents.markUnread, event: EmailActionEvents)
 			}
 			break;
@@ -38,25 +37,25 @@ class InboxActionHandler: MessageTableViewCellActions {
 		
 		// TODO: Implement actions
 	}
-	
-	func rightButtonTriggered(_ index: Int, data message: ManagedMessage, callback: (() -> Void)?) {
+
+	func rightButtonTriggered(_ index: Int, data message: Message, callback: (() -> Void)?) {
 		
 		switch index {
 		case 0:
-			if message.isFlagged {
-				message.unflag()
+			if message.starred {
+//				message.unflag()
 				AppAnalytics.fireContentViewEvent(contentId: EmailActionEvents.unflagged, event: EmailActionEvents)
 			} else {
-				message.flag()
+//				message.flag()
 				AppAnalytics.fireContentViewEvent(contentId: EmailActionEvents.flagged, event: EmailActionEvents)
 			}
 			break
 		case 1:
-			if message.isArchived {
-				message.conversation?.unarchive()
+			if message.archived {
+//				message.conversation?.unarchive()
 				AppAnalytics.fireContentViewEvent(contentId: EmailActionEvents.unarchived, event: EmailActionEvents)
 			} else {
-				message.conversation?.archive()
+//				message.conversation?.archive()
 				AppAnalytics.fireContentViewEvent(contentId: EmailActionEvents.archived, event: EmailActionEvents)
 			}
 			break
@@ -73,26 +72,26 @@ class InboxActionHandler: MessageTableViewCellActions {
 	}
 	
 	// MARK: Data Source
-	
-	func leftButtonsForData(data message: ManagedMessage) -> [AnyObject] {
+
+	func leftButtonsForData(data message: Message) -> [AnyObject] {
 		let array = NSMutableArray()
-		if message.isUnread {
+		if !message.read {
 			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.lightBlue), icon: UIImage(named: "icon_read"))
 		} else {
 			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.lightBlue), icon: UIImage(named: "icon_unread"))
 		}
 		return array as [AnyObject]
 	}
-	
-	func rightButtonsForData(data message: ManagedMessage) -> [AnyObject] {
+
+	func rightButtonsForData(data message: Message) -> [AnyObject] {
 		let array = NSMutableArray()
-		if message.isFlagged {
+		if message.starred {
 			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.orange), icon: UIImage(named: "icon_unflag"))
 		} else {
 			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.orange), icon: UIImage(named: "icon_flag"))
 		}
 		
-		if message.isArchived {
+		if message.archived {
 			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.darkBlue), icon: UIImage(named: "icon_unarchive"))
 		} else {
 			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.darkBlue), icon: UIImage(named: "icon_archive"))

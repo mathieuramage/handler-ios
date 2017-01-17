@@ -30,14 +30,14 @@ class ContactLegacyTableViewCell: UITableViewCell {
     @IBOutlet weak var handleLabel: UILabel!
     @IBOutlet weak var followButton: UIButton!
     
-    var user: ManagedUser? {
+    var user: User? {
         didSet {
-            if let urlString = user?.profile_picture_url, let profileUrl = URL(string: urlString) {
-                self.profileImageView.kf.setImage(with: profileUrl, placeholder: UIImage.randomGhostImage(), options: nil, progressBlock: nil, completionHandler: nil)
-            }
-            
-            self.followButton.setImage(UIImage.imageForTwitterStatus(TwitterFriendshipStatus(rawValue: user?.twtterFollowStatus?.intValue ?? 2)!), for: UIControlState())
-            self.followButton.isEnabled = user?.twtterFollowStatus?.intValue < 2
+//            if let urlString = user?.profile_picture_url, let profileUrl = URL(string: urlString) {
+//                self.profileImageView.kf.setImage(with: profileUrl, placeholder: UIImage.randomGhostImage(), options: nil, progressBlock: nil, completionHandler: nil)
+//            }
+//            
+//            self.followButton.setImage(UIImage.imageForTwitterStatus(TwitterFriendshipStatus(rawValue: user?.twtterFollowStatus?.intValue ?? 2)!), for: UIControlState())
+//            self.followButton.isEnabled = user?.twtterFollowStatus?.intValue < 2
             self.nameLabel.text = user?.name
             self.handleLabel.text = user?.handle
             

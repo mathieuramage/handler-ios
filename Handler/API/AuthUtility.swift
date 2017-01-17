@@ -35,7 +35,7 @@ struct AuthUtility {
 		}
 	}
 
-	static var user: ManagedUser?
+	static var user: User?
 
 	static func getClientCredentials(headers oauthHeaders : [String : String], callback : @escaping (_ success: Bool, _ accessToken : AccessToken?) -> () ) {
 
@@ -92,7 +92,7 @@ struct AuthUtility {
 		accessToken = nil
 		UserDefaults.standard.set(nil, forKey: Config.UserDefaults.uidKey)
 		Intercom.reset()
-		DatabaseManager.sharedInstance.flushDatastore()
+		CoreDataStack.shared.flushDatastore()
 	}
 
 	static func revokeToken(callback: ((_ success : Bool) -> ())?) {

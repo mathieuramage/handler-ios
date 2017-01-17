@@ -23,8 +23,6 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 	@IBOutlet weak var gradientView: GradientView!
 	@IBOutlet weak var separatorView: UIView!
 	
-	let MenuEvents = AppEvents.SideMenu.self
-	
 	var optionsTableViewController: MailBoxOptionsTableViewController? {
 		didSet {
 			optionsTableViewController?.tableView.delegate = self
@@ -148,7 +146,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 		//
 		//		self.presentViewController(messageNC, animated: true, completion: nil)
 		
-		AppAnalytics.fireContentViewEvent(contentId: MenuEvents.feedback, event: MenuEvents)
+		AppAnalytics.fireContentViewEvent(contentId: AppEvents.SideMenu.feedback, event: AppEvents.SideMenu.self)
 	}
 	
 	func signOut() {
@@ -166,8 +164,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 				if let nc = AppDelegate.sharedInstance().sideMenu.contentViewController as? UINavigationController {
 					nc.setViewControllers([inboxViewController], animated: true)
 				}
-				
-				AppAnalytics.fireContentViewEvent(contentId: self.MenuEvents.logout, event: self.MenuEvents)
+				AppAnalytics.fireContentViewEvent(contentId: AppEvents.SideMenu.logout, event: AppEvents.SideMenu.self)
 			})
 		}
 	}
