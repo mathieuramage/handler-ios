@@ -721,10 +721,10 @@
 			isa = PBXGroup;
 			children = (
 				7A44570F1D8F1A73000F862D /* CoreDataStack.swift */,
-				BF2587881E04167900AFA0C7 /* Legacy Code */,
 				BF2587B61E05D65C00AFA0C7 /* ConversationDao.swift */,
 				BF2587A81E05212500AFA0C7 /* MessageDao.swift */,
 				BF2587AA1E05AF5D00AFA0C7 /* UserDao.swift */,
+				BF2587881E04167900AFA0C7 /* Legacy Code */,
 			);
 			name = "Core Data";
 			path = Database;
@@ -1209,9 +1209,9 @@
 		DF1FD2DA1B62360600A58B71 /* Handler */ = {
 			isa = PBXGroup;
 			children = (
-				9D5B9B251E1FC7BE002BBB6E /* AppAnalytics.swift */,
 				2FF788261BB5B05000B297D3 /* Handler.entitlements */,
 				DF1FD2DD1B62360600A58B71 /* AppDelegate.swift */,
+				9D5B9B251E1FC7BE002BBB6E /* AppAnalytics.swift */,
 				BF24C3C11D327FBA00CC1667 /* Config.swift */,
 				B72C59D01C26BBE500D6651D /* Globals.swift */,
 				BF862B261D16EC7600E4AE34 /* API */,

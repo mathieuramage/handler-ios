@@ -107,57 +107,7 @@ extension Message {
         
         return self.recipients
     }
-    
-    // MARK: State getter utilities
-    
-    
-    var isInbox: Bool {
-        get {
-            let unread = false
-            //			if let backgroundSelf = self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) {
-            //				if let labels = backgroundSelf.labels {
-            //					for label in labels {
-            //						if label.id == "INBOX" {
-            //							unread = true
-            //						}
-            //					}
-            //				}
-            //			}
-            return unread
-        }
-    }
-    
-    var isFlagged: Bool {
-        get {
-            //			if let backgroundSelf = self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) {
-            //
-            //				if let labels = backgroundSelf.labels {
-            //					for label in labels {
-            //						if label.id == "IMPORTANT" {
-            //							return true
-            //						}
-            //					}
-            //				}
-            //			}
-            return false
-        }
-    }
-    
-    var isArchived: Bool {
-        get {
-            //			if let backgroundSelf = self.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext) {
-            //
-            //				if let labels = backgroundSelf.labels {
-            //					for label in labels {
-            //						if label.id == "INBOX" {
-            //							return false
-            //						}
-            //					}
-            //				}
-            //			}
-            return true
-        }
-    }
+	
     
     var isDraft: Bool {
         return folderString == SystemLabels.Drafts.rawValue

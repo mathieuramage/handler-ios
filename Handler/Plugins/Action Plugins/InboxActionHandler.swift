@@ -42,7 +42,7 @@ class InboxActionHandler: MessageTableViewCellActions {
 		
 		switch index {
 		case 0:
-			if message.isFlagged {
+			if message.starred {
 //				message.unflag()
 				AppAnalytics.fireContentViewEvent(contentId: EmailActionEvents.unflagged, event: EmailActionEvents)
 			} else {
@@ -51,7 +51,7 @@ class InboxActionHandler: MessageTableViewCellActions {
 			}
 			break
 		case 1:
-			if message.isArchived {
+			if message.archived {
 //				message.conversation?.unarchive()
 				AppAnalytics.fireContentViewEvent(contentId: EmailActionEvents.unarchived, event: EmailActionEvents)
 			} else {
@@ -85,13 +85,13 @@ class InboxActionHandler: MessageTableViewCellActions {
 
 	func rightButtonsForData(data message: Message) -> [AnyObject] {
 		let array = NSMutableArray()
-		if message.isFlagged {
+		if message.starred {
 			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.orange), icon: UIImage(named: "icon_unflag"))
 		} else {
 			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.orange), icon: UIImage(named: "icon_flag"))
 		}
 		
-		if message.isArchived {
+		if message.archived {
 			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.darkBlue), icon: UIImage(named: "icon_unarchive"))
 		} else {
 			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.darkBlue), icon: UIImage(named: "icon_archive"))
