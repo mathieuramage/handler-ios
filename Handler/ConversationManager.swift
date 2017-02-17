@@ -14,7 +14,6 @@ struct ConversationManager {
 	static let conversationUpdateFinishedNotification = Notification.Name("ConversationUpdateFinishedNotification")
 	static let conversationUpdateFailedNotification = Notification.Name("ConversationUpdateFailedNotification")
 	
-	
 	private static var _latestUpdateKey = "ConversationLatestUpdate"
 	static var latestUpdate : Date? {
 		get {
@@ -66,11 +65,9 @@ struct ConversationManager {
 					}
 				}
 				
-				
 				DispatchQueue.main.async {
 					NotificationCenter.default.post(name: conversationUpdateFinishedNotification, object: nil, userInfo: nil)
 				}
-				
 			}
 			
 		}
@@ -105,7 +102,6 @@ struct ConversationManager {
 			}
 			conversationDict[cId]!.messages!.append(m)
 		}
-		
 		return Array(conversationDict.values)
 	}
 	

@@ -12,7 +12,7 @@ import CoreData
 
 struct UserDao {
 	
-	static func userWithHandle(handle : String, context : NSManagedObjectContext = CoreDataStack.shared.viewContext) -> User? {
+	static func findUserWithHandle(handle : String, context : NSManagedObjectContext = CoreDataStack.shared.viewContext) -> User? {
 		let fetchRequest : NSFetchRequest<User> = User.fetchRequest()
 		fetchRequest.predicate = NSPredicate(format: "twitterUser.username == %@", handle)
 		fetchRequest.fetchBatchSize = 1

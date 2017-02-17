@@ -64,7 +64,7 @@ class InboxMessageTableViewCellHelper {
 
 		cell.attachmentIconView.isHidden = true
 
-		cell.repliedIconView.isHidden = (message.sender?.identifier != AuthUtility.user?.identifier)
+		cell.repliedIconView.isHidden = (message.sender?.identifier != AuthUtility.shared.user?.identifier)
 
 		setUpReadFlagMessage(message: message, view: cell)
 	}

@@ -92,7 +92,7 @@ class GreetingViewController: UIViewController, UIViewControllerShow {
     }
     
     func updateView() {
-        if let user = AuthUtility.user {
+        if let user = AuthUtility.shared.user {
             getDataWithHandle(user.handle)
         }
     }

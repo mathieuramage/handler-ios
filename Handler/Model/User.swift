@@ -12,37 +12,44 @@ import SwiftyJSON
 
 
 extension User {
-    
-    var handle : String {
-        return twitterUser?.username ?? ""
-    }
-    
-    var name : String {
-        return twitterUser?.name ?? ""
-    }
-    
-    var pictureUrl : URL? {
-        if let pictureUrlString = twitterUser?.pictureURLString {
-            return URL(string: pictureUrlString)
-        }
-        return nil
-    }
-    
-    var bannerUrl : URL? {
-        if let bannerUrlString = twitterUser?.bannerURLString {
-            return URL(string: bannerUrlString)
-        }
-        return nil
-    }
-    
-    convenience init(data: UserData, context: NSManagedObjectContext) {
-        self.init(context: context)
-        self.setUserData(data)
-    }
-    
-    func setUserData(_ data : UserData) {
+	
+	var handle : String {
+		return twitterUser?.username ?? ""
+	}
+	
+	var name : String {
+		return twitterUser?.name ?? ""
+	}
+	
+	var pictureUrl : URL? {
+		if let pictureUrlString = twitterUser?.pictureURLString {
+			return URL(string: pictureUrlString)
+		}
+		return nil
+	}
+	
+	var bannerUrl : URL? {
+		if let bannerUrlString = twitterUser?.bannerURLString {
+			return URL(string: bannerUrlString)
+		}
+		return nil
+	}
+	
+	convenience init(data: UserData, context: NSManagedObjectContext) {
+		self.init(context: context)
+		self.setUserData(data)
+	}
+	
+	func setUserData(_ data : UserData) {
 		identifier = data.identifier
 		createdAt = data.createdAt?.NSDateValue
 		updatedAt = data.updatedAt?.NSDateValue
+		if let twitterData = data.twitterUser {
+			if twitterUser == nil {
+				twitterUser = TwitterUser(data: twitterData, context: managedObjectContext ?? CoreDataStack.shared.backgroundContext)
+			} else{
+				twitterUser?.setTwitterUserData(twitterData)
+			}
+		}
 	}
 }

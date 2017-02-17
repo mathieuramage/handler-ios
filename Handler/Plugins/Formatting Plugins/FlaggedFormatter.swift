@@ -73,7 +73,7 @@ struct FlaggedFormatter: MessageTableViewCellFormatter {
 		//        }
 
 		// TODO
-		if message.conversation?.mostRecentMessage?.sender?.identifier == AuthUtility.user?.identifier {
+		if message.conversation?.mostRecentMessage?.sender?.identifier == AuthUtility.shared.user?.identifier {
 			view.repliedIconView.isHidden = false
 		} else {
 			view.repliedIconView.isHidden = true

@@ -97,7 +97,7 @@ extension Message {
     func recipientsWithoutSelf() -> NSSet? {
         if let recipients = self.recipients?.allObjects as? [User] {
             for recipient in recipients {
-                if recipient.handle == AuthUtility.user?.handle {
+                if recipient.handle == AuthUtility.shared.user?.handle {
                     let mutableSet = NSMutableSet(set: self.recipients!)
                     mutableSet.remove(recipient)
                     return NSSet(set: mutableSet)

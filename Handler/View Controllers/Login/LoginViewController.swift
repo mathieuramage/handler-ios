@@ -93,21 +93,20 @@ class LoginViewController: UIViewController,NVActivityIndicatorViewable {
 //						return
 //					}
 
-					AuthUtility.getTokenAssertion(headers: headers, callback: { (success, accessToken) in
+					UserOperations.getTokenAssertion(headers: headers, callback: { (success, accessToken) in
 
 						guard let accessToken = accessToken, success else {
 							return
 						}
 
-						AuthUtility.accessToken = accessToken
+						AuthUtility.shared.accessToken = accessToken
 						
 						AppAnalytics.fireLoginEvent()
 
 						UserOperations.getMe({ (success, userData) in
-							AuthUtility.user = UserDao.updateOrCreateUser(userData: userData!)
-							let user = AuthUtility.user
+							AuthUtility.shared.user = UserDao.updateOrCreateUser(userData: userData!)
+							let user = AuthUtility.shared.user
 							if let uid = user?.handle {
-								UserDefaults.standard.set(uid, forKey: Config.UserDefaults.uidKey)
 								Intercom.registerUser(withUserId: uid)
 							}
 

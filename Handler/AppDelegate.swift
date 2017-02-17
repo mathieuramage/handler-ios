@@ -166,9 +166,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func loadInitialViewController() {
 		if (UserDefaults.standard.bool(forKey: "didFinishWalkthrough") && !ENABLE_ONBOARDING_EVERY_RUN) {
 			
-			if let _ = AuthUtility.accessToken {
+			if let _ = AuthUtility.shared.accessToken {
 				window?.rootViewController = sideMenu
-				if let uid = UserDefaults.standard.string(forKey: Config.UserDefaults.uidKey) {
+				if let uid = AuthUtility.shared.user?.identifier {
 					Intercom.registerUser(withUserId: uid)
 				}
 				AppAnalytics.fireLoginEvent()

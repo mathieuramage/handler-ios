@@ -10,10 +10,16 @@ import UIKit
 import SwiftyJSON
 import Intercom
 
-struct AuthUtility {
-	fileprivate static let _accessTokenKey = "HR_ACCESS_TOKEN_KEY"
-	fileprivate static var _accessToken : AccessToken?
-	static var accessToken : AccessToken? {
+class AuthUtility {
+	
+	static let shared = AuthUtility()
+	
+	private init() {}
+	
+	private let _accessTokenKey = "HR_ACCESS_TOKEN_KEY"
+	private var _accessToken : AccessToken?
+	
+	var accessToken : AccessToken? {
 		get {
 			if let token = _accessToken {
 				return token
@@ -34,76 +40,42 @@ struct AuthUtility {
 			}
 		}
 	}
-
-	static var user: User?
-
-	static func getClientCredentials(headers oauthHeaders : [String : String], callback : @escaping (_ success: Bool, _ accessToken : AccessToken?) -> () ) {
-
-		let params = [ "client_id":Config.ClientId,
-		               "grant_type":"client_credentials",
-		               "client_secret": Config.ClientSecret]
-
-		APIUtility.request(method: .post, route: Config.APIRoutes.oauth, parameters: params, headers: oauthHeaders).responseJSON { (response) in
-
-			var success : Bool = false
-			var accessToken : AccessToken?
-
-			switch response.result {
-			case .success:
-				if let value = response.result.value {
-					accessToken = AccessToken(json: JSON(value))
-					success = true
-				}
-			case .failure(_):
-				success = false
+	
+	private let _appUserNameKey = "HR_APP_USER_KEY"
+	private var _appUser : User?
+	
+	var user: User? {
+		get {
+			if let appUser = _appUser {
+				return appUser
 			}
-			callback(success, accessToken)
+			
+			if let username = UserDefaults.standard.object(forKey: _appUserNameKey) as? String {
+				_appUser = UserDao.findUserWithHandle(handle: username)
+			}
+			return _appUser
+		}
+		
+		set {
+			if let appUser = newValue {
+				_appUser = appUser
+				UserDefaults.standard.set(appUser.handle, forKey: _appUserNameKey)
+			} else {
+				UserDefaults.standard.removeObject(forKey: _appUserNameKey)
+			}
 		}
 	}
-
-
-	static func getTokenAssertion(headers oauthHeaders: [String : String], callback : @escaping (_ success : Bool, _ accessToken : AccessToken?) -> ()) {
-
-        let params : [String : Any] = [ "client_id": Config.ClientId,
-		               "grant_type":"assertion"]
-
-        APIUtility.request(method: .post, route: Config.APIRoutes.oauth, parameters: params, headers: oauthHeaders).responseJSON { (response) in
-
-			var accessToken : AccessToken?
-			var success : Bool = false
-
-			switch response.result {
-			case .success:
-				if let value = response.result.value {
-					accessToken = AccessToken(json: JSON(value))
-				}
-				success = accessToken != nil
-			case .failure(_):
-				success = false
-			}
-
-			callback(success, accessToken)
-		}
-
-	}
-
-	static func signOut() {
-		revokeToken(callback: nil)
+	
+	
+	func signOut() {
+		UserOperations.revokeToken(callback: nil)
 		accessToken = nil
-		UserDefaults.standard.set(nil, forKey: Config.UserDefaults.uidKey)
+		user = nil
 		Intercom.reset()
 		CoreDataStack.shared.flushDatastore()
 	}
+	
 
-	static func revokeToken(callback: ((_ success : Bool) -> ())?) {
-        APIUtility.request(method: .post, route: Config.APIRoutes.revoke, parameters: nil).responseJSON { (response) in
-			switch response.result {
-			case .success:
-				callback?(true)
-			case .failure(_):
-				callback?(false)
-			}
-		}
-	}
+
 
 }

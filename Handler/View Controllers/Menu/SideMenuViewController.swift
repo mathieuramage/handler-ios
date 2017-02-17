@@ -46,7 +46,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 	}
 	
 	func updateCurrentUser() {
-		guard let handle = UserDefaults.standard.string(forKey: Config.UserDefaults.uidKey) else {
+		guard let handle = AuthUtility.shared.user?.handle else {
 			return
 		}
 
@@ -155,7 +155,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 		self.profileImageView.image = UIImage.randomGhostImage()
 		
 		Async.main {
-			AuthUtility.signOut()
+			AuthUtility.shared.signOut()
 			UIView.transition(with: AppDelegate.sharedInstance().window!, duration: 0.5, options: UIViewAnimationOptions.transitionCrossDissolve, animations: { () -> Void in
 				AppDelegate.sharedInstance().window?.rootViewController = Storyboards.Intro.instantiateViewController(withIdentifier: "LoginViewController")
 			}, completion: { (success) in

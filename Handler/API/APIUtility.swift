@@ -28,7 +28,7 @@ struct APIUtility {
 			}
 		}
 
-		if let accessToken = AuthUtility.accessToken {
+		if let accessToken = AuthUtility.shared.accessToken {
 			allHeaders["Authorization"] = "bearer \(accessToken.token)"
 		}
 

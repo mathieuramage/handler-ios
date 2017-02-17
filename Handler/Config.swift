@@ -47,10 +47,6 @@ struct Config {
 		static let labels = Config.APIVersion + "labels"
 	}
 	
-	struct UserDefaults {
-		static let uidKey = "uid"
-	}
-	
 	struct Intercom {
 		static let appId = "ibzqbu7k"
 		static let apiKey = "ios_sdk-0e8806a76cf019432996c9dd14aa7d27997905ce"

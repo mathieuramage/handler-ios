@@ -11,6 +11,69 @@ import SwiftyJSON
 
 struct UserOperations {
 	
+	
+	static func getClientCredentials(headers oauthHeaders : [String : String], callback : @escaping (_ success: Bool, _ accessToken : AccessToken?) -> () ) {
+		
+		let params = [ "client_id":Config.ClientId,
+		               "grant_type":"client_credentials",
+		               "client_secret": Config.ClientSecret]
+		
+		APIUtility.request(method: .post, route: Config.APIRoutes.oauth, parameters: params, headers: oauthHeaders).responseJSON { (response) in
+			
+			var success : Bool = false
+			var accessToken : AccessToken?
+			
+			switch response.result {
+			case .success:
+				if let value = response.result.value {
+					accessToken = AccessToken(json: JSON(value))
+					success = true
+				}
+			case .failure(_):
+				success = false
+			}
+			callback(success, accessToken)
+		}
+	}
+	
+	
+	static func getTokenAssertion(headers oauthHeaders: [String : String], callback : @escaping (_ success : Bool, _ accessToken : AccessToken?) -> ()) {
+		
+		let params : [String : Any] = [ "client_id": Config.ClientId,
+		                                "grant_type":"assertion"]
+		
+		APIUtility.request(method: .post, route: Config.APIRoutes.oauth, parameters: params, headers: oauthHeaders).responseJSON { (response) in
+			
+			var accessToken : AccessToken?
+			var success : Bool = false
+			
+			switch response.result {
+			case .success:
+				if let value = response.result.value {
+					accessToken = AccessToken(json: JSON(value))
+				}
+				success = accessToken != nil
+			case .failure(_):
+				success = false
+			}
+			
+			callback(success, accessToken)
+		}
+		
+	}
+	
+	static func revokeToken(callback: ((_ success : Bool) -> ())?) {
+		APIUtility.request(method: .post, route: Config.APIRoutes.revoke, parameters: nil).responseJSON { (response) in
+			switch response.result {
+			case .success:
+				callback?(true)
+			case .failure(_):
+				callback?(false)
+			}
+		}
+	}
+	
+	
 	static func getMe(_ callback: @escaping (_ success : Bool, _ user : UserData?) -> ()) {
 		getUser("me", callback: callback)
 	}
