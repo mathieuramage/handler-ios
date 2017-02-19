@@ -6,12 +6,12 @@
 //  Copyright (c) 2013-2016 Mathieu Ramage - All Rights Reserved.
 //
 
+import Intercom
 import UIKit
 import Kingfisher
 import Async
 import GradientView
 import SwiftyJSON
-import Intercom
 
 class SideMenuViewController: UIViewController, UITableViewDelegate {
 	
@@ -133,7 +133,6 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 
 	@IBAction func helpPressed(_ sender: UIButton) {
 		Intercom.presentMessenger()
-		AppAnalytics.fireContentViewEvent(contentId: MenuEvents.feedback, event: MenuEvents)
 		
 		//		let message = Message(managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
 		//		message.recipients = NSSet(array: [User.fromHandle("handlerHQ")])
@@ -143,7 +142,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 		//
 		//		self.presentViewController(messageNC, animated: true, completion: nil)
 		
-//		AppAnalytics.fireContentViewEvent(contentId: AppEvents.SideMenu.feedback, event: AppEvents.SideMenu.self)
+		AppAnalytics.fireContentViewEvent(contentId: AppEvents.SideMenu.feedback, event: AppEvents.SideMenu.self)
 	}
 	
 	func signOut() {
