@@ -10,8 +10,8 @@ import UIKit
 import Kingfisher
 import Async
 import GradientView
-import Intercom
 import SwiftyJSON
+import Intercom
 
 class SideMenuViewController: UIViewController, UITableViewDelegate {
 	
@@ -143,7 +143,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 		//
 		//		self.presentViewController(messageNC, animated: true, completion: nil)
 		
-		AppAnalytics.fireContentViewEvent(contentId: AppEvents.SideMenu.feedback, event: AppEvents.SideMenu.self)
+//		AppAnalytics.fireContentViewEvent(contentId: AppEvents.SideMenu.feedback, event: AppEvents.SideMenu.self)
 	}
 	
 	func signOut() {
