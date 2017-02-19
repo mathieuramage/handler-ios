@@ -11,6 +11,7 @@ import Kingfisher
 import Async
 import GradientView
 import Intercom
+import SwiftyJSON
 
 class SideMenuViewController: UIViewController, UITableViewDelegate {
 	
@@ -129,10 +130,20 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 		
 		present(alert, animated: true, completion: nil)
 	}
-	
+
 	@IBAction func helpPressed(_ sender: UIButton) {
 		Intercom.presentMessenger()
 		AppAnalytics.fireContentViewEvent(contentId: MenuEvents.feedback, event: MenuEvents)
+		
+		//		let message = Message(managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
+		//		message.recipients = NSSet(array: [User.fromHandle("handlerHQ")])
+		//		message.subject = "Help & feedback"
+		//
+		//		messageWrapper.draftMessage = message
+		//
+		//		self.presentViewController(messageNC, animated: true, completion: nil)
+		
+		AppAnalytics.fireContentViewEvent(contentId: AppEvents.SideMenu.feedback, event: AppEvents.SideMenu.self)
 	}
 	
 	func signOut() {
