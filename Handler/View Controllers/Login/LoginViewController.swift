@@ -9,19 +9,36 @@
 import UIKit
 import TwitterKit
 import Intercom
+import NVActivityIndicatorView
 
-class LoginViewController: UIViewController {
-
-	override func viewDidLoad() {
-		super.viewDidLoad()
-
+class LoginViewController: UIViewController,NVActivityIndicatorViewable {
+    
+    var activityData : ActivityData?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
         if let twitterIcon = UIImage(named: "twitter_icon_blue") {
             self.loginButton.setImage(twitterIcon, for: UIControlState())
         }
         self.setLoginButtonText()
         self.loginButton.imageEdgeInsets = UIEdgeInsetsMake(13,-20,13, 32)
         self.loginButton.titleEdgeInsets = UIEdgeInsetsMake(0,-50,0,23)
-	}
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        if let activityData = activityData {
+            NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
+        }
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+    }
     
     fileprivate func setLoginButtonText() {
         
@@ -35,16 +52,16 @@ class LoginViewController: UIViewController {
         buttonTitle.append(loginAttributedString)
         buttonTitle.append(twitterAttributedString)
         buttonTitle.addAttribute(NSForegroundColorAttributeName, value: UIColor(colorLiteralRed: 85/255, green: 170/255, blue: 236/255, alpha: 1.0), range: NSMakeRange(0, buttonTitle.length))
-		
+        
         self.loginButton.setAttributedTitle(buttonTitle, for: UIControlState())
     }
-
-	@IBAction func registerButtonPressed(_ button: UIButton){
-		UIApplication.shared.openURL(URL(string: "https://twitter.com/signup")!)
-	}
-
-    @IBOutlet weak var loginButton: WhiteBorderButton!
     
+    @IBAction func registerButtonPressed(_ button: UIButton){
+        UIApplication.shared.openURL(URL(string: "https://twitter.com/signup")!)
+    }
+    
+    @IBOutlet weak var loginButton: WhiteBorderButton!
+	
 	@IBAction func loginButtonPressed(_ button: UIButton){
 
 		Twitter.sharedInstance().logIn { session, error in
@@ -86,8 +103,9 @@ class LoginViewController: UIViewController {
 						
 						AppAnalytics.fireLoginEvent()
 
-						UserOperations.getMe({ (success, user) in
-							AuthUtility.user = user
+						UserOperations.getMe({ (success, userData) in
+							AuthUtility.user = UserDao.updateOrCreateUser(userData: userData!)
+							let user = AuthUtility.user
 							if let uid = user?.handle {
 								UserDefaults.standard.set(uid, forKey: Config.UserDefaults.uidKey)
 								Intercom.registerUser(withUserId: uid)
@@ -110,5 +128,4 @@ class LoginViewController: UIViewController {
 	override var preferredStatusBarStyle : UIStatusBarStyle {
 		return .lightContent
 	}
-
 }

@@ -14,8 +14,8 @@ struct Config {
 	
 	static let ClientId = "61e5e9e14a8a79ab6d0e878a59fd610a54fb32dbc9121e4e527864f15f0feb03"
 	static let ClientSecret = "206918bd632983a20cc5549ced836ea63fe80803b2ac3f95d044d06296932d75"
-	
-	static let APIURL = "https://api.handlerapp.com/"
+
+	static let APIURL = "https://api-dev.handlerapp.com/"
 	static let APIVersion = "api/v1/"
 	
 	struct APIRoutes {

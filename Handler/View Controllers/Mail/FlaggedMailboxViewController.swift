@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import CoreData
 
-class FlaggedMailboxViewController: AbstractMailboxViewController {
+class FlaggedMailboxViewController: AbstractMessageMailboxViewController {
 
 	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 		mailboxType = .Flagged
+		fetchedResultsController = NSFetchedResultsController<Message>(fetchRequest: MessageDao.flaggedFetchRequest, managedObjectContext: CoreDataStack.shared.viewContext, sectionNameKeyPath: nil, cacheName: nil)
 	}
 
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -13,7 +13,6 @@ struct APIUtility {
 
 	static var defaultHeaders : HTTPHeaders = ["Cache-Control" : "no-cache", "Content-Type" : "application/json"]
 
-
 	static func request(method : HTTPMethod, route : String, parameters : [String : Any]?) -> DataRequest {
         return request(method: method, route: route, parameters: parameters, headers: nil)
 	}
@@ -21,7 +20,6 @@ struct APIUtility {
 	static func request(method : HTTPMethod, route : String, parameters : [String : Any]?, headers : [String : String]?) -> DataRequest {
 
 		let urlString = Config.APIURL + route
-
 		var allHeaders = defaultHeaders
 
 		if let headers = headers {

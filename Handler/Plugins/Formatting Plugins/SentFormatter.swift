@@ -18,7 +18,7 @@ struct SentFormatter: MessageTableViewCellFormatter {
         return formatter
     }()
     
-    func populateView(data message: ManagedMessage, view: MessageTableViewCell){
+    func populateView(data message: Message, view: MessageTableViewCell){
         view.readFlaggedImageView.image = nil
         view.senderProfileImageView.image = nil
         view.senderNameLabel.text = nil
@@ -31,16 +31,25 @@ struct SentFormatter: MessageTableViewCellFormatter {
         
         view.leftUtilityButtons = leftButtonsForData(data: message)
         view.rightUtilityButtons = rightButtonsForData(data: message)
-        if let urlString = (message.recipients?.allObjects.first as? ManagedUser)?.profile_picture_url, let profileUrl = URL(string: urlString) {
-            view.senderProfileImageView.kf.setImage(with: profileUrl, placeholder: UIImage.randomGhostImage(), options: nil, progressBlock: nil, completionHandler: nil)
-        }
         
-        view.senderNameLabel.text = (message.recipients?.allObjects.first as? ManagedUser)?.name
-        if let handle = (message.recipients?.allObjects.first as? ManagedUser)?.handle {
+//        if let urlString = (message.recipients?.allObjects.first as? User)?.profile_picture_url, let profileUrl = URL(string: urlString) {
+//            view.senderProfileImageView.kf.setImage(with: profileUrl, placeholder: UIImage.randomGhostImage(), options: nil, progressBlock: nil, completionHandler: nil)
+//        }
+        
+        view.senderNameLabel.text = (message.recipients?.allObjects.first as? User)?.name
+        if let handle = (message.recipients?.allObjects.first as? User)?.handle {
             view.senderHandleLabel.text = "@" + handle
         }
         view.messageSubjectLabel.text = message.subject
-        view.messageContentPreviewLabel.text = message.content
+
+        do {
+            let parsedMessage = try NSAttributedString(data: (message.content?.data(using: String.Encoding.unicode, allowLossyConversion: true)!)!, options: [NSDocumentTypeDocumentAttribute : NSHTMLTextDocumentType], documentAttributes: nil)
+            view.messageContentPreviewLabel.text = parsedMessage.string
+        } catch {
+            view.messageContentPreviewLabel.text = message.content
+        }
+        
+        
         if let createdAt = message.createdAt {
             view.messageTimeLabel.text = timeFormatter.string(from: createdAt as Date)
         } else {
@@ -62,7 +71,7 @@ struct SentFormatter: MessageTableViewCellFormatter {
 		view.attachmentIconView.isHidden = true
 		//        }
 
-		if message.conversation?.mostRecentMessage?.sender?.id == AuthUtility.user?.identifier {
+		if message.conversation?.mostRecentMessage?.sender?.identifier == AuthUtility.user?.identifier {
 			view.repliedIconView.isHidden = false
 		} else {
 			view.repliedIconView.isHidden = true
@@ -72,19 +81,19 @@ struct SentFormatter: MessageTableViewCellFormatter {
         
     }
     
-    func refreshFlags(data message: ManagedMessage, view: MessageTableViewCell){
+    func refreshFlags(data message: Message, view: MessageTableViewCell){
         setUpReadFlagMessage(data: message, view: view)
     }
     
-    func setUpReadFlagMessage(data message: ManagedMessage, view: MessageTableViewCell) {
-        if message.isFlagged && message.isUnread {
+    func setUpReadFlagMessage(data message: Message, view: MessageTableViewCell) {
+        if message.starred && !message.read {
             view.readFlaggedImageView.image = UIImage(named: "Orange_Dot")
             // TODO: Add blue button encircled by orange
         }
-        else if message.isFlagged {
+        else if message.starred {
             view.readFlaggedImageView.image = UIImage(named: "Orange_Dot")
         }
-        else if message.isUnread {
+        else if !message.read {
             view.readFlaggedImageView.image = UIImage(named: "Blue_Dot")
         }
         else {
@@ -92,11 +101,11 @@ struct SentFormatter: MessageTableViewCellFormatter {
         }
     }
     
-    func leftButtonsForData(data message: ManagedMessage) -> [AnyObject]{
+    func leftButtonsForData(data message: Message) -> [AnyObject]{
         return ActionPluginProvider.messageCellPluginForInboxType(.Sent)?.leftButtonsForData(data: message) ?? [AnyObject]()
     }
     
-    func rightButtonsForData(data message: ManagedMessage) -> [AnyObject]{
+    func rightButtonsForData(data message: Message) -> [AnyObject]{
         return ActionPluginProvider.messageCellPluginForInboxType(.Sent)?.rightButtonsForData(data: message) ?? [AnyObject]()
     }
 }

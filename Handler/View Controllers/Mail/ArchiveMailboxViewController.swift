@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import CoreData
 
-class ArchiveMailboxViewController: AbstractMailboxViewController {
-
+class ArchiveMailboxViewController: AbstractMessageMailboxViewController {
+	
 	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 		mailboxType = .Archive
+		fetchedResultsController = NSFetchedResultsController<Message>(fetchRequest: MessageDao.archiveFetchRequest, managedObjectContext: CoreDataStack.shared.viewContext, sectionNameKeyPath: nil, cacheName: nil)
 	}
 	
 	override func viewDidLoad() {
@@ -20,7 +22,7 @@ class ArchiveMailboxViewController: AbstractMailboxViewController {
 		// APICommunicator.sharedInstance.flushOldArchivedMessages()
 		//TODO : Do the above
 	}
-
+	
 	func customViewForEmptyDataSet(_ scrollView: UIScrollView!) -> UIView! {
 		let view = Bundle.main.loadNibNamed("EmptyInboxView", owner: self, options: nil)?.first as! EmptyInboxView
 		view.imageView.image = UIImage(named: "mailbox_archive_empty")

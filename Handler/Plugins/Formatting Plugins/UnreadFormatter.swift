@@ -18,7 +18,7 @@ struct UnreadFormatter: MessageTableViewCellFormatter {
         return formatter
     }()
     
-    func populateView(data message: ManagedMessage, view: MessageTableViewCell){
+    func populateView(data message: Message, view: MessageTableViewCell){
         view.readFlaggedImageView.image = nil
         view.senderProfileImageView.image = nil
         view.senderNameLabel.text = nil
@@ -31,15 +31,23 @@ struct UnreadFormatter: MessageTableViewCellFormatter {
         
         view.leftUtilityButtons = leftButtonsForData(data: message)
         view.rightUtilityButtons = rightButtonsForData(data: message)
-        if let urlString = message.sender?.profile_picture_url, let profileUrl = URL(string: urlString) {
-            view.senderProfileImageView.kf.setImage(with: profileUrl, placeholder: UIImage.randomGhostImage(), options: nil, progressBlock: nil, completionHandler: nil)
+        if let url = message.sender?.pictureUrl {
+            view.senderProfileImageView.kf.setImage(with: url, placeholder: UIImage.randomGhostImage(), options: nil, progressBlock: nil, completionHandler: nil)
         }
         
         view.senderNameLabel.text = message.sender?.name
         if let handle = message.sender?.handle {
             view.senderHandleLabel.text = "@" + handle
         }
-        view.messageSubjectLabel.text = message.subject
+
+        do {
+            let parsedMessage = try NSAttributedString(data: (message.content?.data(using: String.Encoding.unicode, allowLossyConversion: true)!)!, options: [NSDocumentTypeDocumentAttribute : NSHTMLTextDocumentType], documentAttributes: nil)
+            view.messageContentPreviewLabel.text = parsedMessage.string
+        } catch {
+            view.messageContentPreviewLabel.text = message.content
+        }
+        
+        
         view.messageContentPreviewLabel.text = message.content
 		if let updatedAt = message.updatedAt {
 			view.messageTimeLabel.text = timeFormatter.string(from: updatedAt as Date)
@@ -62,7 +70,7 @@ struct UnreadFormatter: MessageTableViewCellFormatter {
 		view.attachmentIconView.isHidden = true
 		//        }
 
-		if message.conversation?.mostRecentMessage?.sender?.id == AuthUtility.user?.identifier {
+		if message.conversation?.mostRecentMessage?.sender?.identifier == AuthUtility.user?.identifier {
 			view.repliedIconView.isHidden = false
 		} else {
 			view.repliedIconView.isHidden = true
@@ -71,19 +79,19 @@ struct UnreadFormatter: MessageTableViewCellFormatter {
         setUpReadFlagMessage(data: message, view: view)
     }
     
-    func refreshFlags(data message: ManagedMessage, view: MessageTableViewCell){
+    func refreshFlags(data message: Message, view: MessageTableViewCell){
         setUpReadFlagMessage(data: message, view: view)
     }
     
-    func setUpReadFlagMessage(data message: ManagedMessage, view: MessageTableViewCell) {
-        if message.isFlagged && message.isUnread {
+    func setUpReadFlagMessage(data message: Message, view: MessageTableViewCell) {
+        if message.starred && !message.read {
             view.readFlaggedImageView.image = UIImage(named: "Orange_Dot")
             // TODO: Add blue button encircled by orange
         }
-        else if message.isFlagged {
+        else if message.starred {
             view.readFlaggedImageView.image = UIImage(named: "Orange_Dot")
         }
-        else if message.isUnread {
+        else if !message.read {
             view.readFlaggedImageView.image = UIImage(named: "Blue_Dot")
         }
         else {
@@ -91,11 +99,11 @@ struct UnreadFormatter: MessageTableViewCellFormatter {
         }
     }
     
-    func leftButtonsForData(data message: ManagedMessage)->[AnyObject]{
+    func leftButtonsForData(data message: Message)->[AnyObject]{
         return ActionPluginProvider.messageCellPluginForInboxType(.Unread)?.leftButtonsForData(data: message) ?? [AnyObject]()
     }
     
-    func rightButtonsForData(data message: ManagedMessage)->[AnyObject]{
+    func rightButtonsForData(data message: Message)->[AnyObject]{
         return ActionPluginProvider.messageCellPluginForInboxType(.Unread)?.rightButtonsForData(data: message) ?? [AnyObject]()
     }
 }

@@ -13,15 +13,13 @@ import SwiftyJSON
 struct ConversationOperations {
     
     static func refreshConversations(callback : @escaping (_ success : Bool, _ allConversations : [Conversation]) -> ()) {
-        
-        let lastUpdated = Message.latestUpdatedMessageDate(inManagedContext: DatabaseManager.sharedInstance.mainManagedContext)
+        let lastUpdated = Date()
         getAllConversations(before: Date(), after: lastUpdated as Date?, limit: nil) { (success, conversations) in
             callback(success, conversations ?? [])
         }
     }
     
     static func getAllConversations(before : Date? , after : Date?, limit : Int?, callback : @escaping (_ success : Bool, _ conversations : [Conversation]?) -> ()) {
-        
         MessageOperations.getAllMessages(before: before, after: after, limit: limit) { (success, messages) in
             callback(success, nil)
         }
@@ -38,33 +36,32 @@ struct ConversationOperations {
     }
     
     static func moveConversationToFolder(conversationId : String, folder : Folder, callback : ConversationUpdateCallback?) {
-        var conversationData = ConversationData(conversationId: conversationId)
+        var conversationData = ConversationUpdateData(conversationId: conversationId)
         conversationData.folder = folder
         postConversation(conversationData, callback: callback)
     }
     
     static func markConversationAsRead(conversationId : String, read : Bool, callback : ConversationUpdateCallback?) {
-        var conversationData = ConversationData(conversationId: conversationId)
+        var conversationData = ConversationUpdateData(conversationId: conversationId)
         conversationData.read = read
         postConversation(conversationData, callback: callback)
     }
     
     static func markConversationStarred(conversationId : String, starred : Bool, callback : ConversationUpdateCallback?) {
-        var conversationData = ConversationData(conversationId: conversationId)
+        var conversationData = ConversationUpdateData(conversationId: conversationId)
         conversationData.starred = starred
         postConversation(conversationData, callback: callback)
     }
     
     static func updateConversationLabels(conversationId: String, labels : [String], callback : ConversationUpdateCallback?) {
-        var conversationData = ConversationData(conversationId: conversationId)
+        var conversationData = ConversationUpdateData(conversationId: conversationId)
         conversationData.labels = labels
         postConversation(conversationData, callback: callback)
-    }
+    }    
     
-    
-    fileprivate static func postConversation(_ conversationData : ConversationData, callback : ConversationUpdateCallback?) {
+    fileprivate static func postConversation(_ conversationData : ConversationUpdateData, callback : ConversationUpdateCallback?) {
         
-        let route = Config.APIRoutes.conversation(conversationData.conversationId)
+        let route = Config.APIRoutes.conversation(conversationData.identifier)
         
         var params = [String : AnyObject]()
         
@@ -91,21 +88,31 @@ struct ConversationOperations {
             case .failure(_):
                 callback?(false)
             }
-        }       
-        
+        }
     }
+}
+
+
+struct ConversationUpdateData {
+    
+    init(conversationId : String) {
+        self.identifier = conversationId
+    }
+    
+    var identifier : String
+    var folder : Folder?
+    var read : Bool?
+    var labels : [String]?
+    var starred : Bool?
 }
 
 
 struct ConversationData {
     
-    init(conversationId : String) {
-        self.conversationId = conversationId
-    }
-    
-    var conversationId : String
+    var identifier : String?
     var folder : Folder?
     var read : Bool?
     var labels : [String]?
     var starred : Bool?
+    var messages : [MessageData]?
 }

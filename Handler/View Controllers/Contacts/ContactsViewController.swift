@@ -21,9 +21,9 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 	@IBOutlet weak var deviceButton: UIButton!
 	@IBOutlet weak var borderView: UIView!
 
-	var twitterFollowerList: [TwitterUser] = []
-	var twitterFollowingList : [TwitterUser] = []
-	var deviceContactList : [ManagedUser] = []
+	var twitterFollowerList: [TwitterUserData] = []
+	var twitterFollowingList : [TwitterUserData] = []
+	var deviceContactList : [User] = []
 
 	let addressBook = APAddressBook()
 
@@ -91,7 +91,7 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 		if selectedTab == 0 {
 			if let cursor = followerNextCursor {
 				TwitterAPIOperations.getTwitterFollowers(cursor) { (users, nextCursor) in
-					self.twitterFollowerList.append(contentsOf: users)
+                    self.twitterFollowerList.append(contentsOf: users)
 					self.followerNextCursor = nextCursor
 					self.tableView.reloadData()
 				}
@@ -101,7 +101,7 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 
 			if let cursor = followingNextCursor {
 				TwitterAPIOperations.getTwitterFriends(cursor) { (users, nextCursor) in
-					self.twitterFollowingList.append(contentsOf: users)
+                    self.twitterFollowingList.append(contentsOf: users)
 					self.followingNextCursor = nextCursor
 					self.tableView.reloadData()
 				}
@@ -132,26 +132,27 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 	}
 
 	func fetchDeviceContactList() {
-		self.addressBook.loadContacts({
-			(contacts: [APContact]?, error: NSError?) in
-			self.deviceContactList = []
-			if let contacts = contacts {
-				for contact in contacts {
-
-					var handle : String?
-					for website in contact.websites! {
-						handle = self.extractTwitterHandle(website)
-						if let handle = handle, handle.characters.count > 0 {
-							let user = ManagedUser.userWithHandle(handle)
-							user.name = contact.name?.compositeName
-							self.deviceContactList.append(user)
-						}
-					}
-				}
-
-			}
-			self.tableView.reloadData()
-		} as! APLoadContactsBlock)
+//		self.addressBook.loadContacts({
+//			(contacts: [APContact]?, error: NSError?) in
+//			self.deviceContactList = []
+//			if let contacts = contacts {
+//				for contact in contacts {
+//
+//					var handle : String?
+//					for website in contact.websites! {
+//						handle = self.extractTwitterHandle(website)
+//						if let handle = handle, handle.characters.count > 0 {
+//                            if let user = UserDao.findUserWithHandle(handle) {
+//                            
+//							user.name = contact.name?.compositeName
+//							self.deviceContactList.append(user)
+//						}
+//					}
+//				}
+//
+//			}
+//			self.tableView.reloadData()
+//		}
 	}
 
 	// MARK: - UITableViewDataSource
@@ -174,7 +175,7 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 		cell.profileImageView.image = UIImage.randomGhostImage()
 
 		// OTTODO: Reimplement this
-//		let user : ManagedUser = activeTabContacts[indexPath.row]
+//		let user : User = activeTabContacts[indexPath.row]
 //
 //		cell.handleLabel.text = user.handle
 //		cell.nameLabel.text = user.name

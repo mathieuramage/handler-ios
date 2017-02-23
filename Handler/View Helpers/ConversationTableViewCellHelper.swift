@@ -11,7 +11,6 @@ import Kingfisher
 
 class ConversationTableViewCellHelper: NSObject {
 
-
 	static var timeFormatter: DateFormatter = {
 		let formatter = DateFormatter()
 		formatter.dateStyle = DateFormatter.Style.long
@@ -32,10 +31,10 @@ class ConversationTableViewCellHelper: NSObject {
 		cell.senderLabel.text = message.sender?.name
 		cell.senderHandleButton.setTitle("@" + (message.sender?.handle ?? ""), for: UIControlState())
 
-		let recipient = message.recipients?.anyObject() as! ManagedUser
+		let recipient = message.recipients?.allObjects.first as! User
 		let displayName = recipient.name
 		if recipient.handle.characters.count > 0 {
-			cell.recipientLabel.text = "To: " + (displayName!) + " @" + (recipient.handle)
+			cell.recipientLabel.text = "To: " + (displayName) + " @" + (recipient.handle)
 		} else {
 			cell.recipientLabel.text = "To: -"
 		}

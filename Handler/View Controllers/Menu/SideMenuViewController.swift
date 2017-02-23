@@ -24,8 +24,6 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 	@IBOutlet weak var gradientView: GradientView!
 	@IBOutlet weak var separatorView: UIView!
 	
-	let MenuEvents = AppEvents.SideMenu.self
-	
 	var optionsTableViewController: MailBoxOptionsTableViewController? {
 		didSet {
 			optionsTableViewController?.tableView.delegate = self
@@ -49,29 +47,33 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 	}
 	
 	func updateCurrentUser() {
-		Async.main { () -> Void in
-			if let user = AuthUtility.user {
-				self.profileHandleLabel.text = user.handle
-				self.profileNameLabel.text = user.name
-				// FIXME				if let url = NSURL(string: user.picture_url) {
-				//					self.profileImageView.kf_setImageWithURL(url, placeholderImage: UIImage.randomGhostImage())
-				//				}
-				TwitterAPIOperations.getAccountInfoForTwitterUser(user.handle, callback: { (json, error) -> Void in
-					guard let json = json else {
-						if let error = error {
-							print(error)
-						}
-						return
-					}
-					Async.main {
-						if let urlString = json["profile_banner_url"].string, let url = URL(string: urlString + DEFAULT_BANNER_RESOLUTION){
-							self.profileBannerImageView.kf.setImage(with: url, placeholder: nil, options: [.transition(ImageTransition.fade(0.3))], progressBlock: nil, completionHandler: nil)
-							
-						}
-					}
+		guard let handle = UserDefaults.standard.string(forKey: Config.UserDefaults.uidKey) else {
+			return
+		}
+
+		func handleUserResponse(json: JSON){
+			Async.main {
+				self.profileHandleLabel.text = "@\(json["screen_name"].stringValue)"
+				self.profileNameLabel.text = "\(json["name"].stringValue)"
+				if let urlString = json["profile_banner_url"].string, let url = URL(string: urlString + DEFAULT_BANNER_RESOLUTION){
+					self.profileBannerImageView.kf.setImage(with: url, placeholder: UIImage.randomGhostImage(), options: [.transition(ImageTransition.fade(0.3))], progressBlock: nil, completionHandler: nil)
+				}
+				if let urlString = json["profile_image_url"].string, let url = URL(string: urlString){
+					self.profileImageView.kf.setImage(with: url, placeholder: UIImage.randomGhostImage(), options:  [.transition(ImageTransition.fade(0.3))], progressBlock: nil, completionHandler: nil)
+				}
+				UIView.animate(withDuration: 0.3, animations: {
+					self.view.layoutSubviews()
 				})
 			}
 		}
+
+		TwitterAPIOperations.getAccountInfoForTwitterUser(handle, callback: { (json, error) -> Void in
+			guard let userJson = json else {
+				print(error as Any)
+				return
+			}
+			handleUserResponse(json: userJson)
+		})
 	}
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -160,8 +162,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 				if let nc = AppDelegate.sharedInstance().sideMenu.contentViewController as? UINavigationController {
 					nc.setViewControllers([inboxViewController], animated: true)
 				}
-				
-				AppAnalytics.fireContentViewEvent(contentId: self.MenuEvents.logout, event: self.MenuEvents)
+				AppAnalytics.fireContentViewEvent(contentId: AppEvents.SideMenu.logout, event: AppEvents.SideMenu.self)
 			})
 		}
 	}

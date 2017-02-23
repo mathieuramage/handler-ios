@@ -9,30 +9,17 @@
 import UIKit
 import CoreData
 import Async
-import Bond
 import DZNEmptyDataSet
 
 class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, NSFetchedResultsControllerDelegate, DZNEmptyDataSetSource {
 	
-	let MailboxActionEvents = AppEvents.EmailActions.self
-	let MailboxEvents = AppEvents.Mailbox.self
-	
 	var conversationForSegue: Conversation?
-	
 	var activeConversation : Conversation?
-	
-	var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult> {
-		get {
-			return MailboxObserversManager.sharedInstance.fetchedResultsControllerForType(.Inbox)
-		}
-	}
-	
-	var fetchedObjects: [Conversation] {
-		get {
-			return fetchedResultsController.fetchedObjects as? [Conversation] ?? [Conversation]()
-		}
-	}
-	
+
+	lazy var fetchedResultsController = NSFetchedResultsController<Conversation>(fetchRequest: ConversationDao.inboxFetchRequest, managedObjectContext: CoreDataStack.shared.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+		
+	var fetchedObjects: [Conversation] { return fetchedResultsController.fetchedObjects ?? [Conversation]() }
+
 	var progressBar: UIProgressView!
 	var lastupdatedLabel: UILabel?
 	var unreadEmailsCountLabel: UILabel?
@@ -45,13 +32,19 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		self.refreshControl = UIRefreshControl()
 		self.refreshControl!.addTarget(self, action: #selector(InboxTableViewController.refresh(_:)), for: UIControlEvents.valueChanged)
 		self.tableView.addSubview(refreshControl!)
-		MailboxObserversManager.sharedInstance.addObserverForMailboxType(.Inbox, observer: self)
+//		MailboxObserversManager.sharedInstance.addObserverForMailboxType(.Inbox, observer: self)
 	}
 	
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		refresh()
+		NotificationCenter.default.addObserver(self, selector: #selector(conversationsUpdated), name: ConversationManager.conversationUpdateFinishedNotification, object: nil)
+		try? fetchedResultsController.performFetch()
+	}
+	
+	func conversationsUpdated() {
+		try! fetchedResultsController.performFetch()
+		tableView.reloadData()
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
@@ -65,21 +58,24 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		lastupdatedLabel?.textAlignment = .center
 		lastupdatedLabel?.font = UIFont.systemFont(ofSize: 11)
 		lastupdatedLabel?.textColor = UIColor(rgba: HexCodes.darkGray)
-		_ = CurrentStatusManager.sharedInstance.currentStatus.observeNext { text in
-			Async.main {
-				self.lastupdatedLabel?.text = text
-			}
-		}
+		
+//		_ = CurrentStatusManager.sharedInstance.currentStatus.observeNext { text in
+//			Async.main {
+//				self.lastupdatedLabel?.text = text
+//			}
+//		}
 		
 		unreadEmailsCountLabel = UILabel(frame: CGRect(x: 0, y: 26, width: 140, height: 10))
 		unreadEmailsCountLabel?.textAlignment = .center
 		unreadEmailsCountLabel?.font = UIFont.systemFont(ofSize: 11)
 		unreadEmailsCountLabel?.textColor = UIColor(rgba: HexCodes.blueGray)
-		_ = CurrentStatusManager.sharedInstance.currentStatusSubtitle.observeNext { text in
-			Async.main {
-				self.unreadEmailsCountLabel?.text = text
-			}
-		}
+		
+		
+//		_ = CurrentStatusManager.sharedInstance.currentStatusSubtitle.observeNext { text in
+//			Async.main {
+//				self.unreadEmailsCountLabel?.text = text
+//			}
+//		}
 		
 		let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 140, height: 44))
 		containerView.addSubview(lastupdatedLabel!)
@@ -97,12 +93,12 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		progressBar.progressTintColor = UIColor.white
 		progressBar.isHidden = true
 		
-		_ = CurrentStatusManager.sharedInstance.currentUploadProgress.observeNext { progress in
-			Async.main {
-				self.progressBar.progress = progress
-				self.progressBar.isHidden = progress == 0 || progress == 1
-			}
-		}
+//		_ = CurrentStatusManager.sharedInstance.currentUploadProgress.observeNext { progress in
+//			Async.main {
+//				self.progressBar.progress = progress
+//				self.progressBar.isHidden = progress == 0 || progress == 1
+//			}
+//		}
 		
 		self.navigationController?.navigationBar.addSubview(progressBar)
 		
@@ -114,8 +110,14 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 				}
 			}
 		}
-		
-		AppAnalytics.fireContentViewEvent(contentId: MailboxEvents.inbox, event: MailboxEvents)
+	
+		requestPushNotificationPermissions()
+	}
+	
+	override func viewDidDisappear(_ animated: Bool) {
+		super.viewDidDisappear(animated)
+		NotificationCenter.default.removeObserver(self)
+		AppAnalytics.fireContentViewEvent(contentId: AppEvents.Mailbox.inbox, event: AppEvents.Mailbox.self)
 	}
 	
 	func refresh(_ control: UIRefreshControl) {
@@ -123,10 +125,14 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 	}
 	
 	func refresh() {
-		
-		ConversationOperations.getAllConversations(before: Date(), after: nil, limit: 0) { (success, conversations) in
-			self.refreshControl?.endRefreshing()
-		}
+		ConversationManager.updateConversations()
+	}
+	
+	func requestPushNotificationPermissions() {
+		let settings = UIUserNotificationSettings(types: [UIUserNotificationType.badge, UIUserNotificationType.sound,UIUserNotificationType.alert], categories: nil)
+		UIApplication.shared.registerUserNotificationSettings(settings)
+		UIApplication.shared.registerForRemoteNotifications()
+		UIApplication.shared.applicationIconBadgeNumber = 0
 	}
 	
 	func composeNewMessage() {
@@ -176,7 +182,6 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 	}
 	
 	// MARK: NSFetchedResultsController Delegate
-	
 	func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
 		self.tableView.beginUpdates()
 	}
@@ -216,52 +221,20 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 	}
 	
 	func swipeableTableViewCell(_ cell: SWTableViewCell!, didTriggerLeftUtilityButtonWith index: Int) {
-		
-		if let index = tableView.indexPath(for: cell)?.row {
-			let conversation = fetchedObjects[index]
-			
-			guard let identifier = conversation.identifier, let read = conversation.latestMessage?.read else {
-				return
+
+		if let indexPath = tableView.indexPath(for: cell) {
+			let conversation = fetchedObjects[indexPath.row]
+			if conversation.read {
+				ConversationManager.markConversationAsUnread(conversation)
+				AppAnalytics.fireContentViewEvent(contentId: AppEvents.EmailActions.markUnread, event: AppEvents.EmailActions.self)
+			} else {
+				ConversationManager.markConversationAsRead(conversation)
+				AppAnalytics.fireContentViewEvent(contentId: AppEvents.EmailActions.markRead, event: AppEvents.EmailActions.self)
+
 			}
-			
-			ConversationOperations.markConversationAsRead(conversationId: identifier, read: !read, callback: { (success) in
-				self.refresh()
-				AppAnalytics.fireContentViewEvent(contentId: self.MailboxActionEvents.markRead, event: self.MailboxActionEvents)
-			})
+			tableView.reloadRows(at: [indexPath], with: .none)
 		}
 		
-	}
-	
-	func swipeableTableViewCell(_ cell: SWTableViewCell!, didTriggerRightUtilityButtonWith index: Int) {
-		guard let row = tableView.indexPath(for: cell)?.row else {
-			return
-		}
-		
-		let conversation = fetchedObjects[row]
-		
-		guard let identifier = conversation.identifier else {
-			return
-		}
-		
-		if index == 0 {
-			
-			guard let starred = conversation.latestMessage?.starred else {
-				return
-			}
-			
-			ConversationOperations.markConversationStarred(conversationId: identifier, starred: starred, callback: { (success) in
-				self.refresh()
-				AppAnalytics.fireContentViewEvent(contentId: self.MailboxActionEvents.flagged, event: self.MailboxActionEvents)
-			})
-			
-		} else if index == 1 {
-			
-			ConversationOperations.archiveConversation(conversationId: identifier, callback: { (success) in
-				self.refresh()
-				AppAnalytics.fireContentViewEvent(contentId: self.MailboxActionEvents.archived, event: self.MailboxActionEvents)
-			})
-			
-		}
 	}
 	
 	func swipeableTableViewCellShouldHideUtilityButtons(onSwipe cell: SWTableViewCell!) -> Bool {

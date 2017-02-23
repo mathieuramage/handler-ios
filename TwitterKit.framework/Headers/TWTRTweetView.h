@@ -96,6 +96,11 @@ typedef NS_ENUM(NSUInteger, TWTRTweetViewTheme) {
 @interface TWTRTweetView : UIView <UIAppearanceContainer>
 
 /**
+ *  The Tweet being displayed.
+ */
+@property (nonatomic, readonly) TWTRTweet *tweet;
+
+/**
  *  Background color of the Tweet view and all text labels (fullname, username, Tweet text, timestamp).
  */
 @property (nonatomic) UIColor *backgroundColor UI_APPEARANCE_SELECTOR;

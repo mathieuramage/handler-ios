@@ -18,7 +18,7 @@ struct InboxFormatter: MessageTableViewCellFormatter {
         return formatter
     }()
     
-    func populateView(data message: ManagedMessage, view: MessageTableViewCell){
+    func populateView(data message: Message, view: MessageTableViewCell){
         view.readFlaggedImageView.image = nil
         view.senderProfileImageView.image = nil
         view.senderNameLabel.text = nil
@@ -31,9 +31,9 @@ struct InboxFormatter: MessageTableViewCellFormatter {
         
         view.leftUtilityButtons = leftButtonsForData(data: message)
         view.rightUtilityButtons = rightButtonsForData(data: message)
-        if let urlString = message.sender?.profile_picture_url, let profileUrl = URL(string: urlString) {
-            view.senderProfileImageView.kf.setImage(with: profileUrl, placeholder: UIImage.randomGhostImage(), options: nil, progressBlock: nil, completionHandler: nil)
-        }
+//        if let urlString = message.sender?.profile_picture_url, let profileUrl = URL(string: urlString) {
+//            view.senderProfileImageView.kf.setImage(with: profileUrl, placeholder: UIImage.randomGhostImage(), options: nil, progressBlock: nil, completionHandler: nil)
+//        }
         
         view.senderNameLabel.text = message.sender?.name
         if let handle = message.sender?.handle {
@@ -62,41 +62,41 @@ struct InboxFormatter: MessageTableViewCellFormatter {
 		view.attachmentIconView.isHidden = true
 		//        }
 
-		if message.conversation?.mostRecentMessage?.sender?.id == AuthUtility.user?.identifier {
-			view.repliedIconView.isHidden = false
-		} else {
-			view.repliedIconView.isHidden = true
-		}
+//		if message.conversation?.mostRecentMessage?.sender?.id == AuthUtility.user?.identifier {
+//			view.repliedIconView.isHidden = false
+//		} else {
+//			view.repliedIconView.isHidden = true
+//		}
 
         setUpReadFlagMessage(data: message, view: view)
         
     }
         
-    func refreshFlags(data message: ManagedMessage, view: MessageTableViewCell){
+    func refreshFlags(data message: Message, view: MessageTableViewCell){
         setUpReadFlagMessage(data: message, view: view)
     }
     
-    func setUpReadFlagMessage(data message: ManagedMessage, view: MessageTableViewCell) {
-        if message.isFlagged && message.isUnread {
-            view.readFlaggedImageView.image = UIImage(named: "Orange_Dot")
-            // TODO: Add blue button encircled by orange
-        }
-        else if message.isFlagged {
-            view.readFlaggedImageView.image = UIImage(named: "Orange_Dot")
-        }
-        else if message.isUnread {
-            view.readFlaggedImageView.image = UIImage(named: "Blue_Dot")
-        }
-        else {
-            view.readFlaggedImageView.image = nil
-        }
+    func setUpReadFlagMessage(data message: Message, view: MessageTableViewCell) {
+//        if message.isFlagged && message.isUnread {
+//            view.readFlaggedImageView.image = UIImage(named: "Orange_Dot")
+//            // TODO: Add blue button encircled by orange
+//        }
+//        else if message.isFlagged {
+//            view.readFlaggedImageView.image = UIImage(named: "Orange_Dot")
+//        }
+//        else if message.isUnread {
+//            view.readFlaggedImageView.image = UIImage(named: "Blue_Dot")
+//        }
+//        else {
+//            view.readFlaggedImageView.image = nil
+//        }
     }
     
-    func leftButtonsForData(data message: ManagedMessage)->[AnyObject]{
+    func leftButtonsForData(data message: Message)->[AnyObject]{
         return ActionPluginProvider.messageCellPluginForInboxType(.Inbox)?.leftButtonsForData(data: message) ?? [AnyObject]()
     }
     
-    func rightButtonsForData(data message: ManagedMessage)->[AnyObject]{
+    func rightButtonsForData(data message: Message)->[AnyObject]{
         return ActionPluginProvider.messageCellPluginForInboxType(.Inbox)?.rightButtonsForData(data: message) ?? [AnyObject]()
     }
 }

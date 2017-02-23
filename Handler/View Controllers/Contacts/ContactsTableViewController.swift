@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 @objc protocol ContactSelectionDelegate {
-	func didSelectUser(_ user: ManagedUser)
+	func didSelectUser(_ user: User)
 	@objc optional func didCancel()
 }
 
@@ -57,7 +57,7 @@ class ContactsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "contactCell", for: indexPath) as! ContactLegacyTableViewCell
 
-//        cell.user = fetchedResultsController.object(at: indexPath) as? ManagedUser
+//        cell.user = fetchedResultsController.object(at: indexPath) as? User
 
         return cell
     }

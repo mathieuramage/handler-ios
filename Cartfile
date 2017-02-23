@@ -7,3 +7,4 @@ github "SwiftyJSON/SwiftyJSON"
 github "calt/RichEditorView" "343a2f1999e92203552e032738203b9075c1f4d5"
 github "antitypical/Result" ~> 3.0.0
 github "soffes/GradientView" ~> 2.2.0
+github "calt/NVActivityIndicatorView" "f88f896036c30cc67e97d103eefd63a56c9b5976"
