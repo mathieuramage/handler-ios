@@ -86,6 +86,7 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 		searchBar.text = ""
 		searchBar.setShowsCancelButton(false, animated: true)
 		searchBar.resignFirstResponder()
+		navigationController?.setNavigationBarHidden(false, animated: true)
 	}
 
 	func fetchMoreFromTwitter() {
