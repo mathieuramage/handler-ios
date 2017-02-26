@@ -37,7 +37,7 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 		super.viewDidLoad()
 		tableView.tableFooterView = UIView()
 		selectTab(0)
-        selectButton(self.followersButton)
+		selectButton(self.followersButton)
 		borderView.layer.cornerRadius = 5
 		borderView.clipsToBounds = true
 		borderView.layer.borderWidth = 1
@@ -92,7 +92,7 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 		if selectedTab == 0 {
 			if let cursor = followerNextCursor {
 				TwitterAPIOperations.getTwitterFollowers(cursor) { (users, nextCursor) in
-                    self.twitterFollowerList.append(contentsOf: users)
+					self.twitterFollowerList.append(contentsOf: users)
 					self.followerNextCursor = nextCursor
 					self.tableView.reloadData()
 				}
@@ -102,7 +102,7 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 
 			if let cursor = followingNextCursor {
 				TwitterAPIOperations.getTwitterFriends(cursor) { (users, nextCursor) in
-                    self.twitterFollowingList.append(contentsOf: users)
+					self.twitterFollowingList.append(contentsOf: users)
 					self.followingNextCursor = nextCursor
 					self.tableView.reloadData()
 				}
@@ -325,8 +325,8 @@ extension TwitterUserData: ListableAsContact {
 		guard let url = pictureURLString else {
 			return nil
 		}
-
+		
 		return URL(string: url)
 	}
-
+	
 }
