@@ -15,9 +15,9 @@ import CoreData
 }
 
 class ContactsTableViewController: UITableViewController {
-	
+
 	var userSelectionDelegate: ContactSelectionDelegate?
-    
+
 	lazy var fetchedResultsController: NSFetchedResultsController<User> = {
 		let fetchRequest = NSFetchRequest<User>(entityName: "User")
 		fetchRequest.fetchBatchSize = 20
@@ -28,37 +28,37 @@ class ContactsTableViewController: UITableViewController {
 		} catch {
 			print(error)
 		}
-		
+
 		return fetchResultsController
 	}()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+	override func viewDidLoad() {
+		super.viewDidLoad()
 		tableView.tableFooterView = UIView()
-    }
+	}
 
-    // MARK: - Table view data source
+	// MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return fetchedResultsController.sections?.count ?? 0
-    }
+	override func numberOfSections(in tableView: UITableView) -> Int {
+		return fetchedResultsController.sections?.count ?? 0
+	}
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return fetchedResultsController.sections?[section].numberOfObjects ?? 0
-    }
+	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return fetchedResultsController.sections?[section].numberOfObjects ?? 0
+	}
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "contactCell", for: indexPath) as! ContactLegacyTableViewCell
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(withIdentifier: "contactCell", for: indexPath) as! ContactLegacyTableViewCell
 
-        cell.user = fetchedResultsController.object(at: indexPath)
+		cell.user = fetchedResultsController.object(at: indexPath)
 
-        return cell
-    }
-	
+		return cell
+	}
+
 	override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
 		return UILocalizedIndexedCollation.current().sectionIndexTitles
 	}
-	
+
 	override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
 		return UILocalizedIndexedCollation.current().section(forSectionIndexTitle: index)
 	}
@@ -70,7 +70,7 @@ class ContactsTableViewController: UITableViewController {
 			return nil
 		}
 	}
-	
+
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let user = fetchedResultsController.object(at: indexPath)
 
