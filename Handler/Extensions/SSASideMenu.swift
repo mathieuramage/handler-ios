@@ -236,6 +236,7 @@ class SSASideMenu: UIViewController, UIGestureRecognizerDelegate {
 	@IBInspectable var panMinimumOpenThreshold: UInt = 60
 	@IBInspectable var menuViewControllerTransformation: CGAffineTransform = CGAffineTransform(scaleX: 1.5, y: 1.5)
 	@IBInspectable var backgroundTransformation: CGAffineTransform = CGAffineTransform(scaleX: 1.7, y: 1.7)
+	@IBInspectable var shadowOverlay: Bool = true
 	
 	// MARK : Internal Private Properties
 	
@@ -252,6 +253,7 @@ class SSASideMenu: UIViewController, UIGestureRecognizerDelegate {
 	fileprivate let menuViewContainer: UIView = UIView()
 	fileprivate let contentViewContainer: UIView = UIView()
 	fileprivate let contentButton: UIButton = UIButton()
+	fileprivate let overlayView: UIView = UIView()
 	
 	fileprivate let backgroundImageView: UIImageView = UIImageView()
 	
@@ -382,6 +384,13 @@ class SSASideMenu: UIViewController, UIGestureRecognizerDelegate {
 			
 			showMenuViewController(.left, menuViewController: viewController)
 			
+			if shadowOverlay {
+				self.contentViewContainer.addSubview(self.overlayView)
+				UIView.animate(withDuration: TimeInterval(animationDuration), animations: {
+					self.overlayView.layer.opacity = 1.0
+				})
+			}
+			
 			UIView.animate(withDuration: TimeInterval(animationDuration), animations: {[unowned self] () -> Void in
 				
 				self.animateMenuViewController(.left)
@@ -420,6 +429,7 @@ class SSASideMenu: UIViewController, UIGestureRecognizerDelegate {
 		setupContentButton()
 		setupContentViewShadow()
 		resetContentViewScale()
+		setupOverlayView()
 		
 		UIApplication.shared.beginIgnoringInteractionEvents()
 	}
@@ -535,6 +545,15 @@ class SSASideMenu: UIViewController, UIGestureRecognizerDelegate {
 		leftMenuVisible = false
 		rightMenuVisible = false
 		contentButton.removeFromSuperview()
+		
+		if shadowOverlay {
+			UIView.animate(withDuration: TimeInterval(animationDuration), animations: {
+				self.overlayView.layer.opacity = 0.0
+			}) { _ in
+				self.overlayView.removeFromSuperview()
+				self.overlayView.layer.opacity = 1.0
+			}
+		}
 		
 		let animationsClosure: () -> () =  {[unowned self] () -> () in
 			
@@ -723,6 +742,12 @@ class SSASideMenu: UIViewController, UIGestureRecognizerDelegate {
 			layer.shadowRadius = CGFloat(contentViewShadowRadius)
 		}
 		
+	}
+	
+	fileprivate func setupOverlayView() {
+		overlayView.frame = CGRect(x: 0, y: 0, width: menuViewContainer.bounds.width, height: menuViewContainer.bounds.height)
+		overlayView.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.5)
+		overlayView.layer.opacity = 0.0
 	}
 	
 	//MARK : Helper Functions

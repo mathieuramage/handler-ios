@@ -1663,7 +1663,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Handler/Handler.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = 2338J96222;
 				ENABLE_BITCODE = NO;
@@ -1680,8 +1680,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.handler.handlerapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "47261aa1-9896-4fc8-95c5-d96c097189bc";
-				PROVISIONING_PROFILE_SPECIFIER = "Handler DEV";
+				PROVISIONING_PROFILE = "c7c91595-ce91-4463-af50-84f293735afa";
+				PROVISIONING_PROFILE_SPECIFIER = "Handler Dist";
 				SWIFT_OBJC_BRIDGING_HEADER = "Handler/Supporting Files/Handler-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -1696,7 +1696,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Handler/Handler.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = 2338J96222;
 				ENABLE_BITCODE = NO;
@@ -1713,8 +1713,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.handler.handlerapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "47261aa1-9896-4fc8-95c5-d96c097189bc";
-				PROVISIONING_PROFILE_SPECIFIER = "Handler DEV";
+				PROVISIONING_PROFILE = "c7c91595-ce91-4463-af50-84f293735afa";
+				PROVISIONING_PROFILE_SPECIFIER = "Handler Dist";
 				SWIFT_OBJC_BRIDGING_HEADER = "Handler/Supporting Files/Handler-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;

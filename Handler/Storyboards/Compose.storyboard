@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -213,11 +213,40 @@
                         <outlet property="richTextContentView" destination="OtA-5f-o0d" id="y9t-Hp-PFt"/>
                         <outlet property="subjectTextField" destination="WVd-FZ-uJg" id="Ixa-XP-AEl"/>
                         <outlet property="tokenView" destination="aaQ-Ch-K6N" id="7D9-Cg-msT"/>
+                        <segue destination="tpW-eE-fKx" kind="show" identifier="showContacts" id="ece-39-ndL"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m7v-h7-uPC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3156" y="1155"/>
+        </scene>
+        <!--Contacts Table View Controller-->
+        <scene sceneID="Eop-pN-Kju">
+            <objects>
+                <tableViewController id="tpW-eE-fKx" customClass="ContactsTableViewController" customModule="Handler" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="h8f-PK-v8i">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="WUr-0o-awO">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WUr-0o-awO" id="wAa-Bd-9Lu">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="tpW-eE-fKx" id="C7z-qH-pvs"/>
+                            <outlet property="delegate" destination="tpW-eE-fKx" id="Wwt-gv-o1X"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qcW-aU-xJ4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4182" y="1155"/>
         </scene>
         <!--Contacts Auto Complete View Controller-->
         <scene sceneID="yxN-3x-NxZ">
@@ -316,7 +345,7 @@
             <objects>
                 <navigationController storyboardIdentifier="MessageComposeNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="W57-yb-n3i" customClass="GradientNavigationController" customModule="Handler" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="qNg-V1-R9W">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="qNg-V1-R9W">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -11,7 +11,7 @@ import UIKit
 @IBDesignable
 class WhiteBorderImageView: UIImageView {
 	
-	@IBInspectable var borderWidth: CGFloat = 3.0
+	@IBInspectable var borderWidth: CGFloat = 2.0
 
 	override func prepareForInterfaceBuilder() {
 		layer.borderColor = UIColor.white.cgColor

@@ -73,7 +73,7 @@ struct Config {
 			static let instance = FIRRemoteConfig.remoteConfig()
 			static let defaultParams: [String : NSObject] = [
 				ParamKeys.showSupportMenu : true as NSObject,
-				ParamKeys.attachmentMaxSize : 9223372036854775807 as NSObject,
+				ParamKeys.attachmentMaxSize : "9223372036854775807" as NSObject,
 				ParamKeys.enableAttachments : true as NSObject
 			]
 		}

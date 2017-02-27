@@ -6,6 +6,7 @@
 //  Copyright (c) 2013-2016 Mathieu Ramage - All Rights Reserved.
 //
 
+import Intercom
 import UIKit
 import Kingfisher
 import Async
@@ -131,12 +132,9 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 		
 		present(alert, animated: true, completion: nil)
 	}
-	
+
 	@IBAction func helpPressed(_ sender: UIButton) {
-		let messageNC = Storyboards.Compose.instantiateViewController(withIdentifier: "MessageComposeNavigationController") as! GradientNavigationController
-		let messageWrapper = messageNC.viewControllers.first as! MessageComposerWrapperViewController
-		messageWrapper.title = "New Message"
-		
+		Intercom.presentMessenger()
 		
 		//		let message = Message(managedObjectContext: MailDatabaseManager.sharedInstance.backgroundContext)
 		//		message.recipients = NSSet(array: [User.fromHandle("handlerHQ")])
