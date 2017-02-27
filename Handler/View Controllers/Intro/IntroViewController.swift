@@ -46,8 +46,8 @@ class IntroViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        totalWidth = Double(UIScreen.main.bounds.width * 2)
-        contentView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width * 2, height: UIScreen.main.bounds.height))
+		totalWidth = Double(UIScreen.main.bounds.width * 2)
+		contentView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width * 2, height: UIScreen.main.bounds.height))
         firstView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         secondView.frame = CGRect(x: firstView.bounds.width, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         thirdView.frame = CGRect(x: firstView.bounds.width * 2, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
@@ -134,26 +134,26 @@ class IntroViewController: UIViewController, UIScrollViewDelegate {
         return true
     }
     
-    func changePage(sender: AnyObject) -> () {
-        let x = CGFloat(pageControl.currentPage) * scrollView.frame.size.width
-        scrollView.setContentOffset(CGPoint(x: x, y: 0), animated: true)
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.x > 0 && pageControl.currentPage == 1 {
-            return
-        }
-        let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
-        pageControl.currentPage = Int(pageNumber)
-        if (pageControl.currentPage == 1) {
-            UIView.animate(withDuration: 0.3) {
-                self.pageControl.alpha = 0;
-            }
-        } else{
-            UIView.animate(withDuration: 0.3) {
-                self.pageControl.alpha = 1;
-            }
-        }
-    }
-    
+	func changePage(sender: AnyObject) -> () {
+		let x = CGFloat(pageControl.currentPage) * scrollView.frame.size.width
+		scrollView.setContentOffset(CGPoint(x: x, y: 0), animated: true)
+	}
+	
+	func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+		if scrollView.contentOffset.x > 0 && pageControl.currentPage == 1 {
+			return
+		}
+		let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
+		pageControl.currentPage = Int(pageNumber)
+		if (pageControl.currentPage == 1) {
+			UIView.animate(withDuration: 0.3) {
+				self.pageControl.alpha = 0;
+			}
+		} else{
+			UIView.animate(withDuration: 0.3) {
+				self.pageControl.alpha = 1;
+			}
+		}
+	}
+	
 }
