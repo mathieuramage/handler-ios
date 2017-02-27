@@ -61,7 +61,7 @@ struct MessageManager {
 	}
 	
 	private static func markMessage(_ message : Message, asRead read : Bool) {
-		message.read = true
+		message.read = read
 		MessageOperations.setMessageAsRead(message: message, read: read) { (success, messageData) in
 			if let data = messageData {
 				let _ = MessageDao.updateOrCreateMessage(messageData: data)

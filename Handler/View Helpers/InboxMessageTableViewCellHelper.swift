@@ -33,8 +33,8 @@ class InboxMessageTableViewCellHelper {
 		cell.leftUtilityButtons = nil
 		cell.rightUtilityButtons = nil
 
-		cell.leftUtilityButtons = leftButtonsForMessage(message)
-		cell.rightUtilityButtons = rightButtonsForMessage(message)
+		cell.leftUtilityButtons = leftButtonsForConversation(conversation)
+		cell.rightUtilityButtons = rightButtonsForConversation(conversation)
 
 		if let pictureUrl = message.sender?.pictureUrl {
             cell.senderProfileImageView.kf.setImage(with: pictureUrl, placeholder: UIImage.randomGhostImage(), options: nil, progressBlock: nil, completionHandler: nil)
@@ -90,25 +90,25 @@ class InboxMessageTableViewCellHelper {
 	}
 
 
-	class func leftButtonsForMessage(_ message: Message)->[AnyObject]{
+	class func leftButtonsForConversation(_ conversation: Conversation)->[AnyObject]{
 		let array = NSMutableArray()
-		if !message.read {
-			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.lightBlue), icon: UIImage(named: "icon_read"))
-		} else {
+		if conversation.read {
 			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.lightBlue), icon: UIImage(named: "icon_unread"))
+		} else {
+			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.lightBlue), icon: UIImage(named: "icon_read"))
 		}
 		return array as [AnyObject]
 	}
 
-	class func rightButtonsForMessage(_ message: Message)->[AnyObject]{
+	class func rightButtonsForConversation(_ conversation: Conversation)->[AnyObject]{
 		let array = NSMutableArray()
-		if message.starred == true {
+		if conversation.starred {
 			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.orange), icon: UIImage(named: "icon_unflag"))
 		} else {
 			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.orange), icon: UIImage(named: "icon_flag"))
 		}
 
-		if message.archived  {
+		if conversation.archived {
 			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.darkBlue), icon: UIImage(named: "icon_unarchive"))
 		} else {
 			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.darkBlue), icon: UIImage(named: "icon_archive"))

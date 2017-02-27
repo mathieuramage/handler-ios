@@ -51,8 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NVActivityIndicatorView.DEFAULT_TYPE = .lineScale
         NVActivityIndicatorView.DEFAULT_COLOR = UIColor.white
         NVActivityIndicatorView.DEFAULT_BLOCKER_SIZE = CGSize(width: 60, height: 35)
-
-
+		
 		//Firebase
 		FIRApp.configure()
 		let remoteConfigSettings = FIRRemoteConfigSettings(developerModeEnabled: true)
@@ -137,9 +136,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func applicationDidBecomeActive(_ application: UIApplication) {
 		startMessageUpdateTimer()
-		let settings = UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: nil)
-		application.registerUserNotificationSettings(settings)
-		application.registerForRemoteNotifications()
 		// Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 	}
 
@@ -168,6 +164,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			
 			if let _ = AuthUtility.shared.accessToken {
 				window?.rootViewController = sideMenu
+				updateMessages()
 				if let uid = AuthUtility.shared.user?.identifier {
 					Intercom.registerUser(withUserId: uid)
 				}

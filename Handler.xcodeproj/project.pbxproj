@@ -195,6 +195,7 @@
 		BF6653011CDE329A00D9AA1E /* Intro.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF6653001CDE329A00D9AA1E /* Intro.storyboard */; };
 		BF6653031CDE32F200D9AA1E /* Storyboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6653021CDE32F200D9AA1E /* Storyboards.swift */; };
 		BF6653051CDE353F00D9AA1E /* Compose.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF6653041CDE353F00D9AA1E /* Compose.storyboard */; };
+		BF6A28D11E5752B700368B44 /* NotificationCenter+Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6A28D01E5752B700368B44 /* NotificationCenter+Handler.swift */; };
 		BF6F153E1E0AFEAA0081BF80 /* ConversationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6F153D1E0AFEAA0081BF80 /* ConversationManager.swift */; };
 		BF7530771DD20ED800A00765 /* GradientView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF7530761DD20ED800A00765 /* GradientView.framework */; };
 		BF7530791DD21A4200A00765 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF7530781DD21A4200A00765 /* Alamofire.framework */; };
@@ -507,6 +508,7 @@
 		BF6653001CDE329A00D9AA1E /* Intro.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Intro.storyboard; sourceTree = "<group>"; };
 		BF6653021CDE32F200D9AA1E /* Storyboards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storyboards.swift; sourceTree = "<group>"; };
 		BF6653041CDE353F00D9AA1E /* Compose.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Compose.storyboard; sourceTree = "<group>"; };
+		BF6A28D01E5752B700368B44 /* NotificationCenter+Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+Handler.swift"; sourceTree = "<group>"; };
 		BF6F153D1E0AFEAA0081BF80 /* ConversationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationManager.swift; sourceTree = "<group>"; };
 		BF7530761DD20ED800A00765 /* GradientView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GradientView.framework; path = Carthage/Build/iOS/GradientView.framework; sourceTree = SOURCE_ROOT; };
 		BF7530781DD21A4200A00765 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = SOURCE_ROOT; };
@@ -814,6 +816,7 @@
 				2F994E531BB2AE8100A63B9B /* UIColor+HandlerColors.swift */,
 				2FB0E9441BB5718600A0426E /* UIImage+HanderImages.swift */,
 				BF2CCEFF1DFEBDD4006D0D5A /* Array+Conversation.swift */,
+				BF6A28D01E5752B700368B44 /* NotificationCenter+Handler.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1495,6 +1498,7 @@
 				2F1D2C3F1BBC48E600A504A8 /* ErrorPopupViewController.swift in Sources */,
 				2FF0D13A1BB4C386009467B5 /* String+Extensions.swift in Sources */,
 				BF25878F1E0416EA00AFA0C7 /* UserTwitterStatusManager.swift in Sources */,
+				BF6A28D11E5752B700368B44 /* NotificationCenter+Handler.swift in Sources */,
 				BF27F3831CDDF01C003A92D9 /* APAddressBookContactsRoutine.m in Sources */,
 				2FDDE1011BAEB5A6006C3500 /* Date+Handler.swift in Sources */,
 				6C9BD0751C075FA10053C868 /* HRPageControl.m in Sources */,

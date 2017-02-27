@@ -34,6 +34,32 @@ extension Conversation {
 		self.latestMessageDate = latest as NSDate
     }
 	
+	var read : Bool {
+		if let unread = value(forKey: "unreadMessages") as? NSArray {
+			return unread.count == 0
+		}
+		return true
+	}
+	
+	var starred : Bool {
+		return false
+	}
+	
+	var archived : Bool {
+		return false
+	}
+	
+//	var read : Bool {
+//		if let messages = messages?.allObjects as? [Message]{
+//			for message in messages {
+//				if !message.read {
+//					return false
+//				}
+//			}
+//		}
+//		return true
+//	}
+	
     var latestMessage : Message? { //this may be unnecessary
         get {
             guard let messages = messages?.allObjects as? [Message], var latest = messages.first else {

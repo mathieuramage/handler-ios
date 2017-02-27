@@ -46,26 +46,9 @@ class ConversationTableViewCellHelper: NSObject {
 	}
 
 	class func configureCell(_ cell : ConversationMessageTableViewCell, message: Message, lastMessage: Bool, primary: Bool) {
-
 		configureCell(cell, message: message)
-
-		var bgColor: UIColor?
-
-		if (primary) {
-			bgColor = UIColor.white
-		}
-		else {
-			bgColor = UIColor(rgba: HexCodes.offWhite)
-		}
-
-		cell.contentView.backgroundColor = bgColor
-
-		if (lastMessage) {
-			cell.separatorContainerHeightConstraint.constant = 0
-		}
-		else {
-			cell.separatorContainerHeightConstraint.constant = 44
-		}
+		cell.contentView.backgroundColor = primary ? UIColor.white : UIColor(rgba: HexCodes.offWhite)
+		cell.separatorContainerHeightConstraint.constant = lastMessage ? 0 : 44
 	}
 	
 }

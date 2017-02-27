@@ -152,7 +152,7 @@ struct MessageDao {
 			return fetchRequest
 			
 		case .Flagged:
-			let predicate = NSPredicate(format: "starred != nil && starred == YES")
+			let predicate = NSPredicate(format: "SUBQUERY(messages, $t, $t.starred != nil && $t.starred == YES).@count != 0")
 			let fetchRequest : NSFetchRequest<NSFetchRequestResult> = Message.fetchRequest()
 			fetchRequest.predicate = predicate
 			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "updatedAt", ascending: false)]

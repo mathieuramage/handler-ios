@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11759" systemVersion="16C67" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11759" systemVersion="16D32" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Conversation" representedClassName="Conversation" syncable="YES" codeGenerationType="class">
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="latestMessageDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="read" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="starred" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="conversation" inverseEntity="Message" syncable="YES"/>
+        <fetchedProperty name="latestMessage" optional="YES" syncable="YES">
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="Conversation" predicateString="messages."/>
+        </fetchedProperty>
+        <fetchedProperty name="starredMessages" optional="YES" syncable="YES">
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="Conversation" predicateString="ANY messages.starred = true"/>
+        </fetchedProperty>
+        <fetchedProperty name="unreadMessages" optional="YES" syncable="YES">
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="Conversation" predicateString="ANY messages.read = false"/>
+        </fetchedProperty>
     </entity>
     <entity name="Label" representedClassName="Label" syncable="YES" codeGenerationType="class">
         <attribute name="label" attributeType="String" syncable="YES"/>
@@ -53,7 +60,7 @@
         <relationship name="twitterUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TwitterUser" inverseName="user" inverseEntity="TwitterUser" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Conversation" positionX="-533" positionY="201" width="128" height="120"/>
+        <element name="Conversation" positionX="-533" positionY="201" width="128" height="149"/>
         <element name="Label" positionX="-522" positionY="411" width="128" height="75"/>
         <element name="Message" positionX="-297" positionY="180" width="126" height="255"/>
         <element name="TwitterUser" positionX="216" positionY="161" width="128" height="225"/>
