@@ -71,7 +71,7 @@ struct SentFormatter: MessageTableViewCellFormatter {
 		view.attachmentIconView.isHidden = true
 		//        }
 
-		if message.conversation?.mostRecentMessage?.sender?.identifier == AuthUtility.shared.user?.identifier {
+		if message.conversation?.latestMessage?.sender?.identifier == AuthUtility.shared.user?.identifier {
 			view.repliedIconView.isHidden = false
 		} else {
 			view.repliedIconView.isHidden = true

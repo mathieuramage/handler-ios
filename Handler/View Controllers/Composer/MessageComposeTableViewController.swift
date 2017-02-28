@@ -166,7 +166,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
             tokenView.validatedString(sender, withResult: true)
             tokenView.reloadToken(withTitle: sender)
             
-            if message.hasReplyPrefix() {
+            if message.hasReplyPrefix {
                 subjectTextField.text = message.subject
             }
             else {
@@ -179,14 +179,14 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
             originalReplySubject = subjectTextField.text
         }
         
-        if let receivers = messageToReplyTo?.recipientsWithoutSelf() {
+        if let receivers = messageToReplyTo?.recipientsWithoutSelf {
             for receiver in receivers {
-                let senderUsername = (receiver as? User)?.handle
-                if (senderUsername?.characters.count)! > 0 {
-                    validatedTokens.append(ValidatedToken(name: senderUsername!, isOnHandler: true))
+                let senderUsername = receiver.handle
+                if (senderUsername.characters.count) > 0 {
+                    validatedTokens.append(ValidatedToken(name: senderUsername, isOnHandler: true))
                     ccTokenView.add(CLToken(displayText: "@\(senderUsername)", context: nil))
-                    ccTokenView.validatedString(senderUsername!, withResult: true)
-                    ccTokenView.reloadToken(withTitle: senderUsername!)
+                    ccTokenView.validatedString(senderUsername, withResult: true)
+                    ccTokenView.reloadToken(withTitle: senderUsername)
                 }
             }
             //			}

@@ -29,6 +29,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		tableView.register(UINib(nibName: "MessageTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "MessageTableViewCell")
 		tableView.tableFooterView = UIView()
 		tableView.emptyDataSetSource = self
+		fetchedResultsController.delegate = self
 		self.refreshControl = UIRefreshControl()
 		self.refreshControl!.addTarget(self, action: #selector(InboxTableViewController.refresh(_:)), for: UIControlEvents.valueChanged)
 		self.tableView.addSubview(refreshControl!)
@@ -69,7 +70,6 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		unreadEmailsCountLabel?.textAlignment = .center
 		unreadEmailsCountLabel?.font = UIFont.systemFont(ofSize: 11)
 		unreadEmailsCountLabel?.textColor = UIColor(rgba: HexCodes.blueGray)
-		
 		
 //		_ = CurrentStatusManager.sharedInstance.currentStatusSubtitle.observeNext { text in
 //			Async.main {
