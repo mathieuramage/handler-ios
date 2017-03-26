@@ -9,6 +9,9 @@
 import UIKit
 import CoreData
 import Kingfisher
+import AddressBook
+import Contacts
+import Async
 
 class ContactsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
 
@@ -21,7 +24,11 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 	@IBOutlet weak var followingButton: UIButton!
 	@IBOutlet weak var deviceButton: UIButton!
 	@IBOutlet weak var borderView: UIView!
-
+	
+	@IBOutlet weak var authorizationSwitch: UISwitch!
+	@IBOutlet weak var contactHeaderView: UIView!
+	@IBOutlet weak var ticketsHeaderView: UIView!
+	
 	var twitterFollowerList: [TwitterUserData] = []
 	var twitterFollowingList : [TwitterUserData] = []
 	var deviceContactList : [APContact] = []
@@ -30,9 +37,18 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 
 	var followerNextCursor : Int?
 	var followingNextCursor : Int?
-
 	var selectedTab : Int = 0
-
+	
+	@IBAction func toggleSwitched(_ sender: UISwitch) {
+		if !authorizationSwitch.isSelected {
+			activityIndicator.startAnimating()
+			if self.deviceContactList.isEmpty {
+				setupDeviceContacts()
+				fetchDeviceContactList()
+			}
+		}
+	}
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		tableView.tableFooterView = UIView()
@@ -42,11 +58,34 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 		borderView.clipsToBounds = true
 		borderView.layer.borderWidth = 1
 		borderView.layer.borderColor = borderView.tintColor.cgColor
+		searchBar.placeholder = "Search for people"
+		searchBar.backgroundColor = UIColor(red: 194/255, green: 202/255, blue: 215/255, alpha: 1.0)
+		searchBar.barTintColor = UIColor(red: 194/255, green: 202/255, blue: 215/255, alpha: 1.0)
+		searchBar.backgroundImage = UIImage()
 		searchBar.delegate = self
+		navigationController?.navigationBar.shadowImage = UIImage()
+		contactHeaderView.frame = CGRect(x: 0, y: 0, width: contactHeaderView.frame.width, height: 110)
+		contactHeaderView.isHidden = true
+		ticketsHeaderView.layer.opacity = 0
+		self.automaticallyAdjustsScrollViewInsets = false
+		self.tableView.contentInset.top = 50.0
+	}
+	
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+	}
+	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+		if let navButtons = self.navigationController?.navigationBar.items {
+			if navButtons.count > 0 {
+				navButtons[0].title = ""
+			}
+		}
 
 		activityIndicator.startAnimating()
 
@@ -69,6 +108,15 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 				self.tableView.reloadData()
 			}
 		}
+	}
+	
+	func areContactsAuthrorized() -> Bool {
+		var authorized = false
+		let status = CNContactStore.authorizationStatus(for: CNEntityType.contacts)
+		if status == .authorized {
+			authorized = true
+		}
+		return authorized
 	}
 
 	// MARK: Search Bar Functions
@@ -111,12 +159,32 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 
 		}
 	}
+	
+	func showTicketsHeaderView() {
+		UIView.animate(withDuration: 0.5) {
+			self.ticketsHeaderView.layer.opacity = 1
+		}
+	}
+	
+	func hideHeaderView() {
+		contactHeaderView.frame = CGRect(x: 0, y: 0, width: self.contactHeaderView.frame.width, height: 0)
+		contactHeaderView.layer.opacity = 0
+		contactHeaderView.isHidden = true
+		view.layoutIfNeeded()
+	}
+	
+	func showHeaderView() {
+		self.tableView.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: self.contactHeaderView.frame.width, height: 110)
+		contactHeaderView.layer.opacity = 1
+		contactHeaderView.isHidden = false
+		view.layoutIfNeeded()
+	}
 
 	func setupDeviceContacts() {
 		self.addressBook.fieldsMask = [.default, .thumbnail, .websites]
 		self.addressBook.sortDescriptors = [NSSortDescriptor(key: "name.firstName", ascending: true),
 		                                    NSSortDescriptor(key: "name.lastName", ascending: true)]
-		self.addressBook.filterBlock = { $0.handle() != nil }
+//		self.addressBook.filterBlock = { $0.handle() != nil }
 
 		self.addressBook.startObserveChanges(callback: {
 			[unowned self] in
@@ -125,16 +193,18 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 	}
 
 	func fetchDeviceContactList() {
-		self.addressBook.loadContacts { (contacts, error) in
-			guard let contacts = contacts else {
-				return
-			}
-
-			self.deviceContactList = contacts
-
-			self.activityIndicator.stopAnimating()
-			self.tableView.reloadData()
-		}
+		self.addressBook.loadContacts(
+			{ (contacts: [APContact]?, error: Error?) in
+				if let uwrappedContacts = contacts {
+					self.deviceContactList = uwrappedContacts
+				}
+				else if let unwrappedError = error {
+					print(unwrappedError)
+				}
+				self.showTicketsHeaderView()
+				self.activityIndicator.stopAnimating()
+				self.tableView.reloadData()
+		})
 	}
 
 	// MARK: - UITableViewDataSource
@@ -151,14 +221,22 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 			return 0
 		}
 	}
+	
+	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		return 64.0
+	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "contactTableViewCell", for: indexPath) as! ContactTableViewCell
 
 		let user = activeTabContacts[indexPath.row]
 
-		cell.handleLabel.text = user.handle()
+		cell.handleLabel.text = user.handle() ?? "No Twitter username found"
 		cell.nameLabel.text = user.named()
+		
+		if user.handle() == nil {
+			cell.followButton.setImage(UIImage(named: "contacts_invite_button_icon"), for: .normal)
+		}
 
 		if let url = user.profilePictureURL() {
 			cell.profileImageView.kf.setImage(with: url, placeholder: UIImage.randomGhostImage(), options: nil, progressBlock: nil, completionHandler: nil)
@@ -166,7 +244,7 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 			cell.profileImageView.image = UIImage.randomGhostImage()
 		}
 
-		if indexPath.row == activeTabContacts.count - 3 && selectedTab < 2 { // near the end of the list, fetch more from twitter
+		if selectedTab < 2 && indexPath.row == activeTabContacts.count - 3 { // near the end of the list, fetch more from twitter
 			fetchMoreFromTwitter()
 		}
 
@@ -184,20 +262,23 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 
 	@IBAction func followersButtonTapped(_ sender: AnyObject) {
 		selectTab(0)
+		hideHeaderView()
 	}
 
 	@IBAction func followingButtonTapped(_ sender: AnyObject) {
 		selectTab(1)
+		hideHeaderView()
 	}
 
 	@IBAction func deviceButtonTapped(_ sender: AnyObject) {
-		self.activityIndicator.startAnimating()
-
-		selectTab(2)
-		if self.deviceContactList.isEmpty {
+		if areContactsAuthrorized() == true {
+			ticketsHeaderView.layer.opacity = 1
 			setupDeviceContacts()
 			fetchDeviceContactList()
 		}
+		
+		selectTab(2)
+		showHeaderView()
 	}
 
 	var activeTabContacts : [ListableAsContact] {
@@ -233,7 +314,10 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 		default:
 			break
 		}
-		tableView.setContentOffset(CGPoint.zero, animated:false)
+		Async.main {
+			let offset = CGPoint.init(x: 0, y: -50)
+			self.tableView.setContentOffset(offset, animated: false)
+		}
 
 		if activeTabContacts.count > 0 {
 			activityIndicator.stopAnimating()
@@ -252,9 +336,9 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 		followersButton.isSelected = false
 		followingButton.isSelected = false
 		deviceButton.isSelected = false
-		followersButton.backgroundColor = view.backgroundColor
-		followingButton.backgroundColor = view.backgroundColor
-		deviceButton.backgroundColor = view.backgroundColor
+		followersButton.backgroundColor = UIColor.white
+		followingButton.backgroundColor = UIColor.white
+		deviceButton.backgroundColor = UIColor.white
 	}
 }
 
