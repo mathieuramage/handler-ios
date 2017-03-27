@@ -70,21 +70,11 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 		self.automaticallyAdjustsScrollViewInsets = false
 		self.tableView.contentInset.top = 50.0
 	}
-	
-	override func viewDidLayoutSubviews() {
-		super.viewDidLayoutSubviews()
-	}
-	
-	override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(animated)
-	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		if let navButtons = self.navigationController?.navigationBar.items {
-			if navButtons.count > 0 {
-				navButtons[0].title = ""
-			}
+		if let navButtons = self.navigationController?.navigationBar.items, navButtons.count > 0{
+			navButtons[0].title = ""
 		}
 
 		activityIndicator.startAnimating()
@@ -111,12 +101,7 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 	}
 	
 	func areContactsAuthrorized() -> Bool {
-		var authorized = false
-		let status = CNContactStore.authorizationStatus(for: CNEntityType.contacts)
-		if status == .authorized {
-			authorized = true
-		}
-		return authorized
+		return CNContactStore.authorizationStatus(for: CNEntityType.contacts) == .authorized
 	}
 
 	// MARK: Search Bar Functions
@@ -184,7 +169,6 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 		self.addressBook.fieldsMask = [.default, .thumbnail, .websites]
 		self.addressBook.sortDescriptors = [NSSortDescriptor(key: "name.firstName", ascending: true),
 		                                    NSSortDescriptor(key: "name.lastName", ascending: true)]
-//		self.addressBook.filterBlock = { $0.handle() != nil }
 
 		self.addressBook.startObserveChanges(callback: {
 			[unowned self] in
@@ -195,12 +179,7 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 	func fetchDeviceContactList() {
 		self.addressBook.loadContacts(
 			{ (contacts: [APContact]?, error: Error?) in
-				if let uwrappedContacts = contacts {
-					self.deviceContactList = uwrappedContacts
-				}
-				else if let unwrappedError = error {
-					print(unwrappedError)
-				}
+				self.deviceContactList = contacts ?? []
 				self.showTicketsHeaderView()
 				self.activityIndicator.stopAnimating()
 				self.tableView.reloadData()
@@ -271,7 +250,7 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 	}
 
 	@IBAction func deviceButtonTapped(_ sender: AnyObject) {
-		if areContactsAuthrorized() == true {
+		if areContactsAuthrorized() {
 			ticketsHeaderView.layer.opacity = 1
 			setupDeviceContacts()
 			fetchDeviceContactList()
