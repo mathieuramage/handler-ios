@@ -41,6 +41,7 @@ class UnreadMailboxViewController: UITableViewController, SWTableViewCellDelegat
 		super.viewWillAppear(animated)
 		NotificationCenter.default.addObserver(self, selector: #selector(conversationsUpdated), name: ConversationManager.conversationUpdateFinishedNotification, object: nil)
 		try? fetchedResultsController.performFetch()
+		self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Hamburger_Icon"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(AbstractMessageMailboxViewController.showSideMenu(_:)))
 	}
 	
 	func conversationsUpdated() {
