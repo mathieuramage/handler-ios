@@ -62,7 +62,7 @@ struct MessageDao {
 	
 	static private func messageFetchRequestForFolder(folder : Folder) -> NSFetchRequest<Message> {
 		let predicate = NSPredicate(format: "folderString == %@", folder.rawValue)
-		let fetchRequest : NSFetchRequest<Message>= Message.fetchRequest()
+		let fetchRequest : NSFetchRequest<Message> = Message.fetchRequest()
 		fetchRequest.fetchBatchSize = 20
 		fetchRequest.predicate = predicate
 		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)]
@@ -171,7 +171,7 @@ struct MessageDao {
 			} else {
 				// handle archive case
 				let predicate = NSPredicate(format: "folderString == %@", Folder.Archived.rawValue)
-				let fetchRequest : NSFetchRequest<NSFetchRequestResult>= Message.fetchRequest()
+				let fetchRequest : NSFetchRequest<NSFetchRequestResult> = Message.fetchRequest()
 				fetchRequest.fetchBatchSize = 20
 				fetchRequest.predicate = predicate
 				fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)]
