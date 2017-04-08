@@ -34,16 +34,22 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 		super.viewDidLoad()
 		
 		//		TODO ? NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SideMenuViewController.updateCurrentUser), name: HRCurrentUserDidSetNotification, object: nil)
-		
 		updateCurrentUser()
-		//        gradientView.colors = [UIColor.white, UIColor.black.withAlphaComponent(0.5)]
-		view.sendSubview(toBack: gradientView)
-		view.sendSubview(toBack: profileBannerImageView) //Workaround
-		remoteConfigDisplayHelpButton()
+		updateUI()
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
+	}
+	
+	private func updateUI() {
+		view.sendSubview(toBack: gradientView)
+		view.sendSubview(toBack: profileBannerImageView) //Workaround
+		remoteConfigDisplayHelpButton()
+		profileImageView.layer.cornerRadius = profileImageView.frame.width/2
+		profileImageView.layer.masksToBounds = true
+		profileImageView.layer.borderWidth = 1.5
+		profileImageView.layer.borderColor = UIColor.white.cgColor
 	}
 	
 	func updateCurrentUser() {
