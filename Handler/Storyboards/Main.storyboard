@@ -51,7 +51,7 @@
         <!--Flagged Mailbox View Controller-->
         <scene sceneID="Ww3-74-ZmD">
             <objects>
-                <viewController storyboardIdentifier="FlaggedMailboxViewController" id="dQi-nu-PEd" customClass="FlaggedMailboxViewController" customModule="Handler" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FlaggedMailboxViewController" extendedLayoutIncludesOpaqueBars="YES" id="dQi-nu-PEd" customClass="FlaggedMailboxViewController" customModule="Handler" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ouG-hb-2Ay"/>
                         <viewControllerLayoutGuide type="bottom" id="Dw8-n7-M96"/>
@@ -73,6 +73,22 @@
                             <constraint firstAttribute="trailing" secondItem="tfZ-29-ymf" secondAttribute="trailing" id="tKx-IT-NMq"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="y9R-by-XMn">
+                        <barButtonItem key="leftBarButtonItem" image="Hamburger_Icon" id="Hyu-vS-Onf">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="showSideMenu:" destination="OOd-s0-Jkk" id="bCe-6A-e1d"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="Contacts_Icon" id="MB7-RF-JYi">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <segue destination="A8C-NE-NAc" kind="show" id="uEc-uM-gru"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="tfZ-29-ymf" id="Mlt-bF-c9D"/>
                         <segue destination="HoU-qP-OJS" kind="show" identifier="showConversationTableViewController" id="9KK-2a-G6b"/>
@@ -81,12 +97,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="utM-kG-y7F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3033" y="-1174"/>
+            <point key="canvasLocation" x="3167" y="-1174"/>
         </scene>
         <!--Drafts Mailbox View Controller-->
         <scene sceneID="02c-CG-P0y">
             <objects>
-                <viewController storyboardIdentifier="DraftsMailboxViewController" id="Z5v-iS-VWF" customClass="DraftsMailboxViewController" customModule="Handler" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DraftsMailboxViewController" extendedLayoutIncludesOpaqueBars="YES" id="Z5v-iS-VWF" customClass="DraftsMailboxViewController" customModule="Handler" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="o0n-LM-hfh"/>
                         <viewControllerLayoutGuide type="bottom" id="aik-Rc-qza"/>
@@ -108,6 +124,22 @@
                             <constraint firstItem="Rmp-wt-5sc" firstAttribute="top" secondItem="KbV-jE-a2g" secondAttribute="top" id="xWl-iZ-mwC"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="Jq7-Lp-Ttx">
+                        <barButtonItem key="leftBarButtonItem" image="Hamburger_Icon" id="EM1-s3-Ar8">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="showSideMenu:" destination="OOd-s0-Jkk" id="RdO-Up-eWg"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="Contacts_Icon" id="YQu-tj-Iy7">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <segue destination="A8C-NE-NAc" kind="show" id="tsC-ZA-cai"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="Rmp-wt-5sc" id="3oa-G9-AgN"/>
                         <segue destination="HoU-qP-OJS" kind="show" identifier="showConversationTableViewController" id="ztf-hg-YcD"/>
@@ -116,7 +148,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QaN-pa-xbF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3689" y="-1174"/>
+            <point key="canvasLocation" x="3943" y="-1167"/>
         </scene>
         <!--Sent Mailbox View Controller-->
         <scene sceneID="06D-si-XXJ">
@@ -131,7 +163,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="77.5" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xf7-Az-DMd">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </tableView>
                         </subviews>
@@ -143,6 +175,22 @@
                             <constraint firstItem="xf7-Az-DMd" firstAttribute="top" secondItem="6mh-8w-cNF" secondAttribute="top" id="eWW-8Q-sdE"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="dEZ-BI-k17">
+                        <barButtonItem key="leftBarButtonItem" image="Hamburger_Icon" id="wdv-WB-lKz">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="showSideMenu:" destination="OOd-s0-Jkk" id="ziI-mn-QLX"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="Contacts_Icon" id="4Xz-tm-FXR">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <segue destination="A8C-NE-NAc" kind="show" id="iCK-T5-Vvo"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="xf7-Az-DMd" id="w3A-VO-TyQ"/>
                         <segue destination="HoU-qP-OJS" kind="show" identifier="showConversationTableViewController" id="V4i-br-LNE"/>
@@ -151,7 +199,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hG8-s7-BB8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5023" y="-1167"/>
+            <point key="canvasLocation" x="5487" y="-1174"/>
         </scene>
         <!--Archive Mailbox View Controller-->
         <scene sceneID="D5p-r5-5ID">
@@ -166,7 +214,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="77.5" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bU7-Jy-VXe">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </tableView>
                         </subviews>
@@ -178,6 +226,22 @@
                             <constraint firstItem="bU7-Jy-VXe" firstAttribute="bottom" secondItem="gRf-5a-hyG" secondAttribute="top" id="w98-wA-gzu"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="Wdt-MG-aGZ">
+                        <barButtonItem key="leftBarButtonItem" image="Hamburger_Icon" id="hut-H3-ORH">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="showSideMenu:" destination="OOd-s0-Jkk" id="93g-dx-VRC"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="Contacts_Icon" id="M9j-RG-vIW">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <segue destination="A8C-NE-NAc" kind="show" id="WsZ-jQ-H5N"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="bU7-Jy-VXe" id="C3b-mM-eJS"/>
                         <segue destination="HoU-qP-OJS" kind="show" identifier="showConversationTableViewController" id="I0l-5p-pz3"/>
@@ -186,7 +250,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zle-wa-gxC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4346" y="-1167"/>
+            <point key="canvasLocation" x="4734" y="-1174"/>
         </scene>
         <!--Thread-->
         <scene sceneID="n8g-XI-hXq">
@@ -215,7 +279,7 @@
                 <viewControllerPlaceholder storyboardName="Contacts" referencedIdentifier="ContactsViewController" id="A8C-NE-NAc" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IKS-wY-Fmu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1097" y="-727"/>
+            <point key="canvasLocation" x="3858" y="-159"/>
         </scene>
         <!--Mail Box Options Table View Controller-->
         <scene sceneID="i2f-Tf-RVn">
@@ -716,6 +780,9 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="Contacts_Icon" id="v9f-OZ-3JH">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <segue destination="A8C-NE-NAc" kind="show" id="jkV-QL-fnm"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -725,7 +792,97 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ag8-mO-MhC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2372" y="-1167"/>
+            <point key="canvasLocation" x="2390" y="-1174"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="iMP-1Z-4r7">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="aBC-0l-8NF" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="8WW-ec-e6c">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ng9-3H-0Em" kind="relationship" relationship="rootViewController" id="Oof-HQ-2sj"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sDA-HQ-f87" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2390" y="-2082"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="1sH-ms-kRY">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="CxO-lL-uRW" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="jyU-Ju-ik9">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="dQi-nu-PEd" kind="relationship" relationship="rootViewController" id="9jp-jq-2uH"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FVz-0S-Kjw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3167" y="-2082"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="k0T-6r-XtN">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7nT-fF-0gp" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="9wr-8O-On3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Z5v-iS-VWF" kind="relationship" relationship="rootViewController" id="gDM-Ya-BpS"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fQl-xJ-apj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3943" y="-2082"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Jgm-Gb-ee6">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="35C-Fc-SDM" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="PFf-ZP-1jd">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Xqu-f7-yku" kind="relationship" relationship="rootViewController" id="dnK-3G-OmL"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yzD-cd-rxl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4734" y="-2082"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="3Hd-J3-1eW">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DdD-TP-qGh" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="SA6-Gh-4Ke">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="D5s-U5-2Ur" kind="relationship" relationship="rootViewController" id="9dG-v4-QJ8"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kvw-KZ-A1H" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5487" y="-2082"/>
         </scene>
     </scenes>
     <resources>
@@ -743,8 +900,9 @@
         <image name="mailbox_unread_icon" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ayj-ph-QJ8"/>
-        <segue reference="37u-X4-Rqh"/>
+        <segue reference="yZh-h4-TiK"/>
+        <segue reference="Dm1-RO-gCa"/>
+        <segue reference="2Va-Vn-Int"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

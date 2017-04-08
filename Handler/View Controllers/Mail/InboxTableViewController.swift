@@ -35,7 +35,6 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 //		MailboxObserversManager.sharedInstance.addObserverForMailboxType(.Inbox, observer: self)
 	}
 	
-	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		NotificationCenter.default.addObserver(self, selector: #selector(conversationsUpdated), name: ConversationManager.conversationUpdateFinishedNotification, object: nil)
@@ -49,7 +48,6 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 	
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-		
 		let space = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
 		
 		navigationItem.rightBarButtonItem?.isEnabled = true
@@ -112,6 +110,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		}
 	
 		requestPushNotificationPermissions()
+		showTitleFadeIn(title: "Inbox")
 	}
 	
 	override func viewDidDisappear(_ animated: Bool) {

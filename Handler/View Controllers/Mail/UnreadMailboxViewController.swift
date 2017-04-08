@@ -111,6 +111,7 @@ class UnreadMailboxViewController: UITableViewController, SWTableViewCellDelegat
 		}
 		
 		requestPushNotificationPermissions()
+		showTitleFadeIn(title: "Unread")
 	}
 	
 	override func viewDidDisappear(_ animated: Bool) {

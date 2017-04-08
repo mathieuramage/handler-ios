@@ -27,4 +27,25 @@ class DraftsMailboxViewController: AbstractMessageMailboxViewController {
         view.actionButton.addTarget(self, action: #selector(DraftsMailboxViewController.composeNewMessage), for: .touchUpInside)
         return view
     }
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		
+		let space = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+		
+		navigationItem.rightBarButtonItem?.isEnabled = true
+		
+		lastupdatedLabel = UILabel(frame: CGRect(x: 0, y: 8, width: 140, height: 14))
+		lastupdatedLabel?.textAlignment = .center
+		lastupdatedLabel?.font = UIFont.systemFont(ofSize: 11)
+		lastupdatedLabel?.textColor = UIColor(rgba: HexCodes.darkGray)
+		
+		let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 140, height: 44))
+		containerView.addSubview(lastupdatedLabel!)
+		let item = UIBarButtonItem(customView: containerView)
+		
+		let composeItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.compose, target: self, action: #selector(InboxTableViewController.composeNewMessage))
+		
+		self.navigationController!.toolbar.items = [space, item, space, composeItem]
+		showTitleFadeIn(title: "Drafts")
+	}
 }

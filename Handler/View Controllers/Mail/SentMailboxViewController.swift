@@ -17,6 +17,28 @@ class SentMailboxViewController: AbstractMessageMailboxViewController {
 		fetchedResultsController = NSFetchedResultsController<Message>(fetchRequest: MessageDao.sentFetchRequest, managedObjectContext: CoreDataStack.shared.viewContext, sectionNameKeyPath: nil, cacheName: nil)
 	}
 	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		
+		let space = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+		
+		navigationItem.rightBarButtonItem?.isEnabled = true
+		
+		lastupdatedLabel = UILabel(frame: CGRect(x: 0, y: 8, width: 140, height: 14))
+		lastupdatedLabel?.textAlignment = .center
+		lastupdatedLabel?.font = UIFont.systemFont(ofSize: 11)
+		lastupdatedLabel?.textColor = UIColor(rgba: HexCodes.darkGray)
+		
+		let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 140, height: 44))
+		containerView.addSubview(lastupdatedLabel!)
+		let item = UIBarButtonItem(customView: containerView)
+		
+		let composeItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.compose, target: self, action: #selector(InboxTableViewController.composeNewMessage))
+		
+		self.navigationController!.toolbar.items = [space, item, space, composeItem]
+		showTitleFadeIn(title: "Sent")
+	}
+	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		super.prepare(for: segue, sender: sender)
 		
@@ -36,10 +58,6 @@ class SentMailboxViewController: AbstractMessageMailboxViewController {
 				destination.primaryMessage = self.messageForSegue
 			}
 			
-		} else if segue.identifier == "showMessageComposeNavigationController" {
-			if let dc = (segue.destination as? UINavigationController)?.viewControllers.first as? MessageComposerWrapperViewController {
-				dc.draftMessage = self.messageForSegue
-			}
 		}
 	}
 	
