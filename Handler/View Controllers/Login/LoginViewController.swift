@@ -62,68 +62,64 @@ class LoginViewController: UIViewController,NVActivityIndicatorViewable {
     
     @IBOutlet weak var loginButton: WhiteBorderButton!
 	
-	@IBAction func loginButtonPressed(_ button: UIButton){
+    @IBAction func loginButtonPressed(_ button: UIButton){
 
-		Twitter.sharedInstance().logIn { session, error in
-			if (session != nil) {
-				print(session)
-				print("signed in as \(session?.userName)");
-			} else {
-				print("error: \(error?.localizedDescription)");
-			}
+        Twitter.sharedInstance().logIn { session, error in
+            if let session = session {
+                let twitter = Twitter.sharedInstance()
+                let oauthSigning = TWTROAuthSigning(authConfig:twitter.authConfig, authSession:session)
 
-			if let session = session {
+                print(oauthSigning.oAuthEchoHeadersToVerifyCredentials())
 
-				let twitter = Twitter.sharedInstance()
-				let oauthSigning = TWTROAuthSigning(authConfig:twitter.authConfig, authSession:session)
+                var headers : [String : String] = [:]
 
-				print(oauthSigning.oAuthEchoHeadersToVerifyCredentials())
+                for (key, val) in oauthSigning.oAuthEchoHeadersToVerifyCredentials() {
+                    headers[String(describing: key)] = String(describing: val)
+                }
 
-				var headers : [String : String] = [:]
+                AuthUtility.getTokenAssertion(headers: headers, callback: { (success, accessToken) in
 
-				for (key, val) in oauthSigning.oAuthEchoHeadersToVerifyCredentials() {
-					headers[String(describing: key)] = String(describing: val)
-				}
+                    guard let accessToken = accessToken, success else {
+                        AuthUtility.getClientCredentials(headers: headers, callback: { (success, tempToken) in
 
-//				let headers = oauthSigning.OAuthEchoHeadersToVerifyCredentials()
+                            guard let tempToken = tempToken, success else {
+                                return
+                            }
+                            headers["Authorization"] = tempToken.type + " " + tempToken.token
+                            AuthUtility.createUser(headers: headers, callback: { (success, userData) in
+                                self.handleAccessTokenSuccessWith(accessToken: tempToken)
+                            })
+                        })
 
-//				AuthUtility.getClientCredentials(headers: headers, callback: { (success, tempToken) in
-//
-//					guard let token = tempToken where success else {
-//						return
-//					}
+                        return
+                    }
+                    self.handleAccessTokenSuccessWith(accessToken: accessToken)
+                })
+                
+            }
+        }
+    }
 
-					AuthUtility.getTokenAssertion(headers: headers, callback: { (success, accessToken) in
+    func handleAccessTokenSuccessWith(accessToken: AccessToken) {
+        AuthUtility.accessToken = accessToken
 
-						guard let accessToken = accessToken, success else {
-							return
-						}
+        AppAnalytics.fireLoginEvent()
 
-						AuthUtility.accessToken = accessToken
-						
-						AppAnalytics.fireLoginEvent()
+        UserOperations.getMe({ (success, userData) in
+            AuthUtility.user = UserDao.updateOrCreateUser(userData: userData!)
+            let user = AuthUtility.user
+            if let uid = user?.handle {
+                UserDefaults.standard.set(uid, forKey: Config.UserDefaults.uidKey)
+                Intercom.registerUser(withUserId: uid)
+            }
 
-						UserOperations.getMe({ (success, userData) in
-							AuthUtility.user = UserDao.updateOrCreateUser(userData: userData!)
-							let user = AuthUtility.user
-							if let uid = user?.handle {
-								UserDefaults.standard.set(uid, forKey: Config.UserDefaults.uidKey)
-								Intercom.registerUser(withUserId: uid)
-							}
-
-							UIView.transition(with: AppDelegate.sharedInstance().window!, duration: 0.5, options: UIViewAnimationOptions.transitionCrossDissolve, animations: { () -> Void in
-								AppDelegate.sharedInstance().window?.rootViewController = AppDelegate.sharedInstance().sideMenu
-								GreetingViewController.showWithHandle(user?.handle ?? "", back: false)
-								}, completion: nil)
-						})
-
-					})
-
-//				})
-
-			}
-		}
-	}
+            UIView.transition(with: AppDelegate.sharedInstance().window!, duration: 0.5, options:
+                UIViewAnimationOptions.transitionCrossDissolve, animations: { () -> Void in
+                AppDelegate.sharedInstance().window?.rootViewController = AppDelegate.sharedInstance().sideMenu
+                GreetingViewController.showWithHandle(user?.handle ?? "", back: false)
+            }, completion: nil)
+        })
+    }
 
 	override var preferredStatusBarStyle : UIStatusBarStyle {
 		return .lightContent
