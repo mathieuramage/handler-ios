@@ -63,9 +63,9 @@ struct AuthUtility {
 
     static func createUser(headers oauthHeaders: [String : String], callback : @escaping (_ success : Bool,
         _ userData : UserData?) -> ()) {
-        let params = [ "client_id":Config.ClientId,
-                       "grant_type":"client_credentials",
-                       "client_secret": Config.ClientSecret]
+        let params = [ "client_id" : Config.ClientId,
+                       "grant_type" : "client_credentials",
+                       "client_secret" : Config.ClientSecret]
         APIUtility.request(method: .post, route: Config.APIRoutes.users, parameters: params, headers:
             oauthHeaders).responseJSON { (response) in
                 var userData : UserData?

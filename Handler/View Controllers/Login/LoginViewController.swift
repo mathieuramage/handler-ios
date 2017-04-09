@@ -65,15 +65,7 @@ class LoginViewController: UIViewController,NVActivityIndicatorViewable {
     @IBAction func loginButtonPressed(_ button: UIButton){
 
         Twitter.sharedInstance().logIn { session, error in
-            if (session != nil) {
-                print(session)
-                print("signed in as \(session?.userName)");
-            } else {
-                print("error: \(error?.localizedDescription)");
-            }
-
             if let session = session {
-
                 let twitter = Twitter.sharedInstance()
                 let oauthSigning = TWTROAuthSigning(authConfig:twitter.authConfig, authSession:session)
 
