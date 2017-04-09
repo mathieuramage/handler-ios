@@ -80,7 +80,10 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		containerView.addSubview(unreadEmailsCountLabel!)
 		let item = UIBarButtonItem(customView: containerView)
 		
-		let composeItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.compose, target: self, action: #selector(InboxTableViewController.composeNewMessage))
+		let composeItem = UIBarButtonItem(
+			barButtonSystemItem: UIBarButtonSystemItem.compose,
+			target: self,
+			action: #selector(InboxTableViewController.composeNewMessage))
 		
 		self.navigationController!.toolbar.items = [space, item, space, composeItem]
 		

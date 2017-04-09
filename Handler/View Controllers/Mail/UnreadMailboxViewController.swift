@@ -14,7 +14,6 @@ import DZNEmptyDataSet
 class UnreadMailboxViewController: UITableViewController, SWTableViewCellDelegate, NSFetchedResultsControllerDelegate, DZNEmptyDataSetSource {
 
 	var conversationForSegue: Conversation?
-	
 	var activeConversation : Conversation?
 	
 	lazy var fetchedResultsController = NSFetchedResultsController<Conversation>(fetchRequest: ConversationDao.inboxFetchRequest, managedObjectContext: CoreDataStack.shared.viewContext, sectionNameKeyPath: nil, cacheName: nil)
@@ -41,7 +40,11 @@ class UnreadMailboxViewController: UITableViewController, SWTableViewCellDelegat
 		super.viewWillAppear(animated)
 		NotificationCenter.default.addObserver(self, selector: #selector(conversationsUpdated), name: ConversationManager.conversationUpdateFinishedNotification, object: nil)
 		try? fetchedResultsController.performFetch()
-		self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Hamburger_Icon"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(AbstractMessageMailboxViewController.showSideMenu(_:)))
+		self.navigationItem.leftBarButtonItem = UIBarButtonItem(
+			image: UIImage(named: "Hamburger_Icon"),
+			style: UIBarButtonItemStyle.plain,
+			target: self,
+			action: #selector(AbstractMessageMailboxViewController.showSideMenu(_:)))
 	}
 	
 	func conversationsUpdated() {
@@ -52,7 +55,10 @@ class UnreadMailboxViewController: UITableViewController, SWTableViewCellDelegat
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
-		let space = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+		let space = UIBarButtonItem(
+			barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace,
+			target: nil,
+			action: nil)
 		
 		navigationItem.rightBarButtonItem?.isEnabled = true
 		
@@ -81,7 +87,10 @@ class UnreadMailboxViewController: UITableViewController, SWTableViewCellDelegat
 		containerView.addSubview(unreadEmailsCountLabel!)
 		let item = UIBarButtonItem(customView: containerView)
 		
-		let composeItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.compose, target: self, action: #selector(InboxTableViewController.composeNewMessage))
+		let composeItem = UIBarButtonItem(
+			barButtonSystemItem: UIBarButtonSystemItem.compose,
+			target: self,
+			action: #selector(InboxTableViewController.composeNewMessage))
 		
 		self.navigationController!.toolbar.items = [space, item, space, composeItem]
 		
@@ -128,7 +137,9 @@ class UnreadMailboxViewController: UITableViewController, SWTableViewCellDelegat
 	}
 	
 	func requestPushNotificationPermissions() {
-		let settings = UIUserNotificationSettings(types: [UIUserNotificationType.badge, UIUserNotificationType.sound,UIUserNotificationType.alert], categories: nil)
+		let settings = UIUserNotificationSettings(
+			types: [UIUserNotificationType.badge, UIUserNotificationType.sound,UIUserNotificationType.alert],
+			categories: nil)
 		UIApplication.shared.registerUserNotificationSettings(settings)
 		UIApplication.shared.registerForRemoteNotifications()
 		UIApplication.shared.applicationIconBadgeNumber = 0

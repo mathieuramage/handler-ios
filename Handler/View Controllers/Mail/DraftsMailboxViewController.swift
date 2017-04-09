@@ -16,7 +16,11 @@ class DraftsMailboxViewController: AbstractMessageMailboxViewController {
 	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 		mailboxType = .Drafts
-		fetchedResultsController = NSFetchedResultsController<Message>(fetchRequest: MessageDao.draftsFetchRequest, managedObjectContext: CoreDataStack.shared.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+		fetchedResultsController = NSFetchedResultsController<Message>(
+			fetchRequest: MessageDao.draftsFetchRequest,
+			managedObjectContext: CoreDataStack.shared.viewContext,
+			sectionNameKeyPath: nil,
+			cacheName: nil)
 	}
     
     func customViewForEmptyDataSet(_ scrollView: UIScrollView!) -> UIView! {
@@ -24,13 +28,18 @@ class DraftsMailboxViewController: AbstractMessageMailboxViewController {
         view.imageView.image = UIImage(named: "Empty Inbox Illustration")
         view.descriptionLabel.text = "Your draft emails will be here."
         view.actionButton.setTitle("Compose your first email", for: UIControlState())
-        view.actionButton.addTarget(self, action: #selector(DraftsMailboxViewController.composeNewMessage), for: .touchUpInside)
+        view.actionButton.addTarget(self,
+			action: #selector(DraftsMailboxViewController.composeNewMessage),
+			for: .touchUpInside)
         return view
     }
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
-		let space = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+		let space = UIBarButtonItem(
+			barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace,
+			target: nil,
+			action: nil)
 		
 		navigationItem.rightBarButtonItem?.isEnabled = true
 		
@@ -43,7 +52,10 @@ class DraftsMailboxViewController: AbstractMessageMailboxViewController {
 		containerView.addSubview(lastupdatedLabel!)
 		let item = UIBarButtonItem(customView: containerView)
 		
-		let composeItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.compose, target: self, action: #selector(InboxTableViewController.composeNewMessage))
+		let composeItem = UIBarButtonItem(
+			barButtonSystemItem: UIBarButtonSystemItem.compose,
+			target: self,
+			action: #selector(InboxTableViewController.composeNewMessage))
 		
 		self.navigationController!.toolbar.items = [space, item, space, composeItem]
 		showTitleFadeIn(title: "Drafts")

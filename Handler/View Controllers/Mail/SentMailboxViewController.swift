@@ -14,13 +14,20 @@ class SentMailboxViewController: AbstractMessageMailboxViewController {
 	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 		mailboxType = .Sent
-		fetchedResultsController = NSFetchedResultsController<Message>(fetchRequest: MessageDao.sentFetchRequest, managedObjectContext: CoreDataStack.shared.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+		fetchedResultsController = NSFetchedResultsController<Message>(
+			fetchRequest: MessageDao.sentFetchRequest,
+			managedObjectContext: CoreDataStack.shared.viewContext,
+			sectionNameKeyPath: nil,
+			cacheName: nil)
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
-		let space = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+		let space = UIBarButtonItem(
+			barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace,
+			target: nil,
+			action: nil)
 		
 		navigationItem.rightBarButtonItem?.isEnabled = true
 		
@@ -33,7 +40,10 @@ class SentMailboxViewController: AbstractMessageMailboxViewController {
 		containerView.addSubview(lastupdatedLabel!)
 		let item = UIBarButtonItem(customView: containerView)
 		
-		let composeItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.compose, target: self, action: #selector(InboxTableViewController.composeNewMessage))
+		let composeItem = UIBarButtonItem(
+			barButtonSystemItem: UIBarButtonSystemItem.compose,
+			target: self,
+			action: #selector(InboxTableViewController.composeNewMessage))
 		
 		self.navigationController!.toolbar.items = [space, item, space, composeItem]
 		showTitleFadeIn(title: "Sent")
