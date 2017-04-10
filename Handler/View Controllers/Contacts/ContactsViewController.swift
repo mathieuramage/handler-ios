@@ -237,7 +237,7 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 	}
 	
 	func hideHeaderView() {
-		tableHeaderView.frame = CGRect(x: 0, y: 0, width: self.authorizationHeaderView.frame.width, height: 44)
+		tableHeaderView.frame = CGRect(x: 0, y: 0, width: self.authorizationHeaderView.frame.width, height: 0)
 //		tableHeaderView.layer.opacity = 0
 //		tableHeaderView.isHidden = true
 		tableHeaderView.setNeedsLayout()
@@ -246,7 +246,7 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 	}
 	
 	func showHeaderView() {
-		tableHeaderView.frame = CGRect(x: 0, y: 0, width: self.authorizationHeaderView.frame.width, height: 154)
+		tableHeaderView.frame = CGRect(x: 0, y: 0, width: self.authorizationHeaderView.frame.width, height: 110)
 //		tableHeaderView.layer.opacity = 1
 //		tableHeaderView.isHidden = false
 		tableHeaderView.setNeedsLayout()
