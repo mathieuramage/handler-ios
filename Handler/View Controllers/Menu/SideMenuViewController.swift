@@ -34,8 +34,14 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 		super.viewDidLoad()
 		
 		//		TODO ? NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SideMenuViewController.updateCurrentUser), name: HRCurrentUserDidSetNotification, object: nil)
-		updateCurrentUser()
-		updateUI()
+	}
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(true)
+		if (profileHandleLabel.text ?? "").isEmpty {
+			updateCurrentUser()
+			updateUI()
+		}
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
@@ -154,9 +160,9 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 	}
 	
 	func signOut() {
-		self.profileHandleLabel.text = ""
-		self.profileNameLabel.text = ""
-		self.profileImageView.image = UIImage.randomGhostImage()
+		profileHandleLabel.text = ""
+		profileNameLabel.text = ""
+		profileImageView.image = UIImage.randomGhostImage()
 		
 		Async.main {
 			AuthUtility.signOut()
@@ -183,7 +189,7 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if segue.identifier == "embedMailBoxOptions" {
-			self.optionsTableViewController = segue.destination as? MailBoxOptionsTableViewController
+			optionsTableViewController = segue.destination as? MailBoxOptionsTableViewController
 		}
 	}
 	
