@@ -32,13 +32,7 @@ class ContactCardViewController: UIViewController, UIViewControllerShow {
 	
 	var openURL: URL?
 	
-	var handle: String? {
-		didSet {
-			if let handle = handle {
-				getDataWithHandle(handle)
-			}
-		}
-	}
+	var handle: String?
 	
 	var user: User? {
 		didSet {

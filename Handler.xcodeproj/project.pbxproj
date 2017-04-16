@@ -220,6 +220,7 @@
 		BFFF95231E06DEE100B36034 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFF95191E06DEE100B36034 /* User.swift */; };
 		DF1FD2DE1B62360600A58B71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1FD2DD1B62360600A58B71 /* AppDelegate.swift */; };
 		DF1FD2E51B62360600A58B71 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF1FD2E41B62360600A58B71 /* Images.xcassets */; };
+		E075A29D1EA2A27F00D16DB2 /* TwitterContactCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E075A29C1EA2A27F00D16DB2 /* TwitterContactCardViewController.swift */; };
 		E0DD0FCD1E99337D0075AD0C /* UIViewController+Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DD0FCC1E99337D0075AD0C /* UIViewController+Animations.swift */; };
 /* End PBXBuildFile section */
 
@@ -535,6 +536,7 @@
 		DF1FD2DD1B62360600A58B71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DF1FD2E41B62360600A58B71 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DF1FD2E71B62360600A58B71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		E075A29C1EA2A27F00D16DB2 /* TwitterContactCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterContactCardViewController.swift; sourceTree = "<group>"; };
 		E0DD0FCC1E99337D0075AD0C /* UIViewController+Animations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Animations.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -611,6 +613,7 @@
 				2F01369E1BD1029A008BAD9D /* ContactsTableViewController.swift */,
 				BFE739C71CCA2FAA002F84CD /* ContactsViewController.swift */,
 				BFE739C91CCA36E7002F84CD /* ContactTableViewCell.swift */,
+				E075A29C1EA2A27F00D16DB2 /* TwitterContactCardViewController.swift */,
 			);
 			path = Contacts;
 			sourceTree = "<group>";
@@ -1538,6 +1541,7 @@
 				BF27F3931CDDF01C003A92D9 /* APSource.m in Sources */,
 				BF6F153E1E0AFEAA0081BF80 /* ConversationManager.swift in Sources */,
 				2F0136A11BD10422008BAD9D /* ContactLegacyTableViewCell.swift in Sources */,
+				E075A29D1EA2A27F00D16DB2 /* TwitterContactCardViewController.swift in Sources */,
 				2FF788391BB5C6E700B297D3 /* Enumerations.swift in Sources */,
 				2F994E541BB2AE8100A63B9B /* UIColor+HandlerColors.swift in Sources */,
 				2F994E4D1BB2AE3500A63B9B /* NSMutableArray+SWUtilityButtons.m in Sources */,
