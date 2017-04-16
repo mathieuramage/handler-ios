@@ -82,7 +82,11 @@ class TwitterContactCardViewController: UIViewController {
 			}
 			Async.main {
 				
-				let description = NSAttributedString(string: json["description"].stringValue, attributes: [NSForegroundColorAttributeName: self.textColor, NSFontAttributeName: UIFont.systemFont(ofSize: 14), NSParagraphStyleAttributeName: self.statusStyle])
+				let description = NSAttributedString(
+					 string: json["description"].stringValue,
+					 attributes: [NSForegroundColorAttributeName: self.textColor,
+				     NSFontAttributeName: UIFont.systemFont(ofSize: 14),
+				     NSParagraphStyleAttributeName: self.statusStyle])
 				self.statusLabel.attributedText = description
 				self.handleButton.setTitle("@\(json["screen_name"].stringValue)", for: .normal)
 				self.nameLabel.text = json["name"].stringValue
@@ -91,18 +95,29 @@ class TwitterContactCardViewController: UIViewController {
 				self.followersCountLabel.text = json["followers_count"].stringValue
 				self.followingCountLabel.text = json["friends_count"].stringValue
 				self.openURL = URL(string: json["entities"]["url"]["urls"][0]["expanded_url"].stringValue)
-				self.websiteLinkButton.setTitle(json["entities"]["url"]["urls"][0]["display_url"].stringValue, for: UIControlState.normal)
+				self.websiteLinkButton.setTitle(
+					json["entities"]["url"]["urls"][0]["display_url"].stringValue,
+					for: UIControlState.normal)
 				if (self.websiteLinkButton.title(for: .normal) ?? "").isEmpty {
 					self.buttonHeightConstant.constant = 0
 				} else {
 					self.buttonHeightConstant.constant = 20
 				}
 				
-				if let urlString = json["profile_banner_url"].string, let url = URL(string: urlString + DEFAULT_BANNER_RESOLUTION){
-					self.bannerImageView.kf.setImage(with: url, placeholder: self.bannerPlaceholderImage, options: [.transition(ImageTransition.fade(0.3))], progressBlock: nil, completionHandler: nil)
+				if	let urlString = json["profile_banner_url"].string,
+					let url = URL(string: urlString + DEFAULT_BANNER_RESOLUTION){
+					self.bannerImageView.kf.setImage(
+						with: url, placeholder: self.bannerPlaceholderImage,
+						options: [.transition(ImageTransition.fade(0.3))],
+						progressBlock: nil,
+						completionHandler: nil)
 				}
 				if let urlString = json["profile_image_url"].string, let url = URL(string: urlString){
-					self.profileImageView.kf.setImage(with: url, placeholder: self.profilePlaceholderImage, options:  [.transition(ImageTransition.fade(0.3))], progressBlock: nil, completionHandler: nil)
+					self.profileImageView.kf.setImage(
+						with: url, placeholder: self.profilePlaceholderImage,
+						options:  [.transition(ImageTransition.fade(0.3))],
+						progressBlock: nil,
+						completionHandler: nil)
 				}
 				
 				UIView.animate(withDuration: 0.3, animations: {
