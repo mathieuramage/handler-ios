@@ -88,7 +88,7 @@ class ContactCardViewController: UIViewController, UIViewControllerShow {
 	
 	@IBAction func urlButtonPressed(_ sender: UIButton) {
 		if let url = openURL, UIApplication.shared.canOpenURL(url){
-			UIApplication.shared.openURL(url)
+			UIApplication.shared.open(url, options: [:], completionHandler: nil)
 		}
 	}
 	

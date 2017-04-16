@@ -20,15 +20,13 @@ class TwitterContactCardViewController: UIViewController {
 	@IBOutlet weak var cardView: UIView!
 	@IBOutlet weak var profileImageView: UIImageView!
 	@IBOutlet weak var bannerImageView: UIImageView!
-	
 	@IBOutlet weak var nameLabel: UILabel!
-	@IBOutlet weak var handleLabel: UILabel!
+	@IBOutlet weak var handleButton: UIButton!
 	@IBOutlet weak var statusLabel: UILabel!
 	@IBOutlet weak var locationLabel: UILabel!
 	@IBOutlet weak var followingCountLabel: UILabel!
 	@IBOutlet weak var followersCountLabel: UILabel!
 	@IBOutlet weak var websiteLinkButton: UIButton!
-	
 	@IBOutlet weak var buttonHeightConstant: NSLayoutConstraint!
 	
 	@IBAction func dismiss() {
@@ -37,6 +35,13 @@ class TwitterContactCardViewController: UIViewController {
 	
 	@IBAction func urlButtonPressed(_ sender: UIButton) {
 		if let url = openURL, UIApplication.shared.canOpenURL(url){
+			UIApplication.shared.open(url, options: [:], completionHandler: nil)
+		}
+	}
+	
+	@IBAction func handleButtonPressed(_ sender: UIButton) {
+		let url = URL(string: "https://twitter.com/\(handle!)")!
+		if UIApplication.shared.canOpenURL(url){
 			UIApplication.shared.open(url, options: [:], completionHandler: nil)
 		}
 	}
@@ -79,7 +84,7 @@ class TwitterContactCardViewController: UIViewController {
 				
 				let description = NSAttributedString(string: json["description"].stringValue, attributes: [NSForegroundColorAttributeName: self.textColor, NSFontAttributeName: UIFont.systemFont(ofSize: 14), NSParagraphStyleAttributeName: self.statusStyle])
 				self.statusLabel.attributedText = description
-				self.handleLabel.text = "@" + json["screen_name"].stringValue
+				self.handleButton.setTitle("@\(json["screen_name"].stringValue)", for: .normal)
 				self.nameLabel.text = json["name"].stringValue
 				self.locationLabel.text = json["location"].stringValue
 				
