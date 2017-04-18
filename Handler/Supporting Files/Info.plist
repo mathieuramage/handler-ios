@@ -93,6 +93,10 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>System San Francisco Display Regular.ttf</string>
+	</array>
 	<key>NSContactsUsageDescription</key>
 	<string>$(PRODUCT_NAME) contact use</string>
 </dict>

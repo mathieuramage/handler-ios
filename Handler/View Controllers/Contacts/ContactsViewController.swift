@@ -238,8 +238,6 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 	
 	func hideHeaderView() {
 		tableHeaderView.frame = CGRect(x: 0, y: 0, width: self.authorizationHeaderView.frame.width, height: 0)
-//		tableHeaderView.layer.opacity = 0
-//		tableHeaderView.isHidden = true
 		tableHeaderView.setNeedsLayout()
 		tableHeaderView.layoutIfNeeded()
 		tableView.reloadData()
@@ -247,8 +245,6 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 	
 	func showHeaderView() {
 		tableHeaderView.frame = CGRect(x: 0, y: 0, width: self.authorizationHeaderView.frame.width, height: 110)
-//		tableHeaderView.layer.opacity = 1
-//		tableHeaderView.isHidden = false
 		tableHeaderView.setNeedsLayout()
 		tableHeaderView.layoutIfNeeded()
 		tableView.reloadData()
@@ -275,6 +271,17 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 				self.sortContactsAsc()
 				self.tableView.reloadData()
 		})
+	}
+	
+	//MARK: Prepare for Segue
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if segue.identifier == "ShowContactCard" {
+			if let contactCardVC = segue.destination as? TwitterContactCardViewController {
+				if let handle = sender as? String {
+					contactCardVC.handle = handle
+				}
+			}
+		}
 	}
 
 	// MARK: - UITableViewDataSource
@@ -335,7 +342,21 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 		tableView.deselectRow(at: indexPath, animated: false)
 
 		// FIXME: This method expects a User but we have either TwitterData or APContact
-		// ContactCardViewController.showWithUser(user)
+		
+		switch selectedTab {
+		case 0:
+			if let handle = twitterFollowerList[indexPath.row].handle() {
+				performSegue(withIdentifier: "ShowContactCard", sender: handle)
+			}
+			break
+		case 1:
+			if let handle = twitterFollowingList[indexPath.row].handle() {
+				performSegue(withIdentifier: "ShowContactCard", sender: handle)
+			}
+			break
+		default :
+			break
+		}
 	}
 	
 	private func sortContactsAsc() {

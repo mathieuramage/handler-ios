@@ -32,13 +32,7 @@ class ContactCardViewController: UIViewController, UIViewControllerShow {
 	
 	var openURL: URL?
 	
-	var handle: String? {
-		didSet {
-			if let handle = handle {
-				getDataWithHandle(handle)
-			}
-		}
-	}
+	var handle: String?
 	
 	var user: User? {
 		didSet {
@@ -94,7 +88,7 @@ class ContactCardViewController: UIViewController, UIViewControllerShow {
 	
 	@IBAction func urlButtonPressed(_ sender: UIButton) {
 		if let url = openURL, UIApplication.shared.canOpenURL(url){
-			UIApplication.shared.openURL(url)
+			UIApplication.shared.open(url, options: [:], completionHandler: nil)
 		}
 	}
 	
