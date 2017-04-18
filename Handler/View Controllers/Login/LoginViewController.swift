@@ -21,9 +21,10 @@ class LoginViewController: UIViewController,NVActivityIndicatorViewable {
         if let twitterIcon = UIImage(named: "twitter_icon_blue") {
             self.loginButton.setImage(twitterIcon, for: UIControlState())
         }
-        self.setLoginButtonText()
-        self.loginButton.imageEdgeInsets = UIEdgeInsetsMake(13,-20,13, 32)
-        self.loginButton.titleEdgeInsets = UIEdgeInsetsMake(0,-50,0,23)
+        setLoginButtonText()
+        loginButton.imageEdgeInsets = UIEdgeInsetsMake(13,-20,13, 32)
+        loginButton.titleEdgeInsets = UIEdgeInsetsMake(0,-50,0,23)
+		loginButton.adjustsImageWhenHighlighted = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
