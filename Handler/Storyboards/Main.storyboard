@@ -302,11 +302,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Inbox" translatesAutoresizingMaskIntoConstraints="NO" id="6Wq-f0-4qW">
-                                                    <rect key="frame" x="22" y="17" width="26" height="17"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="tintColor" red="0.46274509800000002" green="0.53333333329999999" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ld4-sG-1Lg">
                                                     <rect key="frame" x="305" y="16.5" width="7" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -503,11 +498,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Archive" translatesAutoresizingMaskIntoConstraints="NO" id="c70-B6-btj">
-                                                    <rect key="frame" x="22" y="17" width="26" height="17"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="tintColor" red="0.46274509803921571" green="0.53333333333333333" blue="0.58823529411764708" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cGT-eV-jU1">
                                                     <rect key="frame" x="305" y="16.5" width="7" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -732,7 +722,7 @@
             <objects>
                 <navigationController storyboardIdentifier="MainNavigationController" automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" hidesBarsWhenKeyboardAppears="YES" id="dOk-Le-qkd" customClass="GradientNavigationController" customModule="Handler" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="wSF-oz-3ih">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="wSF-oz-3ih">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -799,7 +789,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="aBC-0l-8NF" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="8WW-ec-e6c">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="8WW-ec-e6c">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -817,7 +807,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="CxO-lL-uRW" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="jyU-Ju-ik9">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="jyU-Ju-ik9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -835,7 +825,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7nT-fF-0gp" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="9wr-8O-On3">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="9wr-8O-On3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -853,7 +843,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="35C-Fc-SDM" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="PFf-ZP-1jd">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="PFf-ZP-1jd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -871,7 +861,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DdD-TP-qGh" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="SA6-Gh-4Ke">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="SA6-Gh-4Ke">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -886,10 +876,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Archive" width="41" height="38"/>
         <image name="Contacts_Icon" width="24" height="20"/>
         <image name="Hamburger_Icon" width="14" height="14"/>
-        <image name="Inbox" width="45" height="31"/>
         <image name="Logout_Icon" width="40" height="44"/>
         <image name="intercom_icon_on" width="48" height="40"/>
         <image name="mailbox_archive_icon" width="48" height="38"/>
