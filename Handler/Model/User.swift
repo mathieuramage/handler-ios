@@ -23,7 +23,8 @@ extension User {
     
     var pictureUrl : URL? {
         if let pictureUrlString = twitterUser?.pictureURLString {
-            return URL(string: pictureUrlString)
+			let regularImg = pictureUrlString.replacingOccurrences(of: "_normal", with: "", options: .literal, range: nil)
+            return URL(string: regularImg)
         }
         return nil
     }

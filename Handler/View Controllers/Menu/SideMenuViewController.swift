@@ -70,7 +70,9 @@ class SideMenuViewController: UIViewController, UITableViewDelegate {
 				if let urlString = json["profile_banner_url"].string, let url = URL(string: urlString + DEFAULT_BANNER_RESOLUTION){
 					self.profileBannerImageView.kf.setImage(with: url, placeholder: UIImage.randomGhostImage(), options: [.transition(ImageTransition.fade(0.3))], progressBlock: nil, completionHandler: nil)
 				}
-				if let urlString = json["profile_image_url"].string, let url = URL(string: urlString){
+				if let urlString = json["profile_image_url"].string {
+					let regularImg = urlString.replacingOccurrences(of: "_normal", with: "", options: .literal, range: nil)
+					let url = URL(string: regularImg)
 					self.profileImageView.kf.setImage(with: url, placeholder: UIImage.randomGhostImage(), options:  [.transition(ImageTransition.fade(0.3))], progressBlock: nil, completionHandler: nil)
 				}
 				UIView.animate(withDuration: 0.3, animations: {

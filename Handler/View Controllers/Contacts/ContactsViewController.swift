@@ -527,8 +527,9 @@ extension TwitterUserData: ListableAsContact {
 		guard let url = pictureURLString else {
 			return nil
 		}
+		let regularImg = url.replacingOccurrences(of: "_normal", with: "", options: .literal, range: nil)
 		
-		return URL(string: url)
+		return URL(string: regularImg)
 	}
 	
 }

@@ -31,11 +31,13 @@ struct SentFormatter: MessageTableViewCellFormatter {
         
         view.leftUtilityButtons = leftButtonsForData(data: message)
         view.rightUtilityButtons = rightButtonsForData(data: message)
-        
-//        if let urlString = (message.recipients?.allObjects.first as? User)?.profile_picture_url, let profileUrl = URL(string: urlString) {
-//            view.senderProfileImageView.kf.setImage(with: profileUrl, placeholder: UIImage.randomGhostImage(), options: nil, progressBlock: nil, completionHandler: nil)
-//        }
-        
+		
+		if let twitterUser = message.recipients?.allObjects.first as? User {
+			if let profileUrl = twitterUser.pictureUrl {
+				view.senderProfileImageView.kf.setImage(with: profileUrl, placeholder: UIImage.randomGhostImage(), options: nil, progressBlock: nil, completionHandler: nil)
+			}
+		}
+		
         view.senderNameLabel.text = (message.recipients?.allObjects.first as? User)?.name
         if let handle = (message.recipients?.allObjects.first as? User)?.handle {
             view.senderHandleLabel.text = "@" + handle
