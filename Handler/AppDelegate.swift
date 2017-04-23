@@ -138,7 +138,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	func applicationDidBecomeActive(_ application: UIApplication) {
-		startMessageUpdateTimer()
+		self.startMessageUpdateTimer()
 		let settings = UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: nil)
 		application.registerUserNotificationSettings(settings)
 		application.registerForRemoteNotifications()
@@ -154,6 +154,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func startMessageUpdateTimer() {
 		messageUpdateTimer = Timer(timeInterval: TimeInterval(MAILBOX_REFRESH_INTERVAL), target: self, selector: #selector(AppDelegate.updateMessages), userInfo: nil, repeats: true)
+        messageUpdateTimer?.fire()
 	}
 
 	func cancelMessageUpdateTimer() {
