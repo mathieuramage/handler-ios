@@ -74,6 +74,30 @@ class TwitterContactCardViewController: UIViewController {
 		statusStyle.lineSpacing = 5.0
 	}
 	
+	private func formatPoints(count: String) -> String {
+		let num = Double(count)!
+		var thousandNum = num / 1_000
+		var millionNum = num / 1_000_000
+		if  num >= 1_000 && num < 1_000_000 {
+			if  floor(thousandNum) == thousandNum {
+				return("\(Int(thousandNum))k")
+			}
+			return("\(thousandNum.roundToPlaces(1))k")
+		}
+		if  num > 1_000_000 {
+			if  floor(millionNum) == millionNum {
+				return "\(Int(thousandNum))k"
+			}
+			return "\(millionNum.roundToPlaces(1))M"
+		}
+		else{
+			if  floor(num) == num {
+				return "\(Int(num))"
+			}
+			return "\(num)"
+		}
+	}
+	
 	func getDataWithHandle(_ handle: String){
 		TwitterAPIOperations.getAccountInfoForTwitterUser(handle, callback: { (json, error) -> Void in
 			guard let json = json else {
@@ -91,9 +115,8 @@ class TwitterContactCardViewController: UIViewController {
 				self.handleButton.setTitle("@\(json["screen_name"].stringValue)", for: .normal)
 				self.nameLabel.text = json["name"].stringValue
 				self.locationLabel.text = json["location"].stringValue
-				
-				self.followersCountLabel.text = json["followers_count"].stringValue
-				self.followingCountLabel.text = json["friends_count"].stringValue
+				self.followersCountLabel.text = self.formatPoints(count: json["followers_count"].stringValue)
+				self.followingCountLabel.text = self.formatPoints(count: json["friends_count"].stringValue)
 				self.openURL = URL(string: json["entities"]["url"]["urls"][0]["expanded_url"].stringValue)
 				self.websiteLinkButton.setTitle(
 					json["entities"]["url"]["urls"][0]["display_url"].stringValue,
