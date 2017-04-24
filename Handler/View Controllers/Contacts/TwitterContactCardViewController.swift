@@ -112,7 +112,9 @@ class TwitterContactCardViewController: UIViewController {
 						progressBlock: nil,
 						completionHandler: nil)
 				}
-				if let urlString = json["profile_image_url"].string, let url = URL(string: urlString){
+				if let urlString = json["profile_image_url"].string {
+					let regularImg = urlString.replacingOccurrences(of: "_normal", with: "", options: .literal, range: nil)
+					let url = URL(string: regularImg)
 					self.profileImageView.kf.setImage(
 						with: url, placeholder: self.profilePlaceholderImage,
 						options:  [.transition(ImageTransition.fade(0.3))],

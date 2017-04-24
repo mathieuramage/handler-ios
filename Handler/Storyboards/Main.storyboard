@@ -722,7 +722,7 @@
             <objects>
                 <navigationController storyboardIdentifier="MainNavigationController" automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" hidesBarsWhenKeyboardAppears="YES" id="dOk-Le-qkd" customClass="GradientNavigationController" customModule="Handler" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="wSF-oz-3ih">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="wSF-oz-3ih">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -789,7 +789,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="aBC-0l-8NF" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="8WW-ec-e6c">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="8WW-ec-e6c">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
