@@ -228,8 +228,36 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PG7-lm-ibt">
                                 <rect key="frame" x="20" y="28" width="335" height="32"/>
                                 <subviews>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="21X-bN-nDY">
+                                        <rect key="frame" x="1" y="1" width="110.5" height="30"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <state key="normal" title="Following">
+                                            <color key="titleColor" red="0.31372549020000001" green="0.74509803919999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <state key="selected">
+                                            <color key="titleColor" red="0.94901960780000005" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="followingButtonTapped:" destination="U7S-Ye-llj" eventType="touchUpInside" id="Ix1-5o-fS7"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JLj-pF-CRu">
+                                        <rect key="frame" x="112.5" y="1" width="111" height="30"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <state key="normal" title="Followers">
+                                            <color key="titleColor" red="0.31372549020000001" green="0.74509803919999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <state key="selected">
+                                            <color key="titleColor" red="0.94901960780000005" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="followersButtonTapped:" destination="U7S-Ye-llj" eventType="touchUpInside" id="INg-vl-FCF"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VDh-J2-JcT">
-                                        <rect key="frame" x="224.5" y="1" width="109.5" height="30"/>
+                                        <rect key="frame" x="224" y="1" width="109.5" height="30"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <state key="normal" title="Device">
@@ -240,34 +268,6 @@
                                         </state>
                                         <connections>
                                             <action selector="deviceButtonTapped:" destination="U7S-Ye-llj" eventType="touchUpInside" id="AdP-3y-QqF"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JLj-pF-CRu">
-                                        <rect key="frame" x="112.5" y="1" width="111" height="30"/>
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <state key="normal" title="Following">
-                                            <color key="titleColor" red="0.31372549020000001" green="0.74509803919999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <state key="selected">
-                                            <color key="titleColor" red="0.94901960780000005" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="followingButtonTapped:" destination="U7S-Ye-llj" eventType="touchUpInside" id="0lT-DM-4ys"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="21X-bN-nDY">
-                                        <rect key="frame" x="1" y="1" width="110.5" height="30"/>
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <state key="normal" title="Followers">
-                                            <color key="titleColor" red="0.31372549020000001" green="0.74509803919999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <state key="selected">
-                                            <color key="titleColor" red="0.94901960780000005" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="followersButtonTapped:" destination="U7S-Ye-llj" eventType="touchUpInside" id="7LA-mc-2Sx"/>
                                         </connections>
                                     </button>
                                     <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gxg-fz-LCT">
@@ -328,8 +328,8 @@
                         <outlet property="authorizationSwitch" destination="LFC-ot-E3Y" id="pIz-a9-krs"/>
                         <outlet property="borderView" destination="Gxg-fz-LCT" id="iFC-K1-CWt"/>
                         <outlet property="deviceButton" destination="VDh-J2-JcT" id="dbS-9z-gt1"/>
-                        <outlet property="followersButton" destination="21X-bN-nDY" id="PqN-gc-neP"/>
-                        <outlet property="followingButton" destination="JLj-pF-CRu" id="lgI-9P-maT"/>
+                        <outlet property="followersButton" destination="JLj-pF-CRu" id="4wm-Yi-h8a"/>
+                        <outlet property="followingButton" destination="21X-bN-nDY" id="IwJ-NG-hB1"/>
                         <outlet property="searchBar" destination="ULJ-fe-slR" id="JGu-Jn-zSG"/>
                         <outlet property="tableHeaderView" destination="ecw-Kl-5lZ" id="iyO-AN-opA"/>
                         <outlet property="tableView" destination="DN8-5P-NXq" id="5v5-zu-PzK"/>

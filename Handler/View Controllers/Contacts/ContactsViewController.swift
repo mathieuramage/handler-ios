@@ -60,7 +60,7 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 		super.viewDidLoad()
 		tableView.tableFooterView = UIView()
 		selectTab(0)
-		selectButton(self.followersButton)
+		selectButton(self.followingButton)
 		borderView.layer.cornerRadius = 5
 		borderView.clipsToBounds = true
 		borderView.layer.borderWidth = 1
@@ -82,22 +82,21 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 
 		activityIndicator.startAnimating()
 
-		TwitterAPIOperations.getTwitterFollowers(nil) { (users, nextCursor) in
-			self.twitterFollowerList = users
-			self.allFollowers = self.twitterFollowerList
-			self.followerNextCursor = nextCursor
-			self.sortFollowersAsc()
-			if self.selectedTab == 0 {
-				self.activityIndicator.stopAnimating()
-				self.tableView.reloadData()
-			}
-		}
-
 		TwitterAPIOperations.getTwitterFriends(nil) { (users, nextCursor) in
 			self.twitterFollowingList = users
 			self.allFollowing = self.twitterFollowingList
 			self.followingNextCursor = nextCursor
 			self.sortFollowingsAsc()
+			if self.selectedTab == 0 {
+				self.activityIndicator.stopAnimating()
+				self.tableView.reloadData()
+			}
+		}
+		TwitterAPIOperations.getTwitterFollowers(nil) { (users, nextCursor) in
+			self.twitterFollowerList = users
+			self.allFollowers = self.twitterFollowerList
+			self.followerNextCursor = nextCursor
+			self.sortFollowersAsc()
 			if self.selectedTab == 1 {
 				self.activityIndicator.stopAnimating()
 				self.tableView.reloadData()
@@ -172,10 +171,10 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 		} else {
 			switch selectedTab {
 			case 0:
-				filterFollowersByNameOrHandle(searchText: searchText)
+				filterFollowingsByNameOrHandle(searchText: searchText)
 				break
 			case 1:
-				filterFollowingsByNameOrHandle(searchText: searchText)
+				filterFollowersByNameOrHandle(searchText: searchText)
 				break
 			case 2:
 				filterContactsByNameOrHandle(searchText: searchText)
@@ -208,20 +207,20 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 
 	func fetchMoreFromTwitter() {
 		if selectedTab == 0 {
-			if let cursor = followerNextCursor, cursor != NO_MORE_RESULTS {
-				TwitterAPIOperations.getTwitterFollowers(cursor) { (users, nextCursor) in
-					self.twitterFollowerList.append(contentsOf: users)
-					self.followerNextCursor = nextCursor
-					self.sortFollowersAsc()
-					self.tableView.reloadData()
-				}
-			}
-		} else if selectedTab == 1 {
 			if let cursor = followingNextCursor, cursor != NO_MORE_RESULTS {
 				TwitterAPIOperations.getTwitterFriends(cursor) { (users, nextCursor) in
 					self.twitterFollowingList.append(contentsOf: users)
 					self.followingNextCursor = nextCursor
 					self.sortFollowingsAsc()
+					self.tableView.reloadData()
+				}
+			}
+		} else if selectedTab == 1 {
+			if let cursor = followerNextCursor, cursor != NO_MORE_RESULTS {
+				TwitterAPIOperations.getTwitterFollowers(cursor) { (users, nextCursor) in
+					self.twitterFollowerList.append(contentsOf: users)
+					self.followerNextCursor = nextCursor
+					self.sortFollowersAsc()
 					self.tableView.reloadData()
 				}
 			}
@@ -289,9 +288,9 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 
 		switch selectedTab {
 		case 0:
-			return twitterFollowerList.count
-		case 1:
 			return twitterFollowingList.count
+		case 1:
+			return twitterFollowerList.count
 		case 2:
 			return deviceContactList.count
 		default :
@@ -313,10 +312,10 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 		
 		switch selectedTab {
 			case 0:
-				cell.followButton.setImage(UIImage(named: "Follow_Icon"), for: .normal)
+				cell.followButton.setImage(UIImage(named: "Followed_Icon"), for: .normal)
 				break
 			case 1:
-				cell.followButton.setImage(UIImage(named: "Followed_Icon"), for: .normal)
+				cell.followButton.setImage(UIImage(named: "Follow_Icon"), for: .normal)
 				break
 			case 2:
 				cell.followButton.setImage(UIImage(named: "contacts_invite_button_icon"), for: .normal)
@@ -345,12 +344,12 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 		
 		switch selectedTab {
 		case 0:
-			if let handle = twitterFollowerList[indexPath.row].handle() {
+			if let handle = twitterFollowingList[indexPath.row].handle() {
 				performSegue(withIdentifier: "ShowContactCard", sender: handle)
 			}
 			break
 		case 1:
-			if let handle = twitterFollowingList[indexPath.row].handle() {
+			if let handle = twitterFollowerList[indexPath.row].handle() {
 				performSegue(withIdentifier: "ShowContactCard", sender: handle)
 			}
 			break
@@ -381,12 +380,12 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 
 	// MARK - Segmented Button Actions and Helpers
 
-	@IBAction func followersButtonTapped(_ sender: AnyObject) {
+	@IBAction func followingButtonTapped(_ sender: AnyObject) {
 		selectTab(0)
 		hideHeaderView()
 	}
 
-	@IBAction func followingButtonTapped(_ sender: AnyObject) {
+	@IBAction func followersButtonTapped(_ sender: AnyObject) {
 		selectTab(1)
 		hideHeaderView()
 	}
@@ -406,9 +405,9 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 		get {
 			switch selectedTab {
 			case 0:
-				return twitterFollowerList
-			case 1:
 				return twitterFollowingList
+			case 1:
+				return twitterFollowerList
 			case 2:
 				return deviceContactList
 			default :
@@ -427,9 +426,9 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 
 		switch index {
 		case 0:
-			selectButton(followersButton)
-		case 1:
 			selectButton(followingButton)
+		case 1:
+			selectButton(followersButton)
 		case 2:
 			selectButton(deviceButton)
 		default:
