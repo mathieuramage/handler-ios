@@ -76,19 +76,23 @@ class TwitterContactCardViewController: UIViewController {
 	
 	private func formatPoints(count: String) -> String {
 		let num = Double(count)!
-		var thousandNum = num / 1_000
-		var millionNum = num / 1_000_000
+		let thousandNum = num / 1_000
+		let thousendRest = num.truncatingRemainder(dividingBy: 1_000)
+		let millionNum = num / 1_000_000
 		if  num >= 1_000 && num < 1_000_000 {
+			let rest = Int(thousendRest/100)
 			if  floor(thousandNum) == thousandNum {
 				return("\(Int(thousandNum))k")
 			}
-			return("\(thousandNum.roundToPlaces(1))k")
+			return rest != 0 ? "\(Int(thousandNum)),\(rest)k" : "\(Int(thousandNum))k"
 		}
 		if  num > 1_000_000 {
+			let millionRest = num.truncatingRemainder(dividingBy: 1_000_000)
+			let rest = Int(millionRest/10000)
 			if  floor(millionNum) == millionNum {
 				return "\(Int(thousandNum))k"
 			}
-			return "\(millionNum.roundToPlaces(1))M"
+			return rest != 0 ? "\(Int(millionNum)),\(rest)M" : "\(Int(millionNum))M"
 		}
 		else{
 			if  floor(num) == num {
