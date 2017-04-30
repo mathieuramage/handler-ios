@@ -173,6 +173,9 @@ class UnreadMailboxViewController: UITableViewController, SWTableViewCellDelegat
 		return cell
 	}
 	
+	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		return 78
+	}
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		for cell in tableView.visibleCells {

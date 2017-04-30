@@ -92,26 +92,34 @@ class InboxMessageTableViewCellHelper {
 
 	class func leftButtonsForMessage(_ message: Message)->[AnyObject]{
 		let array = NSMutableArray()
+		let readIcon = UIImage(named: "icon_read")?.imageResize(sizeChange: CGSize(width: 25, height: 23))
+		let unreadIcon = UIImage(named: "icon_unread")?.imageResize(sizeChange: CGSize(width: 25, height: 17))
+		
 		if !message.read {
-			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.lightBlue), icon: UIImage(named: "icon_read"))
+			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.lightBlue), icon: readIcon)
 		} else {
-			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.lightBlue), icon: UIImage(named: "icon_unread"))
+			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.lightBlue), icon: unreadIcon)
 		}
 		return array as [AnyObject]
 	}
 
 	class func rightButtonsForMessage(_ message: Message)->[AnyObject]{
 		let array = NSMutableArray()
+		let flagIcon = UIImage(named: "icon_flag")?.imageResize(sizeChange: CGSize(width: 25, height: 34))
+		let unflagIcon = UIImage(named: "icon_unflag")?.imageResize(sizeChange: CGSize(width: 25, height: 44))
+		let archiveIcon = UIImage(named: "icon_archive")?.imageResize(sizeChange: CGSize(width: 25, height: 20))
+		let unarchiveIcon = UIImage(named: "icon_unarchive")?.imageResize(sizeChange: CGSize(width: 25, height: 21))
+		
 		if message.starred == true {
-			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.orange), icon: UIImage(named: "icon_unflag"))
+			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.orange), icon: unflagIcon)
 		} else {
-			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.orange), icon: UIImage(named: "icon_flag"))
+			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.orange), icon: flagIcon)
 		}
 
 		if message.archived  {
-			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.darkBlue), icon: UIImage(named: "icon_unarchive"))
+			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.darkBlue), icon: unarchiveIcon)
 		} else {
-			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.darkBlue), icon: UIImage(named: "icon_archive"))
+			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.darkBlue), icon: archiveIcon)
 		}
 		return array as [AnyObject]
 	}
