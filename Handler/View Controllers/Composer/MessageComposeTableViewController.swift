@@ -214,6 +214,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		AppAnalytics.fireContentViewEvent(contentId: ComposeEvents.composed, event: ComposeEvents)
+		tokenView.beginEditing()
 	}
 	
     // MARK: Contacts Add Buttons
@@ -232,20 +233,21 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showContacts" {
-            let destinationVC = segue.destination as! ContactsTableViewController
-            destinationVC.userSelectionDelegate = self
+            let destinationVC = segue.destination as! ContactsViewController
+			destinationVC.contactSelectionDelegate = self
         }
     }
-    
-    func didSelectUser(_ user: User) {
-        navigationController?.popViewController(animated: true)
-        validatedTokens.append(ValidatedToken(name: user.handle , isOnHandler: true))
-        if addContactToCC {
-            self.ccTokenView.add(CLToken(displayText: "@" + (user.handle), context: nil))
-        } else {
-            self.tokenView.add(CLToken(displayText: "@" + (user.handle), context: nil))
-        }
-    }
+	
+	func didSelectHandlerUser(_ handle: String) {
+		navigationController?.popViewController(animated: true)
+		validatedTokens.append(ValidatedToken(name: handle , isOnHandler: true))
+		if addContactToCC {
+			self.ccTokenView.add(CLToken(displayText: handle, context: nil))
+		} else {
+			self.tokenView.add(CLToken(displayText: handle, context: nil))
+		}
+	}
+
     // MARK: Sending / Cancelling
     
     func dismiss() {

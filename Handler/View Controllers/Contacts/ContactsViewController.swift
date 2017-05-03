@@ -13,6 +13,10 @@ import AddressBook
 import Contacts
 import Async
 
+protocol ContactSelectionDelegate {
+	func didSelectHandlerUser(_ handle: String)
+}
+
 class ContactsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
 
 	@IBOutlet weak var searchTextField: UITextField!
@@ -45,6 +49,8 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 	var followerNextCursor : Int?
 	var followingNextCursor : Int?
 	var selectedTab : Int = 0
+	
+	var contactSelectionDelegate: ContactSelectionDelegate?
 	
 	@IBAction func toggleSwitched(_ sender: UISwitch) {
 		if !authorizationSwitch.isSelected {
@@ -263,7 +269,13 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 	func fetchDeviceContactList() {
 		self.addressBook.loadContacts(
 			{ (contacts: [APContact]?, error: Error?) in
-				self.deviceContactList = contacts ?? []
+				if self.contactSelectionDelegate != nil {
+					self.deviceContactList = contacts?.filter() {
+							return !($0.handle() ?? "").isEmpty
+						} ?? []
+				} else {
+					self.deviceContactList = contacts ?? []
+				}
 				self.allContacts = self.deviceContactList
 				self.hideAuthorizationHeaderView()
 				self.activityIndicator.stopAnimating()
@@ -323,6 +335,9 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 			default:
 				break
 		}
+		
+		// TODO: make follow button to work
+		cell.followButton.isHidden = true
 
 		if let url = user.profilePictureURL() {
 			cell.profileImageView.kf.setImage(with: url, placeholder: UIImage.randomGhostImage(), options: nil, progressBlock: nil, completionHandler: nil)
@@ -345,15 +360,26 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 		switch selectedTab {
 		case 0:
 			if let handle = twitterFollowingList[indexPath.row].handle() {
-				performSegue(withIdentifier: "ShowContactCard", sender: handle)
+				if let delegate = contactSelectionDelegate {
+					delegate.didSelectHandlerUser(handle)
+				} else {
+					performSegue(withIdentifier: "ShowContactCard", sender: handle)
+				}
 			}
 			break
 		case 1:
 			if let handle = twitterFollowerList[indexPath.row].handle() {
-				performSegue(withIdentifier: "ShowContactCard", sender: handle)
+				if let delegate = contactSelectionDelegate {
+					delegate.didSelectHandlerUser(handle)
+				} else {
+					performSegue(withIdentifier: "ShowContactCard", sender: handle)
+				}
 			}
 			break
 		default :
+			if let handle = deviceContactList[indexPath.row].handle(), let delegate = contactSelectionDelegate {
+				delegate.didSelectHandlerUser(handle)
+			}
 			break
 		}
 	}
