@@ -25,14 +25,14 @@ struct MessageOperations {
 		} else {
 			params["before"] = String(Date().timeIntervalSince1970 * 1000)
 		}
-		if let after = after {
+		/*if let after = after {
 			params["after"] =  String(after.timeIntervalSince1970 * 1000)
 		} else {
 			params["after"] = "0"
 		}
 		if let limit = limit {
 			params["limit"] = limit
-		}
+		}*/
 
 		NotificationCenter.default.post(name: Notification.Name(MessageLoadingStatusNotification.loading.rawValue), object: nil)
 		APIUtility.request(method: .get, route: Config.APIRoutes.messages, parameters: params).responseJSON { response in

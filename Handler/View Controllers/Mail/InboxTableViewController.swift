@@ -37,12 +37,18 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		NotificationCenter.default.addObserver(self, selector: #selector(conversationsUpdated), name: ConversationManager.conversationUpdateFinishedNotification, object: nil)
-		try? fetchedResultsController.performFetch()
+		NotificationCenter.default.addObserver(self, selector: #selector(conversationsUpdated), name:
+            ConversationManager.conversationUpdateFinishedNotification, object: nil)
 	}
 	
 	func conversationsUpdated() {
-		try! fetchedResultsController.performFetch()
+        do {
+            try self.fetchedResultsController.performFetch()
+        } catch {
+            let fetchError = error as NSError
+            print("fetcherror = \(fetchError), \(fetchError.userInfo)")
+        }
+        self.refreshControl?.endRefreshing()
 		tableView.reloadData()
 	}
 	
@@ -114,6 +120,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 	
 		requestPushNotificationPermissions()
 		showTitleFadeIn(title: "Inbox")
+        ConversationManager.updateConversations()
 	}
 	
 	override func viewDidDisappear(_ animated: Bool) {
