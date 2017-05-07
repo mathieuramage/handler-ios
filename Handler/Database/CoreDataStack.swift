@@ -28,11 +28,15 @@ class CoreDataStack {
     }()
     
     lazy var viewContext: NSManagedObjectContext = {
+        self.persistentContainer.viewContext.mergePolicy = NSMergePolicy(merge:
+            NSMergePolicyType.mergeByPropertyObjectTrumpMergePolicyType);
         return self.persistentContainer.viewContext
     }()
     
     lazy var backgroundContext: NSManagedObjectContext = {
-		let context = self.persistentContainer.newBackgroundContext()
+        let context = self.persistentContainer.newBackgroundContext()
+        context.mergePolicy = NSMergePolicy(merge:
+            NSMergePolicyType.mergeByPropertyObjectTrumpMergePolicyType);
         return context
     }()
     

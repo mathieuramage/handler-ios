@@ -35,7 +35,6 @@ struct ConversationManager {
 		
 		let currentUpdate = Date()
 		MessageOperations.getAllMessages(before: currentUpdate, after: ConversationManager.latestUpdate, limit: 0) { (success, messageDataArray) in
-			
 			guard let messageDataArray = messageDataArray else {
 				if success {
 					latestUpdate = currentUpdate
@@ -63,6 +62,8 @@ struct ConversationManager {
 				} catch {
 					DispatchQueue.main.async {
 						NotificationCenter.default.post(name: conversationUpdateFailedNotification, object: nil, userInfo: nil)
+                        let fetchError = error as NSError
+                        print("save error in conversation  manager= \(fetchError), \(fetchError.userInfo)")
 					}
 				}
 				
