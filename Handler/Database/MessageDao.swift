@@ -117,50 +117,57 @@ struct MessageDao {
 	//
 	//    }
 	
-	static func fetchRequestForMessagesWithInboxType(_ type: MailboxType) -> NSFetchRequest<NSFetchRequestResult> {
+	static func fetchRequestForConversationWithInboxType(_ type: MailboxType) -> NSFetchRequest<Conversation> {
+		
+		switch type {
+			
+		case .Inbox :
+			let predicate = NSPredicate(format: "SUBQUERY(messages, $t, $t.folderString == %@).@count != 0", Folder.Inbox.rawValue)
+			let fetchRequest : NSFetchRequest<Conversation> = Conversation.fetchRequest()
+			fetchRequest.fetchBatchSize = 20
+			fetchRequest.predicate = predicate
+			// OTTODO: It should be sorted by date.
+			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "identifier", ascending: false)]
+			return fetchRequest
+			
+		default :
+			let predicate = NSPredicate(format: "SUBQUERY(messages, $t, $t.read != nil && $t.read == NO).@count != 0")
+			let fetchRequest : NSFetchRequest<Conversation> = Conversation.fetchRequest()
+			fetchRequest.predicate = predicate
+			fetchRequest.fetchBatchSize = 20
+			// OTTODO: It should be sorted by date.
+			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "identifier", ascending: false)]
+			return fetchRequest
+		}
+		
+	}
+	
+	static func fetchRequestForMessagesWithInboxType(_ type: MailboxType) -> NSFetchRequest<Message> {
 		
 		switch type {
 		case .AllChanges :
-			let fetchRequest : NSFetchRequest<NSFetchRequestResult> = Message.fetchRequest()
+			let fetchRequest : NSFetchRequest<Message> = Message.fetchRequest()
 			fetchRequest.fetchBatchSize = 20
 			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "updatedAt", ascending: false)]
 			return fetchRequest
 			
-		case .Inbox :
-			let predicate = NSPredicate(format: "SUBQUERY(messages, $t, $t.folderString == %@).@count != 0", Folder.Inbox.rawValue)
-			let fetchRequest : NSFetchRequest<NSFetchRequestResult> = Conversation.fetchRequest()
-			fetchRequest.fetchBatchSize = 20
-			fetchRequest.predicate = predicate
-			// OTTODO: It should be sorted by date.
-			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "identifier", ascending: false)]
-			return fetchRequest
-			
-		case .Unread :
-			let predicate = NSPredicate(format: "SUBQUERY(messages, $t, $t.read != nil && $t.read == NO).@count != 0")
-			let fetchRequest : NSFetchRequest<NSFetchRequestResult> = Conversation.fetchRequest()
-			fetchRequest.predicate = predicate
-			fetchRequest.fetchBatchSize = 20
-			// OTTODO: It should be sorted by date.
-			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "identifier", ascending: false)]
-			return fetchRequest
-			
 		case .Sent :
 			let predicate = NSPredicate(format: "folderString == %@", Folder.Sent.rawValue)
-			let fetchRequest : NSFetchRequest<NSFetchRequestResult> = Message.fetchRequest()
+			let fetchRequest : NSFetchRequest<Message> = Message.fetchRequest()
 			fetchRequest.predicate = predicate
 			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "updatedAt", ascending: false)]
 			return fetchRequest
 			
 		case .Flagged:
 			let predicate = NSPredicate(format: "starred != nil && starred == YES")
-			let fetchRequest : NSFetchRequest<NSFetchRequestResult> = Message.fetchRequest()
+			let fetchRequest : NSFetchRequest<Message> = Message.fetchRequest()
 			fetchRequest.predicate = predicate
 			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "updatedAt", ascending: false)]
 			return fetchRequest
 			
 		case .Drafts:
 			let predicate = NSPredicate(format: "folderString == %@", Folder.Draft.rawValue)
-			let fetchRequest : NSFetchRequest<NSFetchRequestResult> = Message.fetchRequest()
+			let fetchRequest : NSFetchRequest<Message> = Message.fetchRequest()
 			fetchRequest.predicate = predicate
 			fetchRequest.sortDescriptors = [NSSortDescriptor(key: "updatedAt", ascending: false)]
 			return fetchRequest
@@ -171,7 +178,7 @@ struct MessageDao {
 			} else {
 				// handle archive case
 				let predicate = NSPredicate(format: "folderString == %@", Folder.Archived.rawValue)
-				let fetchRequest : NSFetchRequest<NSFetchRequestResult> = Message.fetchRequest()
+				let fetchRequest : NSFetchRequest<Message> = Message.fetchRequest()
 				fetchRequest.fetchBatchSize = 20
 				fetchRequest.predicate = predicate
 				fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)]
@@ -181,9 +188,9 @@ struct MessageDao {
 		
 	}
 	
-	static func fetchRequestForMessagesWithLabelWithId(_ id: String) -> NSFetchRequest<NSFetchRequestResult> {
+	static func fetchRequestForMessagesWithLabelWithId(_ id: String) -> NSFetchRequest<Message> {
 		let predicate = NSPredicate(format: "ANY labels.id == %@", id)
-		let fetchRequest : NSFetchRequest<NSFetchRequestResult> = Message.fetchRequest()
+		let fetchRequest : NSFetchRequest<Message> = Message.fetchRequest()
 		fetchRequest.predicate = predicate
 		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)]
 		return fetchRequest
