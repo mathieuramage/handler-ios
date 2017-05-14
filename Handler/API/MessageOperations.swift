@@ -137,6 +137,13 @@ struct MessageOperations {
 		postExistingMessage(messageData, callback: callback)
 	}
 	
+	static func setMessageArchive(message : Message, archive : Bool, callback : MessageUpdateCallback?) {
+		var messageData = MessageUpdateData()
+		messageData.messageId = message.identifier
+		messageData.folder = archive ? .Archived : .Inbox
+		postExistingMessage(messageData, callback: callback)
+	}
+	
 	static func deleteMessage(messageId: String, callback : MessageUpdateCallback?) {
 		var messageData = MessageUpdateData()
 		messageData.messageId = messageId

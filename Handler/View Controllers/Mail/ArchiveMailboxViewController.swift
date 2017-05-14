@@ -8,6 +8,8 @@
 
 import UIKit
 import CoreData
+import Async
+import DZNEmptyDataSet
 
 class ArchiveMailboxViewController: AbstractMessageMailboxViewController {
 	
@@ -53,6 +55,50 @@ class ArchiveMailboxViewController: AbstractMessageMailboxViewController {
 		
 		self.navigationController!.toolbar.items = [space, item, space, composeItem]
 		showTitleFadeIn(title: "Archive")
+	}
+	
+	// MARK: Swipe Cell
+	
+	override func swipeableTableViewCell(_ cell: SWTableViewCell!, canSwipeTo state: SWCellState) -> Bool {
+		return true
+	}
+	
+//	override func swipeableTableViewCell(_ cell: SWTableViewCell!, didTriggerLeftUtilityButtonWith index: Int) {
+//		
+//		if let indexPath = tableView.indexPath(for: cell) {
+//			let conversation = fetchedObjects[indexPath.row]
+//			if conversation.read {
+//				ConversationManager.markConversationAsUnread(conversation)
+//			} else {
+//				ConversationManager.markConversationAsRead(conversation)
+//			}
+//			refresh()
+//		}
+//		
+//	}
+	
+	override func swipeableTableViewCell(_ cell: SWTableViewCell!, didTriggerRightUtilityButtonWith index: Int) {
+		if let indexPath = tableView.indexPath(for: cell) {
+			let msg = fetchedObjects[indexPath.row]
+			if index == 0 {
+				if msg.starred {
+					MessageManager.unflagMessage(message: msg)
+				} else {
+					MessageManager.flagMessage(message: msg)
+				}
+			} else if index == 1 {
+				if msg.archived {
+					MessageManager.unarchiveMessage(message: msg)
+				} else {
+					MessageManager.archiveMessage(message: msg)
+				}
+			}
+			refresh()
+		}
+	}
+	
+	override func swipeableTableViewCellShouldHideUtilityButtons(onSwipe cell: SWTableViewCell!) -> Bool {
+		return true
 	}
 	
 	func customViewForEmptyDataSet(_ scrollView: UIScrollView!) -> UIView! {

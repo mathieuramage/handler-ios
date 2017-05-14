@@ -242,13 +242,10 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 			let conversation = fetchedObjects[indexPath.row]
 			if conversation.read {
 				ConversationManager.markConversationAsUnread(conversation)
-				AppAnalytics.fireContentViewEvent(contentId: AppEvents.EmailActions.markUnread, event: AppEvents.EmailActions.self)
 			} else {
 				ConversationManager.markConversationAsRead(conversation)
-				AppAnalytics.fireContentViewEvent(contentId: AppEvents.EmailActions.markRead, event: AppEvents.EmailActions.self)
-
 			}
-			tableView.reloadRows(at: [indexPath], with: .none)
+			refresh()
 		}
 		
 	}
@@ -256,15 +253,19 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 	func swipeableTableViewCell(_ cell: SWTableViewCell!, didTriggerRightUtilityButtonWith index: Int) {
 		if let indexPath = tableView.indexPath(for: cell) {
 			let conversation = fetchedObjects[indexPath.row]
+			guard let messages = conversation.messages?.allObjects as? [Message] else { return }
 			if index == 0 {
-				guard let messages = conversation.messages?.allObjects as? [Message] else { return }
 				if messages[0].starred {
 					ConversationManager.unflagConversation(conversation: conversation)
 				} else {
 					ConversationManager.flagConversation(conversation: conversation)
 				}
 			} else if index == 1 {
-				print("1")
+				if messages[0].archived {
+					ConversationManager.unarchiveConversation(conversation: conversation)
+				} else {
+					ConversationManager.archiveConversation(conversation: conversation)
+				}
 			}
 			refresh()
 		}
