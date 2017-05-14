@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MailBoxOptionsTableViewController: UITableViewController {
+class MailBoxOptionsTableViewController: UITableViewController, MailboxCountObserver {
 	
 	@IBOutlet weak var inboxCountLabel: UILabel!
 	@IBOutlet weak var unreadCountLabel: UILabel!
@@ -19,9 +19,9 @@ class MailBoxOptionsTableViewController: UITableViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-//		for type in MailboxType.allValues {
-//			MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(type, observer: self)
-//		}
+		for type in MailboxType.allValues {
+			MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(type, observer: self)
+		}
 	}
 	
 	func mailboxCountDidChange(_ mailboxType: MailboxType, newCount: Int) {

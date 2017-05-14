@@ -16,14 +16,14 @@ class UnreadMailboxViewController: UITableViewController, SWTableViewCellDelegat
 	var conversationForSegue: Conversation?
 	var activeConversation : Conversation?
 	
-	lazy var fetchedResultsController = NSFetchedResultsController<Conversation>(fetchRequest: ConversationDao.inboxFetchRequest, managedObjectContext: CoreDataStack.shared.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+	lazy var fetchedResultsController = NSFetchedResultsController<Conversation>(fetchRequest: ConversationDao.unreadFetchRequest, managedObjectContext: CoreDataStack.shared.viewContext, sectionNameKeyPath: nil, cacheName: nil)
 	
 	var fetchedObjects: [Conversation] { return fetchedResultsController.fetchedObjects ?? [Conversation]() }
-	
 	var progressBar: UIProgressView!
 	var lastupdatedLabel: UILabel?
 	var unreadEmailsCountLabel: UILabel?
-	
+	var sideMenuVC: SideMenuViewController!
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		tableView.register(UINib(nibName: "MessageTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "MessageTableViewCell")
@@ -33,6 +33,9 @@ class UnreadMailboxViewController: UITableViewController, SWTableViewCellDelegat
 		self.refreshControl!.addTarget(self, action: #selector(InboxTableViewController.refresh(_:)), for: UIControlEvents.valueChanged)
 		self.tableView.addSubview(refreshControl!)
 		//		MailboxObserversManager.sharedInstance.addObserverForMailboxType(.Inbox, observer: self)
+		if let menuVC = sideMenuViewController?.leftMenuViewController as? SideMenuViewController {
+			sideMenuVC = menuVC
+		}
 	}
 	
 	
@@ -48,7 +51,14 @@ class UnreadMailboxViewController: UITableViewController, SWTableViewCellDelegat
 	}
 	
 	func conversationsUpdated() {
-		try! fetchedResultsController.performFetch()
+		do {
+			try self.fetchedResultsController.performFetch()
+		} catch {
+			let fetchError = error as NSError
+			print("fetcherror = \(fetchError), \(fetchError.userInfo)")
+		}
+		self.refreshControl?.endRefreshing()
+		sideMenuVC.optionsTableViewController?.mailboxCountDidChange(.Inbox, newCount: fetchedObjects.count)
 		tableView.reloadData()
 	}
 	

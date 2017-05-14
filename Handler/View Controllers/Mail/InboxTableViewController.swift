@@ -18,11 +18,14 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 
 	lazy var fetchedResultsController = NSFetchedResultsController<Conversation>(fetchRequest: ConversationDao.inboxFetchRequest, managedObjectContext: CoreDataStack.shared.viewContext, sectionNameKeyPath: nil, cacheName: nil)
 		
-	var fetchedObjects: [Conversation] { return fetchedResultsController.fetchedObjects ?? [Conversation]() }
+	var fetchedObjects: [Conversation] {
+		return fetchedResultsController.fetchedObjects ?? [Conversation]()
+	}
 
 	var progressBar: UIProgressView!
 	var lastupdatedLabel: UILabel?
 	var unreadEmailsCountLabel: UILabel?
+	var sideMenuVC: SideMenuViewController!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -33,6 +36,9 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		self.refreshControl!.addTarget(self, action: #selector(InboxTableViewController.refresh(_:)), for: UIControlEvents.valueChanged)
 		self.tableView.addSubview(refreshControl!)
 //		MailboxObserversManager.sharedInstance.addObserverForMailboxType(.Inbox, observer: self)
+		if let menuVC = sideMenuViewController?.leftMenuViewController as? SideMenuViewController {
+			sideMenuVC = menuVC
+		}
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -49,6 +55,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
             print("fetcherror = \(fetchError), \(fetchError.userInfo)")
         }
         self.refreshControl?.endRefreshing()
+		sideMenuVC.optionsTableViewController?.mailboxCountDidChange(.Inbox, newCount: fetchedObjects.count)
 		tableView.reloadData()
 	}
 	
