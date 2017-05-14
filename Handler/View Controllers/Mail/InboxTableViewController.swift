@@ -253,6 +253,23 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		
 	}
 	
+	func swipeableTableViewCell(_ cell: SWTableViewCell!, didTriggerRightUtilityButtonWith index: Int) {
+		if let indexPath = tableView.indexPath(for: cell) {
+			let conversation = fetchedObjects[indexPath.row]
+			if index == 0 {
+				guard let messages = conversation.messages?.allObjects as? [Message] else { return }
+				if messages[0].starred {
+					ConversationManager.unflagConversation(conversation: conversation)
+				} else {
+					ConversationManager.flagConversation(conversation: conversation)
+				}
+			} else if index == 1 {
+				print("1")
+			}
+			refresh()
+		}
+	}
+	
 	func swipeableTableViewCellShouldHideUtilityButtons(onSwipe cell: SWTableViewCell!) -> Bool {
 		return true
 	}

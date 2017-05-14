@@ -43,19 +43,15 @@ class InboxActionHandler: MessageTableViewCellActions {
 		switch index {
 		case 0:
 			if message.starred {
-//				message.unflag()
 				AppAnalytics.fireContentViewEvent(contentId: EmailActionEvents.unflagged, event: EmailActionEvents)
 			} else {
-//				message.flag()
 				AppAnalytics.fireContentViewEvent(contentId: EmailActionEvents.flagged, event: EmailActionEvents)
 			}
 			break
 		case 1:
 			if message.archived {
-//				message.conversation?.unarchive()
 				AppAnalytics.fireContentViewEvent(contentId: EmailActionEvents.unarchived, event: EmailActionEvents)
 			} else {
-//				message.conversation?.archive()
 				AppAnalytics.fireContentViewEvent(contentId: EmailActionEvents.archived, event: EmailActionEvents)
 			}
 			break
@@ -68,7 +64,6 @@ class InboxActionHandler: MessageTableViewCellActions {
 				cb()
 			}
 		}
-		// TODO: Implement actions
 	}
 	
 	// MARK: Data Source

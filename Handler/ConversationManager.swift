@@ -77,6 +77,30 @@ struct ConversationManager {
 		}
 	}
 	
+	static func flagConversation(conversation: Conversation) {
+		AppAnalytics.fireContentViewEvent(contentId: AppEvents.EmailActions.self.flagged, event: AppEvents.EmailActions.self)
+		markConversationAsStarred(conversation: conversation, flagged: true)
+	}
+	
+	static func unflagConversation(conversation: Conversation) {
+		AppAnalytics.fireContentViewEvent(contentId: AppEvents.EmailActions.self.unflagged, event: AppEvents.EmailActions.self)
+		markConversationAsStarred(conversation: conversation, flagged: false)
+	}
+	
+	static func markConversationAsStarred(conversation: Conversation, flagged: Bool) {
+		ConversationOperations.markConversationStarred(conversationId: conversation.identifier!, starred: flagged) { (success) in
+			guard let messages = conversation.messages?.allObjects as? [Message] else { return }
+			for message in messages {
+				if flagged {
+					MessageManager.flagMessage(message: message)
+				} else {
+					MessageManager.unflagMessage(message: message)
+				}
+			}
+			//			let _ = ConversationDao.updateOrCreateConversation(conversationData: data)
+		}
+	}
+	
 	static func markConversationAsRead(_ conversation : Conversation) {
 		guard let messages = conversation.messages?.allObjects as? [Message] else { return }
 		for message in messages {
