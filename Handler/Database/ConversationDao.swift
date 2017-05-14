@@ -20,8 +20,17 @@ struct ConversationDao {
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "latestMessageDate", ascending: false)]
         return fetchRequest
     }()
-    
-    
+	
+	static var unreadFetchRequest : NSFetchRequest<Conversation> = {
+		let predicate = NSPredicate(format: "SUBQUERY(messages, $t, $t.folderString == %@ && $t.read == NO).@count != 0", Folder.Inbox.rawValue)
+		let fetchRequest : NSFetchRequest<Conversation> = Conversation.fetchRequest()
+		fetchRequest.fetchBatchSize = 20
+		fetchRequest.predicate = predicate
+		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "latestMessageDate", ascending: false)]
+		return fetchRequest
+	}()
+	
+	
 	static func updateOrCreateConversation(conversationData : ConversationData, context : NSManagedObjectContext = CoreDataStack.shared.viewContext) -> Conversation {
         
 		let fetchRequest : NSFetchRequest<Conversation> = Conversation.fetchRequest()
