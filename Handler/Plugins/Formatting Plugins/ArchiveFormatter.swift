@@ -31,10 +31,10 @@ struct ArchiveFormatter: MessageTableViewCellFormatter {
         
         view.leftUtilityButtons = leftButtonsForData(data: message)
         view.rightUtilityButtons = rightButtonsForData(data: message)
-//        if let url = message.sender.profilePictureUrl {
-//            view.senderProfileImageView.kf.setImage(with: url, placeholder: UIImage.randomGhostImage(), options: nil, progressBlock: nil, completionHandler: nil)
-//        }
-        
+		if let pictureUrl = message.sender?.pictureUrl {
+			view.senderProfileImageView.kf.setImage(with: pictureUrl, placeholder: UIImage.randomGhostImage(), options: nil, progressBlock: nil, completionHandler: nil)
+		}
+		
         view.senderNameLabel.text = message.sender?.name
         if let handle = message.sender?.handle {
             view.senderHandleLabel.text = "@" + handle
@@ -90,8 +90,7 @@ struct ArchiveFormatter: MessageTableViewCellFormatter {
     
     func setUpReadFlagMessage(data message: Message, view: MessageTableViewCell) {
         if message.starred && !message.read {
-            view.readFlaggedImageView.image = UIImage(named: "Orange_Dot")
-            // TODO: Add blue button encircled by orange
+            view.readFlaggedImageView.image = UIImage(named: "read-and-flagged-icon")
         }
         else if message.starred {
             view.readFlaggedImageView.image = UIImage(named: "Orange_Dot")

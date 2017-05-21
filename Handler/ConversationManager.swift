@@ -77,17 +77,76 @@ struct ConversationManager {
 		}
 	}
 	
+	static func flagConversation(conversation: Conversation) {
+		AppAnalytics.fireContentViewEvent(contentId: AppEvents.EmailActions.self.flagged, event: AppEvents.EmailActions.self)
+		markConversationAsStarred(conversation: conversation, flagged: true)
+	}
+	
+	static func unflagConversation(conversation: Conversation) {
+		AppAnalytics.fireContentViewEvent(contentId: AppEvents.EmailActions.self.unflagged, event: AppEvents.EmailActions.self)
+		markConversationAsStarred(conversation: conversation, flagged: false)
+	}
+	
+	static func archiveConversation(conversation: Conversation) {
+		AppAnalytics.fireContentViewEvent(contentId: AppEvents.EmailActions.self.archived, event: AppEvents.EmailActions.self)
+		markConversationAsArchived(conversation: conversation, archive: true)
+	}
+	
+	static func unarchiveConversation(conversation: Conversation) {
+		AppAnalytics.fireContentViewEvent(contentId: AppEvents.EmailActions.self.unarchived, event: AppEvents.EmailActions.self)
+		markConversationAsArchived(conversation: conversation, archive: false)
+	}
+	
+	static func markConversationAsArchived(conversation: Conversation, archive: Bool) {
+		ConversationOperations.archiveConversation(conversationId: conversation.identifier!) { (success) in
+			if (!success) {
+				print("Error while archiving/unarchiving conversation.")
+				return
+			}
+			moveMessages()
+		}
+		func moveMessages() {
+			guard let messages = conversation.messages?.allObjects as? [Message] else { return }
+			for message in messages {
+				if archive {
+					MessageManager.archiveMessage(message: message)
+				} else {
+					MessageManager.unarchiveMessage(message: message)
+				}
+			}
+		}
+	}
+	
+	static func markConversationAsStarred(conversation: Conversation, flagged: Bool) {
+		ConversationOperations.markConversationStarred(conversationId: conversation.identifier!, starred: flagged) { (success) in
+			guard let messages = conversation.messages?.allObjects as? [Message] else { return }
+			for message in messages {
+				if flagged {
+					MessageManager.flagMessage(message: message)
+				} else {
+					MessageManager.unflagMessage(message: message)
+				}
+			}
+		}
+	}
+	
 	static func markConversationAsRead(_ conversation : Conversation) {
-		guard let messages = conversation.messages?.allObjects as? [Message] else { return }
-		for message in messages {
-			MessageManager.markMessageRead(message: message)
+		ConversationOperations.markConversationAsRead(conversationId: conversation.identifier!, read: true) { (success) in
+			guard let messages = conversation.messages?.allObjects as? [Message], success else { return }
+			AppAnalytics.fireContentViewEvent(contentId: AppEvents.EmailActions.markUnread, event: AppEvents.EmailActions.self)
+			for message in messages {
+				MessageManager.markMessageRead(message: message)
+			}
 		}
 	}
 	
 	static func markConversationAsUnread(_ conversation : Conversation) {
-		guard let messages = conversation.messages?.allObjects as? [Message] else { return }
-		for message in messages {
-			MessageManager.markMessageUnread(message: message)
+		ConversationOperations.markConversationAsRead(conversationId: conversation.identifier!, read: false) { (success) in
+			guard let messages = conversation.messages?.allObjects as? [Message], success else { return }
+			AppAnalytics.fireContentViewEvent(contentId: AppEvents.EmailActions.markUnread, event: AppEvents.EmailActions.self)
+			for message in messages {
+				MessageManager.markMessageUnread(message: message)
+			}
 		}
 	}
 	
@@ -103,6 +162,7 @@ struct ConversationManager {
 				conversation.identifier = cId
 				conversation.messages = []
 				conversationDict[cId] = conversation
+				
 			}
 			conversationDict[cId]!.messages!.append(m)
 		}

@@ -80,4 +80,44 @@ class FlaggedMailboxViewController: AbstractMessageMailboxViewController {
 		
 		return view
 	}
+	
+	// MARK: Swipe Cell
+	
+	override func swipeableTableViewCell(_ cell: SWTableViewCell!, canSwipeTo state: SWCellState) -> Bool {
+		return true
+	}
+	
+	override func swipeableTableViewCell(_ cell: SWTableViewCell!, didTriggerLeftUtilityButtonWith index: Int) {
+		if let indexPath = tableView.indexPath(for: cell) {
+			let msg = fetchedObjects[indexPath.row]
+			if !msg.read {
+				MessageManager.markMessageRead(message: msg)
+			} else {
+				MessageManager.markMessageRead(message: msg)
+			}
+		}
+	}
+	
+	override func swipeableTableViewCell(_ cell: SWTableViewCell!, didTriggerRightUtilityButtonWith index: Int) {
+		if let indexPath = tableView.indexPath(for: cell) {
+			let msg = fetchedObjects[indexPath.row]
+			if index == 0 {
+				if msg.starred {
+					MessageManager.unflagMessage(message: msg)
+				} else {
+					MessageManager.flagMessage(message: msg)
+				}
+			} else if index == 1 {
+				if msg.archived {
+					MessageManager.unarchiveMessage(message: msg)
+				} else {
+					MessageManager.archiveMessage(message: msg)
+				}
+			}
+		}
+	}
+	
+	override func swipeableTableViewCellShouldHideUtilityButtons(onSwipe cell: SWTableViewCell!) -> Bool {
+		return true
+	}
 }

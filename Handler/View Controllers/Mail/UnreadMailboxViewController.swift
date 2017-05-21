@@ -12,7 +12,7 @@ import Async
 import DZNEmptyDataSet
 
 class UnreadMailboxViewController: UITableViewController, SWTableViewCellDelegate, NSFetchedResultsControllerDelegate, DZNEmptyDataSetSource {
-
+	
 	var conversationForSegue: Conversation?
 	var activeConversation : Conversation?
 	
@@ -48,6 +48,12 @@ class UnreadMailboxViewController: UITableViewController, SWTableViewCellDelegat
 			style: UIBarButtonItemStyle.plain,
 			target: self,
 			action: #selector(AbstractMessageMailboxViewController.showSideMenu(_:)))
+		NotificationCenter.default.addObserver(self, selector: #selector(refreshMailbox), name:
+			AbstractMessageMailboxViewController.mailboxNeedsUpdate, object: nil)
+	}
+	
+	func refreshMailbox() {
+		refresh()
 	}
 	
 	func conversationsUpdated() {
@@ -58,7 +64,7 @@ class UnreadMailboxViewController: UITableViewController, SWTableViewCellDelegat
 			print("fetcherror = \(fetchError), \(fetchError.userInfo)")
 		}
 		self.refreshControl?.endRefreshing()
-		sideMenuVC.optionsTableViewController?.mailboxCountDidChange(.Inbox, newCount: fetchedObjects.count)
+		sideMenuVC.optionsTableViewController?.mailboxCountDidChange(.Unread, newCount: fetchedObjects.count)
 		tableView.reloadData()
 	}
 	
@@ -247,41 +253,31 @@ class UnreadMailboxViewController: UITableViewController, SWTableViewCellDelegat
 		
 		if let indexPath = tableView.indexPath(for: cell) {
 			let conversation = fetchedObjects[indexPath.row]
-			if conversation.read {
-				ConversationManager.markConversationAsUnread(conversation)
-			} else {
+			if conversation.hasUnreadMessages {
 				ConversationManager.markConversationAsRead(conversation)
+			} else {
+				ConversationManager.markConversationAsUnread(conversation)
 			}
-			tableView.reloadRows(at: [indexPath], with: .none)
 		}
 		
 	}
 	
 	func swipeableTableViewCell(_ cell: SWTableViewCell!, didTriggerRightUtilityButtonWith index: Int) {
-		guard let row = tableView.indexPath(for: cell)?.row else { return }
-		
-		let conversation = fetchedObjects[row]
-		
-		guard let identifier = conversation.identifier else {
-			return
-		}
-		
-		if index == 0 {
-			
-			guard let starred = conversation.latestMessage?.starred else {
-				return
+		if let indexPath = tableView.indexPath(for: cell) {
+			let conversation = fetchedObjects[indexPath.row]
+			if index == 0 {
+				if conversation.hasFlaggedMessages {
+					ConversationManager.unflagConversation(conversation: conversation)
+				} else {
+					ConversationManager.flagConversation(conversation: conversation)
+				}
+			} else if index == 1 {
+				if conversation.hasArchivedMessages {
+					ConversationManager.unarchiveConversation(conversation: conversation)
+				} else {
+					ConversationManager.archiveConversation(conversation: conversation)
+				}
 			}
-			
-			ConversationOperations.markConversationStarred(conversationId: identifier, starred: starred, callback: { (success) in
-				self.refresh()
-			})
-			
-		} else if index == 1 {
-			
-			ConversationOperations.archiveConversation(conversationId: identifier, callback: { (success) in
-				self.refresh()
-			})
-			
 		}
 	}
 	

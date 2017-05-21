@@ -25,7 +25,7 @@ struct ConversationOperations {
         }
     }
     
-    typealias ConversationUpdateCallback = (_ success : Bool) -> ()
+	typealias ConversationUpdateCallback = (_ success : Bool) -> ()
     
     static func deleteConversation(conversationId : String, callback : ConversationUpdateCallback?) {
         moveConversationToFolder(conversationId: conversationId, folder: .Deleted, callback: callback)
@@ -115,4 +115,5 @@ struct ConversationData {
     var labels : [String]?
     var starred : Bool?
     var messages : [MessageData]?
+	
 }
