@@ -63,19 +63,16 @@ class ArchiveMailboxViewController: AbstractMessageMailboxViewController {
 		return true
 	}
 	
-//	override func swipeableTableViewCell(_ cell: SWTableViewCell!, didTriggerLeftUtilityButtonWith index: Int) {
-//		
-//		if let indexPath = tableView.indexPath(for: cell) {
-//			let conversation = fetchedObjects[indexPath.row]
-//			if conversation.read {
-//				ConversationManager.markConversationAsUnread(conversation)
-//			} else {
-//				ConversationManager.markConversationAsRead(conversation)
-//			}
-//			refresh()
-//		}
-//		
-//	}
+	override func swipeableTableViewCell(_ cell: SWTableViewCell!, didTriggerLeftUtilityButtonWith index: Int) {
+		if let indexPath = tableView.indexPath(for: cell) {
+			let msg = fetchedObjects[indexPath.row]
+				if !msg.read {
+					MessageManager.markMessageRead(message: msg)
+				} else {
+					MessageManager.markMessageRead(message: msg)
+				}
+		}
+	}
 	
 	override func swipeableTableViewCell(_ cell: SWTableViewCell!, didTriggerRightUtilityButtonWith index: Int) {
 		if let indexPath = tableView.indexPath(for: cell) {
@@ -93,7 +90,6 @@ class ArchiveMailboxViewController: AbstractMessageMailboxViewController {
 					MessageManager.archiveMessage(message: msg)
 				}
 			}
-			refresh()
 		}
 	}
 	

@@ -126,14 +126,14 @@ struct MessageOperations {
 	static func setMessageAsRead(message : Message, read : Bool, callback : MessageUpdateCallback?) {
 		var messageData = MessageUpdateData()
 		messageData.messageId = message.identifier
-		messageData.read = true
+		messageData.read = read
 		postExistingMessage(messageData, callback: callback)
 	}
 	
 	static func setMessageStarred(message : Message, starred : Bool, callback : MessageUpdateCallback?) {
 		var messageData = MessageUpdateData()
 		messageData.messageId = message.identifier
-		messageData.starred = true
+		messageData.starred = starred
 		postExistingMessage(messageData, callback: callback)
 	}
 	

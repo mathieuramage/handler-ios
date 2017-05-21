@@ -45,6 +45,12 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		super.viewWillAppear(animated)
 		NotificationCenter.default.addObserver(self, selector: #selector(conversationsUpdated), name:
             ConversationManager.conversationUpdateFinishedNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(refreshInbox), name:
+			AbstractMessageMailboxViewController.mailboxNeedsUpdate, object: nil)
+	}
+	
+	func refreshInbox() {
+		refresh()
 	}
 	
 	func conversationsUpdated() {
@@ -80,7 +86,6 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		unreadEmailsCountLabel?.textAlignment = .center
 		unreadEmailsCountLabel?.font = UIFont.systemFont(ofSize: 11)
 		unreadEmailsCountLabel?.textColor = UIColor(rgba: HexCodes.blueGray)
-		
 		
 //		_ = CurrentStatusManager.sharedInstance.currentStatusSubtitle.observeNext { text in
 //			Async.main {
@@ -127,7 +132,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 	
 		requestPushNotificationPermissions()
 		showTitleFadeIn(title: "Inbox")
-        ConversationManager.updateConversations()
+	    ConversationManager.updateConversations()
 	}
 	
 	override func viewDidDisappear(_ animated: Bool) {
@@ -240,12 +245,11 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 
 		if let indexPath = tableView.indexPath(for: cell) {
 			let conversation = fetchedObjects[indexPath.row]
-			if conversation.read {
-				ConversationManager.markConversationAsUnread(conversation)
-			} else {
+			if conversation.hasUnreadMessages {
 				ConversationManager.markConversationAsRead(conversation)
+			} else {
+				ConversationManager.markConversationAsUnread(conversation)
 			}
-			refresh()
 		}
 		
 	}
@@ -253,21 +257,19 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 	func swipeableTableViewCell(_ cell: SWTableViewCell!, didTriggerRightUtilityButtonWith index: Int) {
 		if let indexPath = tableView.indexPath(for: cell) {
 			let conversation = fetchedObjects[indexPath.row]
-			guard let messages = conversation.messages?.allObjects as? [Message] else { return }
 			if index == 0 {
-				if messages[0].starred {
+				if conversation.hasFlaggedMessages {
 					ConversationManager.unflagConversation(conversation: conversation)
 				} else {
 					ConversationManager.flagConversation(conversation: conversation)
 				}
 			} else if index == 1 {
-				if messages[0].archived {
+				if conversation.hasArchivedMessages {
 					ConversationManager.unarchiveConversation(conversation: conversation)
 				} else {
 					ConversationManager.archiveConversation(conversation: conversation)
 				}
 			}
-			refresh()
 		}
 	}
 	

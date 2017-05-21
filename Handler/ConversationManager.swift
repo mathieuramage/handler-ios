@@ -131,20 +131,22 @@ struct ConversationManager {
 	}
 	
 	static func markConversationAsRead(_ conversation : Conversation) {
-		guard let messages = conversation.messages?.allObjects as? [Message] else { return }
-		
-		AppAnalytics.fireContentViewEvent(contentId: AppEvents.EmailActions.markRead, event: AppEvents.EmailActions.self)
-		for message in messages {
-			MessageManager.markMessageRead(message: message)
+		ConversationOperations.markConversationAsRead(conversationId: conversation.identifier!, read: true) { (success) in
+			guard let messages = conversation.messages?.allObjects as? [Message], success else { return }
+			AppAnalytics.fireContentViewEvent(contentId: AppEvents.EmailActions.markUnread, event: AppEvents.EmailActions.self)
+			for message in messages {
+				MessageManager.markMessageRead(message: message)
+			}
 		}
 	}
 	
 	static func markConversationAsUnread(_ conversation : Conversation) {
-		guard let messages = conversation.messages?.allObjects as? [Message] else { return }
-		
-		AppAnalytics.fireContentViewEvent(contentId: AppEvents.EmailActions.markUnread, event: AppEvents.EmailActions.self)
-		for message in messages {
-			MessageManager.markMessageUnread(message: message)
+		ConversationOperations.markConversationAsRead(conversationId: conversation.identifier!, read: false) { (success) in
+			guard let messages = conversation.messages?.allObjects as? [Message], success else { return }
+			AppAnalytics.fireContentViewEvent(contentId: AppEvents.EmailActions.markUnread, event: AppEvents.EmailActions.self)
+			for message in messages {
+				MessageManager.markMessageUnread(message: message)
+			}
 		}
 	}
 	
@@ -160,6 +162,7 @@ struct ConversationManager {
 				conversation.identifier = cId
 				conversation.messages = []
 				conversationDict[cId] = conversation
+				
 			}
 			conversationDict[cId]!.messages!.append(m)
 		}

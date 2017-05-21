@@ -33,9 +33,6 @@ class InboxMessageTableViewCellHelper {
 		cell.leftUtilityButtons = nil
 		cell.rightUtilityButtons = nil
 
-		cell.leftUtilityButtons = leftButtonsForMessage(message)
-		cell.rightUtilityButtons = rightButtonsForMessage(message)
-
 		if let pictureUrl = message.sender?.pictureUrl {
             cell.senderProfileImageView.kf.setImage(with: pictureUrl, placeholder: UIImage.randomGhostImage(), options: nil, progressBlock: nil, completionHandler: nil)
 		}
@@ -66,57 +63,54 @@ class InboxMessageTableViewCellHelper {
 
 		cell.repliedIconView.isHidden = (message.sender?.identifier != AuthUtility.user?.identifier)
 
-		setUpReadFlagMessage(message: message, view: cell)
+		setUpReadFlagMessage(conversation: conversation, view: cell)
+		cell.leftUtilityButtons = leftButtonsForMessage(conversation)
+		cell.rightUtilityButtons = rightButtonsForMessage(conversation)
 	}
 
-	class func refreshFlags(message: Message, view: MessageTableViewCell){
-		setUpReadFlagMessage(message: message, view: view)
-	}
+//	class func refreshFlags(message: Message, view: MessageTableViewCell){
+//		setUpReadFlagMessage(message: message, view: view)
+//	}
 
-	class func setUpReadFlagMessage(message: Message, view: MessageTableViewCell) {
-		if message.starred == true && !message.read {
+	class func setUpReadFlagMessage(conversation: Conversation, view: MessageTableViewCell) {
+		if conversation.hasFlaggedMessages && conversation.hasUnreadMessages {
+			view.readFlaggedImageView.image = UIImage(named: "read-and-flagged-icon")
+		} else if conversation.hasFlaggedMessages {
 			view.readFlaggedImageView.image = UIImage(named: "Orange_Dot")
-			// TODO: Add blue button encircled by orange
-		}
-		else if message.starred == true {
-			view.readFlaggedImageView.image = UIImage(named: "Orange_Dot")
-		}
-		else if message.starred == true {
+		} else if conversation.hasUnreadMessages {
 			view.readFlaggedImageView.image = UIImage(named: "Blue_Dot")
-		}
-		else {
+		} else {
 			view.readFlaggedImageView.image = nil
 		}
 	}
 
-
-	class func leftButtonsForMessage(_ message: Message)->[AnyObject]{
+	class func leftButtonsForMessage(_ conversation: Conversation)->[AnyObject]{
 		let array = NSMutableArray()
 		let readIcon = UIImage(named: "icon_read")?.imageResize(sizeChange: CGSize(width: 25, height: 23))
 		let unreadIcon = UIImage(named: "icon_unread")?.imageResize(sizeChange: CGSize(width: 25, height: 17))
 		
-		if !message.read {
-			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.lightBlue), icon: readIcon)
-		} else {
+		if !conversation.hasUnreadMessages {
 			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.lightBlue), icon: unreadIcon)
+		} else {
+			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.lightBlue), icon: readIcon)
 		}
 		return array as [AnyObject]
 	}
 
-	class func rightButtonsForMessage(_ message: Message)->[AnyObject]{
+	class func rightButtonsForMessage(_ conversation: Conversation)->[AnyObject]{
 		let array = NSMutableArray()
 		let flagIcon = UIImage(named: "icon_flag")?.imageResize(sizeChange: CGSize(width: 25, height: 34))
 		let unflagIcon = UIImage(named: "icon_unflag")?.imageResize(sizeChange: CGSize(width: 25, height: 44))
 		let archiveIcon = UIImage(named: "icon_archive")?.imageResize(sizeChange: CGSize(width: 25, height: 20))
 		let unarchiveIcon = UIImage(named: "icon_unarchive")?.imageResize(sizeChange: CGSize(width: 25, height: 21))
 		
-		if message.starred == true {
+		if conversation.hasFlaggedMessages {
 			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.orange), icon: unflagIcon)
 		} else {
 			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.orange), icon: flagIcon)
 		}
 
-		if message.archived  {
+		if conversation.hasArchivedMessages  {
 			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.darkBlue), icon: unarchiveIcon)
 		} else {
 			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.darkBlue), icon: archiveIcon)

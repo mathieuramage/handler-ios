@@ -80,6 +80,9 @@ struct MessageManager {
 		MessageOperations.setMessageArchive(message: message, archive: archive) { (success, messageData) in
 			if let data = messageData {
 				let _ = MessageDao.updateOrCreateMessage(messageData: data)
+				DispatchQueue.main.async {
+					NotificationCenter.default.post(name: AbstractMessageMailboxViewController.mailboxNeedsUpdate, object: nil, userInfo: nil)
+				}
 			} else {
 				// TODO handle failure
 			}
@@ -91,6 +94,9 @@ struct MessageManager {
 		MessageOperations.setMessageStarred(message: message, starred: flagged) { (success, messageData) in
 			if let data = messageData {
 				let _ = MessageDao.updateOrCreateMessage(messageData: data)
+				DispatchQueue.main.async {
+					NotificationCenter.default.post(name: AbstractMessageMailboxViewController.mailboxNeedsUpdate, object: nil, userInfo: nil)
+				}
 			} else {
 				// TODO handle failure
 			}
@@ -102,6 +108,9 @@ struct MessageManager {
 		MessageOperations.setMessageAsRead(message: message, read: read) { (success, messageData) in
 			if let data = messageData {
 				let _ = MessageDao.updateOrCreateMessage(messageData: data)
+				DispatchQueue.main.async {
+					NotificationCenter.default.post(name: AbstractMessageMailboxViewController.mailboxNeedsUpdate, object: nil, userInfo: nil)
+				}
 			} else {
 				// TODO handle failure
 			}

@@ -29,7 +29,11 @@ struct DraftsFormatter: MessageTableViewCellFormatter {
         view.messageContentPreviewLabel.text = nil
         view.leftUtilityButtons = nil
         view.rightUtilityButtons = nil
-        
+		
+		if let pictureUrl = message.sender?.pictureUrl {
+			view.senderProfileImageView.kf.setImage(with: pictureUrl, placeholder: UIImage.randomGhostImage(), options: nil, progressBlock: nil, completionHandler: nil)
+		}
+		
 //        view.leftUtilityButtons = leftButtonsForData(data: message)
 //        view.rightUtilityButtons = rightButtonsForData(data: message)
 //        if let urlString = message.sender?.profile_picture_url, let profileUrl = URL(string: urlString) {
@@ -88,8 +92,7 @@ struct DraftsFormatter: MessageTableViewCellFormatter {
     
     func setUpReadFlagMessage(data message: Message, view: MessageTableViewCell) {
         if message.starred && !message.read {
-            view.readFlaggedImageView.image = UIImage(named: "Orange_Dot")
-            // TODO: Add blue button encircled by orange
+            view.readFlaggedImageView.image = UIImage(named: "read-and-flagged-icon")
         }
         else if message.starred {
             view.readFlaggedImageView.image = UIImage(named: "Orange_Dot")
