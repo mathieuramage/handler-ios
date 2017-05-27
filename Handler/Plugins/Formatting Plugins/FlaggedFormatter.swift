@@ -88,8 +88,7 @@ struct FlaggedFormatter: MessageTableViewCellFormatter {
     
     func setUpReadFlagMessage(data message: Message, view: MessageTableViewCell) {
         if message.starred && !message.read {
-            view.readFlaggedImageView.image = UIImage(named: "Orange_Dot")
-            // TODO: Add blue button encircled by orange
+            view.readFlaggedImageView.image = UIImage(named: "read-and-flagged-icon")
         }
         else if message.starred {
             view.readFlaggedImageView.image = UIImage(named: "Orange_Dot")

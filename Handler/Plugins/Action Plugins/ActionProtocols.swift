@@ -13,4 +13,6 @@ protocol MessageTableViewCellActions {
     func rightButtonsForData(data message: Message)->[AnyObject]
     func rightButtonTriggered(_ index: Int, data message: Message, callback: (()->Void)?)
     func leftButtonTriggered(_ index: Int, data message: Message, callback: (()->Void)?)
+	func rightButtonTriggered(_ index: Int, data conversation: Conversation, callback: (()->Void)?)
+	func leftButtonTriggered(_ index: Int, data conversation: Conversation, callback: (()->Void)?)
 }

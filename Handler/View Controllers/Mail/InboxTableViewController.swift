@@ -15,7 +15,6 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 	
 	var conversationForSegue: Conversation?
 	var activeConversation : Conversation?
-    var waitingView: EmptyInboxView?
 
 	lazy var fetchedResultsController = NSFetchedResultsController<Conversation>(fetchRequest: ConversationDao.inboxFetchRequest, managedObjectContext: CoreDataStack.shared.viewContext, sectionNameKeyPath: nil, cacheName: nil)
 		
@@ -34,9 +33,10 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		tableView.tableFooterView = UIView()
 		tableView.emptyDataSetSource = self
 		self.refreshControl = UIRefreshControl()
+		self.fetchedResultsController.delegate = self
 		self.refreshControl!.addTarget(self, action: #selector(InboxTableViewController.refresh(_:)), for: UIControlEvents.valueChanged)
 		self.tableView.addSubview(refreshControl!)
-//		MailboxObserversManager.sharedInstance.addObserverForMailboxType(.Inbox, observer: self)
+		MailboxObserversManager.sharedInstance.addObserverForMailboxType(.Inbox, observer: self)
 		if let menuVC = sideMenuViewController?.leftMenuViewController as? SideMenuViewController {
 			sideMenuVC = menuVC
 		}
@@ -45,11 +45,17 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		NotificationCenter.default.addObserver(self, selector: #selector(conversationsUpdated), name:
-            ConversationManager.conversationUpdateFinishedNotification, object: nil)
+			ConversationManager.conversationUpdateFinishedNotification, object: nil)
+		// TODO: We need to check if this observer is necessary.
+//		NotificationCenter.default.addObserver(self, selector: #selector(refreshInbox), name:
+//			AbstractMessageMailboxViewController.mailboxNeedsUpdate, object: nil)
+	}
+	
+	func refreshInbox() {
+		refresh()
 	}
 	
 	func conversationsUpdated() {
-        waitingView?.waitingView.isHidden = false
         do {
             try self.fetchedResultsController.performFetch()
         } catch {
@@ -59,7 +65,6 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
         self.refreshControl?.endRefreshing()
 		sideMenuVC.optionsTableViewController?.mailboxCountDidChange(.Inbox, newCount: fetchedObjects.count)
 		tableView.reloadData()
-        waitingView?.waitingView.isHidden = fetchedObjects.count > 0
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
@@ -83,7 +88,6 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		unreadEmailsCountLabel?.textAlignment = .center
 		unreadEmailsCountLabel?.font = UIFont.systemFont(ofSize: 11)
 		unreadEmailsCountLabel?.textColor = UIColor(rgba: HexCodes.blueGray)
-		
 		
 //		_ = CurrentStatusManager.sharedInstance.currentStatusSubtitle.observeNext { text in
 //			Async.main {
@@ -119,18 +123,18 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		
 		self.navigationController?.navigationBar.addSubview(progressBar)
 		
-		/*if let cells = self.tableView.visibleCells as? [MessageTableViewCell] {
+		if let cells = self.tableView.visibleCells as? [MessageTableViewCell] {
 			for cell in cells {
 				if let path = tableView.indexPath(for: cell), path.row < fetchedObjects.count {
 					let conversation = fetchedObjects[path.row]
 					InboxMessageTableViewCellHelper.configureCell(cell, conversation: conversation)
 				}
 			}
-		}*/
+		}
 	
 		requestPushNotificationPermissions()
 		showTitleFadeIn(title: "Inbox")
-        ConversationManager.updateConversations()
+	    ConversationManager.updateConversations()
 	}
 	
 	override func viewDidDisappear(_ animated: Bool) {
@@ -229,7 +233,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		case NSFetchedResultsChangeType.update:
 			self.tableView.reloadRows(at: [indexPath!], with: UITableViewRowAnimation.fade)
 		case NSFetchedResultsChangeType.move:
-			self.tableView.moveRow(at: indexPath!, to: newIndexPath!)
+			self.tableView.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.fade)
 		}
 	}
 	
@@ -240,20 +244,17 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 	}
 	
 	func swipeableTableViewCell(_ cell: SWTableViewCell!, didTriggerLeftUtilityButtonWith index: Int) {
-
 		if let indexPath = tableView.indexPath(for: cell) {
 			let conversation = fetchedObjects[indexPath.row]
-			if conversation.read {
-				ConversationManager.markConversationAsUnread(conversation)
-				AppAnalytics.fireContentViewEvent(contentId: AppEvents.EmailActions.markUnread, event: AppEvents.EmailActions.self)
-			} else {
-				ConversationManager.markConversationAsRead(conversation)
-				AppAnalytics.fireContentViewEvent(contentId: AppEvents.EmailActions.markRead, event: AppEvents.EmailActions.self)
-
-			}
-			tableView.reloadRows(at: [indexPath], with: .none)
+			ActionPluginProvider.messageCellPluginForInboxType(MailboxType.Inbox)?.leftButtonTriggered(index, data: conversation, callback: nil)
 		}
-		
+	}
+	
+	func swipeableTableViewCell(_ cell: SWTableViewCell!, didTriggerRightUtilityButtonWith index: Int) {
+		if let indexPath = tableView.indexPath(for: cell) {
+			let conversation = fetchedObjects[indexPath.row]
+			ActionPluginProvider.messageCellPluginForInboxType(MailboxType.Inbox)?.rightButtonTriggered(index, data: conversation, callback: nil)
+		}
 	}
 	
 	func swipeableTableViewCellShouldHideUtilityButtons(onSwipe cell: SWTableViewCell!) -> Bool {
@@ -273,13 +274,9 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 	
 	// MARK: Empty Dataset DataSource
 	func customView(forEmptyDataSet scrollView: UIScrollView!) -> UIView! {
-        if waitingView == nil {
-		waitingView = Bundle.main.loadNibNamed("EmptyInboxView", owner: self, options: nil)?.first as?
-            EmptyInboxView
-        }
-		waitingView?.actionButton.addTarget(self, action: #selector(InboxTableViewController.composeNewMessage),
-		                                    for: .touchUpInside)
-		return waitingView
+		let view = Bundle.main.loadNibNamed("EmptyInboxView", owner: self, options: nil)?.first as! EmptyInboxView
+		view.actionButton.addTarget(self, action: #selector(InboxTableViewController.composeNewMessage), for: .touchUpInside)
+		return view
 	}
 }
 

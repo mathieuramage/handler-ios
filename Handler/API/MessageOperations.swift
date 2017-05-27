@@ -126,14 +126,21 @@ struct MessageOperations {
 	static func setMessageAsRead(message : Message, read : Bool, callback : MessageUpdateCallback?) {
 		var messageData = MessageUpdateData()
 		messageData.messageId = message.identifier
-		messageData.read = true
+		messageData.read = read
 		postExistingMessage(messageData, callback: callback)
 	}
 	
 	static func setMessageStarred(message : Message, starred : Bool, callback : MessageUpdateCallback?) {
 		var messageData = MessageUpdateData()
 		messageData.messageId = message.identifier
-		messageData.starred = true
+		messageData.starred = starred
+		postExistingMessage(messageData, callback: callback)
+	}
+	
+	static func setMessageArchive(message : Message, archive : Bool, callback : MessageUpdateCallback?) {
+		var messageData = MessageUpdateData()
+		messageData.messageId = message.identifier
+		messageData.folder = archive ? .Archived : .Inbox
 		postExistingMessage(messageData, callback: callback)
 	}
 	
@@ -270,7 +277,13 @@ struct MessageData {
     var recipients: [UserData]?
     var sender: UserData?
     var labels: [String]?
-    
+	
+	init(message: Message) {
+		read = message.read
+		shouldBeSent = message.shouldBeSent
+		starred = message.starred
+	}
+	
     init(json: JSON) {
 		identifier = json["id"].stringValue
         sender = UserData(json: json["sender"])

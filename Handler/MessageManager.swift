@@ -60,8 +60,45 @@ struct MessageManager {
 		markMessage(message, asRead: false)
 	}
 	
+	static func flagMessage(message: Message) {
+		flagMessage(message, flagged: true)
+	}
+	
+	static func unflagMessage(message: Message) {
+		flagMessage(message, flagged: false)
+	}
+	
+	static func archiveMessage(message: Message) {
+		archiveMessage(message, archive: true)
+	}
+	
+	static func unarchiveMessage(message: Message) {
+		archiveMessage(message, archive: false)
+	}
+	
+	private static func archiveMessage(_ message : Message, archive : Bool) {
+		MessageOperations.setMessageArchive(message: message, archive: archive) { (success, messageData) in
+			if let data = messageData {
+				let _ = MessageDao.updateOrCreateMessage(messageData: data)
+			} else {
+				// TODO handle failure
+			}
+		}
+	}
+	
+	private static func flagMessage(_ message : Message, flagged : Bool) {
+		message.starred = flagged
+		MessageOperations.setMessageStarred(message: message, starred: flagged) { (success, messageData) in
+			if let data = messageData {
+				let _ = MessageDao.updateOrCreateMessage(messageData: data)
+			} else {
+				// TODO handle failure
+			}
+		}
+	}
+	
 	private static func markMessage(_ message : Message, asRead read : Bool) {
-		message.read = true
+		message.read = read
 		MessageOperations.setMessageAsRead(message: message, read: read) { (success, messageData) in
 			if let data = messageData {
 				let _ = MessageDao.updateOrCreateMessage(messageData: data)

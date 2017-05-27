@@ -12,17 +12,17 @@ class ActionPluginProvider: NSObject {
 	class func messageCellPluginForInboxType(_ type: MailboxType)->MessageTableViewCellActions?{
 		switch type {
 		case .Inbox:
-			return InboxActionHandler()
+			return MailboxActionHandler()
 		case .Unread:
-			return InboxActionHandler()
+			return MailboxActionHandler()
 		case .Flagged:
-			return InboxActionHandler()
+			return MailboxActionHandler()
 		case .Drafts:
 			return nil
 		case .Sent:
 			return nil
 		case .Archive:
-			return InboxActionHandler()
+			return MailboxActionHandler()
 		default:
 			return nil
 		}

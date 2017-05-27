@@ -12,6 +12,9 @@ import DZNEmptyDataSet
 
 class AbstractMessageMailboxViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, SWTableViewCellDelegate, /*MailboxCountObserver, */ DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
 	
+	static let mailboxNeedsUpdate = Notification.Name("MailboxNeedsUpdate")
+	
+	var sideMenuVC: SideMenuViewController!
 	var fetchedResultsController: NSFetchedResultsController<Message>!
 	var fetchedObjects: [Message] {return fetchedResultsController.fetchedObjects ?? [Message]()}
 	
@@ -38,7 +41,11 @@ class AbstractMessageMailboxViewController: UIViewController, UITableViewDataSou
 		tableView.emptyDataSetDelegate = self
 		tableView.emptyDataSetSource = self
 		fetchedResultsController.delegate = self
-		
+		if let menuVC = sideMenuViewController?.leftMenuViewController as? SideMenuViewController {
+			sideMenuVC = menuVC
+		}
+		NotificationCenter.default.addObserver(self, selector: #selector(refresh), name:
+			AbstractMessageMailboxViewController.mailboxNeedsUpdate, object: nil)
 		//		MailboxObserversManager.sharedInstance.addObserverForMailboxType(mailboxType , observer: self)
 		//		MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(mailboxType , observer: self)
 	}
@@ -83,6 +90,7 @@ class AbstractMessageMailboxViewController: UIViewController, UITableViewDataSou
 	func refresh() {
 		ConversationOperations.getAllConversations(before: Date(), after: nil, limit: 0) { (success, conversations) in
 			//            self.refreshControl?.endRefreshing()
+			self.sideMenuVC.optionsTableViewController?.mailboxCountDidChange(self.mailboxType, newCount: self.fetchedObjects.count)
 		}
 	}
 	
@@ -135,22 +143,14 @@ class AbstractMessageMailboxViewController: UIViewController, UITableViewDataSou
 		let count = fetchedObjects.count
 		
 		if indexPath.row < count {
-			
 			let message = fetchedObjects[indexPath.row]
 			
-			let count = fetchedObjects.count
+			messageForSegue = message
 			
-			if indexPath.row < count {
-				
-				let message = fetchedObjects[indexPath.row]
-				
-				messageForSegue = message
-				
-				if mailboxType == .Drafts {
-					performSegue(withIdentifier: "showMessageComposeNavigationController", sender: self)
-				} else if let _ = message.conversation {
-					performSegue(withIdentifier: "showConversationTableViewController", sender: self)
-				}
+			if mailboxType == .Drafts {
+				performSegue(withIdentifier: "showMessageComposeNavigationController", sender: self)
+			} else if let _ = message.conversation {
+				performSegue(withIdentifier: "showConversationTableViewController", sender: self)
 			}
 		}
 	}

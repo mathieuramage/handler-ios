@@ -22,7 +22,7 @@ struct ConversationDao {
     }()
 	
 	static var unreadFetchRequest : NSFetchRequest<Conversation> = {
-		let predicate = NSPredicate(format: "SUBQUERY(messages, $t, $t.folderString == %@ && $t.read == NO).@count != 0", Folder.Inbox.rawValue)
+		let predicate = NSPredicate(format: "SUBQUERY(messages, $t, $t.folderString == %@ && $t.read == false).@count != 0", Folder.Inbox.rawValue)
 		let fetchRequest : NSFetchRequest<Conversation> = Conversation.fetchRequest()
 		fetchRequest.fetchBatchSize = 20
 		fetchRequest.predicate = predicate
@@ -37,7 +37,7 @@ struct ConversationDao {
         fetchRequest.predicate = NSPredicate(format: "identifier == %@", conversationData.identifier!)
         fetchRequest.fetchBatchSize = 1
 		
-        if let conversation = (context.safeExecute(fetchRequest) as [Conversation]).first as Conversation? {
+        if let conversation = context.safeExecute(fetchRequest).first {
             conversation.setConversationData(conversationData)
             return conversation
         }

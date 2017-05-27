@@ -27,7 +27,7 @@ extension Conversation {
 				let message = MessageDao.updateOrCreateMessage(messageData: messageData, context: self.managedObjectContext!)
 				self.addToMessages(message)
 				if message.createdAt?.isLaterThanDate(latest) == true {
-					latest = message.createdAt as! Date
+					latest = message.createdAt! as Date
 				}
 			}
 		}
@@ -48,7 +48,55 @@ extension Conversation {
             return latest
         }
     }
-    
+	
+	var hasUnreadMessages : Bool {
+		get {
+			guard let messages = messages?.allObjects as? [Message] else {
+				return false
+			}
+			
+			for message in messages {
+				if !message.read {
+					return true
+				}
+			}
+			
+			return false
+		}
+	}
+	
+	var hasFlaggedMessages : Bool {
+		get {
+			guard let messages = messages?.allObjects as? [Message] else {
+				return false
+			}
+			
+			for message in messages {
+				if message.starred {
+					return true
+				}
+			}
+			
+			return false
+		}
+	}
+	
+	var hasArchivedMessages : Bool {
+		get {
+			guard let messages = messages?.allObjects as? [Message] else {
+				return false
+			}
+			
+			for message in messages {
+				if message.archived {
+					return true
+				}
+			}
+			
+			return false
+		}
+	}
+	
     var latestUnreadMessage : Message? {
         get {
             guard let messages = messages?.allObjects as? [Message] else {
