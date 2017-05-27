@@ -15,6 +15,7 @@ class UnreadMailboxViewController: UITableViewController, SWTableViewCellDelegat
 
 	var conversationForSegue: Conversation?
 	var activeConversation : Conversation?
+    var waitingView: EmptyInboxView?
 	
 	lazy var fetchedResultsController = NSFetchedResultsController<Conversation>(fetchRequest: ConversationDao.unreadFetchRequest, managedObjectContext: CoreDataStack.shared.viewContext, sectionNameKeyPath: nil, cacheName: nil)
 	
@@ -51,6 +52,7 @@ class UnreadMailboxViewController: UITableViewController, SWTableViewCellDelegat
 	}
 	
 	func conversationsUpdated() {
+        waitingView?.waitingView.isHidden = false
 		do {
 			try self.fetchedResultsController.performFetch()
 		} catch {
@@ -60,6 +62,7 @@ class UnreadMailboxViewController: UITableViewController, SWTableViewCellDelegat
 		self.refreshControl?.endRefreshing()
 		sideMenuVC.optionsTableViewController?.mailboxCountDidChange(.Inbox, newCount: fetchedObjects.count)
 		tableView.reloadData()
+        waitingView?.waitingView.isHidden = fetchedObjects.count > 0
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
@@ -301,11 +304,15 @@ class UnreadMailboxViewController: UITableViewController, SWTableViewCellDelegat
 	}
 
 	func customView(forEmptyDataSet scrollView: UIScrollView!) -> UIView! {
-		let view = Bundle.main.loadNibNamed("EmptyInboxView", owner: self, options: nil)?.first as! EmptyInboxView
-		view.imageView.image = UIImage(named: "mailbox_unread_empty")
-		view.descriptionLabel.text = "Your unread emails will be here."
-		view.actionButton.setTitle("Compose your first email", for: UIControlState())
-		view.actionButton.addTarget(self, action: #selector(UnreadMailboxViewController.composeNewMessage), for: .touchUpInside)
+        if waitingView == nil {
+		waitingView = Bundle.main.loadNibNamed("EmptyInboxView", owner: self, options: nil)?.first as?
+        EmptyInboxView
+        }
+		waitingView?.imageView.image = UIImage(named: "mailbox_unread_empty")
+		waitingView?.descriptionLabel.text = "Your unread emails will be here."
+		waitingView?.actionButton.setTitle("Compose your first email", for: UIControlState())
+		waitingView?.actionButton.addTarget(self, action:
+            #selector(UnreadMailboxViewController.composeNewMessage), for: .touchUpInside)
 		return view
 	}
 }

@@ -10,6 +10,8 @@ import UIKit
 import CoreData
 
 class ArchiveMailboxViewController: AbstractMessageMailboxViewController {
+
+    var waitingView: EmptyInboxView?
 	
 	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
@@ -54,17 +56,16 @@ class ArchiveMailboxViewController: AbstractMessageMailboxViewController {
 		self.navigationController!.toolbar.items = [space, item, space, composeItem]
 		showTitleFadeIn(title: "Archive")
 	}
-	
+
 	func customViewForEmptyDataSet(_ scrollView: UIScrollView!) -> UIView! {
-		let view = Bundle.main.loadNibNamed("EmptyInboxView",
-			owner: self,
-			options: nil)?.first as! EmptyInboxView
-		view.imageView.image = UIImage(named: "mailbox_archive_empty")
-		view.descriptionLabel.text = "Your archived emails will be here."
-		view.actionButton.addTarget(
-			self,
-			action: #selector(ArchiveMailboxViewController.composeNewMessage),
-			for: .touchUpInside)
+        if waitingView == nil {
+		waitingView = Bundle.main.loadNibNamed("EmptyInboxView", owner: self,
+			options: nil)?.first as? EmptyInboxView
+        }
+		waitingView?.imageView.image = UIImage(named: "mailbox_archive_empty")
+		waitingView?.descriptionLabel.text = "Your archived emails will be here."
+		waitingView?.actionButton.addTarget(
+			self, action: #selector(ArchiveMailboxViewController.composeNewMessage), for: .touchUpInside)
 		return view
 	}
 }
