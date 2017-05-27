@@ -72,6 +72,33 @@ struct MessageDao {
 		return fetchRequest
 	}
 	
+	static func getMessageDataArray(messages: [Message], folderString: String?, conversationId: String, starred: Bool?, read: Bool?) -> [MessageData] {
+		var messagesData = [MessageData]()
+		for i in 0..<messages.count {
+			let message = messages[i]
+			var msg = MessageData(message: message)
+			msg.identifier = message.identifier
+			msg.conversationId = conversationId
+			msg.folderString = folderString ?? message.folderString
+			msg.sender = UserData(user: message.sender)
+			msg.subject = message.subject
+			msg.content = message.content
+			if let flagged = starred {
+				msg.starred = flagged
+				if flagged {
+					MessageManager.flagMessage(message: message)
+				} else {
+					MessageManager.unflagMessage(message: message)
+				}
+			}
+			msg.read = read ?? message.read
+			let date = Date(timeIntervalSince1970: (message.createdAt?.timeIntervalSince1970)!)
+			msg.createdAt = date
+			messagesData.append(msg)
+		}
+		return messagesData
+	}
+	
 	//
 	//
 	//    static func deleteOldArchivedMessages() {

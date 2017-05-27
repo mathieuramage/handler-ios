@@ -47,6 +47,11 @@ struct UserData {
 	var updatedAt: Date?
 	var twitterUser: TwitterUserData?
 	
+	init(user : User?) {
+		identifier = user?.identifier
+		isContact = (user?.isContact ?? nil)!
+	}
+	
 	init(json : JSON) {
 		identifier = json["id"].string
 		if let createdAtStr = json["createdAt"].string {

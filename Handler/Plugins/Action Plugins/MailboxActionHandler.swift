@@ -1,20 +1,72 @@
 //
-//  InboxActionHandler.swift
+//  MailboxActionHandler.swift
 //  Handler
 //
-//  Created by Christian Praiss on 19/11/15.
-//  Copyright (c) 2013-2016 Mathieu Ramage - All Rights Reserved.
+//  Created by Marco Antonio Nascimento on 22.05.17.
+//  Copyright © 2017 Handler, Inc. All rights reserved.
 //
 
 import UIKit
 
-class InboxActionHandler: MessageTableViewCellActions {
+class MailboxActionHandler: MessageTableViewCellActions {
 	
 	let EmailActionEvents = AppEvents.EmailActions.self
 	
+	// MARK: Conversation Actions
+	func leftButtonTriggered(_ index: Int, data conversation: Conversation, callback: (() -> Void)?) {
+		
+		switch index {
+		case 0:
+			if conversation.hasUnreadMessages {
+				ConversationManager.markConversationAsRead(conversation)
+			} else {
+				ConversationManager.markConversationAsUnread(conversation)
+			}
+			break;
+		default:
+			break
+		}
+		
+		defer{
+			if let cb = callback {
+				cb()
+			}
+		}
+		
+		// TODO: Implement actions
+	}
+	
+	func rightButtonTriggered(_ index: Int, data conversation: Conversation, callback: (() -> Void)?) {
+		
+		switch index {
+		case 0:
+			if conversation.hasFlaggedMessages {
+				ConversationManager.unflagConversation(conversation: conversation)
+			} else {
+				ConversationManager.flagConversation(conversation: conversation)
+			}
+			break
+		case 1:
+			if conversation.hasArchivedMessages {
+				ConversationManager.unarchiveConversation(conversation: conversation)
+			} else {
+				ConversationManager.archiveConversation(conversation: conversation)
+			}
+			break
+		default:
+			break
+		}
+		
+		defer{
+			if let cb = callback {
+				cb()
+			}
+		}
+	}
+	
 	// MARK: Actions
 	func leftButtonTriggered(_ index: Int, data message: Message, callback: (() -> Void)?) {
-	
+		
 		switch index {
 		case 0:
 			if !message.read {
@@ -37,7 +89,7 @@ class InboxActionHandler: MessageTableViewCellActions {
 		
 		// TODO: Implement actions
 	}
-
+	
 	func rightButtonTriggered(_ index: Int, data message: Message, callback: (() -> Void)?) {
 		
 		switch index {
@@ -67,7 +119,7 @@ class InboxActionHandler: MessageTableViewCellActions {
 	}
 	
 	// MARK: Data Source
-
+	
 	func leftButtonsForData(data message: Message) -> [AnyObject] {
 		let array = NSMutableArray()
 		let readIcon = UIImage(named: "icon_read")?.imageResize(sizeChange: CGSize(width: 25, height: 23))
@@ -80,7 +132,7 @@ class InboxActionHandler: MessageTableViewCellActions {
 		}
 		return array as [AnyObject]
 	}
-
+	
 	func rightButtonsForData(data message: Message) -> [AnyObject] {
 		let array = NSMutableArray()
 		let flagIcon = UIImage(named: "icon_flag")?.imageResize(sizeChange: CGSize(width: 25, height: 34))

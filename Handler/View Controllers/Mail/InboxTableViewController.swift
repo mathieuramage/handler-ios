@@ -33,9 +33,10 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		tableView.tableFooterView = UIView()
 		tableView.emptyDataSetSource = self
 		self.refreshControl = UIRefreshControl()
+		self.fetchedResultsController.delegate = self
 		self.refreshControl!.addTarget(self, action: #selector(InboxTableViewController.refresh(_:)), for: UIControlEvents.valueChanged)
 		self.tableView.addSubview(refreshControl!)
-//		MailboxObserversManager.sharedInstance.addObserverForMailboxType(.Inbox, observer: self)
+		MailboxObserversManager.sharedInstance.addObserverForMailboxType(.Inbox, observer: self)
 		if let menuVC = sideMenuViewController?.leftMenuViewController as? SideMenuViewController {
 			sideMenuVC = menuVC
 		}
@@ -44,9 +45,10 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		NotificationCenter.default.addObserver(self, selector: #selector(conversationsUpdated), name:
-            ConversationManager.conversationUpdateFinishedNotification, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(refreshInbox), name:
-			AbstractMessageMailboxViewController.mailboxNeedsUpdate, object: nil)
+			ConversationManager.conversationUpdateFinishedNotification, object: nil)
+		// TODO: We need to check if this observer is necessary.
+//		NotificationCenter.default.addObserver(self, selector: #selector(refreshInbox), name:
+//			AbstractMessageMailboxViewController.mailboxNeedsUpdate, object: nil)
 	}
 	
 	func refreshInbox() {
@@ -231,7 +233,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		case NSFetchedResultsChangeType.update:
 			self.tableView.reloadRows(at: [indexPath!], with: UITableViewRowAnimation.fade)
 		case NSFetchedResultsChangeType.move:
-			self.tableView.moveRow(at: indexPath!, to: newIndexPath!)
+			self.tableView.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.fade)
 		}
 	}
 	
@@ -242,34 +244,16 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 	}
 	
 	func swipeableTableViewCell(_ cell: SWTableViewCell!, didTriggerLeftUtilityButtonWith index: Int) {
-
 		if let indexPath = tableView.indexPath(for: cell) {
 			let conversation = fetchedObjects[indexPath.row]
-			if conversation.hasUnreadMessages {
-				ConversationManager.markConversationAsRead(conversation)
-			} else {
-				ConversationManager.markConversationAsUnread(conversation)
-			}
+			ActionPluginProvider.messageCellPluginForInboxType(MailboxType.Inbox)?.leftButtonTriggered(index, data: conversation, callback: nil)
 		}
-		
 	}
 	
 	func swipeableTableViewCell(_ cell: SWTableViewCell!, didTriggerRightUtilityButtonWith index: Int) {
 		if let indexPath = tableView.indexPath(for: cell) {
 			let conversation = fetchedObjects[indexPath.row]
-			if index == 0 {
-				if conversation.hasFlaggedMessages {
-					ConversationManager.unflagConversation(conversation: conversation)
-				} else {
-					ConversationManager.flagConversation(conversation: conversation)
-				}
-			} else if index == 1 {
-				if conversation.hasArchivedMessages {
-					ConversationManager.unarchiveConversation(conversation: conversation)
-				} else {
-					ConversationManager.archiveConversation(conversation: conversation)
-				}
-			}
+			ActionPluginProvider.messageCellPluginForInboxType(MailboxType.Inbox)?.rightButtonTriggered(index, data: conversation, callback: nil)
 		}
 	}
 	
