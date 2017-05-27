@@ -1,8 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -14,18 +19,18 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your new emails will be here" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FBU-Ob-bdW">
                     <rect key="frame" x="20" y="282" width="290" height="26"/>
                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="22"/>
-                    <color key="textColor" red="0.40000000000000002" green="0.45882352941176469" blue="0.49803921568627452" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.40000000000000002" green="0.45882352941176469" blue="0.49803921568627452" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" tag="300" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fou-cH-jqC">
                     <rect key="frame" x="65" y="320" width="200" height="40"/>
-                    <color key="backgroundColor" red="0.3320851293" green="0.66610991379999995" blue="0.92362607760000004" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.3320851293" green="0.66610991379999995" blue="0.92362607760000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="Xdq-x2-1Uq"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                     <state key="normal" title="Compose your next email">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -39,11 +44,31 @@
                         <constraint firstAttribute="width" secondItem="DCy-XP-z8m" secondAttribute="height" multiplier="262:203" id="gzI-s8-Nb1"/>
                     </constraints>
                 </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sX3-Ls-v0r">
+                    <rect key="frame" x="0.0" y="0.0" width="330" height="360"/>
+                    <subviews>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="3Cj-Nq-aEe">
+                            <rect key="frame" x="156" y="171" width="20" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="20" id="77v-yv-OMM"/>
+                                <constraint firstAttribute="height" constant="20" id="IUk-wf-WAy"/>
+                            </constraints>
+                        </activityIndicatorView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="3Cj-Nq-aEe" firstAttribute="centerY" secondItem="sX3-Ls-v0r" secondAttribute="centerY" constant="1" id="1CZ-aU-okH"/>
+                        <constraint firstItem="3Cj-Nq-aEe" firstAttribute="centerX" secondItem="sX3-Ls-v0r" secondAttribute="centerX" constant="1" id="s7l-A8-5Zy"/>
+                    </constraints>
+                </view>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="sX3-Ls-v0r" secondAttribute="bottom" id="7My-cd-UPR"/>
                 <constraint firstAttribute="bottom" secondItem="Fou-cH-jqC" secondAttribute="bottom" id="A1w-dt-Hkj"/>
+                <constraint firstAttribute="trailing" secondItem="sX3-Ls-v0r" secondAttribute="trailing" id="BOM-gR-Ner"/>
+                <constraint firstItem="sX3-Ls-v0r" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Bjc-Gz-oAw"/>
                 <constraint firstItem="FBU-Ob-bdW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="KbE-xS-BTH"/>
                 <constraint firstItem="DCy-XP-z8m" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="34" id="X2R-5P-CHh"/>
                 <constraint firstAttribute="trailing" secondItem="DCy-XP-z8m" secondAttribute="trailing" constant="34" id="YBY-lp-PHU"/>
@@ -53,6 +78,7 @@
                 <constraint firstAttribute="trailing" secondItem="Fou-cH-jqC" secondAttribute="trailing" constant="65" id="o0P-n3-Deu"/>
                 <constraint firstItem="Fou-cH-jqC" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="65" id="vZg-1K-O77"/>
                 <constraint firstItem="FBU-Ob-bdW" firstAttribute="centerX" secondItem="Fou-cH-jqC" secondAttribute="centerX" id="wbX-KJ-dm8"/>
+                <constraint firstItem="sX3-Ls-v0r" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="zCz-uJ-sdt"/>
                 <constraint firstItem="FBU-Ob-bdW" firstAttribute="top" secondItem="DCy-XP-z8m" secondAttribute="bottom" constant="78.5" id="zyj-Gk-bbS"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
@@ -63,6 +89,7 @@
                 <outlet property="actionButton" destination="Fou-cH-jqC" id="hsy-oP-hCL"/>
                 <outlet property="descriptionLabel" destination="FBU-Ob-bdW" id="HpB-1e-75A"/>
                 <outlet property="imageView" destination="DCy-XP-z8m" id="UjO-B5-d6g"/>
+                <outlet property="waitingView" destination="sX3-Ls-v0r" id="3MV-bb-JZ0"/>
             </connections>
             <point key="canvasLocation" x="365" y="350"/>
         </view>

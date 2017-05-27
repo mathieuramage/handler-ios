@@ -13,5 +13,5 @@ class EmptyInboxView: UIView {
 	@IBOutlet weak var imageView: UIImageView!
 	@IBOutlet weak var descriptionLabel: UILabel!
 	@IBOutlet weak var actionButton: UIButton!
-
+    @IBOutlet weak var waitingView: UIView!
 }
