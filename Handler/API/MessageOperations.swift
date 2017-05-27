@@ -277,7 +277,13 @@ struct MessageData {
     var recipients: [UserData]?
     var sender: UserData?
     var labels: [String]?
-    
+	
+	init(message: Message) {
+		read = message.read
+		shouldBeSent = message.shouldBeSent
+		starred = message.starred
+	}
+	
     init(json: JSON) {
 		identifier = json["id"].stringValue
         sender = UserData(json: json["sender"])

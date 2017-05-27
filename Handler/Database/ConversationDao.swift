@@ -37,7 +37,7 @@ struct ConversationDao {
         fetchRequest.predicate = NSPredicate(format: "identifier == %@", conversationData.identifier!)
         fetchRequest.fetchBatchSize = 1
 		
-        if let conversation = (context.safeExecute(fetchRequest) as [Conversation]).first as Conversation? {
+        if let conversation = context.safeExecute(fetchRequest).first {
             conversation.setConversationData(conversationData)
             return conversation
         }
