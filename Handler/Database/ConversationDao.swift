@@ -39,21 +39,14 @@ struct ConversationDao {
 		
         if let conversation = context.safeExecute(fetchRequest).first {
             conversation.setConversationData(conversationData)
+			NotificationCenter.default.post(name: AbstractMessageMailboxViewController.menuNeedsUpdate, object: nil, userInfo: nil)
             return conversation
         }
         
         let conversation = Conversation(data: conversationData, context: context)
 		
+		NotificationCenter.default.post(name: AbstractMessageMailboxViewController.menuNeedsUpdate, object: nil, userInfo: nil)
         return conversation
-    }
-    
-    
-    static func archiveConversation(conversation : Conversation, inBackground : Bool = false) {
-        
-    }
-    
-    static func unarchiveConversation(conversation : Conversation, inBackground : Bool = false) {
-        
     }
 
 }

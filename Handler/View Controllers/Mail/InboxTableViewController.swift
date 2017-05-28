@@ -46,9 +46,10 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		super.viewWillAppear(animated)
 		NotificationCenter.default.addObserver(self, selector: #selector(conversationsUpdated), name:
 			ConversationManager.conversationUpdateFinishedNotification, object: nil)
-		// TODO: We need to check if this observer is necessary.
-//		NotificationCenter.default.addObserver(self, selector: #selector(refreshInbox), name:
-//			AbstractMessageMailboxViewController.mailboxNeedsUpdate, object: nil)
+	}
+	
+	func updateSideMenu() {
+		self.sideMenuVC.optionsTableViewController?.mailboxCountDidChange(.Inbox, newCount: self.fetchedObjects.count)
 	}
 	
 	func refreshInbox() {
@@ -235,6 +236,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		case NSFetchedResultsChangeType.move:
 			self.tableView.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.fade)
 		}
+		updateSideMenu()
 	}
 	
 	// MARK: Swipe Cell

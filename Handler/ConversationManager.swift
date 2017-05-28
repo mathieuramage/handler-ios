@@ -85,6 +85,10 @@ struct ConversationManager {
 					
 					DispatchQueue.main.async {
 						NotificationCenter.default.post(
+							name: AbstractMessageMailboxViewController.menuNeedsUpdate,
+							object: nil,
+							userInfo: nil)
+						NotificationCenter.default.post(
 							name: conversationUpdateFinishedNotification,
 							object: nil,
 							userInfo: nil)

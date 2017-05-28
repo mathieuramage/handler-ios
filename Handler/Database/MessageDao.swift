@@ -36,6 +36,7 @@ struct MessageDao {
 		}
 		DispatchQueue.main.async {
 			NotificationCenter.default.post(name: AbstractMessageMailboxViewController.mailboxNeedsUpdate, object: nil, userInfo: nil)
+			NotificationCenter.default.post(name: AbstractMessageMailboxViewController.menuNeedsUpdate, object: nil, userInfo: nil)
 		}
 		
 		return message

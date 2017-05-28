@@ -29,10 +29,11 @@ class UnreadMailboxViewController: UITableViewController, SWTableViewCellDelegat
 		tableView.register(UINib(nibName: "MessageTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "MessageTableViewCell")
 		tableView.tableFooterView = UIView()
 		tableView.emptyDataSetSource = self
+		self.fetchedResultsController.delegate = self
 		self.refreshControl = UIRefreshControl()
 		self.refreshControl!.addTarget(self, action: #selector(InboxTableViewController.refresh(_:)), for: UIControlEvents.valueChanged)
 		self.tableView.addSubview(refreshControl!)
-		//		MailboxObserversManager.sharedInstance.addObserverForMailboxType(.Inbox, observer: self)
+//		MailboxObserversManager.sharedInstance.addObserverForMailboxType(.Unread, observer: self)
 		if let menuVC = sideMenuViewController?.leftMenuViewController as? SideMenuViewController {
 			sideMenuVC = menuVC
 		}
@@ -250,34 +251,16 @@ class UnreadMailboxViewController: UITableViewController, SWTableViewCellDelegat
 	}
 	
 	func swipeableTableViewCell(_ cell: SWTableViewCell!, didTriggerLeftUtilityButtonWith index: Int) {
-		
 		if let indexPath = tableView.indexPath(for: cell) {
 			let conversation = fetchedObjects[indexPath.row]
-			if conversation.hasUnreadMessages {
-				ConversationManager.markConversationAsRead(conversation)
-			} else {
-				ConversationManager.markConversationAsUnread(conversation)
-			}
+			ActionPluginProvider.messageCellPluginForInboxType(MailboxType.Unread)?.leftButtonTriggered(index, data: conversation, callback: nil)
 		}
-		
 	}
 	
 	func swipeableTableViewCell(_ cell: SWTableViewCell!, didTriggerRightUtilityButtonWith index: Int) {
 		if let indexPath = tableView.indexPath(for: cell) {
 			let conversation = fetchedObjects[indexPath.row]
-			if index == 0 {
-				if conversation.hasFlaggedMessages {
-					ConversationManager.unflagConversation(conversation: conversation)
-				} else {
-					ConversationManager.flagConversation(conversation: conversation)
-				}
-			} else if index == 1 {
-				if conversation.hasArchivedMessages {
-					ConversationManager.unarchiveConversation(conversation: conversation)
-				} else {
-					ConversationManager.archiveConversation(conversation: conversation)
-				}
-			}
+			ActionPluginProvider.messageCellPluginForInboxType(MailboxType.Unread)?.rightButtonTriggered(index, data: conversation, callback: nil)
 		}
 	}
 	
