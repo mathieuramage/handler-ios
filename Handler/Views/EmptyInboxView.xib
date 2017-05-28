@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -44,7 +44,7 @@
                         <constraint firstAttribute="width" secondItem="DCy-XP-z8m" secondAttribute="height" multiplier="262:203" id="gzI-s8-Nb1"/>
                     </constraints>
                 </imageView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sX3-Ls-v0r">
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sX3-Ls-v0r">
                     <rect key="frame" x="0.0" y="0.0" width="330" height="360"/>
                     <subviews>
                         <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="3Cj-Nq-aEe">
@@ -91,7 +91,7 @@
                 <outlet property="imageView" destination="DCy-XP-z8m" id="UjO-B5-d6g"/>
                 <outlet property="waitingView" destination="sX3-Ls-v0r" id="3MV-bb-JZ0"/>
             </connections>
-            <point key="canvasLocation" x="365" y="350"/>
+            <point key="canvasLocation" x="-105" y="10"/>
         </view>
     </objects>
     <resources>
