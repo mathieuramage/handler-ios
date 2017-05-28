@@ -26,6 +26,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 	var lastupdatedLabel: UILabel?
 	var unreadEmailsCountLabel: UILabel?
 	var sideMenuVC: SideMenuViewController!
+    var emptyView: EmptyInboxView? = nil
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -66,6 +67,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
         self.refreshControl?.endRefreshing()
 		sideMenuVC.optionsTableViewController?.mailboxCountDidChange(.Inbox, newCount: fetchedObjects.count)
 		tableView.reloadData()
+        emptyView?.waitingView.isHidden = true
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
@@ -276,9 +278,14 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 	
 	// MARK: Empty Dataset DataSource
 	func customView(forEmptyDataSet scrollView: UIScrollView!) -> UIView! {
-		let view = Bundle.main.loadNibNamed("EmptyInboxView", owner: self, options: nil)?.first as! EmptyInboxView
-		view.actionButton.addTarget(self, action: #selector(InboxTableViewController.composeNewMessage), for: .touchUpInside)
-		return view
+        if(emptyView == nil) {
+		emptyView = Bundle.main.loadNibNamed("EmptyInboxView", owner: self, options: nil)?.first as?
+            EmptyInboxView
+        }
+		emptyView?.actionButton.addTarget(self, action: #selector(InboxTableViewController.composeNewMessage),
+		                                  for: .touchUpInside)
+        emptyView?.waitingView.isHidden = false;
+		return emptyView
 	}
 }
 
