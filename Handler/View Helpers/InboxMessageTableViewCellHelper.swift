@@ -102,7 +102,6 @@ class InboxMessageTableViewCellHelper {
 		let flagIcon = UIImage(named: "icon_flag")?.imageResize(sizeChange: CGSize(width: 25, height: 34))
 		let unflagIcon = UIImage(named: "icon_unflag")?.imageResize(sizeChange: CGSize(width: 25, height: 44))
 		let archiveIcon = UIImage(named: "icon_archive")?.imageResize(sizeChange: CGSize(width: 25, height: 20))
-		let unarchiveIcon = UIImage(named: "icon_unarchive")?.imageResize(sizeChange: CGSize(width: 25, height: 21))
 		
 		if conversation.hasFlaggedMessages {
 			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.orange), icon: unflagIcon)
@@ -110,11 +109,7 @@ class InboxMessageTableViewCellHelper {
 			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.orange), icon: flagIcon)
 		}
 
-		if conversation.hasArchivedMessages  {
-			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.darkBlue), icon: unarchiveIcon)
-		} else {
-			array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.darkBlue), icon: archiveIcon)
-		}
+		array.sw_addUtilityButton(with: UIColor(rgba: HexCodes.darkBlue), icon: archiveIcon)
 		return array as [AnyObject]
 	}
 	

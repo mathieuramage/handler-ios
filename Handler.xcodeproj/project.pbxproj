@@ -221,6 +221,7 @@
 		DF1FD2E51B62360600A58B71 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF1FD2E41B62360600A58B71 /* Images.xcassets */; };
 		E075A29D1EA2A27F00D16DB2 /* TwitterContactCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E075A29C1EA2A27F00D16DB2 /* TwitterContactCardViewController.swift */; };
 		E082D60B1ED3694C00F9687D /* MailboxActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E082D60A1ED3694C00F9687D /* MailboxActionHandler.swift */; };
+		E0872B331EDAE82C00DF6EC4 /* InboxActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0872B321EDAE82C00DF6EC4 /* InboxActionHandler.swift */; };
 		E0DD0FCD1E99337D0075AD0C /* UIViewController+Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DD0FCC1E99337D0075AD0C /* UIViewController+Animations.swift */; };
 /* End PBXBuildFile section */
 
@@ -537,6 +538,7 @@
 		DF1FD2E71B62360600A58B71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		E075A29C1EA2A27F00D16DB2 /* TwitterContactCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterContactCardViewController.swift; sourceTree = "<group>"; };
 		E082D60A1ED3694C00F9687D /* MailboxActionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MailboxActionHandler.swift; sourceTree = "<group>"; };
+		E0872B321EDAE82C00DF6EC4 /* InboxActionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxActionHandler.swift; sourceTree = "<group>"; };
 		E0DD0FCC1E99337D0075AD0C /* UIViewController+Animations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Animations.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -692,6 +694,7 @@
 				2F7B0D081BFDDA920015C43A /* ActionPluginProvider.swift */,
 				2F7B0D061BFDD9A20015C43A /* ActionProtocols.swift */,
 				E082D60A1ED3694C00F9687D /* MailboxActionHandler.swift */,
+				E0872B321EDAE82C00DF6EC4 /* InboxActionHandler.swift */,
 			);
 			name = "Swipe Action Plugins";
 			path = "Action Plugins";
@@ -1460,6 +1463,7 @@
 				2FDDE1421BAF5A17006C3500 /* Protocols.swift in Sources */,
 				2F994E4E1BB2AE3500A63B9B /* SWCellScrollView.m in Sources */,
 				2FA271A11BB69ED000B22C8B /* CLBackspaceDetectingTextField.m in Sources */,
+				E0872B331EDAE82C00DF6EC4 /* InboxActionHandler.swift in Sources */,
 				BF27F38B1CDDF01C003A92D9 /* APContactDate.m in Sources */,
 				BF27F3891CDDF01C003A92D9 /* APAddress.m in Sources */,
 				2FF0D1301BB4A802009467B5 /* ConversationTableViewController.swift in Sources */,

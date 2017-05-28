@@ -12,7 +12,7 @@ class ActionPluginProvider: NSObject {
 	class func messageCellPluginForInboxType(_ type: MailboxType)->MessageTableViewCellActions?{
 		switch type {
 		case .Inbox:
-			return MailboxActionHandler()
+			return InboxActionHandler()
 		case .Unread:
 			return MailboxActionHandler()
 		case .Flagged:

@@ -13,10 +13,17 @@ import DZNEmptyDataSet
 class AbstractMessageMailboxViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, SWTableViewCellDelegate, /*MailboxCountObserver, */ DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
 	
 	static let mailboxNeedsUpdate = Notification.Name("MailboxNeedsUpdate")
+	static let menuNeedsUpdate = Notification.Name("MenuNeedsUpdate")
 	
 	var sideMenuVC: SideMenuViewController!
 	var fetchedResultsController: NSFetchedResultsController<Message>!
 	var fetchedObjects: [Message] {return fetchedResultsController.fetchedObjects ?? [Message]()}
+	
+	lazy var unreadFetchedResultsController = NSFetchedResultsController<Conversation>(fetchRequest: ConversationDao.unreadFetchRequest, managedObjectContext: CoreDataStack.shared.backgroundContext, sectionNameKeyPath: nil, cacheName: nil)
+	
+	var unraedFetchedObjects: [Conversation] {
+		return unreadFetchedResultsController.fetchedObjects ?? [Conversation]()
+	}
 	
 	var mailboxType: MailboxType = .Inbox {
 		didSet{
@@ -46,15 +53,22 @@ class AbstractMessageMailboxViewController: UIViewController, UITableViewDataSou
 		}
 		NotificationCenter.default.addObserver(self, selector: #selector(refresh), name:
 			AbstractMessageMailboxViewController.mailboxNeedsUpdate, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(updateSideMenu), name:
+			AbstractMessageMailboxViewController.menuNeedsUpdate, object: nil)
 		//		MailboxObserversManager.sharedInstance.addObserverForMailboxType(mailboxType , observer: self)
 		//		MailboxObserversManager.sharedInstance.addCountObserverForMailboxType(mailboxType , observer: self)
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+		try? unreadFetchedResultsController.performFetch()
 		try? fetchedResultsController.performFetch()
 	}
 	
+	func updateSideMenu() {
+		self.sideMenuVC.optionsTableViewController?.mailboxCountDidChange(.Inbox, newCount: self.fetchedObjects.count)
+		self.sideMenuVC.optionsTableViewController?.mailboxCountDidChange(.Unread, newCount: self.unraedFetchedObjects.count)
+	}
 	
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
