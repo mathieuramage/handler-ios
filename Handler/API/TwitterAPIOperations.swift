@@ -96,11 +96,11 @@ struct TwitterAPIOperations {
 
 			let params : [String : AnyObject]
 			if let cursor = cursor {
-				params = ["cursor" : "\(cursor)" as AnyObject]
+				params = ["cursor" : "\(cursor)" as AnyObject,
+				"count" : "200" as AnyObject]
 			} else {
-				params = [:]
+				params = ["count" : "200" as AnyObject]
 			}
-
 			let request = client.urlRequest(withMethod: "GET", url: friendsEndpoint, parameters: params, error: nil)
 
 			client.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
@@ -138,9 +138,10 @@ struct TwitterAPIOperations {
 
 			let params : [String : AnyObject]
 			if let cursor = cursor {
-				params = ["cursor" : "\(cursor)" as AnyObject]
+				params = ["cursor" : "\(cursor)" as AnyObject,
+				          "count" : "200" as AnyObject]
 			} else {
-				params = [:]
+				params = ["count" : "200" as AnyObject]
 			}
 
 			let request = client.urlRequest(withMethod: "GET", url: friendsEndpoint, parameters: params, error: nil)
