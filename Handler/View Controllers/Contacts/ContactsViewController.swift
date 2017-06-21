@@ -277,6 +277,7 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 					self.deviceContactList = contacts ?? []
 				}
 				self.allContacts = self.deviceContactList
+				self.hideHeaderView()
 				self.hideAuthorizationHeaderView()
 				self.activityIndicator.stopAnimating()
 				self.sortContactsAsc()
