@@ -117,53 +117,34 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 	// MARK: Search Bar Functions
 	
 	private func filterFollowingsByNameOrHandle(searchText: String) {
-		twitterFollowingList = allFollowing.filter {
+		twitterFollowingList = allFollowing.filter { contact in
 			let text = searchText.lowercased()
-			if let handle = $0.handle() {
-				return handle.contains(text)
-			} else {
-				if let userName = $0.username {
-					return userName.lowercased().contains(text)
-				} else {
-					return ($0.name?.lowercased().contains(text))!
-				}
-			}
+			let handle = contact.handle() ?? ""
+			let user = contact.name ?? ""
+			
+			return handle.lowercased().contains(text) ? handle.lowercased().contains(text) : user.lowercased().contains(text)
 		}
 		tableView.reloadData()
 	}
 	
 	private func filterFollowersByNameOrHandle(searchText: String) {
-		twitterFollowerList = allFollowers.filter {
+		twitterFollowerList = allFollowers.filter { contact in
 			let text = searchText.lowercased()
-			if let handle = $0.handle() {
-				return handle.contains(text)
-			} else {
-				if let userName = $0.username {
-					return userName.lowercased().contains(text)
-				} else {
-					return ($0.name?.lowercased().contains(text))!
-				}
-			}
+			let handle = contact.handle() ?? ""
+			let user = contact.name ?? ""
+			
+			return handle.lowercased().contains(text) ? handle.lowercased().contains(text) : user.lowercased().contains(text)
 		}
 		tableView.reloadData()
 	}
 	
 	private func filterContactsByNameOrHandle(searchText: String) {
-		deviceContactList = allContacts.filter {
+		deviceContactList = allContacts.filter { contact in
 			let text = searchText.lowercased()
-			if let handle = $0.handle() {
-				return handle.contains(text)
-			} else {
-				if let compositeName = $0.named() {
-					return compositeName.lowercased().contains(text)
-				} else {
-					if let firstName = $0.name?.firstName {
-						return firstName.lowercased().contains(text)
-					} else {
-						return false
-					}
-				}
-			}
+			let handle = contact.handle() ?? ""
+			let user = contact.named() ?? ""
+			
+			return user.lowercased().contains(text) ? user.lowercased().contains(text) : handle.lowercased().contains(text)
 		}
 		tableView.reloadData()
 	}
