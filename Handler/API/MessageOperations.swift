@@ -309,21 +309,23 @@ struct MessageData {
         }
         starred = json["isStar"].boolValue
         
-        if let createdAtStr = json["createdAt"].string {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-            createdAt = formatter.date(from: createdAtStr)
-        } else {
-            createdAt = Date()
-        }
-        
-        if let updatedAtStr = json["updatedAt"].string {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-            updatedAt = formatter.date(from: updatedAtStr)
-        } else {
-            updatedAt = Date()
-        }
+		if let createdAtStr = json["createdAt"].string {
+			let formatter = DateFormatter()
+			formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'ZZZ'"
+			formatter.timeZone = TimeZone(abbreviation: "UTC")
+			createdAt = formatter.date(from: createdAtStr)
+		} else {
+			createdAt = Date()
+		}
+		
+		if let updatedAtStr = json["updatedAt"].string {
+			let formatter = DateFormatter()
+			formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+			formatter.timeZone = TimeZone(abbreviation: "UTC")
+			updatedAt = formatter.date(from: updatedAtStr)
+		} else {
+			updatedAt = Date()
+		}
         shouldBeSent = json["shouldBeSent"].bool ?? false
     }
 }
