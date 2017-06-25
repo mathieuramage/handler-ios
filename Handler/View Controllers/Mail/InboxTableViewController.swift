@@ -47,6 +47,13 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		super.viewWillAppear(animated)
 		NotificationCenter.default.addObserver(self, selector: #selector(conversationsUpdated), name:
 			ConversationManager.conversationUpdateFinishedNotification, object: nil)
+        do {
+            try self.fetchedResultsController.performFetch()
+            self.tableView.reloadData()
+        } catch {
+            let fetchError = error as NSError
+            print("fetcherror = \(fetchError), \(fetchError.userInfo)")
+        }
 	}
 	
 	func updateSideMenu() {
@@ -144,6 +151,8 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		super.viewDidDisappear(animated)
 		NotificationCenter.default.removeObserver(self)
 		AppAnalytics.fireContentViewEvent(contentId: AppEvents.Mailbox.inbox, event: AppEvents.Mailbox.self)
+        NotificationCenter.default.removeObserver(self, name:
+            ConversationManager.conversationUpdateFinishedNotification, object: nil)
 	}
 	
 	func refresh(_ control: UIRefreshControl) {
@@ -284,7 +293,7 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
         }
 		emptyView?.actionButton.addTarget(self, action: #selector(InboxTableViewController.composeNewMessage),
 		                                  for: .touchUpInside)
-        emptyView?.waitingView.isHidden = false;
+        emptyView?.waitingView.isHidden = true;
 		return emptyView
 	}
 }
