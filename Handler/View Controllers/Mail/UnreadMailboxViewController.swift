@@ -49,8 +49,6 @@ class UnreadMailboxViewController: UITableViewController, SWTableViewCellDelegat
 			style: UIBarButtonItemStyle.plain,
 			target: self,
 			action: #selector(AbstractMessageMailboxViewController.showSideMenu(_:)))
-		NotificationCenter.default.addObserver(self, selector: #selector(refreshMailbox), name:
-			AbstractMessageMailboxViewController.mailboxNeedsUpdate, object: nil)
 	}
 	
 	func refreshMailbox() {
