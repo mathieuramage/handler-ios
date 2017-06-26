@@ -28,75 +28,76 @@ struct ConversationManager {
 		}
 	}
 	
-	static func updateConversations(callback : ((_ : Bool) -> ()) = {_ in}) {
-		
-		NotificationCenter.default.post(
-			name: conversationUpdateStartedNotification,
-			object: nil,
-			userInfo: nil)
-		
-		let currentUpdate = Date()
-		MessageOperations.getAllMessages(
-			before: currentUpdate,
-			after: ConversationManager.latestUpdate,
-			limit: 0) { (success, messageDataArray) in
-				guard let messageDataArray = messageDataArray else {
-					if success {
-						latestUpdate = currentUpdate
-						NotificationCenter.default.post(
-							name: conversationUpdateFinishedNotification,
-							object: nil,
-							userInfo: nil)
-					} else {
-						NotificationCenter.default.post(
-							name: conversationUpdateFailedNotification,
-							object: nil,
-							userInfo: nil)
-					}
-					return
-				}
-				
-				latestUpdate = currentUpdate
-				
-				let conversationDataArray = groupMessageData(messageDataArray)
-				let backgroundContext = CoreDataStack.shared.backgroundContext
-				
-				backgroundContext.perform { context in
-					
-					for data in conversationDataArray {
-						let _ = ConversationDao.updateOrCreateConversation(
-							conversationData: data,
-							context: backgroundContext)
-					}
-					
-					do {
-						try backgroundContext.save()
-					} catch {
-						DispatchQueue.main.async {
-							NotificationCenter.default.post(
-								name: conversationUpdateFailedNotification,
-								object: nil,
-								userInfo: nil)
-							let fetchError = error as NSError
-							print("save error in conversation  manager= \(fetchError), \(fetchError.userInfo)")
-						}
-					}
-					
-					
-					DispatchQueue.main.async {
-						NotificationCenter.default.post(
-							name: AbstractMessageMailboxViewController.menuNeedsUpdate,
-							object: nil,
-							userInfo: nil)
-						NotificationCenter.default.post(
-							name: conversationUpdateFinishedNotification,
-							object: nil,
-							userInfo: nil)
-					}
-				}
-		}
-	}
-	
+    static func updateConversations(callback : ((_ : Bool) -> ()) = {_ in}) {
+        DispatchQueue.global().async {
+            NotificationCenter.default.post(
+                name: conversationUpdateStartedNotification,
+                object: nil,
+                userInfo: nil)
+            
+            let currentUpdate = Date()
+            MessageOperations.getAllMessages(
+                before: currentUpdate,
+                after: ConversationManager.latestUpdate,
+                limit: 0) { (success, messageDataArray) in
+                    guard let messageDataArray = messageDataArray else {
+                        if success {
+                            latestUpdate = currentUpdate
+                            NotificationCenter.default.post(
+                                name: conversationUpdateFinishedNotification,
+                                object: nil,
+                                userInfo: nil)
+                        } else {
+                            NotificationCenter.default.post(
+                                name: conversationUpdateFailedNotification,
+                                object: nil,
+                                userInfo: nil)
+                        }
+                        return
+                    }
+                    
+                    latestUpdate = currentUpdate
+                    
+                    let conversationDataArray = groupMessageData(messageDataArray)
+                    let backgroundContext = CoreDataStack.shared.backgroundContext
+                    
+                    backgroundContext.perform { context in
+                        
+                        for data in conversationDataArray {
+                            let _ = ConversationDao.updateOrCreateConversation(
+                                conversationData: data,
+                                context: backgroundContext)
+                        }
+                        
+                        do {
+                            try backgroundContext.save()
+                        } catch {
+                            DispatchQueue.main.async {
+                                NotificationCenter.default.post(
+                                    name: conversationUpdateFailedNotification,
+                                    object: nil,
+                                    userInfo: nil)
+                                let fetchError = error as NSError
+                                print("save error in conversation  manager= \(fetchError), \(fetchError.userInfo)")
+                            }
+                        }
+                        
+                        
+                        DispatchQueue.main.async {
+                            NotificationCenter.default.post(
+                                name: AbstractMessageMailboxViewController.menuNeedsUpdate,
+                                object: nil,
+                                userInfo: nil)
+                            NotificationCenter.default.post(
+                                name: conversationUpdateFinishedNotification,
+                                object: nil,
+                                userInfo: nil)
+                        }
+                    }
+            }
+        }
+    }
+    
 	static func flagConversation(conversation: Conversation) {
 		AppAnalytics.fireContentViewEvent(
 			contentId: AppEvents.EmailActions.self.flagged,

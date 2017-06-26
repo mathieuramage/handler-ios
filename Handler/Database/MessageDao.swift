@@ -162,7 +162,7 @@ struct MessageDao {
 			return fetchRequest
 			
 		default :
-			let predicate = NSPredicate(format: "SUBQUERY(messages, $t, $t.read != nil && $t.read == NO).@count != 0")
+			let predicate = NSPredicate(format: "SUBQUERY(messages, $t, $t.folderString == %@ && $t.read == false).@count != 0")
 			let fetchRequest : NSFetchRequest<Conversation> = Conversation.fetchRequest()
 			fetchRequest.predicate = predicate
 			fetchRequest.fetchBatchSize = 20

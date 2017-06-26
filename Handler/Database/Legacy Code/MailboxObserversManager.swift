@@ -54,6 +54,7 @@ class MailboxMessagesObserver: NSObject, NSFetchedResultsControllerDelegate {
     
     private var _fetchedResultsController : NSFetchedResultsController<Message>?
 	private var _fechedConversationResultsController: NSFetchedResultsController<Conversation>?
+	private var _fechedUnreadConversationResultsController: NSFetchedResultsController<Conversation>?
 	
     var fetchedResultsController: NSFetchedResultsController<Message> {
         if _fetchedResultsController == nil && mailboxType != MailboxType.Inbox && mailboxType != MailboxType.Unread {
@@ -65,7 +66,7 @@ class MailboxMessagesObserver: NSObject, NSFetchedResultsControllerDelegate {
     }
 	
 	var fetchedConversationResultsController: NSFetchedResultsController<Conversation> {
-		if _fetchedResultsController == nil && (mailboxType == MailboxType.Inbox || mailboxType == MailboxType.Unread) {
+		if _fetchedResultsController == nil && mailboxType == MailboxType.Inbox  {
 			let fetchRqst = MessageDao.fetchRequestForConversationWithInboxType(mailboxType)
 			let ctx = CoreDataStack.shared.viewContext
 			_fechedConversationResultsController = NSFetchedResultsController<Conversation>(fetchRequest: fetchRqst, managedObjectContext: ctx, sectionNameKeyPath: nil, cacheName: nil)
@@ -73,19 +74,32 @@ class MailboxMessagesObserver: NSObject, NSFetchedResultsControllerDelegate {
 		return _fechedConversationResultsController!
 	}
 	
+	var fetchUnreadConversationResultsController: NSFetchedResultsController<Conversation> {
+		if _fechedUnreadConversationResultsController == nil && mailboxType == MailboxType.Unread {
+			let fetchRqst = ConversationDao.unreadFetchRequest
+			let ctx = CoreDataStack.shared.viewContext
+			_fechedUnreadConversationResultsController = NSFetchedResultsController<Conversation>(fetchRequest: fetchRqst, managedObjectContext: ctx, sectionNameKeyPath: nil, cacheName: nil)
+		}
+		return _fechedUnreadConversationResultsController!
+	}
+	
     init(type: MailboxType){
         self.mailboxType = type
         super.init()
 		
-		if (mailboxType != MailboxType.Inbox && mailboxType != MailboxType.Unread) {
-			fetchedResultsController.delegate = self
-		} else {
+		if mailboxType == MailboxType.Inbox {
 			fetchedConversationResultsController.delegate = self
+		} else if mailboxType == MailboxType.Unread {
+			fetchUnreadConversationResultsController.delegate = self
+		} else {
+			fetchedResultsController.delegate = self
 		}
 		
         do {
-			if mailboxType == MailboxType.Inbox || mailboxType == MailboxType.Unread {
+			if mailboxType == MailboxType.Inbox {
 				try fetchedConversationResultsController.performFetch()
+			} else if mailboxType == MailboxType.Unread {
+				try fetchUnreadConversationResultsController.performFetch()
 			} else {
 				try fetchedResultsController.performFetch()
 			}
@@ -100,8 +114,10 @@ class MailboxMessagesObserver: NSObject, NSFetchedResultsControllerDelegate {
     
     func addCountObserver(_ observer: MailboxCountObserver){
         self.countObservers.append(observer)
-		if mailboxType == MailboxType.Inbox || mailboxType == MailboxType.Unread {
+		if mailboxType == MailboxType.Inbox {
 			observer.mailboxCountDidChange(self.mailboxType, newCount: self.fetchedConversationResultsController.fetchedObjects?.count ?? 0)
+		} else if mailboxType == MailboxType.Unread {
+			observer.mailboxCountDidChange(self.mailboxType, newCount: self.fetchUnreadConversationResultsController.fetchedObjects?.count ?? 0)
 		} else {
 			observer.mailboxCountDidChange(self.mailboxType, newCount: self.fetchedResultsController.fetchedObjects?.count ?? 0)
 		}
