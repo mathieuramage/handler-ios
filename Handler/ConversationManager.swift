@@ -28,6 +28,7 @@ struct ConversationManager {
 		}
 	}
 	
+
     static func updateConversations(callback : ((_ : Bool) -> ()) = {_ in}) {
         DispatchQueue.global().async {
             NotificationCenter.default.post(
