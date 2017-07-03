@@ -66,7 +66,7 @@ class MailboxMessagesObserver: NSObject, NSFetchedResultsControllerDelegate {
     }
 	
 	var fetchedConversationResultsController: NSFetchedResultsController<Conversation> {
-		if _fetchedResultsController == nil && mailboxType == MailboxType.Inbox  {
+		if _fechedConversationResultsController == nil && mailboxType == MailboxType.Inbox  {
 			let fetchRqst = MessageDao.fetchRequestForConversationWithInboxType(mailboxType)
 			let ctx = CoreDataStack.shared.viewContext
 			_fechedConversationResultsController = NSFetchedResultsController<Conversation>(fetchRequest: fetchRqst, managedObjectContext: ctx, sectionNameKeyPath: nil, cacheName: nil)

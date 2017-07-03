@@ -85,28 +85,66 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 		if let navButtons = self.navigationController?.navigationBar.items, navButtons.count > 0{
 			navButtons[0].title = ""
 		}
-
 		activityIndicator.startAnimating()
-
 		TwitterAPIOperations.getTwitterFriends(nil) { (users, nextCursor) in
 			self.twitterFollowingList = users
-			self.allFollowing = self.twitterFollowingList
-			self.followingNextCursor = nextCursor
-			self.sortFollowingsAsc()
-			if self.selectedTab == 0 {
-				self.activityIndicator.stopAnimating()
-				self.tableView.reloadData()
-			}
+			self.fetchFollowings()
 		}
-		TwitterAPIOperations.getTwitterFollowers(nil) { (users, nextCursor) in
-			self.twitterFollowerList = users
+	}
+	
+	func finishFetchFollowings() {
+		if self.followingNextCursor == self.NO_MORE_RESULTS || self.followingNextCursor == nil {
+			self.allFollowing = self.twitterFollowingList
+			self.sortFollowingsAsc()
+			self.activityIndicator.stopAnimating()
+			self.followingNextCursor = self.NO_MORE_RESULTS
+			self.tableView.reloadData()
+		}
+	}
+	
+	func finishFetchFollowers() {
+		if self.followerNextCursor == self.NO_MORE_RESULTS || self.followerNextCursor == nil {
 			self.allFollowers = self.twitterFollowerList
-			self.followerNextCursor = nextCursor
 			self.sortFollowersAsc()
-			if self.selectedTab == 1 {
-				self.activityIndicator.stopAnimating()
-				self.tableView.reloadData()
+			self.activityIndicator.stopAnimating()
+			self.followerNextCursor = self.NO_MORE_RESULTS
+			self.tableView.reloadData()
+		}
+	}
+	
+	func fetchFollowings() {
+		let lockQueue = DispatchQueue(label: "com.handler.Followings")
+		lockQueue.sync() {
+			while let cursor = followingNextCursor, cursor != NO_MORE_RESULTS {
+				TwitterAPIOperations.getTwitterFriends(cursor) { (users, nextCursor) in
+					self.twitterFollowingList.append(contentsOf: users)
+					self.followingNextCursor = nextCursor
+					self.finishFetchFollowings()
+				}
 			}
+			self.finishFetchFollowings()
+		}
+	}
+	
+	func fetchFollowers() {
+		let lockQueue = DispatchQueue(label: "com.handler.Followers")
+		lockQueue.sync() {
+			while let cursor = followerNextCursor, cursor != NO_MORE_RESULTS {
+				TwitterAPIOperations.getTwitterFollowers(cursor) { (users, nextCursor) in
+					self.twitterFollowerList.append(contentsOf: users)
+					self.followerNextCursor = nextCursor
+					self.finishFetchFollowers()
+				}
+			}
+			self.finishFetchFollowers()
+		}
+	}
+	
+	func fetchMoreFromTwitter() {
+		if selectedTab == 0 {
+			fetchFollowings()
+		} else if selectedTab == 1 {
+			fetchFollowers()
 		}
 	}
 	
@@ -190,28 +228,6 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 		searchBar.resignFirstResponder()
 		navigationController?.setNavigationBarHidden(false, animated: true)
 		tableView.reloadData()
-	}
-
-	func fetchMoreFromTwitter() {
-		if selectedTab == 0 {
-			if let cursor = followingNextCursor, cursor != NO_MORE_RESULTS {
-				TwitterAPIOperations.getTwitterFriends(cursor) { (users, nextCursor) in
-					self.twitterFollowingList.append(contentsOf: users)
-					self.followingNextCursor = nextCursor
-					self.sortFollowingsAsc()
-					self.tableView.reloadData()
-				}
-			}
-		} else if selectedTab == 1 {
-			if let cursor = followerNextCursor, cursor != NO_MORE_RESULTS {
-				TwitterAPIOperations.getTwitterFollowers(cursor) { (users, nextCursor) in
-					self.twitterFollowerList.append(contentsOf: users)
-					self.followerNextCursor = nextCursor
-					self.sortFollowersAsc()
-					self.tableView.reloadData()
-				}
-			}
-		}
 	}
 	
 	func hideAuthorizationHeaderView() {
@@ -327,9 +343,9 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 			cell.profileImageView.image = UIImage.randomGhostImage()
 		}
 
-		if selectedTab < 2 && indexPath.row == activeTabContacts.count - 3 { // near the end of the list, fetch more from twitter
-			fetchMoreFromTwitter()
-		}
+//		if selectedTab < 2 && indexPath.row == activeTabContacts.count - 3 { // near the end of the list, fetch more from twitter
+//			fetchMoreFromTwitter()
+//		}
 
 		return cell
 	}
@@ -396,6 +412,13 @@ class ContactsViewController: UIViewController, UITableViewDataSource, UITableVi
 	@IBAction func followersButtonTapped(_ sender: AnyObject) {
 		selectTab(1)
 		hideHeaderView()
+		if followerNextCursor == nil {
+			activityIndicator.startAnimating()
+			TwitterAPIOperations.getTwitterFollowers(nil) { (users, nextCursor) in
+				self.twitterFollowerList = users
+				self.fetchFollowers()
+			}
+		}
 	}
 
 	@IBAction func deviceButtonTapped(_ sender: AnyObject) {
