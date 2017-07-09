@@ -85,7 +85,7 @@ class ConversationTableViewController: UITableViewController {
 		self.plugin = BottomBarActionPluginProvider.plugin(self)
 		
 		AppAnalytics.fireContentViewEvent(contentId: EmailActionsEvents.read, event: EmailActionsEvents)
-//				self.navigationController!.toolbar!.items = plugin.barButtonItemsForThread(thread)
+		self.navigationController!.toolbar!.items = plugin.barButtonItemsForThread(self.conversation)
 	}
 	
 	// MARK: UITableViewDataSource

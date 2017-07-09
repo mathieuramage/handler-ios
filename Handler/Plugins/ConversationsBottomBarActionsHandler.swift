@@ -45,42 +45,43 @@ class ConversationsBottomBarActionsHandler: NSObject, BottomBarActionPlugin {
 	}()
 	let space = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
 
-	func barButtonItemsForThread(_ thread: Thread? = nil) -> [UIBarButtonItem] {
-		return [left, space, right, space, flag, space, archive, space, reply]
+	func barButtonItemsForThread(_ thread: Conversation? = nil) -> [UIBarButtonItem] {
+//		return [left, space, right, space, flag, space, archive, space, reply]
+		return [space, reply]
 	}
 
 	func action(_ item: UIBarButtonItem){
-		if let message = vc.primaryMessage {
+		if let message = vc.conversation?.latestMessage {
 			switch item {
 			case left:
-//				if let next = vc.previousThread {
-//					vc.thread = next
-//					if let _ = vc.previousThread {
-//						left.tintColor = UIColor(rgba: HexCodes.lightBlue)
-//					} else {
-//						left.tintColor = UIColor(rgba: HexCodes.lighterGray)
-//					}
-//					if let _ = vc.nextThread {
-//						right.tintColor = UIColor(rgba: HexCodes.lightBlue)
-//					} else {
-//						right.tintColor = UIColor(rgba: HexCodes.lighterGray)
-//					}
-//				}
+				if let next = vc.nextConversation {
+					vc.conversation = next
+					if let _ = vc.previousConversation {
+						left.tintColor = UIColor(rgba: HexCodes.lightBlue)
+					} else {
+						left.tintColor = UIColor(rgba: HexCodes.lighterGray)
+					}
+					if let _ = vc.nextConversation {
+						right.tintColor = UIColor(rgba: HexCodes.lightBlue)
+					} else {
+						right.tintColor = UIColor(rgba: HexCodes.lighterGray)
+					}
+				}
 				break;
 			case right:
-//				if let next = vc.nextThread {
-//					vc.thread = next
-//					if let _ = vc.previousThread {
-//						left.tintColor = UIColor(rgba: HexCodes.lightBlue)
-//					} else {
-//						left.tintColor = UIColor(rgba: HexCodes.lighterGray)
-//					}
-//					if let _ = vc.nextThread {
-//						right.tintColor = UIColor(rgba: HexCodes.lightBlue)
-//					} else {
-//						right.tintColor = UIColor(rgba: HexCodes.lighterGray)
-//					}
-//				}
+				if let next = vc.nextConversation {
+					vc.conversation = next
+					if let _ = vc.previousConversation {
+						left.tintColor = UIColor(rgba: HexCodes.lightBlue)
+					} else {
+						left.tintColor = UIColor(rgba: HexCodes.lighterGray)
+					}
+					if let _ = vc.nextConversation {
+						right.tintColor = UIColor(rgba: HexCodes.lightBlue)
+					} else {
+						right.tintColor = UIColor(rgba: HexCodes.lighterGray)
+					}
+				}
 				break;
 			case flag:
 				let cont = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
@@ -92,8 +93,13 @@ class ConversationsBottomBarActionsHandler: NSObject, BottomBarActionPlugin {
 					title = "Star"
 				}
 				cont.addAction(UIAlertAction(title: title, style: UIAlertActionStyle.default, handler: { (action) -> Void in
-					MessageOperations.setMessageStarred(message: message, starred: !message.starred, callback: nil)
-//					self.vc.reloadCellForMessage(message)
+					MessageOperations.setMessageStarred(message: message, starred: !message.starred) { _ in
+						ConversationManager.flagConversation(conversation: self.vc.conversation!)
+						self.vc.reloadCellForMessage(message)
+					}
+					
+					
+					
 					// TODO: Add success message
 				}))
 				cont.addAction(UIAlertAction(title: "Mark as unread", style: UIAlertActionStyle.default, handler: { (action) -> Void in
@@ -101,7 +107,7 @@ class ConversationsBottomBarActionsHandler: NSObject, BottomBarActionPlugin {
 						MessageOperations.setMessageAsRead(message: message, read: true, callback: { (success) in
 						})
 					} else {
-//						message.thread?.markAsUnread(message)
+						MessageManager.markMessageUnread(message: message)
 					}
 					self.vc.tableView.reloadData() //All newer messages will be reloaded
 					// TODO: Add success message
@@ -112,7 +118,7 @@ class ConversationsBottomBarActionsHandler: NSObject, BottomBarActionPlugin {
 			case archive:
 				let cont = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
 				cont.addAction(UIAlertAction(title: message.archived ? "Move to Inbox" : "Archive", style: UIAlertActionStyle.default, handler: { (action) -> Void in
-//					message.isArchived ? message.thread?.unarchive() : message.thread?.archive()
+					message.archived ? MessageManager.unarchiveMessage(message: message) : MessageManager.archiveMessage(message: message)
 					// TODO: Add success message
 				}))
 				cont.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
@@ -123,7 +129,7 @@ class ConversationsBottomBarActionsHandler: NSObject, BottomBarActionPlugin {
 				cont.addAction(UIAlertAction(title: "Reply", style: UIAlertActionStyle.default, handler: { (action) -> Void in
 					let replyNC = Storyboards.Compose.instantiateViewController(withIdentifier: "MessageComposeNavigationController") as! GradientNavigationController
 					let replyWrapper = replyNC.viewControllers.first as! MessageComposerWrapperViewController
-//					replyWrapper.messageToReplyTo = message
+					replyWrapper.messageToReplyTo = message
 					replyWrapper.title = "New Reply"
 					self.vc.present(replyNC, animated: true, completion: nil)
 				}))

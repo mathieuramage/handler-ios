@@ -9,5 +9,5 @@
 import UIKit
 
 protocol BottomBarActionPlugin {
-    func barButtonItemsForThread(_ thread: Thread?) -> [UIBarButtonItem]
+    func barButtonItemsForThread(_ thread: Conversation?) -> [UIBarButtonItem]
 }

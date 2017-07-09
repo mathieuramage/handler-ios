@@ -47,41 +47,42 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
     
     
     fileprivate var internalmessageToReplyTo: Message?
-    var messageToReplyTo: Message? {
-        
-        set(new){
-            
-            // TODO
-            
-            //			if new?.managedObjectContext != MailDatabaseManager.sharedInstance.backgroundContext {
-            //				self.internalmessageToReplyTo = new?.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext)
-            //			} else {
-            //				self.internalmessageToReplyTo = new
-            //			}
-            //
-            //			if let allMessages = new?.thread?.messages?.allObjects as? [LegacyMessage] {
-            //				orderedThreadMessages = allMessages.sort({ (item1, item2) -> Bool in
-            //					if let firstDate = item1.sent_at, let secondDate = item2.sent_at {
-            //						return firstDate.compare(secondDate) == NSComparisonResult.OrderedDescending
-            //					}
-            //					else {
-            //						return true
-            //					}
-            //				})
-            //			}
-            //			else {
-            //				orderedThreadMessages = [LegacyMessage]()
-            //			}
-            //
-            //			tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: .Automatic)
-            
-            self.internalmessageToReplyTo = messageToReplyTo
-        }
-        
-        get {
-            return self.internalmessageToReplyTo
-        }
-    }
+	var messageToReplyTo: Message?
+//    var messageToReplyTo: Message? {
+//        
+//        set(new){
+//            
+//            // TODO
+//            
+//            //			if new?.managedObjectContext != MailDatabaseManager.sharedInstance.backgroundContext {
+//            //				self.internalmessageToReplyTo = new?.toManageObjectContext(MailDatabaseManager.sharedInstance.backgroundContext)
+//            //			} else {
+//            //				self.internalmessageToReplyTo = new
+//            //			}
+//            //
+//            //			if let allMessages = new?.thread?.messages?.allObjects as? [LegacyMessage] {
+//            //				orderedThreadMessages = allMessages.sort({ (item1, item2) -> Bool in
+//            //					if let firstDate = item1.sent_at, let secondDate = item2.sent_at {
+//            //						return firstDate.compare(secondDate) == NSComparisonResult.OrderedDescending
+//            //					}
+//            //					else {
+//            //						return true
+//            //					}
+//            //				})
+//            //			}
+//            //			else {
+//            //				orderedThreadMessages = [LegacyMessage]()
+//            //			}
+//            //
+//            //			tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: .Automatic)
+//            
+//            self.internalmessageToReplyTo = messageToReplyTo
+//        }
+//        
+//        get {
+//            return self.internalmessageToReplyTo
+//        }
+//    }
     var messageToForward: Message?
     var draftMessage: Message?
     // TODO
@@ -177,6 +178,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
             }
             
             originalReplySubject = subjectTextField.text
+			richTextContentView.becomeFirstResponder()
         }
         
         if let receivers = messageToReplyTo?.recipientsWithoutSelf() {
@@ -184,7 +186,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
                 let senderUsername = (receiver as? User)?.handle
                 if (senderUsername?.characters.count)! > 0 {
                     validatedTokens.append(ValidatedToken(name: senderUsername!, isOnHandler: true))
-                    ccTokenView.add(CLToken(displayText: "@\(senderUsername)", context: nil))
+                    ccTokenView.add(CLToken(displayText: "@\(String(describing: senderUsername))", context: nil))
                     ccTokenView.validatedString(senderUsername!, withResult: true)
                     ccTokenView.reloadToken(withTitle: senderUsername!)
                 }
@@ -214,7 +216,12 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		AppAnalytics.fireContentViewEvent(contentId: ComposeEvents.composed, event: ComposeEvents)
-		tokenView.beginEditing()
+		if (messageToReplyTo != nil) {
+			richTextContentView.becomeFirstResponder()
+			richTextContentView.focus()
+		} else {
+			tokenView.beginEditing()
+		}
 	}
 	
     // MARK: Contacts Add Buttons
@@ -752,7 +759,7 @@ class MessageComposeTableViewController: UITableViewController, CLTokenInputView
         //			}
         
     }
-    
+	
     func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
         return self.navigationController ?? self
     }

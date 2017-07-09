@@ -106,6 +106,13 @@ struct ConversationManager {
 		markConversationAsStarred(conversation: conversation, flagged: true)
 	}
 	
+//	static func flagConversation(conversation: Conversation, callback: Void?) {
+//		AppAnalytics.fireContentViewEvent(
+//			contentId: AppEvents.EmailActions.self.flagged,
+//			event: AppEvents.EmailActions.self)
+//		markConversationAsStarred(conversation: conversation, flagged: true)
+//	}
+	
 	static func unflagConversation(conversation: Conversation) {
 		AppAnalytics.fireContentViewEvent(
 			contentId: AppEvents.EmailActions.self.unflagged,
