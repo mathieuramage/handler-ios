@@ -79,8 +79,8 @@ struct MessageOperations {
 	
 	static func replyToConversation(conversationId: String, message : String, subject : String, recipientUserNames : [String], callback : MessageUpdateCallback?) {
 		var messageData = MessageUpdateData()
-		messageData.subject = message
-		messageData.message = subject
+		messageData.subject = subject
+		messageData.message = message
 		messageData.folder = .Sent
 		messageData.recipients = recipientUserNames
 		postNewMessage(messageData, callback: callback)
