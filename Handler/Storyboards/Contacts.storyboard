@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -31,56 +31,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="110"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dLu-dO-ccK">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="110"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="contacts_invite_notification_icon_purple" translatesAutoresizingMaskIntoConstraints="NO" id="mW9-J2-OfX">
-                                                    <rect key="frame" x="12" y="20" width="30" height="30"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="30" id="Vok-Z6-zjH"/>
-                                                        <constraint firstAttribute="height" constant="30" id="kYd-Rg-prO"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N8e-Ku-huk">
-                                                    <rect key="frame" x="58" y="42" width="210" height="38.5"/>
-                                                    <attributedString key="attributedText">
-                                                        <fragment content="You can share 10 invitations with people you well know and trust.">
-                                                            <attributes>
-                                                                <color key="NSColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
-                                                                <font key="NSFont" size="14" name=".AppleSystemUIFont"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="5" tighteningFactorForTruncation="0.0"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                    </attributedString>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Handler Invitations" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xmi-0g-U1R">
-                                                    <rect key="frame" x="58" y="17" width="147" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="contacts_invite_tickets_icon" translatesAutoresizingMaskIntoConstraints="NO" id="SZB-Oj-4IQ">
-                                                    <rect key="frame" x="293" y="25" width="74" height="60"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="74" id="EGW-o8-VQx"/>
-                                                        <constraint firstAttribute="height" constant="60" id="mvd-gG-Zk8"/>
-                                                    </constraints>
-                                                </imageView>
-                                            </subviews>
-                                            <color key="backgroundColor" red="0.63921568627450975" green="0.5607843137254902" blue="0.82352941176470584" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <constraints>
-                                                <constraint firstItem="N8e-Ku-huk" firstAttribute="top" secondItem="Xmi-0g-U1R" secondAttribute="bottom" constant="4" id="2wL-d5-ENf"/>
-                                                <constraint firstItem="Xmi-0g-U1R" firstAttribute="top" secondItem="dLu-dO-ccK" secondAttribute="top" constant="17" id="Ngc-Xm-OhC"/>
-                                                <constraint firstItem="mW9-J2-OfX" firstAttribute="leading" secondItem="dLu-dO-ccK" secondAttribute="leading" constant="12" id="NoG-rI-yUp"/>
-                                                <constraint firstItem="N8e-Ku-huk" firstAttribute="leading" secondItem="mW9-J2-OfX" secondAttribute="trailing" constant="16" id="RLK-bq-Zdk"/>
-                                                <constraint firstItem="Xmi-0g-U1R" firstAttribute="leading" secondItem="mW9-J2-OfX" secondAttribute="trailing" constant="16" id="VxD-xa-fzk"/>
-                                                <constraint firstItem="mW9-J2-OfX" firstAttribute="top" secondItem="dLu-dO-ccK" secondAttribute="top" constant="20" id="Zu9-eN-t8h"/>
-                                                <constraint firstAttribute="height" constant="110" id="qW2-dx-UqJ"/>
-                                                <constraint firstAttribute="trailing" secondItem="SZB-Oj-4IQ" secondAttribute="trailing" constant="8" id="r0R-7u-z7S"/>
-                                                <constraint firstItem="SZB-Oj-4IQ" firstAttribute="centerY" secondItem="dLu-dO-ccK" secondAttribute="centerY" id="uTV-mE-OOp"/>
-                                            </constraints>
-                                        </view>
                                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kox-8N-TUo">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="110"/>
                                             <subviews>
@@ -137,12 +87,9 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
                                     <constraints>
-                                        <constraint firstItem="dLu-dO-ccK" firstAttribute="leading" secondItem="ecw-Kl-5lZ" secondAttribute="leading" id="GUl-Ln-DCV"/>
                                         <constraint firstAttribute="bottom" secondItem="Kox-8N-TUo" secondAttribute="bottom" id="KWv-hO-Sw7"/>
-                                        <constraint firstAttribute="bottom" secondItem="dLu-dO-ccK" secondAttribute="bottom" id="Kam-rT-mN4"/>
                                         <constraint firstItem="Kox-8N-TUo" firstAttribute="leading" secondItem="ecw-Kl-5lZ" secondAttribute="leading" id="R4c-pG-swt"/>
                                         <constraint firstAttribute="trailing" secondItem="Kox-8N-TUo" secondAttribute="trailing" id="YJh-V1-tg4"/>
-                                        <constraint firstAttribute="trailing" secondItem="dLu-dO-ccK" secondAttribute="trailing" id="cLb-IB-oxP"/>
                                     </constraints>
                                 </view>
                                 <prototypes>
@@ -334,7 +281,6 @@
                         <outlet property="searchBar" destination="ULJ-fe-slR" id="JGu-Jn-zSG"/>
                         <outlet property="tableHeaderView" destination="ecw-Kl-5lZ" id="iyO-AN-opA"/>
                         <outlet property="tableView" destination="DN8-5P-NXq" id="5v5-zu-PzK"/>
-                        <outlet property="ticketsHeaderView" destination="dLu-dO-ccK" id="5JP-Kd-yDw"/>
                         <segue destination="iGN-GH-WNm" kind="presentation" identifier="ShowContactCard" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="t52-Aj-eT5"/>
                     </connections>
                 </viewController>
@@ -540,8 +486,6 @@
         <image name="GradientBackground" width="743" height="128"/>
         <image name="cancel" width="40" height="39"/>
         <image name="contacts_banner_notification_icon_green" width="50" height="50"/>
-        <image name="contacts_invite_notification_icon_purple" width="50" height="50"/>
-        <image name="contacts_invite_tickets_icon" width="115" height="112"/>
         <image name="ghost_black" width="66" height="66"/>
         <image name="twitter_icon_blue" width="22" height="18"/>
     </resources>

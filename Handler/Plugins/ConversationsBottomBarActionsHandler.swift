@@ -45,12 +45,13 @@ class ConversationsBottomBarActionsHandler: NSObject, BottomBarActionPlugin {
 	}()
 	let space = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
 
-	func barButtonItemsForThread(_ thread: Thread? = nil) -> [UIBarButtonItem] {
-		return [left, space, right, space, flag, space, archive, space, reply]
+	func barButtonItemsForThread(_ thread: Conversation? = nil) -> [UIBarButtonItem] {
+//		return [left, space, right, space, flag, space, archive, space, reply]
+		return [space, reply]
 	}
 
 	func action(_ item: UIBarButtonItem){
-		if let message = vc.primaryMessage {
+		if let message = vc.conversation?.latestMessage {
 			switch item {
 			case left:
 //				if let next = vc.previousThread {
@@ -83,47 +84,47 @@ class ConversationsBottomBarActionsHandler: NSObject, BottomBarActionPlugin {
 //				}
 				break;
 			case flag:
-				let cont = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
-
-				let title : String
-				if message.starred {
-					title = "Unstar"
-				} else {
-					title = "Star"
-				}
-				cont.addAction(UIAlertAction(title: title, style: UIAlertActionStyle.default, handler: { (action) -> Void in
-					MessageOperations.setMessageStarred(message: message, starred: !message.starred, callback: nil)
-//					self.vc.reloadCellForMessage(message)
-					// TODO: Add success message
-				}))
-				cont.addAction(UIAlertAction(title: "Mark as unread", style: UIAlertActionStyle.default, handler: { (action) -> Void in
-					if !message.read {
-						MessageOperations.setMessageAsRead(message: message, read: true, callback: { (success) in
-						})
-					} else {
-//						message.thread?.markAsUnread(message)
-					}
-					self.vc.tableView.reloadData() //All newer messages will be reloaded
-					// TODO: Add success message
-				}))
-				cont.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
-				self.vc.present(cont, animated: true, completion: nil)
+//				let cont = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+//
+//				let title : String
+//				if message.starred {
+//					title = "Unstar"
+//				} else {
+//					title = "Star"
+//				}
+//				cont.addAction(UIAlertAction(title: title, style: UIAlertActionStyle.default, handler: { (action) -> Void in
+//					MessageOperations.setMessageStarred(message: message, starred: !message.starred, callback: nil)
+////					self.vc.reloadCellForMessage(message)
+//					// TODO: Add success message
+//				}))
+//				cont.addAction(UIAlertAction(title: "Mark as unread", style: UIAlertActionStyle.default, handler: { (action) -> Void in
+//					if !message.read {
+//						MessageOperations.setMessageAsRead(message: message, read: true, callback: { (success) in
+//						})
+//					} else {
+////						message.thread?.markAsUnread(message)
+//					}
+//					self.vc.tableView.reloadData() //All newer messages will be reloaded
+//					// TODO: Add success message
+//				}))
+//				cont.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+//				self.vc.present(cont, animated: true, completion: nil)
 				break;
 			case archive:
-				let cont = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
-				cont.addAction(UIAlertAction(title: message.archived ? "Move to Inbox" : "Archive", style: UIAlertActionStyle.default, handler: { (action) -> Void in
-//					message.isArchived ? message.thread?.unarchive() : message.thread?.archive()
-					// TODO: Add success message
-				}))
-				cont.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
-				self.vc.present(cont, animated: true, completion: nil)
+//				let cont = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+//				cont.addAction(UIAlertAction(title: message.archived ? "Move to Inbox" : "Archive", style: UIAlertActionStyle.default, handler: { (action) -> Void in
+////					message.isArchived ? message.thread?.unarchive() : message.thread?.archive()
+//					// TODO: Add success message
+//				}))
+//				cont.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+//				self.vc.present(cont, animated: true, completion: nil)
 				break;
 			case reply:
 				let cont = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
 				cont.addAction(UIAlertAction(title: "Reply", style: UIAlertActionStyle.default, handler: { (action) -> Void in
 					let replyNC = Storyboards.Compose.instantiateViewController(withIdentifier: "MessageComposeNavigationController") as! GradientNavigationController
 					let replyWrapper = replyNC.viewControllers.first as! MessageComposerWrapperViewController
-//					replyWrapper.messageToReplyTo = message
+					replyWrapper.messageToReplyTo = message
 					replyWrapper.title = "New Reply"
 					self.vc.present(replyNC, animated: true, completion: nil)
 				}))
