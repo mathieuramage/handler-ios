@@ -139,9 +139,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func applicationDidBecomeActive(_ application: UIApplication) {
 		self.startMessageUpdateTimer()
-		let settings = UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: nil)
-		application.registerUserNotificationSettings(settings)
-		application.registerForRemoteNotifications()
 		// Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 	}
 

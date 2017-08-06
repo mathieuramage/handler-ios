@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 import Async
 import DZNEmptyDataSet
+import UserNotifications
 
 class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, NSFetchedResultsControllerDelegate, DZNEmptyDataSetSource {
 	
@@ -41,6 +42,15 @@ class InboxTableViewController: UITableViewController, SWTableViewCellDelegate, 
 		if let menuVC = sideMenuViewController?.leftMenuViewController as? SideMenuViewController {
 			sideMenuVC = menuVC
 		}
+		let application = UIApplication.shared
+		if application.currentUserNotificationSettings?.types == .none {
+			let center = UNUserNotificationCenter.current()
+			center.requestAuthorization(options:[.badge, .alert, .sound]) { (granted, error) in
+				// Enable or disable features based on authorization.
+			}
+			application.registerForRemoteNotifications()
+		}
+		
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
