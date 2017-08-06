@@ -98,6 +98,6 @@
 		<string>System San Francisco Display Regular.ttf</string>
 	</array>
 	<key>NSContactsUsageDescription</key>
-	<string>$(PRODUCT_NAME) contact use</string>
+	<string>That&apos;s how Handler helps you find people you already know. Handler never stores your contacts.</string>
 </dict>
 </plist>
