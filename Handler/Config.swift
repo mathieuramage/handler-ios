@@ -15,7 +15,8 @@ struct Config {
 	static let ClientId = "61e5e9e14a8a79ab6d0e878a59fd610a54fb32dbc9121e4e527864f15f0feb03"
 	static let ClientSecret = "206918bd632983a20cc5549ced836ea63fe80803b2ac3f95d044d06296932d75"
 
-	static let APIURL = "https://api.handlerapp.com/"
+//	static let APIURL = "https://api.handlerapp.com/"
+	static let APIURL = "https://api-dev.handlerapp.com/"
 	static let APIVersion = "api/v1/"
 	
 	struct APIRoutes {
@@ -64,8 +65,8 @@ struct Config {
 	}
 	
 	struct Twitter {
-		static let consumerKey = "bH6FU5R4bVQ5QJhYvNyFZywFm"
-		static let consumerSecret = "64VOfx9rmBBf98v7dNFQa9m4NEKsTpX82JSSyGlN5W4A4i8cTy"
+		static let consumerKey = "pEWIVTjJdBnxv5tMoGZOXjEPb"
+		static let consumerSecret = "a8mPa0KLf8WLndeMVYx4KMZ30svISYVujxFSY4ohe5TRTEPZa9"
 		
 		//		static let consumerKey = "H39589t6PVVSCD9nLvPQnYoT6"
 		//		static let consumerSecret = "GPS9xgLaZ2NQ2ZCunX1AfnyzdP122vARdEGD6m4iJM08Cte9H0"
